@@ -517,3 +517,110 @@ test("a stale old-round tab cannot overwrite a restarted round", async ({ page, 
   await verifyTab.close();
   await staleTab.close();
 });
+
+test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "iphone-14-chromium", "iPhone 14 viewport regression");
+
+  await openWithStore(
+    page,
+    progressFixture({
+      deck: "grammar-n4-ja-zh",
+      queue: ["grammar-n4-grammar-064-ja"],
+    }),
+  );
+  await page.locator("#cardReveal").tap();
+  await expectAnswerRevealed(page);
+
+  const layout = await page.evaluate(() => {
+    window.scrollTo(0, 200);
+    const study = document.querySelector("#studyCard").getBoundingClientRect();
+    const memory = document.querySelector("#memoryChain");
+    const focusedStyle = getComputedStyle(document.activeElement);
+    return {
+      bodyOverflow: getComputedStyle(document.body).overflowY,
+      documentHeight: document.documentElement.scrollHeight,
+      inputMode: document.documentElement.dataset.inputMode,
+      memoryOverflow: getComputedStyle(memory).overflowY,
+      memoryTouchAction: getComputedStyle(memory).touchAction,
+      outlineStyle: focusedStyle.outlineStyle,
+      scrollY: window.scrollY,
+      study: {
+        height: study.height,
+        width: study.width,
+        x: study.x,
+        y: study.y,
+      },
+      viewportHeight: window.innerHeight,
+      viewportWidth: window.innerWidth,
+    };
+  });
+
+  expect(layout.scrollY).toBe(0);
+  expect(layout.documentHeight).toBe(layout.viewportHeight);
+  expect(layout.bodyOverflow).toBe("hidden");
+  expect(layout.memoryOverflow).toBe("auto");
+  expect(layout.memoryTouchAction).toBe("pan-y");
+  expect(layout.inputMode).toBe("pointer");
+  expect(layout.outlineStyle).toBe("none");
+  expect(layout.study).toMatchObject({ x: 0, y: 0 });
+  expect(layout.study.width).toBeGreaterThanOrEqual(layout.viewportWidth);
+  expect(layout.study.height).toBeGreaterThanOrEqual(layout.viewportHeight);
+
+  await page.keyboard.press("Tab");
+  await expect
+    .poll(() => page.evaluate(() => document.documentElement.dataset.inputMode))
+    .toBe("keyboard");
+  await expect
+    .poll(() => page.evaluate(() => getComputedStyle(document.activeElement).outlineStyle))
+    .toBe("solid");
+});
+
+test("iPhone 14 choice cards fit without a second scrolling panel", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "iphone-14-chromium", "iPhone 14 viewport regression");
+
+  await openWithStore(
+    page,
+    progressFixture({
+      deck: "grammar-n5-choice",
+      queue: ["grammar-n5-grammar-001-choice"],
+    }),
+  );
+
+  const memory = page.locator("#memoryChain");
+  const lastChoice = page.locator(".choice-option").last();
+  let memoryBox = await boundingBox(memory);
+  let lastChoiceBox = await boundingBox(lastChoice);
+  expect(lastChoiceBox.y + lastChoiceBox.height).toBeLessThanOrEqual(memoryBox.y + 1);
+
+  await page
+    .locator('.choice-option:not([data-choice-id="n5-grammar-001-correct"])')
+    .first()
+    .tap();
+  await expect(page.locator("#choiceNext")).toBeVisible();
+  await expect(page.locator(".choice-option:visible")).toHaveCount(2);
+  await expect(page.locator(".choice-reason:visible")).toHaveCount(2);
+
+  const answeredLayout = await page.evaluate(() => {
+    const answer = document.querySelector("#answerPanel").getBoundingClientRect();
+    const feedback = document.querySelector("#choiceFeedback");
+    const memoryChain = document.querySelector("#memoryChain").getBoundingClientRect();
+    return {
+      answerBottom: answer.bottom,
+      feedbackClientHeight: feedback.clientHeight,
+      feedbackOverflow: getComputedStyle(feedback).overflowY,
+      feedbackScrollHeight: feedback.scrollHeight,
+      memoryBottom: memoryChain.bottom,
+      memoryTop: memoryChain.top,
+      viewportHeight: window.innerHeight,
+    };
+  });
+
+  expect(answeredLayout.answerBottom).toBeLessThanOrEqual(answeredLayout.memoryTop + 1);
+  expect(answeredLayout.feedbackScrollHeight).toBe(answeredLayout.feedbackClientHeight);
+  expect(answeredLayout.feedbackOverflow).toBe("hidden");
+  expect(answeredLayout.memoryBottom).toBeLessThanOrEqual(answeredLayout.viewportHeight);
+});

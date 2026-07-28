@@ -110,6 +110,9 @@ let reviewQueue = [];
 let currentChoiceOptions = [];
 let selectedChoiceId = null;
 let speechGeneration = 0;
+let speechStartTimer = null;
+let speechBlockedUntil = 0;
+let activeSpeechUtterance = null;
 let sidebarReturnFocus = null;
 const sessionQueues = {};
 const sessionCompleted = {};
@@ -1275,7 +1278,9 @@ function restoreUndoButtonHome() {
 function focusSoon(element) {
   if (!element || element.disabled || element.hidden) return;
   window.requestAnimationFrame(() => {
-    if (element.isConnected && !element.disabled && !element.hidden) element.focus();
+    if (element.isConnected && !element.disabled && !element.hidden) {
+      element.focus({ preventScroll: true });
+    }
   });
 }
 
@@ -1335,6 +1340,7 @@ function render() {
   elements.emptyState.hidden = true;
   elements.studyCard.classList.toggle("is-answering", isRevealed);
   elements.studyCard.classList.toggle("is-choosing", Boolean(currentCard.isChoice && !isRevealed));
+  elements.studyCard.classList.toggle("is-choice", Boolean(currentCard.isChoice));
   elements.flashcard.classList.toggle("is-vocab", Boolean(currentCard.isVocab));
   elements.flashcard.classList.toggle("is-grammar", Boolean(currentCard.isGrammar));
   elements.flashcard.classList.toggle("is-choice", Boolean(currentCard.isChoice));
@@ -1522,6 +1528,7 @@ function renderChoiceCard(card) {
 
 function renderChoiceOptions() {
   elements.choiceList.replaceChildren();
+  elements.choiceList.classList.toggle("is-answered", isRevealed);
 
   currentChoiceOptions.forEach((choice, index) => {
     const button = document.createElement("button");
@@ -1621,6 +1628,7 @@ function renderEmpty(deckCards) {
   elements.studyCard.hidden = true;
   elements.studyCard.classList.remove("is-answering");
   elements.studyCard.classList.remove("is-choosing");
+  elements.studyCard.classList.remove("is-choice");
   elements.flashcard.hidden = true;
   elements.flashcard.classList.remove("is-choice");
   elements.answerPanel.classList.remove("is-revealed");
@@ -1893,28 +1901,127 @@ function handleSidebarKeydown(event) {
   }
 }
 
-function speak(text, options = {}) {
-  if (!("speechSynthesis" in window) || !text) return;
-  cancelSpeech();
-  const generation = speechGeneration;
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "ja-JP";
-  utterance.rate = 0.82;
-  if (options.onEnd) {
+function japaneseVoice(synthesizer) {
+  const voices = synthesizer.getVoices?.() || [];
+  return (
+    voices.find((voice) => voice.lang?.toLowerCase() === "ja-jp") ||
+    voices.find((voice) => voice.lang?.toLowerCase().startsWith("ja")) ||
+    null
+  );
+}
+
+function scheduleSpeechStart(text, options, generation, delay = 0, attempt = 0) {
+  const start = () => {
+    speechStartTimer = null;
+    if (generation !== speechGeneration || document.visibilityState === "hidden") return;
+
+    const synthesizer = window.speechSynthesis;
+    if (synthesizer.paused) synthesizer.resume();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ja-JP";
+    utterance.rate = 0.82;
+    const voice = japaneseVoice(synthesizer);
+    if (voice) utterance.voice = voice;
+    activeSpeechUtterance = utterance;
+
     utterance.addEventListener(
       "end",
       () => {
-        if (generation === speechGeneration) options.onEnd();
+        if (generation !== speechGeneration || activeSpeechUtterance !== utterance) return;
+        activeSpeechUtterance = null;
+        if (options.onEnd) window.setTimeout(options.onEnd, 0);
       },
       { once: true },
     );
+    utterance.addEventListener(
+      "error",
+      (event) => {
+        if (generation !== speechGeneration || activeSpeechUtterance !== utterance) return;
+        activeSpeechUtterance = null;
+        const transientErrors = new Set([
+          "audio-busy",
+          "audio-hardware",
+          "network",
+          "synthesis-failed",
+          "voice-unavailable",
+        ]);
+        if (attempt === 0 && transientErrors.has(event.error)) {
+          speechBlockedUntil = Date.now() + 160;
+          scheduleSpeechStart(text, options, generation, 160, attempt + 1);
+        }
+      },
+      { once: true },
+    );
+
+    synthesizer.speak(utterance);
+  };
+
+  if (delay > 0) {
+    speechStartTimer = window.setTimeout(start, delay);
+  } else {
+    start();
   }
-  window.speechSynthesis.speak(utterance);
+}
+
+function speak(text, options = {}) {
+  if (!("speechSynthesis" in window) || !text) return;
+  const synthesizer = window.speechSynthesis;
+  speechGeneration += 1;
+  const generation = speechGeneration;
+  if (speechStartTimer !== null) {
+    window.clearTimeout(speechStartTimer);
+    speechStartTimer = null;
+  }
+
+  const hasActiveSpeech = Boolean(
+    activeSpeechUtterance || synthesizer.speaking || synthesizer.pending,
+  );
+  activeSpeechUtterance = null;
+  if (hasActiveSpeech) {
+    synthesizer.cancel();
+    speechBlockedUntil = Math.max(speechBlockedUntil, Date.now() + 120);
+  }
+
+  const delay = Math.max(0, speechBlockedUntil - Date.now());
+  scheduleSpeechStart(text, options, generation, delay);
 }
 
 function cancelSpeech() {
   speechGeneration += 1;
-  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  if (speechStartTimer !== null) {
+    window.clearTimeout(speechStartTimer);
+    speechStartTimer = null;
+  }
+
+  if (!("speechSynthesis" in window)) return;
+  const synthesizer = window.speechSynthesis;
+  const hasActiveSpeech = Boolean(
+    activeSpeechUtterance || synthesizer.speaking || synthesizer.pending,
+  );
+  activeSpeechUtterance = null;
+  if (hasActiveSpeech) {
+    synthesizer.cancel();
+    speechBlockedUntil = Math.max(speechBlockedUntil, Date.now() + 120);
+  }
+}
+
+function bindInputModality() {
+  const setPointerMode = () => {
+    document.documentElement.dataset.inputMode = "pointer";
+  };
+  document.addEventListener("pointerdown", setPointerMode, true);
+  document.addEventListener("touchstart", setPointerMode, true);
+  document.addEventListener(
+    "keydown",
+    () => {
+      document.documentElement.dataset.inputMode = "keyboard";
+    },
+    true,
+  );
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") cancelSpeech();
+  });
 }
 
 function primarySpeech(card = currentCard) {
@@ -2206,6 +2313,7 @@ function bindInteractions() {
 
 function initializeApp() {
   assertRequiredElements();
+  bindInputModality();
   elements.answerPanel.setAttribute("role", "region");
   elements.answerPanel.setAttribute("aria-label", "答案区域");
   elements.answerPanel.setAttribute("aria-live", "polite");

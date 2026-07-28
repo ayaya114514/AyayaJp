@@ -43,10 +43,22 @@
   display: none !important;
 }
 
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 body {
-  min-height: 100vh;
-  min-height: 100svh;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
+  min-height: 0;
   margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
   color: var(--ink);
   background:
     linear-gradient(135deg, var(--page-glow-start), transparent 34%),
@@ -55,18 +67,21 @@ body {
 }
 
 button {
+  -webkit-tap-highlight-color: transparent;
   color: inherit;
   font: inherit;
+  touch-action: manipulation;
 }
 
 .app-shell {
   display: grid;
   grid-template-rows: minmax(0, 1fr);
-  min-height: 100vh;
-  min-height: 100svh;
+  height: 100%;
+  min-height: 0;
   width: min(1120px, calc(100% - 32px));
   margin: 0 auto;
   padding: 14px 0 16px;
+  overflow: hidden;
 }
 
 h1,
@@ -90,6 +105,10 @@ p {
 :where(button, [tabindex]):focus-visible {
   outline: 3px solid var(--blue-strong);
   outline-offset: 3px;
+}
+
+html[data-input-mode="pointer"] :where(button, [tabindex]):focus-visible {
+  outline: none;
 }
 
 .noscript-banner {
@@ -198,6 +217,8 @@ h2 {
   align-content: start;
   grid-template-columns: 1fr;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .deck-group,
@@ -465,7 +486,9 @@ h2 {
 .study-area {
   position: relative;
   display: block;
+  height: 100%;
   min-height: 0;
+  overflow: hidden;
 }
 
 .study-header {
@@ -477,8 +500,9 @@ h2 {
 .study-card {
   display: grid;
   grid-template-rows: auto minmax(min-content, 0.42fr) minmax(min-content, 1.58fr) 76px;
-  min-height: calc(100vh - 30px);
-  min-height: calc(100svh - 30px);
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
   padding: clamp(12px, 3vw, 24px);
   border: 1px solid var(--card-border);
   border-radius: 8px;
@@ -488,6 +512,8 @@ h2 {
   box-shadow: var(--shadow);
   cursor: pointer;
   gap: clamp(8px, 2vw, 16px);
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .study-card.is-answering {
@@ -747,9 +773,9 @@ h2 {
 
 .choice-feedback {
   display: grid;
-  max-height: min(28vh, 260px);
   gap: 6px;
-  overflow-y: auto;
+  max-height: none;
+  overflow: hidden;
   padding-right: 2px;
 }
 
@@ -866,10 +892,14 @@ h2 {
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 6px;
+  overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 10px 2px 0;
   border-top: 1px solid var(--line);
   cursor: inherit;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 .memory-chip {
@@ -952,8 +982,8 @@ h2 {
 
 .empty-state {
   display: grid;
-  min-height: calc(100vh - 30px);
-  min-height: calc(100svh - 30px);
+  height: 100%;
+  min-height: 0;
   place-items: center;
   align-content: center;
   gap: 18px;
@@ -999,8 +1029,33 @@ h2 {
 
 @media (max-width: 560px) {
   .app-shell {
-    width: min(100% - 20px, 1120px);
-    padding-top: 10px;
+    width: 100%;
+    padding: 0;
+  }
+
+  .study-card,
+  .empty-state {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .study-card {
+    grid-template-rows: auto minmax(min-content, 0.4fr) minmax(min-content, 1.6fr) 78px;
+    gap: 8px;
+    padding:
+      max(10px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(8px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+  }
+
+  .empty-state {
+    padding:
+      max(14px, env(safe-area-inset-top))
+      max(14px, env(safe-area-inset-right))
+      max(14px, env(safe-area-inset-bottom))
+      max(14px, env(safe-area-inset-left));
   }
 
   .tab-button {
@@ -1012,36 +1067,76 @@ h2 {
     gap: 6px;
   }
 
-  .study-card {
-    grid-template-rows: auto minmax(min-content, 0.38fr) minmax(min-content, 1.62fr) 76px;
-  }
-
   .card {
-    min-height: 76px;
+    min-height: 82px;
   }
 
   .stat {
-    min-height: 38px;
-    gap: 4px;
-    padding-inline: 3px;
+    min-height: 44px;
+    gap: 5px;
+    padding-inline: 5px;
   }
 
   .stat-action {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
   }
 
   .stat-value {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .stat-label {
-    font-size: 0.68rem;
+    font-size: 0.72rem;
   }
 
   .feedback {
-    min-height: 38px;
-    font-size: 0.88rem;
+    min-height: 44px;
+    font-size: 0.94rem;
+  }
+
+  .choice-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .choice-list.is-answered .choice-option:not(.is-selected):not(.is-correct),
+  .study-card.is-choice.is-answering .choice-reason:not(.is-selected):not(.is-correct),
+  .study-card.is-choice.is-answering .answer-meta,
+  .study-card.is-choice.is-answering .example-block {
+    display: none;
+  }
+
+  .choice-list.is-answered .choice-option.is-selected.is-correct {
+    grid-column: 1 / -1;
+  }
+
+  .choice-option {
+    grid-template-columns: 1.65rem minmax(0, 1fr);
+    gap: 6px;
+    min-height: 88px;
+    padding-block: 6px;
+    padding-inline: 7px;
+  }
+
+  .choice-marker {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+
+  .choice-text {
+    font-size: 0.76rem;
+    line-height: 1.27;
+  }
+
+  .choice-reason {
+    font-size: 0.72rem;
+    line-height: 1.28;
+  }
+
+  .memory-chain {
+    height: 78px;
+    min-height: 78px;
   }
 }
 
@@ -1055,7 +1150,8 @@ h2 {
   }
 
   .memory-chain {
-    height: auto;
+    height: 76px;
+    min-height: 76px;
     max-height: 76px;
   }
 }

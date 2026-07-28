@@ -26,6 +26,16 @@ module.exports = defineConfig({
         viewport: { width: 320, height: 640 },
       },
     },
+    {
+      name: "iphone-14-chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        deviceScaleFactor: 3,
+        hasTouch: true,
+        isMobile: true,
+        viewport: { width: 390, height: 664 },
+      },
+    },
   ],
   webServer: {
     command: "node scripts/serve-static.js",

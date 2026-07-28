@@ -1814,6 +1814,63 @@ function testStaleSpeechCallbackCannotUseNextCard() {
   );
 }
 
+function testIdleSpeechAvoidsSafariCancelRace() {
+  const harness = createHarness({ kanaCards: [baseCard({ id: "speech-race" })] });
+
+  harness.element("cardReveal").dispatch("click");
+  assert(harness.spoken.length === 1, "reveal did not start speech");
+  assert(
+    harness.speechSynthesis.cancelCount === 0,
+    "idle speech was canceled immediately before playback",
+  );
+
+  harness.element("speakWord").dispatch("click");
+  assert(harness.speechSynthesis.cancelCount === 1, "active replay did not cancel the old utterance");
+  assert(harness.spoken.length === 2, "active replay did not schedule a replacement utterance");
+}
+
+function testChoiceAnswerMarksRelevantMobileDetails() {
+  const choiceCard = baseCard({
+    choices: [
+      { id: "correct", isCorrect: true, reason: "correct reason", text: "correct" },
+      { id: "wrong-a", isCorrect: false, reason: "wrong a reason", text: "wrong a" },
+      { id: "wrong-b", isCorrect: false, reason: "wrong b reason", text: "wrong b" },
+      { id: "wrong-c", isCorrect: false, reason: "wrong c reason", text: "wrong c" },
+    ],
+    correctChoiceId: "correct",
+    deck: "grammar-n5-choice",
+    examples: [{ ja: "例文", romaji: "reibun", zh: "例句" }],
+    grammarLevel: "N5",
+    id: "choice-mobile",
+    isChoice: true,
+    isGrammar: true,
+  });
+  const harness = createHarness({
+    grammarCards: [choiceCard],
+    tabDecks: ["hiragana", "grammar-n5-choice"],
+  });
+
+  harness.tabs[1].dispatch("click");
+  const wrongChoice = harness
+    .element("choiceList")
+    .children.find((choice) => choice.dataset.choiceId !== "correct");
+  wrongChoice.dispatch("click");
+
+  assert(
+    harness.element("choiceList").classList.contains("is-answered"),
+    "answered choice list is missing its compact-layout state",
+  );
+  assert(
+    harness.element("choiceList").children.length === 4,
+    "answered choice removed desktop distractors from the DOM",
+  );
+  assert(
+    harness.element("choiceFeedback").children.length === 4,
+    "answered choice removed desktop explanations from the DOM",
+  );
+  assert(!harness.element("exampleBlock").hidden, "answered choice removed its desktop examples");
+}
+
 function testShuffleDoesNotUseRandomSort() {
   assert(
     !/\.sort\(\s*\(\s*\)\s*=>\s*Math\.random\(\)\s*-\s*0\.5\s*\)/u.test(read("app.js")),
@@ -1860,6 +1917,8 @@ const tests = [
   ["Japanese-to-Chinese vocab hides reading until reveal", testJapaneseToChineseVocabHidesReadingUntilReveal],
   ["Chinese prompts do not speak hidden answers", testChinesePromptDoesNotSpeakHiddenAnswer],
   ["stale TTS callbacks are ignored", testStaleSpeechCallbackCannotUseNextCard],
+  ["idle TTS avoids Safari cancel races", testIdleSpeechAvoidsSafariCancelRace],
+  ["choice answers mark relevant mobile details", testChoiceAnswerMarksRelevantMobileDetails],
   ["shuffle avoids random sort", testShuffleDoesNotUseRandomSort],
 ];
 
