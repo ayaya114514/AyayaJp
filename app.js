@@ -702,7 +702,10 @@ function mergeStoreVersions(baseStore, localStore, remoteStore) {
       isCardState(remote[key]) &&
       !valuesEqual(local[key], remote[key])
     ) {
-      value = mergeConcurrentCardState(base[key], local[key], remote[key]);
+      value =
+        localChanged && !remoteChanged
+          ? cloneStore(local[key])
+          : mergeConcurrentCardState(base[key], local[key], remote[key]);
     } else if (localChanged && remoteChanged && !valuesEqual(local[key], remote[key])) {
       value = mergeConcurrentCardState(base[key], local[key], remote[key]);
     } else if (localChanged) {
@@ -1771,10 +1774,12 @@ function updateUndoButton() {
 
 function hasConcurrentReview(snapshot, persistedState) {
   const persisted = compactCardState(persistedState) || defaultState();
+  const previousReviews = reviewCount(snapshot.previousState);
   return Boolean(
-    persisted.lastEvent?.eventId &&
-      persisted.lastEvent.eventId !== snapshot.appliedEventId &&
-      persisted.reviews > reviewCount(snapshot.previousState),
+    persisted.reviews > previousReviews &&
+      (persisted.reviews > previousReviews + 1 ||
+        (persisted.lastEvent?.eventId &&
+          persisted.lastEvent.eventId !== snapshot.appliedEventId)),
   );
 }
 
@@ -1790,8 +1795,16 @@ function removeAppliedReview(snapshot, persistedState, concurrentReviewExists) {
   }
 
   const persisted = compactCardState(persistedState) || defaultState();
+  const previous = compactCardState(snapshot.previousState) || defaultState();
+  const ownEventIsLatest = persisted.lastEvent?.eventId === snapshot.appliedEventId;
   store[snapshot.cardId] = {
     ...persisted,
+    lastChoiceCorrectIndex: ownEventIsLatest
+      ? previous.lastChoiceCorrectIndex
+      : persisted.lastChoiceCorrectIndex,
+    lastEvent: ownEventIsLatest ? previous.lastEvent : persisted.lastEvent,
+    lastRatedAt: ownEventIsLatest ? previous.lastRatedAt : persisted.lastRatedAt,
+    lastRating: ownEventIsLatest ? previous.lastRating : persisted.lastRating,
     reviews: Math.max(0, persisted.reviews - 1),
   };
 }
@@ -2023,7 +2036,7 @@ function scheduleSpeechStart(text, options, generation, delay = 0, attempt = 0) 
     utterance.lang = "ja-JP";
     utterance.rate = 0.82;
     activeSpeechUtterance = utterance;
-    setSpeechStatus("正在播放日语读音…", "playing");
+    if (attempt === 0) clearSpeechStatus();
 
     utterance.addEventListener(
       "end",

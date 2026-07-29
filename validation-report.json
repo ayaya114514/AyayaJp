@@ -16,7 +16,7 @@
     "n5-codex-vocab.json",
     "styles.css"
   ],
-  "source_fingerprint": "sha256:2fac219b206b60f9db8e87cc5464e72858207064c145677173fb3999fd04794c",
+  "source_fingerprint": "sha256:7117dd66ecb0e4df4bba56dbf665749a633abe16d4c7ff98ac9331d45c59cba4",
   "expected_counts": {
     "n5_entries": 717,
     "n4_entries": 767,

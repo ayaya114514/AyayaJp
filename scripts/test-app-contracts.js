@@ -1320,7 +1320,7 @@ function testConcurrentRatingUndoKeepsRemoteReviewConsistent() {
   const state = saved["card-a"];
   const round = saved.__rounds.decks.hiragana;
   assert(state.reviews === 1, "Undo removed or retained the wrong concurrent review count");
-  assert(state.lastEvent.eventId !== firstEventId, "Undo retained its own review event");
+  assert(state.lastEvent?.eventId !== firstEventId, "Undo retained its own review event");
   assert(!Object.hasOwn(state, "ratingHistory"), "Undo recreated unbounded history");
   assert(!Object.hasOwn(state, "ratingTombstones"), "Undo persisted unbounded tombstones");
   assert(
@@ -1866,6 +1866,7 @@ function testIdleSpeechAvoidsSafariCancelRace() {
 
   harness.element("cardReveal").dispatch("click");
   assert(harness.spoken.length === 1, "reveal did not start speech");
+  assert(harness.element("speechStatus").hidden, "normal speech exposed a playback notice");
   assert(
     harness.spoken[0].voice == null,
     "speech forced a device-specific voice instead of using the browser default",
@@ -1887,8 +1888,8 @@ function testSpeechFailureIsVisibleAndRetriesOnce() {
 
   assert(harness.spoken.length === 2, "transient speech failure did not retry once");
   assert(
-    harness.element("speechStatus").textContent.includes("正在播放"),
-    "speech retry did not expose its playback state",
+    harness.element("speechStatus").textContent.includes("自动重试"),
+    "speech retry did not expose its retry state",
   );
 
   harness.spoken[1].emitError("audio-hardware");
