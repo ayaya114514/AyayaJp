@@ -2,10 +2,11 @@ const STORAGE_KEY = "ayaya-jp-srs-v1";
 const ROUND_STATE_KEY = "__rounds";
 const SIDEBAR_STATE_KEY = "ayaya-jp-sidebar-v1";
 const STORE_META_KEY = "__meta";
-const STORE_SCHEMA_VERSION = 3;
+const STORE_SCHEMA_VERSION = 4;
 const ROUND_QUEUE_ORDER_VERSION = 1;
-const MAX_RATING_HISTORY = 12;
 const VALID_RATINGS = new Set(["clear", "unsure", "forgot", "correct", "wrong"]);
+const PROGRESS_BACKUP_FORMAT = "ayaya-jp-progress";
+const PROGRESS_BACKUP_VERSION = 1;
 
 const cardData = window.AYAYA_JP_CARD_DATA;
 const isCardDataMissing = !cardData;
@@ -72,16 +73,20 @@ const elements = {
   emptyState: document.querySelector("#emptyState"),
   exampleBlock: document.querySelector("#exampleBlock"),
   examplesList: document.querySelector("#examplesList"),
+  exportProgress: document.querySelector("#exportProgress"),
   fatalErrorBanner: document.querySelector("#fatalErrorBanner"),
   flashcard: document.querySelector("#flashcard"),
+  importProgress: document.querySelector("#importProgress"),
+  importProgressLabel: document.querySelector("#importProgressLabel"),
   closeDeckMenu: document.querySelector("#closeDeckMenu"),
   deckMenuButton: document.querySelector("#deckMenuButton"),
   deckSidebar: document.querySelector("#deckSidebar"),
   loadErrorBanner: document.querySelector("#loadErrorBanner"),
-  memoryChain: document.querySelector("#memoryChain"),
+  progressBackupStatus: document.querySelector("#progressBackupStatus"),
   roundStatusText: document.querySelector("#roundStatusText"),
   reviewedCount: document.querySelector("#reviewedCount"),
   sidebarBackdrop: document.querySelector("#sidebarBackdrop"),
+  speechStatus: document.querySelector("#speechStatus"),
   speakWord: document.querySelector("#speakWord"),
   studyAnyWay: document.querySelector("#studyAnyWay"),
   studyArea: document.querySelector(".study-area"),
@@ -99,6 +104,7 @@ const storeWriterId =
 let storeWriterSequence = 0;
 let storeWriteSequence = 0;
 let persistenceError = null;
+let storeNeedsCompaction = false;
 let store = loadStore();
 let lastSyncedStore = cloneStore(store);
 const seenWriterRevisions = new Map();
@@ -117,6 +123,7 @@ let sidebarReturnFocus = null;
 const sessionQueues = {};
 const sessionCompleted = {};
 const sessionCompletionEvents = {};
+const sessionReopenedCards = {};
 const sessionRoundCompletionEvents = {};
 const sessionRoundGenerations = {};
 const sessionRoundIds = {};
@@ -135,7 +142,11 @@ function loadStore() {
       persistenceError = "已忽略格式无效的旧学习进度。";
       return {};
     }
-    return parsed;
+    const compacted = compactStoreForPersistence(parsed);
+    storeNeedsCompaction =
+      !valuesEqual(compacted, parsed) ||
+      compacted[STORE_META_KEY]?.schemaVersion !== STORE_SCHEMA_VERSION;
+    return compacted;
   } catch (error) {
     persistenceError = `浏览器无法读取学习进度，本次将使用临时内存模式（${error.name || "storage error"}）。`;
     return {};
@@ -158,7 +169,8 @@ function isStoreObject(value) {
 function isCardState(value) {
   return Boolean(
     isStoreObject(value) &&
-      (Array.isArray(value.ratingHistory) ||
+      (isStoreObject(value.lastEvent) ||
+        Array.isArray(value.ratingHistory) ||
         Number.isInteger(value.reviews) ||
         VALID_RATINGS.has(value.lastRating)),
   );
@@ -213,95 +225,144 @@ function readPersistedStoreForMerge() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return {};
     const parsed = JSON.parse(raw);
-    return isStoreObject(parsed) ? parsed : {};
+    return isStoreObject(parsed) ? compactStoreForPersistence(parsed) : {};
   } catch {
     return cloneStore(lastSyncedStore);
   }
 }
 
 function ratingEventKey(item) {
+  if (!item) return "";
   if (item?.eventId) return `event:${item.eventId}`;
   return `${item?.at || ""}:${item?.rating || ""}:${item?.choiceId || ""}`;
 }
 
-function normalizedTombstones(state) {
-  return [
-    ...new Set(
-      (Array.isArray(state?.ratingTombstones) ? state.ratingTombstones : []).filter(
-        (eventId) => typeof eventId === "string" && eventId,
-      ),
-    ),
-  ].sort();
+function reviewCount(state) {
+  return Number.isInteger(state?.reviews) ? Math.max(0, state.reviews) : 0;
 }
 
-function mergeConcurrentCardState(baseState, localState, remoteState) {
-  if (!isStoreObject(localState)) return cloneStore(remoteState);
-  if (!isStoreObject(remoteState)) return cloneStore(localState);
+function legacyLastEvent(state) {
+  if (!isStoreObject(state)) return null;
+  if (isStoreObject(state.lastEvent) && VALID_RATINGS.has(state.lastEvent.rating)) {
+    return cloneStore(state.lastEvent);
+  }
 
-  const tombstones = [
-    ...new Set([
-      ...normalizedTombstones(baseState),
-      ...normalizedTombstones(localState),
-      ...normalizedTombstones(remoteState),
-    ]),
-  ].sort();
-  const tombstoneSet = new Set(tombstones);
-  const baseHistory = normalizedHistory(baseState);
-  const baseKeys = new Set(baseHistory.map(ratingEventKey));
-  const localHistory = normalizedHistory(localState);
-  const remoteHistory = normalizedHistory(remoteState);
-  const seenHistory = new Set();
-  const ratingHistory = [...remoteHistory, ...localHistory]
-    .filter((item) => !item.eventId || !tombstoneSet.has(item.eventId))
-    .filter((item) => {
-      const key = ratingEventKey(item);
-      if (seenHistory.has(key)) return false;
-      seenHistory.add(key);
-      return true;
-    })
+  const tombstones = new Set(
+    (Array.isArray(state.ratingTombstones) ? state.ratingTombstones : []).filter(
+      (eventId) => typeof eventId === "string" && eventId,
+    ),
+  );
+  const history = (Array.isArray(state.ratingHistory) ? state.ratingHistory : [])
+    .filter((item) => item && VALID_RATINGS.has(item.rating))
+    .filter((item) => !item.eventId || !tombstones.has(item.eventId))
     .sort(
       (left, right) =>
         (left.at || 0) - (right.at || 0) ||
         ratingEventKey(left).localeCompare(ratingEventKey(right)),
-    )
-    .slice(-MAX_RATING_HISTORY);
-  const latest =
-    (localState.lastRatedAt || 0) >= (remoteState.lastRatedAt || 0)
-      ? localState
-      : remoteState;
-  const addedReviewCount = [...seenHistory].filter((key) => !baseKeys.has(key)).length;
-  const removedBaseReviewCount = baseHistory.filter(
-    (item) => item.eventId && tombstoneSet.has(item.eventId),
-  ).length;
-  const baseReviews = Number.isInteger(baseState?.reviews) ? Math.max(0, baseState.reviews) : 0;
-  const adjustedReviews = (state, history) =>
-    Math.max(
-      0,
-      (Number.isInteger(state.reviews) ? state.reviews : 0) -
-        history.filter((item) => item.eventId && tombstoneSet.has(item.eventId)).length,
     );
-
-  return {
-    ...defaultState(),
-    ...latest,
-    lastChoiceCorrectIndex: Number.isInteger(ratingHistory.at(-1)?.correctChoiceIndex)
-      ? ratingHistory.at(-1).correctChoiceIndex
-      : latest.lastChoiceCorrectIndex ?? null,
-    lastRating: ratingHistory.at(-1)?.rating || null,
-    lastRatedAt: ratingHistory.at(-1)?.at || null,
-    ratingHistory,
-    ratingTombstones: tombstones,
-    reviews: Math.max(
-      baseReviews - removedBaseReviewCount + addedReviewCount,
-      adjustedReviews(localState, localHistory),
-      adjustedReviews(remoteState, remoteHistory),
-      ratingHistory.length,
-    ),
-  };
+  if (history.length) return cloneStore(history.at(-1));
+  if (!Array.isArray(state.ratingHistory) && VALID_RATINGS.has(state.lastRating)) {
+    return {
+      at: state.lastRatedAt || null,
+      rating: state.lastRating,
+    };
+  }
+  return null;
 }
 
-function isRatingEventTombstoned(cardStates, cardId, eventId) {
-  return Boolean(eventId && normalizedTombstones(cardStates?.[cardId]).includes(eventId));
+function compactCardState(value) {
+  if (!isCardState(value)) return null;
+  const lastEvent = legacyLastEvent(value);
+  const lastRating = VALID_RATINGS.has(value.lastRating)
+    ? value.lastRating
+    : lastEvent?.rating || null;
+  const lastRatedAt = Number.isFinite(value.lastRatedAt)
+    ? value.lastRatedAt
+    : Number.isFinite(lastEvent?.at)
+      ? lastEvent.at
+      : null;
+  const compacted = {
+    lastChoiceCorrectIndex: Number.isInteger(value.lastChoiceCorrectIndex)
+      ? value.lastChoiceCorrectIndex
+      : Number.isInteger(lastEvent?.correctChoiceIndex)
+        ? lastEvent.correctChoiceIndex
+        : null,
+    lastEvent,
+    lastRatedAt,
+    lastRating,
+    reviews: Number.isInteger(value.reviews)
+      ? Math.max(0, value.reviews)
+      : Array.isArray(value.ratingHistory)
+        ? value.ratingHistory.length
+        : lastRating
+          ? 1
+          : 0,
+  };
+  return compacted.reviews > 0 || compacted.lastRating || compacted.lastEvent ? compacted : null;
+}
+
+function compactStoreForPersistence(value) {
+  if (!isStoreObject(value)) return {};
+  const compacted = {};
+  Object.entries(value).forEach(([key, item]) => {
+    if (key === STORE_META_KEY || key === ROUND_STATE_KEY) {
+      compacted[key] = cloneStore(item);
+      return;
+    }
+    const cardState = compactCardState(item);
+    if (cardState) compacted[key] = cardState;
+  });
+  return compacted;
+}
+
+function latestCardState(localState, remoteState) {
+  const candidates = [compactCardState(localState), compactCardState(remoteState)].filter(Boolean);
+  if (!candidates.length) return defaultState();
+  return candidates.sort(
+    (left, right) =>
+      (left.lastRatedAt || 0) - (right.lastRatedAt || 0) ||
+      ratingEventKey(left.lastEvent).localeCompare(ratingEventKey(right.lastEvent)),
+  ).at(-1);
+}
+
+function mergeConcurrentCardState(baseState, localState, remoteState) {
+  if (!isStoreObject(localState)) return compactCardState(remoteState);
+  if (!isStoreObject(remoteState)) return compactCardState(localState);
+
+  const base = compactCardState(baseState) || defaultState();
+  const local = compactCardState(localState) || defaultState();
+  const remote = compactCardState(remoteState) || defaultState();
+  const localDelta = reviewCount(local) - reviewCount(base);
+  const remoteDelta = reviewCount(remote) - reviewCount(base);
+  const localEventKey = ratingEventKey(local.lastEvent);
+  const remoteEventKey = ratingEventKey(remote.lastEvent);
+  const baseEventKey = ratingEventKey(base.lastEvent);
+  const duplicatedNewEvent =
+    localEventKey &&
+    localEventKey === remoteEventKey &&
+    localEventKey !== baseEventKey &&
+    localDelta > 0 &&
+    remoteDelta > 0;
+  const divergentSameCountBranch =
+    localEventKey &&
+    remoteEventKey &&
+    localEventKey !== remoteEventKey &&
+    reviewCount(local) === reviewCount(remote) &&
+    reviewCount(local) === reviewCount(base) &&
+    (localEventKey === baseEventKey || remoteEventKey === baseEventKey);
+  const latest = latestCardState(local, remote);
+
+  return {
+    ...latest,
+    reviews: Math.max(
+      0,
+      reviewCount(base) +
+        localDelta +
+        remoteDelta -
+        (duplicatedNewEvent ? 1 : 0) +
+        (divergentSameCountBranch ? 1 : 0),
+    ),
+  };
 }
 
 function normalizedCompletionEventIds(value) {
@@ -399,10 +460,19 @@ function advanceSessionRoundEpoch(deck) {
   );
 }
 
-function normalizeDeckRound(round, cardStates, tombstonedEventIds = new Set(), deck = "") {
+function normalizedReopenedCards(round) {
+  return new Set(
+    (Array.isArray(round?.reopened) ? round.reopened : []).filter(
+      (cardId) => typeof cardId === "string" && cardId,
+    ),
+  );
+}
+
+function normalizeDeckRound(round, cardStates, deck = "") {
   if (!isStoreObject(round)) return cloneStore(round);
   const completed = new Set(Array.isArray(round.completed) ? round.completed : []);
   const queue = Array.isArray(round.queue) ? [...new Set(round.queue)] : [];
+  const reopened = normalizedReopenedCards(round);
   const completionEvents = isStoreObject(round.completionEvents)
     ? { ...round.completionEvents }
     : {};
@@ -412,27 +482,22 @@ function normalizeDeckRound(round, cardStates, tombstonedEventIds = new Set(), d
       delete completionEvents[cardId];
       return;
     }
-    const eventIds = normalizedCompletionEventIds(value);
-    const survivingEventIds = eventIds.filter(
-      (eventId) => !isRatingEventTombstoned(cardStates, cardId, eventId),
-    );
-    if (eventIds.length && !survivingEventIds.length) {
-      completed.delete(cardId);
-      delete completionEvents[cardId];
-      if (!queue.includes(cardId)) queue.push(cardId);
-    } else if (survivingEventIds.length) {
-      completionEvents[cardId] = survivingEventIds;
-    }
+    completionEvents[cardId] = normalizedCompletionEventIds(value);
   });
 
   const roundCompletionEvents = normalizedCompletionEventIds(round.roundCompletionEvents);
-  const survivingRoundCompletionEvents = roundCompletionEvents.filter(
-    (eventId) => !tombstonedEventIds.has(eventId),
-  );
-  const reopenedCompletedRound =
-    queue.length > 0 &&
-    roundCompletionEvents.length > 0 &&
-    survivingRoundCompletionEvents.length < roundCompletionEvents.length;
+  reopened.forEach((cardId) => {
+    const latestEventId = cardStates?.[cardId]?.lastEvent?.eventId;
+    const completionIds = normalizedCompletionEventIds(completionEvents[cardId]);
+    if (latestEventId && completionIds.includes(latestEventId)) {
+      reopened.delete(cardId);
+      return;
+    }
+    completed.delete(cardId);
+    delete completionEvents[cardId];
+    if (!queue.includes(cardId)) queue.push(cardId);
+  });
+  const reopenedCompletedRound = queue.length > 0 && roundCompletionEvents.length > 0;
 
   return {
     ...cloneStore(round),
@@ -442,7 +507,8 @@ function normalizeDeckRound(round, cardStates, tombstonedEventIds = new Set(), d
     queue: queue.filter((cardId) => !completed.has(cardId)),
     completed: [...completed],
     completionEvents,
-    roundCompletionEvents: reopenedCompletedRound ? [] : survivingRoundCompletionEvents,
+    reopened: [...reopened].sort(),
+    roundCompletionEvents: reopenedCompletedRound ? [] : roundCompletionEvents,
     rounds: reopenedCompletedRound
       ? Math.max(0, (Number.isInteger(round.rounds) ? round.rounds : 0) - 1)
       : Number.isInteger(round.rounds)
@@ -463,10 +529,7 @@ function mergeCompletionEvents(completed, localRound, remoteRound, cardStates) {
   completed.forEach((cardId) => {
     const candidates = mergedCompletionEventIds(localEvents, remoteEvents, cardId);
     if (!candidates.length) return;
-    const validCandidates = candidates.filter(
-      (eventId) => !isRatingEventTombstoned(cardStates, cardId, eventId),
-    );
-    completionEvents[cardId] = validCandidates.length ? validCandidates : candidates;
+    completionEvents[cardId] = candidates;
   });
   return completionEvents;
 }
@@ -486,7 +549,6 @@ function mergeConcurrentDeckRound(
   localRound,
   remoteRound,
   cardStates,
-  tombstonedEventIds,
 ) {
   if (!isStoreObject(localRound)) return cloneStore(remoteRound);
   if (!isStoreObject(remoteRound)) return cloneStore(localRound);
@@ -501,23 +563,24 @@ function mergeConcurrentDeckRound(
   const remoteCompletionEvents = isStoreObject(remoteRound.completionEvents)
     ? remoteRound.completionEvents
     : {};
-  const reopenedCompletedIds = [];
+  const reopened = new Set([
+    ...normalizedReopenedCards(localRound),
+    ...normalizedReopenedCards(remoteRound),
+  ]);
+  reopened.forEach((cardId) => {
+    const latestEventId = cardStates?.[cardId]?.lastEvent?.eventId;
+    const completionIds = mergedCompletionEventIds(
+      localCompletionEvents,
+      remoteCompletionEvents,
+      cardId,
+    );
+    if (latestEventId && completionIds.includes(latestEventId)) reopened.delete(cardId);
+  });
   const completed = new Set(
-    [...completedCandidates].sort().filter((cardId) => {
-      const eventIds = mergedCompletionEventIds(
-        localCompletionEvents,
-        remoteCompletionEvents,
-        cardId,
-      );
-      const remainsCompleted =
-        eventIds.length === 0 ||
-        eventIds.some((eventId) => !isRatingEventTombstoned(cardStates, cardId, eventId));
-      if (!remainsCompleted) reopenedCompletedIds.push(cardId);
-      return remainsCompleted;
-    }),
+    [...completedCandidates].sort().filter((cardId) => !reopened.has(cardId)),
   );
   const mergedQueue = mergePendingQueueOrder(baseRound, localRound, remoteRound, completed);
-  reopenedCompletedIds.forEach((cardId) => {
+  reopened.forEach((cardId) => {
     if (!mergedQueue.queue.includes(cardId)) mergedQueue.queue.push(cardId);
   });
 
@@ -537,6 +600,7 @@ function mergeConcurrentDeckRound(
     queueOrderVersion: mergedQueue.queueOrderVersion,
     completed: [...completed].sort(),
     completionEvents,
+    reopened: [...reopened].sort(),
     roundCompletionEvents,
     rounds: Math.max(
       Number.isInteger(localRound.rounds) ? localRound.rounds : 0,
@@ -544,7 +608,6 @@ function mergeConcurrentDeckRound(
     ),
     },
     cardStates,
-    tombstonedEventIds,
     deck,
   );
   const baseRounds = Number.isInteger(baseRound?.rounds) ? Math.max(0, baseRound.rounds) : 0;
@@ -563,9 +626,6 @@ function mergeRoundStates(baseRoundState, localRoundState, remoteRoundState, car
   const local = isStoreObject(localRoundState) ? localRoundState : {};
   const remote = isStoreObject(remoteRoundState) ? remoteRoundState : {};
   const decks = {};
-  const tombstonedEventIds = new Set(
-    Object.values(cardStates || {}).flatMap(normalizedTombstones),
-  );
   const deckNames = new Set([
     ...Object.keys(base.decks || {}),
     ...Object.keys(local.decks || {}),
@@ -587,7 +647,7 @@ function mergeRoundStates(baseRoundState, localRoundState, remoteRoundState, car
       compareRoundEpochs(localDeck, remoteDeck, deck) !== 0
     ) {
       const winner = compareRoundEpochs(localDeck, remoteDeck, deck) > 0 ? localDeck : remoteDeck;
-      decks[deck] = normalizeDeckRound(winner, cardStates, tombstonedEventIds, deck);
+      decks[deck] = normalizeDeckRound(winner, cardStates, deck);
       return;
     }
     if (
@@ -602,14 +662,13 @@ function mergeRoundStates(baseRoundState, localRoundState, remoteRoundState, car
         localDeck,
         remoteDeck,
         cardStates,
-        tombstonedEventIds,
       );
     } else if (localChanged) {
-      decks[deck] = normalizeDeckRound(localDeck, cardStates, tombstonedEventIds, deck);
+      decks[deck] = normalizeDeckRound(localDeck, cardStates, deck);
     } else if (remoteChanged) {
-      decks[deck] = normalizeDeckRound(remoteDeck, cardStates, tombstonedEventIds, deck);
+      decks[deck] = normalizeDeckRound(remoteDeck, cardStates, deck);
     } else {
-      decks[deck] = normalizeDeckRound(localDeck, cardStates, tombstonedEventIds, deck);
+      decks[deck] = normalizeDeckRound(localDeck, cardStates, deck);
     }
   });
 
@@ -667,13 +726,15 @@ function mergeStoreVersions(baseStore, localStore, remoteStore) {
 
 function saveStore() {
   const mergeBase = cloneStore(lastSyncedStore);
-  let candidate = cloneStore(store);
+  let candidate = compactStoreForPersistence(store);
 
   try {
     for (let attempt = 0; attempt < 3; attempt += 1) {
       const remoteStore = readPersistedStoreForMerge();
       recordStoreRevision(remoteStore);
-      candidate = mergeStoreVersions(mergeBase, candidate, remoteStore);
+      candidate = compactStoreForPersistence(
+        mergeStoreVersions(mergeBase, candidate, remoteStore),
+      );
       storeWriteSequence += 1;
       const revision =
         Math.max(
@@ -697,6 +758,7 @@ function saveStore() {
       if (readBack[STORE_META_KEY]?.writeToken === writeToken) {
         store = candidate;
         lastSyncedStore = cloneStore(candidate);
+        storeNeedsCompaction = false;
         recordStoreRevision(candidate);
         syncSessionRoundState({ preserveActiveDeck: true });
         break;
@@ -904,6 +966,7 @@ function syncSessionRoundState(options = {}) {
   clearRecord(sessionQueues);
   clearRecord(sessionCompleted);
   clearRecord(sessionCompletionEvents);
+  clearRecord(sessionReopenedCards);
   clearRecord(sessionRoundCompletionEvents);
   clearRecord(sessionRoundGenerations);
   clearRecord(sessionRoundIds);
@@ -923,6 +986,7 @@ function syncSessionRoundState(options = {}) {
     sessionCompletionEvents[deck] = isStoreObject(state.completionEvents)
       ? { ...state.completionEvents }
       : {};
+    sessionReopenedCards[deck] = normalizedReopenedCards(state);
     sessionRoundCompletionEvents[deck] = normalizedCompletionEventIds(
       state.roundCompletionEvents,
     );
@@ -943,6 +1007,7 @@ function saveRoundState() {
     ...Object.keys(sessionQueues),
     ...Object.keys(sessionCompleted),
     ...Object.keys(sessionCompletionEvents),
+    ...Object.keys(sessionReopenedCards),
     ...Object.keys(sessionRoundCompletionEvents),
     ...Object.keys(sessionRoundGenerations),
     ...Object.keys(sessionRoundIds),
@@ -956,6 +1021,7 @@ function saveRoundState() {
       queue: [...(sessionQueues[deck] || [])],
       completed: [...(sessionCompleted[deck] || new Set())],
       completionEvents: { ...(sessionCompletionEvents[deck] || {}) },
+      reopened: [...(sessionReopenedCards[deck] || new Set())],
       queueOrderVersion: sessionQueueOrderVersions[deck] || 0,
       roundCompletionEvents: [...(sessionRoundCompletionEvents[deck] || [])],
       roundGeneration: sessionRoundGenerations[deck],
@@ -968,60 +1034,18 @@ function saveRoundState() {
   saveStore();
 }
 
-function normalizedHistory(state) {
-  const tombstones = new Set(normalizedTombstones(state));
-  const history = Array.isArray(state?.ratingHistory) ? [...state.ratingHistory] : [];
-  const normalized = history
-    .filter((item) => item && VALID_RATINGS.has(item.rating))
-    .filter((item) => !item.eventId || !tombstones.has(item.eventId))
-    .sort(
-      (left, right) =>
-        (left.at || 0) - (right.at || 0) ||
-        ratingEventKey(left).localeCompare(ratingEventKey(right)),
-    );
-  if (normalized.length) return normalized;
-  return VALID_RATINGS.has(state?.lastRating)
-    ? [{ rating: state.lastRating, at: state.lastRatedAt || null }]
-    : [];
-}
-
 function mergeCardStates(states) {
-  const validStates = states.filter((state) => state && typeof state === "object" && !Array.isArray(state));
+  const validStates = states.map(compactCardState).filter(Boolean);
   if (!validStates.length) return null;
 
   const latest = validStates.reduce((currentLatest, state) =>
-    (state.lastRatedAt || 0) >= (currentLatest.lastRatedAt || 0) ? state : currentLatest,
+    latestCardState(currentLatest, state),
   );
-  const ratingTombstones = [
-    ...new Set(validStates.flatMap(normalizedTombstones)),
-  ].sort();
-  const tombstoneSet = new Set(ratingTombstones);
-  const seenHistory = new Set();
-  const ratingHistory = validStates
-    .flatMap(normalizedHistory)
-    .filter((item) => !item.eventId || !tombstoneSet.has(item.eventId))
-    .filter((item) => {
-      const key = ratingEventKey(item);
-      if (seenHistory.has(key)) return false;
-      seenHistory.add(key);
-      return true;
-    })
-    .sort(
-      (left, right) =>
-        (left.at || 0) - (right.at || 0) ||
-        ratingEventKey(left).localeCompare(ratingEventKey(right)),
-    )
-    .slice(-MAX_RATING_HISTORY);
 
   return {
-    ...defaultState(),
     ...latest,
-    lastRating: ratingHistory.at(-1)?.rating || latest.lastRating || null,
-    lastRatedAt: ratingHistory.at(-1)?.at || latest.lastRatedAt || null,
-    ratingHistory,
-    ratingTombstones,
     reviews: validStates.reduce(
-      (total, state) => total + (Number.isInteger(state.reviews) ? Math.max(0, state.reviews) : 0),
+      (total, state) => total + reviewCount(state),
       0,
     ),
   };
@@ -1083,6 +1107,14 @@ function migrateLegacyCardState(familyCards) {
       changed = true;
     }
   });
+  Object.keys(sessionReopenedCards).forEach((deck) => {
+    const previous = [...sessionReopenedCards[deck]];
+    const next = remapIds(previous);
+    if (!arraysEqual(previous, next)) {
+      sessionReopenedCards[deck] = new Set(next);
+      changed = true;
+    }
+  });
 
   if (changed) saveRoundState();
 }
@@ -1090,36 +1122,15 @@ function migrateLegacyCardState(familyCards) {
 function defaultState() {
   return {
     lastChoiceCorrectIndex: null,
+    lastEvent: null,
     lastRating: null,
     lastRatedAt: null,
-    ratingHistory: [],
-    ratingTombstones: [],
     reviews: 0,
   };
 }
 
 function getState(cardId) {
-  if (!store[cardId] || typeof store[cardId] !== "object" || Array.isArray(store[cardId])) {
-    store[cardId] = defaultState();
-  } else {
-    store[cardId] = { ...defaultState(), ...store[cardId] };
-    ["dueAt", "ease", "interval", "lapses", "shuffleOrder"].forEach((key) => {
-      delete store[cardId][key];
-    });
-    if (!Array.isArray(store[cardId].ratingHistory)) {
-      store[cardId].ratingHistory = store[cardId].lastRating
-        ? [{ rating: store[cardId].lastRating, at: store[cardId].lastRatedAt || null }]
-        : [];
-    }
-    store[cardId].ratingTombstones = normalizedTombstones(store[cardId]);
-    store[cardId].ratingHistory = normalizedHistory(store[cardId]).slice(-MAX_RATING_HISTORY);
-    const latestRating = store[cardId].ratingHistory.at(-1);
-    store[cardId].lastRating = latestRating?.rating || null;
-    store[cardId].lastRatedAt = latestRating?.at || null;
-    if (!Number.isInteger(store[cardId].reviews) || store[cardId].reviews < 0) {
-      store[cardId].reviews = store[cardId].ratingHistory.length;
-    }
-  }
+  store[cardId] = compactCardState(store[cardId]) || defaultState();
   return store[cardId];
 }
 
@@ -1261,6 +1272,7 @@ function buildQueue() {
 
 function nextCard() {
   cancelSpeech();
+  clearSpeechStatus();
   buildQueue();
   currentCard = reviewQueue[0] || null;
   currentChoiceOptions = currentCard?.isChoice ? buildChoiceOptions(currentCard) : [];
@@ -1375,16 +1387,19 @@ function render() {
   ].filter(Boolean);
   elements.cardReveal.setAttribute("aria-describedby", revealDescriptionIds.join(" "));
   const canSpeak = Boolean(isRevealed ? primarySpeech(currentCard) : currentCard.frontSpeech);
+  const canUseSpeech = supportsSpeech();
   elements.speakWord.hidden = !canSpeak;
-  elements.speakWord.disabled = !canSpeak;
+  elements.speakWord.disabled = !canSpeak || !canUseSpeech;
   elements.speakWord.setAttribute("aria-label", isRevealed ? "重播答案读音" : "播放题面读音");
   elements.speakWord.title = elements.speakWord.getAttribute("aria-label");
+  if (canSpeak && !canUseSpeech) {
+    setSpeechStatus("此浏览器不支持语音播放。", "error");
+  }
   elements.answerPanel.classList.toggle(
     "is-revealed",
     Boolean(isRevealed || currentCard.isChoice),
   );
   elements.answerPanel.setAttribute("aria-hidden", String(!isRevealed && !currentCard.isChoice));
-  renderMemoryChain(currentCard);
 
   if (currentCard.isChoice) {
     renderChoiceCard(currentCard);
@@ -1595,34 +1610,6 @@ function clearAnswer() {
   elements.examplesList.replaceChildren();
 }
 
-function renderMemoryChain(card) {
-  const history = card ? getState(card.id).ratingHistory.slice(-MAX_RATING_HISTORY) : [];
-  elements.memoryChain.replaceChildren();
-  if (!history.length) return;
-
-  history.forEach((item) => {
-    const chip = document.createElement("span");
-    chip.className = `memory-chip ${item.rating}`;
-    chip.textContent = ratingShortLabel(item.rating);
-    chip.title = ratingFullLabel(item.rating);
-    elements.memoryChain.append(chip);
-  });
-}
-
-function ratingShortLabel(rating) {
-  return { clear: "清", correct: "正", forgot: "忘", unsure: "疑", wrong: "错" }[rating] || "?";
-}
-
-function ratingFullLabel(rating) {
-  return {
-    clear: "清楚",
-    correct: "选择正确",
-    forgot: "遗忘",
-    unsure: "不确定",
-    wrong: "选择错误",
-  }[rating] || "未知";
-}
-
 function renderEmpty(deckCards) {
   updateUndoButton();
   elements.studyCard.hidden = true;
@@ -1691,16 +1678,13 @@ function captureReviewSnapshot() {
     previousChoiceCorrectIndex: state.lastChoiceCorrectIndex,
     previousCompleted: new Set(sessionCompleted[activeDeck] || []),
     previousCompletionEvents: { ...(sessionCompletionEvents[activeDeck] || {}) },
+    previousReopened: new Set(sessionReopenedCards[activeDeck] || []),
     previousRoundCompletionEvents: [...(sessionRoundCompletionEvents[activeDeck] || [])],
     previousRoundGeneration: sessionRoundGenerations[activeDeck],
     previousRoundId: sessionRoundIds[activeDeck],
     previousQueue: [...(sessionQueues[activeDeck] || [])],
     previousRoundCount: getRoundCount(activeDeck),
-    previousState: {
-      ...state,
-      ratingHistory: [...state.ratingHistory],
-      ratingTombstones: [...state.ratingTombstones],
-    },
+    previousState: cloneStore(state),
   };
 }
 
@@ -1714,13 +1698,12 @@ function applyRating(rating, details = {}) {
   storeWriterSequence += 1;
   const eventId = `${storeWriterId}-${storeWriterSequence}`;
   lastReview.appliedEventId = eventId;
-  state.ratingHistory.push({
+  state.lastEvent = {
     rating,
     at: state.lastRatedAt,
     eventId,
     ...details,
-  });
-  state.ratingHistory = state.ratingHistory.slice(-MAX_RATING_HISTORY);
+  };
 }
 
 function completeCurrentCard(options = {}) {
@@ -1734,6 +1717,8 @@ function completeCurrentCard(options = {}) {
     sessionCompleted[activeDeck] = new Set();
   }
   sessionCompleted[activeDeck].add(currentCard.id);
+  if (!sessionReopenedCards[activeDeck]) sessionReopenedCards[activeDeck] = new Set();
+  sessionReopenedCards[activeDeck].delete(currentCard.id);
   if (!sessionCompletionEvents[activeDeck]) sessionCompletionEvents[activeDeck] = {};
   if (lastReview?.appliedEventId) {
     sessionCompletionEvents[activeDeck][currentCard.id] = [lastReview.appliedEventId];
@@ -1785,31 +1770,30 @@ function updateUndoButton() {
 }
 
 function hasConcurrentReview(snapshot, persistedState) {
-  const previousEvents = new Set(normalizedHistory(snapshot.previousState).map(ratingEventKey));
-  return normalizedHistory(persistedState).some(
-    (item) =>
-      item.eventId !== snapshot.appliedEventId && !previousEvents.has(ratingEventKey(item)),
+  const persisted = compactCardState(persistedState) || defaultState();
+  return Boolean(
+    persisted.lastEvent?.eventId &&
+      persisted.lastEvent.eventId !== snapshot.appliedEventId &&
+      persisted.reviews > reviewCount(snapshot.previousState),
   );
 }
 
-function removeAppliedReviewEvent(snapshot) {
-  const state = getState(snapshot.cardId);
-  const eventId = snapshot.appliedEventId;
-  if (!eventId) {
+function removeAppliedReview(snapshot, persistedState, concurrentReviewExists) {
+  if (!snapshot.appliedEventId) {
     store[snapshot.cardId] = cloneStore(snapshot.previousState);
     return;
   }
 
-  const eventWasPresent = state.ratingHistory.some((item) => item.eventId === eventId);
-  state.ratingTombstones = [
-    ...new Set([...normalizedTombstones(state), eventId]),
-  ].sort();
-  state.ratingHistory = state.ratingHistory.filter((item) => item.eventId !== eventId);
-  const latestRating = state.ratingHistory.at(-1);
-  state.lastRating = latestRating?.rating || null;
-  state.lastRatedAt = latestRating?.at || null;
-  state.reviews = Math.max(0, state.reviews - (eventWasPresent ? 1 : 0));
-  state.lastChoiceCorrectIndex = snapshot.previousChoiceCorrectIndex;
+  if (!concurrentReviewExists) {
+    store[snapshot.cardId] = cloneStore(snapshot.previousState);
+    return;
+  }
+
+  const persisted = compactCardState(persistedState) || defaultState();
+  store[snapshot.cardId] = {
+    ...persisted,
+    reviews: Math.max(0, persisted.reviews - 1),
+  };
 }
 
 function undoLastReview() {
@@ -1822,17 +1806,25 @@ function undoLastReview() {
 
   const persistedStore = readPersistedStoreForMerge();
   const concurrentReviewExists = hasConcurrentReview(snapshot, persistedStore[snapshot.cardId]);
+  if (concurrentReviewExists) {
+    store = cloneStore(persistedStore);
+    lastSyncedStore = cloneStore(persistedStore);
+    recordStoreRevision(persistedStore);
+    syncSessionRoundState({ preserveActiveDeck: true });
+  }
   activeDeck = snapshot.deck;
   if (!concurrentReviewExists) {
     sessionCompleted[activeDeck] = new Set(snapshot.previousCompleted);
     sessionCompletionEvents[activeDeck] = { ...snapshot.previousCompletionEvents };
+    sessionReopenedCards[activeDeck] = new Set(snapshot.previousReopened);
+    sessionReopenedCards[activeDeck].add(snapshot.cardId);
     sessionRoundCompletionEvents[activeDeck] = [...snapshot.previousRoundCompletionEvents];
     sessionRoundGenerations[activeDeck] = snapshot.previousRoundGeneration;
     sessionRoundIds[activeDeck] = snapshot.previousRoundId;
     sessionQueues[activeDeck] = [...snapshot.previousQueue];
     sessionRoundCounts[activeDeck] = snapshot.previousRoundCount;
   }
-  removeAppliedReviewEvent(snapshot);
+  removeAppliedReview(snapshot, persistedStore[snapshot.cardId], concurrentReviewExists);
   saveRoundState();
   buildQueue();
 
@@ -1843,6 +1835,89 @@ function undoLastReview() {
   lastReview = null;
   render();
   focusPrimaryStudyAction();
+}
+
+function setProgressBackupStatus(message, state = "") {
+  elements.progressBackupStatus.textContent = message;
+  elements.progressBackupStatus.hidden = !message;
+  if (state) elements.progressBackupStatus.dataset.state = state;
+  else delete elements.progressBackupStatus.dataset.state;
+}
+
+function exportProgressBackup() {
+  const payload = {
+    format: PROGRESS_BACKUP_FORMAT,
+    version: PROGRESS_BACKUP_VERSION,
+    exportedAt: new Date().toISOString(),
+    store: compactStoreForPersistence(store),
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {
+    type: "application/json",
+  });
+  const downloadUrl = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  const date = payload.exportedAt.slice(0, 10);
+  link.href = downloadUrl;
+  link.download = `ayaya-jp-progress-${date}.json`;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(downloadUrl);
+  setProgressBackupStatus("进度备份已导出。", "success");
+}
+
+function importedStoreFromPayload(payload) {
+  if (
+    !isStoreObject(payload) ||
+    payload.format !== PROGRESS_BACKUP_FORMAT ||
+    payload.version !== PROGRESS_BACKUP_VERSION ||
+    !isStoreObject(payload.store)
+  ) {
+    throw new Error("invalid backup");
+  }
+  if (Object.keys(payload.store).length > 10_000) {
+    throw new Error("backup is too large");
+  }
+  return compactStoreForPersistence(payload.store);
+}
+
+async function importProgressBackup(file) {
+  if (!file) return;
+  try {
+    if (file.size > 10 * 1024 * 1024) throw new Error("backup is too large");
+    const payload = JSON.parse(await file.text());
+    const importedStore = importedStoreFromPayload(payload);
+    if (!window.confirm("导入会覆盖当前浏览器中的学习进度。确定继续吗？")) {
+      setProgressBackupStatus("已取消导入。");
+      return;
+    }
+
+    importedStore[STORE_META_KEY] = {
+      schemaVersion: STORE_SCHEMA_VERSION,
+      savedAt: Date.now(),
+      writerId: storeWriterId,
+      revision: storeRevision(store) + 1,
+      writeToken: `${storeWriterId}:import:${Date.now()}`,
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(importedStore));
+    store = importedStore;
+    lastSyncedStore = cloneStore(importedStore);
+    seenWriterRevisions.clear();
+    recordStoreRevision(importedStore);
+    lastReview = null;
+    syncSessionRoundState();
+    if (isDeckDataMissing(activeDeck)) activeDeck = "hiragana";
+    expandSidebarForDeck(activeDeck);
+    nextCard();
+    setSidebarOpen(false, { restoreFocus: false });
+    focusPrimaryStudyAction();
+    setProgressBackupStatus("进度备份已导入。", "success");
+  } catch (error) {
+    console.error("Could not import progress backup:", error);
+    setProgressBackupStatus("导入失败：请选择由 AyayaJp 导出的 JSON 备份。", "error");
+  } finally {
+    elements.importProgress.value = "";
+  }
 }
 
 function sidebarFocusableElements() {
@@ -1901,24 +1976,61 @@ function handleSidebarKeydown(event) {
   }
 }
 
+function supportsSpeech() {
+  return Boolean(
+    "speechSynthesis" in window &&
+      window.speechSynthesis &&
+      typeof SpeechSynthesisUtterance === "function",
+  );
+}
+
+function setSpeechStatus(message, state = "") {
+  if (!elements.speechStatus) return;
+  elements.speechStatus.textContent = message;
+  elements.speechStatus.hidden = !message;
+  if (state) elements.speechStatus.dataset.state = state;
+  else delete elements.speechStatus.dataset.state;
+}
+
+function clearSpeechStatus() {
+  setSpeechStatus("");
+}
+
 function scheduleSpeechStart(text, options, generation, delay = 0, attempt = 0) {
   const start = () => {
     speechStartTimer = null;
     if (generation !== speechGeneration || document.visibilityState === "hidden") return;
+    if (!supportsSpeech()) {
+      setSpeechStatus("此浏览器不支持语音播放。", "error");
+      return;
+    }
 
     const synthesizer = window.speechSynthesis;
-    if (synthesizer.paused) synthesizer.resume();
+    try {
+      if (synthesizer.paused) synthesizer.resume();
+    } catch {
+      setSpeechStatus("语音服务暂时不可用，请稍后重试。", "error");
+      return;
+    }
 
-    const utterance = new SpeechSynthesisUtterance(text);
+    let utterance;
+    try {
+      utterance = new SpeechSynthesisUtterance(text);
+    } catch {
+      setSpeechStatus("语音服务初始化失败，请刷新后重试。", "error");
+      return;
+    }
     utterance.lang = "ja-JP";
     utterance.rate = 0.82;
     activeSpeechUtterance = utterance;
+    setSpeechStatus("正在播放日语读音…", "playing");
 
     utterance.addEventListener(
       "end",
       () => {
         if (generation !== speechGeneration || activeSpeechUtterance !== utterance) return;
         activeSpeechUtterance = null;
+        clearSpeechStatus();
         if (options.onEnd) window.setTimeout(options.onEnd, 0);
       },
       { once: true },
@@ -1936,14 +2048,22 @@ function scheduleSpeechStart(text, options, generation, delay = 0, attempt = 0) 
           "voice-unavailable",
         ]);
         if (attempt === 0 && transientErrors.has(event.error)) {
+          setSpeechStatus("语音播放失败，正在自动重试…", "retry");
           speechBlockedUntil = Date.now() + 160;
           scheduleSpeechStart(text, options, generation, 160, attempt + 1);
+          return;
         }
+        setSpeechStatus("语音播放失败，请检查静音模式或稍后重试。", "error");
       },
       { once: true },
     );
 
-    synthesizer.speak(utterance);
+    try {
+      synthesizer.speak(utterance);
+    } catch {
+      activeSpeechUtterance = null;
+      setSpeechStatus("语音播放失败，请刷新后重试。", "error");
+    }
   };
 
   if (delay > 0) {
@@ -1954,7 +2074,11 @@ function scheduleSpeechStart(text, options, generation, delay = 0, attempt = 0) 
 }
 
 function speak(text, options = {}) {
-  if (!("speechSynthesis" in window) || !text) return;
+  if (!text) return;
+  if (!supportsSpeech()) {
+    setSpeechStatus("此浏览器不支持语音播放。", "error");
+    return;
+  }
   const synthesizer = window.speechSynthesis;
   speechGeneration += 1;
   const generation = speechGeneration;
@@ -1983,7 +2107,7 @@ function cancelSpeech() {
     speechStartTimer = null;
   }
 
-  if (!("speechSynthesis" in window)) return;
+  if (!supportsSpeech()) return;
   const synthesizer = window.speechSynthesis;
   const hasActiveSpeech = Boolean(
     activeSpeechUtterance || synthesizer.speaking || synthesizer.pending,
@@ -2059,6 +2183,7 @@ function restartDeckRound() {
   sessionCompleted[activeDeck] = new Set();
   advanceSessionRoundEpoch(activeDeck);
   sessionCompletionEvents[activeDeck] = {};
+  sessionReopenedCards[activeDeck] = new Set();
   sessionRoundCompletionEvents[activeDeck] = [];
   sessionQueues[activeDeck] = shuffleCards(deckCards, previousOrder);
   sessionQueueOrderVersions[activeDeck] = ROUND_QUEUE_ORDER_VERSION;
@@ -2121,9 +2246,8 @@ function runSafely(action) {
 
 function canPreserveUndoAfterStorage(snapshot, previousSyncedStore, remoteStore, mergedStore) {
   if (!snapshot?.appliedEventId) return false;
-  const ownEventRemains = normalizedHistory(mergedStore[snapshot.cardId]).some(
-    (item) => item.eventId === snapshot.appliedEventId,
-  );
+  const ownEventRemains =
+    compactCardState(mergedStore[snapshot.cardId])?.lastEvent?.eventId === snapshot.appliedEventId;
   if (!ownEventRemains) return false;
 
   const previousDeckRound = previousSyncedStore?.[ROUND_STATE_KEY]?.decks?.[snapshot.deck];
@@ -2136,7 +2260,8 @@ function handleStoreStorageChange(event) {
 
   let remoteStore;
   try {
-    remoteStore = event.newValue === null ? {} : JSON.parse(event.newValue);
+    remoteStore =
+      event.newValue === null ? {} : compactStoreForPersistence(JSON.parse(event.newValue));
   } catch {
     return;
   }
@@ -2181,7 +2306,7 @@ function handleStoreStorageChange(event) {
     ? getFamilyCards(previousCard.deck).find((card) => card.id === previousCard.id)
     : null;
   const latestStoredReview = previousCard
-    ? normalizedHistory(store[previousCard.id]).at(-1)
+    ? compactCardState(store[previousCard.id])?.lastEvent
     : null;
   const canRetainChoiceResult = Boolean(
     currentDataCard?.isChoice &&
@@ -2266,6 +2391,21 @@ function bindInteractions() {
     runSafely(undoLastReview);
   });
 
+  elements.exportProgress.addEventListener("click", (event) => {
+    event.stopPropagation();
+    runSafely(exportProgressBackup);
+  });
+
+  elements.importProgressLabel.addEventListener("click", (event) => {
+    event.stopPropagation();
+    elements.importProgress.click();
+  });
+
+  elements.importProgress.addEventListener("change", (event) => {
+    event.stopPropagation();
+    importProgressBackup(event.target.files?.[0]);
+  });
+
   elements.choiceNext.addEventListener("click", (event) => {
     event.stopPropagation();
     runSafely(() => {
@@ -2322,6 +2462,7 @@ function initializeApp() {
   setSidebarOpen(false, { restoreFocus: false });
   renderLoadStatus();
   nextCard();
+  if (storeNeedsCompaction) saveStore();
   finishLoadingStatus();
 }
 

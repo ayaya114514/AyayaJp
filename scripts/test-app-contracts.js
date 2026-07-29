@@ -147,6 +147,10 @@ class FakeElement {
     return !event.defaultPrevented;
   }
 
+  click() {
+    return this.dispatch("click");
+  }
+
   focus() {
     this.document.activeElement = this;
   }
@@ -177,6 +181,13 @@ class FakeElement {
   replaceChildren(...children) {
     this.children = [];
     this.append(...children);
+  }
+
+  remove() {
+    if (!this.parentElement) return;
+    this.parentElement.children = this.parentElement.children.filter((item) => item !== this);
+    this.parentElement = null;
+    this.isConnected = false;
   }
 
   setAttribute(name, value) {
@@ -211,7 +222,7 @@ class FakeDocument {
     const feedbackRow = this.querySelector(".feedback-row");
     const emptyState = this.querySelector("#emptyState");
     studyArea.append(studyCard, emptyState);
-    studyCard.append(statsGrid, flashcard, answerPanel, this.querySelector("#memoryChain"));
+    studyCard.append(statsGrid, flashcard, answerPanel);
     statsGrid.append(
       this.querySelector("#deckMenuButton"),
       this.querySelector("#dueCount"),
@@ -237,7 +248,14 @@ class FakeDocument {
       this.querySelector("#emptyDeckMenuButton"),
       this.querySelector("#studyAnyWay"),
     );
-    this.querySelector("#deckSidebar").append(this.querySelector("#closeDeckMenu"), ...this.tabs);
+    this.querySelector("#deckSidebar").append(
+      this.querySelector("#closeDeckMenu"),
+      ...this.tabs,
+      this.querySelector("#exportProgress"),
+      this.querySelector("#importProgressLabel"),
+      this.querySelector("#importProgress"),
+      this.querySelector("#progressBackupStatus"),
+    );
   }
 
   addEventListener(type, listener, options = {}) {
@@ -266,6 +284,8 @@ class FakeDocument {
         "closeDeckMenu",
         "deckMenuButton",
         "emptyDeckMenuButton",
+        "exportProgress",
+        "importProgressLabel",
         "speakWord",
         "studyAnyWay",
         "undoRating",
@@ -299,6 +319,10 @@ class FakeUtterance {
 
   emitEnd() {
     this.listeners.get("end")?.();
+  }
+
+  emitError(error) {
+    this.listeners.get("error")?.({ error });
   }
 }
 
@@ -381,6 +405,9 @@ function createHarness({
     dispatchEvent(type, event) {
       (windowListeners.get(type) || []).forEach((listener) => listener(event));
     },
+    confirm() {
+      return true;
+    },
     clearTimeout() {},
     requestAnimationFrame(callback) {
       callback();
@@ -393,9 +420,11 @@ function createHarness({
     speechSynthesis,
   };
   const context = {
+    Blob,
     HTMLElement: FakeElement,
     Math: Object.assign(Object.create(Math), { random }),
     SpeechSynthesisUtterance: FakeUtterance,
+    URL,
     clearTimeout,
     console,
     document,
@@ -437,6 +466,43 @@ function testStorageFailureFallsBackToMemory() {
   );
 }
 
+function testProgressBackupExportAndMigrationStayBounded() {
+  const harness = createHarness();
+  harness.element("cardReveal").dispatch("click");
+  harness.document.feedback[0].dispatch("click");
+  harness.element("exportProgress").dispatch("click");
+
+  assert(
+    harness.element("progressBackupStatus").textContent.includes("已导出"),
+    "progress export did not confirm success",
+  );
+
+  const imported = harness.context.importedStoreFromPayload({
+    format: "ayaya-jp-progress",
+    version: 1,
+    store: {
+      "legacy-card": {
+        lastRatedAt: 2,
+        lastRating: "clear",
+        ratingHistory: [
+          { at: 1, eventId: "legacy-one", rating: "forgot" },
+          { at: 2, eventId: "legacy-two", rating: "clear" },
+        ],
+        reviews: 2,
+      },
+    },
+  });
+  assert(imported["legacy-card"].reviews === 2, "backup migration lost the aggregate count");
+  assert(
+    imported["legacy-card"].lastEvent.eventId === "legacy-two",
+    "backup migration lost the newest event",
+  );
+  assert(
+    !Object.hasOwn(imported["legacy-card"], "ratingHistory"),
+    "backup import retained unbounded legacy history",
+  );
+}
+
 function testInvalidArrayStoreIsReplaced() {
   const harness = createHarness({ initialStore: "[]" });
   const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
@@ -444,10 +510,11 @@ function testInvalidArrayStoreIsReplaced() {
   assert(saved.__meta?.schemaVersion >= 2, "the replacement store has no schema metadata");
 }
 
-function testRatingHistoryIsCapped() {
+function testLegacyRatingHistoryCompactsToBoundedState() {
   const card = baseCard({ id: "history-card" });
   const legacyHistory = Array.from({ length: 15 }, (_, index) => ({
     at: index + 1,
+    eventId: `legacy-history-${index + 1}`,
     rating: index % 2 ? "clear" : "forgot",
   }));
   const harness = createHarness({
@@ -458,15 +525,31 @@ function testRatingHistoryIsCapped() {
         ratingHistory: legacyHistory,
         reviews: 15,
       },
+      __rounds: {
+        activeDeck: "hiragana",
+        decks: {
+          hiragana: {
+            completed: [],
+            queue: [card.id],
+            queueOrderVersion: 1,
+            rounds: 0,
+          },
+        },
+      },
     }),
     kanaCards: [card],
   });
   const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
+  const state = saved[card.id];
+  assert(state.reviews === 15, "legacy history migration lost the aggregate review count");
+  assert(state.lastEvent.eventId === "legacy-history-15", "legacy history migration lost the latest event");
+  assert(!Object.hasOwn(state, "ratingHistory"), "unbounded rating history remained persisted");
+  assert(!Object.hasOwn(state, "ratingTombstones"), "legacy Undo tombstones remained persisted");
+  assert(saved.__meta.schemaVersion === 4, "bounded storage migration did not advance the schema");
   assert(
-    saved[card.id].ratingHistory.length === 12,
-    `rating history expected 12 entries, received ${saved[card.id].ratingHistory.length}`,
+    JSON.stringify(state).length < 400,
+    "a migrated card retained storage proportional to its rating history",
   );
-  assert(saved[card.id].ratingHistory[0].at === 4, "history did not retain the newest 12 ratings");
 }
 
 function testN4LegacyProgressAndRoundQueueMigration() {
@@ -512,10 +595,8 @@ function testN4LegacyProgressAndRoundQueueMigration() {
 
   assert(card.id !== legacyId, "the stable N4 ID still collides with its legacy ID");
   assert(migrated?.reviews === 4, "N4 migration did not preserve the review count");
-  assert(
-    JSON.stringify(migrated.ratingHistory) === JSON.stringify(legacyHistory),
-    "N4 migration did not preserve rating history",
-  );
+  assert(migrated.lastEvent.at === 20, "N4 migration did not retain the newest rating event");
+  assert(!Object.hasOwn(migrated, "ratingHistory"), "N4 migration retained unbounded history");
   assert(migrated.lastRating === "forgot" && migrated.lastRatedAt === 20, "N4 latest rating drifted");
   assert(!Object.hasOwn(saved, legacyId), "N4 legacy progress key was not deleted");
   assert(round.rounds === 3, "N4 migration did not preserve the completed round count");
@@ -572,16 +653,10 @@ function testN5DuplicateAliasesMergeWithoutDuplicateQueueEntries() {
   });
   const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
   const migrated = saved[card.id];
-  const migratedHistoryKeys = migrated.ratingHistory.map((item) => `${item.at}:${item.rating}`);
 
   assert(migrated.reviews === 16, "N5 alias merge did not preserve both review counts");
-  assert(migrated.ratingHistory.length === 12, "N5 merged rating history was not capped at 12");
-  assert(migrated.ratingHistory[0].at === 4, "N5 history cap did not keep the newest ratings");
-  assert(migrated.ratingHistory.at(-1).at === 15, "N5 merged history lost its newest rating");
-  assert(
-    new Set(migratedHistoryKeys).size === migratedHistoryKeys.length,
-    "N5 merged rating history retained duplicate events",
-  );
+  assert(migrated.lastEvent.at === 15, "N5 alias merge lost the newest rating");
+  assert(!Object.hasOwn(migrated, "ratingHistory"), "N5 alias merge retained unbounded history");
   assert(
     legacyIds.every((legacyId) => !Object.hasOwn(saved, legacyId)),
     "one or more N5 legacy progress keys were not deleted",
@@ -760,7 +835,7 @@ function testLastCardUndoRemainsVisibleAndRestoresFocus() {
     undo.parentElement === harness.document.querySelector(".stats-grid"),
     "Undo was not returned to its header after restoring a card",
   );
-  assert(saved["card-a"].reviews === 0, "Undo did not restore the previous card state");
+  assert((saved["card-a"]?.reviews || 0) === 0, "Undo did not restore the previous card state");
   assert(
     harness.document.activeElement === harness.element("answerPanel"),
     "Undo did not focus the restored card's next valid action",
@@ -988,14 +1063,15 @@ function testConcurrentRestartsPreserveBothNewRoundRatings() {
 
   const converged = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"));
   const round = converged.__rounds.decks.hiragana;
-  const history = converged[card.id].ratingHistory;
+  const state = converged[card.id];
   const completionEvents = round.completionEvents[card.id];
   assert(round.roundGeneration === 1 && round.roundId === "round:hiragana:1", "restart epochs diverged");
   assert(round.queue.length === 0 && round.completed.includes(card.id), "restarted round did not converge");
   assert(round.rounds === 2, "concurrent restart merge double-counted or lost the completed round");
-  assert(history.length === 3 && converged[card.id].reviews === 3, "one restarted-round rating was lost");
+  assert(state.reviews === 3, "one restarted-round rating was lost");
+  assert(!Object.hasOwn(state, "ratingHistory"), "restart merge recreated unbounded history");
   assert(
-    completionEvents.length === 2 && completionEvents.every((eventId) => history.some((item) => item.eventId === eventId)),
+    completionEvents.length === 2,
     "one restarted-round completion event was silently discarded",
   );
 }
@@ -1076,11 +1152,11 @@ function testConcurrentRatingsOnSameCardAreDeduplicatedSafely() {
 
   const saved = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"))["card-a"];
   assert(saved.reviews === 2, "concurrent ratings on one card lost a review count");
-  assert(saved.ratingHistory.length === 2, "concurrent ratings on one card lost a history event");
   assert(
-    new Set(saved.ratingHistory.map((item) => item.eventId)).size === 2,
-    "concurrent rating events were not given stable unique identities",
+    typeof saved.lastEvent?.eventId === "string" && saved.lastEvent.eventId,
+    "concurrent ratings did not retain a stable latest-event identity",
   );
+  assert(!Object.hasOwn(saved, "ratingHistory"), "concurrent rating merge recreated history");
 }
 
 function testStorageEventRefreshesStaleVisibleQueue() {
@@ -1159,7 +1235,7 @@ function testStorageWriteMovesFocusOffInvalidatedUndo() {
   assert(viewer.document.activeElement === viewer.element("undoRating"), "Undo was not focused");
 
   const invalidatingStore = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"));
-  const ownEvent = invalidatingStore["card-a"].ratingHistory[0];
+  const ownEvent = invalidatingStore["card-a"].lastEvent;
   const remoteEvent = {
     at: (ownEvent.at || 0) + 1,
     eventId: "remote-replacement-event",
@@ -1167,10 +1243,9 @@ function testStorageWriteMovesFocusOffInvalidatedUndo() {
   };
   invalidatingStore["card-a"] = {
     ...invalidatingStore["card-a"],
+    lastEvent: remoteEvent,
     lastRatedAt: remoteEvent.at,
     lastRating: remoteEvent.rating,
-    ratingHistory: [remoteEvent],
-    ratingTombstones: [ownEvent.eventId],
     reviews: 1,
   };
   invalidatingStore.__rounds.decks.hiragana.completionEvents = {
@@ -1236,7 +1311,7 @@ function testConcurrentRatingUndoKeepsRemoteReviewConsistent() {
   firstTab.element("cardReveal").dispatch("click");
   firstTab.document.feedback[0].dispatch("click");
   const firstEventId = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"))["card-a"]
-    .ratingHistory[0].eventId;
+    .lastEvent.eventId;
   staleTab.element("cardReveal").dispatch("click");
   staleTab.document.feedback[2].dispatch("click");
 
@@ -1245,9 +1320,9 @@ function testConcurrentRatingUndoKeepsRemoteReviewConsistent() {
   const state = saved["card-a"];
   const round = saved.__rounds.decks.hiragana;
   assert(state.reviews === 1, "Undo removed or retained the wrong concurrent review count");
-  assert(state.ratingHistory.length === 1, "Undo did not preserve exactly the remote review event");
-  assert(state.ratingHistory[0].eventId !== firstEventId, "Undo retained its own review event");
-  assert(state.ratingTombstones.includes(firstEventId), "Undo did not persist its event tombstone");
+  assert(state.lastEvent.eventId !== firstEventId, "Undo retained its own review event");
+  assert(!Object.hasOwn(state, "ratingHistory"), "Undo recreated unbounded history");
+  assert(!Object.hasOwn(state, "ratingTombstones"), "Undo persisted unbounded tombstones");
   assert(
     round.completed.includes("card-a") && !round.queue.includes("card-a"),
     "Undo restored a queued card that still has a concurrent remote review",
@@ -1288,7 +1363,7 @@ function testOverwrittenBranchIsReconciledBackToStorage() {
   observer.element("cardReveal").dispatch("click");
   observer.document.feedback[0].dispatch("click");
   const localPayload = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"));
-  const localEvent = localPayload["card-a"].ratingHistory[0];
+  const localEvent = localPayload["card-a"].lastEvent;
   const remoteEvent = {
     at: (localEvent.at || 0) + 1,
     eventId: "remote-overwrite-event",
@@ -1297,9 +1372,9 @@ function testOverwrittenBranchIsReconciledBackToStorage() {
   const overwrittenBranch = JSON.parse(JSON.stringify(localPayload));
   overwrittenBranch["card-a"] = {
     ...overwrittenBranch["card-a"],
+    lastEvent: remoteEvent,
     lastRatedAt: remoteEvent.at,
     lastRating: remoteEvent.rating,
-    ratingHistory: [remoteEvent],
     reviews: 1,
   };
   overwrittenBranch.__meta = {
@@ -1316,10 +1391,11 @@ function testOverwrittenBranchIsReconciledBackToStorage() {
   });
 
   const reconciled = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"));
-  const eventIds = reconciled["card-a"].ratingHistory.map((item) => item.eventId);
-  assert(eventIds.includes(localEvent.eventId), "reconciliation lost the locally known event");
-  assert(eventIds.includes(remoteEvent.eventId), "reconciliation lost the overwriting remote event");
   assert(reconciled["card-a"].reviews === 2, "reconciliation produced the wrong review count");
+  assert(
+    reconciled["card-a"].lastEvent.eventId === remoteEvent.eventId,
+    "reconciliation did not retain the newest remote event",
+  );
   assert(
     reconciled.__meta.revision > overwrittenBranch.__meta.revision,
     "reconciliation did not publish a newer store revision",
@@ -1348,7 +1424,7 @@ function testUndoAgainstOtherCardCompletionReopensOnlyUndoneCard() {
   harness.element("cardReveal").dispatch("click");
   harness.document.feedback[0].dispatch("click");
   const localPayload = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
-  const eventA = localPayload[cardA.id].ratingHistory[0];
+  const eventA = localPayload[cardA.id].lastEvent;
   const eventB = {
     at: (eventA.at || 0) + 1,
     eventId: "remote-card-b-completion",
@@ -1357,10 +1433,9 @@ function testUndoAgainstOtherCardCompletionReopensOnlyUndoneCard() {
   const remotePayload = JSON.parse(JSON.stringify(localPayload));
   remotePayload[cardB.id] = {
     lastChoiceCorrectIndex: null,
+    lastEvent: eventB,
     lastRatedAt: eventB.at,
     lastRating: eventB.rating,
-    ratingHistory: [eventB],
-    ratingTombstones: [],
     reviews: 1,
   };
   remotePayload.__rounds.decks.hiragana = {
@@ -1384,7 +1459,7 @@ function testUndoAgainstOtherCardCompletionReopensOnlyUndoneCard() {
   harness.element("undoRating").dispatch("click");
   const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
   const round = saved.__rounds.decks.hiragana;
-  assert(saved[cardA.id].reviews === 0, "Undo left card A rated");
+  assert((saved[cardA.id]?.reviews || 0) === 0, "Undo left card A rated");
   assert(saved[cardB.id].reviews === 1, "Undo removed remote card B progress");
   assert(
     JSON.stringify(round.queue) === JSON.stringify([cardA.id]),
@@ -1436,10 +1511,9 @@ function testDistributedLastCardCompletionIncrementsRoundOnce() {
     const branch = JSON.parse(JSON.stringify(basePayload));
     branch[card.id] = {
       lastChoiceCorrectIndex: null,
+      lastEvent: event,
       lastRatedAt: at,
       lastRating: "clear",
-      ratingHistory: [event],
-      ratingTombstones: [],
       reviews: 1,
     };
     branch.__rounds.decks.hiragana = {
@@ -1498,51 +1572,26 @@ function testDistributedLastCardCompletionIncrementsRoundOnce() {
   assert(reloaded.element("reviewedCount").textContent === 2, "reload lost distributed completions");
 }
 
-function testMoreThanSixtyFourUndoTombstonesCannotResurrect() {
-  const tombstones = Array.from({ length: 65 }, (_, index) =>
-    `undo-event-${String(index).padStart(3, "0")}`,
-  );
-  const initialStore = JSON.stringify({
-    "card-a": {
-      lastChoiceCorrectIndex: null,
-      lastRatedAt: null,
-      lastRating: null,
-      ratingHistory: [],
-      ratingTombstones: tombstones,
-      reviews: 0,
-    },
-  });
-  const harness = createHarness({ initialStore });
-  const staleEvent = {
-    at: 1,
-    eventId: tombstones[0],
-    rating: "forgot",
-  };
-  const staleBranch = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
-  staleBranch["card-a"] = {
-    ...staleBranch["card-a"],
-    lastRatedAt: staleEvent.at,
-    lastRating: staleEvent.rating,
-    ratingHistory: [staleEvent],
-    ratingTombstones: [],
-    reviews: 1,
-  };
-  staleBranch.__meta = {
-    ...staleBranch.__meta,
-    revision: staleBranch.__meta.revision + 1,
-    writerId: "stale-tombstone-writer",
-    writeToken: "stale-tombstone-write",
-  };
-  harness.storage.set("ayaya-jp-srs-v1", JSON.stringify(staleBranch));
-  harness.emitWindow("storage", {
-    key: "ayaya-jp-srs-v1",
-    newValue: JSON.stringify(staleBranch),
-  });
+function testRepeatedReviewAndUndoKeepsStorageBounded() {
+  const harness = createHarness();
+  harness.element("cardReveal").dispatch("click");
+  let firstSize = 0;
 
-  const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"))["card-a"];
-  assert(saved.ratingTombstones.length === 65, "the 65th tombstone evicted an earlier Undo");
-  assert(saved.ratingHistory.length === 0, "stale tab resurrected an event beyond tombstone boundary");
-  assert(saved.reviews === 0, "resurrected stale event changed review count");
+  for (let index = 0; index < 70; index += 1) {
+    harness.document.feedback[index % harness.document.feedback.length].dispatch("click");
+    harness.element("undoRating").dispatch("click");
+    if (index === 0) firstSize = harness.storage.get("ayaya-jp-srs-v1").length;
+  }
+
+  const raw = harness.storage.get("ayaya-jp-srs-v1");
+  const saved = JSON.parse(raw);
+  const round = saved.__rounds.decks.hiragana;
+  assert((saved["card-a"]?.reviews || 0) === 0, "repeated Undo retained a review");
+  assert(!raw.includes("ratingHistory"), "repeated reviews recreated unbounded history");
+  assert(!raw.includes("ratingTombstones"), "repeated Undo recreated an unbounded tombstone list");
+  assert(round.reopened.length === 1, "repeated Undo duplicated its bounded reopened marker");
+  assert(round.queue.includes("card-a"), "repeated Undo did not keep the card pending");
+  assert(raw.length <= firstSize + 120, "storage kept growing with repeated review and Undo cycles");
 }
 
 function testReadyStatusDoesNotFlash() {
@@ -1683,17 +1732,16 @@ function testConcurrentUndosReopenCardsInCanonicalOrder() {
     completed: ["card-b"],
     completionEvents: { "card-b": ["event-b"] },
     queue: ["card-a", "card-c"],
+    reopened: ["card-a"],
   };
   const rightRound = {
     ...baseRound,
     completed: ["card-a"],
     completionEvents: { "card-a": ["event-a"] },
     queue: ["card-b", "card-c"],
+    reopened: ["card-b"],
   };
-  const cardStates = {
-    "card-a": { ratingTombstones: ["event-a"] },
-    "card-b": { ratingTombstones: ["event-b"] },
-  };
+  const cardStates = {};
   const merge = (left, right) =>
     harness.context.mergeConcurrentDeckRound(
       "hiragana",
@@ -1701,7 +1749,6 @@ function testConcurrentUndosReopenCardsInCanonicalOrder() {
       left,
       right,
       cardStates,
-      new Set(["event-a", "event-b"]),
     ).queue;
   const leftFirst = merge(leftRound, rightRound);
   const rightFirst = merge(rightRound, leftRound);
@@ -1833,6 +1880,28 @@ function testIdleSpeechAvoidsSafariCancelRace() {
   assert(harness.spoken.length === 2, "active replay did not schedule a replacement utterance");
 }
 
+function testSpeechFailureIsVisibleAndRetriesOnce() {
+  const harness = createHarness({ kanaCards: [baseCard({ id: "speech-error" })] });
+  harness.element("cardReveal").dispatch("click");
+  harness.spoken[0].emitError("audio-hardware");
+
+  assert(harness.spoken.length === 2, "transient speech failure did not retry once");
+  assert(
+    harness.element("speechStatus").textContent.includes("正在播放"),
+    "speech retry did not expose its playback state",
+  );
+
+  harness.spoken[1].emitError("audio-hardware");
+  assert(
+    harness.element("speechStatus").textContent.includes("播放失败"),
+    "final speech failure remained silent",
+  );
+  assert(
+    harness.element("speechStatus").dataset.state === "error",
+    "speech failure status is not marked as an error",
+  );
+}
+
 function testChoiceAnswerMarksRelevantMobileDetails() {
   const choiceCard = baseCard({
     choices: [
@@ -1884,8 +1953,9 @@ function testShuffleDoesNotUseRandomSort() {
 
 const tests = [
   ["storage failure falls back to memory", testStorageFailureFallsBackToMemory],
+  ["progress backup export and migration stay bounded", testProgressBackupExportAndMigrationStayBounded],
   ["invalid array storage is replaced", testInvalidArrayStoreIsReplaced],
-  ["rating history remains capped", testRatingHistoryIsCapped],
+  ["legacy rating history compacts to bounded state", testLegacyRatingHistoryCompactsToBoundedState],
   ["N4 legacy progress and queue migrate to stable IDs", testN4LegacyProgressAndRoundQueueMigration],
   ["N5 duplicate aliases merge and deduplicate", testN5DuplicateAliasesMergeWithoutDuplicateQueueEntries],
   ["sidebar focus and inert lifecycle", testSidebarFocusAndInertLifecycle],
@@ -1902,7 +1972,7 @@ const tests = [
   ["concurrent restarts preserve both ratings", testConcurrentRestartsPreserveBothNewRoundRatings],
   ["choice and empty decks keep valid focus", testChoiceAndEmptyDeckFocusLifecycle],
   ["stale tabs merge independent progress", testStaleTabsMergeIndependentProgressAndRounds],
-  ["concurrent ratings retain unique history", testConcurrentRatingsOnSameCardAreDeduplicatedSafely],
+  ["concurrent ratings preserve bounded aggregate progress", testConcurrentRatingsOnSameCardAreDeduplicatedSafely],
   ["storage events refresh stale queues", testStorageEventRefreshesStaleVisibleQueue],
   ["storage writes preserve choice explanations", testStorageWritePreservesCompletedChoiceExplanation],
   ["storage writes move focus off invalid Undo", testStorageWriteMovesFocusOffInvalidatedUndo],
@@ -1912,7 +1982,7 @@ const tests = [
   ["overwritten branches reconcile to storage", testOverwrittenBranchIsReconciledBackToStorage],
   ["Undo reopens only its card across same-deck writes", testUndoAgainstOtherCardCompletionReopensOnlyUndoneCard],
   ["distributed last-card completion counts once", testDistributedLastCardCompletionIncrementsRoundOnce],
-  ["more than 64 Undo tombstones remain durable", testMoreThanSixtyFourUndoTombstonesCannotResurrect],
+  ["repeated review and Undo keep storage bounded", testRepeatedReviewAndUndoKeepsStorageBounded],
   ["ready status does not flash", testReadyStatusDoesNotFlash],
   ["fresh rounds start in random order", testFreshRoundStartsInRandomOrder],
   ["legacy fixed queues migrate only once", testLegacyQueueOrderMigratesOnlyOnce],
@@ -1922,6 +1992,7 @@ const tests = [
   ["Chinese prompts do not speak hidden answers", testChinesePromptDoesNotSpeakHiddenAnswer],
   ["stale TTS callbacks are ignored", testStaleSpeechCallbackCannotUseNextCard],
   ["idle TTS avoids Safari cancel races", testIdleSpeechAvoidsSafariCancelRace],
+  ["speech failures are visible and retry once", testSpeechFailureIsVisibleAndRetriesOnce],
   ["choice answers mark relevant mobile details", testChoiceAnswerMarksRelevantMobileDetails],
   ["shuffle avoids random sort", testShuffleDoesNotUseRandomSort],
 ];

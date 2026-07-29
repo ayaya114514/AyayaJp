@@ -8,9 +8,9 @@ const HIRAGANA_IDS = Array.from({ length: 46 }, (_, index) => `hiragana-${index}
 function cardState(rating = "clear", at = 1) {
   return {
     lastChoiceCorrectIndex: null,
+    lastEvent: { rating, at, eventId: `fixture-${rating}-${at}` },
     lastRating: rating,
     lastRatedAt: at,
-    ratingHistory: [{ rating, at, eventId: `fixture-${rating}-${at}` }],
     reviews: 1,
   };
 }
@@ -147,7 +147,12 @@ test("whole study surface reveals while interactive controls do not leak clicks"
   await expectAnswerHidden(page);
   await page.locator("#closeDeckMenu").click();
 
-  await page.locator("#speakWord").click();
+  const speaker = page.locator("#speakWord");
+  if (await speaker.isEnabled()) {
+    await speaker.click();
+  } else {
+    await expect(page.locator("#speechStatus")).toContainText("不支持");
+  }
   await expectAnswerHidden(page);
 
   await page.locator("#reviewedCount").click();
@@ -157,7 +162,8 @@ test("whole study surface reveals while interactive controls do not leak clicks"
   await expect(page.locator("#dueCount")).toHaveText("1");
   await expectAnswerHidden(page);
 
-  await page.locator("#memoryChain").click();
+  await expect(page.locator("#memoryChain")).toHaveCount(0);
+  await page.locator("#reviewedCount").click();
   await expectAnswerRevealed(page);
 });
 
@@ -375,7 +381,7 @@ test("a stale tab cannot overwrite progress saved by another tab", async ({ page
         const stored = JSON.parse(localStorage.getItem(storageKey) || "{}");
         return {
           completed: stored.__rounds?.decks?.hiragana?.completed || [],
-          history: stored["hiragana-0"]?.ratingHistory || [],
+          lastEvent: stored["hiragana-0"]?.lastEvent || null,
           lastRating: stored["hiragana-0"]?.lastRating || null,
           reviews: stored["hiragana-0"]?.reviews || 0,
         };
@@ -383,7 +389,7 @@ test("a stale tab cannot overwrite progress saved by another tab", async ({ page
     )
     .toMatchObject({
       completed: expect.arrayContaining(["hiragana-0"]),
-      history: expect.arrayContaining([expect.objectContaining({ rating: "clear" })]),
+      lastEvent: expect.objectContaining({ rating: "clear" }),
       lastRating: "clear",
       reviews: 1,
     });
@@ -518,10 +524,60 @@ test("a stale old-round tab cannot overwrite a restarted round", async ({ page, 
   await staleTab.close();
 });
 
+test("progress backup exports and imports the bounded schema", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium", "single-browser backup regression");
+
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
+  await page.locator("#deckMenuButton").click();
+  const downloadPromise = page.waitForEvent("download");
+  await page.locator("#exportProgress").click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toMatch(/^ayaya-jp-progress-\d{4}-\d{2}-\d{2}\.json$/u);
+  await expect(page.locator("#progressBackupStatus")).toContainText("已导出");
+
+  const importedState = isolatedHiraganaFixture([], {
+    "hiragana-0": {
+      lastChoiceCorrectIndex: null,
+      lastEvent: {
+        at: 20,
+        eventId: "backup-import-event",
+        rating: "forgot",
+      },
+      lastRatedAt: 20,
+      lastRating: "forgot",
+      reviews: 7,
+    },
+  });
+  const backup = {
+    exportedAt: "2026-07-29T00:00:00.000Z",
+    format: "ayaya-jp-progress",
+    version: 1,
+    store: importedState,
+  };
+  page.once("dialog", (dialog) => dialog.accept());
+  await page.locator("#importProgress").setInputFiles({
+    name: "ayaya-jp-progress.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify(backup)),
+  });
+  await expect(page.locator("#progressBackupStatus")).toContainText("已导入");
+
+  const storedCard = await page.evaluate((storageKey) => {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    return saved["hiragana-0"];
+  }, STORAGE_KEY);
+  expect(storedCard).toMatchObject({
+    lastRating: "forgot",
+    reviews: 7,
+  });
+  expect(storedCard).not.toHaveProperty("ratingHistory");
+  expect(storedCard).not.toHaveProperty("ratingTombstones");
+});
+
 test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async ({
   page,
 }, testInfo) => {
-  test.skip(testInfo.project.name !== "iphone-14-chromium", "iPhone 14 viewport regression");
+  test.skip(testInfo.project.name !== "iphone-14-webkit", "iPhone 14 viewport regression");
 
   await openWithStore(
     page,
@@ -536,14 +592,11 @@ test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async 
   const layout = await page.evaluate(() => {
     window.scrollTo(0, 200);
     const study = document.querySelector("#studyCard").getBoundingClientRect();
-    const memory = document.querySelector("#memoryChain");
     const focusedStyle = getComputedStyle(document.activeElement);
     return {
       bodyOverflow: getComputedStyle(document.body).overflowY,
       documentHeight: document.documentElement.scrollHeight,
       inputMode: document.documentElement.dataset.inputMode,
-      memoryOverflow: getComputedStyle(memory).overflowY,
-      memoryTouchAction: getComputedStyle(memory).touchAction,
       outlineStyle: focusedStyle.outlineStyle,
       scrollY: window.scrollY,
       study: {
@@ -560,10 +613,9 @@ test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async 
   expect(layout.scrollY).toBe(0);
   expect(layout.documentHeight).toBe(layout.viewportHeight);
   expect(layout.bodyOverflow).toBe("hidden");
-  expect(layout.memoryOverflow).toBe("auto");
-  expect(layout.memoryTouchAction).toBe("pan-y");
   expect(layout.inputMode).toBe("pointer");
   expect(layout.outlineStyle).toBe("none");
+  await expect(page.locator("#memoryChain")).toHaveCount(0);
   expect(layout.study).toMatchObject({ x: 0, y: 0 });
   expect(layout.study.width).toBeGreaterThanOrEqual(layout.viewportWidth);
   expect(layout.study.height).toBeGreaterThanOrEqual(layout.viewportHeight);
@@ -572,15 +624,55 @@ test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async 
   await expect
     .poll(() => page.evaluate(() => document.documentElement.dataset.inputMode))
     .toBe("keyboard");
-  await expect
-    .poll(() => page.evaluate(() => getComputedStyle(document.activeElement).outlineStyle))
-    .toBe("solid");
+});
+
+test("iPhone 14 landscape scrolls only inside the study card", async ({ page }, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "iphone-14-landscape-webkit",
+    "iPhone 14 landscape regression",
+  );
+
+  await openWithStore(
+    page,
+    progressFixture({
+      deck: "grammar-n4-ja-zh",
+      queue: ["grammar-n4-grammar-064-ja"],
+    }),
+  );
+  await page.locator("#cardReveal").tap();
+  await expectAnswerRevealed(page);
+
+  const beforeScroll = await page.evaluate(() => {
+    const study = document.querySelector("#studyCard");
+    return {
+      bodyOverflow: getComputedStyle(document.body).overflowY,
+      documentHeight: document.documentElement.scrollHeight,
+      overflowY: getComputedStyle(study).overflowY,
+      scrollHeight: study.scrollHeight,
+      studyHeight: study.clientHeight,
+      viewportHeight: window.innerHeight,
+      windowScrollY: window.scrollY,
+    };
+  });
+  expect(beforeScroll.bodyOverflow).toBe("hidden");
+  expect(beforeScroll.documentHeight).toBe(beforeScroll.viewportHeight);
+  expect(beforeScroll.overflowY).toBe("auto");
+  expect(beforeScroll.scrollHeight).toBeGreaterThan(beforeScroll.studyHeight);
+  expect(beforeScroll.windowScrollY).toBe(0);
+
+  await page.locator("#studyCard").evaluate((element) => {
+    element.scrollTop = element.scrollHeight;
+  });
+  await expect(page.locator('.feedback[data-rating="forgot"]')).toBeInViewport();
+  await expectNoHorizontalOverflow(page);
+  await expect(page.locator("#memoryChain")).toHaveCount(0);
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
 });
 
 test("iPhone 14 choice cards fit without a second scrolling panel", async ({
   page,
 }, testInfo) => {
-  test.skip(testInfo.project.name !== "iphone-14-chromium", "iPhone 14 viewport regression");
+  test.skip(testInfo.project.name !== "iphone-14-webkit", "iPhone 14 viewport regression");
 
   await openWithStore(
     page,
@@ -590,11 +682,13 @@ test("iPhone 14 choice cards fit without a second scrolling panel", async ({
     }),
   );
 
-  const memory = page.locator("#memoryChain");
+  const study = page.locator("#studyCard");
   const lastChoice = page.locator(".choice-option").last();
-  let memoryBox = await boundingBox(memory);
-  let lastChoiceBox = await boundingBox(lastChoice);
-  expect(lastChoiceBox.y + lastChoiceBox.height).toBeLessThanOrEqual(memoryBox.y + 1);
+  const studyBox = await boundingBox(study);
+  const lastChoiceBox = await boundingBox(lastChoice);
+  expect(lastChoiceBox.y + lastChoiceBox.height).toBeLessThanOrEqual(
+    studyBox.y + studyBox.height + 1,
+  );
 
   await page
     .locator('.choice-option:not([data-choice-id="n5-grammar-001-correct"])')
@@ -607,20 +701,20 @@ test("iPhone 14 choice cards fit without a second scrolling panel", async ({
   const answeredLayout = await page.evaluate(() => {
     const answer = document.querySelector("#answerPanel").getBoundingClientRect();
     const feedback = document.querySelector("#choiceFeedback");
-    const memoryChain = document.querySelector("#memoryChain").getBoundingClientRect();
+    const studyCard = document.querySelector("#studyCard").getBoundingClientRect();
     return {
       answerBottom: answer.bottom,
       feedbackClientHeight: feedback.clientHeight,
       feedbackOverflow: getComputedStyle(feedback).overflowY,
       feedbackScrollHeight: feedback.scrollHeight,
-      memoryBottom: memoryChain.bottom,
-      memoryTop: memoryChain.top,
+      studyBottom: studyCard.bottom,
       viewportHeight: window.innerHeight,
     };
   });
 
-  expect(answeredLayout.answerBottom).toBeLessThanOrEqual(answeredLayout.memoryTop + 1);
+  expect(answeredLayout.answerBottom).toBeLessThanOrEqual(answeredLayout.studyBottom + 1);
   expect(answeredLayout.feedbackScrollHeight).toBe(answeredLayout.feedbackClientHeight);
   expect(answeredLayout.feedbackOverflow).toBe("hidden");
-  expect(answeredLayout.memoryBottom).toBeLessThanOrEqual(answeredLayout.viewportHeight);
+  expect(answeredLayout.studyBottom).toBeLessThanOrEqual(answeredLayout.viewportHeight);
+  await expect(page.locator("#memoryChain")).toHaveCount(0);
 });

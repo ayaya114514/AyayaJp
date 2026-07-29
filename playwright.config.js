@@ -27,14 +27,12 @@ module.exports = defineConfig({
       },
     },
     {
-      name: "iphone-14-chromium",
-      use: {
-        ...devices["Desktop Chrome"],
-        deviceScaleFactor: 3,
-        hasTouch: true,
-        isMobile: true,
-        viewport: { width: 390, height: 664 },
-      },
+      name: "iphone-14-webkit",
+      use: { ...devices["iPhone 14"] },
+    },
+    {
+      name: "iphone-14-landscape-webkit",
+      use: { ...devices["iPhone 14 landscape"] },
     },
   ],
   webServer: {

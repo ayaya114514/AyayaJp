@@ -2,7 +2,7 @@
 
 一个本地运行的日语 flashcard 程序，包含假名互记、N5/N4 单词双向记忆、N5/N4 语法练习，以及对应错题集。点击卡片翻面时会自动播放读音，答案区也可以手动重播。
 界面目前固定使用深色模式，没有浅色 / 深色切换按钮。
-手机学习界面会铺满当前可用 viewport，并锁定页面本身的纵向滚动；记忆链条与模块抽屉保留各自需要的 touch scrolling。iOS 重播会避开 WebKit 中紧邻 `cancel()` / `speak()` 的竞争，并在临时合成失败时自动重试一次。
+手机学习界面会铺满当前可用 viewport，并锁定页面本身的纵向滚动；只有模块抽屉和高度很小的横屏卡片允许内部 touch scrolling。iOS 重播会避开 WebKit 中紧邻 `cancel()` / `speak()` 的竞争，在临时合成失败时自动重试一次，并显示明确的播放状态或错误提示。
 
 在线网址：[https://ayaya114514.github.io/AyayaJp/](https://ayaya114514.github.io/AyayaJp/)
 
@@ -29,16 +29,16 @@ npm run check
 
 `npm run check` 会依次运行 source/runtime/DOM validation、bundle baseline validation 和 app contract tests。它会检查 JS 语法、HTML 结构与本地资源、脚本依赖顺序、N5/N4 JS/JSON 数据一致性、词库和语法字段完整性、romaji regression cases、lazy card builders、stable/legacy IDs，以及 app 的 storage、TTS、sidebar 等关键 contracts。
 
-完整测试还会运行真实 Chromium，在 desktop、320×640 mobile viewport 与 iPhone 14 的 390×664 可用 viewport 检查卡片布局、整面点击、focus、Undo、多标签页进度合并和刷新行为：
+完整测试还会运行真实 Chromium 与 WebKit，在 desktop、320×640 mobile viewport、iPhone 14 的 390×664 可用 viewport 和横屏 viewport 检查卡片布局、整面点击、focus、Undo、多标签页进度合并、备份与刷新行为：
 
 ```bash
 npm test
 ```
 
-首次在本机运行前如尚未安装 Chromium，可执行：
+首次在本机运行前如尚未安装 Chromium / WebKit，可执行：
 
 ```bash
-npx playwright install chromium
+npx playwright install chromium webkit
 ```
 
 GitHub Pages 只会在 contracts 和 browser regressions 全部通过后部署。部署 artifact 会为 CSS/JS 加入基于 commit 的版本参数，避免发布后的 CDN cache 混用新旧资源。
@@ -60,9 +60,11 @@ Updater 是 deterministic 的，并会在 N5/N4 JS/JSON 未同步时拒绝改写
 - 语法模块按 N5/N4 分开练 `中→日`、`日→中`、`文型` 和 `选择题`；普通语法卡选择 `不确定` 或 `遗忘` 后会进入对应语法错题集。
 - 语法选择题覆盖每条 N5/N4 语法；每轮重新开始会重新打乱题目顺序，每题选项顺序也会重新打乱，并避免正确项连续落在同一位置。
 - 语法选择题答题后只保留你的选择与正确项解释，避免 mobile viewport 被无关干扰项和重复例句撑出屏幕。
-- 答案区底部会显示当前卡片最近的记忆链条，保留最近 12 次评分记录；选择题会记录 `选择正确` / `选择错误`。
+- 选择题会保留最近一次选择结果，以便刷新或多标签页同步后继续显示正确解释。
 
-所有进度保存在浏览器 `localStorage` 中。
+所有进度保存在浏览器 `localStorage` 中。存储使用 bounded schema：每张卡只保留累计次数、最近评分和单个同步事件，不保存随练习次数增长的记忆链条或 Undo tombstone history；“完成轮数”只是一个数字，不会按轮追加记录。
+
+模块抽屉底部提供 `导出` / `导入` JSON 进度备份。浏览器数据仍可能被手动清理或因隐私模式而消失，建议在重要进度后主动导出。
 
 ## 词库数据来源
 

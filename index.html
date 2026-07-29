@@ -222,6 +222,27 @@
             </div>
           </section>
         </nav>
+        <section class="progress-backup" aria-labelledby="progressBackupTitle">
+          <h3 id="progressBackupTitle">进度备份</h3>
+          <p>导入会覆盖当前浏览器中的学习进度。</p>
+          <div class="progress-backup-actions">
+            <button class="backup-button" id="exportProgress" type="button">导出</button>
+            <button class="backup-button" id="importProgressLabel" type="button">导入</button>
+            <input
+              id="importProgress"
+              type="file"
+              accept="application/json,.json"
+              hidden
+            />
+          </div>
+          <p
+            class="progress-backup-status"
+            id="progressBackupStatus"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></p>
+        </section>
       </aside>
 
       <section class="study-area" aria-labelledby="appTitle" aria-busy="true">
@@ -298,6 +319,13 @@
             <button class="icon-button prompt-speak" id="speakWord" type="button" title="播放读音" aria-label="播放读音">
               ▶
             </button>
+            <div
+              class="speech-status"
+              id="speechStatus"
+              role="status"
+              aria-live="polite"
+              hidden
+            ></div>
           </div>
 
           <div class="answer-panel" id="answerPanel" aria-hidden="true">
@@ -317,7 +345,6 @@
             </div>
             <button class="primary-button choice-next" id="choiceNext" type="button" hidden>下一题</button>
           </div>
-          <div class="memory-chain" id="memoryChain" aria-label="记忆链条"></div>
         </div>
 
         <div class="empty-state" id="emptyState" hidden>
