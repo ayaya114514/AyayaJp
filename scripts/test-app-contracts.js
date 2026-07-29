@@ -1820,6 +1820,10 @@ function testIdleSpeechAvoidsSafariCancelRace() {
   harness.element("cardReveal").dispatch("click");
   assert(harness.spoken.length === 1, "reveal did not start speech");
   assert(
+    harness.spoken[0].voice == null,
+    "speech forced a device-specific voice instead of using the browser default",
+  );
+  assert(
     harness.speechSynthesis.cancelCount === 0,
     "idle speech was canceled immediately before playback",
   );

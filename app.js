@@ -1901,15 +1901,6 @@ function handleSidebarKeydown(event) {
   }
 }
 
-function japaneseVoice(synthesizer) {
-  const voices = synthesizer.getVoices?.() || [];
-  return (
-    voices.find((voice) => voice.lang?.toLowerCase() === "ja-jp") ||
-    voices.find((voice) => voice.lang?.toLowerCase().startsWith("ja")) ||
-    null
-  );
-}
-
 function scheduleSpeechStart(text, options, generation, delay = 0, attempt = 0) {
   const start = () => {
     speechStartTimer = null;
@@ -1921,8 +1912,6 @@ function scheduleSpeechStart(text, options, generation, delay = 0, attempt = 0) 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
     utterance.rate = 0.82;
-    const voice = japaneseVoice(synthesizer);
-    if (voice) utterance.voice = voice;
     activeSpeechUtterance = utterance;
 
     utterance.addEventListener(
