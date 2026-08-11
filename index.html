@@ -222,27 +222,6 @@
             </div>
           </section>
         </nav>
-        <section class="progress-backup" aria-labelledby="progressBackupTitle">
-          <h3 id="progressBackupTitle">进度备份</h3>
-          <p>导入会覆盖当前浏览器中的学习进度。</p>
-          <div class="progress-backup-actions">
-            <button class="backup-button" id="exportProgress" type="button">导出</button>
-            <button class="backup-button" id="importProgressLabel" type="button">导入</button>
-            <input
-              id="importProgress"
-              type="file"
-              accept="application/json,.json"
-              hidden
-            />
-          </div>
-          <p
-            class="progress-backup-status"
-            id="progressBackupStatus"
-            role="status"
-            aria-live="polite"
-            hidden
-          ></p>
-        </section>
       </aside>
 
       <section class="study-area" aria-labelledby="appTitle" aria-busy="true">
@@ -350,7 +329,15 @@
         <div class="empty-state" id="emptyState" hidden>
           <h2>当前模块完成</h2>
           <p id="roundStatusText"></p>
-          <button class="primary-button empty-menu-button" id="emptyDeckMenuButton" type="button">切换模块</button>
+          <button
+            class="primary-button empty-menu-button"
+            id="emptyDeckMenuButton"
+            type="button"
+            aria-controls="deckSidebar"
+            aria-expanded="false"
+          >
+            切换模块
+          </button>
           <button class="primary-button restart-button" id="studyAnyWay" type="button">重新开始</button>
         </div>
       </section>

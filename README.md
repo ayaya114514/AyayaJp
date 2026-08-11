@@ -29,7 +29,7 @@ npm run check
 
 `npm run check` 会依次运行 source/runtime/DOM validation、bundle baseline validation 和 app contract tests。它会检查 JS 语法、HTML 结构与本地资源、脚本依赖顺序、N5/N4 JS/JSON 数据一致性、词库和语法字段完整性、romaji regression cases、lazy card builders、stable/legacy IDs，以及 app 的 storage、TTS、sidebar 等关键 contracts。
 
-完整测试还会运行真实 Chromium 与 WebKit，在 desktop、320×640 mobile viewport、iPhone 14 的 390×664 可用 viewport 和横屏 viewport 检查卡片布局、整面点击、focus、Undo、多标签页进度合并、备份与刷新行为：
+完整测试还会运行真实 Chromium 与 WebKit，在 desktop、320×640 mobile viewport、iPhone 14 的 390×664 可用 viewport 和横屏 viewport 检查卡片布局、整面点击、focus、Back/Undo、多标签页进度合并与刷新行为：
 
 ```bash
 npm test
@@ -63,8 +63,6 @@ Updater 是 deterministic 的，并会在 N5/N4 JS/JSON 未同步时拒绝改写
 - 选择题会保留最近一次选择结果，以便刷新或多标签页同步后继续显示正确解释。
 
 所有进度保存在浏览器 `localStorage` 中。存储使用 bounded schema：每张卡只保留累计次数、最近评分和单个同步事件，不保存随练习次数增长的记忆链条或 Undo tombstone history；“完成轮数”只是一个数字，不会按轮追加记录。
-
-模块抽屉底部提供 `导出` / `导入` JSON 进度备份。浏览器数据仍可能被手动清理或因隐私模式而消失，建议在重要进度后主动导出。
 
 ## 词库数据来源
 

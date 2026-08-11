@@ -1,12 +1,11 @@
 const STORAGE_KEY = "ayaya-jp-srs-v1";
 const ROUND_STATE_KEY = "__rounds";
 const SIDEBAR_STATE_KEY = "ayaya-jp-sidebar-v1";
+const SIDEBAR_HISTORY_STATE_KEY = "__ayayaJpSidebarOpen";
 const STORE_META_KEY = "__meta";
 const STORE_SCHEMA_VERSION = 4;
 const ROUND_QUEUE_ORDER_VERSION = 1;
 const VALID_RATINGS = new Set(["clear", "unsure", "forgot", "correct", "wrong"]);
-const PROGRESS_BACKUP_FORMAT = "ayaya-jp-progress";
-const PROGRESS_BACKUP_VERSION = 1;
 
 const cardData = window.AYAYA_JP_CARD_DATA;
 const isCardDataMissing = !cardData;
@@ -73,16 +72,12 @@ const elements = {
   emptyState: document.querySelector("#emptyState"),
   exampleBlock: document.querySelector("#exampleBlock"),
   examplesList: document.querySelector("#examplesList"),
-  exportProgress: document.querySelector("#exportProgress"),
   fatalErrorBanner: document.querySelector("#fatalErrorBanner"),
   flashcard: document.querySelector("#flashcard"),
-  importProgress: document.querySelector("#importProgress"),
-  importProgressLabel: document.querySelector("#importProgressLabel"),
   closeDeckMenu: document.querySelector("#closeDeckMenu"),
   deckMenuButton: document.querySelector("#deckMenuButton"),
   deckSidebar: document.querySelector("#deckSidebar"),
   loadErrorBanner: document.querySelector("#loadErrorBanner"),
-  progressBackupStatus: document.querySelector("#progressBackupStatus"),
   roundStatusText: document.querySelector("#roundStatusText"),
   reviewedCount: document.querySelector("#reviewedCount"),
   sidebarBackdrop: document.querySelector("#sidebarBackdrop"),
@@ -120,6 +115,7 @@ let speechStartTimer = null;
 let speechBlockedUntil = 0;
 let activeSpeechUtterance = null;
 let sidebarReturnFocus = null;
+let sidebarHistoryClosing = false;
 const sessionQueues = {};
 const sessionCompleted = {};
 const sessionCompletionEvents = {};
@@ -1772,6 +1768,12 @@ function updateUndoButton() {
   elements.undoRating.disabled = !lastReview;
 }
 
+function clearLastReview() {
+  lastReview = null;
+  restoreUndoButtonHome();
+  updateUndoButton();
+}
+
 function hasConcurrentReview(snapshot, persistedState) {
   const persisted = compactCardState(persistedState) || defaultState();
   const previousReviews = reviewCount(snapshot.previousState);
@@ -1850,119 +1852,98 @@ function undoLastReview() {
   focusPrimaryStudyAction();
 }
 
-function setProgressBackupStatus(message, state = "") {
-  elements.progressBackupStatus.textContent = message;
-  elements.progressBackupStatus.hidden = !message;
-  if (state) elements.progressBackupStatus.dataset.state = state;
-  else delete elements.progressBackupStatus.dataset.state;
-}
-
-function exportProgressBackup() {
-  const payload = {
-    format: PROGRESS_BACKUP_FORMAT,
-    version: PROGRESS_BACKUP_VERSION,
-    exportedAt: new Date().toISOString(),
-    store: compactStoreForPersistence(store),
-  };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], {
-    type: "application/json",
-  });
-  const downloadUrl = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  const date = payload.exportedAt.slice(0, 10);
-  link.href = downloadUrl;
-  link.download = `ayaya-jp-progress-${date}.json`;
-  document.body.append(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(downloadUrl);
-  setProgressBackupStatus("进度备份已导出。", "success");
-}
-
-function importedStoreFromPayload(payload) {
-  if (
-    !isStoreObject(payload) ||
-    payload.format !== PROGRESS_BACKUP_FORMAT ||
-    payload.version !== PROGRESS_BACKUP_VERSION ||
-    !isStoreObject(payload.store)
-  ) {
-    throw new Error("invalid backup");
-  }
-  if (Object.keys(payload.store).length > 10_000) {
-    throw new Error("backup is too large");
-  }
-  return compactStoreForPersistence(payload.store);
-}
-
-async function importProgressBackup(file) {
-  if (!file) return;
-  try {
-    if (file.size > 10 * 1024 * 1024) throw new Error("backup is too large");
-    const payload = JSON.parse(await file.text());
-    const importedStore = importedStoreFromPayload(payload);
-    if (!window.confirm("导入会覆盖当前浏览器中的学习进度。确定继续吗？")) {
-      setProgressBackupStatus("已取消导入。");
-      return;
-    }
-
-    importedStore[STORE_META_KEY] = {
-      schemaVersion: STORE_SCHEMA_VERSION,
-      savedAt: Date.now(),
-      writerId: storeWriterId,
-      revision: storeRevision(store) + 1,
-      writeToken: `${storeWriterId}:import:${Date.now()}`,
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(importedStore));
-    store = importedStore;
-    lastSyncedStore = cloneStore(importedStore);
-    seenWriterRevisions.clear();
-    recordStoreRevision(importedStore);
-    lastReview = null;
-    syncSessionRoundState();
-    if (isDeckDataMissing(activeDeck)) activeDeck = "hiragana";
-    expandSidebarForDeck(activeDeck);
-    nextCard();
-    setSidebarOpen(false, { restoreFocus: false });
-    focusPrimaryStudyAction();
-    setProgressBackupStatus("进度备份已导入。", "success");
-  } catch (error) {
-    console.error("Could not import progress backup:", error);
-    setProgressBackupStatus("导入失败：请选择由 AyayaJp 导出的 JSON 备份。", "error");
-  } finally {
-    elements.importProgress.value = "";
-  }
-}
-
 function sidebarFocusableElements() {
   return [...elements.deckSidebar.querySelectorAll("button:not(:disabled), [href], [tabindex]")].filter(
     (element) => element.tabIndex >= 0 && !element.closest("[hidden]"),
   );
 }
 
+function isSidebarHistoryEntry(state = window.history?.state) {
+  return isStoreObject(state) && state[SIDEBAR_HISTORY_STATE_KEY] === true;
+}
+
+function pushSidebarHistoryEntry() {
+  if (sidebarHistoryClosing || !window.history?.pushState || isSidebarHistoryEntry()) return;
+  const currentState = isStoreObject(window.history.state) ? window.history.state : {};
+  try {
+    window.history.pushState({ ...currentState, [SIDEBAR_HISTORY_STATE_KEY]: true }, "");
+  } catch {
+    // The drawer remains usable when an embedded browser blocks History API writes.
+  }
+}
+
+function consumeSidebarHistoryEntry() {
+  if (!window.history?.back || !isSidebarHistoryEntry()) {
+    sidebarHistoryClosing = false;
+    return;
+  }
+  sidebarHistoryClosing = true;
+  try {
+    window.history.back();
+  } catch {
+    sidebarHistoryClosing = false;
+    // Closing the drawer must not depend on History API availability.
+  }
+}
+
+function canReceiveSidebarReturnFocus(element) {
+  return Boolean(
+    element?.isConnected &&
+      !element.disabled &&
+      !element.hidden &&
+      !element.closest?.("[hidden]") &&
+      !element.closest?.(".study-area")?.inert,
+  );
+}
+
+function sidebarReturnTarget() {
+  return [sidebarReturnFocus, elements.emptyDeckMenuButton, elements.deckMenuButton].find(
+    canReceiveSidebarReturnFocus,
+  );
+}
+
 function setSidebarOpen(isOpen, options = {}) {
   const wasOpen = elements.deckSidebar.classList.contains("is-open");
   const shouldRestoreFocus = options.restoreFocus !== false;
+  const shouldSyncHistory = options.syncHistory !== false;
+  if (isOpen && shouldSyncHistory && sidebarHistoryClosing) return;
 
   if (isOpen && !wasOpen) {
-    sidebarReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const activeElement = document.activeElement;
+    sidebarReturnFocus =
+      activeElement instanceof HTMLElement && activeElement !== document.body
+        ? activeElement
+        : elements.deckMenuButton;
+    if (shouldSyncHistory) pushSidebarHistoryEntry();
   }
 
   elements.deckSidebar.classList.toggle("is-open", isOpen);
   elements.deckSidebar.setAttribute("aria-hidden", String(!isOpen));
   elements.deckMenuButton.setAttribute("aria-expanded", String(isOpen));
+  elements.emptyDeckMenuButton.setAttribute("aria-expanded", String(isOpen));
   elements.sidebarBackdrop.hidden = !isOpen;
   elements.deckSidebar.inert = !isOpen;
   elements.studyArea.inert = isOpen;
 
   if (isOpen) {
-    window.requestAnimationFrame(() => elements.closeDeckMenu.focus());
+    window.requestAnimationFrame(() => {
+      if (elements.deckSidebar.classList.contains("is-open") && !elements.deckSidebar.inert) {
+        elements.closeDeckMenu.focus();
+      }
+    });
     return;
   }
 
-  if (wasOpen && shouldRestoreFocus && sidebarReturnFocus?.isConnected) {
-    sidebarReturnFocus.focus();
+  if (wasOpen && shouldRestoreFocus) {
+    sidebarReturnTarget()?.focus();
   }
   sidebarReturnFocus = null;
+  if (wasOpen && shouldSyncHistory) consumeSidebarHistoryEntry();
+}
+
+function handleSidebarHistoryChange(event) {
+  sidebarHistoryClosing = false;
+  setSidebarOpen(isSidebarHistoryEntry(event.state), { syncHistory: false });
 }
 
 function handleSidebarKeydown(event) {
@@ -2190,6 +2171,7 @@ function restartDeckRound() {
     renderEmpty(deckCards);
     return;
   }
+  clearLastReview();
   const completedOrder = [...(sessionCompleted[activeDeck] || [])];
   const previousOrder =
     completedOrder.length === deckCards.length ? completedOrder : sessionQueues[activeDeck];
@@ -2229,6 +2211,9 @@ function showFatalError(error) {
     elements.deckSidebar.setAttribute("aria-hidden", "true");
   }
   if (elements.deckMenuButton) elements.deckMenuButton.setAttribute("aria-expanded", "false");
+  if (elements.emptyDeckMenuButton) {
+    elements.emptyDeckMenuButton.setAttribute("aria-expanded", "false");
+  }
   if (elements.sidebarBackdrop) elements.sidebarBackdrop.hidden = true;
   if (elements.studyCard) elements.studyCard.hidden = false;
   if (elements.emptyState) elements.emptyState.hidden = true;
@@ -2352,6 +2337,9 @@ function handleStoreStorageChange(event) {
 function bindInteractions() {
   elements.cardReveal.addEventListener("click", revealCard);
   elements.studyCard.addEventListener("click", revealFromStudySurface);
+  window.addEventListener("popstate", (event) =>
+    runSafely(() => handleSidebarHistoryChange(event)),
+  );
   window.addEventListener("storage", (event) => runSafely(() => handleStoreStorageChange(event)));
 
   elements.feedbackButtons.forEach((button) => {
@@ -2364,7 +2352,9 @@ function bindInteractions() {
   elements.tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
       runSafely(() => {
-        activeDeck = tab.dataset.deck;
+        const nextDeck = tab.dataset.deck;
+        if (nextDeck !== activeDeck) clearLastReview();
+        activeDeck = nextDeck;
         expandSidebarForDeck(activeDeck);
         saveRoundState();
         setSidebarOpen(false, { restoreFocus: false });
@@ -2402,21 +2392,6 @@ function bindInteractions() {
   elements.undoRating.addEventListener("click", (event) => {
     event.stopPropagation();
     runSafely(undoLastReview);
-  });
-
-  elements.exportProgress.addEventListener("click", (event) => {
-    event.stopPropagation();
-    runSafely(exportProgressBackup);
-  });
-
-  elements.importProgressLabel.addEventListener("click", (event) => {
-    event.stopPropagation();
-    elements.importProgress.click();
-  });
-
-  elements.importProgress.addEventListener("change", (event) => {
-    event.stopPropagation();
-    importProgressBackup(event.target.files?.[0]);
   });
 
   elements.choiceNext.addEventListener("click", (event) => {
@@ -2472,7 +2447,7 @@ function initializeApp() {
   applyDeckGroupState();
   applyDeckLevelState();
   expandSidebarForDeck(activeDeck);
-  setSidebarOpen(false, { restoreFocus: false });
+  setSidebarOpen(isSidebarHistoryEntry(), { restoreFocus: false, syncHistory: false });
   renderLoadStatus();
   nextCard();
   if (storeNeedsCompaction) saveStore();

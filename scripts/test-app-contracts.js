@@ -251,10 +251,6 @@ class FakeDocument {
     this.querySelector("#deckSidebar").append(
       this.querySelector("#closeDeckMenu"),
       ...this.tabs,
-      this.querySelector("#exportProgress"),
-      this.querySelector("#importProgressLabel"),
-      this.querySelector("#importProgress"),
-      this.querySelector("#progressBackupStatus"),
     );
   }
 
@@ -284,8 +280,6 @@ class FakeDocument {
         "closeDeckMenu",
         "deckMenuButton",
         "emptyDeckMenuButton",
-        "exportProgress",
-        "importProgressLabel",
         "speakWord",
         "studyAnyWay",
         "undoRating",
@@ -405,9 +399,6 @@ function createHarness({
     dispatchEvent(type, event) {
       (windowListeners.get(type) || []).forEach((listener) => listener(event));
     },
-    confirm() {
-      return true;
-    },
     clearTimeout() {},
     requestAnimationFrame(callback) {
       callback();
@@ -420,11 +411,9 @@ function createHarness({
     speechSynthesis,
   };
   const context = {
-    Blob,
     HTMLElement: FakeElement,
     Math: Object.assign(Object.create(Math), { random }),
     SpeechSynthesisUtterance: FakeUtterance,
-    URL,
     clearTimeout,
     console,
     document,
@@ -463,43 +452,6 @@ function testStorageFailureFallsBackToMemory() {
   assert(
     harness.element("loadErrorBanner").textContent.includes("无法写入"),
     "storage write failure is not visible to the user",
-  );
-}
-
-function testProgressBackupExportAndMigrationStayBounded() {
-  const harness = createHarness();
-  harness.element("cardReveal").dispatch("click");
-  harness.document.feedback[0].dispatch("click");
-  harness.element("exportProgress").dispatch("click");
-
-  assert(
-    harness.element("progressBackupStatus").textContent.includes("已导出"),
-    "progress export did not confirm success",
-  );
-
-  const imported = harness.context.importedStoreFromPayload({
-    format: "ayaya-jp-progress",
-    version: 1,
-    store: {
-      "legacy-card": {
-        lastRatedAt: 2,
-        lastRating: "clear",
-        ratingHistory: [
-          { at: 1, eventId: "legacy-one", rating: "forgot" },
-          { at: 2, eventId: "legacy-two", rating: "clear" },
-        ],
-        reviews: 2,
-      },
-    },
-  });
-  assert(imported["legacy-card"].reviews === 2, "backup migration lost the aggregate count");
-  assert(
-    imported["legacy-card"].lastEvent.eventId === "legacy-two",
-    "backup migration lost the newest event",
-  );
-  assert(
-    !Object.hasOwn(imported["legacy-card"], "ratingHistory"),
-    "backup import retained unbounded legacy history",
   );
 }
 
@@ -839,6 +791,49 @@ function testLastCardUndoRemainsVisibleAndRestoresFocus() {
   assert(
     harness.document.activeElement === harness.element("answerPanel"),
     "Undo did not focus the restored card's next valid action",
+  );
+}
+
+function testContextChangesClearStaleUndo() {
+  const hiragana = baseCard({ id: "undo-context-hiragana", prompt: "ひらがな" });
+  const katakana = baseCard({
+    deck: "katakana",
+    id: "undo-context-katakana",
+    prompt: "カタカナ",
+  });
+  const switched = createHarness({
+    kanaCards: [hiragana, katakana],
+    tabDecks: ["hiragana", "katakana"],
+  });
+  switched.element("cardReveal").dispatch("click");
+  switched.document.feedback[0].dispatch("click");
+  assert(!switched.element("undoRating").disabled, "rating did not enable Undo");
+
+  switched.tabs[1].dispatch("click");
+  assert(
+    switched.element("cardPrompt").textContent === "カタカナ",
+    "deck switch did not show the selected deck",
+  );
+  assert(switched.element("undoRating").disabled, "deck switch retained a stale Undo");
+  assert(
+    switched.element("undoRating").parentElement === switched.document.querySelector(".stats-grid"),
+    "deck switch left disabled Undo inside the previous deck's empty state",
+  );
+  switched.element("undoRating").dispatch("click");
+  assert(
+    switched.element("cardPrompt").textContent === "カタカナ",
+    "stale Undo returned to the previous deck",
+  );
+
+  const restarted = createHarness();
+  restarted.element("cardReveal").dispatch("click");
+  restarted.document.feedback[0].dispatch("click");
+  restarted.element("studyAnyWay").dispatch("click");
+  assert(restarted.element("studyCard").hidden === false, "restart did not reopen the deck");
+  assert(restarted.element("undoRating").disabled, "restart retained the previous round's Undo");
+  assert(
+    restarted.element("undoRating").parentElement === restarted.document.querySelector(".stats-grid"),
+    "restart left disabled Undo inside the completed state",
   );
 }
 
@@ -1954,7 +1949,6 @@ function testShuffleDoesNotUseRandomSort() {
 
 const tests = [
   ["storage failure falls back to memory", testStorageFailureFallsBackToMemory],
-  ["progress backup export and migration stay bounded", testProgressBackupExportAndMigrationStayBounded],
   ["invalid array storage is replaced", testInvalidArrayStoreIsReplaced],
   ["legacy rating history compacts to bounded state", testLegacyRatingHistoryCompactsToBoundedState],
   ["N4 legacy progress and queue migrate to stable IDs", testN4LegacyProgressAndRoundQueueMigration],
@@ -1966,6 +1960,7 @@ const tests = [
   ["study surface excludes interactive descendants", testStudySurfaceExcludesInteractiveDescendants],
   ["reveal and rating focus valid actions", testRevealAndRatingMoveFocusToValidActions],
   ["last-card Undo remains visible", testLastCardUndoRemainsVisibleAndRestoresFocus],
+  ["context changes clear stale Undo", testContextChangesClearStaleUndo],
   ["completed rounds can restart safely", testCompletedRoundCanRestartWithoutStaleMerge],
   ["legacy completed rounds cannot override restarts", testLegacyCompletedRoundCannotOverrideRestartedEpoch],
   ["stale tabs cannot complete cards in newer rounds", testStaleTabCannotCompleteCardInNewerRound],

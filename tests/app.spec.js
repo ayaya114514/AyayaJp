@@ -358,6 +358,57 @@ test("the last card keeps Undo visible, focused, and usable", async ({ page }) =
   await expect(page.locator("#answerPanel")).toBeFocused();
 });
 
+test("changing modules clears Undo from the previous deck", async ({ page }) => {
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
+  await page.locator("#cardReveal").click();
+  await page.locator('.feedback[data-rating="clear"]').click();
+  await expect(page.locator("#emptyState #undoRating")).toBeEnabled();
+
+  const emptyMenuButton = page.locator("#emptyDeckMenuButton");
+  await expect(emptyMenuButton).toHaveAttribute("aria-controls", "deckSidebar");
+  await expect(emptyMenuButton).toHaveAttribute("aria-expanded", "false");
+  await emptyMenuButton.click();
+  await expect(emptyMenuButton).toHaveAttribute("aria-expanded", "true");
+  await page.locator('[data-deck="katakana"]').click();
+
+  await expect(page.locator("#studyCard")).toBeVisible();
+  await expect(page.locator(".stats-grid #undoRating")).toBeDisabled();
+  await expect(page.locator('[data-deck="katakana"]')).toHaveAttribute("aria-pressed", "true");
+  await expect(emptyMenuButton).toHaveAttribute("aria-expanded", "false");
+});
+
+test("browser Back closes the module drawer before leaving the app", async ({ page }) => {
+  await page.goto("/?previous=1");
+  await waitForApp(page);
+  await page.goto("/");
+  await waitForApp(page);
+
+  await page.locator("#deckMenuButton").click();
+  await expect(page.locator("#deckSidebar")).toHaveClass(/\bis-open\b/);
+  await expect(page.locator(".study-area")).toHaveJSProperty("inert", true);
+
+  await page.goBack();
+  await expect(page).toHaveURL("http://127.0.0.1:4173/");
+  await expect(page.locator("#deckSidebar")).not.toHaveClass(/\bis-open\b/);
+  await expect(page.locator("#deckSidebar")).toHaveAttribute("aria-hidden", "true");
+  await expect(page.locator(".study-area")).toHaveJSProperty("inert", false);
+  await expect(page.locator("#deckMenuButton")).toBeFocused();
+
+  await page.goForward();
+  await expect(page.locator("#deckSidebar")).toHaveClass(/\bis-open\b/);
+  await page.reload();
+  await waitForApp(page);
+  await expect(page.locator("#deckSidebar")).toHaveClass(/\bis-open\b/);
+  await page.locator("#closeDeckMenu").click();
+  await expect(page.locator("#deckSidebar")).not.toHaveClass(/\bis-open\b/);
+  await expect
+    .poll(() => page.evaluate(() => history.state?.__ayayaJpSidebarOpen === true))
+    .toBe(false);
+
+  await page.goBack();
+  await expect(page).toHaveURL("http://127.0.0.1:4173/?previous=1");
+});
+
 test("a stale tab cannot overwrite progress saved by another tab", async ({ page, context }) => {
   const initialState = isolatedHiraganaFixture(["hiragana-0", "hiragana-1"]);
   await openWithStore(page, initialState, { ignoreStorageEvents: true });
@@ -522,56 +573,6 @@ test("a stale old-round tab cannot overwrite a restarted round", async ({ page, 
 
   await verifyTab.close();
   await staleTab.close();
-});
-
-test("progress backup exports and imports the bounded schema", async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== "desktop-chromium", "single-browser backup regression");
-
-  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
-  await page.locator("#deckMenuButton").click();
-  const downloadPromise = page.waitForEvent("download");
-  await page.locator("#exportProgress").click();
-  const download = await downloadPromise;
-  expect(download.suggestedFilename()).toMatch(/^ayaya-jp-progress-\d{4}-\d{2}-\d{2}\.json$/u);
-  await expect(page.locator("#progressBackupStatus")).toContainText("已导出");
-
-  const importedState = isolatedHiraganaFixture([], {
-    "hiragana-0": {
-      lastChoiceCorrectIndex: null,
-      lastEvent: {
-        at: 20,
-        eventId: "backup-import-event",
-        rating: "forgot",
-      },
-      lastRatedAt: 20,
-      lastRating: "forgot",
-      reviews: 7,
-    },
-  });
-  const backup = {
-    exportedAt: "2026-07-29T00:00:00.000Z",
-    format: "ayaya-jp-progress",
-    version: 1,
-    store: importedState,
-  };
-  page.once("dialog", (dialog) => dialog.accept());
-  await page.locator("#importProgress").setInputFiles({
-    name: "ayaya-jp-progress.json",
-    mimeType: "application/json",
-    buffer: Buffer.from(JSON.stringify(backup)),
-  });
-  await expect(page.locator("#progressBackupStatus")).toContainText("已导入");
-
-  const storedCard = await page.evaluate((storageKey) => {
-    const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
-    return saved["hiragana-0"];
-  }, STORAGE_KEY);
-  expect(storedCard).toMatchObject({
-    lastRating: "forgot",
-    reviews: 7,
-  });
-  expect(storedCard).not.toHaveProperty("ratingHistory");
-  expect(storedCard).not.toHaveProperty("ratingTombstones");
 });
 
 test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async ({

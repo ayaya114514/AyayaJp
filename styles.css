@@ -179,7 +179,7 @@ h2 {
   inset: 0 auto 0 0;
   z-index: 30;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr);
   width: min(320px, calc(100vw - 48px));
   padding: 16px;
   border-right: 1px solid var(--line);
@@ -219,57 +219,6 @@ h2 {
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-}
-
-.progress-backup {
-  display: grid;
-  gap: 8px;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-
-.progress-backup h3,
-.progress-backup p {
-  margin: 0;
-}
-
-.progress-backup h3 {
-  font-size: 0.88rem;
-}
-
-.progress-backup p {
-  color: var(--muted);
-  font-size: 0.72rem;
-  line-height: 1.35;
-}
-
-.progress-backup-actions {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.backup-button {
-  min-height: 40px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--control-bg);
-  color: var(--ink);
-  cursor: pointer;
-  font-weight: 850;
-}
-
-.backup-button:hover {
-  border-color: var(--blue);
-}
-
-.progress-backup-status[data-state="error"] {
-  color: var(--error-ink);
-}
-
-.progress-backup-status[data-state="success"] {
-  color: var(--blue-strong);
 }
 
 .deck-group,
