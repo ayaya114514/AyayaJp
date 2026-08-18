@@ -27,7 +27,7 @@ nvm use
 npm run check
 ```
 
-`npm run check` 会依次运行 source/runtime/DOM validation、bundle baseline validation 和 app contract tests。它会检查 JS 语法、HTML 结构与本地资源、脚本依赖顺序、N5/N4 JS/JSON 数据一致性、词库和语法字段完整性、romaji regression cases、lazy card builders、stable/legacy IDs，以及 app 的 storage、TTS、sidebar 等关键 contracts。
+`npm run check` 会依次运行 source/runtime/DOM validation、bundle baseline validation 和 app contract tests。它会检查 JS 语法、HTML 结构与本地资源、脚本依赖顺序、N5/N4 JS/JSON 数据一致性、词库和语法字段完整性、助词与词内音节的 romaji regression cases、lazy card builders、stable/legacy/retired source IDs，以及 app 的 storage、TTS、sidebar 等关键 contracts。
 
 完整测试还会运行真实 Chromium 与 WebKit，在 desktop、320×640 mobile viewport、iPhone 14 的 390×664 可用 viewport 和横屏 viewport 检查卡片布局、整面点击、focus、Back/Undo、多标签页进度合并与刷新行为：
 
@@ -66,8 +66,8 @@ Updater 是 deterministic 的，并会在 N5/N4 JS/JSON 未同步时拒绝改写
 
 ## 词库数据来源
 
-当前项目完全使用 `n5-codex-vocab.js` / `n5-codex-vocab.json` 作为 N5 数据源，共 717 条。
-当前项目完全使用 `ayaya-n4-codex-vocab.js` / `ayaya-n4-codex-vocab.json` 作为 N4 数据源，共 767 条。
+当前项目完全使用 `n5-codex-vocab.js` / `n5-codex-vocab.json` 作为 N5 数据源，共 716 条。
+当前项目完全使用 `ayaya-n4-codex-vocab.js` / `ayaya-n4-codex-vocab.json` 作为 N4 数据源，共 745 条。
 
 数据字段包括规范词形、原始词形、变体、读音、罗马音、词性、简体中文释义、整词 furigana 信息，以及每个词 3 条日语例句和简体中文翻译。
 
@@ -77,20 +77,22 @@ Updater 是 deterministic 的，并会在 N5/N4 JS/JSON 未同步时拒绝改写
 
 - JLPT 官方不发布固定的词汇、汉字或语法项目清单；这里的 N5/N4 是本项目维护的教学分级，不应当视为官方考试词表。
 - 词条以仓库内的 JSON 为 canonical source，`source_form`、`variants` 与 `note_zh` 保留规范化和人工校订线索；对应 JS 必须由同一份内容同步生成，并由 validation 阻止两者漂移。
-- 例句是为本项目编写和校订的短学习句，不是外部语料库引文。N4 允许保留教学上必要的 N5 overlap，但每个 level 使用独立 ID 与进度记录。
-- 罗马音只在能够完整转换为 Latin script 时显示；转换结果仍含假名或汉字时会标记为 unavailable 并隐藏，避免把不可靠的混合脚本当成正确读音。
+- 例句是为本项目编写和校订的短学习句，不是外部语料库引文。同义同用法的跨级重复已合并；只有语义或功能明确不同的 overlap 才分别保留。被合并词条的旧 source ID 会迁移到保留项，避免丢失既有学习次数。
+- 罗马音只在能够完整、无歧义地转换为 Latin script 时显示；助词「は・へ・を」写作 `wa・e・o`，「ん」只在同一词内的元音或 `y` 前写作 `n'`。无法可靠判定时会标记为 unavailable 并隐藏，避免把猜测当成正确读音。
 - 这套数据仍可能存在用法或分级争议；修改词义、读音或例句时应同时更新 JSON/JS，并运行完整 `npm run check`。
 
 ## 语法数据
 
-当前项目使用 `grammar-data.js` 作为 N5/N4 语法数据源，共 216 条。每条语法题包含文型、中文意思、接续、提示、中文 prompt、标准日语答案，以及 3 条例句。
+当前项目使用 `grammar-data.js` 作为 N5/N4 语法数据源，共 215 条。每条语法题包含文型、中文意思、接续、提示、中文 prompt、标准日语答案，以及 3 条例句。
 
 `card-data.js` 会为每条语法生成 4 张卡：`中→日`、`日→中`、`文型`、`选择题`。当前完整数据包计数为：
 
-- 假名 / 音变卡片：251
-- 词汇卡片：2,968
-- 语法卡片：864
-- 总卡片：4,083
+- 假名 / 发音卡片：241
+- 词汇卡片：2,922
+- 语法卡片：860
+- 总卡片：4,023
+
+“进阶发音”按浊音/半浊音/拗音、特殊拍、助词特殊读音和代表性外来音组合标注；`コーヒー` 等整词只作为发音例词，不再与 N5 词义卡重复出题。该模块是教学精选，不表示使用频率，也不是完整外来音表。
 
 ## 文件结构
 

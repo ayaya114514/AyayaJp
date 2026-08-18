@@ -1115,10 +1115,24 @@ h2 {
     min-height: clamp(112px, 28svh, 180px);
   }
 
+  .study-card.is-answering .card {
+    min-height: clamp(104px, 26svh, 166px);
+  }
+
   .choice-feedback {
     max-height: none;
   }
 
+}
+
+@media (min-height: 521px) and (max-height: 640px) {
+  .study-card.is-answering .answer-panel {
+    align-self: stretch;
+    block-size: 100%;
+    justify-content: flex-start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
 }
 
 @media (max-height: 520px) {

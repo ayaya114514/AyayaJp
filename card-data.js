@@ -1,7 +1,7 @@
 (() => {
 const sourceNotes = {
   jlpt: "JLPT 官方不发布固定的词汇/汉字/语法项目清单；本项目的语法覆盖按官方等级说明、题型说明、样题/官方问题集说明，以及常见 N5/N4 教学清单整理。",
-  kana: "假名、长音、促音、拨音、外来语小写假名和罗马音按现代常用学习写法整理；罗马音以护照/学习场景常见 Hepburn 风格为主。",
+  kana: "假名和发音规则按现代学习写法整理；进阶发音是代表性规则与外来音组合精选，不表示使用频率，也不是完整外来音表。单个假名「を」的键盘输入写作 wo；例句罗马字采用便于学习的 Hepburn 式 ASCII 写法：助词「は・へ・を」写作 wa・e・o，「ん」在同一词内的元音或 y 前写作 n'，长音保留假名拼写（如 ou、ei）或重复元音。",
   vocabulary: "N5/N4 标签是项目维护的教学分级，不是官方固定词表。规范词形、原始词形、变体和人工校订说明保存在随项目版本控制的数据文件中。",
   examples: "词汇例句是为本项目编写和校订的短学习句，不作为语料库引文；无法可靠生成纯拉丁字母罗马音时，界面会明确隐藏该行而不显示混合脚本结果。",
 };
@@ -555,343 +555,230 @@ const n4Words = n4Entries.map((entry) => [
 const grammarEntries = window.AYAYA_GRAMMAR_DATA?.entries || [];
 
 const specialRows = [
-  [
-    "长音",
-    "おかあさん",
-    "okaasan / おかあさん",
-    "あ段长音：ああ。意思：妈妈。"
-  ],
-  [
-    "长音",
-    "おばあさん",
-    "obaasan / おばあさん",
-    "あ段长音：ああ。意思：奶奶、老奶奶。"
-  ],
-  [
-    "长音",
-    "おにいさん",
-    "oniisan / おにいさん",
-    "い段长音：いい。意思：哥哥。"
-  ],
-  [
-    "长音",
-    "おじいさん",
-    "ojiisan / おじいさん",
-    "い段长音：いい。意思：爷爷、老爷爷。"
-  ],
-  [
-    "长音",
-    "くうき",
-    "kuuki / くうき",
-    "う段长音：うう。意思：空气。"
-  ],
-  [
-    "长音",
-    "すうじ",
-    "suuji / すうじ",
-    "う段长音：うう。意思：数字。"
-  ],
-  [
-    "长音",
-    "せんせい",
-    "sensei / せんせい",
-    "え段长音常写作：えい。意思：老师。"
-  ],
-  [
-    "长音",
-    "えいが",
-    "eiga / えいが",
-    "え段长音常写作：えい。意思：电影。"
-  ],
-  [
-    "长音",
-    "おねえさん",
-    "oneesan / おねえさん",
-    "え段长音也可写作：ええ。意思：姐姐。"
-  ],
-  [
-    "长音",
-    "こうこう",
-    "koukou / こうこう",
-    "お段长音常写作：おう。意思：高中。"
-  ],
-  [
-    "长音",
-    "おとうさん",
-    "otousan / おとうさん",
-    "お段长音常写作：おう。意思：爸爸。"
-  ],
-  [
-    "长音",
-    "おおきい",
-    "ookii / おおきい",
-    "お段长音也可写作：おお。意思：大的。"
-  ],
-  [
-    "长音",
-    "スーパー",
-    "suupaa / スーパー",
-    "片假名长音：ー。意思：超市。"
-  ],
-  [
-    "长音",
-    "タクシー",
-    "takushii / タクシー",
-    "片假名长音：ー。意思：出租车。"
-  ],
-  [
-    "长音",
-    "コーヒー",
-    "koohii / コーヒー",
-    "片假名长音：ー。意思：咖啡。"
-  ],
-  [
-    "促音",
-    "がっこう",
-    "gakkou / がっこう",
-    "促音：っ + k。意思：学校。"
-  ],
-  [
-    "促音",
-    "ざっし",
-    "zasshi / ざっし",
-    "促音：っ + s。意思：杂志。"
-  ],
-  [
-    "促音",
-    "きって",
-    "kitte / きって",
-    "促音：っ + t。意思：邮票。"
-  ],
-  [
-    "促音",
-    "まって",
-    "matte / まって",
-    "促音：っ + t。意思：等一下。"
-  ],
-  [
-    "促音",
-    "いっぱい",
-    "ippai / いっぱい",
-    "促音：っ + p。意思：一杯、很多。"
-  ],
-  [
-    "促音",
-    "きっぷ",
-    "kippu / きっぷ",
-    "促音：っ + p。意思：票。"
-  ],
-  [
-    "促音",
-    "こっち",
-    "kocchi / こっち",
-    "促音：っ + ch。意思：这边。"
-  ],
-  [
-    "促音",
-    "バッグ",
-    "baggu / バッグ",
-    "片假名促音：ッ + g。意思：包。"
-  ],
-  [
-    "促音",
-    "ベッド",
-    "beddo / ベッド",
-    "片假名促音：ッ + d。意思：床。"
-  ],
-  [
-    "促音",
-    "カップ",
-    "kappu / カップ",
-    "片假名促音：ッ + p。意思：杯子。"
-  ],
-  [
-    "拨音",
-    "ほん",
-    "hon / ほん",
-    "ん在词尾通常记作 n。意思：书。"
-  ],
-  [
-    "拨音",
-    "しんぶん",
-    "shinbun / しんぶん",
-    "ん在 b/p/m 前发音接近 m，但罗马音学习中常仍写 n。意思：报纸。"
-  ],
-  [
-    "拨音",
-    "さんぽ",
-    "sanpo / さんぽ",
-    "ん + p 时注意鼻音过渡。意思：散步。"
-  ],
-  [
-    "助词读音",
-    "わたしは",
-    "watashi wa / わたしは",
-    "助词「は」读作 wa，不读 ha。意思：我是/我……。"
-  ],
-  [
-    "助词读音",
-    "えきへ",
-    "eki e / えきへ",
-    "助词「へ」读作 e，不读 he。意思：去车站。"
-  ],
-  [
-    "助词读音",
-    "ほんを",
-    "hon o / ほんを",
-    "助词「を」现代标准发音通常为 o。意思：书（宾语）。"
-  ],
-  [
-    "小写假名",
-    "ファ",
-    "fa / ファ",
-    "外来语小写母音：ァ。例：ファイル。"
-  ],
-  [
-    "小写假名",
-    "フィ",
-    "fi / フィ",
-    "外来语小写母音：ィ。例：フィルム。"
-  ],
-  [
-    "小写假名",
-    "フェ",
-    "fe / フェ",
-    "外来语小写母音：ェ。例：フェリー。"
-  ],
-  [
-    "小写假名",
-    "フォ",
-    "fo / フォ",
-    "外来语小写母音：ォ。例：フォーク。"
-  ],
-  [
-    "小写假名",
-    "シェ",
-    "she / シェ",
-    "外来语拗音：シェ。例：シェア。"
-  ],
-  [
-    "小写假名",
-    "ジェ",
-    "je / ジェ",
-    "外来语拗音：ジェ。例：ジェット。"
-  ],
-  [
-    "小写假名",
-    "チェ",
-    "che / チェ",
-    "外来语拗音：チェ。例：チェック。"
-  ],
-  [
-    "小写假名",
-    "ティ",
-    "ti / ティ",
-    "外来语小写ィ。例：パーティー。"
-  ],
-  [
-    "小写假名",
-    "ディ",
-    "di / ディ",
-    "外来语小写ィ。例：ディナー。"
-  ],
-  [
-    "小写假名",
-    "トゥ",
-    "tu / トゥ",
-    "外来语小写ゥ。例：トゥール。"
-  ],
-  [
-    "小写假名",
-    "ドゥ",
-    "du / ドゥ",
-    "外来语小写ゥ。例：ドゥ。"
-  ],
-  [
-    "小写假名",
-    "デュ",
-    "dyu / デュ",
-    "外来语小写ュ。例：デュエット。"
-  ],
-  [
-    "小写假名",
-    "ウィ",
-    "wi / ウィ",
-    "外来语小写ィ。例：ウィーン。"
-  ],
-  [
-    "小写假名",
-    "ウェ",
-    "we / ウェ",
-    "外来语小写ェ。例：ウェブ。"
-  ],
-  [
-    "小写假名",
-    "ウォ",
-    "wo / ウォ",
-    "外来语小写ォ。例：ウォーター。"
-  ],
-  [
-    "小写假名",
-    "ツァ",
-    "tsa / ツァ",
-    "外来语小写ァ。例：モーツァルト。"
-  ],
-  [
-    "小写假名",
-    "ツィ",
-    "tsi / ツィ",
-    "外来语小写ィ。"
-  ],
-  [
-    "小写假名",
-    "ツェ",
-    "tse / ツェ",
-    "外来语小写ェ。"
-  ],
-  [
-    "小写假名",
-    "ツォ",
-    "tso / ツォ",
-    "外来语小写ォ。"
-  ],
-  [
-    "小写假名",
-    "ヴァ",
-    "va / ヴァ",
-    "外来语有时用ヴ表示 v 音。"
-  ],
-  [
-    "小写假名",
-    "ヴィ",
-    "vi / ヴィ",
-    "外来语有时用ヴィ表示 vi。"
-  ],
-  [
-    "小写假名",
-    "ヴ",
-    "vu / ヴ",
-    "外来语有时用ヴ表示 vu/v。"
-  ],
-  [
-    "小写假名",
-    "ヴェ",
-    "ve / ヴェ",
-    "外来语有时用ヴェ表示 ve。"
-  ],
-  [
-    "小写假名",
-    "ヴォ",
-    "vo / ヴォ",
-    "外来语有时用ヴォ表示 vo。"
-  ]
-].map(([type, prompt, answer, meta]) => ({
-  answer,
-  meta,
-  prompt,
-  speech: prompt,
-  type,
-}));
+  {
+    id: "special-long-aa",
+    legacyIds: ["special-0", "special-1"],
+    type: "特殊拍 · 长音",
+    prompt: "ああ",
+    answer: "aa（あ段长音）",
+    meta: "练习目标是延长元音 a。例：おかあさん（妈妈）、おばあさん（奶奶）。",
+    speech: "おかあさん",
+  },
+  {
+    id: "special-long-ii",
+    legacyIds: ["special-2", "special-3"],
+    type: "特殊拍 · 长音",
+    prompt: "いい",
+    answer: "ii（い段长音）",
+    meta: "练习目标是延长元音 i。例：おにいさん（哥哥）、おじいさん（爷爷）。",
+    speech: "おにいさん",
+  },
+  {
+    id: "special-long-uu",
+    legacyIds: ["special-4", "special-5"],
+    type: "特殊拍 · 长音",
+    prompt: "うう",
+    answer: "uu（う段长音）",
+    meta: "练习目标是延长元音 u。例：くうき（空气）、すうじ（数字）。",
+    speech: "くうき",
+  },
+  {
+    id: "special-long-ei",
+    legacyIds: ["special-6", "special-7"],
+    type: "特殊拍 · 长音",
+    prompt: "えい",
+    answer: "ei（常读作长音 [eː]，也可能保留 [ei]）",
+    meta: "拼写是「えい」，实际发音依词而异，不能一律把 ei 当成两个音或一律合成长音。例：せんせい（老师）、えいが（电影）。",
+    speech: "せんせい",
+  },
+  {
+    id: "special-long-ee",
+    legacyIds: ["special-8"],
+    type: "特殊拍 · 长音",
+    prompt: "ええ",
+    answer: "ee（え段长音）",
+    meta: "有些词用「ええ」表示长音。例：おねえさん（姐姐）。",
+    speech: "おねえさん",
+  },
+  {
+    id: "special-long-ou",
+    legacyIds: ["special-9", "special-10"],
+    type: "特殊拍 · 长音",
+    prompt: "おう",
+    answer: "ou（常读作长音 [oː]）",
+    meta: "お段长音常写作「おう」。例：こうこう（高中）、おとうさん（爸爸）。",
+    speech: "こうこう",
+  },
+  {
+    id: "special-long-oo",
+    legacyIds: ["special-11"],
+    type: "特殊拍 · 长音",
+    prompt: "おお",
+    answer: "oo（お段长音）",
+    meta: "有些词用「おお」表示长音。例：おおきい（大的）。",
+    speech: "おおきい",
+  },
+  {
+    id: "special-long-katakana",
+    legacyIds: ["special-12", "special-13", "special-14"],
+    type: "特殊拍 · 长音",
+    prompt: "ー",
+    answer: "片假名长音符",
+    meta: "「ー」把前一个元音延长一拍。例：スーパー（超市）、タクシー（出租车）、コーヒー（咖啡）；这些词只是发音示例，不在本模块重复考词义。",
+    speech: "コーヒー",
+  },
+  {
+    id: "special-sokuon-k",
+    legacyIds: ["special-15"],
+    type: "特殊拍 · 促音",
+    prompt: "っ + k",
+    answer: "kk",
+    meta: "先停顿一拍，再发 k。例：がっこう → gakkou（学校）。",
+    speech: "がっこう",
+  },
+  {
+    id: "special-sokuon-s",
+    legacyIds: ["special-16"],
+    type: "特殊拍 · 促音",
+    prompt: "っ + s",
+    answer: "ss",
+    meta: "先停顿一拍，再发 s。例：ざっし → zasshi（杂志）。",
+    speech: "ざっし",
+  },
+  {
+    id: "special-sokuon-t",
+    legacyIds: ["special-17", "special-18"],
+    type: "特殊拍 · 促音",
+    prompt: "っ + t",
+    answer: "tt",
+    meta: "先停顿一拍，再发 t。例：きって → kitte（邮票）、まって → matte（等一下）。",
+    speech: "きって",
+  },
+  {
+    id: "special-sokuon-p",
+    legacyIds: ["special-19", "special-20", "special-24"],
+    type: "特殊拍 · 促音",
+    prompt: "っ／ッ + p",
+    answer: "pp",
+    meta: "先停顿一拍，再发 p。例：いっぱい → ippai、きっぷ → kippu、カップ → kappu。",
+    speech: "きっぷ",
+  },
+  {
+    id: "special-sokuon-ch",
+    legacyIds: ["special-21"],
+    type: "特殊拍 · 促音",
+    prompt: "っ + ch",
+    answer: "cch",
+    meta: "先停顿一拍，再发 ch。例：こっち → kocchi（这边）。",
+    speech: "こっち",
+  },
+  {
+    id: "special-sokuon-g",
+    legacyIds: ["special-22"],
+    type: "特殊拍 · 促音",
+    prompt: "ッ + g",
+    answer: "gg",
+    meta: "先停顿一拍，再发 g。例：バッグ → baggu（包）。",
+    speech: "バッグ",
+  },
+  {
+    id: "special-sokuon-d",
+    legacyIds: ["special-23"],
+    type: "特殊拍 · 促音",
+    prompt: "ッ + d",
+    answer: "dd",
+    meta: "先停顿一拍，再发 d。例：ベッド → beddo（床）。",
+    speech: "ベッド",
+  },
+  {
+    id: "special-hatsuon-final",
+    legacyIds: ["special-25"],
+    type: "特殊拍 · 拨音",
+    prompt: "ん（词尾）",
+    answer: "n",
+    meta: "词尾的「ん」单独占一拍。例：ほん → hon（书）。",
+    speech: "ほん",
+  },
+  {
+    id: "special-hatsuon-bpm",
+    legacyIds: ["special-26", "special-27"],
+    type: "特殊拍 · 拨音",
+    prompt: "ん + b／p／m",
+    answer: "n（发音会受后音影响）",
+    meta: "鼻音会在发音位置上接近后面的 b、p、m；本项目罗马字仍统一写 n。例：しんぶん → shinbun、さんぽ → sanpo。",
+    speech: "しんぶん",
+  },
+  {
+    id: "special-hatsuon-vowel-y",
+    legacyIds: [],
+    type: "特殊拍 · 拨音",
+    prompt: "ん + 元音／y",
+    answer: "n'",
+    meta: "用撇号划清音节边界。例：きんようび → kin'youbi（金曜日）、げんいん → gen'in（原因）。",
+    speech: "きんようび",
+  },
+  {
+    id: "special-particle-wa",
+    legacyIds: ["special-28"],
+    type: "助词特殊读音",
+    prompt: "助词 は",
+    answer: "wa",
+    meta: "作主题或对比助词时读 wa，不读 ha。例：わたしは → watashi wa（至于我……）。",
+    speech: "わたしは",
+  },
+  {
+    id: "special-particle-e",
+    legacyIds: ["special-29"],
+    type: "助词特殊读音",
+    prompt: "助词 へ",
+    answer: "e",
+    meta: "作方向助词时读 e，不读 he。例：えきへ → eki e（向车站／往车站）。",
+    speech: "えきへ",
+  },
+  {
+    id: "special-particle-o",
+    legacyIds: ["special-30"],
+    type: "助词特殊读音",
+    prompt: "助词 を",
+    answer: "o",
+    meta: "现代标准语中通常读 o；单个假名的键盘输入仍写 wo。例：ほんを → hon o（把书……）。",
+    speech: "ほんを",
+  },
+  ...[
+    ["fa", "ファ", "外来音 · 小写ァ", "ファイル"],
+    ["fi", "フィ", "外来音 · 小写ィ", "フィルム"],
+    ["fe", "フェ", "外来音 · 小写ェ", "フェリー"],
+    ["fo", "フォ", "外来音 · 小写ォ", "フォーク"],
+    ["she", "シェ", "外来音 · 特殊音", "シェア"],
+    ["je", "ジェ", "外来音 · 特殊音", "ジェット"],
+    ["che", "チェ", "外来音 · 特殊音", "チェック"],
+    ["ti", "ティ", "外来音 · 小写ィ", "パーティー"],
+    ["di", "ディ", "外来音 · 小写ィ", "ディナー"],
+    ["tu", "トゥ", "外来音 · 小写ゥ", "トゥール"],
+    ["du", "ドゥ", "外来音 · 小写ゥ", "ヒンドゥー"],
+    ["dyu", "デュ", "外来音 · 小写ュ", "デュエット"],
+    ["wi", "ウィ", "外来音 · 小写ィ", "ウィーン"],
+    ["we", "ウェ", "外来音 · 小写ェ", "ウェブ"],
+    ["wo", "ウォ", "外来音 · 小写ォ", "ウォーター"],
+    ["tsa", "ツァ", "外来音 · 小写ァ", "モーツァルト"],
+    ["tsi", "ツィ", "外来音 · 小写ィ", "ツィター"],
+    ["tse", "ツェ", "外来音 · 小写ェ", "ツェッペリン"],
+    ["tso", "ツォ", "外来音 · 小写ォ", "カンツォーネ"],
+    ["va", "ヴァ", "外来音 · v", "ヴァイオリン"],
+    ["vi", "ヴィ", "外来音 · v", "ヴィーナス"],
+    ["vu", "ヴ", "外来音 · 单个假名", "ヴ（ウ加浊点；不是小写假名）"],
+    ["ve", "ヴェ", "外来音 · v", "ヴェネツィア"],
+    ["vo", "ヴォ", "外来音 · v", "ヴォーカル"],
+  ].map(([romaji, prompt, type, example], index) => ({
+    id: `special-foreign-${romaji}`,
+    legacyIds: [`special-${index + 31}`],
+    type,
+    prompt,
+    answer: romaji,
+    meta: `练习目标是外来音「${prompt}」。例：${example}。`,
+    speech: prompt,
+  })),
+];
 
 const furiganaEntries = [
   [
@@ -2418,8 +2305,12 @@ function makeKanaCards() {
       deck: "hiragana",
       type: "平假名",
       prompt: hiragana,
-      answer: `${katakana} / ${romaji}`,
-      meta: `片假名：${katakana}　罗马音：${romaji}`,
+      answer:
+        hiragana === "を" ? `${katakana} / wo（作助词时通常读 o）` : `${katakana} / ${romaji}`,
+      meta:
+        hiragana === "を"
+          ? "片假名：ヲ　键盘输入／单个假名罗马字：wo　助词读音：o"
+          : `片假名：${katakana}　罗马音：${romaji}`,
       speech: hiragana,
     })),
     ...coreRows.map(([hiragana, katakana, romaji], index) => ({
@@ -2427,8 +2318,12 @@ function makeKanaCards() {
       deck: "katakana",
       type: "片假名",
       prompt: katakana,
-      answer: `${hiragana} / ${romaji}`,
-      meta: `平假名：${hiragana}　罗马音：${romaji}`,
+      answer:
+        hiragana === "を" ? `${hiragana} / wo（作助词时通常读 o）` : `${hiragana} / ${romaji}`,
+      meta:
+        hiragana === "を"
+          ? "平假名：を　键盘输入／单个假名罗马字：wo　助词读音：o"
+          : `平假名：${hiragana}　罗马音：${romaji}`,
       speech: hiragana,
     })),
     ...coreRows.map(([hiragana, katakana, romaji], index) => ({
@@ -2437,7 +2332,10 @@ function makeKanaCards() {
       type: "罗马音",
       prompt: romaji,
       answer: `${hiragana} / ${katakana}`,
-      meta: `平假名：${hiragana}　片假名：${katakana}`,
+      meta:
+        hiragana === "を"
+          ? "平假名：を　片假名：ヲ　wo 是键盘输入／单个假名写法；作助词时通常读 o"
+          : `平假名：${hiragana}　片假名：${katakana}`,
       speech: hiragana,
     })),
     ...markedRows.map(([hiragana, katakana, romaji], index) => {
@@ -2461,8 +2359,7 @@ function makeKanaCards() {
       meta: `拗音：${hiragana}　片假名：${katakana}　罗马音：${romaji}`,
       speech: hiragana,
     })),
-    ...specialRows.map((card, index) => ({
-      id: `special-${index}`,
+    ...specialRows.map((card) => ({
       deck: "special",
       ...card,
     })),
@@ -2472,7 +2369,12 @@ function makeKanaCards() {
     ...card,
     promptLang: card.deck === "romaji" ? "en" : "ja",
     answerLang: "ja",
-    frontSpeech: card.deck === "romaji" ? "" : card.speech,
+    subtle: card.deck === "special" ? card.type : card.subtle,
+    subtleLang: card.deck === "special" ? "zh-CN" : card.subtleLang,
+    frontSpeech:
+      card.deck === "romaji" || (card.deck === "special" && card.speech !== card.prompt)
+        ? ""
+        : card.speech,
   }));
 }
 
@@ -2493,20 +2395,31 @@ const kanaRomajiRows = kanaRows
   ])
   .sort((left, right) => right[0].length - left[0].length);
 
-const godanIStem = {
-  う: "い",
-  く: "き",
-  ぐ: "ぎ",
-  す: "し",
-  つ: "ち",
-  ぬ: "に",
-  ぶ: "び",
-  む: "み",
-  る: "り",
-};
-
 const kanjiCharacterPattern = /[\u3400-\u9fff]/u;
 const affixMarkerPattern = /[~〜～]/u;
+
+// These exact surface forms were reviewed against the frozen example corpus.
+// Keeping context-dependent forms per entry avoids guessing a conjugation
+// class from the dictionary ending.
+const reviewedPreferredReadingsByEntryId = new Map([
+  ["n5-009", [["開き", "あき"]]],
+  ["n5-137", [["降り", "おり"]]],
+  ["n5-192", [["消え", "きえ"]]],
+  ["n5-230", [
+    ["来ます", "きます"],
+    ["来ました", "きました"],
+    ["来ません", "きません"],
+    ["来て", "きて"],
+    ["来た", "きた"],
+    ["来ない", "こない"],
+    ["来なかった", "こなかった"],
+    ["来られ", "こられ"],
+    ["来れば", "くれば"],
+    ["来よう", "こよう"],
+  ]],
+  ["n5-588", [["降り", "ふり"], ["降っ", "ふっ"]]],
+  ["n4-569", [["開き", "ひらき"]]],
+]);
 
 function isKanjiCharacter(character = "") {
   return kanjiCharacterPattern.test(character);
@@ -2528,7 +2441,11 @@ function readingEntriesForVocabEntry(entry) {
   const formReadings = new Map(
     (entry?.kanji_readings || []).map(({ form, reading }) => [form?.trim(), reading?.trim()]),
   );
-  const surfaces = [entry?.headword, ...(entry?.variants || [])];
+  const surfaces = [
+    entry?.headword,
+    ...(entry?.variants || []),
+    ...(entry?.kanji_readings || []).map(({ form }) => form),
+  ];
 
   surfaces.forEach((surface) => {
     const cleanSurface = surface?.trim();
@@ -2536,63 +2453,11 @@ function readingEntriesForVocabEntry(entry) {
 
     const reading = formReadings.get(cleanSurface) || entry?.reading;
     addReadingEntry(entries, seen, cleanSurface, reading);
-
-    // Prefix/suffix notation such as 「～人」 is not a word boundary. Deriving
-    // 「人 → じん」 from it would also rewrite the standalone noun 人（ひと）.
-    if (affixMarkerPattern.test(cleanSurface)) return;
-
-    // 来る is irregular: its inflected forms alternate between き-, こ- and
-    // く-. A generic "remove る" rule produces the incorrect 来て → くて.
-    if (cleanSurface === "来る" && reading === "くる") {
-      [
-        ["来ます", "きます"],
-        ["来ました", "きました"],
-        ["来ません", "きません"],
-        ["来て", "きて"],
-        ["来た", "きた"],
-        ["来ない", "こない"],
-        ["来なかった", "こなかった"],
-        ["来られ", "こられ"],
-        ["来れば", "くれば"],
-        ["来よう", "こよう"],
-      ].forEach(([inflectedSurface, inflectedReading]) =>
-        addReadingEntry(entries, seen, inflectedSurface, inflectedReading),
-      );
-      return;
-    }
-
-    const firstKanjiIndex = cleanSurface.search(kanjiCharacterPattern);
-    let lastKanjiIndex = -1;
-    [...cleanSurface].forEach((char, index) => {
-      if (kanjiCharacterPattern.test(char)) lastKanjiIndex = index;
-    });
-    const kanaPrefix = cleanSurface.slice(0, firstKanjiIndex);
-    const kanaSuffix = cleanSurface.slice(lastKanjiIndex + 1);
-    if (!reading?.startsWith(kanaPrefix) || !reading.endsWith(kanaSuffix)) return;
-
-    const readingEnd = kanaSuffix ? -kanaSuffix.length : undefined;
-    const coreSurface = cleanSurface.slice(firstKanjiIndex, lastKanjiIndex + 1);
-    const coreReading = reading.slice(kanaPrefix.length, readingEnd);
-    addReadingEntry(entries, seen, coreSurface, coreReading);
-
-    const lastSurfaceChar = cleanSurface.at(-1);
-    const lastReadingChar = reading.at(-1);
-    if (!lastSurfaceChar || !lastReadingChar || lastSurfaceChar !== lastReadingChar) return;
-
-    if (lastSurfaceChar === "る") {
-      addReadingEntry(entries, seen, cleanSurface.slice(0, -1), reading.slice(0, -1));
-    }
-
-    const stemEnding = godanIStem[lastSurfaceChar];
-    if (stemEnding) {
-      addReadingEntry(
-        entries,
-        seen,
-        `${cleanSurface.slice(0, -1)}${stemEnding}`,
-        `${reading.slice(0, -1)}${stemEnding}`,
-      );
-    }
   });
+
+  (reviewedPreferredReadingsByEntryId.get(entry?.id) || []).forEach(([surface, reading]) =>
+    addReadingEntry(entries, seen, surface, reading),
+  );
 
   return entries.sort((left, right) => right[0].length - left[0].length);
 }
@@ -2603,7 +2468,7 @@ const contextSpecificReadings = [
   ["日本人", "にほんじん"],
   ["中国人", "ちゅうごくじん"],
   ["あの人", "あのひと"],
-  ["思い出は", "おもいでは"],
+  ["思い出", "おもいで"],
   ["調子", "ちょうし"],
   ["気温", "きおん"],
   ["小屋", "こや"],
@@ -2651,7 +2516,308 @@ const contextSpecificReadings = [
   ["買いました", "かいました"],
   ["市民", "しみん"],
   ["意見", "いけん"],
+  // markReviewedPronunciations replaces the object particle before readings
+  // are applied, so this exact marked form preserves 何を → なにを.
+  ["何\ue002", "なに\ue002"],
 ];
+
+// Exact non-dictionary surfaces that occur in the frozen examples. These are
+// data, not conjugation rules: adding or changing an example invalidates the
+// pronunciation corpus lock below and requires this list to be reviewed again.
+const reviewedExactReadings = `
+いい加減|いいかげん
+お子さん|おこさん
+お寺|おてら
+お手伝い|おてつだい
+お世話|おせわ
+お先に|おさきに
+お待ち|おまち
+お伝え|おつたえ
+お湯|おゆ
+この先|このさき
+この辺|このへん
+の通り|のとおり
+もう一度|もういちど
+もう少し|もうすこし
+移り|うつり
+違い|ちがい
+育て|そだて
+引き|ひき
+引っ越し|ひっこし
+運び|はこび
+泳ぎ|およぎ
+汚れ|よごれ
+押し|おし
+押して|おして
+下がり|さがり
+下げ|さげ
+下り|おり
+下る|くだる
+下ろします|おろします
+下さい|ください
+何でも|なんでも
+何と|なんと
+何か|なにか
+何が|なにが
+何も|なにも
+会える|あえる
+回り|まわり
+上り|のぼり
+覚え|おぼえ
+覚める|さめる
+掛け|かけ
+割れ|われ
+割れ物|われもの
+滑らか|なめらか
+滑り|すべり
+乾き|かわき
+寒さ|さむさ
+喜び|よろこび
+寄り|より
+祈り|いのり
+急ぎ|いそぎ
+泣き|なき
+泣き声|なきこえ
+教え|おしえ
+驚き|おどろき
+勤め|つとめ
+近づく|ちかづく
+苦しみ|くるしみ
+兄さん|にいさん
+迎え|むかえ
+決まって|きまって
+決め|きめ
+建て|たて
+見え|みえ
+見舞い|みまい
+言い方|いいかた
+後で|あとで
+向かい|むかい
+考え|かんがえ
+考え方|かんがえかた
+行い|おこない
+行き|いき
+行き先|いきさき
+光り|ひかり
+高め|たかめ
+合わせ|あわせ
+差し|さし
+座り|すわり
+済み|すみ
+祭り|まつり
+咲き|さき
+作り|つくり
+残り|のこり
+使い|つかい
+使い方|つかいかた
+使える|つかえる
+始まり|はじまり
+始めて|はじめて
+姉さん|ねえさん
+子ども|こども
+思い|おもい
+止まり|とまり
+止め|とめ
+持ち|もち
+写し|うつし
+借り|かり
+若く|わかく
+取り|とり
+取り消し|とりけし
+手すり|てすり
+手のひら|てのひら
+手洗い|てあらい
+手伝い|てつだい
+受け|うけ
+受け取り|うけとり
+受け付け|うけつけ
+終わらせる|おわらせる
+習い|ならい
+集まり|あつまり
+集め|あつめ
+柔らか|やわらか
+祝う|いわう
+出し|だし
+出さなくて|ださなくて
+書き|かき
+書き込み|かきこみ
+書き方|かきかた
+勝ち|かち
+消し|けし
+焼き|やき
+焼け|やけ
+笑い|わらい
+笑える|わらえる
+上げ|あげ
+乗り|のり
+飾り|かざり
+色々|いろいろ
+触り|さわり
+心から|こころから
+召し上がって|めしあがって
+正しく|ただしく
+生き|いき
+生まれ|うまれ
+切り|きり
+切れ|きれ
+先に|さきに
+洗い|あらい
+選び|えらび
+早く|はやく
+早め|はやめ
+走り|はしり
+送り|おくり
+騒ぎ|さわぎ
+増え|ふえ
+続き|つづき
+多く|おおく
+足り|たり
+足し|たし
+打ち|うち
+待ち|まち
+貸し|かし
+代え|かえ
+大きく|おおきく
+暖か|あたたか
+知らせ|しらせ
+遅れ|おくれ
+調べ|しらべ
+直し|なおし
+通い|かよい
+漬け|つけ
+釣り|つり
+締め|しめ
+締めて|しめて
+締め切り|しめきり
+伝え|つたえ
+塗り|ぬり
+渡し|わたし
+渡り|わたり
+登り|のぼり
+空いて|あいて
+盗み|ぬすみ
+逃げ|にげ
+働き|はたらき
+動き|うごき
+読み|よみ
+読み方|よみかた
+届け|とどけ
+入り|はいり
+入れ|いれ
+濡れ|ぬれ
+買い|かい
+買い方|かいかた
+買える|かえる
+売り|うり
+売り上げ|うりあげ
+泊まり|とまり
+髪の毛|かみのけ
+比べ|くらべ
+疲れ|つかれ
+付き|つき
+付け|つけ
+負け|まけ
+払い|はらい
+分かれ|わかれ
+分け|わけ
+聞きにくい|ききにくい
+閉じ|とじ
+並び|ならび
+並べて|ならべて
+別に|べつに
+別れ|わかれ
+変え|かえ
+変わった|かわった
+変わって|かわって
+変わり|かわり
+片付け|かたづけ
+返し|かえし
+歩き|あるき
+暮らし|くらし
+暮れ|くれ
+忘れ|わすれ
+本当に|ほんとうに
+磨き|みがき
+眠り|ねむり
+鳴き|なき
+鳴り|なり
+木の葉|きのは
+戻り|もどり
+揺れ|ゆれ
+頼み|たのみ
+落ち|おち
+落とし|おとし
+立ち|たち
+立て|たて
+良い|よい
+良く|よく
+冷え|ひえ
+冷や|ひや
+連れ|つれ
+話し合い|はなしあい
+話し方|はなしかた
+分かった|わかった
+分かってきました|わかってきました
+分からない|わからない
+分からなくて|わからなくて
+分からなければ|わからなければ
+分かりました|わかりました
+分かります|わかります
+分かりません|わかりません
+分かりませんでした|わかりませんでした
+分かりやすい|わかりやすい
+分かりやすく|わかりやすく
+話さないで|はなさないで
+話したい|はなしたい
+話して|はなして
+話しました|はなしました
+話しましょう|はなしましょう
+話します|はなします
+話しやすい|はなしやすい
+話せる|はなせる
+住みたい|すみたい
+住みやすい|すみやすい
+住んでいた|すんでいた
+住んでいました|すんでいました
+住んでいます|すんでいます
+住んでいる|すんでいる
+撮っています|とっています
+撮って|とって
+撮らないで|とらないで
+撮りました|とりました
+撮りましょう|とりましょう
+撮ります|とります
+撮れます|とれます
+言いました|いいました
+言いません|いいません
+言いづらい|いいづらい
+言った|いった
+言って|いって
+言わずに|いわずに
+言わないで|いわないで
+言わないまま|いわないまま
+言われています|いわれています
+言われました|いわれました
+合いました|あいました
+合います|あいます
+合いません|あいません
+合っています|あっています
+合って|あって
+合わない|あわない
+座っています|すわっています
+座って|すわって
+座りました|すわりました
+座ります|すわります
+座れません|すわれません
+呼ばれて|よばれて
+呼びました|よびました
+呼びます|よびます
+呼んでいます|よんでいます
+呼んで|よんで
+探しています|さがしています
+探しました|さがしました
+探します|さがします
+`.trim().split("\n").map((line) => line.split("|"));
 
 const allVocabReadingEntries = [...n5Entries, ...n4Entries].flatMap((entry) =>
   readingEntriesForVocabEntry(entry),
@@ -2662,6 +2828,7 @@ const allVocabReadingEntries = [...n5Entries, ...n4Entries].flatMap((entry) =>
 // also refuses to match a Kanji surface from inside a larger Kanji compound.
 const unsafeGlobalReadingSurfaces = new Set([
   "後",
+  "降",
   "降り",
   "人",
   "着",
@@ -2670,7 +2837,11 @@ const unsafeGlobalReadingSurfaces = new Set([
   "背",
   "来",
 ]);
-const globalReadingCandidates = [...allVocabReadingEntries, ...furiganaEntries].filter(
+const globalReadingCandidates = [
+  ...reviewedExactReadings,
+  ...allVocabReadingEntries,
+  ...furiganaEntries,
+].filter(
   ([surface]) =>
     !affixMarkerPattern.test(surface) && !unsafeGlobalReadingSurfaces.has(surface),
 );
@@ -2741,6 +2912,243 @@ function firstConsonant(text) {
   return /^[bcdfghjklmnpqrstvwxyz]/.test(text) ? text[0] : "";
 }
 
+const particleRomajiMarkers = new Map([
+  ["\ue000", " wa "],
+  ["\ue001", " e "],
+  ["\ue002", " o "],
+  ["\ue003", "wa"],
+  ["\ue004", " "],
+]);
+const particleKanaMarkers = new Map([
+  ["は", "\ue000"],
+  ["へ", "\ue001"],
+  ["を", "\ue002"],
+]);
+const reviewedExampleTexts = [...new Set(
+  [...n5Entries, ...n4Entries, ...grammarEntries]
+    .flatMap((entry) => (entry.examples || []).map((example) => stripSentencePeriods(example.ja)))
+    .filter(Boolean),
+)].sort();
+const reviewedExampleTextSet = new Set(reviewedExampleTexts);
+
+function corpusSignature(parts) {
+  let hash = 0xcbf29ce484222325n;
+  const joined = parts.join("\0");
+  for (let index = 0; index < joined.length; index += 1) {
+    hash ^= BigInt(joined.charCodeAt(index));
+    hash = BigInt.asUintN(64, hash * 0x100000001b3n);
+  }
+  return `${parts.length}:${hash.toString(16).padStart(16, "0")}`;
+}
+
+function reviewedSpanMap(groups) {
+  const map = new Map();
+  groups.forEach(([span, texts]) => {
+    texts.forEach((text) => {
+      if (!map.has(text)) map.set(text, []);
+      map.get(text).push(span);
+    });
+  });
+  return map;
+}
+
+// These are the only lexical は occurrences in the reviewed static example
+// corpus. Every other literal は/へ/を position in that exact corpus was
+// reviewed as a grammatical particle. No runtime tokenization or conjugation
+// guessing is used.
+const reviewedLexicalKanaSpans = reviewedSpanMap([
+  ["はさみ", [
+    "このはさみは紙を切るのに使います",
+    "紙をはさみで切ります",
+  ]],
+  ["はき", [
+    "雨の日はこの靴をはきます",
+    "海へ行くのでサンダルをはきました",
+    "靴をはきます",
+    "靴下をはきます",
+    "黒いズボンをはきます",
+    "朝、靴下をはきました",
+  ]],
+  ["はいて", [
+    "黒いズボンをはいています",
+    "白い靴下をはいています",
+    "妹は青いスカートをはいています",
+    "両方の靴をはいて比べました",
+  ]],
+  ["はめ", ["寒いので手袋をはめました"]],
+  ["はい", [
+    "はい、お願いします",
+    "はい、そうです",
+    "はい、分かりました",
+  ]],
+  ["おはよう", ["皆さん、おはようございます"]],
+  ["はっきり", [
+    "今日は山がはっきり見えます",
+    "名前をはっきり書いてください",
+    "理由をはっきり説明しました",
+  ]],
+  ["やはり", [
+    "やはり雨が降りました",
+    "やはり日本語は面白いです",
+    "考えてみても、やはり行きたいです",
+  ]],
+  ["はず", [
+    "この道で合っているはずです",
+    "この道を行けば、駅に出るはずです",
+    "この問題が簡単なはずがありません",
+    "まだ七時ですから、店が閉まっているはずがないです",
+    "今日は休みのはずです",
+    "田中さんはもう着いたはずです",
+    "彼がそんなことを言うはずがありません",
+    "彼はもう着いたはずです",
+  ]],
+]);
+
+// A space, rather than n', is required where moraic ん ends one word and the
+// next word/particle begins with a vowel or y. Internal boundaries such as
+// 金曜日・店員・今夜・原因・翻訳・本屋 deliberately remain unmarked.
+const reviewedMoraicNWordBoundaries = reviewedSpanMap([
+  ["大変|お世話", ["長い間、大変お世話になりました"]],
+  ["たくさん|読み", ["本をたくさん読みます"]],
+  ["たくさん|あります", [
+    "この店には日本の食べ物がたくさんあります",
+    "家の周りに木がたくさんあります",
+  ]],
+  ["たくさん|歩いて", ["たくさん歩いて疲れました"]],
+  ["たくさん|います", ["駅には人がたくさんいます"]],
+  ["たくさん|雨", ["昨日、たくさん雨が降りました"]],
+  ["たくさん|写しました", ["旅行で写真をたくさん写しました"]],
+  ["十分|あります", ["時間は十分あります"]],
+  ["もちろん|行きます", ["もちろん行きます"]],
+  ["十分|おき", ["このバスは十分おきに来ます"]],
+  ["本|より", ["この本はあの本より新しいです"]],
+  ["確認|いたします", ["荷物を確認いたします"]],
+  ["本|や", [
+    "机の上に本やノートなどがあります",
+    "机の上に本やノートがあります",
+    "本や雑誌などを買いました",
+    "本や雑誌などを読みます",
+  ]],
+]);
+const attachedWaTokens = ["こんにちは", "こんばんは", "それでは", "または"];
+
+function reviewedPairSignatureParts(label, pairs) {
+  return pairs.map(([surface, reading]) => `${label}:${surface}\u0001${reading}`).sort();
+}
+
+function reviewedSpanSignatureParts(label, map) {
+  return [...map]
+    .map(([text, spans]) => `${label}:${text}\u0001${[...spans].sort().join("\u0002")}`)
+    .sort();
+}
+
+const reviewedVocabEntries = [...n5Entries, ...n4Entries]
+  .sort((left, right) => left.id.localeCompare(right.id));
+const reviewedPronunciationSourceParts = [
+  ...reviewedExampleTexts.map((text) => `example:${text}`),
+  ...reviewedVocabEntries.map((entry) => JSON.stringify([
+    "vocab",
+    entry.id,
+    entry.headword || "",
+    entry.reading || "",
+    entry.speech_reading || "",
+    entry.reading_variants || [],
+    entry.variants || [],
+    entry.kanji_readings || [],
+  ])),
+  ...reviewedVocabEntries.map((entry) => JSON.stringify([
+    "preferred",
+    entry.id,
+    readingEntriesForVocabEntry(entry),
+  ])),
+  ...reviewedPairSignatureParts("exact", reviewedExactReadings),
+  ...reviewedPairSignatureParts("context", contextSpecificReadings),
+  ...reviewedPairSignatureParts("furigana", furiganaEntries),
+  ...reviewedPairSignatureParts("effective", furiganaByLength),
+  ...reviewedSpanSignatureParts("lexical", reviewedLexicalKanaSpans),
+  ...reviewedSpanSignatureParts("n-boundary", reviewedMoraicNWordBoundaries),
+  ...attachedWaTokens.map((token) => `attached-wa:${token}`).sort(),
+  ...[...unsafeGlobalReadingSurfaces].sort().map((surface) => `unsafe:${surface}`),
+  ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
+];
+const reviewedPronunciationSourceSignature = "10271:fdb9538d1db48668";
+
+function reviewedTableMatchesCorpus(map) {
+  return [...map].every(([text, spans]) =>
+    reviewedExampleTextSet.has(text) && spans.every((span) => text.includes(span.replace("|", ""))),
+  );
+}
+
+const reviewedPronunciationCorpusIsCurrent =
+  corpusSignature(reviewedPronunciationSourceParts) === reviewedPronunciationSourceSignature &&
+  reviewedTableMatchesCorpus(reviewedLexicalKanaSpans) &&
+  reviewedTableMatchesCorpus(reviewedMoraicNWordBoundaries);
+
+function indexesForSpans(text, spans = []) {
+  const indexes = new Set();
+  spans.forEach((span) => {
+    let fromIndex = 0;
+    while (fromIndex < text.length) {
+      const index = text.indexOf(span, fromIndex);
+      if (index < 0) break;
+      for (let offset = 0; offset < span.length; offset += 1) indexes.add(index + offset);
+      fromIndex = index + span.length;
+    }
+  });
+  return indexes;
+}
+
+function boundaryIndexesForText(text) {
+  const indexes = new Set();
+  (reviewedMoraicNWordBoundaries.get(text) || []).forEach((markedSpan) => {
+    const [left, right] = markedSpan.split("|");
+    const surface = `${left}${right}`;
+    const index = text.indexOf(surface);
+    if (index >= 0) indexes.add(index + left.length);
+  });
+  return indexes;
+}
+
+function attachedWaIndexesForText(text) {
+  const indexes = new Set();
+  attachedWaTokens.forEach((token) => {
+    let fromIndex = 0;
+    while (fromIndex < text.length) {
+      const index = text.indexOf(token, fromIndex);
+      if (index < 0) break;
+      indexes.add(index + token.lastIndexOf("は"));
+      fromIndex = index + token.length;
+    }
+  });
+  return indexes;
+}
+
+function markReviewedPronunciations(text) {
+  if (!reviewedPronunciationCorpusIsCurrent || !reviewedExampleTextSet.has(text)) return null;
+  const lexicalIndexes = indexesForSpans(text, reviewedLexicalKanaSpans.get(text));
+  const boundaryIndexes = boundaryIndexesForText(text);
+  const attachedWaIndexes = attachedWaIndexesForText(text);
+  let result = "";
+
+  [...text].forEach((character, index) => {
+    if (boundaryIndexes.has(index)) result += "\ue004";
+    if (lexicalIndexes.has(index)) {
+      result += character;
+    } else if (attachedWaIndexes.has(index)) {
+      result += "\ue003";
+    } else {
+      result += particleKanaMarkers.get(character) || character;
+    }
+  });
+  return result;
+}
+
+function romajiAt(kanaText, index) {
+  const markerRomaji = particleRomajiMarkers.get(kanaText[index]);
+  if (markerRomaji) return markerRomaji;
+  return kanaRomajiRows.find(([surface]) => kanaText.startsWith(surface, index))?.[1] || "";
+}
+
 function kanaToRomaji(text) {
   const kanaText = kanaSurfaceToHiragana(text);
   let result = "";
@@ -2768,10 +3176,22 @@ function kanaToRomaji(text) {
       continue;
     }
 
+    const particleRomaji = particleRomajiMarkers.get(char);
+    if (particleRomaji) {
+      result += particleRomaji;
+      shouldDoubleNextConsonant = false;
+      index += 1;
+      continue;
+    }
+
     const match = kanaRomajiRows.find(([surface]) => kanaText.startsWith(surface, index));
     if (match) {
       const romaji = match[1];
-      result += `${shouldDoubleNextConsonant ? firstConsonant(romaji) : ""}${romaji}`;
+      const moraSeparator =
+        match[0] === "ん" && /^[aeiouy]/.test(romajiAt(kanaText, index + match[0].length))
+          ? "'"
+          : "";
+      result += `${shouldDoubleNextConsonant ? firstConsonant(romaji) : ""}${romaji}${moraSeparator}`;
       shouldDoubleNextConsonant = false;
       index += match[0].length;
       continue;
@@ -2786,7 +3206,10 @@ function kanaToRomaji(text) {
 }
 
 function sentenceToRomaji(text, preferredReadings = []) {
-  const normalizedPunctuation = stripSentencePeriods(text)
+  const reviewedText = stripSentencePeriods(text);
+  const pronunciationAwareText = markReviewedPronunciations(reviewedText);
+  if (pronunciationAwareText === null) return "";
+  const normalizedPunctuation = pronunciationAwareText
     .replace(/[。．]/g, ". ")
     .replace(/、/g, ", ")
     .replace(/[！？]/g, (mark) => (mark === "！" ? "!" : "?"))
@@ -2795,6 +3218,7 @@ function sentenceToRomaji(text, preferredReadings = []) {
     .replace(/[〜～・]/g, " ");
   return kanaToRomaji(applyKnownReadings(normalizedPunctuation, preferredReadings))
     .replace(/\s+/g, " ")
+    .replace(/\s+([,!?/:;.])/g, "$1")
     .trim();
 }
 
@@ -2872,8 +3296,12 @@ function makeVocabDeckCards({
     );
     const sentencePrompt = examples[0]?.zh || "";
     const sentenceAnswer = examples[0]?.ja || "";
+    const speechReading = sourceEntry?.speech_reading || reading;
     const meaningMeta = "";
-    const readingMeta = `读音：${reading}${romaji ? `　罗马音：${romaji}` : ""}${meaningMeta}`;
+    const speechMeta = sourceEntry?.speech_reading && sourceEntry.speech_reading !== reading
+      ? `　语音示范：${sourceEntry.speech_reading}`
+      : "";
+    const readingMeta = `读音：${reading}${romaji ? `　罗马音：${romaji}` : ""}${speechMeta}${meaningMeta}`;
     // Keep stable IDs in a namespace that can never collide with the old
     // array-index IDs (for example, old `vocab-n4-100-ja`).
     const cardBaseId = `vocab-entry-${sourceId}`;
@@ -2881,6 +3309,24 @@ function makeVocabDeckCards({
     const legacyIndexes = Number.isInteger(sourceNumber) ? [sourceNumber - 1] : [index];
     if (sourceId === "n5-040") legacyIndexes.push(40);
     const uniqueLegacyIndexes = [...new Set(legacyIndexes.filter((value) => value >= 0))];
+    const mergedSourceIds = Array.isArray(sourceEntry?.merged_source_ids)
+      ? sourceEntry.merged_source_ids
+      : [];
+    const mergedLegacyIndexes = mergedSourceIds.flatMap((mergedId) => {
+      const mergedNumber = Number.parseInt(String(mergedId).split("-").at(-1), 10);
+      if (!Number.isInteger(mergedNumber) || mergedNumber < 1) return [];
+      const mergedPrefix = String(mergedId).startsWith("n4-") ? "vocab-n4" : "vocab";
+      const indexes = [mergedNumber - 1];
+      if (mergedId === "n5-040") indexes.push(40);
+      return [...new Set(indexes)].map((legacyIndex) => [mergedPrefix, legacyIndex]);
+    });
+    const legacyIdsFor = (direction) => [...new Set([
+      ...uniqueLegacyIndexes.map((legacyIndex) => `${idPrefix}-${legacyIndex}-${direction}`),
+      ...mergedLegacyIndexes.map(
+        ([mergedPrefix, legacyIndex]) => `${mergedPrefix}-${legacyIndex}-${direction}`,
+      ),
+      ...mergedSourceIds.map((mergedId) => `vocab-entry-${mergedId}-${direction}`),
+    ])];
 
     return [
       {
@@ -2889,7 +3335,7 @@ function makeVocabDeckCards({
         sourceId,
         isVocab: true,
         wordKey: cardBaseId,
-        legacyIds: uniqueLegacyIndexes.map((legacyIndex) => `${idPrefix}-${legacyIndex}-ja`),
+        legacyIds: legacyIdsFor("ja"),
         type: `${typePrefix} 日文 → 中文`,
         prompt: word,
         promptLang: "ja",
@@ -2898,8 +3344,8 @@ function makeVocabDeckCards({
         answer: shortMeaning,
         answerLang: "zh-CN",
         meta: readingMeta,
-        speech: reading,
-        frontSpeech: reading,
+        speech: speechReading,
+        frontSpeech: speechReading,
         examples,
       },
       {
@@ -2908,7 +3354,7 @@ function makeVocabDeckCards({
         sourceId,
         isVocab: true,
         wordKey: cardBaseId,
-        legacyIds: uniqueLegacyIndexes.map((legacyIndex) => `${idPrefix}-${legacyIndex}-zh`),
+        legacyIds: legacyIdsFor("zh"),
         type: `${typePrefix} 中文 → 日文`,
         prompt: shortMeaning,
         promptLang: "zh-CN",
@@ -2918,7 +3364,7 @@ function makeVocabDeckCards({
         answerLang: "ja",
         meta: readingMeta,
         sentenceAnswer,
-        speech: reading,
+        speech: speechReading,
         frontSpeech: "",
         examples,
       },

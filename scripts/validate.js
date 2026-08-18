@@ -21,6 +21,7 @@ const {
   read,
   readJson,
   rootDir,
+  runBrowserScript,
   sample,
   validateReportStructure,
 } = require("./validation-lib");
@@ -35,6 +36,34 @@ const expectedDependencyScripts = [
   "app.js",
 ];
 const minimumReviewedRomajiCoverage = 0.7;
+const expectedMergedSourceTargets = new Map([
+  ["n4-002", "n5-001"],
+  ["n4-039", "n5-072"],
+  ["n5-159", "n5-158"],
+  ["n4-119", "n5-158"],
+  ["n4-130", "n5-170"],
+  ["n4-177", "n5-205"],
+  ["n4-253", "n5-270"],
+  ["n4-254", "n5-271"],
+  ["n4-266", "n5-276"],
+  ["n4-281", "n5-283"],
+  ["n4-347", "n5-334"],
+  ["n4-393", "n5-376"],
+  ["n4-423", "n5-400"],
+  ["n4-755", "n5-409"],
+  ["n4-478", "n5-465"],
+  ["n4-507", "n5-502"],
+  ["n4-763", "n5-551"],
+  ["n4-629", "n5-645"],
+  ["n4-247", "n4-246"],
+  ["n4-377", "n4-376"],
+  ["n4-613", "n4-612"],
+]);
+const allowedCrossLevelVocabOverlaps = new Set([
+  "n5-081/n4-046",
+  "n5-358/n4-378",
+  "n5-651/n4-634",
+]);
 
 function addError(message) {
   validationErrors.push(message);
@@ -468,6 +497,10 @@ function validateVocabSource(label, data, expectedCount) {
   check(data && Array.isArray(data.entries), `${label} vocabulary must expose entries`);
   if (!Array.isArray(data?.entries)) return;
   check(
+    data.schema?.entry_count === data.entries.length,
+    `${label} schema.entry_count must match the ${data.entries.length} retained entries`,
+  );
+  check(
     data.entries.length === expectedCount,
     `${label} entry count: expected ${expectedCount}, received ${data.entries.length}`,
   );
@@ -491,6 +524,31 @@ function validateVocabSource(label, data, expectedCount) {
         `${label} entry ${entry.id || index} is missing ${field}`,
       );
     });
+    if (Object.hasOwn(entry, "speech_reading")) {
+      check(
+        typeof entry.speech_reading === "string" &&
+          entry.speech_reading.trim() &&
+          !/[・／/~〜～]/u.test(entry.speech_reading),
+        `${label} entry ${entry.id || index} speech_reading must be one directly pronounceable reading`,
+      );
+    }
+    if (Object.hasOwn(entry, "merged_source_ids")) {
+      check(
+        Array.isArray(entry.merged_source_ids) && entry.merged_source_ids.length > 0,
+        `${label} entry ${entry.id || index} merged_source_ids must be a non-empty array`,
+      );
+      const mergedIds = Array.isArray(entry.merged_source_ids) ? entry.merged_source_ids : [];
+      check(
+        new Set(mergedIds).size === mergedIds.length,
+        `${label} entry ${entry.id || index} repeats a merged source id`,
+      );
+      mergedIds.forEach((mergedId) => {
+        check(
+          /^n[45]-\d{3}$/u.test(mergedId) && mergedId !== entry.id,
+          `${label} entry ${entry.id || index} has invalid merged source id ${mergedId}`,
+        );
+      });
+    }
     check(
       Array.isArray(entry.examples) && entry.examples.length === 3,
       `${label} entry ${entry.id || index} must contain exactly three examples`,
@@ -557,6 +615,7 @@ function validateVocabSource(label, data, expectedCount) {
   }
 
   if (label === "N5") {
+    const byId = new Map(data.entries.map((entry) => [entry.id, entry]));
     const forbiddenTemplates = data.entries.filter((entry) =>
       knownN5ForbiddenTemplateFamilies.includes(entryTemplateSignature(entry)),
     );
@@ -596,9 +655,67 @@ function validateVocabSource(label, data, expectedCount) {
         `N5 ${id} must retain the reviewed example ${expectedExample}`,
       );
     });
+
+    ["n5-063", "n5-255", "n5-487", "n5-565", "n5-582", "n5-643", "n5-653", "n5-673", "n5-688"]
+      .forEach((id) => {
+        check(
+          byId.get(id)?.part_of_speech === "numeral/counter",
+          `${id} native Japanese counter must be classified as numeral/counter`,
+        );
+      });
+    check(
+      byId.get("n5-050")?.part_of_speech === "interrogative/counter",
+      "n5-050 いくつ must be classified as an interrogative counter",
+    );
+    check(byId.get("n5-100")?.part_of_speech === "pre-noun", "n5-100 大きな must be pre-noun");
+    check(byId.get("n5-400")?.part_of_speech === "pre-noun", "n5-400 小さな must be pre-noun");
+    check(
+      byId.get("n5-403")?.part_of_speech === "noun/adverb",
+      "n5-403 近く must model both noun and adverb uses",
+    );
+    check(
+      byId.get("n5-212")?.reading === "キログラム" &&
+        byId.get("n5-212")?.romaji === "kiroguramu",
+      "n5-212 must use the full キログラム reading",
+    );
+    check(
+      byId.get("n5-213")?.reading === "キロメートル" &&
+        byId.get("n5-213")?.romaji === "kiromeetoru",
+      "n5-213 must use the full キロメートル reading",
+    );
+    check(
+      byId.get("n5-360")?.reading === "そして" && byId.get("n5-360")?.romaji === "soshite",
+      "n5-360 そして must not use the different expression そうして as its reading",
+    );
+    check(
+      byId.get("n5-590")?.speech_reading === "ふん" &&
+        byId.get("n5-590")?.examples?.[0]?.ja === "十分間待ちます。",
+      "n5-590 must separate its pronounceable TTS sample and unambiguous counter example",
+    );
+    check(
+      byId.get("n5-697")?.headword === "ラジカセ" && byId.get("n5-697")?.reading === "ラジカセ",
+      "n5-697 must use the standard abbreviation ラジカセ",
+    );
+    ["n5-714", "n5-715"].forEach((id) => {
+      check(byId.get(id)?.part_of_speech === "pronoun", `${id} 私 must be classified as a pronoun`);
+    });
+    const forbiddenReviewedExamples = [
+      "指で地図を差します",
+      "名前をつけます",
+      "道は太くありません",
+    ].map(compactText);
+    data.entries.forEach((entry) => {
+      (entry.examples || []).forEach((example) => {
+        check(
+          !forbiddenReviewedExamples.includes(compactText(example.ja)),
+          `${entry.id} reintroduced a confirmed spelling or collocation error: ${example.ja}`,
+        );
+      });
+    });
   }
 
   if (label === "N4") {
+    const byId = new Map(data.entries.map((entry) => [entry.id, entry]));
     const administrativeCapital = data.entries.find((entry) => entry.id === "n4-465");
     const reviewedCapitalExamples = [
       "日本の都道府県では、都は東京都だけです",
@@ -641,7 +758,60 @@ function validateVocabSource(label, data, expectedCount) {
         )}`,
       );
     }
+    check(
+      byId.get("n4-246")?.headword === "混む" && byId.get("n4-246")?.variants?.includes("込む"),
+      "n4-246 must keep 混む as the canonical crowding spelling and 込む as a variant",
+    );
+    check(byId.get("n4-376")?.headword === "全然", "n4-376 must canonically merge 全然/ぜんぜん");
+    check(byId.get("n4-612")?.headword === "真面目", "n4-612 must canonically merge 真面目/まじめ");
+    check(
+      byId.get("n4-615")?.romaji === "matawa" &&
+        byId.get("n4-615")?.examples?.every((example) => example.zh.includes("或")),
+      "n4-615 または must mean or and use particle pronunciation wa",
+    );
+    check(
+      byId.get("n4-647")?.headword === "最も" && byId.get("n4-647")?.meaning_zh === "最；最为",
+      "n4-647 must not conflate 最も with 尤も",
+    );
+    check(!byId.has("n4-756"), "the malformed n4-756 ～月 entry must remain removed");
   }
+}
+
+function validateVocabLevelBoundaries(n5Data, n4Data) {
+  const signature = (entry) =>
+    `${canonicalText(entry?.headword)}\u0000${canonicalText(entry?.reading)}`;
+  [["N5", n5Data], ["N4", n4Data]].forEach(([label, data]) => {
+    const duplicates = duplicateGroups(data.entries, signature);
+    if (duplicates.length) {
+      addError(
+        `${label} repeats an exact headword/reading entry: ${sample(
+          duplicates.map((group) => group.map((entry) => entry.id).join("/")),
+        )}`,
+      );
+    }
+  });
+
+  const n4BySignature = new Map(n4Data.entries.map((entry) => [signature(entry), entry]));
+  const overlaps = n5Data.entries.flatMap((n5Entry) => {
+    const n4Entry = n4BySignature.get(signature(n5Entry));
+    return n4Entry ? [[n5Entry, n4Entry]] : [];
+  });
+  const actualPairs = new Set(overlaps.map(([n5Entry, n4Entry]) => `${n5Entry.id}/${n4Entry.id}`));
+  allowedCrossLevelVocabOverlaps.forEach((pair) => {
+    check(actualPairs.has(pair), `reviewed distinct-sense cross-level pair is missing: ${pair}`);
+  });
+  overlaps.forEach(([n5Entry, n4Entry]) => {
+    const pair = `${n5Entry.id}/${n4Entry.id}`;
+    check(
+      allowedCrossLevelVocabOverlaps.has(pair),
+      `unreviewed exact cross-level vocabulary overlap: ${pair} ${n5Entry.headword}`,
+    );
+    check(
+      canonicalText(n5Entry.meaning_zh) !== canonicalText(n4Entry.meaning_zh) &&
+        n5Entry.note_zh && n4Entry.note_zh,
+      `${pair} must document genuinely distinct meanings in both level notes`,
+    );
+  });
 }
 
 function validateGrammarSource(grammarData, expectedCount) {
@@ -706,12 +876,129 @@ function validateGrammarSource(grammarData, expectedCount) {
     );
   }
 
+  const exampleRecords = grammarData.entries.flatMap((entry) =>
+    (entry.examples || []).map((example) => ({ entryId: entry.id, ...example })),
+  );
+  const duplicateExamples = duplicateGroups(
+    exampleRecords,
+    (example) => `${compactText(example?.ja)}\u0000${compactText(example?.zh)}`,
+  );
+  if (duplicateExamples.length) {
+    addError(
+      `grammar entries repeat exact examples: ${sample(
+        duplicateExamples.map((group) => group.map((example) => example.entryId).join("/")),
+        10,
+      )}`,
+    );
+  }
+
+  const grammarById = new Map(grammarData.entries.map((entry) => [entry.id, entry]));
+  const requireFragments = (id, field, fragments) => {
+    const entry = grammarById.get(id);
+    check(Boolean(entry), `grammar regression fixture ${id} is missing`);
+    fragments.forEach((fragment) => {
+      check(
+        String(entry?.[field] || "").includes(fragment),
+        `${id}.${field} must retain reviewed fragment ${fragment}`,
+      );
+    });
+  };
+  requireFragments("n5-grammar-009", "formation", ["原因 + で"]);
+  requireFragments("n5-grammar-010", "formation", ["肯定非过去 + なの", "过去・否定普通形 + の"]);
+  requireFragments("n5-grammar-012", "formation", ["語幹 + なだけ", "过去/否定普通形 + だけ"]);
+  requireFragments("n5-grammar-015", "formation", ["な形/N肯定非过去", "过去/否定普通形 + か"]);
+  requireFragments("n5-grammar-033", "formation", ["いい → よすぎる", "ない → なさすぎる"]);
+  requireFragments("n5-grammar-043", "formation", ["語幹/N + なので", "过去/否定普通形 + ので"]);
+  requireFragments("n5-grammar-044", "formation", ["丁寧形 + けど"]);
+  requireFragments("n5-grammar-045", "formation", ["丁寧形 + けれども"]);
+  requireFragments("n5-grammar-063", "formation", ["动作性N"]);
+  requireFragments("n5-grammar-067", "formation", ["いい → よくなる"]);
+  requireFragments("n5-grammar-068", "formation", ["語幹/N + なんです", "过去/否定普通形 + んです"]);
+  requireFragments("n5-grammar-069", "formation", ["語幹/N + なのです", "过去/否定普通形 + のです"]);
+  requireFragments("n5-grammar-073", "formation", ["語幹 + なとき", "N + のとき"]);
+  requireFragments("n5-grammar-074", "formation", ["語幹/N + でしょう", "过去/否定普通形 + でしょう"]);
+  requireFragments("n5-grammar-075", "formation", ["語幹/N + だろう", "过去/否定普通形 + だろう"]);
+  requireFragments("n5-grammar-030", "note", ["〜ている／〜でいる", "〜てる／〜でる"]);
+  requireFragments("n4-grammar-001", "formation", ["語幹 + な間", "N + の間"]);
+  requireFragments("n4-grammar-002", "formation", ["語幹 + な間に", "N + の間に"]);
+  requireFragments("n4-grammar-005", "formation", ["う段→え段 + ば", "いい→よければ"]);
+  requireFragments("n4-grammar-006", "formation", ["語幹 + な場合は", "N + の場合は"]);
+  requireFragments("n4-grammar-012", "formation", ["なのではないか", "过去・否定普通形"]);
+  requireFragments("n4-grammar-013", "formation", ["V/い形普通形", "な形/N肯定非过去"]);
+  requireFragments("n4-grammar-018", "formation", ["あります → ございます"]);
+  requireFragments("n4-grammar-020", "formation", ["語幹 + なはず", "N + のはず"]);
+  requireFragments("n4-grammar-021", "formation", ["語幹 + なはずがない", "N + のはずがない"]);
+  requireFragments("n4-grammar-026", "formation", ["な形/N肯定非过去", "过去/否定普通形 + かどうか"]);
+  requireFragments("n4-grammar-029", "formation", ["な形/N肯定非过去", "过去/否定普通形 + かもしれない"]);
+  requireFragments("n4-grammar-030", "formation", ["な形/N肯定非过去", "过去/否定普通形 + かな"]);
+  requireFragments("n4-grammar-033", "formation", ["时间点 + ごろ", "語幹 + な頃", "N + の頃"]);
+  requireFragments("n4-grammar-034", "formation", ["語幹 + なこと", "N + であること"]);
+  requireFragments("n4-grammar-039", "formation", ["いい→よくする"]);
+  requireFragments("n4-grammar-042", "formation", ["い形 + まま", "な形語幹 + なまま"]);
+  requireFragments("n4-grammar-044", "formation", ["な形/N肯定非过去", "过去・否定普通形"]);
+  requireFragments("n4-grammar-054", "formation", ["な形/N肯定非过去", "过去/否定普通形 + なら"]);
+  requireFragments("n4-grammar-057", "formation", ["語幹 + なことに気がつく", "N + であることに気がつく"]);
+  requireFragments("n4-grammar-058", "formation", ["いい→よく見える"]);
+  requireFragments("n4-grammar-062", "formation", ["語幹/N + なのに", "过去/否定普通形 + のに"]);
+  requireFragments("n4-grammar-064", "formation", ["なのは", "过去・否定普通形 + のは"]);
+  requireFragments("n4-grammar-065", "pattern", ["お／ご〜ください"]);
+  requireFragments("n4-grammar-066", "pattern", ["お／ご〜になる"]);
+  requireFragments("n4-grammar-070", "note", ["按い形容词活用", "子供らしく"]);
+  requireFragments("n4-grammar-073", "formation", ["词尾为「す」的动词不缩约", "来る→来させられる"]);
+  requireFragments("n4-grammar-088", "formation", ["いい→よかったら", "ではなかったら"]);
+  requireFragments("n4-grammar-091", "formation", ["いい→よくて", "ではなくて"]);
+  requireFragments("n4-grammar-102", "formation", ["〜てしまう → 〜ちゃう", "〜でしまう → 〜じゃう"]);
+  requireFragments("n4-grammar-107", "formation", ["いい→よくても", "ではなくても"]);
+  requireFragments("n4-grammar-108", "formation", ["非过去普通形", "語幹/N + だと", "否定非过去普通形"]);
+  requireFragments("n4-grammar-119", "formation", ["う→われる"]);
+  requireFragments("n4-grammar-125", "formation", ["語幹 + なようだ", "过去・否定普通形 + ようだ"]);
+  requireFragments("n4-grammar-126", "formation", ["上述形态 + ように + V/形容詞", "ような + N"]);
+  check(!grammarById.has("n4-grammar-059"), "redundant n4-grammar-059 must remain removed");
+  check(
+    !grammarById.get("n4-grammar-018")?.meaningZh.includes("是"),
+    "n4-grammar-018 ございます must not be conflated with でございます",
+  );
+  check(
+    !grammarById.get("n4-grammar-040")?.meaningZh.includes("急忙"),
+    "n4-grammar-040 急に must not be translated as 急忙地",
+  );
+  check(
+    grammarById.get("n5-grammar-020")?.examples?.some(
+      (example) => example.ja === "日本語の勉強は大変ではありません。" &&
+        example.zh === "学习日语并不辛苦。",
+    ),
+    "n5-grammar-020 must retain the corrected non-opposite translation",
+  );
+  check(
+    grammarById.get("n4-grammar-104")?.examples?.every((example) =>
+      /てやり/u.test(example.ja),
+    ),
+    "every n4-grammar-104 example must directly demonstrate Vてやる",
+  );
+  check(
+    grammarById.get("n5-grammar-081")?.examples?.[1]?.ja === "この漢字をどうやって覚えますか。",
+    "n5-grammar-081 must demonstrate a genuine method question",
+  );
+  check(
+    grammarById.get("n4-grammar-055")?.examples?.[2]?.zh === "把不懂的部分读一读。",
+    "n4-grammar-055 must retain the complete command translation",
+  );
+  check(
+    grammarById.get("n4-grammar-118")?.examples?.[2]?.ja === "『お花見』って、どういう意味ですか。",
+    "n4-grammar-118 must directly demonstrate って",
+  );
+  check(
+    grammarById.get("n4-grammar-120")?.examples?.[0]?.ja ===
+      "兄は背が高いですが、私は背が低いです。",
+    "n4-grammar-120 must use 背が低い for a person's height",
+  );
+
   const visibleAdjective = grammarData.entries.find((entry) => entry.id === "n4-grammar-058");
   check(Boolean(visibleAdjective), "grammar fixture n4-grammar-058 is missing");
   check(
-    visibleAdjective?.formation.includes("い形語幹 + く見える") &&
+    visibleAdjective?.formation.includes("い形去い + く見える") &&
       !visibleAdjective?.formation.includes("い形 + に見える"),
-    "n4-grammar-058 must model い-adjectives as い形語幹 + く見える",
+    "n4-grammar-058 must model い-adjectives as い形去い + く見える",
   );
 }
 
@@ -876,6 +1163,40 @@ function validateRomajiCoverage(cards) {
     coverage >= minimumReviewedRomajiCoverage,
     `displayed romaji coverage fell to ${(coverage * 100).toFixed(1)}% (${available}/${examples.length}); expected at least ${(minimumReviewedRomajiCoverage * 100).toFixed(0)}%`,
   );
+}
+
+function allGeneratedExamples(cards) {
+  return cards.flatMap((card) => Array.isArray(card.examples) ? card.examples : []);
+}
+
+function validateRomajiCorpusLock(runtime) {
+  const assertMutationFailsClosed = (label, mutate) => {
+    const changedData = {
+      grammar: cloneJson(runtime.data.grammar),
+      n4: cloneJson(runtime.data.n4),
+      n5: cloneJson(runtime.data.n5),
+    };
+    mutate(changedData);
+    const changedCardData = loadCardData(changedData);
+    const changedExamples = allGeneratedExamples([
+      ...changedCardData.makeVocabCards(),
+      ...changedCardData.makeGrammarCards(),
+    ]);
+    check(changedExamples.length > 0, `${label} corpus-lock probe generated no examples`);
+    check(
+      changedExamples.every(
+        (example) => example.romaji === "" && example.romajiStatus === "unavailable",
+      ),
+      `${label} must fail closed instead of displaying unreviewed sentence romaji`,
+    );
+  };
+
+  assertMutationFailsClosed("changed Japanese example", (data) => {
+    data.n5.entries[0].examples[0].ja += "ね";
+  });
+  assertMutationFailsClosed("changed vocabulary reading metadata", (data) => {
+    data.n5.entries[0].reading = "あー";
+  });
 }
 
 function validateKanaMarkClassification(kanaCards) {
@@ -1121,6 +1442,95 @@ function validateStableVocabIds(runtime) {
   });
 }
 
+function validateMergedVocabSources(runtime) {
+  const entries = [...runtime.data.n5.entries, ...runtime.data.n4.entries];
+  const activeIds = new Set(entries.map((entry) => entry.id));
+  const actualTargets = new Map();
+
+  entries.forEach((entry) => {
+    (Array.isArray(entry.merged_source_ids) ? entry.merged_source_ids : []).forEach(
+      (mergedId) => {
+        check(
+          !activeIds.has(mergedId),
+          `${entry.id} merged source ${mergedId} is still active and must not be aliased`,
+        );
+        check(
+          !actualTargets.has(mergedId),
+          `${mergedId} is assigned to more than one retained vocabulary entry`,
+        );
+        actualTargets.set(mergedId, entry.id);
+      },
+    );
+  });
+
+  expectedMergedSourceTargets.forEach((targetId, mergedId) => {
+    check(
+      actualTargets.get(mergedId) === targetId,
+      `retired source ${mergedId} must migrate to ${targetId}, received ${actualTargets.get(mergedId) || "(missing)"}`,
+    );
+  });
+  actualTargets.forEach((targetId, mergedId) => {
+    check(
+      expectedMergedSourceTargets.get(mergedId) === targetId,
+      `unexpected retired source mapping ${mergedId} -> ${targetId}`,
+    );
+  });
+
+  entries.forEach((entry) => {
+    const expectedSpeech = entry.speech_reading || entry.reading;
+    const cards = runtime.vocabCards.filter((card) => card.sourceId === entry.id);
+    check(cards.length === 2, `${entry.id} must produce two vocabulary cards for speech validation`);
+    cards.forEach((card) => {
+      check(
+        card.speech === expectedSpeech,
+        `${card.id} speech must use ${entry.speech_reading ? "speech_reading" : "reading"}: ${expectedSpeech}`,
+      );
+    });
+  });
+}
+
+function expectedCompatibilityExamples(entries) {
+  const candidates = new Map();
+  entries.forEach((entry) => {
+    const keys = new Set([
+      entry.headword,
+      ...(entry.variants || []),
+      ...String(entry.source_form || "").split(";"),
+    ].map((key) => key.trim()).filter(Boolean));
+    keys.forEach((key) => {
+      const matches = candidates.get(key) || [];
+      matches.push(entry.examples);
+      candidates.set(key, matches);
+    });
+  });
+  return Object.fromEntries(
+    [...candidates.entries()]
+      .filter(([, matches]) => matches.length === 1)
+      .map(([key, [examples]]) => [key, examples]),
+  );
+}
+
+function validateCompatibilityExampleIndexes(n5Window, n4Window) {
+  [
+    ["N5", n5Window?.AYAYA_N5_CODEX_VOCAB, n5Window?.AYAYA_N5_TATOEBA_EXAMPLES],
+    ["N4", n4Window?.AYAYA_N4_CODEX_VOCAB, n4Window?.AYAYA_N4_TATOEBA_EXAMPLES],
+  ].forEach(([label, data, actual]) => {
+    check(actual && typeof actual === "object", `${label} compatibility example index is missing`);
+    if (!data || !actual) return;
+    const expected = expectedCompatibilityExamples(data.entries);
+    check(
+      JSON.stringify(actual) === JSON.stringify(expected),
+      `${label} compatibility example index must cover every unambiguous headword, variant and source form`,
+    );
+  });
+  check(Boolean(n5Window?.AYAYA_N5_TATOEBA_EXAMPLES?.かける), "N5 compatibility index must retain かける");
+  check(Boolean(n4Window?.AYAYA_N4_TATOEBA_EXAMPLES?.込む), "N4 compatibility index must retain 込む");
+  check(
+    !Object.hasOwn(n5Window?.AYAYA_N5_TATOEBA_EXAMPLES || {}, "キロ"),
+    "ambiguous キロ alias must not overwrite one of its two vocabulary meanings",
+  );
+}
+
 function validateProductionLegacyVocabIds(runtime) {
   const stableIds = new Set(runtime.vocabCards.map((card) => card.id));
   const aliasRecords = [];
@@ -1132,7 +1542,7 @@ function validateProductionLegacyVocabIds(runtime) {
     );
     (Array.isArray(card.legacyIds) ? card.legacyIds : []).forEach((legacyId) => {
       check(
-        /^vocab(?:-n4)?-\d+-(?:ja|zh)$/u.test(legacyId),
+        /^(?:vocab(?:-n4)?-\d+|vocab-entry-n[45]-\d{3})-(?:ja|zh)$/u.test(legacyId),
         `${card.id} has malformed legacy alias ${legacyId}`,
       );
       check(
@@ -1191,9 +1601,27 @@ function validateProductionLegacyVocabIds(runtime) {
         );
         check(Boolean(card), `${label} ${entry.id} is missing its ${direction} production card`);
         if (!card) return;
-        const expectedAliases = legacyIndexes
-          .map((legacyIndex) => `${config.legacyPrefix}-${legacyIndex}-${direction}`)
-          .sort();
+        const mergedArrayAliases = (Array.isArray(entry.merged_source_ids)
+          ? entry.merged_source_ids
+          : []).flatMap((mergedId) => {
+          const mergedNumber = Number.parseInt(mergedId.split("-").at(-1), 10);
+          if (!Number.isInteger(mergedNumber) || mergedNumber < 1) return [];
+          const mergedPrefix = mergedId.startsWith("n4-") ? "vocab-n4" : "vocab";
+          const indexes = [mergedNumber - 1];
+          if (mergedId === "n5-040") indexes.push(40);
+          return [...new Set(indexes)].map(
+            (legacyIndex) => `${mergedPrefix}-${legacyIndex}-${direction}`,
+          );
+        });
+        const expectedAliases = [
+          ...legacyIndexes.map(
+            (legacyIndex) => `${config.legacyPrefix}-${legacyIndex}-${direction}`,
+          ),
+          ...mergedArrayAliases,
+          ...(Array.isArray(entry.merged_source_ids) ? entry.merged_source_ids : []).map(
+            (mergedId) => `vocab-entry-${mergedId}-${direction}`,
+          ),
+        ].sort();
         const actualAliases = Array.isArray(card.legacyIds) ? [...card.legacyIds].sort() : [];
         check(
           JSON.stringify(actualAliases) === JSON.stringify(expectedAliases),
@@ -1288,7 +1716,7 @@ function validatePreferredReadingRegressions(runtime) {
     `longer safe reading 降り出す must remain available, received ${longerSafeExample?.romaji || "(blank)"}`,
   );
 
-  ["後", "降り", "人", "着", "中", "話", "背", "来"].forEach((surface) => {
+  ["後", "降", "降り", "人", "着", "中", "話", "背", "来"].forEach((surface) => {
     const unsafeGlobal = runtime.cardData.furiganaEntries.find(
       ([candidateSurface]) => candidateSurface === surface,
     );
@@ -1304,31 +1732,50 @@ function validatePreferredReadingRegressions(runtime) {
   );
 
   const reviewedRomajiFixtures = new Map([
-    ["ここへ来てください", "kokohekitekudasai"],
-    ["あの人は外国人です", "anohitohagaikokujindesu"],
-    ["思い出は心に残ります", "omoidehakokoroninokorimasu"],
+    ["ここへ来てください", "koko e kitekudasai"],
+    ["あの人は外国人です", "anohito wa gaikokujindesu"],
+    ["思い出は心に残ります", "omoide wa kokoroninokorimasu"],
     ["体の調子がいいです", "karadanochoushigaiidesu"],
     ["気温が急に下がりました", "kiongakyuunisagarimashita"],
-    ["木で小さな小屋を建てました", "kidechiisanakoyawotatemashita"],
+    ["木で小さな小屋を建てました", "kidechiisanakoya o tatemashita"],
     ["温かいうちに召し上がってください", "atatakaiuchinimeshiagattekudasai"],
     ["区役所まで歩いて行きます", "kuyakushomadearuiteikimasu"],
-    ["木製の机を買いました", "mokuseinotsukuewokaimashita"],
-    ["物語の終わりは少し悲しかったです", "monogatarinoowarihasukoshikanashikattadesu"],
-    ["温かい家庭を作りたいです", "atatakaikateiwotsukuritaidesu"],
-    ["自分の気持ちを正直に話しました", "jibunnokimochiwoshoujikinihanashimashita"],
-    ["あの子は近所の小学生です", "anokohakinjonoshougakuseidesu"],
-    ["市役所は市民の意見を聞きました", "shiyakushohashiminnoikenwokikimashita"],
-    ["この建物は明治時代に建てられました", "konotatemonohameijijidainitateraremashita"],
-    ["乗り換えの時間は十分間です", "norikaenojikanhajuppunkandesu"],
-    ["集合場所は駅の南口です", "shuugoubashohaekinominamiguchidesu"],
+    ["木製の机を買いました", "mokuseinotsukue o kaimashita"],
+    ["物語の終わりは少し悲しかったです", "monogatarinoowari wa sukoshikanashikattadesu"],
+    ["自分の気持ちを正直に話しました", "jibunnokimochi o shoujikinihanashimashita"],
+    ["あの子は近所の小学生です", "anoko wa kinjonoshougakuseidesu"],
+    ["市役所は市民の意見を聞きました", "shiyakusho wa shiminnoiken o kikimashita"],
+    ["この建物は明治時代に建てられました", "konotatemono wa meijijidainitateraremashita"],
+    ["乗り換えの時間は十分間です", "norikaenojikan wa juppunkandesu"],
+    ["集合場所は駅の南口です", "shuugoubasho wa ekinominamiguchidesu"],
     ["日本の食文化に興味があります", "nihonnoshokubunkanikyoumigaarimasu"],
-    ["この仕事は速さと正確さの両方が必要です", "konoshigotohahayasatoseikakusanoryouhougahitsuyoudesu"],
-    ["日本の都道府県では、都は東京都だけです", "nihonnotodoufukendeha, tohatoukyoutodakedesu"],
-    ["東京都の都庁は新宿にあります", "toukyoutonotochouhashinjukuniarimasu"],
+    ["この仕事は速さと正確さの両方が必要です", "konoshigoto wa hayasatoseikakusanoryouhougahitsuyoudesu"],
+    ["日本の都道府県では、都は東京都だけです", "nihonnotodoufukende wa, to wa toukyoutodakedesu"],
+    ["東京都の都庁は新宿にあります", "toukyoutonotochou wa shinjukuniarimasu"],
+    ["このはさみは紙を切るのに使います", "konohasami wa kami o kirunonitsukaimasu"],
+    ["この道で合っているはずです", "konomichideatteiruhazudesu"],
+    ["彼がそんなことを言うはずがありません", "karegasonnakoto o iuhazugaarimasen"],
+    ["長い間、大変お世話になりました", "nagaiaida, taihen osewaninarimashita"],
+    ["本をたくさん読みます", "hon o takusan yomimasu"],
+    ["もちろん行きます", "mochiron ikimasu"],
+    ["この本はあの本より新しいです", "konohon wa anohon yoriatarashiidesu"],
+    ["金曜日に学校へ行きます", "kin'youbinigakkou e ikimasu"],
+    ["今夜は月がよく見えます", "kon'ya wa tsukigayokumiemasu"],
+    ["翻訳の仕事をしています", "hon'yakunoshigoto o shiteimasu"],
+    ["あの店の店員はとても親切です", "anomisenoten'in wa totemoshinsetsudesu"],
+    ["警察が事故の原因を調べています", "keisatsugajikonogen'in o shirabeteimasu"],
+    ["本屋で本を買います", "hon'yadehon o kaimasu"],
+    ["何を食べますか", "nani o tabemasuka"],
+    ["この坂を下ると駅があります", "konosaka o kudarutoekigaarimasu"],
+    ["銀行でお金を下ろします", "ginkoudeokane o oroshimasu"],
+    ["席が空いています", "sekigaaiteimasu"],
+    ["目を閉じてください", "me o tojitekudasai"],
+    ["遠くで信号が光りました", "tookudeshingougahikarimashita"],
   ]);
-  const vocabExamples = runtime.vocabCards.flatMap((vocabCard) => vocabCard.examples || []);
+  const reviewedExamples = [...runtime.vocabCards, ...runtime.grammarCards]
+    .flatMap((card) => card.examples || []);
   reviewedRomajiFixtures.forEach((expectedRomaji, japanese) => {
-    const reviewedExample = vocabExamples.find(
+    const reviewedExample = reviewedExamples.find(
       (candidate) => compactText(candidate?.ja) === compactText(japanese),
     );
     check(Boolean(reviewedExample), `reviewed romaji fixture is missing: ${japanese}`);
@@ -1528,12 +1975,14 @@ function main() {
   const n4Json = capture("could not parse ayaya-n4-codex-vocab.json", () =>
     readJson("ayaya-n4-codex-vocab.json"),
   );
-  const n5Js = capture("could not load n5-codex-vocab.js", () =>
-    loadScriptGlobal("n5-codex-vocab.js", "AYAYA_N5_CODEX_VOCAB"),
+  const n5Window = capture("could not load n5-codex-vocab.js", () =>
+    runBrowserScript("n5-codex-vocab.js"),
   );
-  const n4Js = capture("could not load ayaya-n4-codex-vocab.js", () =>
-    loadScriptGlobal("ayaya-n4-codex-vocab.js", "AYAYA_N4_CODEX_VOCAB"),
+  const n4Window = capture("could not load ayaya-n4-codex-vocab.js", () =>
+    runBrowserScript("ayaya-n4-codex-vocab.js"),
   );
+  const n5Js = n5Window?.AYAYA_N5_CODEX_VOCAB;
+  const n4Js = n4Window?.AYAYA_N4_CODEX_VOCAB;
   const grammarData = capture("could not load grammar-data.js", () =>
     loadScriptGlobal("grammar-data.js", "AYAYA_GRAMMAR_DATA"),
   );
@@ -1550,6 +1999,8 @@ function main() {
       "ayaya-n4-codex-vocab.js and ayaya-n4-codex-vocab.json are out of sync",
     );
   }
+  if (n5Json && n4Json) validateVocabLevelBoundaries(n5Json, n4Json);
+  if (n5Window && n4Window) validateCompatibilityExampleIndexes(n5Window, n4Window);
 
   if (report?.expected_counts) {
     if (n5Json) validateVocabSource("N5", n5Json, report.expected_counts.n5_entries);
@@ -1569,8 +2020,10 @@ function main() {
     validateDeckCoverage(cards, tabDecks, runtime.data);
     validateDisplayedRomaji(cards);
     validateRomajiCoverage(cards);
+    capture("reviewed romaji corpus-lock check failed", () => validateRomajiCorpusLock(runtime));
     validatePromptDisambiguation(cards);
     capture("stable vocab id regression check failed", () => validateStableVocabIds(runtime));
+    validateMergedVocabSources(runtime);
     validateProductionLegacyVocabIds(runtime);
     validatePreferredReadingRegressions(runtime);
     validateGrammarChoices(runtime.grammarCards, runtime.data.grammar);

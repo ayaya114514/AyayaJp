@@ -1052,7 +1052,9 @@ function mergeCardStates(states) {
 
 function migrateLegacyCardState(familyCards) {
   const aliasMap = new Map();
+  const targetFamilies = new Map();
   familyCards.forEach((card) => {
+    targetFamilies.set(card.id, cardFamilyForDeck(card.deck));
     (card.legacyIds || []).forEach((legacyId) => aliasMap.set(legacyId, card.id));
   });
   if (!aliasMap.size) return;
@@ -1077,12 +1079,21 @@ function migrateLegacyCardState(familyCards) {
     });
   });
 
-  const remapIds = (ids) => [
-    ...new Set((Array.isArray(ids) ? ids : []).map((id) => aliasMap.get(id) || id)),
+  const remapId = (id, deck) => {
+    const targetId = aliasMap.get(id);
+    if (!targetId) return id;
+    return targetFamilies.get(targetId) === cardFamilyForDeck(deck) ? targetId : "";
+  };
+  const remapIds = (ids, deck) => [
+    ...new Set(
+      (Array.isArray(ids) ? ids : [])
+        .map((id) => remapId(id, deck))
+        .filter(Boolean),
+    ),
   ];
 
   Object.keys(sessionQueues).forEach((deck) => {
-    const nextQueue = remapIds(sessionQueues[deck]);
+    const nextQueue = remapIds(sessionQueues[deck], deck);
     if (!arraysEqual(sessionQueues[deck], nextQueue)) {
       sessionQueues[deck] = nextQueue;
       changed = true;
@@ -1090,7 +1101,7 @@ function migrateLegacyCardState(familyCards) {
   });
   Object.keys(sessionCompleted).forEach((deck) => {
     const previous = [...sessionCompleted[deck]];
-    const next = remapIds(previous);
+    const next = remapIds(previous, deck);
     if (!arraysEqual(previous, next)) {
       sessionCompleted[deck] = new Set(next);
       changed = true;
@@ -1099,7 +1110,9 @@ function migrateLegacyCardState(familyCards) {
   Object.keys(sessionCompletionEvents).forEach((deck) => {
     const previous = sessionCompletionEvents[deck] || {};
     const next = Object.fromEntries(
-      Object.entries(previous).map(([cardId, eventId]) => [aliasMap.get(cardId) || cardId, eventId]),
+      Object.entries(previous)
+        .map(([cardId, eventId]) => [remapId(cardId, deck), eventId])
+        .filter(([cardId]) => cardId),
     );
     if (!valuesEqual(previous, next)) {
       sessionCompletionEvents[deck] = next;
@@ -1108,7 +1121,7 @@ function migrateLegacyCardState(familyCards) {
   });
   Object.keys(sessionReopenedCards).forEach((deck) => {
     const previous = [...sessionReopenedCards[deck]];
-    const next = remapIds(previous);
+    const next = remapIds(previous, deck);
     if (!arraysEqual(previous, next)) {
       sessionReopenedCards[deck] = new Set(next);
       changed = true;

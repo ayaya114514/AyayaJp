@@ -16,21 +16,22 @@
     "n5-codex-vocab.json",
     "styles.css"
   ],
-  "source_fingerprint": "sha256:58d62d677838795bfa55c32e78289d48a7b2791f8fe1ad61ec44a7137d2f7d12",
+  "source_fingerprint": "sha256:ff73ae3fc279a46c12e2a462f189659bf8788ea557a3ebed9d07ebbc10248e86",
   "expected_counts": {
-    "n5_entries": 717,
-    "n4_entries": 767,
-    "grammar_entries": 216,
-    "kana_cards": 251,
-    "vocab_cards": 2968,
-    "grammar_cards": 864,
-    "total_cards_from_api": 4083
+    "n5_entries": 716,
+    "n4_entries": 745,
+    "grammar_entries": 215,
+    "kana_cards": 241,
+    "vocab_cards": 2922,
+    "grammar_cards": 860,
+    "total_cards_from_api": 4023
   },
   "required_contracts": [
     "source-js-json-sync",
     "generated-card-schema",
     "stable-source-derived-vocab-ids",
     "semantic-duplicate-signatures",
+    "vocab-level-boundary-deduplication",
     "display-romaji-script-safety",
     "prompt-collision-disambiguation",
     "same-level-grammar-distractors",
@@ -39,16 +40,22 @@
     "app-regressions",
     "lazy-level-builder-parity",
     "production-legacy-id-migration-map",
+    "retired-source-id-migration",
+    "vocab-speech-reading",
+    "compatibility-example-index",
     "html-structure-and-script-order",
     "strict-language-tags",
     "dark-only-runtime",
     "validation-source-fingerprint",
     "preferred-homograph-readings",
     "reviewed-romaji-fixtures",
+    "reviewed-romaji-corpus-lock",
     "romaji-coverage-regression",
     "kana-mark-classification",
     "n5-content-regressions",
+    "reviewed-vocab-facts",
     "grammar-formation-regressions",
+    "grammar-content-regressions",
     "full-study-reveal-target"
   ]
 }

@@ -6,32 +6,35 @@
 window.AYAYA_N4_CODEX_VOCAB = {
   "schema": {
     "schema_version": "1.0.0",
-    "generated_on": "2026-06-28",
+    "generated_on": "2026-08-18",
     "purpose": "Codex-readable, app-compatible JLPT N4 learning data with corrected Simplified Chinese meanings and natural short Japanese examples. Public N4 lists vary, so this file is an expanded, de-duplicated N4-specific list aligned to the uploaded AYAYA N5 schema.",
     "fields": {
       "headword": "学习用规范词形。旧写法或不常用写法会保留在 source_form。",
       "source_form": "来源词形；多个常见写法用分号保留。",
       "variants": "可接受写法或变体。",
       "reading": "主读音，通常为平假名；外来语保留片假名。",
+      "speech_reading": "可选的 TTS 代表读音；仅在展示读音包含多个候选、不能直接朗读时使用。",
       "reading_variants": "原始读音字段中的所有读音。",
-      "romaji": "用于搜索/调试的简易罗马字。",
+      "romaji": "词条主读音的学习用 Hepburn 式 ASCII 罗马字，用于检索和卡片显示。",
       "part_of_speech": "粗粒度词性，供 Codex 和应用生成卡片使用。",
       "meaning_zh": "学习用简体中文释义。",
       "kanji_readings": "含汉字词形的整词读音，用于生成 ruby/furigana。",
       "examples": "三个自然、短句优先的日语例句；zh 为简体中文翻译。",
-      "note_zh": "必要时说明写法、用法或兼容注意。"
+      "note_zh": "必要时说明写法、用法或兼容注意。",
+      "merged_source_ids": "已合并或跨级去重的旧 source ID，用于迁移既有学习进度。"
     },
     "compatibility": {
       "AYAYA_N4_WORDS": "[headword, reading, meaning_zh, first_example_ja, first_example_zh]",
-      "AYAYA_N4_TATOEBA_EXAMPLES": "同名变量被设置为本文件的精选例句对象，便于现有 app.js 的 buildExamples 优先读取。"
+      "AYAYA_N4_TATOEBA_EXAMPLES": "按规范词形、全部 variants 与全部 source_form 写法建立精选例句索引；有歧义的别名不建立唯一映射。"
     },
     "source_notes": [
       "Vocabulary merged and normalized from public JLPT N4 lists; no official JEES/JF fixed vocabulary list exists for current JLPT.",
       "The uploaded N5 files were used as the compatibility/schema target.",
       "Examples are newly written short study sentences rather than copied corpus sentences.",
-      "Mixed-sense records and repeated placeholder example families were reviewed and rewritten on 2026-07-17 so each retained entry demonstrates its own part of speech and meaning."
+      "Mixed-sense records and repeated placeholder example families were reviewed and rewritten on 2026-07-17 so each retained entry demonstrates its own part of speech and meaning.",
+      "Reading, part-of-speech, example alignment, same-sense duplicates and retained cross-level distinctions were re-audited on 2026-08-18; merged_source_ids preserve prior study state."
     ],
-    "entry_count": 767
+    "entry_count": 745
   },
   "entries": [
     {
@@ -65,44 +68,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         }
       ],
       "note_zh": "感叹词。"
-    },
-    {
-      "id": "n4-002",
-      "jlpt": "N4",
-      "headword": "ああ",
-      "source_form": "嗚呼; ああ",
-      "variants": [
-        "嗚呼",
-        "ああ"
-      ],
-      "reading": "ああ",
-      "reading_variants": [
-        "ああ"
-      ],
-      "romaji": "aa",
-      "part_of_speech": "expression",
-      "meaning_zh": "啊；那样；哎呀",
-      "kanji_readings": [
-        {
-          "form": "嗚呼",
-          "reading": "ああ"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "ああ、そうですか。",
-          "zh": "啊，是这样啊。"
-        },
-        {
-          "ja": "ああ、やっと分かりました。",
-          "zh": "啊，终于明白了。"
-        },
-        {
-          "ja": "ああ、きれいな景色ですね。",
-          "zh": "啊，景色真美。"
-        }
-      ],
-      "note_zh": "常写假名「ああ」。"
     },
     {
       "id": "n4-003",
@@ -357,43 +322,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         }
       ],
       "note_zh": ""
-    },
-    {
-      "id": "n4-010",
-      "jlpt": "N4",
-      "headword": "味な",
-      "source_form": "味な",
-      "variants": [
-        "味な"
-      ],
-      "reading": "あじな",
-      "reading_variants": [
-        "あじな"
-      ],
-      "romaji": "ajina",
-      "part_of_speech": "na-adjective",
-      "meaning_zh": "巧妙的；有风趣的",
-      "kanji_readings": [
-        {
-          "form": "味な",
-          "reading": "あじな"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "彼は味なことを言います。",
-          "zh": "他说的话很有味道。"
-        },
-        {
-          "ja": "この店は小さいけれど味な店です。",
-          "zh": "这家店虽小但很有风味。"
-        },
-        {
-          "ja": "味な話を聞きました。",
-          "zh": "听到了一个耐人寻味的故事。"
-        }
-      ],
-      "note_zh": "较少见，但部分 N4/JMDict 词表收录。"
     },
     {
       "id": "n4-011",
@@ -1407,44 +1335,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": "敬语。"
     },
     {
-      "id": "n4-039",
-      "jlpt": "N4",
-      "headword": "要る",
-      "source_form": "要る",
-      "variants": [
-        "要る",
-        "いる"
-      ],
-      "reading": "いる",
-      "reading_variants": [
-        "いる"
-      ],
-      "romaji": "iru",
-      "part_of_speech": "verb",
-      "meaning_zh": "需要；要",
-      "kanji_readings": [
-        {
-          "form": "要る",
-          "reading": "いる"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "この仕事には時間が要ります。",
-          "zh": "这项工作需要时间。"
-        },
-        {
-          "ja": "旅行にはお金がいります。",
-          "zh": "旅行需要钱。"
-        },
-        {
-          "ja": "予約には名前がいります。",
-          "zh": "预约需要名字。"
-        }
-      ],
-      "note_zh": "表示“需要”的五段动词，与表示人或动物存在的「居る」不同；也常写作假名「いる」。"
-    },
-    {
       "id": "n4-040",
       "jlpt": "N4",
       "headword": "植える",
@@ -1676,7 +1566,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "uchi",
       "part_of_speech": "noun/expression",
-      "meaning_zh": "内部；之中；趁……",
+      "meaning_zh": "内部；……之中；趁……期间",
       "kanji_readings": [],
       "examples": [
         {
@@ -1692,7 +1582,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "趁还没下雨回去吧。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "本条只讲「内部／范围内／趁……期间」；表示“家、自己家”的「うち」已在 N5 学习。"
     },
     {
       "id": "n4-047",
@@ -4319,43 +4209,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n4-119",
-      "jlpt": "N4",
-      "headword": "掛ける",
-      "source_form": "掛ける",
-      "variants": [
-        "掛ける"
-      ],
-      "reading": "かける",
-      "reading_variants": [
-        "かける"
-      ],
-      "romaji": "kakeru",
-      "part_of_speech": "verb",
-      "meaning_zh": "挂；戴；拨打；花费",
-      "kanji_readings": [
-        {
-          "form": "掛ける",
-          "reading": "かける"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "壁に時計を掛けました。",
-          "zh": "把钟挂在墙上。"
-        },
-        {
-          "ja": "母に電話を掛けます。",
-          "zh": "给母亲打电话。"
-        },
-        {
-          "ja": "椅子にコートを掛けないでください。",
-          "zh": "请不要把外套挂在椅子上。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
       "id": "n4-120",
       "jlpt": "N4",
       "headword": "加減",
@@ -4732,43 +4585,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         {
           "ja": "強いチームに勝つのは大変です。",
           "zh": "赢强队很不容易。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
-      "id": "n4-130",
-      "jlpt": "N4",
-      "headword": "家庭",
-      "source_form": "家庭",
-      "variants": [
-        "家庭"
-      ],
-      "reading": "かてい",
-      "reading_variants": [
-        "かてい"
-      ],
-      "romaji": "katei",
-      "part_of_speech": "noun",
-      "meaning_zh": "家庭",
-      "kanji_readings": [
-        {
-          "form": "家庭",
-          "reading": "かてい"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "私の家庭では、みんなで家事を分けています。",
-          "zh": "在我家，大家会分担家务。"
-        },
-        {
-          "ja": "仕事と家庭の両方を大切にしています。",
-          "zh": "工作和家庭都很重视。"
-        },
-        {
-          "ja": "温かい家庭を作りたいです。",
-          "zh": "想建立一个温暖的家庭。"
         }
       ],
       "note_zh": ""
@@ -6476,43 +6292,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n4-177",
-      "jlpt": "N4",
-      "headword": "教室",
-      "source_form": "教室",
-      "variants": [
-        "教室"
-      ],
-      "reading": "きょうしつ",
-      "reading_variants": [
-        "きょうしつ"
-      ],
-      "romaji": "kyoushitsu",
-      "part_of_speech": "noun",
-      "meaning_zh": "教室",
-      "kanji_readings": [
-        {
-          "form": "教室",
-          "reading": "きょうしつ"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "授業が始まる前に教室へ入りました。",
-          "zh": "上课开始前进了教室。"
-        },
-        {
-          "ja": "教室の窓を開けてください。",
-          "zh": "请打开教室的窗户。"
-        },
-        {
-          "ja": "放課後、教室を掃除します。",
-          "zh": "放学后打扫教室。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
       "id": "n4-178",
       "jlpt": "N4",
       "headword": "競争",
@@ -6535,8 +6314,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "友達と走る速さを競争しました。",
-          "zh": "和朋友比赛跑步速度。"
+          "ja": "運動会で友達と競争しました。",
+          "zh": "在运动会上和朋友比赛了。"
         },
         {
           "ja": "店同士の競争が激しいです。",
@@ -8991,11 +8770,13 @@ window.AYAYA_N4_CODEX_VOCAB = {
     },
     {
       "id": "n4-246",
+      "merged_source_ids": ["n4-247"],
       "jlpt": "N4",
       "headword": "混む",
-      "source_form": "混む",
+      "source_form": "混む; 込む",
       "variants": [
-        "混む"
+        "混む",
+        "込む"
       ],
       "reading": "こむ",
       "reading_variants": [
@@ -9007,6 +8788,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "kanji_readings": [
         {
           "form": "混む",
+          "reading": "こむ"
+        },
+        {
+          "form": "込む",
           "reading": "こむ"
         }
       ],
@@ -9024,44 +8809,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "在店变拥挤前进去了。"
         }
       ],
-      "note_zh": "常写「混む」。"
-    },
-    {
-      "id": "n4-247",
-      "jlpt": "N4",
-      "headword": "込む",
-      "source_form": "込む",
-      "variants": [
-        "込む"
-      ],
-      "reading": "こむ",
-      "reading_variants": [
-        "こむ"
-      ],
-      "romaji": "komu",
-      "part_of_speech": "verb",
-      "meaning_zh": "拥挤；复杂；进入",
-      "kanji_readings": [
-        {
-          "form": "込む",
-          "reading": "こむ"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "朝の電車はとても込んでいます。",
-          "zh": "早上的电车很挤。"
-        },
-        {
-          "ja": "週末は店が込みます。",
-          "zh": "周末店里会很拥挤。"
-        },
-        {
-          "ja": "道が込んでいて遅れました。",
-          "zh": "路上堵所以迟到了。"
-        }
-      ],
-      "note_zh": ""
+      "note_zh": "表示拥挤时通常写作「混む」，也可写作「込む」；复合动词中的「～込む」是另一种用法。"
     },
     {
       "id": "n4-248",
@@ -9239,80 +8987,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         {
           "ja": "雨でカメラが壊れてしまいました。",
           "zh": "相机被雨弄坏了。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
-      "id": "n4-253",
-      "jlpt": "N4",
-      "headword": "今月",
-      "source_form": "今月",
-      "variants": [
-        "今月"
-      ],
-      "reading": "こんげつ",
-      "reading_variants": [
-        "こんげつ"
-      ],
-      "romaji": "kongetsu",
-      "part_of_speech": "noun",
-      "meaning_zh": "这个月；本月",
-      "kanji_readings": [
-        {
-          "form": "今月",
-          "reading": "こんげつ"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "今月は家賃をもう払いました。",
-          "zh": "这个月的房租已经付了。"
-        },
-        {
-          "ja": "新しい店が今月の終わりに開きます。",
-          "zh": "新店将在这个月底开业。"
-        },
-        {
-          "ja": "今月中にこの本を読み終えたいです。",
-          "zh": "我想在这个月内读完这本书。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
-      "id": "n4-254",
-      "jlpt": "N4",
-      "headword": "今週",
-      "source_form": "今週",
-      "variants": [
-        "今週"
-      ],
-      "reading": "こんしゅう",
-      "reading_variants": [
-        "こんしゅう"
-      ],
-      "romaji": "konshuu",
-      "part_of_speech": "noun",
-      "meaning_zh": "这周；本周",
-      "kanji_readings": [
-        {
-          "form": "今週",
-          "reading": "こんしゅう"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "今週は試験が二つあります。",
-          "zh": "这周有两场考试。"
-        },
-        {
-          "ja": "今週の土曜日に引っ越します。",
-          "zh": "这周六搬家。"
-        },
-        {
-          "ja": "この仕事を今週中に終わらせてください。",
-          "zh": "请在这周内完成这项工作。"
         }
       ],
       "note_zh": ""
@@ -9705,43 +9379,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         {
           "ja": "最初からもう一度説明します。",
           "zh": "从头再说明一次。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
-      "id": "n4-266",
-      "jlpt": "N4",
-      "headword": "財布",
-      "source_form": "財布",
-      "variants": [
-        "財布"
-      ],
-      "reading": "さいふ",
-      "reading_variants": [
-        "さいふ"
-      ],
-      "romaji": "saifu",
-      "part_of_speech": "noun",
-      "meaning_zh": "钱包",
-      "kanji_readings": [
-        {
-          "form": "財布",
-          "reading": "さいふ"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "財布に千円しかありません。",
-          "zh": "钱包里只有一千日元。"
-        },
-        {
-          "ja": "駅で財布を落としてしまいました。",
-          "zh": "在车站把钱包弄丢了。"
-        },
-        {
-          "ja": "新しい財布にカードを入れました。",
-          "zh": "把卡放进了新钱包。"
         }
       ],
       "note_zh": ""
@@ -10260,43 +9897,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         {
           "ja": "日本の自動車産業について学びました。",
           "zh": "学习了日本汽车产业。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
-      "id": "n4-281",
-      "jlpt": "N4",
-      "headword": "雑誌",
-      "source_form": "雑誌",
-      "variants": [
-        "雑誌"
-      ],
-      "reading": "ざっし",
-      "reading_variants": [
-        "ざっし"
-      ],
-      "romaji": "zasshi",
-      "part_of_speech": "noun",
-      "meaning_zh": "杂志",
-      "kanji_readings": [
-        {
-          "form": "雑誌",
-          "reading": "ざっし"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "電車の中で雑誌を読みました。",
-          "zh": "在电车里看了杂志。"
-        },
-        {
-          "ja": "毎月この料理雑誌を買います。",
-          "zh": "每个月都买这本烹饪杂志。"
-        },
-        {
-          "ja": "古い雑誌をまとめて捨てました。",
-          "zh": "把旧杂志整理后扔掉了。"
         }
       ],
       "note_zh": ""
@@ -12698,38 +12298,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n4-347",
-      "jlpt": "N4",
-      "headword": "すぐに",
-      "source_form": "すぐに",
-      "variants": [
-        "すぐに"
-      ],
-      "reading": "すぐに",
-      "reading_variants": [
-        "すぐに"
-      ],
-      "romaji": "suguni",
-      "part_of_speech": "adverb",
-      "meaning_zh": "马上；立刻",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "すぐに戻ります。",
-          "zh": "马上回来。"
-        },
-        {
-          "ja": "着いたらすぐに連絡してください。",
-          "zh": "到了请马上联系。"
-        },
-        {
-          "ja": "薬を飲んだらすぐに楽になりました。",
-          "zh": "吃药后马上舒服了。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
       "id": "n4-348",
       "jlpt": "N4",
       "headword": "すっかり",
@@ -13733,43 +13301,13 @@ window.AYAYA_N4_CODEX_VOCAB = {
     },
     {
       "id": "n4-376",
-      "jlpt": "N4",
-      "headword": "ぜんぜん",
-      "source_form": "ぜんぜん",
-      "variants": [
-        "ぜんぜん"
-      ],
-      "reading": "ぜんぜん",
-      "reading_variants": [
-        "ぜんぜん"
-      ],
-      "romaji": "zenzen",
-      "part_of_speech": "adverb",
-      "meaning_zh": "完全不；根本不",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "日本語はぜんぜん難しくありません。",
-          "zh": "日语一点也不难。"
-        },
-        {
-          "ja": "今日はぜんぜん寒くないです。",
-          "zh": "今天一点也不冷。"
-        },
-        {
-          "ja": "彼の話はぜんぜん分かりませんでした。",
-          "zh": "他的话完全没听懂。"
-        }
-      ],
-      "note_zh": "常与否定呼应。"
-    },
-    {
-      "id": "n4-377",
+      "merged_source_ids": ["n4-377"],
       "jlpt": "N4",
       "headword": "全然",
-      "source_form": "全然",
+      "source_form": "ぜんぜん; 全然",
       "variants": [
-        "全然"
+        "全然",
+        "ぜんぜん"
       ],
       "reading": "ぜんぜん",
       "reading_variants": [
@@ -13786,19 +13324,19 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この店は全然高くありません。",
-          "zh": "这家店一点也不贵。"
+          "ja": "日本語は全然難しくありません。",
+          "zh": "日语一点也不难。"
         },
         {
-          "ja": "全然心配しなくても大丈夫です。",
-          "zh": "完全不用担心也没关系。"
+          "ja": "今日はぜんぜん寒くないです。",
+          "zh": "今天一点也不冷。"
         },
         {
-          "ja": "昨日は全然眠れませんでした。",
-          "zh": "昨天完全睡不着。"
+          "ja": "彼の話は全然分かりませんでした。",
+          "zh": "他的话完全没听懂。"
         }
       ],
-      "note_zh": "通常写汉字或假名。"
+      "note_zh": "可写作汉字「全然」或假名「ぜんぜん」；初级阶段主要与否定表达呼应。"
     },
     {
       "id": "n4-378",
@@ -13814,23 +13352,23 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "sou",
       "part_of_speech": "adverb/expression",
-      "meaning_zh": "那样；是的；真的",
+      "meaning_zh": "那样；这样（指方式或状态）",
       "kanji_readings": [],
       "examples": [
-        {
-          "ja": "私もそう思います。",
-          "zh": "我也那么想。"
-        },
         {
           "ja": "そうしてください。",
           "zh": "请那样做。"
         },
         {
-          "ja": "そう言われると安心します。",
-          "zh": "被那样说就放心了。"
+          "ja": "私もそう考えています。",
+          "zh": "我也是那样想的。"
+        },
+        {
+          "ja": "彼はそう言って帰りました。",
+          "zh": "他那样说完就回去了。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "本条讲指代方式或状态的「そう」；回答中的「そうです」和表示样态的「～そう」另行学习。"
     },
     {
       "id": "n4-379",
@@ -14316,43 +13854,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": "常与「する」构成动词。"
     },
     {
-      "id": "n4-393",
-      "jlpt": "N4",
-      "headword": "大切",
-      "source_form": "大切",
-      "variants": [
-        "大切"
-      ],
-      "reading": "たいせつ",
-      "reading_variants": [
-        "たいせつ"
-      ],
-      "romaji": "taisetsu",
-      "part_of_speech": "na-adjective/noun",
-      "meaning_zh": "重要；珍贵",
-      "kanji_readings": [
-        {
-          "form": "大切",
-          "reading": "たいせつ"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "家族はとても大切です。",
-          "zh": "家人非常重要。"
-        },
-        {
-          "ja": "大切な書類をなくしました。",
-          "zh": "弄丢了重要文件。"
-        },
-        {
-          "ja": "時間を大切にしています。",
-          "zh": "很珍惜时间。"
-        }
-      ],
-      "note_zh": "N5/N4 边界词，扩展保留。"
-    },
-    {
       "id": "n4-394",
       "jlpt": "N4",
       "headword": "大抵",
@@ -14712,15 +14213,15 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "在这里建新房子。"
         },
         {
-          "ja": "駅前にビルが建ちました。",
-          "zh": "车站前建起了大楼。"
+          "ja": "駅前に新しいビルを建てました。",
+          "zh": "在车站前建了一栋新大楼。"
         },
         {
           "ja": "木で小さな小屋を建てました。",
           "zh": "用木头建了小屋。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "「建てる」是他动词；表示建筑物建成或矗立时用自动词「建つ」。"
     },
     {
       "id": "n4-404",
@@ -15410,43 +14911,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         }
       ],
       "note_zh": ""
-    },
-    {
-      "id": "n4-423",
-      "jlpt": "N4",
-      "headword": "小さな",
-      "source_form": "小さな",
-      "variants": [
-        "小さな"
-      ],
-      "reading": "ちいさな",
-      "reading_variants": [
-        "ちいさな"
-      ],
-      "romaji": "chiisana",
-      "part_of_speech": "pre-noun",
-      "meaning_zh": "小小的；小的",
-      "kanji_readings": [
-        {
-          "form": "小さな",
-          "reading": "ちいさな"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "小さな店を見つけました。",
-          "zh": "找到了一家小店。"
-        },
-        {
-          "ja": "小さな声で話してください。",
-          "zh": "请小声说话。"
-        },
-        {
-          "ja": "小さなことでもメモします。",
-          "zh": "即使是小事也会记下来。"
-        }
-      ],
-      "note_zh": "连体词。"
     },
     {
       "id": "n4-424",
@@ -17422,43 +16886,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n4-478",
-      "jlpt": "N4",
-      "headword": "隣",
-      "source_form": "隣",
-      "variants": [
-        "隣"
-      ],
-      "reading": "となり",
-      "reading_variants": [
-        "となり"
-      ],
-      "romaji": "tonari",
-      "part_of_speech": "noun",
-      "meaning_zh": "旁边；邻居",
-      "kanji_readings": [
-        {
-          "form": "隣",
-          "reading": "となり"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "隣の部屋から音楽が聞こえます。",
-          "zh": "从隔壁房间传来了音乐声。"
-        },
-        {
-          "ja": "電車で先生の隣に座りました。",
-          "zh": "我在电车上坐在老师旁边。"
-        },
-        {
-          "ja": "隣の人に塩を借りました。",
-          "zh": "我向邻居借了盐。"
-        }
-      ],
-      "note_zh": "N5/N4 边界词，扩展保留。"
-    },
-    {
       "id": "n4-479",
       "jlpt": "N4",
       "headword": "泊まる",
@@ -17800,7 +17227,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "naosu",
       "part_of_speech": "verb",
-      "meaning_zh": "修理；改正；治好",
+      "meaning_zh": "修理；改正；恢复原状",
       "kanji_readings": [
         {
           "form": "直す",
@@ -17817,11 +17244,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "请改正错误。"
         },
         {
-          "ja": "風邪を早く直したいです。",
-          "zh": "想早点把感冒治好。"
+          "ja": "壊れた自転車を自分で直したいです。",
+          "zh": "想自己修好坏掉的自行车。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "修理物品或改正错误通常写作「直す」；治疗疾病通常写作「治す」。"
     },
     {
       "id": "n4-489",
@@ -18470,43 +17897,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         }
       ],
       "note_zh": ""
-    },
-    {
-      "id": "n4-507",
-      "jlpt": "N4",
-      "headword": "荷物",
-      "source_form": "荷物",
-      "variants": [
-        "荷物"
-      ],
-      "reading": "にもつ",
-      "reading_variants": [
-        "にもつ"
-      ],
-      "romaji": "nimotsu",
-      "part_of_speech": "noun",
-      "meaning_zh": "行李；货物",
-      "kanji_readings": [
-        {
-          "form": "荷物",
-          "reading": "にもつ"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "荷物を駅のロッカーに入れました。",
-          "zh": "我把行李放进了车站储物柜。"
-        },
-        {
-          "ja": "この荷物は重すぎて一人では持てません。",
-          "zh": "这件行李太重，一个人拿不动。"
-        },
-        {
-          "ja": "ホテルが荷物を預かってくれました。",
-          "zh": "酒店帮我保管了行李。"
-        }
-      ],
-      "note_zh": "N5/N4 边界词，扩展保留。"
     },
     {
       "id": "n4-508",
@@ -20988,11 +20378,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "工作增加了，很忙。"
         },
         {
-          "ja": "勉強時間を少し増やします。",
-          "zh": "稍微增加学习时间。"
+          "ja": "勉強する時間が少し増えました。",
+          "zh": "学习的时间稍微增加了。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "「増える」是自动词；表示主动增加某物时用他动词「増やす」。"
     },
     {
       "id": "n4-576",
@@ -22308,10 +21698,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
     },
     {
       "id": "n4-612",
+      "merged_source_ids": ["n4-613"],
       "jlpt": "N4",
-      "headword": "まじめ",
-      "source_form": "まじめ",
+      "headword": "真面目",
+      "source_form": "まじめ; 真面目",
       "variants": [
+        "真面目",
         "まじめ"
       ],
       "reading": "まじめ",
@@ -22321,38 +21713,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "majime",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "认真；老实",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "彼はまじめな学生です。",
-          "zh": "他是认真的学生。"
-        },
-        {
-          "ja": "まじめに勉強しています。",
-          "zh": "正在认真学习。"
-        },
-        {
-          "ja": "まじめな話をしましょう。",
-          "zh": "说点正经话吧。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
-      "id": "n4-613",
-      "jlpt": "N4",
-      "headword": "真面目",
-      "source_form": "真面目",
-      "variants": [
-        "真面目"
-      ],
-      "reading": "まじめ",
-      "reading_variants": [
-        "まじめ"
-      ],
-      "romaji": "majime",
-      "part_of_speech": "na-adjective/noun",
-      "meaning_zh": "认真；正经",
       "kanji_readings": [
         {
           "form": "真面目",
@@ -22365,15 +21725,15 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "他是认真的学生。"
         },
         {
-          "ja": "真面目に仕事をしています。",
-          "zh": "认真地工作。"
+          "ja": "まじめに勉強しています。",
+          "zh": "正在认真学习。"
         },
         {
-          "ja": "真面目な質問をしました。",
-          "zh": "问了一个正经的问题。"
+          "ja": "真面目な話をしましょう。",
+          "zh": "说点正经话吧。"
         }
       ],
-      "note_zh": "可写汉字。"
+      "note_zh": "可写作汉字「真面目」或假名「まじめ」。"
     },
     {
       "id": "n4-614",
@@ -22419,25 +21779,25 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "または"
       ],
-      "romaji": "mataha",
+      "romaji": "matawa",
       "part_of_speech": "conjunction",
       "meaning_zh": "或者；或是",
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "雨が降っています。または、出かけます。",
-          "zh": "在下雨。不过还是出门。"
+          "ja": "電車またはバスで来てください。",
+          "zh": "请乘电车或公交车来。"
         },
         {
-          "ja": "今日は忙しいです。または、少し勉強します。",
-          "zh": "今天很忙。不过还是稍微学习。"
+          "ja": "申し込みは電話またはメールで受け付けます。",
+          "zh": "报名可通过电话或电子邮件办理。"
         },
         {
-          "ja": "よく分かりません。または、もう一度聞きます。",
-          "zh": "不太明白。不过会再问一次。"
+          "ja": "答えは日本語または中国語で書いてください。",
+          "zh": "请用日语或中文作答。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "连接两个或多个备选项，表示“或者”；不能用作“不过、但是”。"
     },
     {
       "id": "n4-616",
@@ -22926,43 +22286,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n4-629",
-      "jlpt": "N4",
-      "headword": "皆さん",
-      "source_form": "皆さん",
-      "variants": [
-        "皆さん"
-      ],
-      "reading": "みなさん",
-      "reading_variants": [
-        "みなさん"
-      ],
-      "romaji": "minasan",
-      "part_of_speech": "noun",
-      "meaning_zh": "大家；各位",
-      "kanji_readings": [
-        {
-          "form": "皆さん",
-          "reading": "みなさん"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "皆さん、こちらを見てください。",
-          "zh": "各位，请看这边。"
-        },
-        {
-          "ja": "皆さんのおかげで成功しました。",
-          "zh": "多亏了大家才成功。"
-        },
-        {
-          "ja": "皆さんはもう準備できましたか。",
-          "zh": "大家已经准备好了吗？"
-        }
-      ],
-      "note_zh": "N5/N4 边界词，扩展保留。"
-    },
-    {
       "id": "n4-630",
       "jlpt": "N4",
       "headword": "港",
@@ -23026,15 +22349,15 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "正在前往车站。"
         },
         {
-          "ja": "机を窓の方に向けました。",
-          "zh": "把桌子朝向窗户。"
+          "ja": "朝早く学校に向かいました。",
+          "zh": "一早就前往学校了。"
         },
         {
-          "ja": "問題に正面から向かいます。",
-          "zh": "正面面对问题。"
+          "ja": "強い風に向かって歩きます。",
+          "zh": "迎着强风行走。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "表示使某物朝向某处时用他动词「向ける」；本词条「向かう」是自动词。"
     },
     {
       "id": "n4-632",
@@ -23124,7 +22447,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "mukou",
       "part_of_speech": "noun",
-      "meaning_zh": "对面；那边；对方",
+      "meaning_zh": "对方；对方的人或单位",
       "kanji_readings": [
         {
           "form": "向こう",
@@ -23133,19 +22456,19 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "川の向こうに小さな村があります。",
-          "zh": "河对岸有一个小村庄。"
+          "ja": "向こうの担当者に連絡しました。",
+          "zh": "联系了对方的负责人。"
         },
         {
-          "ja": "向こうから友達が歩いてきました。",
-          "zh": "朋友从那边走了过来。"
+          "ja": "条件について向こうと話し合います。",
+          "zh": "就条件和对方商谈。"
         },
         {
-          "ja": "詳しいことは向こうの担当者に聞きます。",
-          "zh": "详情我会问对方的负责人。"
+          "ja": "向こうはまだ返事をしていません。",
+          "zh": "对方还没有回复。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "本条只讲“对方”这一进阶义；表示空间上的“那边、对面”已在 N5 学习。"
     },
     {
       "id": "n4-635",
@@ -23584,9 +22907,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
     {
       "id": "n4-647",
       "jlpt": "N4",
-      "headword": "もっとも",
+      "headword": "最も",
       "source_form": "もっとも",
       "variants": [
+        "最も",
         "もっとも"
       ],
       "reading": "もっとも",
@@ -23594,24 +22918,29 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "もっとも"
       ],
       "romaji": "mottomo",
-      "part_of_speech": "adverb/na-adjective",
-      "meaning_zh": "最；非常；合乎道理",
-      "kanji_readings": [],
+      "part_of_speech": "adverb",
+      "meaning_zh": "最；最为",
+      "kanji_readings": [
+        {
+          "form": "最も",
+          "reading": "もっとも"
+        }
+      ],
       "examples": [
         {
-          "ja": "彼がクラスでもっとも背が高いです。",
+          "ja": "彼がクラスで最も背が高いです。",
           "zh": "他在班里最高。"
         },
         {
-          "ja": "それはもっともな意見です。",
-          "zh": "那是合理的意见。"
+          "ja": "これは最も大切な問題です。",
+          "zh": "这是最重要的问题。"
         },
         {
-          "ja": "今がもっとも忙しい時期です。",
+          "ja": "今が最も忙しい時期です。",
           "zh": "现在是最忙的时期。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "本词条是表示最高程度的「最も」。表示“有道理”的「尤も／もっとも」是另一个词，不在本词条混讲。"
     },
     {
       "id": "n4-648",
@@ -24659,11 +23988,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "予定があります。",
-          "zh": "有计划。"
+          "zh": "有安排。"
         },
         {
-          "ja": "予定の予定を確認しました。",
-          "zh": "确认了计划的安排。"
+          "ja": "来週の予定を確認しました。",
+          "zh": "确认了下周的安排。"
         },
         {
           "ja": "予定について先生に聞きました。",
@@ -27341,80 +26670,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": "接动词ます形。"
     },
     {
-      "id": "n4-755",
-      "jlpt": "N4",
-      "headword": "～中",
-      "source_form": "～中",
-      "variants": [
-        "～中"
-      ],
-      "reading": "～ちゅう",
-      "reading_variants": [
-        "～ちゅう"
-      ],
-      "romaji": "chuu",
-      "part_of_speech": "suffix",
-      "meaning_zh": "正在……；……之中",
-      "kanji_readings": [
-        {
-          "form": "～中",
-          "reading": "～ちゅう"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "会議中は電話に出られません。",
-          "zh": "开会中不能接电话。"
-        },
-        {
-          "ja": "夏休み中に旅行します。",
-          "zh": "暑假期间旅行。"
-        },
-        {
-          "ja": "食事中に大きな声で話さないでください。",
-          "zh": "吃饭时不要大声说话。"
-        }
-      ],
-      "note_zh": "接尾语。"
-    },
-    {
-      "id": "n4-756",
-      "jlpt": "N4",
-      "headword": "～月",
-      "source_form": "～月",
-      "variants": [
-        "～月"
-      ],
-      "reading": "～つき",
-      "reading_variants": [
-        "～つき"
-      ],
-      "romaji": "tsuki",
-      "part_of_speech": "suffix",
-      "meaning_zh": "……月；每月",
-      "kanji_readings": [
-        {
-          "form": "～月",
-          "reading": "～つき"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "来月、旅行に行きます。",
-          "zh": "下个月去旅行。"
-        },
-        {
-          "ja": "毎月、家賃を払います。",
-          "zh": "每个月付房租。"
-        },
-        {
-          "ja": "今月の予定を確認しました。",
-          "zh": "确认了这个月的计划。"
-        }
-      ],
-      "note_zh": "接尾语。"
-    },
-    {
       "id": "n4-757",
       "jlpt": "N4",
       "headword": "～てしまう",
@@ -27612,43 +26867,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": "接续助词性表达。"
     },
     {
-      "id": "n4-763",
-      "jlpt": "N4",
-      "headword": "～番",
-      "source_form": "～番",
-      "variants": [
-        "～番"
-      ],
-      "reading": "～ばん",
-      "reading_variants": [
-        "～ばん"
-      ],
-      "romaji": "ban",
-      "part_of_speech": "suffix",
-      "meaning_zh": "第……号；……班",
-      "kanji_readings": [
-        {
-          "form": "～番",
-          "reading": "～ばん"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "次は三番のバスに乗ります。",
-          "zh": "接下来坐三号公交。"
-        },
-        {
-          "ja": "番号を間違えないでください。",
-          "zh": "请不要弄错号码。"
-        },
-        {
-          "ja": "一番前の席に座りました。",
-          "zh": "坐在了最前面的座位。"
-        }
-      ],
-      "note_zh": "序号后缀。"
-    },
-    {
       "id": "n4-764",
       "jlpt": "N4",
       "headword": "～町",
@@ -27791,4 +27009,23 @@ window.AYAYA_N4_CODEX_VOCAB = {
 
 window.AYAYA_N4_WORDS = window.AYAYA_N4_CODEX_VOCAB.entries.map((entry) => [entry.headword, entry.reading, entry.meaning_zh, entry.examples[0].ja, entry.examples[0].zh]);
 
-window.AYAYA_N4_TATOEBA_EXAMPLES = Object.fromEntries(window.AYAYA_N4_CODEX_VOCAB.entries.flatMap((entry) => [[entry.headword, entry.examples], [entry.source_form.split(';')[0].trim(), entry.examples]]));
+window.AYAYA_N4_TATOEBA_EXAMPLES = (() => {
+  const candidates = new Map();
+  for (const entry of window.AYAYA_N4_CODEX_VOCAB.entries) {
+    const keys = new Set([
+      entry.headword,
+      ...(entry.variants || []),
+      ...String(entry.source_form || "").split(";"),
+    ].map((key) => key.trim()).filter(Boolean));
+    for (const key of keys) {
+      const matches = candidates.get(key) || [];
+      matches.push(entry.examples);
+      candidates.set(key, matches);
+    }
+  }
+  return Object.fromEntries(
+    [...candidates.entries()]
+      .filter(([, matches]) => matches.length === 1)
+      .map(([key, [examples]]) => [key, examples]),
+  );
+})();

@@ -1,33 +1,37 @@
 {
   "schema": {
     "schema_version": "1.0.0",
-    "generated_on": "2026-06-23",
+    "generated_on": "2026-08-18",
     "purpose": "Codex-readable, app-compatible JLPT N5 learning data with corrected Simplified Chinese meanings and natural beginner-level Japanese examples.",
     "fields": {
       "headword": "学习用规范词形。旧写法或不常用写法会保留在 source_form。",
       "source_form": "原 n5-vocab.js 中的词形。",
       "variants": "可接受写法或变体。",
       "reading": "主读音，通常为平假名；外来语保留片假名。",
+      "speech_reading": "可选的 TTS 代表读音；仅在展示读音包含多个候选、不能直接朗读时使用。",
       "reading_variants": "原始读音字段中的所有读音。",
-      "romaji": "用于搜索/调试的简易罗马字。",
+      "romaji": "词条主读音的学习用 Hepburn 式 ASCII 罗马字，用于检索和卡片显示。",
       "part_of_speech": "粗粒度词性，供 Codex 和应用生成卡片使用。",
       "meaning_zh": "学习用简体中文释义。",
       "kanji_readings": "含汉字词形的整词读音，用于生成 ruby/furigana。",
       "examples": "三个自然、短句优先的日语例句；zh 为简体中文翻译。",
-      "note_zh": "必要时说明写法、用法或兼容注意。"
+      "note_zh": "必要时说明写法、用法或兼容注意。",
+      "merged_source_ids": "已合并或跨级去重的旧 source ID，用于迁移既有学习进度。"
     },
     "compatibility": {
       "AYAYA_N5_WORDS": "[headword, reading, meaning_zh, first_example_ja, first_example_zh]",
-      "AYAYA_N5_TATOEBA_EXAMPLES": "同名变量被设置为本文件的精选例句对象，便于现有 app.js 的 buildExamples 优先读取。"
+      "AYAYA_N5_TATOEBA_EXAMPLES": "按规范词形、全部 variants 与全部 source_form 写法建立精选例句索引；有歧义的别名不建立唯一映射。"
     },
     "source_notes": [
-      "The duplicate 在る / 有る records were merged under the modern kana headword ある while preserving both orthographic variants."
+      "The duplicate 在る / 有る records were merged under the modern kana headword ある while preserving both orthographic variants.",
+      "Reading, part-of-speech, example alignment, same-sense duplicates and retained cross-level distinctions were re-audited on 2026-08-18; merged_source_ids preserve prior study state."
     ],
-    "entry_count": 717
+    "entry_count": 716
   },
   "entries": [
     {
       "id": "n5-001",
+      "merged_source_ids": ["n4-002"],
       "jlpt": "N5",
       "headword": "ああ",
       "source_form": "ああ",
@@ -1774,7 +1778,7 @@
         "いくつ"
       ],
       "romaji": "ikutsu",
-      "part_of_speech": "verb",
+      "part_of_speech": "interrogative/counter",
       "meaning_zh": "几个；几岁",
       "kanji_readings": [],
       "examples": [
@@ -2240,7 +2244,7 @@
         "いつつ"
       ],
       "romaji": "itsutsu",
-      "part_of_speech": "verb",
+      "part_of_speech": "numeral/counter",
       "meaning_zh": "五个",
       "kanji_readings": [
         {
@@ -2552,6 +2556,7 @@
     },
     {
       "id": "n5-072",
+      "merged_source_ids": ["n4-039"],
       "jlpt": "N5",
       "headword": "要る",
       "source_form": "要る",
@@ -2908,7 +2913,7 @@
           "zh": "在家吃晚饭。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "本条只讲“家、自己家、我们这边”；表示“内部／范围内／趁……期间”的「うち」在 N4 另行学习。"
     },
     {
       "id": "n5-082",
@@ -3569,7 +3574,7 @@
         "おおきな"
       ],
       "romaji": "ookina",
-      "part_of_speech": "noun",
+      "part_of_speech": "pre-noun",
       "meaning_zh": "大的（连体词）",
       "kanji_readings": [
         {
@@ -4162,7 +4167,7 @@
         "おてあらい"
       ],
       "romaji": "otearai",
-      "part_of_speech": "i-adjective",
+      "part_of_speech": "noun",
       "meaning_zh": "洗手间；厕所",
       "kanji_readings": [
         {
@@ -4490,7 +4495,7 @@
         "おなじ"
       ],
       "romaji": "onaji",
-      "part_of_speech": "na-adjective",
+      "part_of_speech": "pre-noun/noun",
       "meaning_zh": "相同；一样",
       "kanji_readings": [
         {
@@ -4512,7 +4517,7 @@
           "zh": "答案一样。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "修饰名词时直接使用「同じ＋名词」，初级阶段不要写成「同じな＋名词」；作谓语时用「同じです」。"
     },
     {
       "id": "n5-126",
@@ -5691,11 +5696,13 @@
     },
     {
       "id": "n5-158",
+      "merged_source_ids": ["n5-159", "n4-119"],
       "jlpt": "N5",
       "headword": "掛ける",
-      "source_form": "掛ける",
+      "source_form": "掛ける; かける",
       "variants": [
-        "掛ける"
+        "掛ける",
+        "かける"
       ],
       "reading": "かける",
       "reading_variants": [
@@ -5703,7 +5710,7 @@
       ],
       "romaji": "kakeru",
       "part_of_speech": "verb",
-      "meaning_zh": "挂；戴（眼镜）；花费；拨打",
+      "meaning_zh": "挂；戴；打电话；坐下（腰をかける）；花费",
       "kanji_readings": [
         {
           "form": "掛ける",
@@ -5716,47 +5723,15 @@
           "zh": "把钟挂在墙上。"
         },
         {
-          "ja": "眼鏡を掛けています。",
-          "zh": "戴着眼镜。"
-        },
-        {
-          "ja": "コートを椅子に掛けました。",
-          "zh": "把外套挂在椅子上了。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
-      "id": "n5-159",
-      "jlpt": "N5",
-      "headword": "かける",
-      "source_form": "かける",
-      "variants": [
-        "かける"
-      ],
-      "reading": "かける",
-      "reading_variants": [
-        "かける"
-      ],
-      "romaji": "kakeru",
-      "part_of_speech": "verb",
-      "meaning_zh": "打电话；坐下；挂上",
-      "kanji_readings": [],
-      "examples": [
-        {
           "ja": "友達に電話をかけます。",
           "zh": "给朋友打电话。"
         },
         {
-          "ja": "椅子に腰をかけてください。",
-          "zh": "请坐在椅子上。"
-        },
-        {
-          "ja": "夜、母に電話をかけました。",
-          "zh": "晚上给妈妈打了电话。"
+          "ja": "どうぞ椅子に腰をかけてください。",
+          "zh": "请坐到椅子上。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "按搭配可写作「掛ける」或假名「かける」；「電話をかける」「腰をかける」常写假名。"
     },
     {
       "id": "n5-160",
@@ -6120,6 +6095,7 @@
     },
     {
       "id": "n5-170",
+      "merged_source_ids": ["n4-130"],
       "jlpt": "N5",
       "headword": "家庭",
       "source_form": "家庭",
@@ -7380,6 +7356,7 @@
     },
     {
       "id": "n5-205",
+      "merged_source_ids": ["n4-177"],
       "jlpt": "N5",
       "headword": "教室",
       "source_form": "教室",
@@ -7638,15 +7615,14 @@
       "headword": "キログラム",
       "source_form": "キロ; キログラム",
       "variants": [
-        "キロ",
-        "キログラム"
+        "キログラム",
+        "キロ"
       ],
-      "reading": "キロ",
+      "reading": "キログラム",
       "reading_variants": [
-        "キロ",
         "キログラム"
       ],
-      "romaji": "kiro",
+      "romaji": "kiroguramu",
       "part_of_speech": "noun",
       "meaning_zh": "公斤；千克",
       "kanji_readings": [],
@@ -7656,15 +7632,15 @@
           "zh": "买了一公斤苹果。"
         },
         {
-          "ja": "この荷物は五キロです。",
-          "zh": "这件行李五公斤。"
+          "ja": "この荷物は五キログラムです。",
+          "zh": "这件行李重五公斤。"
         },
         {
           "ja": "肉を二キログラムください。",
           "zh": "请给我两公斤肉。"
         }
       ],
-      "note_zh": "已把旧写法/不常用写法规范为现代常用写法；原始写法保留在 source_form。"
+      "note_zh": "「キロ」也可作口语简称，但离开上下文时可能指千克或千米；本词条使用完整词形。"
     },
     {
       "id": "n5-213",
@@ -7672,33 +7648,32 @@
       "headword": "キロメートル",
       "source_form": "キロ; キロメートル",
       "variants": [
-        "キロ",
-        "キロメートル"
+        "キロメートル",
+        "キロ"
       ],
-      "reading": "キロ",
+      "reading": "キロメートル",
       "reading_variants": [
-        "キロ",
         "キロメートル"
       ],
-      "romaji": "kiro",
+      "romaji": "kiromeetoru",
       "part_of_speech": "noun",
       "meaning_zh": "公里；千米",
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "駅まで二キロです。",
-          "zh": "到车站两公里。"
+          "ja": "駅まで二キロメートルです。",
+          "zh": "到车站有两公里。"
         },
         {
-          "ja": "毎日五キロ歩きます。",
+          "ja": "毎日五キロメートル歩きます。",
           "zh": "每天走五公里。"
         },
         {
-          "ja": "学校はここから一キロです。",
+          "ja": "学校はここから一キロメートルです。",
           "zh": "学校离这里一公里。"
         }
       ],
-      "note_zh": "已把旧写法/不常用写法规范为现代常用写法；原始写法保留在 source_form。"
+      "note_zh": "「キロ」也可作口语简称，但离开上下文时可能指千克或千米；本词条使用完整词形。"
     },
     {
       "id": "n5-214",
@@ -7861,7 +7836,7 @@
         "ください"
       ],
       "romaji": "kudasai",
-      "part_of_speech": "i-adjective",
+      "part_of_speech": "expression",
       "meaning_zh": "请给我；请……",
       "kanji_readings": [],
       "examples": [
@@ -7878,7 +7853,7 @@
           "zh": "请再说一次。"
         }
       ],
-      "note_zh": "已把旧写法/不常用写法规范为现代常用写法；原始写法保留在 source_form。"
+      "note_zh": "用于提出请求，常接动词て形；不是い形容词。"
     },
     {
       "id": "n5-219",
@@ -9197,7 +9172,7 @@
         "ここのつ"
       ],
       "romaji": "kokonotsu",
-      "part_of_speech": "verb",
+      "part_of_speech": "numeral/counter",
       "meaning_zh": "九个",
       "kanji_readings": [
         {
@@ -9708,6 +9683,7 @@
     },
     {
       "id": "n5-270",
+      "merged_source_ids": ["n4-253"],
       "jlpt": "N5",
       "headword": "今月",
       "source_form": "今月",
@@ -9745,6 +9721,7 @@
     },
     {
       "id": "n5-271",
+      "merged_source_ids": ["n4-254"],
       "jlpt": "N5",
       "headword": "今週",
       "source_form": "今週",
@@ -9920,6 +9897,7 @@
     },
     {
       "id": "n5-276",
+      "merged_source_ids": ["n4-266"],
       "jlpt": "N5",
       "headword": "財布",
       "source_form": "財布",
@@ -10131,14 +10109,14 @@
         },
         {
           "ja": "窓から日が差しています。",
-          "zh": "阳光从窗户照进来。"
+          "zh": "阳光正从窗户照进来。"
         },
         {
-          "ja": "先生が指で地図を差します。",
-          "zh": "老师用手指指地图。"
+          "ja": "午後になると西日が部屋に差します。",
+          "zh": "到了下午，夕阳会照进房间。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "表示用手指指向时写作「指す」，不写作「差す」。"
     },
     {
       "id": "n5-282",
@@ -10179,6 +10157,7 @@
     },
     {
       "id": "n5-283",
+      "merged_source_ids": ["n4-281"],
       "jlpt": "N5",
       "headword": "雑誌",
       "source_form": "雑誌",
@@ -11152,16 +11131,16 @@
       ],
       "examples": [
         {
-          "ja": "毎日、締めます。",
-          "zh": "每天系紧。"
+          "ja": "シートベルトを締めます。",
+          "zh": "系上安全带。"
         },
         {
-          "ja": "昨日、締めました。",
-          "zh": "昨天系紧了。"
+          "ja": "ねじをしっかり締めてください。",
+          "zh": "请把螺丝拧紧。"
         },
         {
-          "ja": "いっしょに締めます。",
-          "zh": "一起系紧。"
+          "ja": "父は毎朝ネクタイを締めます。",
+          "zh": "父亲每天早上系领带。"
         }
       ],
       "note_zh": ""
@@ -11172,15 +11151,15 @@
       "headword": "じゃあ",
       "source_form": "じゃ; じゃあ",
       "variants": [
-        "じゃ",
-        "じゃあ"
+        "じゃあ",
+        "じゃ"
       ],
-      "reading": "じゃ",
+      "reading": "じゃあ",
       "reading_variants": [
-        "じゃ",
-        "じゃあ"
+        "じゃあ",
+        "じゃ"
       ],
-      "romaji": "ja",
+      "romaji": "jaa",
       "part_of_speech": "conjunction/expression",
       "meaning_zh": "那么；那就",
       "kanji_readings": [],
@@ -11198,7 +11177,7 @@
           "zh": "那请给我这个。"
         }
       ],
-      "note_zh": "已把旧写法/不常用写法规范为现代常用写法；原始写法保留在 source_form。"
+      "note_zh": "口语中也可缩短为「じゃ」；本词条的主词形和主读音均为「じゃあ」。"
     },
     {
       "id": "n5-311",
@@ -12033,6 +12012,7 @@
     },
     {
       "id": "n5-334",
+      "merged_source_ids": ["n4-347"],
       "jlpt": "N5",
       "headword": "すぐに",
       "source_form": "すぐに",
@@ -12347,24 +12327,24 @@
         "する"
       ],
       "romaji": "suru",
-      "part_of_speech": "suru-verb/noun",
+      "part_of_speech": "verb",
       "meaning_zh": "做；进行",
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "します。",
-          "zh": "做。"
+          "ja": "毎日、日本語を勉強します。",
+          "zh": "每天学习日语。"
         },
         {
-          "ja": "毎日、します。",
-          "zh": "每天做。"
+          "ja": "家に帰ってから宿題をします。",
+          "zh": "回家后做作业。"
         },
         {
-          "ja": "昨日、しました。",
-          "zh": "昨天做了。"
+          "ja": "週末は何をしますか。",
+          "zh": "周末做什么？"
         }
       ],
-      "note_zh": "可作名词，也常与「する」构成动词。"
+      "note_zh": "既可单独表示“做”，也可接许多名词构成「勉強する」「掃除する」等动词。"
     },
     {
       "id": "n5-344",
@@ -12890,7 +12870,7 @@
       ],
       "romaji": "sou",
       "part_of_speech": "adverb/expression",
-      "meaning_zh": "是那样；对；看起来……",
+      "meaning_zh": "是那样；对",
       "kanji_readings": [],
       "examples": [
         {
@@ -12902,11 +12882,11 @@
           "zh": "是这样啊。"
         },
         {
-          "ja": "そう思います。",
-          "zh": "我那样认为。"
+          "ja": "いいえ、そうではありません。",
+          "zh": "不，不是那样。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "本条只讲回答或确认前述内容的「そう」；表示方式的“那样做”和接在词后表示样态的「〜そう」另行学习。"
     },
     {
       "id": "n5-359",
@@ -12951,15 +12931,13 @@
       "headword": "そして",
       "source_form": "そうして; そして",
       "variants": [
-        "そうして",
         "そして"
       ],
-      "reading": "そうして",
+      "reading": "そして",
       "reading_variants": [
-        "そうして",
         "そして"
       ],
-      "romaji": "soushite",
+      "romaji": "soshite",
       "part_of_speech": "conjunction/expression",
       "meaning_zh": "然后；并且",
       "kanji_readings": [],
@@ -12977,7 +12955,7 @@
           "zh": "很便宜，而且很好吃。"
         }
       ],
-      "note_zh": "已把旧写法/不常用写法规范为现代常用写法；原始写法保留在 source_form。"
+      "note_zh": "「そして」与「そうして」是相关但不同的表达，不能把「そうして」当作本词条的读音。"
     },
     {
       "id": "n5-361",
@@ -13496,6 +13474,7 @@
     },
     {
       "id": "n5-376",
+      "merged_source_ids": ["n4-393"],
       "jlpt": "N5",
       "headword": "大切",
       "source_form": "大切",
@@ -13596,14 +13575,14 @@
         },
         {
           "ja": "大変な仕事です。",
-          "zh": "这是辛苦的工作。"
+          "zh": "这是很辛苦的工作。"
         },
         {
-          "ja": "大変ありがとうございます。",
-          "zh": "非常感谢。"
+          "ja": "長い間、大変お世話になりました。",
+          "zh": "长久以来承蒙您的关照。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "作な形容词时表示“辛苦、严重”；作副词时表示“非常”，多用于「大変お世話になりました」等较正式的表达。"
     },
     {
       "id": "n5-379",
@@ -14295,8 +14274,8 @@
           "zh": "渐渐变冷了。"
         },
         {
-          "ja": "日本語がだんだん分かります。",
-          "zh": "渐渐懂日语了。"
+          "ja": "日本語がだんだん上手になりました。",
+          "zh": "日语渐渐进步了。"
         },
         {
           "ja": "空がだんだん明るくなります。",
@@ -14344,6 +14323,7 @@
     },
     {
       "id": "n5-400",
+      "merged_source_ids": ["n4-423"],
       "jlpt": "N5",
       "headword": "小さな",
       "source_form": "小さな",
@@ -14355,7 +14335,7 @@
         "ちいさな"
       ],
       "romaji": "chiisana",
-      "part_of_speech": "noun",
+      "part_of_speech": "pre-noun",
       "meaning_zh": "小的（连体词）",
       "kanji_readings": [
         {
@@ -14466,7 +14446,7 @@
         "ちかく"
       ],
       "romaji": "chikaku",
-      "part_of_speech": "verb",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "附近；不久",
       "kanji_readings": [
         {
@@ -14677,6 +14657,7 @@
     },
     {
       "id": "n5-409",
+      "merged_source_ids": ["n4-755"],
       "jlpt": "N5",
       "headword": "～中",
       "source_form": "～中",
@@ -15061,8 +15042,8 @@
           "zh": "请打开电视。"
         },
         {
-          "ja": "ノートに名前をつけました。",
-          "zh": "在笔记本上写上了名字。"
+          "ja": "出かける前にマスクをつけました。",
+          "zh": "出门前戴上了口罩。"
         }
       ],
       "note_zh": ""
@@ -16629,6 +16610,7 @@
     },
     {
       "id": "n5-465",
+      "merged_source_ids": ["n4-478"],
       "jlpt": "N5",
       "headword": "隣",
       "source_form": "隣",
@@ -17419,7 +17401,7 @@
         "ななつ"
       ],
       "romaji": "nanatsu",
-      "part_of_speech": "verb",
+      "part_of_speech": "numeral/counter",
       "meaning_zh": "七个",
       "kanji_readings": [
         {
@@ -17619,8 +17601,8 @@
           "zh": "店前有人在排队。"
         },
         {
-          "ja": "バスを待って並びます。",
-          "zh": "排队等公交车。"
+          "ja": "バス停で列に並びます。",
+          "zh": "在公交车站排队。"
         },
         {
           "ja": "ここに並んでください。",
@@ -17954,6 +17936,7 @@
     },
     {
       "id": "n5-502",
+      "merged_source_ids": ["n4-507"],
       "jlpt": "N5",
       "headword": "荷物",
       "source_form": "荷物",
@@ -19457,16 +19440,16 @@
       ],
       "examples": [
         {
-          "ja": "この朝は早いです。",
-          "zh": "这个早晨很早。"
+          "ja": "今日は朝早く起きました。",
+          "zh": "今天早上起得很早。"
         },
         {
-          "ja": "とても早いですね。",
-          "zh": "真早啊。"
+          "ja": "まだ寝るには早いです。",
+          "zh": "现在睡觉还太早。"
         },
         {
-          "ja": "早いものが好きです。",
-          "zh": "喜欢早的东西。"
+          "ja": "学校に着くのが早いですね。",
+          "zh": "你到学校到得真早。"
         }
       ],
       "note_zh": ""
@@ -19732,6 +19715,7 @@
     },
     {
       "id": "n5-551",
+      "merged_source_ids": ["n4-763"],
       "jlpt": "N5",
       "headword": "～番",
       "source_form": "～番",
@@ -19753,19 +19737,19 @@
       ],
       "examples": [
         {
-          "ja": "一番前に座ります。",
-          "zh": "坐在最前面。"
+          "ja": "私は三番です。",
+          "zh": "我是第三个。"
         },
         {
-          "ja": "電話番号を教えてください。",
-          "zh": "请告诉我电话号码。"
+          "ja": "二番の窓口へ行きます。",
+          "zh": "去二号窗口。"
         },
         {
-          "ja": "二番のバスに乗ります。",
-          "zh": "坐二号公交车。"
+          "ja": "次は五番の人です。",
+          "zh": "下一位是五号的人。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "表示顺序或编号的后缀；不要与表示“最……”的「一番」或复合词「番号」混为一项。"
     },
     {
       "id": "n5-552",
@@ -19932,8 +19916,8 @@
           "zh": "吃了一半面包。"
         },
         {
-          "ja": "水を半分ください。",
-          "zh": "请给我半杯水。"
+          "ja": "水をコップの半分まで入れてください。",
+          "zh": "请把水倒到杯子的一半。"
         },
         {
           "ja": "宿題は半分終わりました。",
@@ -20224,8 +20208,8 @@
       ],
       "examples": [
         {
-          "ja": "駅に人が多いです。",
-          "zh": "车站人很多。"
+          "ja": "駅には人がたくさんいます。",
+          "zh": "车站里有很多人。"
         },
         {
           "ja": "あの人は先生です。",
@@ -20251,7 +20235,7 @@
         "ひとつ"
       ],
       "romaji": "hitotsu",
-      "part_of_speech": "verb",
+      "part_of_speech": "numeral/counter",
       "meaning_zh": "一个",
       "kanji_readings": [
         {
@@ -20860,7 +20844,7 @@
         "ふたつ"
       ],
       "romaji": "futatsu",
-      "part_of_speech": "verb",
+      "part_of_speech": "numeral/counter",
       "meaning_zh": "两个",
       "kanji_readings": [
         {
@@ -21026,8 +21010,8 @@
           "zh": "用粗笔写。"
         },
         {
-          "ja": "この道は太くありません。",
-          "zh": "这条路不宽。"
+          "ja": "このロープはあまり太くありません。",
+          "zh": "这根绳子不太粗。"
         }
       ],
       "note_zh": ""
@@ -21151,34 +21135,48 @@
       "variants": [
         "～分"
       ],
-      "reading": "～ふん",
+      "reading": "～ふん・～ぷん",
+      "speech_reading": "ふん",
       "reading_variants": [
-        "～ふん"
+        "～ふん",
+        "～ぷん"
       ],
-      "romaji": "~fun",
+      "romaji": "~fun / ~pun",
       "part_of_speech": "counter/suffix",
       "meaning_zh": "……分钟",
       "kanji_readings": [
         {
           "form": "～分",
-          "reading": "～ふん"
+          "reading": "～ふん・～ぷん"
+        },
+        {
+          "form": "三十分",
+          "reading": "さんじゅっぷん"
+        },
+        {
+          "form": "十分間",
+          "reading": "じゅっぷんかん"
+        },
+        {
+          "form": "五分",
+          "reading": "ごふん"
         }
       ],
       "examples": [
         {
-          "ja": "十分待ちます。",
+          "ja": "十分間待ちます。",
           "zh": "等十分钟。"
         },
         {
-          "ja": "五分で行きます。",
-          "zh": "五分钟就去。"
+          "ja": "駅まで五分かかります。",
+          "zh": "到车站需要五分钟。"
         },
         {
           "ja": "三十分勉強します。",
           "zh": "学习三十分钟。"
         }
       ],
-      "note_zh": "接在数字或名词后使用；例句中去掉了前缀符号「～」。"
+      "note_zh": "读音随前面的数字变化：一分「いっぷん」、三分「さんぷん」、五分「ごふん」、六分「ろっぷん」、十分「じゅっぷん」等。"
     },
     {
       "id": "n5-591",
@@ -23055,7 +23053,7 @@
         "みっつ"
       ],
       "romaji": "mittsu",
-      "part_of_speech": "verb",
+      "part_of_speech": "numeral/counter",
       "meaning_zh": "三个",
       "kanji_readings": [
         {
@@ -23118,6 +23116,7 @@
     },
     {
       "id": "n5-645",
+      "merged_source_ids": ["n4-629"],
       "jlpt": "N5",
       "headword": "皆さん",
       "source_form": "皆さん",
@@ -23368,7 +23367,7 @@
           "zh": "朋友在那边等。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "本条只讲空间上的“那边、对面”；表示交涉对象“对方”的用法在 N4 另行学习。"
     },
     {
       "id": "n5-652",
@@ -23420,7 +23419,7 @@
         "むっつ"
       ],
       "romaji": "muttsu",
-      "part_of_speech": "verb",
+      "part_of_speech": "numeral/counter",
       "meaning_zh": "六个",
       "kanji_readings": [
         {
@@ -23537,15 +23536,15 @@
       "examples": [
         {
           "ja": "ここから駅まで百メートルです。",
-          "zh": "从这里到车站一百米。"
+          "zh": "从这里到车站有一百米。"
         },
         {
           "ja": "十メートル泳ぎます。",
           "zh": "游十米。"
         },
         {
-          "ja": "この道は五メートルです。",
-          "zh": "这条路五米。"
+          "ja": "この道は幅が五メートルです。",
+          "zh": "这条路宽五米。"
         }
       ],
       "note_zh": ""
@@ -23669,7 +23668,7 @@
         "もしもし"
       ],
       "romaji": "moshimoshi",
-      "part_of_speech": "noun",
+      "part_of_speech": "interjection/expression",
       "meaning_zh": "喂（电话用语）",
       "kanji_readings": [],
       "examples": [
@@ -24140,7 +24139,7 @@
         "やっつ"
       ],
       "romaji": "yattsu",
-      "part_of_speech": "verb",
+      "part_of_speech": "numeral/counter",
       "meaning_zh": "八个",
       "kanji_readings": [
         {
@@ -24680,7 +24679,7 @@
         "よっつ"
       ],
       "romaji": "yottsu",
-      "part_of_speech": "verb",
+      "part_of_speech": "numeral/counter",
       "meaning_zh": "四个",
       "kanji_readings": [
         {
@@ -24998,34 +24997,35 @@
     {
       "id": "n5-697",
       "jlpt": "N5",
-      "headword": "ラジオカセ",
+      "headword": "ラジカセ",
       "source_form": "ラジオカセ",
       "variants": [
-        "ラジオカセ"
+        "ラジカセ",
+        "ラジオカセット"
       ],
-      "reading": "ラジオカセ",
+      "reading": "ラジカセ",
       "reading_variants": [
-        "ラジオカセ"
+        "ラジカセ"
       ],
-      "romaji": "rajiokase",
+      "romaji": "rajikase",
       "part_of_speech": "noun",
       "meaning_zh": "收录机",
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "ラジオカセを使います。",
+          "ja": "ラジカセを使います。",
           "zh": "使用收录机。"
         },
         {
-          "ja": "ラジオカセを買いました。",
+          "ja": "ラジカセを買いました。",
           "zh": "买了收录机。"
         },
         {
-          "ja": "ラジオカセで音楽を聞きます。",
+          "ja": "ラジカセで音楽を聞きます。",
           "zh": "用收录机听音乐。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "「ラジオカセット」的常用简称；原数据中的「ラジオカセ」不是规范词形。"
     },
     {
       "id": "n5-698",
@@ -25612,7 +25612,7 @@
         "わたし"
       ],
       "romaji": "watashi",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "pronoun",
       "meaning_zh": "我",
       "kanji_readings": [
         {
@@ -25649,7 +25649,7 @@
         "わたくし"
       ],
       "romaji": "watakushi",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "pronoun",
       "meaning_zh": "我（正式说法）",
       "kanji_readings": [
         {
@@ -25667,11 +25667,11 @@
           "zh": "由我来说明。"
         },
         {
-          "ja": "わたくしの名前はこちらです。",
-          "zh": "我的名字在这里。"
+          "ja": "わたくしは営業部の田中と申します。",
+          "zh": "我是营业部的田中。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "「わたくし」是「わたし」更正式、郑重的读法。"
     },
     {
       "id": "n5-716",
@@ -25770,16 +25770,16 @@
       ],
       "examples": [
         {
-          "ja": "この天気は悪いです。",
-          "zh": "这个天气很不好。"
+          "ja": "今日は天気が悪いです。",
+          "zh": "今天天气不好。"
         },
         {
-          "ja": "とても悪いですね。",
-          "zh": "真不好啊。"
+          "ja": "姿勢が悪いですね。",
+          "zh": "你的姿势不太好。"
         },
         {
-          "ja": "悪いものが好きです。",
-          "zh": "喜欢不好的东西。"
+          "ja": "悪いことをしてはいけません。",
+          "zh": "不可以做坏事。"
         }
       ],
       "note_zh": ""

@@ -619,6 +619,92 @@ function testN5DuplicateAliasesMergeWithoutDuplicateQueueEntries() {
   );
 }
 
+function testRetiredStableSourceIdMigratesToRetainedEntry() {
+  const deck = "vocab-n4-ja-zh";
+  const retiredId = "vocab-entry-n4-247-ja";
+  const card = baseCard({
+    deck,
+    id: "vocab-entry-n4-246-ja",
+    isVocab: true,
+    legacyIds: ["vocab-n4-245-ja", retiredId],
+    sourceId: "n4-246",
+    wordKey: "vocab-entry-n4-246",
+  });
+  const harness = createHarness({
+    initialStore: JSON.stringify({
+      [retiredId]: {
+        lastRatedAt: 42,
+        lastRating: "unsure",
+        reviews: 6,
+      },
+      __rounds: {
+        activeDeck: deck,
+        decks: {
+          [deck]: {
+            completed: [],
+            queue: [retiredId],
+            rounds: 2,
+          },
+        },
+      },
+    }),
+    tabDecks: ["hiragana", deck],
+    vocabCards: [card],
+  });
+  const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
+  assert(saved[card.id]?.reviews === 6, "retired stable source ID lost its review count");
+  assert(saved[card.id]?.lastRating === "unsure", "retired stable source ID lost its latest rating");
+  assert(!Object.hasOwn(saved, retiredId), "retired stable source ID was not removed after migration");
+  assert(
+    JSON.stringify(saved.__rounds.decks[deck].queue) === JSON.stringify([card.id]),
+    "retired stable source ID was not migrated in the active round queue",
+  );
+}
+
+function testDirectUpgradeCrossLevelAliasDropsFromOldDeckQueue() {
+  const n4Deck = "vocab-n4-ja-zh";
+  const n5Deck = "vocab-ja-zh";
+  const retiredId = "vocab-n4-118-ja";
+  const card = baseCard({
+    deck: n5Deck,
+    id: "vocab-entry-n5-158-ja",
+    isVocab: true,
+    legacyIds: ["vocab-157-ja", retiredId, "vocab-entry-n4-119-ja"],
+    sourceId: "n5-158",
+    wordKey: "vocab-entry-n5-158",
+  });
+  const harness = createHarness({
+    initialStore: JSON.stringify({
+      [retiredId]: {
+        lastRatedAt: 84,
+        lastRating: "forgot",
+        reviews: 5,
+      },
+      __rounds: {
+        activeDeck: n4Deck,
+        decks: {
+          [n4Deck]: { completed: [], queue: [retiredId], rounds: 1 },
+          [n5Deck]: { completed: [], queue: [retiredId], rounds: 0 },
+        },
+      },
+    }),
+    tabDecks: ["hiragana", n4Deck, n5Deck],
+    vocabCards: [card],
+  });
+
+  harness.tabs.find((tab) => tab.dataset.deck === n5Deck).dispatch("click");
+  const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
+  assert(saved[card.id]?.reviews === 5, "cross-level migration lost retained progress");
+  assert(
+    JSON.stringify(saved.__rounds.decks[n4Deck].queue) === JSON.stringify([]),
+    "cross-level migration left an N5 target inside the retired N4 queue",
+  );
+  assert(
+    JSON.stringify(saved.__rounds.decks[n5Deck].queue) === JSON.stringify([card.id]),
+    "cross-level migration did not map a compatible N5 queue entry",
+  );
+}
+
 function testSidebarFocusAndInertLifecycle() {
   const harness = createHarness();
   const opener = harness.element("deckMenuButton");
@@ -1953,6 +2039,8 @@ const tests = [
   ["legacy rating history compacts to bounded state", testLegacyRatingHistoryCompactsToBoundedState],
   ["N4 legacy progress and queue migrate to stable IDs", testN4LegacyProgressAndRoundQueueMigration],
   ["N5 duplicate aliases merge and deduplicate", testN5DuplicateAliasesMergeWithoutDuplicateQueueEntries],
+  ["retired stable source IDs migrate to retained entries", testRetiredStableSourceIdMigratesToRetainedEntry],
+  ["direct-upgrade cross-level aliases leave old deck queues", testDirectUpgradeCrossLevelAliasDropsFromOldDeckQueue],
   ["sidebar focus and inert lifecycle", testSidebarFocusAndInertLifecycle],
   ["mistake decks queue reviewed cards on first visit", testMistakeDeckQueuesPreviouslyReviewedCardsOnFirstVisit],
   ["fresh mistake ratings enter the mistake deck", testFreshMistakeRatingImmediatelyEntersMistakeDeck],
