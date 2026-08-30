@@ -705,6 +705,57 @@ function testDirectUpgradeCrossLevelAliasDropsFromOldDeckQueue() {
   );
 }
 
+function testRetiredVocabProgressMovesToGrammarFamily() {
+  const vocabDeck = "vocab-n4-ja-zh";
+  const grammarDeck = "grammar-n4-ja-zh";
+  const retiredId = "vocab-entry-n4-757-ja";
+  const grammarCard = baseCard({
+    deck: grammarDeck,
+    grammarKey: "n4-grammar-102",
+    grammarLevel: "N4",
+    id: "grammar-n4-grammar-102-ja",
+    isGrammar: true,
+    legacyIds: [retiredId, "vocab-n4-756-ja"],
+  });
+  const harness = createHarness({
+    grammarCards: [grammarCard],
+    initialStore: JSON.stringify({
+      [retiredId]: {
+        lastRatedAt: 96,
+        lastRating: "forgot",
+        reviews: 7,
+      },
+      __rounds: {
+        activeDeck: vocabDeck,
+        decks: {
+          [vocabDeck]: { completed: [], queue: [retiredId], rounds: 2 },
+          [grammarDeck]: { completed: [], queue: [retiredId], rounds: 1 },
+        },
+      },
+    }),
+    kanaCards: [],
+    tabDecks: ["hiragana", vocabDeck, grammarDeck],
+    vocabCards: [],
+  });
+
+  harness.tabs.find((tab) => tab.dataset.deck === grammarDeck).dispatch("click");
+  const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
+  assert(saved[grammarCard.id]?.reviews === 7, "vocabulary-to-grammar migration lost review count");
+  assert(
+    saved[grammarCard.id]?.lastRating === "forgot",
+    "vocabulary-to-grammar migration lost the latest rating",
+  );
+  assert(!Object.hasOwn(saved, retiredId), "retired vocabulary state remained after grammar migration");
+  assert(
+    JSON.stringify(saved.__rounds.decks[vocabDeck].queue) === JSON.stringify([]),
+    "retired grammar target remained in the vocabulary queue",
+  );
+  assert(
+    JSON.stringify(saved.__rounds.decks[grammarDeck].queue) === JSON.stringify([grammarCard.id]),
+    "retired vocabulary card did not move into the matching grammar queue",
+  );
+}
+
 function testSidebarFocusAndInertLifecycle() {
   const harness = createHarness();
   const opener = harness.element("deckMenuButton");
@@ -1856,6 +1907,7 @@ function testJapaneseToChineseVocabHidesReadingUntilReveal() {
       prompt: "会う",
       subtle: "读音：あう",
       subtleLang: "zh-CN",
+      type: `${deck.includes("n4") ? "N4" : "N5"} 搭配 日文 → 中文`,
     });
     const harness = createHarness({
       tabDecks: ["hiragana", deck],
@@ -1864,6 +1916,14 @@ function testJapaneseToChineseVocabHidesReadingUntilReveal() {
     harness.tabs[1].dispatch("click");
 
     assert(harness.element("cardPrompt").textContent === "会う", `${deck} lost its word prompt`);
+    assert(
+      harness.element("cardType").textContent === card.type && !harness.element("cardType").hidden,
+      `${deck} did not expose its learning category label`,
+    );
+    assert(
+      harness.element("cardReveal").getAttribute("aria-describedby").includes("cardType"),
+      `${deck} learning category is missing from the accessible description`,
+    );
     assert(harness.element("cardSubtle").hidden, `${deck} front reading remains visible`);
     assert(harness.element("cardSubtle").textContent === "", `${deck} front reading remains in DOM text`);
     assert(
@@ -2041,6 +2101,7 @@ const tests = [
   ["N5 duplicate aliases merge and deduplicate", testN5DuplicateAliasesMergeWithoutDuplicateQueueEntries],
   ["retired stable source IDs migrate to retained entries", testRetiredStableSourceIdMigratesToRetainedEntry],
   ["direct-upgrade cross-level aliases leave old deck queues", testDirectUpgradeCrossLevelAliasDropsFromOldDeckQueue],
+  ["retired vocabulary progress moves to grammar", testRetiredVocabProgressMovesToGrammarFamily],
   ["sidebar focus and inert lifecycle", testSidebarFocusAndInertLifecycle],
   ["mistake decks queue reviewed cards on first visit", testMistakeDeckQueuesPreviouslyReviewedCardsOnFirstVisit],
   ["fresh mistake ratings enter the mistake deck", testFreshMistakeRatingImmediatelyEntersMistakeDeck],

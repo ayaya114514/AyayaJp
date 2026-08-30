@@ -2163,6 +2163,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-007",
+      "retiredVocabSourceIds": ["n4-762"],
       "level": "N4",
       "pattern": "〜ばかり",
       "meaningZh": "净……；光……",
@@ -2211,6 +2212,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-009",
+      "retiredVocabSourceIds": ["n4-754"],
       "level": "N4",
       "pattern": "〜出す",
       "meaningZh": "开始……；突然……起来",
@@ -2451,6 +2453,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-019",
+      "retiredVocabSourceIds": ["n4-761"],
       "level": "N4",
       "pattern": "〜始める",
       "meaningZh": "开始……",
@@ -3003,6 +3006,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-042",
+      "retiredVocabSourceIds": ["n4-765"],
       "level": "N4",
       "pattern": "〜まま",
       "meaningZh": "保持……状态；就那样……",
@@ -3411,6 +3415,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-060",
+      "retiredVocabSourceIds": ["n4-758"],
       "level": "N4",
       "pattern": "〜にくい",
       "meaningZh": "难以……；不好……",
@@ -3579,6 +3584,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-067",
+      "retiredVocabSourceIds": ["n4-743"],
       "level": "N4",
       "pattern": "〜おきに",
       "meaningZh": "每隔……；每……",
@@ -3603,6 +3609,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-068",
+      "retiredVocabSourceIds": ["n4-744"],
       "level": "N4",
       "pattern": "〜終わる",
       "meaningZh": "……完",
@@ -4419,6 +4426,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-102",
+      "retiredVocabSourceIds": ["n4-757"],
       "level": "N4",
       "pattern": "〜てしまう / 〜ちゃう・〜じゃう",
       "meaningZh": "……完；不小心……了",
@@ -4875,6 +4883,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-121",
+      "retiredVocabSourceIds": ["n4-767"],
       "level": "N4",
       "pattern": "〜やすい",
       "meaningZh": "容易……；好……；易于……",
@@ -5158,6 +5167,129 @@ window.AYAYA_GRAMMAR_DATA = {
         {
           "ja": "字が小さくて読みづらいです。",
           "zh": "字太小，不好读。"
+        }
+      ]
+    },
+    {
+      "id": "n4-grammar-133",
+      "retiredVocabSourceIds": ["n4-752"],
+      "level": "N4",
+      "pattern": "〜ために（目的）",
+      "meaningZh": "为了……",
+      "formation": "V辞書形 / N + の + ために",
+      "note": "表示有意志行为的目的。与表示目标状态的「〜ように」不同，前项通常是说话人主动追求的动作或结果。",
+      "promptZh": "为了去日本留学，我正在学习日语。",
+      "answerJa": "日本へ留学するために、日本語を勉強しています。",
+      "examples": [
+        {
+          "ja": "日本へ留学するために、日本語を勉強しています。",
+          "zh": "为了去日本留学，我正在学习日语。"
+        },
+        {
+          "ja": "家族のために働いています。",
+          "zh": "为了家人而工作。"
+        },
+        {
+          "ja": "試験に合格するために、毎日復習しています。",
+          "zh": "为了通过考试，每天都在复习。"
+        }
+      ]
+    },
+    {
+      "id": "n4-grammar-134",
+      "level": "N4",
+      "pattern": "〜ため（原因・理由）",
+      "meaningZh": "由于……；因为……",
+      "formation": "V/い形普通形 + ため；な形語幹 + な + ため；N + の + ため",
+      "note": "表示较客观的原因或理由，语气比「から」「ので」正式，常见于说明和书面表达。",
+      "promptZh": "由于大雪，电车停运了。",
+      "answerJa": "大雪のため、電車が止まりました。",
+      "examples": [
+        {
+          "ja": "大雪のため、電車が止まりました。",
+          "zh": "由于大雪，电车停运了。"
+        },
+        {
+          "ja": "事故があったため、道が混んでいます。",
+          "zh": "因为发生了事故，道路很拥堵。"
+        },
+        {
+          "ja": "体調が悪いため、今日は休みます。",
+          "zh": "因为身体不舒服，今天请假。"
+        }
+      ]
+    },
+    {
+      "id": "n4-grammar-135",
+      "retiredVocabSourceIds": ["n4-759"],
+      "level": "N4",
+      "pattern": "〜について",
+      "meaningZh": "关于……；就……",
+      "formation": "N + について；N + についての + N",
+      "note": "标示谈论、思考、调查等动作涉及的主题；修饰后面的名词时使用「〜についての」。",
+      "promptZh": "发表关于日本文化的内容。",
+      "answerJa": "日本の文化について発表します。",
+      "examples": [
+        {
+          "ja": "日本の文化について発表します。",
+          "zh": "发表关于日本文化的内容。"
+        },
+        {
+          "ja": "この問題についてどう思いますか。",
+          "zh": "你对这个问题怎么看？"
+        },
+        {
+          "ja": "日本の歴史についての本を読みました。",
+          "zh": "读了一本关于日本历史的书。"
+        }
+      ]
+    },
+    {
+      "id": "n4-grammar-136",
+      "retiredVocabSourceIds": ["n4-760"],
+      "level": "N4",
+      "pattern": "〜によると",
+      "meaningZh": "据……；根据……",
+      "formation": "信息来源 + によると",
+      "note": "用于指出消息来源，后项常与「〜そうだ」「〜らしい」等传闻表达呼应。",
+      "promptZh": "据天气预报，明天会下雨。",
+      "answerJa": "天気予報によると、明日は雨だそうです。",
+      "examples": [
+        {
+          "ja": "天気予報によると、明日は雨だそうです。",
+          "zh": "据天气预报，明天会下雨。"
+        },
+        {
+          "ja": "先生によると、この漢字はよく使うそうです。",
+          "zh": "据老师说，这个汉字很常用。"
+        },
+        {
+          "ja": "ニュースによると、電車が遅れているそうです。",
+          "zh": "据新闻报道，电车晚点了。"
+        }
+      ]
+    },
+    {
+      "id": "n4-grammar-137",
+      "level": "N4",
+      "pattern": "数量 + ばかり",
+      "meaningZh": "大约……；左右……",
+      "formation": "数量词 + ばかり",
+      "note": "表示概数。不要与表示“净是……”的「〜ばかり」或表示“刚刚……”的「Vたばかり」混淆。",
+      "promptZh": "会场聚集了大约一百人。",
+      "answerJa": "会場には百人ばかり集まりました。",
+      "examples": [
+        {
+          "ja": "会場には百人ばかり集まりました。",
+          "zh": "会场聚集了大约一百人。"
+        },
+        {
+          "ja": "一時間ばかり待ちました。",
+          "zh": "等了大约一个小时。"
+        },
+        {
+          "ja": "本を五冊ばかり買いました。",
+          "zh": "买了大约五本书。"
         }
       ]
     }

@@ -21,7 +21,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "kanji_readings": "含汉字词形的整词读音，用于生成 ruby/furigana。",
       "examples": "三个自然、短句优先的日语例句；zh 为简体中文翻译。",
       "note_zh": "必要时说明写法、用法或兼容注意。",
-      "merged_source_ids": "已合并或跨级去重的旧 source ID，用于迁移既有学习进度。"
+      "merged_source_ids": "已合并或跨级去重的旧 source ID，用于迁移既有学习进度。",
+      "learning_category": "可选的教学分类：复合词、派生形式、固定表达或常用搭配；未填写时按词性推导卡片标签。"
     },
     "compatibility": {
       "AYAYA_N4_WORDS": "[headword, reading, meaning_zh, first_example_ja, first_example_zh]",
@@ -35,7 +36,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "Reading, part-of-speech, example alignment, same-sense duplicates and retained cross-level distinctions were re-audited on 2026-08-18; merged_source_ids preserve prior study state.",
       "Dictionary forms, readings, coarse part-of-speech labels, senses, and all example rows were re-audited against JMdict and for Japanese/Chinese learning accuracy on 2026-08-30."
     ],
-    "entry_count": 745
+    "entry_count": 733
   },
   "entries": [
     {
@@ -2886,7 +2887,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "今年赏月时云很少，月亮看得很清楚。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "",
+      "learning_category": "compound"
     },
     {
       "id": "n4-083",
@@ -5376,7 +5378,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "用手机可以轻松预约。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "",
+      "learning_category": "derived-form"
     },
     {
       "id": "n4-152",
@@ -6624,7 +6627,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "事先买了机场巴士票。"
         }
       ],
-      "note_zh": "补充旅行常用词。"
+      "note_zh": "补充旅行常用词。",
+      "learning_category": "compound"
     },
     {
       "id": "n4-187",
@@ -7784,7 +7788,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "雨成了事故的原因。"
         }
       ],
-      "note_zh": "常用搭配。"
+      "note_zh": "常用搭配。",
+      "learning_category": "collocation"
     },
     {
       "id": "n4-219",
@@ -8777,7 +8782,9 @@ window.AYAYA_N4_CODEX_VOCAB = {
     },
     {
       "id": "n4-246",
-      "merged_source_ids": ["n4-247"],
+      "merged_source_ids": [
+        "n4-247"
+      ],
       "jlpt": "N4",
       "headword": "混む",
       "source_form": "混む; 込む",
@@ -9070,7 +9077,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "这次一定坚持到最后。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "",
+      "learning_category": "fixed-expression"
     },
     {
       "id": "n4-257",
@@ -11895,7 +11903,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "充分理解了说明。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "",
+      "learning_category": "derived-form"
     },
     {
       "id": "n4-336",
@@ -12154,7 +12163,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "这个国家以人口多而闻名。"
         }
       ],
-      "note_zh": "常用搭配。"
+      "note_zh": "常用搭配。",
+      "learning_category": "collocation"
     },
     {
       "id": "n4-343",
@@ -12653,7 +12663,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "在车站遭到扒窃，钱包丢了。"
         }
       ],
-      "note_zh": "常用搭配。"
+      "note_zh": "常用搭配。",
+      "learning_category": "collocation"
     },
     {
       "id": "n4-358",
@@ -13308,7 +13319,9 @@ window.AYAYA_N4_CODEX_VOCAB = {
     },
     {
       "id": "n4-376",
-      "merged_source_ids": ["n4-377"],
+      "merged_source_ids": [
+        "n4-377"
+      ],
       "jlpt": "N4",
       "headword": "全然",
       "source_form": "ぜんぜん; 全然",
@@ -13789,7 +13802,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "不用担心那种事也没关系。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "",
+      "learning_category": "fixed-expression"
     },
     {
       "id": "n4-391",
@@ -16779,7 +16793,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "说明中途提问了。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "",
+      "learning_category": "fixed-expression"
     },
     {
       "id": "n4-475",
@@ -18199,7 +18214,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "改变涂法后，颜色看起来更明亮。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "",
+      "learning_category": "derived-form"
     },
     {
       "id": "n4-516",
@@ -18347,7 +18363,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "车站前的酒店价格高。"
         }
       ],
-      "note_zh": "常用搭配。"
+      "note_zh": "常用搭配。",
+      "learning_category": "collocation"
     },
     {
       "id": "n4-520",
@@ -18384,7 +18401,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "因为离车站远，所以价格便宜。"
         }
       ],
-      "note_zh": "常用搭配。"
+      "note_zh": "常用搭配。",
+      "learning_category": "collocation"
     },
     {
       "id": "n4-521",
@@ -19479,7 +19497,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "人数增加了，工作量也翻倍了。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "",
+      "learning_category": "collocation"
     },
     {
       "id": "n4-551",
@@ -21705,7 +21724,9 @@ window.AYAYA_N4_CODEX_VOCAB = {
     },
     {
       "id": "n4-612",
-      "merged_source_ids": ["n4-613"],
+      "merged_source_ids": [
+        "n4-613"
+      ],
       "jlpt": "N4",
       "headword": "真面目",
       "source_form": "まじめ; 真面目",
@@ -26243,75 +26264,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": "职业、成员后缀。"
     },
     {
-      "id": "n4-743",
-      "jlpt": "N4",
-      "headword": "～おき",
-      "source_form": "～おき",
-      "variants": [
-        "～おき"
-      ],
-      "reading": "～おき",
-      "reading_variants": [
-        "～おき"
-      ],
-      "romaji": "oki",
-      "part_of_speech": "suffix/expression",
-      "meaning_zh": "每隔……；每……一次",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "二日おきに運動しています。",
-          "zh": "每隔两天运动。"
-        },
-        {
-          "ja": "一時間おきに薬を飲みます。",
-          "zh": "每隔一小时吃药。"
-        },
-        {
-          "ja": "このバスは十分おきに来ます。",
-          "zh": "这辆公交每十分钟来一班。"
-        }
-      ],
-      "note_zh": "接在时间、数量后。"
-    },
-    {
-      "id": "n4-744",
-      "jlpt": "N4",
-      "headword": "～終わる",
-      "source_form": "～終わる",
-      "variants": [
-        "～終わる"
-      ],
-      "reading": "～おわる",
-      "reading_variants": [
-        "～おわる"
-      ],
-      "romaji": "owaru",
-      "part_of_speech": "suffix/expression",
-      "meaning_zh": "……完",
-      "kanji_readings": [
-        {
-          "form": "～終わる",
-          "reading": "～おわる"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "本を読み終わりました。",
-          "zh": "书读完了。"
-        },
-        {
-          "ja": "宿題を書き終わったら休みます。",
-          "zh": "写完作业后休息。"
-        },
-        {
-          "ja": "映画を見終わってから食事しました。",
-          "zh": "看完电影后吃了饭。"
-        }
-      ],
-      "note_zh": "接动词ます形。"
-    },
-    {
       "id": "n4-745",
       "jlpt": "N4",
       "headword": "～家",
@@ -26571,38 +26523,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": "接尾语。"
     },
     {
-      "id": "n4-752",
-      "jlpt": "N4",
-      "headword": "～ため",
-      "source_form": "～ため",
-      "variants": [
-        "～ため"
-      ],
-      "reading": "～ため",
-      "reading_variants": [
-        "～ため"
-      ],
-      "romaji": "tame",
-      "part_of_speech": "expression",
-      "meaning_zh": "为了……；因为……",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "試験のために早く寝ます。",
-          "zh": "为了考试早点睡。"
-        },
-        {
-          "ja": "雨のため、試合は中止になりました。",
-          "zh": "由于下雨，比赛取消了。"
-        },
-        {
-          "ja": "家族のために働いています。",
-          "zh": "为了家人在工作。"
-        }
-      ],
-      "note_zh": "名词/连体修饰后接。"
-    },
-    {
       "id": "n4-753",
       "jlpt": "N4",
       "headword": "～代",
@@ -26638,240 +26558,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         }
       ],
       "note_zh": "接尾语。"
-    },
-    {
-      "id": "n4-754",
-      "jlpt": "N4",
-      "headword": "～出す",
-      "source_form": "～出す",
-      "variants": [
-        "～出す"
-      ],
-      "reading": "～だす",
-      "reading_variants": [
-        "～だす"
-      ],
-      "romaji": "dasu",
-      "part_of_speech": "suffix/expression",
-      "meaning_zh": "开始……；……出来",
-      "kanji_readings": [
-        {
-          "form": "～出す",
-          "reading": "～だす"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "急に雨が降り出しました。",
-          "zh": "突然开始下雨了。"
-        },
-        {
-          "ja": "赤ちゃんが泣き出しました。",
-          "zh": "宝宝开始哭了。"
-        },
-        {
-          "ja": "彼は急に走り出しました。",
-          "zh": "他突然跑了起来。"
-        }
-      ],
-      "note_zh": "接动词ます形。"
-    },
-    {
-      "id": "n4-757",
-      "jlpt": "N4",
-      "headword": "～てしまう",
-      "source_form": "～てしまう",
-      "variants": [
-        "～てしまう"
-      ],
-      "reading": "～てしまう",
-      "reading_variants": [
-        "～てしまう"
-      ],
-      "romaji": "teshimau",
-      "part_of_speech": "expression",
-      "meaning_zh": "做完；不小心……；遗憾地……",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "財布を忘れてしまいました。",
-          "zh": "把钱包忘了。"
-        },
-        {
-          "ja": "ケーキを全部食べてしまいました。",
-          "zh": "把蛋糕全吃完了。"
-        },
-        {
-          "ja": "電車に遅れてしまいました。",
-          "zh": "误了电车。"
-        }
-      ],
-      "note_zh": "接动词て形。"
-    },
-    {
-      "id": "n4-758",
-      "jlpt": "N4",
-      "headword": "～にくい",
-      "source_form": "～にくい",
-      "variants": [
-        "～にくい"
-      ],
-      "reading": "～にくい",
-      "reading_variants": [
-        "～にくい"
-      ],
-      "romaji": "nikui",
-      "part_of_speech": "suffix/expression",
-      "meaning_zh": "难以……；不好……",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "この漢字は覚えにくいです。",
-          "zh": "这个汉字很难记。"
-        },
-        {
-          "ja": "このペンは書きにくいです。",
-          "zh": "这支笔不好写。"
-        },
-        {
-          "ja": "雨の日は歩きにくいです。",
-          "zh": "下雨天不好走。"
-        }
-      ],
-      "note_zh": "接动词ます形。"
-    },
-    {
-      "id": "n4-759",
-      "jlpt": "N4",
-      "headword": "～について",
-      "source_form": "～について",
-      "variants": [
-        "～について"
-      ],
-      "reading": "～について",
-      "reading_variants": [
-        "～について"
-      ],
-      "romaji": "nitsuite",
-      "part_of_speech": "expression",
-      "meaning_zh": "关于……",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "日本の文化について発表します。",
-          "zh": "发表关于日本文化的内容。"
-        },
-        {
-          "ja": "旅行について相談しました。",
-          "zh": "商量了旅行的事。"
-        },
-        {
-          "ja": "この問題についてどう思いますか。",
-          "zh": "你对这个问题怎么看？"
-        }
-      ],
-      "note_zh": "格助词性表达。"
-    },
-    {
-      "id": "n4-760",
-      "jlpt": "N4",
-      "headword": "～によると",
-      "source_form": "～によると",
-      "variants": [
-        "～によると"
-      ],
-      "reading": "～によると",
-      "reading_variants": [
-        "～によると"
-      ],
-      "romaji": "niyoruto",
-      "part_of_speech": "expression",
-      "meaning_zh": "据……；根据……",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "天気予報によると、明日は雨です。",
-          "zh": "据天气预报，明天有雨。"
-        },
-        {
-          "ja": "先生によると、この漢字はよく使うそうです。",
-          "zh": "据老师说，这个汉字很常用。"
-        },
-        {
-          "ja": "ニュースによると、電車が遅れています。",
-          "zh": "据新闻说，电车晚点了。"
-        }
-      ],
-      "note_zh": "常用于消息、说明来源。"
-    },
-    {
-      "id": "n4-761",
-      "jlpt": "N4",
-      "headword": "～始める",
-      "source_form": "～始める",
-      "variants": [
-        "～始める"
-      ],
-      "reading": "～はじめる",
-      "reading_variants": [
-        "～はじめる"
-      ],
-      "romaji": "hajimeru",
-      "part_of_speech": "suffix/expression",
-      "meaning_zh": "开始……",
-      "kanji_readings": [
-        {
-          "form": "～始める",
-          "reading": "～はじめる"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "日本語を勉強し始めました。",
-          "zh": "开始学习日语了。"
-        },
-        {
-          "ja": "子供が歩き始めました。",
-          "zh": "孩子开始走路了。"
-        },
-        {
-          "ja": "雨が降り始めたので帰ります。",
-          "zh": "因为开始下雨了，所以回去。"
-        }
-      ],
-      "note_zh": "接动词ます形。"
-    },
-    {
-      "id": "n4-762",
-      "jlpt": "N4",
-      "headword": "～ばかり",
-      "source_form": "～ばかり",
-      "variants": [
-        "～ばかり"
-      ],
-      "reading": "～ばかり",
-      "reading_variants": [
-        "～ばかり"
-      ],
-      "romaji": "bakari",
-      "part_of_speech": "particle/expression",
-      "meaning_zh": "净是……；刚刚……；大约……",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "甘い物ばかり食べています。",
-          "zh": "净吃甜食。"
-        },
-        {
-          "ja": "今帰ってきたばかりです。",
-          "zh": "刚刚回来。"
-        },
-        {
-          "ja": "本を五冊ばかり買いました。",
-          "zh": "买了大约五本书。"
-        }
-      ],
-      "note_zh": "接续助词性表达。"
     },
     {
       "id": "n4-764",
@@ -26911,38 +26597,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": "地名后缀。"
     },
     {
-      "id": "n4-765",
-      "jlpt": "N4",
-      "headword": "～まま",
-      "source_form": "～まま",
-      "variants": [
-        "～まま"
-      ],
-      "reading": "～まま",
-      "reading_variants": [
-        "～まま"
-      ],
-      "romaji": "mama",
-      "part_of_speech": "noun/expression",
-      "meaning_zh": "保持……状态；就那样",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "窓を開けたまま寝てしまいました。",
-          "zh": "窗户开着就睡着了。"
-        },
-        {
-          "ja": "靴を履いたまま入らないでください。",
-          "zh": "请不要穿着鞋进去。"
-        },
-        {
-          "ja": "電気をつけたまま出かけました。",
-          "zh": "灯开着就出门了。"
-        }
-      ],
-      "note_zh": "接续表达。"
-    },
-    {
       "id": "n4-766",
       "jlpt": "N4",
       "headword": "～目",
@@ -26978,38 +26632,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         }
       ],
       "note_zh": "序数后缀。"
-    },
-    {
-      "id": "n4-767",
-      "jlpt": "N4",
-      "headword": "～やすい",
-      "source_form": "～やすい",
-      "variants": [
-        "～やすい"
-      ],
-      "reading": "～やすい",
-      "reading_variants": [
-        "～やすい"
-      ],
-      "romaji": "yasui",
-      "part_of_speech": "suffix/expression",
-      "meaning_zh": "容易……；好……",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "この辞書は使いやすいです。",
-          "zh": "这本词典很好用。"
-        },
-        {
-          "ja": "この道は歩きやすいです。",
-          "zh": "这条路很好走。"
-        },
-        {
-          "ja": "例文があると覚えやすいです。",
-          "zh": "有例句就容易记。"
-        }
-      ],
-      "note_zh": "接动词ます形。"
     }
   ]
 };

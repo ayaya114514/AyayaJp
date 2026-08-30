@@ -2,8 +2,8 @@
 const sourceNotes = {
   jlpt: "JLPT 官方不发布固定的词汇/汉字/语法项目清单；本项目的语法覆盖按官方等级说明、题型说明、样题/官方问题集说明，以及常见 N5/N4 教学清单整理。",
   kana: "假名和发音规则按现代学习写法整理；进阶发音是代表性规则与外来音组合精选，不表示使用频率，也不是完整外来音表。单个假名「を」的键盘输入写作 wo；例句罗马字采用便于学习的 Hepburn 式 ASCII 写法：助词「は・へ・を」写作 wa・e・o，「ん」在同一词内的元音或 y 前写作 n'，长音保留假名拼写（如 ou、ei）或重复元音。",
-  vocabulary: "N5/N4 标签是项目维护的教学分级，不是官方固定词表。规范词形、原始词形、变体和人工校订说明保存在随项目版本控制的数据文件中。",
-  examples: "词汇例句是为本项目编写和校订的短学习句，不作为语料库引文；无法可靠生成纯拉丁字母罗马音时，界面会明确隐藏该行而不显示混合脚本结果。",
+  vocabulary: "N5/N4 标签是项目维护的教学分级，不是官方固定词表。卡片会区分词汇、量词、词缀、表达、复合词、派生形式、固定表达和搭配；纯语法 pattern 只在语法模块学习。规范词形、原始词形、变体和人工校订说明保存在随项目版本控制的数据文件中。",
+  examples: "词汇与表达例句是为本项目编写和校订的短学习句，不作为语料库引文；无法可靠生成纯拉丁字母罗马音时，界面会明确隐藏该行而不显示混合脚本结果。",
 };
 const kanaRows = [
   [
@@ -2516,6 +2516,18 @@ const contextSpecificReadings = [
   ["買いました", "かいました"],
   ["市民", "しみん"],
   ["意見", "いけん"],
+  ["留学", "りゅうがく"],
+  ["毎日復習", "まいにちふくしゅう"],
+  ["毎日", "まいにち"],
+  ["復習", "ふくしゅう"],
+  ["大雪", "おおゆき"],
+  ["混んで", "こんで"],
+  ["体調", "たいちょう"],
+  ["百人", "ひゃくにん"],
+  ["一時間", "いちじかん"],
+  ["五冊", "ごさつ"],
+  // 明日 has multiple readings; these reviewed beginner examples use あした.
+  ["明日\ue000", "あした\ue000"],
   // markReviewedPronunciations replaces the object particle before readings
   // are applied, so this exact marked form preserves 何を → なにを.
   ["何\ue002", "なに\ue002"],
@@ -3034,7 +3046,6 @@ const reviewedMoraicNWordBoundaries = reviewedSpanMap([
   ["たくさん|写しました", ["旅行で写真をたくさん写しました"]],
   ["十分|あります", ["時間は十分あります"]],
   ["もちろん|行きます", ["もちろん行きます"]],
-  ["十分|おき", ["このバスは十分おきに来ます"]],
   ["本|より", ["この本はあの本より新しいです"]],
   ["確認|いたします", ["荷物を確認いたします"]],
   ["本|や", [
@@ -3085,7 +3096,7 @@ const reviewedPronunciationSourceParts = [
   ...[...unsafeGlobalReadingSurfaces].sort().map((surface) => `unsafe:${surface}`),
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "10297:3822f1400d735b78";
+const reviewedPronunciationSourceSignature = "10275:cb635cb5e0b51539";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3280,6 +3291,25 @@ function buildExamples(
     : [];
 }
 
+const explicitVocabCategoryLabels = {
+  collocation: "搭配",
+  compound: "复合词",
+  "derived-form": "派生形式",
+  "fixed-expression": "固定表达",
+};
+
+function vocabCategoryLabel(entry) {
+  const explicitLabel = explicitVocabCategoryLabels[entry?.learning_category];
+  if (explicitLabel) return explicitLabel;
+
+  const partOfSpeech = String(entry?.part_of_speech || "");
+  if (partOfSpeech.includes("counter")) return "量词";
+  if (partOfSpeech.includes("suffix") || partOfSpeech.includes("prefix")) return "词缀";
+  if (partOfSpeech.includes("expression")) return "表达";
+  if (partOfSpeech.includes("particle")) return "助词";
+  return "词汇";
+}
+
 function makeVocabDeckCards({
   deckJaZh,
   deckZhJa,
@@ -3299,6 +3329,7 @@ function makeVocabDeckCards({
     sourceEntry,
   ], index) => {
     const shortMeaning = meaning;
+    const categoryLabel = vocabCategoryLabel(sourceEntry);
     const examples = buildExamples(
       word,
       reading,
@@ -3350,7 +3381,7 @@ function makeVocabDeckCards({
         isVocab: true,
         wordKey: cardBaseId,
         legacyIds: legacyIdsFor("ja"),
-        type: `${typePrefix} 日文 → 中文`,
+        type: `${typePrefix} ${categoryLabel} 日文 → 中文`,
         prompt: word,
         promptLang: "ja",
         subtle: `读音：${reading}`,
@@ -3369,7 +3400,7 @@ function makeVocabDeckCards({
         isVocab: true,
         wordKey: cardBaseId,
         legacyIds: legacyIdsFor("zh"),
-        type: `${typePrefix} 中文 → 日文`,
+        type: `${typePrefix} ${categoryLabel} 中文 → 日文`,
         prompt: shortMeaning,
         promptLang: "zh-CN",
         subtle: sentencePrompt,
@@ -3501,6 +3532,20 @@ function makeGrammarChoiceCard(entry, examples) {
   };
 }
 
+function legacyVocabIdsForGrammar(entry, direction) {
+  return (Array.isArray(entry?.retiredVocabSourceIds) ? entry.retiredVocabSourceIds : [])
+    .flatMap((sourceId) => {
+      const sourceNumber = Number.parseInt(String(sourceId).split("-").at(-1), 10);
+      const prefix = String(sourceId).startsWith("n4-") ? "vocab-n4" : "vocab";
+      return [
+        `vocab-entry-${sourceId}-${direction}`,
+        ...(Number.isInteger(sourceNumber) && sourceNumber > 0
+          ? [`${prefix}-${sourceNumber - 1}-${direction}`]
+          : []),
+      ];
+    });
+}
+
 function makeGrammarCards(level) {
   return grammarEntries.filter((entry) => !level || entry.level === level).flatMap((entry) => {
     const levelKey = entry.level.toLowerCase();
@@ -3513,6 +3558,7 @@ function makeGrammarCards(level) {
     return [
       {
         id: `grammar-${entry.id}-zh`,
+        legacyIds: legacyVocabIdsForGrammar(entry, "zh"),
         deck: `grammar-${levelKey}-zh-ja`,
         isGrammar: true,
         grammarKey: entry.id,
@@ -3532,6 +3578,7 @@ function makeGrammarCards(level) {
       },
       {
         id: `grammar-${entry.id}-ja`,
+        legacyIds: legacyVocabIdsForGrammar(entry, "ja"),
         deck: `grammar-${levelKey}-ja-zh`,
         isGrammar: true,
         grammarKey: entry.id,

@@ -59,6 +59,7 @@ const elements = {
   answerPanel: document.querySelector("#answerPanel"),
   appStatus: document.querySelector("#appStatus"),
   cardReveal: document.querySelector("#cardReveal"),
+  cardType: document.querySelector("#cardType"),
   cardPrompt: document.querySelector("#cardPrompt"),
   cardSubtle: document.querySelector("#cardSubtle"),
   choiceBlock: document.querySelector("#choiceBlock"),
@@ -1374,6 +1375,8 @@ function render() {
       currentCard.deck,
     ),
   );
+  elements.cardType.textContent = currentCard.type || "";
+  elements.cardType.hidden = !currentCard.type;
   elements.cardPrompt.textContent = currentCard.prompt;
   elements.cardPrompt.lang = currentCard.promptLang || "";
   const hidesPromptReading =
@@ -1393,6 +1396,7 @@ function render() {
     currentCard.isChoice ? "选择下方答案" : isRevealed ? "答案已显示" : "显示答案",
   );
   const revealDescriptionIds = [
+    currentCard.type ? "cardType" : "",
     "cardPrompt",
     showsCardSubtle ? "cardSubtle" : "",
     !isRevealed && !currentCard.isChoice ? "cardRevealHint" : "",

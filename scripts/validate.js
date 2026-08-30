@@ -64,6 +64,42 @@ const allowedCrossLevelVocabOverlaps = new Set([
   "n5-358/n4-378",
   "n5-651/n4-634",
 ]);
+const allowedLearningCategories = new Set([
+  "collocation",
+  "compound",
+  "derived-form",
+  "fixed-expression",
+]);
+const expectedLearningCategories = new Map([
+  ["n4-082", "compound"],
+  ["n4-151", "derived-form"],
+  ["n4-186", "compound"],
+  ["n4-218", "collocation"],
+  ["n4-256", "fixed-expression"],
+  ["n4-335", "derived-form"],
+  ["n4-342", "collocation"],
+  ["n4-357", "collocation"],
+  ["n4-390", "fixed-expression"],
+  ["n4-474", "fixed-expression"],
+  ["n4-515", "derived-form"],
+  ["n4-519", "collocation"],
+  ["n4-520", "collocation"],
+  ["n4-550", "collocation"],
+]);
+const expectedRetiredVocabGrammarTargets = new Map([
+  ["n4-743", "n4-grammar-067"],
+  ["n4-744", "n4-grammar-068"],
+  ["n4-752", "n4-grammar-133"],
+  ["n4-754", "n4-grammar-009"],
+  ["n4-757", "n4-grammar-102"],
+  ["n4-758", "n4-grammar-060"],
+  ["n4-759", "n4-grammar-135"],
+  ["n4-760", "n4-grammar-136"],
+  ["n4-761", "n4-grammar-019"],
+  ["n4-762", "n4-grammar-007"],
+  ["n4-765", "n4-grammar-042"],
+  ["n4-767", "n4-grammar-121"],
+]);
 
 function addError(message) {
   validationErrors.push(message);
@@ -564,6 +600,12 @@ function validateVocabSource(label, data, expectedCount) {
         );
       });
     }
+    if (Object.hasOwn(entry, "learning_category")) {
+      check(
+        allowedLearningCategories.has(entry.learning_category),
+        `${label} entry ${entry.id || index} has invalid learning_category ${entry.learning_category}`,
+      );
+    }
     check(
       Array.isArray(entry.examples) && entry.examples.length === 3,
       `${label} entry ${entry.id || index} must contain exactly three examples`,
@@ -858,6 +900,25 @@ function validateVocabLevelBoundaries(n5Data, n4Data) {
       `${pair} must document genuinely distinct meanings in both level notes`,
     );
   });
+
+  const allEntries = [...n5Data.entries, ...n4Data.entries];
+  const actualCategories = new Map(
+    allEntries
+      .filter((entry) => entry.learning_category)
+      .map((entry) => [entry.id, entry.learning_category]),
+  );
+  expectedLearningCategories.forEach((category, entryId) => {
+    check(
+      actualCategories.get(entryId) === category,
+      `${entryId} must retain reviewed learning_category ${category}`,
+    );
+  });
+  actualCategories.forEach((category, entryId) => {
+    check(
+      expectedLearningCategories.get(entryId) === category,
+      `unexpected learning_category ${category} on ${entryId}`,
+    );
+  });
 }
 
 function validateGrammarSource(grammarData, expectedCount) {
@@ -888,6 +949,25 @@ function validateGrammarSource(grammarData, expectedCount) {
       );
     });
     check(["N4", "N5"].includes(entry.level), `grammar entry ${entry.id} has invalid level`);
+    if (Object.hasOwn(entry, "retiredVocabSourceIds")) {
+      check(
+        Array.isArray(entry.retiredVocabSourceIds) && entry.retiredVocabSourceIds.length > 0,
+        `grammar entry ${entry.id || index} retiredVocabSourceIds must be a non-empty array`,
+      );
+      const retiredIds = Array.isArray(entry.retiredVocabSourceIds)
+        ? entry.retiredVocabSourceIds
+        : [];
+      check(
+        new Set(retiredIds).size === retiredIds.length,
+        `grammar entry ${entry.id || index} repeats a retired vocabulary source id`,
+      );
+      retiredIds.forEach((retiredId) => {
+        check(
+          /^n[45]-\d{3}$/u.test(retiredId),
+          `grammar entry ${entry.id || index} has invalid retired vocabulary source id ${retiredId}`,
+        );
+      });
+    }
     check(
       Array.isArray(entry.examples) && entry.examples.length === 3,
       `grammar entry ${entry.id || index} must contain exactly three examples`,
@@ -1003,6 +1083,11 @@ function validateGrammarSource(grammarData, expectedCount) {
   requireFragments("n4-grammar-119", "formation", ["う→われる"]);
   requireFragments("n4-grammar-125", "formation", ["語幹 + なようだ", "过去・否定普通形 + ようだ"]);
   requireFragments("n4-grammar-126", "formation", ["上述形态 + ように + V/形容詞", "ような + N"]);
+  requireFragments("n4-grammar-133", "note", ["有意志行为", "〜ように"]);
+  requireFragments("n4-grammar-134", "formation", ["な形語幹 + な + ため", "N + の + ため"]);
+  requireFragments("n4-grammar-135", "formation", ["N + について", "N + についての + N"]);
+  requireFragments("n4-grammar-136", "note", ["消息来源", "〜そうだ"]);
+  requireFragments("n4-grammar-137", "note", ["净是", "刚刚"]);
   check(!grammarById.has("n4-grammar-059"), "redundant n4-grammar-059 must remain removed");
   check(
     !grammarById.get("n4-grammar-018")?.meaningZh.includes("是"),
@@ -1327,6 +1412,36 @@ function validateDeckCoverage(cards, tabDecks, data) {
   });
 }
 
+function expectedVocabCategoryLabel(entry) {
+  const explicitLabels = {
+    collocation: "搭配",
+    compound: "复合词",
+    "derived-form": "派生形式",
+    "fixed-expression": "固定表达",
+  };
+  if (explicitLabels[entry.learning_category]) return explicitLabels[entry.learning_category];
+  const partOfSpeech = String(entry.part_of_speech || "");
+  if (partOfSpeech.includes("counter")) return "量词";
+  if (partOfSpeech.includes("suffix") || partOfSpeech.includes("prefix")) return "词缀";
+  if (partOfSpeech.includes("expression")) return "表达";
+  if (partOfSpeech.includes("particle")) return "助词";
+  return "词汇";
+}
+
+function validateVocabCategoryLabels(runtime) {
+  [...runtime.data.n5.entries, ...runtime.data.n4.entries].forEach((entry) => {
+    const expectedLabel = expectedVocabCategoryLabel(entry);
+    const cards = runtime.vocabCards.filter((card) => card.sourceId === entry.id);
+    check(cards.length === 2, `${entry.id} must produce two category-labelled vocabulary cards`);
+    cards.forEach((card) => {
+      check(
+        card.type.includes(` ${expectedLabel} `),
+        `${card.id} must display learning category ${expectedLabel}, received ${card.type}`,
+      );
+    });
+  });
+}
+
 function sortedCardIds(cards) {
   return cards.map((card) => card.id).sort();
 }
@@ -1535,6 +1650,80 @@ function validateMergedVocabSources(runtime) {
         card.speech === expectedSpeech,
         `${card.id} speech must use ${entry.speech_reading ? "speech_reading" : "reading"}: ${expectedSpeech}`,
       );
+    });
+  });
+}
+
+function expectedRetiredVocabAliases(sourceId, direction) {
+  const sourceNumber = Number.parseInt(String(sourceId).split("-").at(-1), 10);
+  const prefix = String(sourceId).startsWith("n4-") ? "vocab-n4" : "vocab";
+  return [
+    `vocab-entry-${sourceId}-${direction}`,
+    `${prefix}-${sourceNumber - 1}-${direction}`,
+  ];
+}
+
+function validateRetiredVocabGrammarMigrations(runtime) {
+  const activeVocabIds = new Set(
+    [...runtime.data.n5.entries, ...runtime.data.n4.entries].map((entry) => entry.id),
+  );
+  const actualTargets = new Map();
+
+  runtime.data.grammar.entries.forEach((entry) => {
+    (Array.isArray(entry.retiredVocabSourceIds) ? entry.retiredVocabSourceIds : []).forEach(
+      (sourceId) => {
+        check(
+          !activeVocabIds.has(sourceId),
+          `${entry.id} retired vocabulary source ${sourceId} is still active`,
+        );
+        check(
+          !actualTargets.has(sourceId),
+          `${sourceId} is assigned to more than one grammar migration target`,
+        );
+        actualTargets.set(sourceId, entry.id);
+
+        ["ja", "zh"].forEach((direction) => {
+          const card = runtime.grammarCards.find(
+            (candidate) =>
+              candidate.grammarKey === entry.id && candidate.id.endsWith(`-${direction}`),
+          );
+          check(Boolean(card), `${entry.id} is missing its ${direction} grammar card`);
+          const actualAliases = new Set(Array.isArray(card?.legacyIds) ? card.legacyIds : []);
+          expectedRetiredVocabAliases(sourceId, direction).forEach((legacyId) => {
+            check(
+              actualAliases.has(legacyId),
+              `${entry.id} ${direction} card is missing retired vocabulary alias ${legacyId}`,
+            );
+          });
+        });
+      },
+    );
+  });
+
+  expectedRetiredVocabGrammarTargets.forEach((targetId, sourceId) => {
+    check(
+      actualTargets.get(sourceId) === targetId,
+      `retired vocabulary source ${sourceId} must migrate to ${targetId}, received ${actualTargets.get(sourceId) || "(missing)"}`,
+    );
+  });
+  actualTargets.forEach((targetId, sourceId) => {
+    check(
+      expectedRetiredVocabGrammarTargets.get(sourceId) === targetId,
+      `unexpected vocabulary-to-grammar migration ${sourceId} -> ${targetId}`,
+    );
+  });
+
+  const allCards = [...runtime.vocabCards, ...runtime.grammarCards];
+  const stableIds = new Set(allCards.map((card) => card.id));
+  const aliasTargets = new Map();
+  allCards.forEach((card) => {
+    (Array.isArray(card.legacyIds) ? card.legacyIds : []).forEach((legacyId) => {
+      check(!stableIds.has(legacyId), `${card.id} legacy alias collides with a stable card id`);
+      check(
+        !aliasTargets.has(legacyId),
+        `${legacyId} is assigned to both ${aliasTargets.get(legacyId)} and ${card.id}`,
+      );
+      aliasTargets.set(legacyId, card.id);
     });
   });
 }
@@ -2068,12 +2257,14 @@ function main() {
     validateKanaMarkClassification(runtime.kanaCards);
     validateCardSchema(cards, tabDecks);
     validateDeckCoverage(cards, tabDecks, runtime.data);
+    validateVocabCategoryLabels(runtime);
     validateDisplayedRomaji(cards);
     validateRomajiCoverage(cards);
     capture("reviewed romaji corpus-lock check failed", () => validateRomajiCorpusLock(runtime));
     validatePromptDisambiguation(cards);
     capture("stable vocab id regression check failed", () => validateStableVocabIds(runtime));
     validateMergedVocabSources(runtime);
+    validateRetiredVocabGrammarMigrations(runtime);
     validateProductionLegacyVocabIds(runtime);
     validatePreferredReadingRegressions(runtime);
     validateGrammarChoices(runtime.grammarCards, runtime.data.grammar);

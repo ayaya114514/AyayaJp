@@ -16,15 +16,15 @@
     "n5-codex-vocab.json",
     "styles.css"
   ],
-  "source_fingerprint": "sha256:725f19955d8ac81822ec76eab62c5ccf768e0bb36f795135ecace01a252c8096",
+  "source_fingerprint": "sha256:899591815e5d0b3cac1cc3c26e93fc72b475ad947b6b92328dc5b1d64589178c",
   "expected_counts": {
     "n5_entries": 716,
-    "n4_entries": 745,
-    "grammar_entries": 215,
+    "n4_entries": 733,
+    "grammar_entries": 220,
     "kana_cards": 241,
-    "vocab_cards": 2922,
-    "grammar_cards": 860,
-    "total_cards_from_api": 4023
+    "vocab_cards": 2898,
+    "grammar_cards": 880,
+    "total_cards_from_api": 4019
   },
   "required_contracts": [
     "source-js-json-sync",
@@ -32,6 +32,7 @@
     "stable-source-derived-vocab-ids",
     "semantic-duplicate-signatures",
     "vocab-level-boundary-deduplication",
+    "vocab-learning-category-labels",
     "display-romaji-script-safety",
     "prompt-collision-disambiguation",
     "same-level-grammar-distractors",
@@ -41,6 +42,7 @@
     "lazy-level-builder-parity",
     "production-legacy-id-migration-map",
     "retired-source-id-migration",
+    "vocab-to-grammar-progress-migration",
     "vocab-speech-reading",
     "compatibility-example-index",
     "html-structure-and-script-order",
