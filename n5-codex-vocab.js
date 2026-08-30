@@ -6,7 +6,7 @@
 window.AYAYA_N5_CODEX_VOCAB = {
   "schema": {
     "schema_version": "1.0.0",
-    "generated_on": "2026-08-18",
+    "generated_on": "2026-08-30",
     "purpose": "Codex-readable, app-compatible JLPT N5 learning data with corrected Simplified Chinese meanings and natural beginner-level Japanese examples.",
     "fields": {
       "headword": "学习用规范词形。旧写法或不常用写法会保留在 source_form。",
@@ -29,7 +29,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
     },
     "source_notes": [
       "The duplicate 在る / 有る records were merged under the modern kana headword ある while preserving both orthographic variants.",
-      "Reading, part-of-speech, example alignment, same-sense duplicates and retained cross-level distinctions were re-audited on 2026-08-18; merged_source_ids preserve prior study state."
+      "Reading, part-of-speech, example alignment, same-sense duplicates and retained cross-level distinctions were re-audited on 2026-08-18; merged_source_ids preserve prior study state.",
+      "Dictionary forms, readings, coarse part-of-speech labels, senses, and all example rows were re-audited against JMdict and for Japanese/Chinese learning accuracy on 2026-08-30."
     ],
     "entry_count": 716
   },
@@ -48,7 +49,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "ああ"
       ],
       "romaji": "aa",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "interjection/expression",
       "meaning_zh": "啊；哦",
       "kanji_readings": [],
       "examples": [
@@ -164,16 +165,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この空は青いです。",
-          "zh": "这个天空很蓝。"
+          "ja": "今日の空は青いです。",
+          "zh": "今天的天空很蓝。"
         },
         {
-          "ja": "とても青いですね。",
-          "zh": "真蓝啊。"
+          "ja": "青いシャツを着ています。",
+          "zh": "穿着蓝色的衬衫。"
         },
         {
-          "ja": "青いものが好きです。",
-          "zh": "喜欢蓝的东西。"
+          "ja": "海が青く見えます。",
+          "zh": "大海看起来是蓝色的。"
         }
       ],
       "note_zh": ""
@@ -239,15 +240,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この花は赤いです。",
-          "zh": "这个花很红。"
+          "zh": "这朵花是红色的。"
         },
         {
-          "ja": "とても赤いですね。",
-          "zh": "真红啊。"
+          "ja": "赤いペンで名前を書きます。",
+          "zh": "用红笔写名字。"
         },
         {
-          "ja": "赤いものが好きです。",
-          "zh": "喜欢红的东西。"
+          "ja": "顔が赤くなりました。",
+          "zh": "脸红了。"
         }
       ],
       "note_zh": ""
@@ -279,12 +280,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这个房间很明亮。"
         },
         {
-          "ja": "とても明るいですね。",
-          "zh": "真明亮啊。"
+          "ja": "明るいところで本を読みます。",
+          "zh": "在明亮的地方看书。"
         },
         {
-          "ja": "明るいものが好きです。",
-          "zh": "喜欢明亮的东西。"
+          "ja": "田中さんは明るい人です。",
+          "zh": "田中是个开朗的人。"
         }
       ],
       "note_zh": ""
@@ -406,7 +407,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "headword": "上げる",
       "source_form": "上げる",
       "variants": [
-        "上げる"
+        "上げる",
+        "あげる"
       ],
       "reading": "あげる",
       "reading_variants": [
@@ -435,7 +437,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "送礼物给弟弟。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "表示“举起、提高”时通常写作「上げる」；表示“给别人”时通常写作「あげる」。"
     },
     {
       "id": "n5-012",
@@ -719,16 +721,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この部屋は暖かいです。",
-          "zh": "这个房间很暖和。"
+          "ja": "今日は暖かいです。",
+          "zh": "今天很暖和。"
         },
         {
-          "ja": "とても暖かいですね。",
-          "zh": "真暖和啊。"
+          "ja": "暖かい部屋で休みます。",
+          "zh": "在暖和的房间里休息。"
         },
         {
-          "ja": "暖かいものが好きです。",
-          "zh": "喜欢暖和的东西。"
+          "ja": "春になると暖かくなります。",
+          "zh": "到了春天就会暖和起来。"
         }
       ],
       "note_zh": ""
@@ -794,15 +796,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この靴は新しいです。",
-          "zh": "这个鞋很新。"
+          "zh": "这双鞋是新的。"
         },
         {
-          "ja": "とても新しいですね。",
-          "zh": "真新啊。"
+          "ja": "新しい本を買いました。",
+          "zh": "买了一本新书。"
         },
         {
-          "ja": "新しいものが好きです。",
-          "zh": "喜欢新的东西。"
+          "ja": "新しい先生が来ました。",
+          "zh": "新老师来了。"
         }
       ],
       "note_zh": ""
@@ -900,15 +902,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "このお茶は熱いです。",
-          "zh": "这个茶很烫。"
+          "zh": "这杯茶很烫。"
         },
         {
-          "ja": "とても熱いですね。",
-          "zh": "真烫啊。"
+          "ja": "熱いので、気をつけてください。",
+          "zh": "很烫，请小心。"
         },
         {
-          "ja": "熱いものが好きです。",
-          "zh": "喜欢烫的东西。"
+          "ja": "熱いスープをゆっくり飲みます。",
+          "zh": "慢慢喝热汤。"
         }
       ],
       "note_zh": ""
@@ -936,16 +938,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この本は厚いです。",
-          "zh": "这个书很厚。"
+          "ja": "この辞書は厚いです。",
+          "zh": "这本词典很厚。"
         },
         {
-          "ja": "とても厚いですね。",
-          "zh": "真厚啊。"
+          "ja": "冬は厚いコートを着ます。",
+          "zh": "冬天穿厚外套。"
         },
         {
-          "ja": "厚いものが好きです。",
-          "zh": "喜欢厚的东西。"
+          "ja": "この本は厚くて重いです。",
+          "zh": "这本书又厚又重。"
         }
       ],
       "note_zh": ""
@@ -1032,7 +1034,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "あなた"
       ],
       "romaji": "anata",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "pronoun",
       "meaning_zh": "你",
       "kanji_readings": [],
       "examples": [
@@ -1170,7 +1172,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "あの"
       ],
       "romaji": "ano",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "pre-noun/interjection",
       "meaning_zh": "那个（连体词）；嗯……",
       "kanji_readings": [],
       "examples": [
@@ -1249,12 +1251,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この道は危ないです。",
-          "zh": "这条路很危险。"
+          "ja": "夜、この道を一人で歩くのは危ないです。",
+          "zh": "晚上独自在这条路上走很危险。"
         },
         {
-          "ja": "とても危ないですね。",
-          "zh": "真的很危险啊。"
+          "ja": "危ない！車が来ます。",
+          "zh": "危险！车来了。"
         },
         {
           "ja": "危ない場所に入らないでください。",
@@ -1290,12 +1292,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这个蛋糕很甜。"
         },
         {
-          "ja": "とても甘いですね。",
-          "zh": "真甜啊。"
+          "ja": "このコーヒーは少し甘いです。",
+          "zh": "这杯咖啡有点甜。"
         },
         {
-          "ja": "甘いものが好きです。",
-          "zh": "喜欢甜的东西。"
+          "ja": "弟は甘いお菓子が好きです。",
+          "zh": "弟弟喜欢甜点。"
         }
       ],
       "note_zh": ""
@@ -1306,14 +1308,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "headword": "余り",
       "source_form": "余り",
       "variants": [
-        "余り"
+        "余り",
+        "あまり"
       ],
       "reading": "あまり",
       "reading_variants": [
         "あまり"
       ],
       "romaji": "amari",
-      "part_of_speech": "noun",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "剩余；不太……（接否定）",
       "kanji_readings": [
         {
@@ -1335,7 +1338,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "钱剩下了。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "表示“不太……”时通常写作假名「あまり」，后接否定；写作「余り」时常表示“剩余”。"
     },
     {
       "id": "n5-037",
@@ -1406,7 +1409,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         },
         {
           "ja": "甘い飴が好きです。",
-          "zh": "喜欢甜糖。"
+          "zh": "我喜欢甜的糖果。"
         }
       ],
       "note_zh": ""
@@ -1607,7 +1610,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "いいえ"
       ],
       "romaji": "iie",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "interjection/expression",
       "meaning_zh": "不；不是",
       "kanji_readings": [],
       "examples": [
@@ -1719,7 +1722,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "お茶はいかがですか。",
-          "zh": "茶怎么样？/要喝茶吗？"
+          "zh": "喝杯茶怎么样？"
         },
         {
           "ja": "日本はいかがですか。",
@@ -1783,7 +1786,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "いくつ"
       ],
       "romaji": "ikutsu",
-      "part_of_speech": "interrogative/counter",
+      "part_of_speech": "interrogative/pronoun",
       "meaning_zh": "几个；几岁",
       "kanji_readings": [],
       "examples": [
@@ -1968,16 +1971,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この日は忙しいです。",
-          "zh": "这个天很忙。"
+          "ja": "今日は仕事が忙しいです。",
+          "zh": "今天工作很忙。"
         },
         {
-          "ja": "とても忙しいですね。",
-          "zh": "真忙啊。"
+          "ja": "朝は忙しくて、朝ご飯を食べませんでした。",
+          "zh": "早上太忙，没吃早饭。"
         },
         {
-          "ja": "忙しいものが好きです。",
-          "zh": "喜欢忙的东西。"
+          "ja": "今週はとても忙しいです。",
+          "zh": "这周非常忙。"
         }
       ],
       "note_zh": ""
@@ -2005,16 +2008,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この足は痛いです。",
-          "zh": "这个脚很疼。"
+          "ja": "足が痛いです。",
+          "zh": "脚疼。"
         },
         {
-          "ja": "とても痛いですね。",
-          "zh": "真疼啊。"
+          "ja": "おなかが痛くて、学校を休みました。",
+          "zh": "肚子疼，所以没去上学。"
         },
         {
-          "ja": "痛いものが好きです。",
-          "zh": "喜欢疼的东西。"
+          "ja": "この歯が少し痛いです。",
+          "zh": "这颗牙有点疼。"
         }
       ],
       "note_zh": ""
@@ -2032,7 +2035,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "いち"
       ],
       "romaji": "ichi",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "一",
       "kanji_readings": [
         {
@@ -2143,7 +2146,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "いつ"
       ],
       "romaji": "itsu",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "interrogative/adverb",
       "meaning_zh": "什么时候",
       "kanji_readings": [],
       "examples": [
@@ -2801,15 +2804,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この本は薄いです。",
-          "zh": "这个书很薄。"
+          "zh": "这本书很薄。"
         },
         {
-          "ja": "とても薄いですね。",
-          "zh": "真薄啊。"
+          "ja": "このコーヒーは味が薄いです。",
+          "zh": "这杯咖啡味道很淡。"
         },
         {
-          "ja": "薄いものが好きです。",
-          "zh": "喜欢薄的东西。"
+          "ja": "薄い紙に字を書きます。",
+          "zh": "在薄纸上写字。"
         }
       ],
       "note_zh": ""
@@ -3049,12 +3052,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "この部屋はうるさいです。",
-          "zh": "这个房间很吵。"
+          "ja": "外は車の音でうるさいです。",
+          "zh": "外面车声很吵。"
         },
         {
-          "ja": "とてもうるさいですね。",
-          "zh": "真吵啊。"
+          "ja": "テレビの音がうるさいです。",
+          "zh": "电视的声音很吵。"
         },
         {
           "ja": "隣の部屋は夜もうるさいです。",
@@ -3261,7 +3264,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "ええ"
       ],
       "romaji": "ee",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "interjection/expression",
       "meaning_zh": "是的；嗯",
       "kanji_readings": [],
       "examples": [
@@ -3478,16 +3481,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "このご飯は美味しいです。",
-          "zh": "这个饭很好吃。"
+          "ja": "このカレーは美味しいです。",
+          "zh": "这个咖喱很好吃。"
         },
         {
-          "ja": "とても美味しいですね。",
-          "zh": "真好吃啊。"
+          "ja": "母の料理はとても美味しいです。",
+          "zh": "妈妈做的菜非常好吃。"
         },
         {
-          "ja": "美味しいものが好きです。",
-          "zh": "喜欢好吃的东西。"
+          "ja": "美味しいパンを買いました。",
+          "zh": "买了好吃的面包。"
         }
       ],
       "note_zh": ""
@@ -3553,15 +3556,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この犬は大きいです。",
-          "zh": "这个狗很大。"
+          "zh": "这只狗很大。"
         },
         {
-          "ja": "とても大きいですね。",
-          "zh": "真大啊。"
+          "ja": "大きい荷物を持っています。",
+          "zh": "拿着一件大行李。"
         },
         {
-          "ja": "大きいものが好きです。",
-          "zh": "喜欢大的东西。"
+          "ja": "口を大きく開けてください。",
+          "zh": "请把嘴张大。"
         }
       ],
       "note_zh": ""
@@ -4108,16 +4111,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この電車は遅いです。",
-          "zh": "这个电车很慢/晚。"
+          "ja": "この電車は走るのが遅いです。",
+          "zh": "这趟电车开得很慢。"
         },
         {
-          "ja": "とても遅いですね。",
-          "zh": "真慢/晚啊。"
+          "ja": "今日は学校に来るのが遅いですね。",
+          "zh": "你今天到学校来得很晚啊。"
         },
         {
-          "ja": "遅いものが好きです。",
-          "zh": "喜欢慢/晚的东西。"
+          "ja": "寝る時間が遅いです。",
+          "zh": "睡觉时间很晚。"
         }
       ],
       "note_zh": ""
@@ -4697,7 +4700,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "お風呂に入ります。",
-          "zh": "洗澡/泡澡。"
+          "zh": "洗澡。"
         },
         {
           "ja": "お風呂はどこですか。",
@@ -4840,15 +4843,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この荷物は重いです。",
-          "zh": "这个行李很重。"
+          "zh": "这件行李很重。"
         },
         {
-          "ja": "とても重いですね。",
-          "zh": "真重啊。"
+          "ja": "この箱は重くて持てません。",
+          "zh": "这个箱子太重，拿不动。"
         },
         {
-          "ja": "重いものが好きです。",
-          "zh": "喜欢重的东西。"
+          "ja": "重い荷物を二人で運びます。",
+          "zh": "两个人一起搬重行李。"
         }
       ],
       "note_zh": ""
@@ -4877,15 +4880,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この映画は面白いです。",
-          "zh": "这个电影很有趣。"
+          "zh": "这部电影很有趣。"
         },
         {
-          "ja": "とても面白いですね。",
-          "zh": "真有趣啊。"
+          "ja": "この本も面白いですよ。",
+          "zh": "这本书也很有意思。"
         },
         {
-          "ja": "面白いものが好きです。",
-          "zh": "喜欢有趣的东西。"
+          "ja": "先生の話は面白かったです。",
+          "zh": "老师讲的话很有趣。"
         }
       ],
       "note_zh": ""
@@ -6407,12 +6410,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这个咖喱很辣。"
         },
         {
-          "ja": "とても辛いですね。",
-          "zh": "真辣啊。"
+          "ja": "私は辛い料理を食べません。",
+          "zh": "我不吃辣的菜。"
         },
         {
-          "ja": "辛いものが好きです。",
-          "zh": "喜欢辣的东西。"
+          "ja": "このスープは少し辛いです。",
+          "zh": "这碗汤有点辣。"
         }
       ],
       "note_zh": ""
@@ -6510,7 +6513,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "子供が寒がっています。",
-          "zh": "孩子表现得很冷。"
+          "zh": "孩子表现出很冷的样子。"
         },
         {
           "ja": "妹は犬を怖がります。",
@@ -6518,7 +6521,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         },
         {
           "ja": "友達は行きたがっています。",
-          "zh": "朋友想去。"
+          "zh": "朋友显得很想去。"
         }
       ],
       "note_zh": ""
@@ -6550,12 +6553,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这个包很轻。"
         },
         {
-          "ja": "とても軽いですね。",
-          "zh": "真轻啊。"
+          "ja": "この靴はとても軽いです。",
+          "zh": "这双鞋非常轻。"
         },
         {
-          "ja": "軽いものが好きです。",
-          "zh": "喜欢轻的东西。"
+          "ja": "軽い荷物だけ持って行きます。",
+          "zh": "只带轻便的行李去。"
         }
       ],
       "note_zh": ""
@@ -6722,15 +6725,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この猫はかわいいです。",
-          "zh": "这个猫很可爱。"
+          "zh": "这只猫很可爱。"
         },
         {
-          "ja": "とてもかわいいですね。",
-          "zh": "真可爱啊。"
+          "ja": "妹はかわいい人形を持っています。",
+          "zh": "妹妹有一个可爱的玩偶。"
         },
         {
-          "ja": "かわいいものが好きです。",
-          "zh": "喜欢可爱的东西。"
+          "ja": "この赤ちゃんはかわいいですね。",
+          "zh": "这个宝宝真可爱啊。"
         }
       ],
       "note_zh": "已把旧写法/不常用写法规范为现代常用写法；原始写法保留在 source_form。"
@@ -6870,15 +6873,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この花は黄色いです。",
-          "zh": "这个花很黄。"
+          "zh": "这朵花是黄色的。"
         },
         {
-          "ja": "とても黄色いですね。",
-          "zh": "真黄啊。"
+          "ja": "黄色いかばんを買いました。",
+          "zh": "买了一个黄色的包。"
         },
         {
-          "ja": "黄色いものが好きです。",
-          "zh": "喜欢黄的东西。"
+          "ja": "秋になると葉が黄色くなります。",
+          "zh": "到了秋天，叶子会变黄。"
         }
       ],
       "note_zh": ""
@@ -7053,8 +7056,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这个房间很脏。"
         },
         {
-          "ja": "とても汚いですね。",
-          "zh": "真脏啊。"
+          "ja": "手が汚いので、洗います。",
+          "zh": "手脏了，所以要洗手。"
         },
         {
           "ja": "汚い手で食べないでください。",
@@ -7224,7 +7227,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "きゅう"
       ],
       "romaji": "kyuu",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "九",
       "kanji_readings": [
         {
@@ -7600,16 +7603,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "この部屋はきれいです。",
-          "zh": "这个房间很漂亮。"
+          "ja": "この花はきれいです。",
+          "zh": "这朵花很漂亮。"
         },
         {
-          "ja": "きれいな町です。",
-          "zh": "是个漂亮的城镇。"
+          "ja": "部屋をきれいに掃除しました。",
+          "zh": "把房间打扫干净了。"
         },
         {
-          "ja": "私はきれいなものが好きです。",
-          "zh": "我喜欢漂亮的东西。"
+          "ja": "夜の空は星がきれいです。",
+          "zh": "夜空中的星星很美。"
         }
       ],
       "note_zh": "已把旧写法/不常用写法规范为现代常用写法；原始写法保留在 source_form。"
@@ -7767,7 +7770,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "く"
       ],
       "romaji": "ku",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "九",
       "kanji_readings": [
         {
@@ -8389,15 +8392,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この靴は黒いです。",
-          "zh": "这个鞋很黑。"
+          "zh": "这双鞋是黑色的。"
         },
         {
-          "ja": "とても黒いですね。",
-          "zh": "真黑啊。"
+          "ja": "黒い猫がいすの下にいます。",
+          "zh": "椅子下面有一只黑猫。"
         },
         {
-          "ja": "黒いものが好きです。",
-          "zh": "喜欢黑的东西。"
+          "ja": "黒いペンで書いてください。",
+          "zh": "请用黑笔写。"
         }
       ],
       "note_zh": ""
@@ -8748,7 +8751,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "ご"
       ],
       "romaji": "go",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "五",
       "kanji_readings": [
         {
@@ -9298,7 +9301,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         },
         {
           "ja": "こちらは田中さんです。",
-          "zh": "这位是田中先生/女士。"
+          "zh": "这位是田中。"
         },
         {
           "ja": "こちらで待ってください。",
@@ -9495,7 +9498,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "この"
       ],
       "romaji": "kono",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "pre-noun/demonstrative",
       "meaning_zh": "这个（连体词）",
       "kanji_readings": [],
       "examples": [
@@ -9775,7 +9778,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "こんな"
       ],
       "romaji": "konna",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "pre-noun/demonstrative",
       "meaning_zh": "这样的",
       "kanji_readings": [],
       "examples": [
@@ -9844,7 +9847,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "さあ"
       ],
       "romaji": "saa",
-      "part_of_speech": "conjunction/expression",
+      "part_of_speech": "interjection/expression",
       "meaning_zh": "那么；来吧；嗯",
       "kanji_readings": [],
       "examples": [
@@ -10354,7 +10357,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "さん"
       ],
       "romaji": "san",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "三",
       "kanji_readings": [
         {
@@ -10428,7 +10431,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "し"
       ],
       "romaji": "shi",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "四",
       "kanji_readings": [
         {
@@ -10793,7 +10796,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "しち"
       ],
       "romaji": "shichi",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "七",
       "kanji_readings": [
         {
@@ -11298,7 +11301,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "じゅう"
       ],
       "romaji": "juu",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "十",
       "kanji_readings": [
         {
@@ -11716,15 +11719,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "このシャツは白いです。",
-          "zh": "这个衬衫很白。"
+          "zh": "这件衬衫是白色的。"
         },
         {
-          "ja": "とても白いですね。",
-          "zh": "真白啊。"
+          "ja": "雪は白いです。",
+          "zh": "雪是白色的。"
         },
         {
-          "ja": "白いものが好きです。",
-          "zh": "喜欢白的东西。"
+          "ja": "白いカップを使います。",
+          "zh": "用白色的杯子。"
         }
       ],
       "note_zh": ""
@@ -12592,15 +12595,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この部屋は狭いです。",
-          "zh": "这个房间很窄。"
+          "zh": "这个房间很窄小。"
         },
         {
-          "ja": "とても狭いですね。",
-          "zh": "真窄啊。"
+          "ja": "この道は狭いです。",
+          "zh": "这条路很窄。"
         },
         {
-          "ja": "この道は狭いので、車が通れません。",
-          "zh": "这条路很窄，汽车无法通过。"
+          "ja": "狭い部屋に机が二つあります。",
+          "zh": "狭小的房间里有两张桌子。"
         }
       ],
       "note_zh": ""
@@ -12618,7 +12621,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "ゼロ"
       ],
       "romaji": "zero",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "零",
       "kanji_readings": [],
       "examples": [
@@ -12650,7 +12653,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "せん"
       ],
       "romaji": "sen",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "一千",
       "kanji_readings": [
         {
@@ -13108,7 +13111,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "その"
       ],
       "romaji": "sono",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "pre-noun/demonstrative",
       "meaning_zh": "那个（连体词）",
       "kanji_readings": [],
       "examples": [
@@ -13612,16 +13615,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
+          "ja": "あの山は高いです。",
+          "zh": "那座山很高。"
+        },
+        {
           "ja": "この時計は高いです。",
-          "zh": "这个表很高/贵。"
+          "zh": "这块表很贵。"
         },
         {
-          "ja": "とても高いですね。",
-          "zh": "真高/贵啊。"
-        },
-        {
-          "ja": "高いものが好きです。",
-          "zh": "喜欢高/贵的东西。"
+          "ja": "この店の野菜は少し高いです。",
+          "zh": "这家店的蔬菜有点贵。"
         }
       ],
       "note_zh": ""
@@ -14159,7 +14162,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "だれ"
       ],
       "romaji": "dare",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "interrogative/pronoun",
       "meaning_zh": "谁",
       "kanji_readings": [
         {
@@ -14196,7 +14199,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "だれか"
       ],
       "romaji": "dareka",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "indefinite pronoun",
       "meaning_zh": "某人；有人",
       "kanji_readings": [
         {
@@ -14316,12 +14319,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这个包很小。"
         },
         {
-          "ja": "とても小さいですね。",
-          "zh": "真小啊。"
+          "ja": "小さい犬が庭にいます。",
+          "zh": "院子里有一只小狗。"
         },
         {
-          "ja": "小さいものが好きです。",
-          "zh": "喜欢小的东西。"
+          "ja": "字が小さくて読めません。",
+          "zh": "字太小，看不清。"
         }
       ],
       "note_zh": ""
@@ -15109,15 +15112,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この映画はつまらないです。",
-          "zh": "这个电影很无聊。"
+          "zh": "这部电影很无聊。"
         },
         {
-          "ja": "とてもつまらないですね。",
-          "zh": "真无聊啊。"
+          "ja": "その話は少しつまらないです。",
+          "zh": "那个故事有点无趣。"
         },
         {
-          "ja": "この授業は少しつまらないです。",
-          "zh": "这堂课有点无聊。"
+          "ja": "昨日のテレビはつまらなかったです。",
+          "zh": "昨天的电视节目很无聊。"
         }
       ],
       "note_zh": ""
@@ -15146,15 +15149,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この水は冷たいです。",
-          "zh": "这个水很凉。"
+          "zh": "这水很凉。"
         },
         {
-          "ja": "とても冷たいですね。",
-          "zh": "真凉啊。"
+          "ja": "手が冷たいですね。",
+          "zh": "你的手真凉啊。"
         },
         {
-          "ja": "冷たいものが好きです。",
-          "zh": "喜欢凉的东西。"
+          "ja": "冷たい飲み物をください。",
+          "zh": "请给我冷饮。"
         }
       ],
       "note_zh": ""
@@ -15182,16 +15185,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この風は強いです。",
-          "zh": "这个风很强。"
+          "ja": "今日は風が強いです。",
+          "zh": "今天风很大。"
         },
         {
-          "ja": "とても強いですね。",
-          "zh": "真强啊。"
+          "ja": "兄のサッカーチームは強いです。",
+          "zh": "哥哥的足球队很强。"
         },
         {
-          "ja": "強いものが好きです。",
-          "zh": "喜欢强的东西。"
+          "ja": "父は力が強いです。",
+          "zh": "爸爸力气很大。"
         }
       ],
       "note_zh": ""
@@ -16006,7 +16009,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "どうして休みましたか。",
-          "zh": "为什么休息/请假了？"
+          "zh": "为什么请假了？"
         },
         {
           "ja": "どうして行きませんか。",
@@ -16180,16 +16183,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この学校は遠いです。",
-          "zh": "这个学校很远。"
+          "ja": "学校は家から遠いです。",
+          "zh": "学校离家很远。"
         },
         {
-          "ja": "とても遠いですね。",
-          "zh": "真远啊。"
+          "ja": "駅はここから遠いですか。",
+          "zh": "车站离这里远吗？"
         },
         {
-          "ja": "遠いものが好きです。",
-          "zh": "喜欢远的东西。"
+          "ja": "遠い山が見えます。",
+          "zh": "能看见远处的山。"
         }
       ],
       "note_zh": ""
@@ -16244,7 +16247,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "～とき"
       ],
       "romaji": "~toki",
-      "part_of_speech": "counter/suffix",
+      "part_of_speech": "noun/suffix",
       "meaning_zh": "……的时候",
       "kanji_readings": [
         {
@@ -16664,7 +16667,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "どの"
       ],
       "romaji": "dono",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "pre-noun/demonstrative",
       "meaning_zh": "哪个（连体词）",
       "kanji_readings": [],
       "examples": [
@@ -17024,7 +17027,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "どんな"
       ],
       "romaji": "donna",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "pre-noun/demonstrative",
       "meaning_zh": "什么样的",
       "kanji_readings": [],
       "examples": [
@@ -17167,16 +17170,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この道は長いです。",
-          "zh": "这条路很长。"
+          "ja": "この川は長いです。",
+          "zh": "这条河很长。"
         },
         {
-          "ja": "とても長いですね。",
-          "zh": "真长啊。"
+          "ja": "姉は髪が長いです。",
+          "zh": "姐姐的头发很长。"
         },
         {
-          "ja": "長いものが好きです。",
-          "zh": "喜欢长的东西。"
+          "ja": "長い話を聞きました。",
+          "zh": "听了一个很长的故事。"
         }
       ],
       "note_zh": ""
@@ -17374,7 +17377,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "～など"
       ],
       "romaji": "~nado",
-      "part_of_speech": "suffix/pattern",
+      "part_of_speech": "particle",
       "meaning_zh": "……等等",
       "kanji_readings": [],
       "examples": [
@@ -17444,7 +17447,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "なに"
       ],
       "romaji": "nan",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "interrogative/pronoun",
       "meaning_zh": "什么",
       "kanji_readings": [
         {
@@ -17698,7 +17701,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "なん～"
       ],
       "romaji": "nan~",
-      "part_of_speech": "pronoun/demonstrative",
+      "part_of_speech": "interrogative/prefix",
       "meaning_zh": "什么……；几……",
       "kanji_readings": [
         {
@@ -17735,7 +17738,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "に"
       ],
       "romaji": "ni",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "二",
       "kanji_readings": [
         {
@@ -18562,7 +18565,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "はい"
       ],
       "romaji": "hai",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "interjection/expression",
       "meaning_zh": "是；好的",
       "kanji_readings": [],
       "examples": [
@@ -19176,7 +19179,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "はち"
       ],
       "romaji": "hachi",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "八",
       "kanji_readings": [
         {
@@ -20388,7 +20391,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "ひゃく"
       ],
       "romaji": "hyaku",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "一百",
       "kanji_readings": [
         {
@@ -20619,12 +20622,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这个房间很宽敞。"
         },
         {
-          "ja": "とても広いですね。",
-          "zh": "真宽敞啊。"
+          "ja": "広い公園で遊びます。",
+          "zh": "在宽阔的公园里玩。"
         },
         {
-          "ja": "広いものが好きです。",
-          "zh": "喜欢宽敞的东西。"
+          "ja": "駅の前に広い道があります。",
+          "zh": "车站前面有一条宽阔的路。"
         }
       ],
       "note_zh": ""
@@ -21119,15 +21122,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この本は古いです。",
-          "zh": "这个书很旧。"
+          "zh": "这本书很旧。"
         },
         {
-          "ja": "とても古いですね。",
-          "zh": "真旧啊。"
+          "ja": "京都には古い寺があります。",
+          "zh": "京都有古老的寺庙。"
         },
         {
-          "ja": "古いものが好きです。",
-          "zh": "喜欢旧的东西。"
+          "ja": "この時計は古いですが、まだ動きます。",
+          "zh": "这块表虽然旧，但还在走。"
         }
       ],
       "note_zh": ""
@@ -21764,16 +21767,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "このペンは細いです。",
-          "zh": "这个笔很细。"
+          "ja": "このひもは細いです。",
+          "zh": "这根绳子很细。"
         },
         {
-          "ja": "とても細いですね。",
-          "zh": "真细啊。"
+          "ja": "細い道を歩きます。",
+          "zh": "走在狭窄的小路上。"
         },
         {
-          "ja": "細いものが好きです。",
-          "zh": "喜欢细的东西。"
+          "ja": "妹は指が細いです。",
+          "zh": "妹妹的手指很纤细。"
         }
       ],
       "note_zh": ""
@@ -22662,15 +22665,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "このテーブルは丸いです。",
-          "zh": "这个桌子很圆。"
+          "zh": "这张桌子是圆的。"
         },
         {
-          "ja": "とても丸いですね。",
-          "zh": "真圆啊。"
+          "ja": "今夜は月が丸く見えます。",
+          "zh": "今晚的月亮看起来很圆。"
         },
         {
-          "ja": "丸いものが好きです。",
-          "zh": "喜欢圆的东西。"
+          "ja": "ボールは丸いです。",
+          "zh": "球是圆的。"
         }
       ],
       "note_zh": ""
@@ -22688,7 +22691,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "まん"
       ],
       "romaji": "man",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "一万",
       "kanji_readings": [
         {
@@ -22846,16 +22849,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この道は短いです。",
-          "zh": "这条路很短。"
+          "ja": "弟は髪が短いです。",
+          "zh": "弟弟的头发很短。"
         },
         {
-          "ja": "とても短いですね。",
-          "zh": "真短啊。"
+          "ja": "この鉛筆は短いです。",
+          "zh": "这支铅笔很短。"
         },
         {
-          "ja": "短いものが好きです。",
-          "zh": "喜欢短的东西。"
+          "ja": "冬は昼が短いです。",
+          "zh": "冬天白昼很短。"
         }
       ],
       "note_zh": ""
@@ -23398,15 +23401,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この問題は難しいです。",
-          "zh": "这个问题很难。"
+          "zh": "这道题很难。"
         },
         {
-          "ja": "とても難しいですね。",
-          "zh": "真难啊。"
+          "ja": "この漢字は難しいです。",
+          "zh": "这个汉字很难。"
         },
         {
-          "ja": "難しいものが好きです。",
-          "zh": "喜欢难的东西。"
+          "ja": "この本は私には難しいです。",
+          "zh": "这本书对我来说很难。"
         }
       ],
       "note_zh": ""
@@ -24007,15 +24010,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この問題は易しいです。",
-          "zh": "这个问题很简单。"
+          "zh": "这道题很简单。"
         },
         {
-          "ja": "とても易しいですね。",
-          "zh": "真简单啊。"
+          "ja": "易しい言葉で話してください。",
+          "zh": "请用简单的词语说。"
         },
         {
-          "ja": "易しいものが好きです。",
-          "zh": "喜欢简单的东西。"
+          "ja": "今日の試験は易しかったです。",
+          "zh": "今天的考试很简单。"
         }
       ],
       "note_zh": ""
@@ -24044,15 +24047,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この靴は安いです。",
-          "zh": "这个鞋很便宜。"
+          "zh": "这双鞋很便宜。"
         },
         {
-          "ja": "とても安いですね。",
-          "zh": "真便宜啊。"
+          "ja": "あの店は野菜が安いです。",
+          "zh": "那家店的蔬菜很便宜。"
         },
         {
-          "ja": "安いものが好きです。",
-          "zh": "喜欢便宜的东西。"
+          "ja": "このペンは百円で安かったです。",
+          "zh": "这支笔只要一百日元，很便宜。"
         }
       ],
       "note_zh": ""
@@ -24088,8 +24091,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "假期去旅行。"
         },
         {
-          "ja": "今日は学校を休みます。",
-          "zh": "今天不去学校/请假。"
+          "ja": "今日は学校が休みです。",
+          "zh": "今天学校放假。"
         }
       ],
       "note_zh": ""
@@ -24462,34 +24465,36 @@ window.AYAYA_N5_CODEX_VOCAB = {
     {
       "id": "n5-682",
       "jlpt": "N5",
-      "headword": "ゆっくりと",
+      "headword": "ゆっくり",
       "source_form": "ゆっくりと",
       "variants": [
+        "ゆっくり",
         "ゆっくりと"
       ],
-      "reading": "ゆっくりと",
+      "reading": "ゆっくり",
       "reading_variants": [
+        "ゆっくり",
         "ゆっくりと"
       ],
-      "romaji": "yukkurito",
+      "romaji": "yukkuri",
       "part_of_speech": "adverb/expression",
       "meaning_zh": "慢慢地；悠闲地",
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "ゆっくりと話してください。",
+          "ja": "ゆっくり話してください。",
           "zh": "请慢慢说。"
         },
         {
-          "ja": "日曜日はゆっくり休みます。",
-          "zh": "星期天好好休息。"
+          "ja": "日曜日は家でゆっくり休みます。",
+          "zh": "星期天在家好好休息。"
         },
         {
-          "ja": "道をゆっくり歩きました。",
-          "zh": "慢慢地走了路。"
+          "ja": "公園をゆっくりと歩きました。",
+          "zh": "在公园里慢慢地走了一会儿。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "「ゆっくり」和「ゆっくりと」都可以作副词；带「と」时语气稍显完整。"
     },
     {
       "id": "n5-683",
@@ -24842,16 +24847,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この体は弱いです。",
-          "zh": "这个身体很弱。"
+          "ja": "弟は体が弱いです。",
+          "zh": "弟弟身体虚弱。"
         },
         {
-          "ja": "とても弱いですね。",
-          "zh": "真弱啊。"
+          "ja": "今日は風が弱いです。",
+          "zh": "今天风很小。"
         },
         {
-          "ja": "弱いものが好きです。",
-          "zh": "喜欢弱的东西。"
+          "ja": "火が弱いので、もう少し強くしてください。",
+          "zh": "火太小了，请再调大一点。"
         }
       ],
       "note_zh": ""
@@ -25225,7 +25230,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "れい"
       ],
       "romaji": "rei",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "零",
       "kanji_readings": [
         {
@@ -25437,7 +25442,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "ろく"
       ],
       "romaji": "roku",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "六",
       "kanji_readings": [
         {
@@ -25517,15 +25522,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この先生は若いです。",
-          "zh": "这个老师很年轻。"
+          "zh": "这位老师很年轻。"
         },
         {
-          "ja": "とても若いですね。",
-          "zh": "真年轻啊。"
+          "ja": "私の母はまだ若いです。",
+          "zh": "我妈妈还很年轻。"
         },
         {
-          "ja": "若いものが好きです。",
-          "zh": "喜欢年轻的东西。"
+          "ja": "若い人がたくさん集まりました。",
+          "zh": "很多年轻人聚到了一起。"
         }
       ],
       "note_zh": ""

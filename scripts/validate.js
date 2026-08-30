@@ -447,6 +447,15 @@ const forbiddenN5Examples = [
   "塩を食べます",
   "醤油を食べます",
   "バターを食べます",
+  "忙しいものが好きです",
+  "痛いものが好きです",
+  "遅いものが好きです",
+  "高いものが好きです",
+  "強いものが好きです",
+  "遠いものが好きです",
+  "広いものが好きです",
+  "弱いものが好きです",
+  "若いものが好きです",
 ].map(compactText);
 
 const requiredN5ContentFixtures = new Map([
@@ -470,6 +479,12 @@ const requiredN5ContentFixtures = new Map([
   ["n5-604", "この服には大きなポケットがあります"],
   ["n5-633", "この時計は一万円です"],
   ["n5-681", "昨夜、雪が降りました"],
+  ["n5-055", "今日は仕事が忙しいです"],
+  ["n5-056", "足が痛いです"],
+  ["n5-114", "寝る時間が遅いです"],
+  ["n5-379", "この時計は高いです"],
+  ["n5-692", "弟は体が弱いです"],
+  ["n5-711", "若い人がたくさん集まりました"],
 ]);
 
 function entryTemplateSignature(entry) {
@@ -567,6 +582,10 @@ function validateVocabSource(label, data, expectedCount) {
         typeof example.zh === "string" && example.zh.trim(),
         `${label} entry ${entry.id || index} example ${exampleIndex + 1} is missing zh`,
       );
+      check(
+        !/[／/]/u.test(example.zh || ""),
+        `${label} entry ${entry.id || index} example ${exampleIndex + 1} must use one unambiguous Chinese translation`,
+      );
     });
     const duplicateExamples = duplicateGroups(entry.examples, (example) =>
       example && typeof example === "object"
@@ -663,15 +682,30 @@ function validateVocabSource(label, data, expectedCount) {
           `${id} native Japanese counter must be classified as numeral/counter`,
         );
       });
+    ["n5-057", "n5-201", "n5-216", "n5-243", "n5-288", "n5-290", "n5-300", "n5-314", "n5-351", "n5-352", "n5-496", "n5-536", "n5-569", "n5-633", "n5-703", "n5-709"]
+      .forEach((id) => {
+        check(byId.get(id)?.part_of_speech === "numeral", `${id} must be classified as a numeral`);
+      });
     check(
-      byId.get("n5-050")?.part_of_speech === "interrogative/counter",
-      "n5-050 いくつ must be classified as an interrogative counter",
+      byId.get("n5-050")?.part_of_speech === "interrogative/pronoun",
+      "n5-050 いくつ must be classified as an interrogative pronoun, not a counter suffix",
     );
     check(byId.get("n5-100")?.part_of_speech === "pre-noun", "n5-100 大きな must be pre-noun");
     check(byId.get("n5-400")?.part_of_speech === "pre-noun", "n5-400 小さな must be pre-noun");
     check(
       byId.get("n5-403")?.part_of_speech === "noun/adverb",
       "n5-403 近く must model both noun and adverb uses",
+    );
+    check(
+      byId.get("n5-682")?.headword === "ゆっくり" &&
+        byId.get("n5-682")?.reading === "ゆっくり" &&
+        byId.get("n5-682")?.variants?.includes("ゆっくりと"),
+      "n5-682 must model dictionary-form ゆっくり and optional-particle ゆっくりと separately",
+    );
+    check(
+      byId.get("n5-036")?.part_of_speech === "noun/adverb" &&
+        byId.get("n5-036")?.variants?.includes("あまり"),
+      "n5-036 余り must document its common kana adverb use",
     );
     check(
       byId.get("n5-212")?.reading === "キログラム" &&
@@ -716,6 +750,18 @@ function validateVocabSource(label, data, expectedCount) {
 
   if (label === "N4") {
     const byId = new Map(data.entries.map((entry) => [entry.id, entry]));
+    check(byId.get("n4-068")?.part_of_speech === "numeral", "n4-068 億 must be a numeral");
+    check(
+      byId.get("n4-033")?.kanji_readings?.some(
+        ({ form, reading }) => form === "一杯" && reading === "いっぱい",
+      ),
+      "n4-033 いっぱい must document the 一杯 spelling for its one-cup sense",
+    );
+    check(
+      !byId.get("n4-661")?.meaning_zh?.includes("辞职") &&
+        byId.get("n4-661")?.note_zh?.includes("辞める"),
+      "n4-661 止める / やめる must remain distinct from 辞める / resign",
+    );
     const administrativeCapital = data.entries.find((entry) => entry.id === "n4-465");
     const reviewedCapitalExamples = [
       "日本の都道府県では、都は東京都だけです",
@@ -858,6 +904,10 @@ function validateGrammarSource(grammarData, expectedCount) {
       check(
         typeof example.zh === "string" && example.zh.trim(),
         `grammar entry ${entry.id || index} example ${exampleIndex + 1} is missing zh`,
+      );
+      check(
+        !/[／/]/u.test(example.zh || ""),
+        `grammar entry ${entry.id || index} example ${exampleIndex + 1} must use one unambiguous Chinese translation`,
       );
     });
   });

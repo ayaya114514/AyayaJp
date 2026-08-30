@@ -6,7 +6,7 @@
 window.AYAYA_N4_CODEX_VOCAB = {
   "schema": {
     "schema_version": "1.0.0",
-    "generated_on": "2026-08-18",
+    "generated_on": "2026-08-30",
     "purpose": "Codex-readable, app-compatible JLPT N4 learning data with corrected Simplified Chinese meanings and natural short Japanese examples. Public N4 lists vary, so this file is an expanded, de-duplicated N4-specific list aligned to the uploaded AYAYA N5 schema.",
     "fields": {
       "headword": "学习用规范词形。旧写法或不常用写法会保留在 source_form。",
@@ -32,7 +32,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "The uploaded N5 files were used as the compatibility/schema target.",
       "Examples are newly written short study sentences rather than copied corpus sentences.",
       "Mixed-sense records and repeated placeholder example families were reviewed and rewritten on 2026-07-17 so each retained entry demonstrates its own part of speech and meaning.",
-      "Reading, part-of-speech, example alignment, same-sense duplicates and retained cross-level distinctions were re-audited on 2026-08-18; merged_source_ids preserve prior study state."
+      "Reading, part-of-speech, example alignment, same-sense duplicates and retained cross-level distinctions were re-audited on 2026-08-18; merged_source_ids preserve prior study state.",
+      "Dictionary forms, readings, coarse part-of-speech labels, senses, and all example rows were re-audited against JMdict and for Japanese/Chinese learning accuracy on 2026-08-30."
     ],
     "entry_count": 745
   },
@@ -1039,7 +1040,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "先にいただきます。",
-          "zh": "我先用了/先吃了。"
+          "zh": "我先吃了。"
         },
         {
           "ja": "お茶をいただいてもいいですか。",
@@ -1128,7 +1129,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "headword": "いっぱい",
       "source_form": "いっぱい",
       "variants": [
-        "いっぱい"
+        "いっぱい",
+        "一杯"
       ],
       "reading": "いっぱい",
       "reading_variants": [
@@ -1137,7 +1139,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ippai",
       "part_of_speech": "adverb/noun/na-adjective",
       "meaning_zh": "满满；很多；一杯",
-      "kanji_readings": [],
+      "kanji_readings": [
+        {
+          "form": "一杯",
+          "reading": "いっぱい"
+        }
+      ],
       "examples": [
         {
           "ja": "会場は人でいっぱいです。",
@@ -1152,7 +1159,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "日程排满了，很忙。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "写作假名「いっぱい」时常表示“满、很多”；写作「一杯」时表示“一杯”。"
     },
     {
       "id": "n4-034",
@@ -2344,7 +2351,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "おく"
       ],
       "romaji": "oku",
-      "part_of_speech": "noun",
+      "part_of_speech": "numeral",
       "meaning_zh": "亿",
       "kanji_readings": [
         {
@@ -4013,8 +4020,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "把旧电池换成了新的。"
         },
         {
-          "ja": "父に代わって兄が出席しました。",
-          "zh": "哥哥代替父亲出席了。"
+          "ja": "担当者を田中さんから佐藤さんに代えました。",
+          "zh": "把负责人从田中换成了佐藤。"
         },
         {
           "ja": "この言葉を別の言葉に代えてください。",
@@ -4737,7 +4744,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "この町には大きな家に住む金持ちが多いです。",
-          "zh": "这个镇上住大房子的富人很多。"
+          "zh": "这个小镇有很多住大房子的富人。"
         }
       ],
       "note_zh": "「お金持ち」更礼貌/口语。"
@@ -7372,7 +7379,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "もうけっこうです。",
-          "zh": "已经够了/不用了。"
+          "zh": "已经够了。"
         },
         {
           "ja": "けっこう時間がかかります。",
@@ -7946,7 +7953,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この町は自動車工業が盛んです。",
-          "zh": "这个城市的汽车工业很发达。"
+          "zh": "这个城镇的汽车工业很发达。"
         },
         {
           "ja": "父は工業高校で機械を学びました。",
@@ -8172,7 +8179,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "この町は交通が便利です。",
-          "zh": "这个城市交通便利。"
+          "zh": "这个城镇交通便利。"
         },
         {
           "ja": "大雪で交通が止まりました。",
@@ -9152,7 +9159,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "ごぞんじ"
       ],
       "romaji": "gozonji",
-      "part_of_speech": "noun/na-adjective",
+      "part_of_speech": "noun/expression",
       "meaning_zh": "知道；认识",
       "kanji_readings": [
         {
@@ -9262,8 +9269,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "老师已经看了资料。"
         },
         {
-          "ja": "こちらの写真をごらんください。",
-          "zh": "请看这张照片。"
+          "ja": "先生はこの写真をごらんになりました。",
+          "zh": "老师看了这张照片。"
         },
         {
           "ja": "社長が発表をごらんになります。",
@@ -9444,7 +9451,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この町ではスポーツが盛んです。",
-          "zh": "这个城市体育很盛行。"
+          "zh": "这个小镇的体育活动很活跃。"
         },
         {
           "ja": "議論が盛んに行われています。",
@@ -10182,8 +10189,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "想说自然的日语。"
         },
         {
-          "ja": "この町は自然が多いです。",
-          "zh": "这个城市自然环境很多。"
+          "ja": "この町は自然が豊かです。",
+          "zh": "这个小镇拥有丰富的自然风光。"
         },
         {
           "ja": "自然に笑えるようになりました。",
@@ -10983,7 +10990,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "承知しました。",
-          "zh": "知道了/明白了。"
+          "zh": "明白了。"
         },
         {
           "ja": "その件は承知しています。",
@@ -12635,7 +12642,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "旅行中にすりに遭いました。",
-          "zh": "旅行中遇到了扒手。"
+          "zh": "旅行中遭到了扒窃。"
         },
         {
           "ja": "人が多い場所ではすりに遭わないように気をつけます。",
@@ -12643,7 +12650,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "駅ですりに遭って財布をなくしました。",
-          "zh": "在车站被扒手偷了，丢了钱包。"
+          "zh": "在车站遭到扒窃，钱包丢了。"
         }
       ],
       "note_zh": "常用搭配。"
@@ -14284,11 +14291,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "例えば、こんな言い方があります。",
-          "zh": "比如，有这种说法。"
+          "zh": "例如，有这种说法。"
         },
         {
-          "ja": "日本の食べ物、例えば寿司が好きです。",
-          "zh": "喜欢日本食物，比如寿司。"
+          "ja": "日本の食べ物では、例えば寿司や天ぷらが好きです。",
+          "zh": "在日本食物中，我喜欢寿司、天妇罗等。"
         },
         {
           "ja": "例えば何が必要ですか。",
@@ -15041,7 +15048,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "先生に注意されました。",
-          "zh": "被老师提醒/批评了。"
+          "zh": "被老师提醒了。"
         },
         {
           "ja": "注意書きをよく読んでください。",
@@ -15156,7 +15163,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "子供は注射が苦手です。",
-          "zh": "孩子不擅长/怕打针。"
+          "zh": "孩子怕打针。"
         }
       ],
       "note_zh": "常与「する」构成动词。"
@@ -15920,7 +15927,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "先生は丁寧に説明してくれました。",
-          "zh": "老师详细/认真地说明了。"
+          "zh": "老师给我做了细致的说明。"
         },
         {
           "ja": "丁寧な言葉を使います。",
@@ -17662,7 +17669,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "なるほど、そういう意味ですか。",
-          "zh": "原来如此，是那个意思啊。"
+          "zh": "原来如此，是这个意思吗？"
         },
         {
           "ja": "なるほど、よく分かりました。",
@@ -18407,7 +18414,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "熱心に説明を聞きました。",
-          "zh": "认真/热心地听了说明。"
+          "zh": "认真地听了说明。"
         },
         {
           "ja": "熱心な先生に教えてもらいました。",
@@ -18776,7 +18783,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "この町では電車が一番速い乗り物です。",
-          "zh": "在这个城市，电车是最快的交通工具。"
+          "zh": "在这个城镇，电车是最快的交通工具。"
         }
       ],
       "note_zh": ""
@@ -19464,12 +19471,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "价格变成去年的两倍。"
         },
         {
-          "ja": "勉強時間を倍にしました。",
-          "zh": "把学习时间加倍了。"
+          "ja": "勉強時間が先月の倍になりました。",
+          "zh": "学习时间变成了上个月的两倍。"
         },
         {
           "ja": "人が増えて、仕事も倍になりました。",
-          "zh": "人增加了，工作也翻倍了。"
+          "zh": "人数增加了，工作量也翻倍了。"
         }
       ],
       "note_zh": ""
@@ -20043,7 +20050,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "昨日はひどい雨でした。",
-          "zh": "昨天雨很大/很糟。"
+          "zh": "昨天的雨下得很大。"
         },
         {
           "ja": "ひどいことを言ってしまいました。",
@@ -23423,7 +23430,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "yameru",
       "part_of_speech": "verb",
-      "meaning_zh": "停止；放弃；辞职",
+      "meaning_zh": "停止（活动）；放弃；戒掉",
       "kanji_readings": [
         {
           "form": "止める",
@@ -23432,8 +23439,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "会社を辞めるつもりです。",
-          "zh": "打算辞职。"
+          "ja": "その計画はやめることにしました。",
+          "zh": "我决定放弃那个计划。"
         },
         {
           "ja": "たばこをやめました。",
@@ -23444,7 +23451,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "请不要勉强。"
         }
       ],
-      "note_zh": "读作「やめる」。"
+      "note_zh": "读作「やめる」，常写作假名；“辞职”通常写作「辞める」，是另一个同音词。"
     },
     {
       "id": "n4-662",
@@ -24501,7 +24508,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "この町には長い歴史があります。",
-          "zh": "这座城市有悠久的历史。"
+          "zh": "这座城镇有悠久的历史。"
         },
         {
           "ja": "博物館で地域の歴史を学びました。",
@@ -26443,7 +26450,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "この区は外国人が多いです。",
-          "zh": "这个区外国人很多。"
+          "zh": "这个区的外国人很多。"
         },
         {
           "ja": "区役所まで歩いて行きます。",
@@ -26847,7 +26854,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "～ばかり"
       ],
       "romaji": "bakari",
-      "part_of_speech": "suffix/expression",
+      "part_of_speech": "particle/expression",
       "meaning_zh": "净是……；刚刚……；大约……",
       "kanji_readings": [],
       "examples": [
@@ -26916,7 +26923,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "～まま"
       ],
       "romaji": "mama",
-      "part_of_speech": "suffix/expression",
+      "part_of_speech": "noun/expression",
       "meaning_zh": "保持……状态；就那样",
       "kanji_readings": [],
       "examples": [

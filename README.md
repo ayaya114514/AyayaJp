@@ -76,6 +76,7 @@ Updater 是 deterministic 的，并会在 N5/N4 JS/JSON 未同步时拒绝改写
 ### 数据范围与 provenance
 
 - JLPT 官方不发布固定的词汇、汉字或语法项目清单；这里的 N5/N4 是本项目维护的教学分级，不应当视为官方考试词表。
+- 2026-08-30 内容审查使用 [Jisho](https://jisho.org/) 及其采用的 [JMdict/EDICT](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project) 核对 1,461 条词汇的规范写法、读音、词性与义项，并重新检查全部 5,028 条词汇/语法例句的目标词对齐、日语自然度、语法和中文译文。Jisho 例句只用于用法参考，本项目例句仍为独立编写，不直接复制外部语料。
 - 词条以仓库内的 JSON 为 canonical source，`source_form`、`variants` 与 `note_zh` 保留规范化和人工校订线索；对应 JS 必须由同一份内容同步生成，并由 validation 阻止两者漂移。
 - 例句是为本项目编写和校订的短学习句，不是外部语料库引文。同义同用法的跨级重复已合并；只有语义或功能明确不同的 overlap 才分别保留。被合并词条的旧 source ID 会迁移到保留项，避免丢失既有学习次数。
 - 罗马音只在能够完整、无歧义地转换为 Latin script 时显示；助词「は・へ・を」写作 `wa・e・o`，「ん」只在同一词内的元音或 `y` 前写作 `n'`。无法可靠判定时会标记为 unavailable 并隐藏，避免把猜测当成正确读音。

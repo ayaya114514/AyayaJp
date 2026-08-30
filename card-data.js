@@ -2817,6 +2817,20 @@ const reviewedExactReadings = `
 探しています|さがしています
 探しました|さがしました
 探します|さがします
+青く|あおく
+赤く|あかく
+暖かく|あたたかく
+厚く|あつく
+忙しくて|いそがしくて
+痛くて|いたくて
+重くて|おもくて
+黄色く|きいろく
+丸く|まるく
+易しかった|やさしかった
+安かった|やすかった
+担当者|たんとうしゃ
+佐藤|さとう
+豊か|ゆたか
 `.trim().split("\n").map((line) => line.split("|"));
 
 const allVocabReadingEntries = [...n5Entries, ...n4Entries].flatMap((entry) =>
@@ -3071,7 +3085,7 @@ const reviewedPronunciationSourceParts = [
   ...[...unsafeGlobalReadingSurfaces].sort().map((surface) => `unsafe:${surface}`),
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "10271:fdb9538d1db48668";
+const reviewedPronunciationSourceSignature = "10297:3822f1400d735b78";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
