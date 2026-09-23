@@ -836,6 +836,80 @@ function testFreshMistakeRatingImmediatelyEntersMistakeDeck() {
   assert(harness.element("cardPrompt").textContent === card.prompt, "fresh mistake card was not shown");
 }
 
+function dispatchDocumentKey(harness, key, properties = {}) {
+  const event = {
+    defaultPrevented: false,
+    key,
+    repeat: false,
+    target: harness.document.body,
+    preventDefault() {
+      this.defaultPrevented = true;
+    },
+    ...properties,
+  };
+  (harness.document.listeners.get("keydown") || []).forEach(({ listener }) => listener(event));
+  return event;
+}
+
+function testNumberKeysRateRevealedCards() {
+  const first = baseCard({ id: "shortcut-a", prompt: "a" });
+  const second = baseCard({ id: "shortcut-b", prompt: "b" });
+  const harness = createHarness({ kanaCards: [first, second] });
+  const promptBefore = harness.element("cardPrompt").textContent;
+
+  dispatchDocumentKey(harness, "3");
+  assert(harness.element("cardPrompt").textContent === promptBefore, "a shortcut rated a hidden answer");
+  harness.element("cardReveal").dispatch("click");
+  assert(dispatchDocumentKey(harness, "2", { repeat: true }).defaultPrevented === false, "auto-repeat rated a card");
+  const event = dispatchDocumentKey(harness, "2");
+  assert(event.defaultPrevented, "rating shortcut was not handled");
+  const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
+  const ratedId = promptBefore === "a" ? first.id : second.id;
+  assert(saved[ratedId]?.lastRating === "unsure", "shortcut 2 did not record 不确定");
+  assert(harness.element("cardPrompt").textContent !== promptBefore, "rating shortcut did not advance");
+}
+
+function testWrongChoiceEntersGrammarMistakes() {
+  const choiceCard = baseCard({
+    choices: [
+      { id: "right", isCorrect: true, reason: "correct", text: "正确" },
+      { id: "wrong", isCorrect: false, reason: "wrong", text: "错误" },
+    ],
+    correctChoiceId: "right",
+    deck: "grammar-n5-choice",
+    grammarLevel: "N5",
+    id: "grammar-choice-mistake",
+    isChoice: true,
+    isGrammar: true,
+    prompt: "选择「〜たい」的正确意思",
+  });
+  const harness = createHarness({
+    grammarCards: [choiceCard],
+    random: () => 0.99,
+    tabDecks: ["hiragana", "grammar-n5-choice", "grammar-n5-mistakes"],
+  });
+
+  harness.tabs[1].dispatch("click");
+  const options = harness.element("choiceList").children;
+  const wrongIndex = options.findIndex((option) => option.dataset.choiceId === "wrong");
+  assert(wrongIndex >= 0, "fixture wrong option is missing");
+  dispatchDocumentKey(harness, String(wrongIndex + 1));
+  assert(harness.element("answerMain").textContent === "回答错误", "number key did not pick the choice");
+
+  harness.tabs[2].dispatch("click");
+  assert(harness.element("studyCard").hidden === false, "a wrong choice did not enter grammar mistakes");
+  assert(harness.element("cardPrompt").textContent === choiceCard.prompt, "grammar mistakes did not show the choice");
+
+  const rightIndex = harness.element("choiceList").children.findIndex(
+    (option) => option.dataset.choiceId === "right",
+  );
+  harness.element("choiceList").children[rightIndex].dispatch("click");
+  harness.element("choiceNext").dispatch("click");
+  harness.tabs[1].dispatch("click");
+  harness.tabs[2].dispatch("click");
+  assert(harness.element("studyCard").hidden === true, "a corrected choice stayed in grammar mistakes");
+}
+
 function testStudyCardSurfaceRevealsAnswer() {
   const harness = createHarness();
 
@@ -2105,6 +2179,8 @@ const tests = [
   ["sidebar focus and inert lifecycle", testSidebarFocusAndInertLifecycle],
   ["mistake decks queue reviewed cards on first visit", testMistakeDeckQueuesPreviouslyReviewedCardsOnFirstVisit],
   ["fresh mistake ratings enter the mistake deck", testFreshMistakeRatingImmediatelyEntersMistakeDeck],
+  ["number keys rate revealed cards", testNumberKeysRateRevealedCards],
+  ["wrong choices enter grammar mistakes", testWrongChoiceEntersGrammarMistakes],
   ["blank study-card surface reveals the answer", testStudyCardSurfaceRevealsAnswer],
   ["study surface excludes interactive descendants", testStudySurfaceExcludesInteractiveDescendants],
   ["reveal and rating focus valid actions", testRevealAndRatingMoveFocusToValidActions],

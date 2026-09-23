@@ -16,7 +16,7 @@ python3 -m http.server 5173
 
 然后访问 `http://localhost:5173`。
 
-可以使用 `Tab` 在操作项之间移动；聚焦卡片后按 `Enter` 或 `Space` 显示答案。正常加载不会闪现状态提示；资源加载失败时会给出可见提示。
+可以使用 `Tab` 在操作项之间移动；聚焦卡片后按 `Enter` 或 `Space` 显示答案。显示答案后按 `1` / `2` / `3` 分别评为 `清楚` / `不确定` / `遗忘`；选择题作答前按 `1`–`4` 选择 A–D。正常加载不会闪现状态提示；资源加载失败时会给出可见提示。
 
 ## 检查
 
@@ -35,7 +35,7 @@ npm run check
 npm test
 ```
 
-首次在本机运行前如尚未安装 Chromium / WebKit，可执行：
+浏览器测试固定使用专用端口 4318 启动静态 server，并且不复用已在运行的 server，避免误测其他项目（例如同样默认 4173 的 Vite preview）。首次在本机运行前，或升级 `@playwright/test` 后浏览器 build 号变化时，需要安装 Chromium / WebKit：
 
 ```bash
 npx playwright install chromium webkit
@@ -57,8 +57,8 @@ Updater 是 deterministic 的，并会在 N5/N4 JS/JSON 未同步时拒绝改写
 - 所有普通模块按随机顺序出题，一轮练完后可以点 `重新开始` 再洗牌。
 - `清楚`、`不确定`、`遗忘` 只记录你的选择，不再计算复习间隔。
 - N5 里选择 `不确定` 或 `遗忘` 的词会进入 `N5 错题集`；N4 同理进入 `N4 错题集`；在错题集里选 `清楚` 后会移出。
-- 语法模块按 N5/N4 分开练 `中→日`、`日→中`、`文型` 和 `选择题`；普通语法卡选择 `不确定` 或 `遗忘` 后会进入对应语法错题集。
-- 语法选择题覆盖每条 N5/N4 语法；每轮重新开始会重新打乱题目顺序，每题选项顺序也会重新打乱，并避免正确项连续落在同一位置。
+- 语法模块按 N5/N4 分开练 `中→日`、`日→中`、`文型` 和 `选择题`；普通语法卡选择 `不确定` 或 `遗忘`、或选择题答错后，会进入对应语法错题集；在错题集里答对或选 `清楚` 后移出。
+- 语法选择题覆盖每条 N5/N4 语法，考的是文型的意思：选项只显示意思，不显示接续（接续一栏会直接包含文型本身，等于泄露答案）。干扰项来自同级语法，并排除意思重叠或文型互相包含的条目（如 `〜にくい` / `〜づらい`、`まだ` / `まだ〜ていません`、两条 `〜のに`），保证只有一个正确项。每轮重新开始会重新打乱题目顺序，每题选项顺序也会重新打乱，并避免正确项连续落在同一位置。
 - 语法选择题答题后只保留你的选择与正确项解释，避免 mobile viewport 被无关干扰项和重复例句撑出屏幕。
 - 选择题会保留最近一次选择结果，以便刷新或多标签页同步后继续显示正确解释。
 
@@ -77,8 +77,9 @@ Updater 是 deterministic 的，并会在 N5/N4 JS/JSON 未同步时拒绝改写
 
 - JLPT 官方不发布固定的词汇、汉字或语法项目清单；这里的 N5/N4 是本项目维护的教学分级，不应当视为官方考试词表。
 - 2026-08-30 内容审查使用 [Jisho](https://jisho.org/) 及其采用的 [JMdict/EDICT](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project) 核对全部词汇的规范写法、读音、词性与义项，并重新检查全部词汇/语法例句的目标项对齐、日语自然度、语法和中文译文。2026-08-31 又将 12 个纯语法 pattern 从 N4 词汇表迁入语法模块，并把复合词、派生形式、固定表达和搭配单独标记；当前共有 1,449 条词汇/表达、220 条语法和 5,007 条例句。Jisho 例句只用于用法参考，本项目例句仍为独立编写，不直接复制外部语料。
-- 词条以仓库内的 JSON 为 canonical source，`source_form`、`variants` 与 `note_zh` 保留规范化和人工校订线索；对应 JS 必须由同一份内容同步生成，并由 validation 阻止两者漂移。
+- 词条以仓库内的 JSON 为 canonical source，`source_form`、`variants` 与 `note_zh` 保留规范化和人工校订线索；修改 JSON 后运行 `npm run sync:vocab` 生成对应 JS，validation 会阻止两者漂移。
 - 例句是为本项目编写和校订的短学习句，不是外部语料库引文。同义同用法的跨级重复已合并；只有语义或功能明确不同的 overlap 才分别保留。被合并词条的旧 source ID 会迁移到保留项；从词汇模块迁出的 grammar pattern 也会把旧双向卡片进度迁移到对应语法卡，避免丢失既有学习次数。
+- 例句 furigana 与罗马音使用同一套带语境保护的读音切分：汉字复合词要么由一条已审核读音整体注音，要么整段不注音，绝不会由单字读音拼出（如 `明日` 不会注成 `明(あか)日(ひ)`）；送假名留在 `<rt>` 之外。validation 会检查每条例句的实际注音结果。
 - 罗马音只在能够完整、无歧义地转换为 Latin script 时显示；助词「は・へ・を」写作 `wa・e・o`，「ん」只在同一词内的元音或 `y` 前写作 `n'`。无法可靠判定时会标记为 unavailable 并隐藏，避免把猜测当成正确读音。
 - 这套数据仍可能存在用法或分级争议；修改词义、读音或例句时应同时更新 JSON/JS，并运行完整 `npm run check`。
 
@@ -105,4 +106,5 @@ Updater 是 deterministic 的，并会在 N5/N4 JS/JSON 未同步时拒绝改写
 - `scripts/validate.js`：本地 zero-dependency source/runtime/DOM validation。
 - `scripts/test-app-contracts.js`：zero-dependency app regression tests。
 - `scripts/update-validation-manifest.js`：deterministic baseline manifest updater。
+- `scripts/sync-vocab-js.js`：由 N5/N4 JSON 生成对应的 JS 数据文件（`npm run sync:vocab`，`--check` 只检查不写入）。
 - `validate-bundle.js` / `validation-report.json`：bundle baseline checker 与 committed manifest（不是通过结果报告）。

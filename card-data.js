@@ -2526,6 +2526,29 @@ const contextSpecificReadings = [
   ["百人", "ひゃくにん"],
   ["一時間", "いちじかん"],
   ["五冊", "ごさつ"],
+  // Numerals before a kana counter can geminate (一か月 → いっかげつ); these
+  // keep 一 / 六 / 月 from falling back to their standalone readings.
+  ["一か月", "いっかげつ"],
+  ["一か", "いっか"],
+  ["三か月", "さんかげつ"],
+  ["六か月", "ろっかげつ"],
+  ["六か", "ろっか"],
+  ["十二か月", "じゅうにかげつ"],
+  ["一そう", "いっそう"],
+  // The noun 光 is ひかり, but the verb 光る conjugates as ひかっ-.
+  ["光って", "ひかって"],
+  ["光っ", "ひかっ"],
+  // Inflected forms whose Kanji would otherwise take the reading of a
+  // different word: 行う (not 行く), 思い出す (not 思い出), 間に合う (not 間),
+  // 召し上がる (not 上), and 開かれる (held/opened, not 開く as あく).
+  ["行われ", "おこなわれ"],
+  ["思い出す", "おもいだす"],
+  ["思い出さ", "おもいださ"],
+  ["思い出し", "おもいだし"],
+  ["思い出せ", "おもいだせ"],
+  ["間に合", "まにあ"],
+  ["召し上が", "めしあが"],
+  ["開かれ", "ひらかれ"],
   // 明日 has multiple readings; these reviewed beginner examples use あした.
   ["明日\ue000", "あした\ue000"],
   // markReviewedPronunciations replaces the object particle before readings
@@ -2901,9 +2924,12 @@ function readingEntriesForText(preferredReadings = []) {
   return entries.sort((left, right) => right[0].length - left[0].length);
 }
 
-function applyKnownReadings(text, preferredReadings = []) {
+// Splits text into reading matches and single unmatched characters. A Kanji
+// surface is never matched from inside a larger Kanji compound, so 明日 or 観光
+// cannot be assembled from the readings of 明 / 日 or 光 on their own.
+function tokenizeKnownReadings(text, preferredReadings = []) {
   const readingEntries = readingEntriesForText(preferredReadings);
-  let result = "";
+  const tokens = [];
   let index = 0;
 
   while (index < text.length) {
@@ -2918,15 +2944,21 @@ function applyKnownReadings(text, preferredReadings = []) {
       return !startsInsideCompound && !endsInsideCompound;
     });
     if (entry) {
-      result += entry[1];
+      tokens.push({ start: index, surface: entry[0], reading: entry[1] });
       index += entry[0].length;
     } else {
-      result += text[index];
+      tokens.push({ start: index, surface: text[index], reading: null });
       index += 1;
     }
   }
 
-  return result;
+  return tokens;
+}
+
+function applyKnownReadings(text, preferredReadings = []) {
+  return tokenizeKnownReadings(text, preferredReadings)
+    .map((token) => token.reading ?? token.surface)
+    .join("");
 }
 
 function lastVowel(text) {
@@ -3096,7 +3128,7 @@ const reviewedPronunciationSourceParts = [
   ...[...unsafeGlobalReadingSurfaces].sort().map((surface) => `unsafe:${surface}`),
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "10275:cb635cb5e0b51539";
+const reviewedPronunciationSourceSignature = "10305:548b9e245dfdb771";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3148,15 +3180,21 @@ function attachedWaIndexesForText(text) {
   return indexes;
 }
 
-function markReviewedPronunciations(text) {
+// Returns the marked text plus, for each marked character, the index of the
+// source character it stands for (-1 for inserted word-boundary markers).
+function markReviewedPronunciationsWithSourceIndexes(text) {
   if (!reviewedPronunciationCorpusIsCurrent || !reviewedExampleTextSet.has(text)) return null;
   const lexicalIndexes = indexesForSpans(text, reviewedLexicalKanaSpans.get(text));
   const boundaryIndexes = boundaryIndexesForText(text);
   const attachedWaIndexes = attachedWaIndexesForText(text);
   let result = "";
+  const sourceIndexes = [];
 
   [...text].forEach((character, index) => {
-    if (boundaryIndexes.has(index)) result += "\ue004";
+    if (boundaryIndexes.has(index)) {
+      result += "\ue004";
+      sourceIndexes.push(-1);
+    }
     if (lexicalIndexes.has(index)) {
       result += character;
     } else if (attachedWaIndexes.has(index)) {
@@ -3164,8 +3202,13 @@ function markReviewedPronunciations(text) {
     } else {
       result += particleKanaMarkers.get(character) || character;
     }
+    sourceIndexes.push(index);
   });
-  return result;
+  return { marked: result, sourceIndexes };
+}
+
+function markReviewedPronunciations(text) {
+  return markReviewedPronunciationsWithSourceIndexes(text)?.marked ?? null;
 }
 
 function romajiAt(kanaText, index) {
@@ -3247,6 +3290,130 @@ function sentenceToRomaji(text, preferredReadings = []) {
     .trim();
 }
 
+const pronunciationMarkerPattern = /[-]/u;
+
+function isKanaCharacter(character = "") {
+  return /[ぁ-ゖァ-ヺー]/u.test(character);
+}
+
+// Keeps okurigana and other surrounding kana outside <rt>: 待ち/まち → 待(ま)ち.
+function splitRubyAroundKana(surface, reading) {
+  let prefixLength = 0;
+  while (
+    prefixLength < surface.length &&
+    prefixLength < reading.length &&
+    isKanaCharacter(surface[prefixLength]) &&
+    kanaSurfaceToHiragana(surface[prefixLength]) === kanaSurfaceToHiragana(reading[prefixLength])
+  ) {
+    prefixLength += 1;
+  }
+  let suffixLength = 0;
+  while (
+    suffixLength < surface.length - prefixLength &&
+    suffixLength < reading.length - prefixLength &&
+    isKanaCharacter(surface.at(-1 - suffixLength)) &&
+    kanaSurfaceToHiragana(surface.at(-1 - suffixLength)) ===
+      kanaSurfaceToHiragana(reading.at(-1 - suffixLength))
+  ) {
+    suffixLength += 1;
+  }
+  const core = surface.slice(prefixLength, surface.length - suffixLength);
+  const coreReading = reading.slice(prefixLength, reading.length - suffixLength);
+  if (!core || !coreReading || !kanjiCharacterPattern.test(core)) return [[surface, null]];
+  return [
+    [surface.slice(0, prefixLength), null],
+    ...splitRubyAtInnerKana(core, coreReading),
+    [surface.slice(surface.length - suffixLength), null],
+  ].filter(([text]) => text);
+}
+
+// 六か月/ろっかげつ → 六(ろっ)か月(げつ), but only when every inner kana run
+// occurs exactly once in the remaining reading; otherwise keep one ruby span.
+function splitRubyAtInnerKana(core, coreReading) {
+  const parts = core.match(/[ぁ-ゖァ-ヺー]+|[^ぁ-ゖァ-ヺー]+/gu) || [];
+  const isKanaPart = (part) => isKanaCharacter(part[0]);
+  if (parts.length < 3 || isKanaPart(parts[0]) || isKanaPart(parts.at(-1))) {
+    return [[core, coreReading]];
+  }
+  const segments = [];
+  let readingIndex = 0;
+  for (let index = 0; index < parts.length; index += 2) {
+    const kanjiPart = parts[index];
+    const kanaPart = parts[index + 1];
+    if (kanaPart === undefined) {
+      const rest = coreReading.slice(readingIndex);
+      if (!rest) return [[core, coreReading]];
+      segments.push([kanjiPart, rest]);
+      break;
+    }
+    const target = kanaSurfaceToHiragana(kanaPart);
+    const remaining = kanaSurfaceToHiragana(coreReading.slice(readingIndex + 1));
+    const found = remaining.indexOf(target);
+    if (found < 0 || remaining.indexOf(target, found + 1) >= 0) return [[core, coreReading]];
+    const kanaStart = readingIndex + 1 + found;
+    segments.push([kanjiPart, coreReading.slice(readingIndex, kanaStart)], [kanaPart, null]);
+    readingIndex = kanaStart + kanaPart.length;
+  }
+  return segments;
+}
+
+// Furigana uses exactly the same context-guarded tokenizer as romaji. Kanji
+// that no reviewed reading covers are left without <rt> instead of being
+// annotated from a guessed per-character reading.
+function rubySegmentsForText(text, preferredReadings = []) {
+  const markedSource = [...text].length === text.length
+    ? markReviewedPronunciationsWithSourceIndexes(text)
+    : null;
+  const marked = markedSource?.marked ?? text;
+  const sourceIndexes = markedSource?.sourceIndexes ?? [...text].map((_, index) => index);
+  const segments = [];
+  const pushPlain = (value) => {
+    if (!value) return;
+    if (segments.length && segments.at(-1)[1] === null) segments.at(-1)[0] += value;
+    else segments.push([value, null]);
+  };
+  let consumed = 0;
+
+  tokenizeKnownReadings(marked, preferredReadings).forEach(({ start, surface, reading }) => {
+    let surfaceLength = surface.length;
+    let rubyReading = reading;
+    while (
+      rubyReading &&
+      surfaceLength > 0 &&
+      pronunciationMarkerPattern.test(surface[surfaceLength - 1]) &&
+      rubyReading.at(-1) === surface[surfaceLength - 1]
+    ) {
+      surfaceLength -= 1;
+      rubyReading = rubyReading.slice(0, -1);
+    }
+    const coveredIndexes = sourceIndexes.slice(start, start + surface.length).filter((i) => i >= 0);
+    if (!coveredIndexes.length) return;
+    const sourceStart = coveredIndexes[0];
+    const sourceEnd = coveredIndexes.at(-1) + 1;
+    const rubySourceIndexes = sourceIndexes.slice(start, start + surfaceLength);
+    const canAnnotate =
+      rubyReading &&
+      !pronunciationMarkerPattern.test(surface.slice(0, surfaceLength)) &&
+      !pronunciationMarkerPattern.test(rubyReading) &&
+      rubySourceIndexes.every((i) => i >= 0) &&
+      kanjiCharacterPattern.test(surface.slice(0, surfaceLength));
+    pushPlain(text.slice(consumed, sourceStart));
+    if (!canAnnotate) {
+      pushPlain(text.slice(sourceStart, sourceEnd));
+    } else {
+      const rubyEnd = rubySourceIndexes.at(-1) + 1;
+      splitRubyAroundKana(text.slice(sourceStart, rubyEnd), rubyReading).forEach(([part, rt]) => {
+        if (rt) segments.push([part, rt]);
+        else pushPlain(part);
+      });
+      pushPlain(text.slice(rubyEnd, sourceEnd));
+    }
+    consumed = sourceEnd;
+  });
+  pushPlain(text.slice(consumed));
+  return segments;
+}
+
 function isSafeRomaji(text) {
   return /^[A-Za-z0-9\s,.'!?/:;()\-]+$/.test(text);
 }
@@ -3263,6 +3430,7 @@ function normalizeExamples(examples = [], preferredReadings = []) {
       romaji: hasSafeRomaji ? generatedRomaji : "",
       romajiStatus: hasSafeRomaji ? "available" : "unavailable",
       furiganaEntries: preferredReadings,
+      ruby: rubySegmentsForText(ja, preferredReadings),
       zh,
     };
   });
@@ -3442,8 +3610,73 @@ function makeVocabCards(level) {
 
 const grammarChoiceCount = 4;
 
+// Options show meanings only: the formation column repeats the pattern text
+// itself (〜にくい → Vます形去ます + にくい), which would give the answer away.
 function grammarChoiceText(entry) {
-  return `意思：${entry.meaningZh}\n接续：${entry.formation}`;
+  return entry.meaningZh;
+}
+
+// Near-synonymous gloss fragments that would make two options both right.
+const grammarGlossSynonyms = new Map([
+  ["比起", "比"],
+  ["别", "不要"],
+  ["请不要", "不要"],
+  ["尚未", "还没"],
+  ["是不是", "吗"],
+  ["不知道是否", "吗"],
+  ["刚刚", "刚才"],
+  ["一样的", "样"],
+  ["一样地", "样"],
+  ["一样", "样"],
+  ...["似乎", "好像", "恐怕", "大概", "也许", "可能", "看起来", "显得"].map((word) => [word, "推测"]),
+]);
+
+// Each gloss becomes the set of fragments between …… placeholders, e.g.
+// 「比起……，……更……」→ {比, 更}; 「别……」→ {不要}.
+function grammarMeaningGlosses(entry) {
+  return String(entry.meaningZh || "")
+    .replace(/[（(][^）)]*[）)]/gu, "")
+    .split(/[；;、／/]/u)
+    .map((gloss) =>
+      gloss
+        .split(/…+|[，,\s。？?！!“”"「」]/u)
+        .filter(Boolean)
+        .map((fragment) => grammarGlossSynonyms.get(fragment) || fragment),
+    )
+    .filter((fragments) => fragments.length);
+}
+
+function grammarPatternParts(entry) {
+  return String(entry.pattern || "")
+    .replace(/[（(][^）)]*[）)]/gu, "")
+    .split(/[/／・]/u)
+    .map((part) => part.replace(/[〜~～+＋\s]|数量/gu, ""))
+    .filter(Boolean);
+}
+
+// A distractor must not also be a right answer: its gloss may not match or
+// contain the correct gloss (〜にくい / 〜づらい, まだ / まだ〜ていません), and
+// patterns that contain one another (〜のに / 〜のに, 〜ないで / 〜ないでください)
+// are never offered against each other.
+function grammarMeaningsOverlap(entry, candidate) {
+  const patternsOverlap = grammarPatternParts(entry).some((left) =>
+    grammarPatternParts(candidate).some((right) => {
+      const [shorter, longer] = left.length <= right.length ? [left, right] : [right, left];
+      return shorter === longer || (shorter.length >= 2 && longer.includes(shorter));
+    }),
+  );
+  if (patternsOverlap) return true;
+  const isSubset = (small, large) => small.every((fragment) => large.includes(fragment));
+  return grammarMeaningGlosses(entry).some((left) =>
+    grammarMeaningGlosses(candidate).some((right) => {
+      if (isSubset(left, right) || isSubset(right, left)) return true;
+      const leftText = left.join("");
+      const rightText = right.join("");
+      const [shorter, longer] =
+        leftText.length <= rightText.length ? [leftText, rightText] : [rightText, leftText];
+      return shorter.length >= 2 && longer.includes(shorter);
+    }),
+  );
 }
 
 function grammarChoiceKeywords(entry) {
@@ -3470,6 +3703,7 @@ function getGrammarDistractors(entry) {
   const usedTexts = new Set([grammarChoiceText(entry)]);
   return grammarEntries
     .filter((candidate) => candidate.id !== entry.id && candidate.level === entry.level)
+    .filter((candidate) => !grammarMeaningsOverlap(entry, candidate))
     .map((candidate) => ({
       entry: candidate,
       score: grammarDistractorScore(entry, candidate),
@@ -3504,7 +3738,7 @@ function makeGrammarChoiceCard(entry, examples) {
       isCorrect: false,
       sourcePattern: candidate.pattern,
       text: grammarChoiceText(candidate),
-      reason: `错误。这是「${candidate.pattern}」的意思和接续：${candidate.meaningZh} / ${candidate.formation}；它会把题干「${entry.pattern}」的语义或接续链条带偏。`,
+      reason: `错误。这是「${candidate.pattern}」的意思，不是「${entry.pattern}」。`,
     })),
   ];
 
@@ -3516,7 +3750,7 @@ function makeGrammarChoiceCard(entry, examples) {
     grammarKey: entry.id,
     grammarLevel: entry.level,
     type: `${entry.level} 语法选择题`,
-    prompt: `选择「${entry.pattern}」的正确意思和接续`,
+    prompt: `选择「${entry.pattern}」的正确意思`,
     promptLang: "zh-CN",
     subtle: examples[0]?.ja || "",
     subtleLang: "ja",
