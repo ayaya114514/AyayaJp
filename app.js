@@ -18,7 +18,6 @@ const isN4VocabDataMissing =
 const isGrammarDataMissing =
   !Array.isArray(window.AYAYA_GRAMMAR_DATA?.entries) ||
   window.AYAYA_GRAMMAR_DATA.entries.length === 0;
-const furiganaEntries = cardData?.furiganaEntries || [];
 const cardFamilyCache = new Map();
 
 function cardFamilyForDeck(deck) {
@@ -1164,7 +1163,9 @@ function isN4MistakeCard(card) {
 }
 
 function isGrammarMistakeCard(card) {
-  return card.isGrammar && !card.isChoice && hasMistakeRating(card);
+  if (!card.isGrammar) return false;
+  if (card.isChoice) return getState(card.id).lastRating === "wrong";
+  return hasMistakeRating(card);
 }
 
 function isN5GrammarMistakeCard(card) {
@@ -1438,10 +1439,6 @@ function render() {
   }
 }
 
-function containsKanji(text) {
-  return /[\u3400-\u9fff]/.test(text);
-}
-
 function appendRuby(parent, text, reading) {
   const ruby = document.createElement("ruby");
   ruby.append(document.createTextNode(text));
@@ -1451,29 +1448,19 @@ function appendRuby(parent, text, reading) {
   parent.append(ruby);
 }
 
-function renderFurigana(parent, text, preferredReadings = []) {
+// card-data.js segments each example with the same context-guarded readings
+// used for romaji; text that no reviewed reading covers stays unannotated.
+function renderFurigana(parent, text, rubySegments) {
   parent.replaceChildren();
-  const readingEntries = [];
-  const seenSurfaces = new Set();
-  [...preferredReadings, ...furiganaEntries].forEach(([surface, reading]) => {
-    if (!surface || !reading || seenSurfaces.has(surface)) return;
-    seenSurfaces.add(surface);
-    readingEntries.push([surface, reading]);
-  });
-  readingEntries.sort((left, right) => right[0].length - left[0].length);
-  let index = 0;
-
-  while (index < text.length) {
-    const entry = readingEntries.find(([surface]) => text.startsWith(surface, index));
-
-    if (entry && containsKanji(entry[0])) {
-      appendRuby(parent, entry[0], entry[1]);
-      index += entry[0].length;
-    } else {
-      parent.append(document.createTextNode(text[index]));
-      index += 1;
-    }
+  const segments = Array.isArray(rubySegments) ? rubySegments : [];
+  if (segments.map(([surface]) => surface).join("") !== text) {
+    parent.textContent = text;
+    return;
   }
+  segments.forEach(([surface, reading]) => {
+    if (reading) appendRuby(parent, surface, reading);
+    else parent.append(document.createTextNode(surface));
+  });
 }
 
 function renderExamples(examples) {
@@ -1496,7 +1483,7 @@ function renderExamples(examples) {
     const ja = document.createElement("p");
     ja.className = "example-ja";
     ja.lang = "ja";
-    renderFurigana(ja, example.ja, example.furiganaEntries || []);
+    renderFurigana(ja, example.ja, example.ruby);
 
     const romaji = document.createElement("p");
     romaji.className = "example-romaji";
@@ -1567,6 +1554,7 @@ function renderChoiceOptions() {
     button.type = "button";
     button.disabled = isRevealed;
     button.dataset.choiceId = choice.id;
+    button.setAttribute("aria-keyshortcuts", String(index + 1));
     button.classList.toggle("is-selected", choice.id === selectedChoiceId);
     button.classList.toggle("is-correct", isRevealed && choice.isCorrect);
     button.classList.toggle("is-wrong", isRevealed && choice.id === selectedChoiceId && !choice.isCorrect);
@@ -1653,11 +1641,11 @@ function renderEmpty(deckCards) {
     return;
   }
   if (activeDeck === "grammar-n5-mistakes" && !deckCards.length) {
-    elements.roundStatusText.textContent = "暂无语法错题，去 N5 语法中→日练几张吧。";
+    elements.roundStatusText.textContent = "暂无语法错题，去 N5 语法模块练几张吧。";
     return;
   }
   if (activeDeck === "grammar-n4-mistakes" && !deckCards.length) {
-    elements.roundStatusText.textContent = "暂无语法错题，去 N4 语法中→日练几张吧。";
+    elements.roundStatusText.textContent = "暂无语法错题，去 N4 语法模块练几张吧。";
     return;
   }
 
@@ -2351,6 +2339,30 @@ function handleStoreStorageChange(event) {
   }
 }
 
+const ratingShortcuts = { 1: "clear", 2: "unsure", 3: "forgot" };
+
+// 1/2/3 rate a revealed card; 1–4 pick a choice (A–D) before it is answered.
+function handleStudyShortcut(event) {
+  if (event.defaultPrevented || event.repeat || event.isComposing) return;
+  if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+  if (!currentCard || elements.deckSidebar.classList.contains("is-open")) return;
+  if (event.target.closest?.("input, textarea, select, [contenteditable='true']")) return;
+
+  if (currentCard.isChoice) {
+    if (isRevealed || !/^[1-4]$/.test(event.key)) return;
+    const choice = currentChoiceOptions[Number(event.key) - 1];
+    if (!choice) return;
+    event.preventDefault();
+    selectChoice(choice.id);
+    return;
+  }
+
+  const rating = ratingShortcuts[event.key];
+  if (!isRevealed || !rating) return;
+  event.preventDefault();
+  rateCurrentCard(rating);
+}
+
 function bindInteractions() {
   elements.cardReveal.addEventListener("click", revealCard);
   elements.studyCard.addEventListener("click", revealFromStudySurface);
@@ -2358,6 +2370,7 @@ function bindInteractions() {
     runSafely(() => handleSidebarHistoryChange(event)),
   );
   window.addEventListener("storage", (event) => runSafely(() => handleStoreStorageChange(event)));
+  document.addEventListener("keydown", (event) => runSafely(() => handleStudyShortcut(event)));
 
   elements.feedbackButtons.forEach((button) => {
     button.addEventListener("click", (event) => {

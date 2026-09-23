@@ -11,6 +11,7 @@
     "check": "npm run validate && npm run validate:bundle && npm run test:contracts",
     "test": "npm run check && npm run test:browser",
     "test:browser": "playwright test",
+    "sync:vocab": "node scripts/sync-vocab-js.js",
     "test:contracts": "node scripts/test-app-contracts.js",
     "update:manifest": "node scripts/update-validation-manifest.js",
     "validate": "node scripts/validate.js",

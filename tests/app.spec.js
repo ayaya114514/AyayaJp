@@ -377,7 +377,7 @@ test("changing modules clears Undo from the previous deck", async ({ page }) => 
   await expect(emptyMenuButton).toHaveAttribute("aria-expanded", "false");
 });
 
-test("browser Back closes the module drawer before leaving the app", async ({ page }) => {
+test("browser Back closes the module drawer before leaving the app", async ({ page, baseURL }) => {
   await page.goto("/?previous=1");
   await waitForApp(page);
   await page.goto("/");
@@ -388,7 +388,7 @@ test("browser Back closes the module drawer before leaving the app", async ({ pa
   await expect(page.locator(".study-area")).toHaveJSProperty("inert", true);
 
   await page.goBack();
-  await expect(page).toHaveURL("http://127.0.0.1:4173/");
+  await expect(page).toHaveURL(`${baseURL}/`);
   await expect(page.locator("#deckSidebar")).not.toHaveClass(/\bis-open\b/);
   await expect(page.locator("#deckSidebar")).toHaveAttribute("aria-hidden", "true");
   await expect(page.locator(".study-area")).toHaveJSProperty("inert", false);
@@ -406,7 +406,7 @@ test("browser Back closes the module drawer before leaving the app", async ({ pa
     .toBe(false);
 
   await page.goBack();
-  await expect(page).toHaveURL("http://127.0.0.1:4173/?previous=1");
+  await expect(page).toHaveURL(`${baseURL}/?previous=1`);
 });
 
 test("a stale tab cannot overwrite progress saved by another tab", async ({ page, context }) => {

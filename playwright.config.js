@@ -2,6 +2,10 @@
 
 const { defineConfig, devices } = require("@playwright/test");
 
+// A dedicated port, never reused: Vite preview also defaults to 4173, and
+// reusing whatever answers there could test a different app.
+const port = 4318;
+
 module.exports = defineConfig({
   testDir: "./tests",
   timeout: 30_000,
@@ -11,7 +15,7 @@ module.exports = defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? "github" : "list",
   use: {
-    baseURL: "http://127.0.0.1:4173",
+    baseURL: `http://127.0.0.1:${port}`,
     trace: "retain-on-failure",
   },
   projects: [
@@ -37,8 +41,9 @@ module.exports = defineConfig({
   ],
   webServer: {
     command: "node scripts/serve-static.js",
-    url: "http://127.0.0.1:4173",
-    reuseExistingServer: !process.env.CI,
+    env: { PORT: String(port) },
+    url: `http://127.0.0.1:${port}`,
+    reuseExistingServer: false,
     timeout: 30_000,
   },
 });

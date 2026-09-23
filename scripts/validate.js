@@ -1979,6 +1979,10 @@ function validatePreferredReadingRegressions(runtime) {
     ["木で小さな小屋を建てました", "kidechiisanakoya o tatemashita"],
     ["温かいうちに召し上がってください", "atatakaiuchinimeshiagattekudasai"],
     ["区役所まで歩いて行きます", "kuyakushomadearuiteikimasu"],
+    ["六か月かかります", "rokkagetsukakarimasu"],
+    ["電車に間に合いました", "denshanimaniaimashita"],
+    ["新しい展覧会が開かれています", "atarashiitenrankaigahirakareteimasu"],
+    ["昔の友達を思い出しました", "mukashinotomodachi o omoidashimashita"],
     ["木製の机を買いました", "mokuseinotsukue o kaimashita"],
     ["物語の終わりは少し悲しかったです", "monogatarinoowari wa sukoshikanashikattadesu"],
     ["自分の気持ちを正直に話しました", "jibunnokimochi o shoujikinihanashimashita"],
@@ -2007,7 +2011,7 @@ function validatePreferredReadingRegressions(runtime) {
     ["何を食べますか", "nani o tabemasuka"],
     ["この坂を下ると駅があります", "konosaka o kudarutoekigaarimasu"],
     ["銀行でお金を下ろします", "ginkoudeokane o oroshimasu"],
-    ["席が空いています", "sekigaaiteimasu"],
+    ["財布が空になりました", "saifugakaraninarimashita"],
     ["目を閉じてください", "me o tojitekudasai"],
     ["遠くで信号が光りました", "tookudeshingougahikarimashita"],
   ]);
@@ -2069,6 +2073,82 @@ function validateGrammarChoices(grammarCards, grammarData) {
       `${crossLevel.length} grammar distractors cross deck levels: ${sample(crossLevel, 10)}`,
     );
   }
+}
+
+// Furigana must come from the same context-guarded segmentation as romaji:
+// a Kanji compound is either annotated by one reviewed reading or left bare,
+// never assembled from per-character readings (明日 → 明(あか)日(ひ)).
+function validateExampleFurigana(cards) {
+  const kanji = /[\u3400-\u9fff]/u;
+  const examples = new Map();
+  cards.forEach((card) =>
+    (card.examples || []).forEach((example) => {
+      if (!examples.has(example.ja)) examples.set(example.ja, example);
+    }),
+  );
+  const malformed = [];
+  const splitCompounds = [];
+  examples.forEach((example, text) => {
+    const segments = Array.isArray(example.ruby) ? example.ruby : null;
+    if (
+      !segments ||
+      segments.map(([surface]) => surface).join("") !== text ||
+      segments.some(([surface, reading]) => !surface || (reading !== null && !reading))
+    ) {
+      malformed.push(text);
+      return;
+    }
+    const characters = segments.flatMap(([surface, reading], segmentIndex) =>
+      [...surface].map((character) => ({ character, reading, segmentIndex })),
+    );
+    for (let start = 0; start < characters.length; ) {
+      if (!kanji.test(characters[start].character)) {
+        start += 1;
+        continue;
+      }
+      let end = start;
+      while (end < characters.length && kanji.test(characters[end].character)) end += 1;
+      const run = characters.slice(start, end);
+      const annotated = run.filter((item) => item.reading);
+      const segmentCount = new Set(run.map((item) => item.segmentIndex)).size;
+      if (annotated.length && (annotated.length !== run.length || segmentCount > 1)) {
+        splitCompounds.push(`${run.map((item) => item.character).join("")} in ${text}`);
+      }
+      start = end;
+    }
+  });
+  check(!malformed.length, `${malformed.length} examples have malformed ruby segments: ${sample(malformed, 8)}`);
+  check(
+    !splitCompounds.length,
+    `${splitCompounds.length} Kanji compounds are annotated piecewise: ${sample(splitCompounds, 8)}`,
+  );
+
+  const renderedFixtures = new Map([
+    ["明日は雨でしょう", "明日(あした)は雨(あめ)でしょう"],
+    ["六か月かかります", "六(ろっ)か月(げつ)かかります"],
+    ["夜空で星が光っています", "夜空で星(ほし)が光(ひか)っています"],
+    ["店は九時に開きます", "店(みせ)は九時(くじ)に開(あ)きます"],
+    ["電車に間に合いました", "電車(でんしゃ)に間(ま)に合(あ)いました"],
+    ["昔の友達を思い出しました", "昔(むかし)の友達(ともだち)を思(おも)い出(だ)しました"],
+    ["新しい展覧会が開かれています", "新(あたら)しい展覧会(てんらんかい)が開(ひら)かれています"],
+    ["会議は三時から行われます", "会議(かいぎ)は三時から行(おこな)われます"],
+    ["先生はもう昼ご飯を召し上がりました", "先生(せんせい)はもう昼(ひる)ご飯(はん)を召(め)し上(あ)がりました"],
+    ["湖に一そうの舟が浮かんでいます", "湖(みずうみ)に一(いっ)そうの舟(ふね)が浮かんでいます"],
+  ]);
+  renderedFixtures.forEach((expected, text) => {
+    const rendered = (examples.get(text)?.ruby || [])
+      .map(([surface, reading]) => (reading ? `${surface}(${reading})` : surface))
+      .join("");
+    check(rendered === expected, `furigana for ${text} expected ${expected}, received ${rendered || "(missing)"}`);
+  });
+  ["明日、先生に会います", "観光客が多いです", "一日三回薬を飲みます"].forEach((text) => {
+    const example = examples.get(text);
+    if (!example) return;
+    const wrong = example.ruby.filter(([surface, reading]) =>
+      reading && ["明", "日", "光", "観光"].includes(surface),
+    );
+    check(!wrong.length, `furigana for ${text} must not annotate ${wrong.map(([surface, reading]) => `${surface}(${reading})`).join(", ")}`);
+  });
 }
 
 function checkReadmeDarkOnly(readme) {
@@ -2197,12 +2277,6 @@ function main() {
   const html = read("index.html");
   const appSource = read("app.js");
   const { tabDecks, tags } = checkHtmlAndDomContracts(html, appSource);
-  check(
-    /renderFurigana\(\s*ja\s*,\s*example\.ja\s*,\s*example\.furiganaEntries\s*\|\|\s*\[\]\s*\)/u.test(
-      appSource,
-    ),
-    "app.js must pass per-example preferred furigana into renderFurigana",
-  );
   checkReadmeDarkOnly(read("README.md"));
   const stylesSource = read("styles.css");
   checkDarkOnlyRuntime(tags, appSource, stylesSource);
@@ -2268,6 +2342,7 @@ function main() {
     validateProductionLegacyVocabIds(runtime);
     validatePreferredReadingRegressions(runtime);
     validateGrammarChoices(runtime.grammarCards, runtime.data.grammar);
+    validateExampleFurigana(cards);
   }
 
   if (validationErrors.length) {
