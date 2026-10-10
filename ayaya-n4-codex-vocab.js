@@ -34,9 +34,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "Examples are newly written short study sentences rather than copied corpus sentences.",
       "Mixed-sense records and repeated placeholder example families were reviewed and rewritten on 2026-07-17 so each retained entry demonstrates its own part of speech and meaning.",
       "Reading, part-of-speech, example alignment, same-sense duplicates and retained cross-level distinctions were re-audited on 2026-08-18; merged_source_ids preserve prior study state.",
-      "Dictionary forms, readings, coarse part-of-speech labels, senses, and all example rows were re-audited against JMdict and for Japanese/Chinese learning accuracy on 2026-08-30."
+      "Dictionary forms, readings, coarse part-of-speech labels, senses, and all example rows were re-audited against JMdict and for Japanese/Chinese learning accuracy on 2026-08-30.",
+      "On 2026-10-10 every entry was re-audited again: headword romaji now follows the particle and n' rules with the same word division as the examples, category labels were corrected, pure grammar patterns were migrated to grammar cards, and unnatural examples were rewritten."
     ],
-    "entry_count": 733
+    "entry_count": 728
   },
   "entries": [
     {
@@ -348,8 +349,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "明日は朝から雨が降るそうです。",
-          "zh": "听说明天从早上开始下雨。"
+          "ja": "明日の朝、雨が降るそうです。",
+          "zh": "听说明天早上会下雨。"
         },
         {
           "ja": "宿題は明日までに出してください。",
@@ -666,7 +667,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "いか"
       ],
       "romaji": "ika",
-      "part_of_speech": "noun/expression",
+      "part_of_speech": "noun",
       "meaning_zh": "以下；不超过",
       "kanji_readings": [
         {
@@ -703,7 +704,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "いがい"
       ],
       "romaji": "igai",
-      "part_of_speech": "noun/expression",
+      "part_of_speech": "noun",
       "meaning_zh": "以外；除……之外",
       "kanji_readings": [
         {
@@ -920,7 +921,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "いじょう"
       ],
       "romaji": "ijou",
-      "part_of_speech": "noun/expression",
+      "part_of_speech": "noun",
       "meaning_zh": "以上；超过；到此为止",
       "kanji_readings": [
         {
@@ -1212,7 +1213,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "いない"
       ],
       "romaji": "inai",
-      "part_of_speech": "noun/expression",
+      "part_of_speech": "noun",
       "meaning_zh": "以内；不超过",
       "kanji_readings": [
         {
@@ -1573,7 +1574,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "うち"
       ],
       "romaji": "uchi",
-      "part_of_speech": "noun/expression",
+      "part_of_speech": "noun",
       "meaning_zh": "内部；……之中；趁……期间",
       "kanji_readings": [],
       "examples": [
@@ -2181,7 +2182,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "おいでになる"
       ],
-      "romaji": "oideninaru",
+      "romaji": "oide ni naru",
       "part_of_speech": "verb",
       "meaning_zh": "在；来；去（尊敬语）",
       "kanji_readings": [],
@@ -2288,7 +2289,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "おかげ"
       ],
       "romaji": "okage",
-      "part_of_speech": "noun/expression",
+      "part_of_speech": "noun",
       "meaning_zh": "多亏；托……的福",
       "kanji_readings": [],
       "examples": [
@@ -2592,8 +2593,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "会议三点开始举行。"
         },
         {
-          "ja": "新しい計画を行いました。",
-          "zh": "实施了新计划。"
+          "ja": "毎年、この町でお祭りを行います。",
+          "zh": "每年在这个镇上举办祭典。"
         }
       ],
       "note_zh": ""
@@ -4120,7 +4121,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kakaru",
       "part_of_speech": "verb",
-      "meaning_zh": "花费；悬挂着；需要",
+      "meaning_zh": "挂着；悬挂；（锁）锁着；（电话）打来",
       "kanji_readings": [
         {
           "form": "掛かる",
@@ -4129,19 +4130,19 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "駅まで十分かかります。",
-          "zh": "到车站要十分钟。"
+          "ja": "ドアに鍵が掛かっています。",
+          "zh": "门锁着。"
         },
         {
           "ja": "壁に絵が掛かっています。",
           "zh": "墙上挂着画。"
         },
         {
-          "ja": "この仕事にはお金がかかります。",
-          "zh": "这项工作需要钱。"
+          "ja": "母から電話がかかってきました。",
+          "zh": "妈妈打来了电话。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "表示花费时间、金钱时一般写假名「かかる」（见 N5「かかる」）。"
     },
     {
       "id": "n4-117",
@@ -5355,7 +5356,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "かんたんに"
       ],
-      "romaji": "kantanni",
+      "romaji": "kantan ni",
       "part_of_speech": "adverb",
       "meaning_zh": "简单地；容易地",
       "kanji_readings": [
@@ -6144,7 +6145,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "次の急行は三番線です。",
-          "zh": "下一班急行在三号线。"
+          "zh": "下一班急行在三号站台。"
         },
         {
           "ja": "急行はこの駅に止まりません。",
@@ -6165,7 +6166,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "きゅうに"
       ],
-      "romaji": "kyuuni",
+      "romaji": "kyuu ni",
       "part_of_speech": "adverb",
       "meaning_zh": "突然；急忙地",
       "kanji_readings": [
@@ -6376,38 +6377,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n4-180",
-      "jlpt": "N4",
-      "headword": "きらい",
-      "source_form": "きらい",
-      "variants": [
-        "きらい"
-      ],
-      "reading": "きらい",
-      "reading_variants": [
-        "きらい"
-      ],
-      "romaji": "kirai",
-      "part_of_speech": "na-adjective/noun",
-      "meaning_zh": "讨厌；不喜欢",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "私は虫がきらいです。",
-          "zh": "我讨厌虫子。"
-        },
-        {
-          "ja": "きらいな食べ物はありますか。",
-          "zh": "有讨厌的食物吗？"
-        },
-        {
-          "ja": "彼は嘘をつく人がきらいです。",
-          "zh": "他讨厌说谎的人。"
-        }
-      ],
-      "note_zh": "N5 也常见，扩展表保留。"
-    },
-    {
       "id": "n4-181",
       "jlpt": "N4",
       "headword": "気をつける",
@@ -6419,7 +6388,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "きをつける"
       ],
-      "romaji": "kiwotsukeru",
+      "romaji": "ki o tsukeru",
       "part_of_speech": "expression/verb",
       "meaning_zh": "小心；注意",
       "kanji_readings": [
@@ -6604,7 +6573,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "くうこうバス"
       ],
-      "romaji": "kuukoubasu",
+      "romaji": "kuukou basu",
       "part_of_speech": "noun",
       "meaning_zh": "机场巴士",
       "kanji_readings": [
@@ -7007,7 +6976,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "ぐあいがわるい"
       ],
-      "romaji": "guaigawarui",
+      "romaji": "guai ga warui",
       "part_of_speech": "expression",
       "meaning_zh": "身体不舒服；情况不好",
       "kanji_readings": [
@@ -7517,7 +7486,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "けれど"
       ],
       "romaji": "keredo",
-      "part_of_speech": "expression/conjunction",
+      "part_of_speech": "conjunction",
       "meaning_zh": "但是；不过",
       "kanji_readings": [],
       "examples": [
@@ -7728,7 +7697,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "げんいん"
       ],
-      "romaji": "genin",
+      "romaji": "gen'in",
       "part_of_speech": "noun",
       "meaning_zh": "原因",
       "kanji_readings": [
@@ -7765,7 +7734,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "げんいんになる"
       ],
-      "romaji": "geninninaru",
+      "romaji": "gen'in ni naru",
       "part_of_speech": "expression",
       "meaning_zh": "成为原因",
       "kanji_readings": [
@@ -7841,7 +7810,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "こう"
       ],
       "romaji": "kou",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "这样；如此",
       "kanji_readings": [],
       "examples": [
@@ -8618,8 +8587,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "こと"
       ],
       "romaji": "koto",
-      "part_of_speech": "noun/expression",
-      "meaning_zh": "事情；内容；形式名词",
+      "part_of_speech": "noun",
+      "meaning_zh": "事情；事",
       "kanji_readings": [],
       "examples": [
         {
@@ -8627,12 +8596,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "我把昨天发生的事情告诉了母亲。"
         },
         {
-          "ja": "私の趣味は写真を撮ることです。",
-          "zh": "我的爱好是拍照。"
+          "ja": "それはいいことです。",
+          "zh": "那是好事。"
         },
         {
-          "ja": "日本へ行ったことがあります。",
-          "zh": "我去过日本。"
+          "ja": "分からないことは先生に聞きます。",
+          "zh": "不懂的事情问老师。"
         }
       ],
       "note_zh": ""
@@ -8686,7 +8655,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "このあいだ"
       ],
-      "romaji": "konoaida",
+      "romaji": "kono aida",
       "part_of_speech": "adverb/noun",
       "meaning_zh": "前几天；最近",
       "kanji_readings": [
@@ -8874,8 +8843,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "これから"
       ],
-      "romaji": "korekara",
-      "part_of_speech": "expression",
+      "romaji": "kore kara",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "从现在起；今后",
       "kanji_readings": [],
       "examples": [
@@ -9054,7 +9023,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "こんどこそ"
       ],
-      "romaji": "kondokoso",
+      "romaji": "kondo koso",
       "part_of_speech": "expression",
       "meaning_zh": "这次一定",
       "kanji_readings": [
@@ -9092,7 +9061,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "こんや"
       ],
-      "romaji": "konya",
+      "romaji": "kon'ya",
       "part_of_speech": "noun",
       "meaning_zh": "今晚",
       "kanji_readings": [
@@ -9167,7 +9136,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "ごぞんじ"
       ],
       "romaji": "gozonji",
-      "part_of_speech": "noun/expression",
+      "part_of_speech": "noun",
       "meaning_zh": "知道；认识",
       "kanji_readings": [
         {
@@ -9267,7 +9236,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "ごらんになる"
       ],
-      "romaji": "goranninaru",
+      "romaji": "goran ni naru",
       "part_of_speech": "verb",
       "meaning_zh": "看（尊敬语）",
       "kanji_readings": [],
@@ -9614,8 +9583,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "给您详细资料。"
         },
         {
-          "ja": "お手伝いを差し上げましょうか。",
-          "zh": "我来帮您好吗？"
+          "ja": "お客様にお茶を差し上げてください。",
+          "zh": "请给客人上茶。"
         }
       ],
       "note_zh": "敬语。"
@@ -9837,7 +9806,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "小さなことで騒ぎすぎです。",
-          "zh": "为了小事太吵了。"
+          "zh": "为一点小事闹得太过了。"
         }
       ],
       "note_zh": ""
@@ -11880,7 +11849,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "じゅうぶんに"
       ],
-      "romaji": "juubunni",
+      "romaji": "juubun ni",
       "part_of_speech": "adverb",
       "meaning_zh": "充分地；足够地",
       "kanji_readings": [
@@ -12140,7 +12109,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "じんこうがおおい"
       ],
-      "romaji": "jinkougaooi",
+      "romaji": "jinkou ga ooi",
       "part_of_speech": "expression",
       "meaning_zh": "人口多",
       "kanji_readings": [
@@ -12640,7 +12609,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "すりにあう"
       ],
-      "romaji": "suriniau",
+      "romaji": "suri ni au",
       "part_of_speech": "expression",
       "meaning_zh": "遇到扒手；被扒窃",
       "kanji_readings": [
@@ -13371,7 +13340,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "そう"
       ],
       "romaji": "sou",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "那样；这样（指方式或状态）",
       "kanji_readings": [],
       "examples": [
@@ -13688,7 +13657,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "それほど"
       ],
-      "romaji": "sorehodo",
+      "romaji": "sore hodo",
       "part_of_speech": "adverb",
       "meaning_zh": "那么；那种程度",
       "kanji_readings": [],
@@ -13784,7 +13753,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "そんなこと"
       ],
-      "romaji": "sonnakoto",
+      "romaji": "sonna koto",
       "part_of_speech": "expression",
       "meaning_zh": "那种事；那样的话",
       "kanji_readings": [],
@@ -13817,7 +13786,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "そんなに"
       ],
-      "romaji": "sonnani",
+      "romaji": "sonna ni",
       "part_of_speech": "adverb",
       "meaning_zh": "那么；那么多",
       "kanji_readings": [],
@@ -14294,7 +14263,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "たとえば"
       ],
       "romaji": "tatoeba",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "例如",
       "kanji_readings": [
         {
@@ -14460,44 +14429,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         }
       ],
       "note_zh": ""
-    },
-    {
-      "id": "n4-410",
-      "jlpt": "N4",
-      "headword": "ため",
-      "source_form": "為; ため",
-      "variants": [
-        "為",
-        "ため"
-      ],
-      "reading": "ため",
-      "reading_variants": [
-        "ため"
-      ],
-      "romaji": "tame",
-      "part_of_speech": "noun/expression",
-      "meaning_zh": "为了；原因；缘故",
-      "kanji_readings": [
-        {
-          "form": "為",
-          "reading": "ため"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "試験のために勉強しています。",
-          "zh": "为了考试正在学习。"
-        },
-        {
-          "ja": "雨のため、電車が遅れました。",
-          "zh": "因为下雨，电车晚点了。"
-        },
-        {
-          "ja": "家族のために料理を作りました。",
-          "zh": "为了家人做了饭。"
-        }
-      ],
-      "note_zh": "常写假名「ため」。"
     },
     {
       "id": "n4-411",
@@ -14803,7 +14734,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "だめ"
       ],
       "romaji": "dame",
-      "part_of_speech": "na-adjective/expression",
+      "part_of_speech": "na-adjective",
       "meaning_zh": "不行；没用；不可以",
       "kanji_readings": [],
       "examples": [
@@ -15490,7 +15421,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "つごうがいい"
       ],
-      "romaji": "tsugougaii",
+      "romaji": "tsugou ga ii",
       "part_of_speech": "expression",
       "meaning_zh": "方便；时间合适",
       "kanji_readings": [
@@ -15527,7 +15458,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "つごうがわるい"
       ],
-      "romaji": "tsugougawarui",
+      "romaji": "tsugou ga warui",
       "part_of_speech": "expression",
       "meaning_zh": "不方便；时间不合适",
       "kanji_readings": [
@@ -15775,38 +15706,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n4-447",
-      "jlpt": "N4",
-      "headword": "つもり",
-      "source_form": "つもり",
-      "variants": [
-        "つもり"
-      ],
-      "reading": "つもり",
-      "reading_variants": [
-        "つもり"
-      ],
-      "romaji": "tsumori",
-      "part_of_speech": "noun",
-      "meaning_zh": "打算；意图",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "来年、日本へ留学するつもりです。",
-          "zh": "我打算明年去日本留学。"
-        },
-        {
-          "ja": "今日は早く寝るつもりでした。",
-          "zh": "我本来打算今天早点睡。"
-        },
-        {
-          "ja": "冗談を言ったつもりはありません。",
-          "zh": "我没有开玩笑的意思。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
       "id": "n4-448",
       "jlpt": "N4",
       "headword": "釣る",
@@ -15855,7 +15754,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "つれていく"
       ],
-      "romaji": "tsureteiku",
+      "romaji": "tsurete iku",
       "part_of_speech": "expression/verb",
       "meaning_zh": "带去",
       "kanji_readings": [
@@ -16188,7 +16087,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "てんいん"
       ],
-      "romaji": "tenin",
+      "romaji": "ten'in",
       "part_of_speech": "noun",
       "meaning_zh": "店员",
       "kanji_readings": [
@@ -16336,8 +16235,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "できるだけ"
       ],
-      "romaji": "dekirudake",
-      "part_of_speech": "adverb/expression",
+      "romaji": "dekiru dake",
+      "part_of_speech": "adverb",
       "meaning_zh": "尽可能",
       "kanji_readings": [],
       "examples": [
@@ -16526,8 +16425,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "远处看得见山。"
         },
         {
-          "ja": "駅はここから遠くありません。",
-          "zh": "车站离这里不远。"
+          "ja": "遠くから電車の音が聞こえます。",
+          "zh": "从远处传来电车的声音。"
         },
         {
           "ja": "遠くまで歩きました。",
@@ -16596,8 +16495,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この道をまっすぐ通ります。",
-          "zh": "直走通过这条路。"
+          "ja": "この道は車がたくさん通ります。",
+          "zh": "这条路有很多车经过。"
         },
         {
           "ja": "電車が橋を通りました。",
@@ -16770,7 +16669,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "とちゅうで"
       ],
-      "romaji": "tochuude",
+      "romaji": "tochuu de",
       "part_of_speech": "adverb/expression",
       "meaning_zh": "在途中；中途",
       "kanji_readings": [
@@ -17565,38 +17464,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "note_zh": "敬语。"
     },
     {
-      "id": "n4-497",
-      "jlpt": "N4",
-      "headword": "など",
-      "source_form": "など",
-      "variants": [
-        "など"
-      ],
-      "reading": "など",
-      "reading_variants": [
-        "など"
-      ],
-      "romaji": "nado",
-      "part_of_speech": "particle/expression",
-      "meaning_zh": "等等；之类",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "本や雑誌などを買いました。",
-          "zh": "买了书和杂志等。"
-        },
-        {
-          "ja": "京都や奈良などへ行きたいです。",
-          "zh": "想去京都、奈良等地。"
-        },
-        {
-          "ja": "飲み物などは自分で用意してください。",
-          "zh": "饮料等请自己准备。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
       "id": "n4-498",
       "jlpt": "N4",
       "headword": "鳴る",
@@ -18340,7 +18207,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "ねだんがたかい"
       ],
-      "romaji": "nedangatakai",
+      "romaji": "nedan ga takai",
       "part_of_speech": "expression",
       "meaning_zh": "价格高",
       "kanji_readings": [
@@ -18378,7 +18245,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "ねだんがやすい"
       ],
-      "romaji": "nedangayasui",
+      "romaji": "nedan ga yasui",
       "part_of_speech": "expression",
       "meaning_zh": "价格便宜",
       "kanji_readings": [
@@ -18833,8 +18700,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "到了秋天，叶子会变红。"
         },
         {
-          "ja": "木の葉が風で落ちました。",
-          "zh": "树叶被风吹落了。"
+          "ja": "風で木から葉が落ちました。",
+          "zh": "风把树叶从树上吹落了。"
         },
         {
           "ja": "この葉は手のひらより大きいです。",
@@ -18987,38 +18854,6 @@ window.AYAYA_N4_CODEX_VOCAB = {
         {
           "ja": "新しい仕事を来月始めます。",
           "zh": "下个月开始新工作。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
-      "id": "n4-537",
-      "jlpt": "N4",
-      "headword": "はず",
-      "source_form": "はず",
-      "variants": [
-        "はず"
-      ],
-      "reading": "はず",
-      "reading_variants": [
-        "はず"
-      ],
-      "romaji": "hazu",
-      "part_of_speech": "noun/expression",
-      "meaning_zh": "应该；按理说",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "彼はもう着いたはずです。",
-          "zh": "他应该已经到了。"
-        },
-        {
-          "ja": "今日は休みのはずです。",
-          "zh": "今天应该休息。"
-        },
-        {
-          "ja": "この道で合っているはずです。",
-          "zh": "这条路应该没错。"
         }
       ],
       "note_zh": ""
@@ -19254,7 +19089,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "harau",
       "part_of_speech": "verb",
-      "meaning_zh": "支付；払除",
+      "meaning_zh": "支付；付钱；拂去",
       "kanji_readings": [
         {
           "form": "払う",
@@ -19400,7 +19235,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "ばあいによって"
       ],
-      "romaji": "baainiyotte",
+      "romaji": "baai ni yotte",
       "part_of_speech": "expression",
       "meaning_zh": "根据情况；视情况而定",
       "kanji_readings": [
@@ -19474,7 +19309,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "ばいになる"
       ],
-      "romaji": "baininaru",
+      "romaji": "bai ni naru",
       "part_of_speech": "expression",
       "meaning_zh": "变成两倍；成倍增加",
       "kanji_readings": [
@@ -19823,8 +19658,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "在ATM取了钱。"
         },
         {
-          "ja": "机の引き出しから手紙を引き出します。",
-          "zh": "从桌子抽屉里拿出信。"
+          "ja": "テープを少し引き出してください。",
+          "zh": "请把胶带拉出来一点。"
         },
         {
           "ja": "先生は学生の力を引き出します。",
@@ -19951,7 +19786,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "ひじょうに"
       ],
-      "romaji": "hijouni",
+      "romaji": "hijou ni",
       "part_of_speech": "adverb",
       "meaning_zh": "非常；极其",
       "kanji_readings": [
@@ -21549,7 +21384,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "ほんやく"
       ],
-      "romaji": "honyaku",
+      "romaji": "hon'yaku",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "翻译",
       "kanji_readings": [
@@ -22862,8 +22697,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "我再说一遍。"
         },
         {
-          "ja": "受付で名前を申しました。",
-          "zh": "在前台报了名字。"
+          "ja": "父がよろしくと申しておりました。",
+          "zh": "我父亲让我代他向您问好。"
         }
       ],
       "note_zh": "敬语。"
@@ -22880,7 +22715,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "もうすぐ"
       ],
-      "romaji": "mousugu",
+      "romaji": "mou sugu",
       "part_of_speech": "adverb",
       "meaning_zh": "马上；快要",
       "kanji_readings": [],
@@ -23001,8 +22836,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "回车站取忘带的东西。"
         },
         {
-          "ja": "話を最初に戻しましょう。",
-          "zh": "把话题回到开头吧。"
+          "ja": "すぐ戻りますから、ここで待っていてください。",
+          "zh": "我马上回来，请在这里等一下。"
         }
       ],
       "note_zh": ""
@@ -23236,7 +23071,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "やくにたつ"
       ],
-      "romaji": "yakunitatsu",
+      "romaji": "yaku ni tatsu",
       "part_of_speech": "expression/verb",
       "meaning_zh": "有用；起作用",
       "kanji_readings": [
@@ -24227,7 +24062,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "よろしい"
       ],
       "romaji": "yoroshii",
-      "part_of_speech": "i-adjective/expression",
+      "part_of_speech": "i-adjective",
       "meaning_zh": "好的；可以的",
       "kanji_readings": [],
       "examples": [
@@ -24310,8 +24145,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "咖啡和红茶我都喜欢。"
         },
         {
-          "ja": "両方の靴をはいて比べました。",
-          "zh": "我把两双鞋都试穿后进行了比较。"
+          "ja": "その二つの店は両方とも休みでした。",
+          "zh": "那两家店都没开门。"
         },
         {
           "ja": "この仕事は速さと正確さの両方が必要です。",
@@ -24667,7 +24502,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "waku",
       "part_of_speech": "verb",
-      "meaning_zh": "沸腾；涌出；兴奋起来",
+      "meaning_zh": "（水）开；沸腾；（场面）热烈起来",
       "kanji_readings": [
         {
           "form": "沸く",
@@ -24684,8 +24519,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "会场因掌声沸腾了。"
         },
         {
-          "ja": "温泉が山の中に沸いています。",
-          "zh": "温泉从山里涌出。"
+          "ja": "お風呂が沸きました。",
+          "zh": "洗澡水烧好了。"
         }
       ],
       "note_zh": ""
@@ -24850,7 +24685,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "わりあいに"
       ],
-      "romaji": "wariaini",
+      "romaji": "wariai ni",
       "part_of_speech": "adverb",
       "meaning_zh": "比较；相当",
       "kanji_readings": [
@@ -26238,7 +26073,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～いん"
       ],
-      "romaji": "in",
+      "romaji": "~in",
       "part_of_speech": "suffix",
       "meaning_zh": "……人员；……员",
       "kanji_readings": [
@@ -26275,7 +26110,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～か"
       ],
-      "romaji": "ka",
+      "romaji": "~ka",
       "part_of_speech": "suffix",
       "meaning_zh": "……家；……方面的人",
       "kanji_readings": [
@@ -26312,7 +26147,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～かい"
       ],
-      "romaji": "kai",
+      "romaji": "~kai",
       "part_of_speech": "suffix",
       "meaning_zh": "……会；……会议",
       "kanji_readings": [
@@ -26349,7 +26184,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～がくぶ"
       ],
-      "romaji": "gakubu",
+      "romaji": "~gakubu",
       "part_of_speech": "suffix",
       "meaning_zh": "……系；……学院",
       "kanji_readings": [
@@ -26386,7 +26221,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～く"
       ],
-      "romaji": "ku",
+      "romaji": "~ku",
       "part_of_speech": "suffix",
       "meaning_zh": "……区；行政区",
       "kanji_readings": [
@@ -26423,7 +26258,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～けん"
       ],
-      "romaji": "ken",
+      "romaji": "~ken",
       "part_of_speech": "counter/suffix",
       "meaning_zh": "……栋；……家店",
       "kanji_readings": [
@@ -26460,7 +26295,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～しき"
       ],
-      "romaji": "shiki",
+      "romaji": "~shiki",
       "part_of_speech": "suffix",
       "meaning_zh": "……式；……方式",
       "kanji_readings": [
@@ -26497,7 +26332,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～せい"
       ],
-      "romaji": "sei",
+      "romaji": "~sei",
       "part_of_speech": "suffix",
       "meaning_zh": "……制造；……制",
       "kanji_readings": [
@@ -26534,7 +26369,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～だい"
       ],
-      "romaji": "dai",
+      "romaji": "~dai",
       "part_of_speech": "suffix",
       "meaning_zh": "……费；……代；……年代",
       "kanji_readings": [
@@ -26571,7 +26406,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～まち"
       ],
-      "romaji": "machi",
+      "romaji": "~machi",
       "part_of_speech": "suffix",
       "meaning_zh": "……町；……镇",
       "kanji_readings": [
@@ -26582,16 +26417,16 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この町は静かで住みやすいです。",
-          "zh": "这个城镇安静、宜居。"
+          "ja": "ここは昔からの下町です。",
+          "zh": "这里自古就是老街区。"
         },
         {
           "ja": "港町を散歩しました。",
           "zh": "在港口城镇散步了。"
         },
         {
-          "ja": "町の中心に駅があります。",
-          "zh": "镇中心有车站。"
+          "ja": "下町には小さな店がたくさんあります。",
+          "zh": "老街区有很多小店。"
         }
       ],
       "note_zh": "地名后缀。"
@@ -26608,9 +26443,9 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "～め"
       ],
-      "romaji": "me",
+      "romaji": "~me",
       "part_of_speech": "suffix",
-      "meaning_zh": "第……；……眼；……目",
+      "meaning_zh": "第……（表示顺序）",
       "kanji_readings": [
         {
           "form": "～目",

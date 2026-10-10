@@ -159,6 +159,16 @@ class FakeElement {
     return this.attributes.has(name) ? this.attributes.get(name) : null;
   }
 
+  insertBefore(child, reference) {
+    if (child instanceof FakeElement && child.parentElement) {
+      child.parentElement.children = child.parentElement.children.filter((item) => item !== child);
+    }
+    const index = this.children.indexOf(reference);
+    this.children.splice(index < 0 ? this.children.length : index, 0, child);
+    if (child instanceof FakeElement) child.parentElement = this;
+    return child;
+  }
+
   querySelector(selector) {
     return this.querySelectorAll(selector)[0] || null;
   }
@@ -207,7 +217,7 @@ class FakeDocument {
       tab.dataset.deck = deck;
       return tab;
     });
-    this.feedback = ["clear", "unsure", "forgot"].map((rating) => {
+    this.feedback = ["clear", "forgot"].map((rating) => {
       const button = new FakeElement(this, "", "button");
       button.className = `feedback ${rating}`;
       button.dataset.rating = rating;
@@ -227,6 +237,7 @@ class FakeDocument {
       this.querySelector("#deckMenuButton"),
       this.querySelector("#dueCount"),
       this.querySelector("#reviewedCount"),
+      this.querySelector("#poolToggle"),
       this.querySelector("#undoRating"),
     );
     flashcard.append(this.querySelector("#cardReveal"), this.querySelector("#speakWord"));
@@ -280,6 +291,7 @@ class FakeDocument {
         "closeDeckMenu",
         "deckMenuButton",
         "emptyDeckMenuButton",
+        "poolToggle",
         "speakWord",
         "studyAnyWay",
         "undoRating",
@@ -516,14 +528,14 @@ function testN4LegacyProgressAndRoundQueueMigration() {
     wordKey: "vocab-entry-n4-101",
   });
   const legacyHistory = [
-    { at: 10, rating: "clear" },
-    { at: 20, rating: "forgot" },
+    { at: 10, rating: "forgot" },
+    { at: 20, rating: "clear" },
   ];
   const harness = createHarness({
     initialStore: JSON.stringify({
       [legacyId]: {
         lastRatedAt: 20,
-        lastRating: "forgot",
+        lastRating: "clear",
         ratingHistory: legacyHistory,
         reviews: 4,
       },
@@ -549,7 +561,7 @@ function testN4LegacyProgressAndRoundQueueMigration() {
   assert(migrated?.reviews === 4, "N4 migration did not preserve the review count");
   assert(migrated.lastEvent.at === 20, "N4 migration did not retain the newest rating event");
   assert(!Object.hasOwn(migrated, "ratingHistory"), "N4 migration retained unbounded history");
-  assert(migrated.lastRating === "forgot" && migrated.lastRatedAt === 20, "N4 latest rating drifted");
+  assert(migrated.lastRating === "clear" && migrated.lastRatedAt === 20, "N4 latest rating drifted");
   assert(!Object.hasOwn(saved, legacyId), "N4 legacy progress key was not deleted");
   assert(round.rounds === 3, "N4 migration did not preserve the completed round count");
   assert(
@@ -571,7 +583,7 @@ function testN5DuplicateAliasesMergeWithoutDuplicateQueueEntries() {
   });
   const historyItem = (at) => ({
     at,
-    rating: at % 2 === 0 ? "clear" : "forgot",
+    rating: at % 2 === 0 ? "forgot" : "clear",
   });
   const firstHistory = Array.from({ length: 8 }, (_, index) => historyItem(index + 1));
   const secondHistory = Array.from({ length: 8 }, (_, index) => historyItem(index + 8));
@@ -579,13 +591,13 @@ function testN5DuplicateAliasesMergeWithoutDuplicateQueueEntries() {
     initialStore: JSON.stringify({
       [legacyIds[0]]: {
         lastRatedAt: 8,
-        lastRating: "clear",
+        lastRating: "forgot",
         ratingHistory: firstHistory,
         reviews: 8,
       },
       [legacyIds[1]]: {
         lastRatedAt: 15,
-        lastRating: "forgot",
+        lastRating: "clear",
         ratingHistory: secondHistory,
         reviews: 8,
       },
@@ -656,8 +668,14 @@ function testRetiredStableSourceIdMigratesToRetainedEntry() {
   assert(saved[card.id]?.lastRating === "unsure", "retired stable source ID lost its latest rating");
   assert(!Object.hasOwn(saved, retiredId), "retired stable source ID was not removed after migration");
   assert(
-    JSON.stringify(saved.__rounds.decks[deck].queue) === JSON.stringify([card.id]),
-    "retired stable source ID was not migrated in the active round queue",
+    JSON.stringify(saved.__rounds.decks[deck].queue) === JSON.stringify([]),
+    "a legacy 不确定 card stayed in the main pool queue",
+  );
+  harness.element("poolToggle").dispatch("click");
+  const unknownRound = JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds.decks[`${deck}-unknown`];
+  assert(
+    JSON.stringify(unknownRound?.queue) === JSON.stringify([card.id]),
+    "retired stable source ID was not migrated into the 不认识 pool queue",
   );
 }
 
@@ -677,7 +695,7 @@ function testDirectUpgradeCrossLevelAliasDropsFromOldDeckQueue() {
     initialStore: JSON.stringify({
       [retiredId]: {
         lastRatedAt: 84,
-        lastRating: "forgot",
+        lastRating: "clear",
         reviews: 5,
       },
       __rounds: {
@@ -750,9 +768,13 @@ function testRetiredVocabProgressMovesToGrammarFamily() {
     JSON.stringify(saved.__rounds.decks[vocabDeck].queue) === JSON.stringify([]),
     "retired grammar target remained in the vocabulary queue",
   );
+  harness.element("poolToggle").dispatch("click");
+  const unknownRound = JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds.decks[
+    `${grammarDeck}-unknown`
+  ];
   assert(
-    JSON.stringify(saved.__rounds.decks[grammarDeck].queue) === JSON.stringify([grammarCard.id]),
-    "retired vocabulary card did not move into the matching grammar queue",
+    JSON.stringify(unknownRound?.queue) === JSON.stringify([grammarCard.id]),
+    "retired vocabulary card did not move into the matching grammar 不认识 queue",
   );
 }
 
@@ -780,7 +802,7 @@ function testSidebarFocusAndInertLifecycle() {
   assert(opener.getAttribute("aria-expanded") === "false", "sidebar opener ARIA state stayed expanded");
 }
 
-function testMistakeDeckQueuesPreviouslyReviewedCardsOnFirstVisit() {
+function testLegacyMistakeRatingsOpenInUnknownPool() {
   const card = baseCard({
     deck: "vocab-ja-zh",
     id: "vocab-entry-n5-002-ja",
@@ -798,42 +820,121 @@ function testMistakeDeckQueuesPreviouslyReviewedCardsOnFirstVisit() {
         ratingHistory: [{ at: 10, rating: "unsure" }],
         reviews: 1,
       },
+      __rounds: { activeDeck: "vocab-mistakes", decks: {} },
     }),
-    tabDecks: ["hiragana", "vocab-mistakes"],
+    tabDecks: ["hiragana", "vocab-ja-zh"],
     vocabCards: [card],
   });
 
-  harness.tabs[1].dispatch("click");
+  const toggle = harness.element("poolToggle");
+  assert(toggle.getAttribute("aria-pressed") === "true", "the legacy mistake deck did not reopen as 不认识");
+  assert(harness.tabs[1].classList.contains("active"), "the 不认识 pool did not highlight its tab");
+  assert(harness.element("studyCard").hidden === false, "the 不认识 pool incorrectly opened empty");
+  assert(harness.element("dueCount").textContent === 1, "a legacy 不确定 card was excluded from 不认识");
+  assert(harness.element("cardPrompt").textContent === card.prompt, "the 不认识 card was not queued");
 
-  assert(harness.element("studyCard").hidden === false, "mistake deck incorrectly opened empty");
-  assert(harness.element("dueCount").textContent === 1, "reviewed mistake was excluded from its first round");
-  assert(harness.element("cardPrompt").textContent === card.prompt, "mistake card was not queued");
+  toggle.dispatch("click");
+  assert(toggle.getAttribute("aria-pressed") === "false", "the toggle did not return to the main pool");
+  assert(harness.element("studyCard").hidden === true, "a 不认识 card stayed in the main pool");
+  assert(harness.element("unknownCount").textContent === 1, "the toggle did not count 不认识 cards");
 }
 
-function testFreshMistakeRatingImmediatelyEntersMistakeDeck() {
-  const card = baseCard({
-    deck: "vocab-zh-ja",
-    frontSpeech: "",
-    id: "vocab-entry-n5-002-zh",
-    isVocab: true,
-    legacyIds: ["vocab-1-zh"],
-    prompt: "见面",
-    sourceId: "n5-002",
-    wordKey: "vocab-entry-n5-002",
-  });
+function testRatingsMoveCardsBetweenPools() {
+  const cards = ["a", "b"].map((key) =>
+    baseCard({
+      deck: "vocab-zh-ja",
+      frontSpeech: "",
+      id: `vocab-entry-n5-00${key}-zh`,
+      isVocab: true,
+      prompt: `见面-${key}`,
+      sourceId: `n5-00${key}`,
+      wordKey: `vocab-entry-n5-00${key}`,
+    }),
+  );
   const harness = createHarness({
-    tabDecks: ["hiragana", "vocab-zh-ja", "vocab-mistakes"],
-    vocabCards: [card],
+    random: () => 0,
+    tabDecks: ["hiragana", "vocab-zh-ja"],
+    vocabCards: cards,
   });
+  const forgot = harness.document.feedback.find((button) => button.dataset.rating === "forgot");
+  const clear = harness.document.feedback.find((button) => button.dataset.rating === "clear");
+  const toggle = harness.element("poolToggle");
 
   harness.tabs[1].dispatch("click");
+  const unknownPrompt = harness.element("cardPrompt").textContent;
+  harness.element("cardReveal").dispatch("click");
+  forgot.dispatch("click");
+  assert(harness.element("dueCount").textContent === 1, "不认识 did not leave the main pool");
+  assert(harness.element("unknownCount").textContent === 1, "不认识 did not enter the 不认识 pool");
+
+  harness.element("cardReveal").dispatch("click");
+  clear.dispatch("click");
+  assert(harness.element("studyCard").hidden === true, "the main round did not finish");
+  assert(
+    harness.element("roundStatusText").textContent.includes("认识 1，不认识 1"),
+    "the finished round did not split into 认识 and 不认识",
+  );
+
+  toggle.dispatch("click");
+  assert(harness.element("cardPrompt").textContent === unknownPrompt, "the 不认识 pool lost the card");
+  harness.element("cardReveal").dispatch("click");
+  clear.dispatch("click");
+  assert(harness.element("unknownCount").textContent === 0, "认识 did not leave the 不认识 pool");
+  assert(harness.element("poolToggleLabel").textContent === "返回认识", "the toggle hid the way back");
+
+  harness.element("undoRating").dispatch("click");
+  assert(harness.element("unknownCount").textContent === 1, "Undo did not return the card to 不认识");
+  assert(harness.element("cardPrompt").textContent === unknownPrompt, "Undo did not restore the card");
+  clear.dispatch("click");
+
+  toggle.dispatch("click");
+  assert(harness.element("studyCard").hidden === true, "a card marked 认识 was queued again this round");
+  assert(harness.element("reviewedCount").textContent === 2, "the main pool lost the returned card");
+  assert(
+    harness.element("roundStatusText").textContent.includes("认识 2，不认识 0"),
+    "the returned card was not counted as 认识",
+  );
+}
+
+function testNewUnknownCardKeepsFinishedUnknownRounds() {
+  const cards = [baseCard({ id: "pool-a", prompt: "a" }), baseCard({ id: "pool-b", prompt: "b" })];
+  const harness = createHarness({ kanaCards: cards, random: () => 0 });
+  const forgot = harness.document.feedback.find((button) => button.dataset.rating === "forgot");
+  const toggle = harness.element("poolToggle");
+  const firstPrompt = harness.element("cardPrompt").textContent;
+
+  harness.element("cardReveal").dispatch("click");
+  forgot.dispatch("click");
+  toggle.dispatch("click");
+  harness.element("cardReveal").dispatch("click");
+  forgot.dispatch("click");
+  const unknownRounds = () =>
+    JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds.decks["hiragana-unknown"].rounds;
+  assert(unknownRounds() === 1, "finishing the 不认识 pool did not count a round");
+
+  toggle.dispatch("click");
+  assert(harness.element("cardPrompt").textContent !== firstPrompt, "the main pool repeated a moved card");
+  harness.element("cardReveal").dispatch("click");
+  forgot.dispatch("click");
+  assert(unknownRounds() === 1, "a newly unknown card rolled back the finished 不认识 round");
+  toggle.dispatch("click");
+  assert(harness.element("dueCount").textContent === 1, "the newly unknown card was not queued");
+  assert(harness.element("reviewedCount").textContent === 1, "the finished 不认识 card was requeued");
+}
+
+function testUndoReturnsUnknownCardToMainPool() {
+  const card = baseCard({ id: "undo-move" });
+  const harness = createHarness({ kanaCards: [card] });
+
   harness.element("cardReveal").dispatch("click");
   harness.document.feedback.find((button) => button.dataset.rating === "forgot").dispatch("click");
-  harness.tabs[2].dispatch("click");
+  assert(harness.element("unknownCount").textContent === 1, "不认识 did not move the card");
+  harness.element("undoRating").dispatch("click");
 
-  assert(harness.element("studyCard").hidden === false, "fresh mistake opened an empty deck");
-  assert(harness.element("dueCount").textContent === 1, "fresh mistake was not queued");
-  assert(harness.element("cardPrompt").textContent === card.prompt, "fresh mistake card was not shown");
+  assert(harness.element("unknownCount").textContent === 0, "Undo left the card in 不认识");
+  assert(harness.element("cardPrompt").textContent === card.prompt, "Undo did not restore the main card");
+  harness.element("poolToggle").dispatch("click");
+  assert(harness.element("studyCard").hidden === true, "Undo left a stale card in the 不认识 queue");
 }
 
 function dispatchDocumentKey(harness, key, properties = {}) {
@@ -857,19 +958,20 @@ function testNumberKeysRateRevealedCards() {
   const harness = createHarness({ kanaCards: [first, second] });
   const promptBefore = harness.element("cardPrompt").textContent;
 
-  dispatchDocumentKey(harness, "3");
+  dispatchDocumentKey(harness, "2");
   assert(harness.element("cardPrompt").textContent === promptBefore, "a shortcut rated a hidden answer");
   harness.element("cardReveal").dispatch("click");
+  assert(dispatchDocumentKey(harness, "3").defaultPrevented === false, "the retired shortcut 3 still rates");
   assert(dispatchDocumentKey(harness, "2", { repeat: true }).defaultPrevented === false, "auto-repeat rated a card");
   const event = dispatchDocumentKey(harness, "2");
   assert(event.defaultPrevented, "rating shortcut was not handled");
   const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
   const ratedId = promptBefore === "a" ? first.id : second.id;
-  assert(saved[ratedId]?.lastRating === "unsure", "shortcut 2 did not record 不确定");
+  assert(saved[ratedId]?.lastRating === "forgot", "shortcut 2 did not record 不认识");
   assert(harness.element("cardPrompt").textContent !== promptBefore, "rating shortcut did not advance");
 }
 
-function testWrongChoiceEntersGrammarMistakes() {
+function testWrongChoiceEntersUnknownPool() {
   const choiceCard = baseCard({
     choices: [
       { id: "right", isCorrect: true, reason: "correct", text: "正确" },
@@ -886,8 +988,9 @@ function testWrongChoiceEntersGrammarMistakes() {
   const harness = createHarness({
     grammarCards: [choiceCard],
     random: () => 0.99,
-    tabDecks: ["hiragana", "grammar-n5-choice", "grammar-n5-mistakes"],
+    tabDecks: ["hiragana", "grammar-n5-choice"],
   });
+  const toggle = harness.element("poolToggle");
 
   harness.tabs[1].dispatch("click");
   const options = harness.element("choiceList").children;
@@ -895,19 +998,20 @@ function testWrongChoiceEntersGrammarMistakes() {
   assert(wrongIndex >= 0, "fixture wrong option is missing");
   dispatchDocumentKey(harness, String(wrongIndex + 1));
   assert(harness.element("answerMain").textContent === "回答错误", "number key did not pick the choice");
+  assert(harness.element("unknownCount").textContent === 1, "a wrong choice did not enter 不认识");
 
-  harness.tabs[2].dispatch("click");
-  assert(harness.element("studyCard").hidden === false, "a wrong choice did not enter grammar mistakes");
-  assert(harness.element("cardPrompt").textContent === choiceCard.prompt, "grammar mistakes did not show the choice");
+  harness.element("choiceNext").dispatch("click");
+  toggle.dispatch("click");
+  assert(harness.element("studyCard").hidden === false, "a wrong choice did not open in 不认识");
+  assert(harness.element("cardPrompt").textContent === choiceCard.prompt, "不认识 did not show the choice");
 
   const rightIndex = harness.element("choiceList").children.findIndex(
     (option) => option.dataset.choiceId === "right",
   );
   harness.element("choiceList").children[rightIndex].dispatch("click");
   harness.element("choiceNext").dispatch("click");
-  harness.tabs[1].dispatch("click");
-  harness.tabs[2].dispatch("click");
-  assert(harness.element("studyCard").hidden === true, "a corrected choice stayed in grammar mistakes");
+  assert(harness.element("studyCard").hidden === true, "a corrected choice stayed in 不认识");
+  assert(harness.element("unknownCount").textContent === 0, "a corrected choice was still counted");
 }
 
 function testStudyCardSurfaceRevealsAnswer() {
@@ -1133,7 +1237,7 @@ function testStaleTabCannotCompleteCardInNewerRound() {
   first.document.feedback[0].dispatch("click");
   first.element("studyAnyWay").dispatch("click");
   stale.element("cardReveal").dispatch("click");
-  stale.document.feedback[2].dispatch("click");
+  stale.document.feedback[0].dispatch("click");
 
   const saved = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"));
   const round = saved.__rounds.decks.hiragana;
@@ -1333,7 +1437,7 @@ function testStaleTabsMergeIndependentProgressAndRounds() {
   firstTab.document.feedback[0].dispatch("click");
   staleTab.tabs[1].dispatch("click");
   staleTab.element("cardReveal").dispatch("click");
-  staleTab.document.feedback[2].dispatch("click");
+  staleTab.document.feedback[1].dispatch("click");
 
   const saved = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"));
   assert(saved[hiragana.id]?.reviews === 1, "stale tab overwrote the other tab's card progress");
@@ -1354,7 +1458,7 @@ function testConcurrentRatingsOnSameCardAreDeduplicatedSafely() {
   firstTab.element("cardReveal").dispatch("click");
   firstTab.document.feedback[0].dispatch("click");
   staleTab.element("cardReveal").dispatch("click");
-  staleTab.document.feedback[2].dispatch("click");
+  staleTab.document.feedback[1].dispatch("click");
 
   const saved = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"))["card-a"];
   assert(saved.reviews === 2, "concurrent ratings on one card lost a review count");
@@ -1445,7 +1549,7 @@ function testStorageWriteMovesFocusOffInvalidatedUndo() {
   const remoteEvent = {
     at: (ownEvent.at || 0) + 1,
     eventId: "remote-replacement-event",
-    rating: "forgot",
+    rating: "clear",
   };
   invalidatingStore["card-a"] = {
     ...invalidatingStore["card-a"],
@@ -1519,7 +1623,7 @@ function testConcurrentRatingUndoKeepsRemoteReviewConsistent() {
   const firstEventId = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"))["card-a"]
     .lastEvent.eventId;
   staleTab.element("cardReveal").dispatch("click");
-  staleTab.document.feedback[2].dispatch("click");
+  staleTab.document.feedback[1].dispatch("click");
 
   firstTab.element("undoRating").dispatch("click");
   const saved = JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"));
@@ -2177,10 +2281,12 @@ const tests = [
   ["direct-upgrade cross-level aliases leave old deck queues", testDirectUpgradeCrossLevelAliasDropsFromOldDeckQueue],
   ["retired vocabulary progress moves to grammar", testRetiredVocabProgressMovesToGrammarFamily],
   ["sidebar focus and inert lifecycle", testSidebarFocusAndInertLifecycle],
-  ["mistake decks queue reviewed cards on first visit", testMistakeDeckQueuesPreviouslyReviewedCardsOnFirstVisit],
-  ["fresh mistake ratings enter the mistake deck", testFreshMistakeRatingImmediatelyEntersMistakeDeck],
+  ["legacy mistake ratings open in the 不认识 pool", testLegacyMistakeRatingsOpenInUnknownPool],
+  ["ratings move cards between 认识 and 不认识", testRatingsMoveCardsBetweenPools],
+  ["Undo returns a 不认识 card to the main pool", testUndoReturnsUnknownCardToMainPool],
+  ["new 不认识 cards keep finished 不认识 rounds", testNewUnknownCardKeepsFinishedUnknownRounds],
   ["number keys rate revealed cards", testNumberKeysRateRevealedCards],
-  ["wrong choices enter grammar mistakes", testWrongChoiceEntersGrammarMistakes],
+  ["wrong choices enter the 不认识 pool", testWrongChoiceEntersUnknownPool],
   ["blank study-card surface reveals the answer", testStudyCardSurfaceRevealsAnswer],
   ["study surface excludes interactive descendants", testStudySurfaceExcludesInteractiveDescendants],
   ["reveal and rating focus valid actions", testRevealAndRatingMoveFocusToValidActions],

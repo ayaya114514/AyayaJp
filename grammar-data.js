@@ -267,6 +267,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n5-grammar-012",
+      "retiredVocabSourceIds": ["n5-380"],
       "level": "N5",
       "pattern": "〜だけ",
       "meaningZh": "只……；仅……",
@@ -1563,6 +1564,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n5-grammar-066",
+      "retiredVocabSourceIds": ["n4-447"],
       "level": "N5",
       "pattern": "〜つもり",
       "meaningZh": "打算……",
@@ -2405,6 +2407,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-017",
+      "retiredVocabSourceIds": ["n5-181"],
       "level": "N4",
       "pattern": "〜がる / 〜がっている",
       "meaningZh": "显得……；想要……",
@@ -2478,6 +2481,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-020",
+      "retiredVocabSourceIds": ["n4-537"],
       "level": "N4",
       "pattern": "〜はずだ",
       "meaningZh": "应该……；按理说……",
@@ -3175,6 +3179,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-049",
+      "retiredVocabSourceIds": ["n5-486", "n4-497"],
       "level": "N4",
       "pattern": "〜など",
       "meaningZh": "……等；……之类",
@@ -3819,8 +3824,8 @@ window.AYAYA_GRAMMAR_DATA = {
           "zh": "工作了十个小时，实在是累了。"
         },
         {
-          "ja": "この店はさすが人気店だけあって、おいしいです。",
-          "zh": "这家店不愧是人气店，很好吃。"
+          "ja": "さすが先生ですね。何でも分かります。",
+          "zh": "不愧是老师，什么都懂。"
         }
       ]
     },
@@ -4203,7 +4208,7 @@ window.AYAYA_GRAMMAR_DATA = {
           "zh": "帮妹妹看作业。"
         },
         {
-          "ja": "母に荷物を持ってあげました。",
+          "ja": "母の荷物を持ってあげました。",
           "zh": "帮妈妈拿了行李。"
         }
       ]
@@ -4488,7 +4493,7 @@ window.AYAYA_GRAMMAR_DATA = {
           "zh": "给狗喂了水。"
         },
         {
-          "ja": "弟に自転車を直してやりました。",
+          "ja": "弟の自転車を直してやりました。",
           "zh": "帮弟弟修了自行车。"
         },
         {
@@ -5172,7 +5177,7 @@ window.AYAYA_GRAMMAR_DATA = {
     },
     {
       "id": "n4-grammar-133",
-      "retiredVocabSourceIds": ["n4-752"],
+      "retiredVocabSourceIds": ["n4-752", "n4-410"],
       "level": "N4",
       "pattern": "〜ために（目的）",
       "meaningZh": "为了……",

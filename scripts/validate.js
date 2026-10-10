@@ -32,10 +32,15 @@ const expectedDependencyScripts = [
   "n5-codex-vocab.js",
   "ayaya-n4-codex-vocab.js",
   "grammar-data.js",
+  "pitch-accent-data.js",
+  "romaji-word-spacing.js",
+  "example-readings.js",
   "card-data.js",
   "app.js",
 ];
-const minimumReviewedRomajiCoverage = 0.7;
+// Every example carries reviewed furigana and romaji; an example that cannot be
+// annotated safely needs a reviewed entry in example-readings.js (or a rewrite).
+const minimumReviewedRomajiCoverage = 1;
 const expectedMergedSourceTargets = new Map([
   ["n4-002", "n5-001"],
   ["n4-039", "n5-072"],
@@ -58,6 +63,7 @@ const expectedMergedSourceTargets = new Map([
   ["n4-247", "n4-246"],
   ["n4-377", "n4-376"],
   ["n4-613", "n4-612"],
+  ["n4-180", "n5-208"],
 ]);
 const allowedCrossLevelVocabOverlaps = new Set([
   "n5-081/n4-046",
@@ -99,6 +105,13 @@ const expectedRetiredVocabGrammarTargets = new Map([
   ["n4-762", "n4-grammar-007"],
   ["n4-765", "n4-grammar-042"],
   ["n4-767", "n4-grammar-121"],
+  ["n5-181", "n4-grammar-017"],
+  ["n5-380", "n5-grammar-012"],
+  ["n5-486", "n4-grammar-049"],
+  ["n4-497", "n4-grammar-049"],
+  ["n4-447", "n5-grammar-066"],
+  ["n4-537", "n4-grammar-020"],
+  ["n4-410", "n4-grammar-133"],
 ]);
 
 function addError(message) {
@@ -865,6 +878,147 @@ function validateVocabSource(label, data, expectedCount) {
   }
 }
 
+const headwordKanaRomaji = new Map(Object.entries({
+  あ: "a", い: "i", う: "u", え: "e", お: "o",
+  か: "ka", き: "ki", く: "ku", け: "ke", こ: "ko",
+  が: "ga", ぎ: "gi", ぐ: "gu", げ: "ge", ご: "go",
+  さ: "sa", し: "shi", す: "su", せ: "se", そ: "so",
+  ざ: "za", じ: "ji", ず: "zu", ぜ: "ze", ぞ: "zo",
+  た: "ta", ち: "chi", つ: "tsu", て: "te", と: "to",
+  だ: "da", ぢ: "ji", づ: "zu", で: "de", ど: "do",
+  な: "na", に: "ni", ぬ: "nu", ね: "ne", の: "no",
+  は: "ha", ひ: "hi", ふ: "fu", へ: "he", ほ: "ho",
+  ば: "ba", び: "bi", ぶ: "bu", べ: "be", ぼ: "bo",
+  ぱ: "pa", ぴ: "pi", ぷ: "pu", ぺ: "pe", ぽ: "po",
+  ま: "ma", み: "mi", む: "mu", め: "me", も: "mo",
+  や: "ya", ゆ: "yu", よ: "yo",
+  ら: "ra", り: "ri", る: "ru", れ: "re", ろ: "ro",
+  わ: "wa", を: "o", ゔ: "vu",
+  ぁ: "a", ぃ: "i", ぅ: "u", ぇ: "e", ぉ: "o",
+}));
+const headwordDigraphRomaji = new Map(Object.entries({
+  しゃ: "sha", しゅ: "shu", しょ: "sho", しぇ: "she",
+  じゃ: "ja", じゅ: "ju", じょ: "jo", じぇ: "je",
+  ちゃ: "cha", ちゅ: "chu", ちょ: "cho", ちぇ: "che",
+  てぃ: "ti", でぃ: "di", ふぁ: "fa", ふぃ: "fi", ふぇ: "fe", ふぉ: "fo",
+  うぃ: "wi", うぇ: "we", うぉ: "wo",
+}));
+
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+}
+
+// Builds a pattern for the reviewed Hepburn spelling of one headword reading:
+// は / へ may be the particles wa / e, を is always o, n' is required inside a
+// word before a vowel or y, and a space may separate any two morae.
+function headwordRomajiPattern(reading) {
+  const kana = [...reading.replace(/[~〜～]/gu, "")]
+    .map((character) => {
+      const code = character.codePointAt(0);
+      return code >= 0x30a1 && code <= 0x30f6 ? String.fromCodePoint(code - 0x60) : character;
+    })
+    .join("");
+  const morae = [];
+  for (let index = 0; index < kana.length; index += 1) {
+    const pair = kana.slice(index, index + 2);
+    if (headwordDigraphRomaji.has(pair)) {
+      morae.push({ kana: pair, romaji: headwordDigraphRomaji.get(pair) });
+      index += 1;
+    } else if (/[ゃゅょ]/u.test(kana[index + 1] || "") && headwordKanaRomaji.has(kana[index])) {
+      const base = headwordKanaRomaji.get(kana[index]);
+      const glide = { ゃ: "a", ゅ: "u", ょ: "o" }[kana[index + 1]];
+      morae.push({ kana: pair, romaji: `${base.slice(0, -1)}y${glide}` });
+      index += 1;
+    } else {
+      morae.push({ kana: kana[index], romaji: headwordKanaRomaji.get(kana[index]) ?? null });
+    }
+  }
+  let pattern = "";
+  let previous = "";
+  morae.forEach((mora, index) => {
+    const next = morae[index + 1];
+    let piece;
+    if (mora.kana === "ー") {
+      piece = previous ? escapeRegExp(previous.at(-1)) : null;
+    } else if (mora.kana === "っ") {
+      piece = next?.romaji ? escapeRegExp(next.romaji[0] === "c" ? "c" : next.romaji[0]) : null;
+    } else if (mora.kana === "ん") {
+      piece = next?.romaji && /^[aeiouy]/u.test(next.romaji) ? "n(?:'| )" : "n";
+    } else if (mora.kana === "は") {
+      piece = "(?:ha|wa)";
+    } else if (mora.kana === "へ") {
+      piece = "(?:he|e)";
+    } else {
+      piece = mora.romaji === null ? null : escapeRegExp(mora.romaji);
+    }
+    if (piece === null) {
+      pattern = null;
+      return;
+    }
+    if (pattern !== null) pattern += `${pattern ? " ?" : ""}${piece}`;
+    if (mora.romaji) previous = mora.romaji;
+  });
+  return pattern === null ? null : new RegExp(`^${pattern}$`, "u");
+}
+
+// The headword romaji is shown on every vocabulary card; check it against the
+// reading so particle spellings (では → dewa, を → o) and n' cannot drift.
+function validateHeadwordRomaji(label, data) {
+  (data?.entries || []).forEach((entry) => {
+    const readings = String(entry.reading || "").split("・");
+    const romajiForms = String(entry.romaji || "").split(" / ");
+    if (readings.length !== romajiForms.length) {
+      addError(`${label} ${entry.id} romaji ${entry.romaji} does not list one form per reading`);
+      return;
+    }
+    readings.forEach((reading, index) => {
+      const romaji = romajiForms[index];
+      const affixed = /[~〜～]/u.test(reading);
+      check(
+        /^[a-z' ~]+$/u.test(romaji) && !/^ | $|  /u.test(romaji),
+        `${label} ${entry.id} romaji ${romaji} must be lower-case Hepburn with single spaces`,
+      );
+      check(
+        affixed === romaji.includes("~"),
+        `${label} ${entry.id} romaji ${romaji} must mark the affix with ~ exactly when the reading does`,
+      );
+      const pattern = headwordRomajiPattern(reading);
+      check(Boolean(pattern), `${label} ${entry.id} reading ${reading} has kana the romaji check cannot spell`);
+      if (!pattern) return;
+      check(
+        pattern.test(romaji.replace(/~/gu, "")),
+        `${label} ${entry.id} romaji ${romaji} does not spell reading ${reading}`,
+      );
+      if (reading.includes("では")) {
+        check(/de ?wa/u.test(romaji), `${label} ${entry.id} romaji ${romaji} must spell では as dewa`);
+      }
+    });
+  });
+}
+
+// Pure grammar patterns are taught by grammar cards only (see CLAUDE.md);
+// retired vocabulary cards migrate through retiredVocabSourceIds.
+// Bare forms are listed for particles and formal nouns; verbs and adjectives that
+// are also ordinary words (始める, 出す) are only forbidden as ～ suffix patterns.
+const grammarOnlyVocabHeadwords = new Set([
+  "ため", "ために", "について", "によると", "ばかり", "だけ", "など", "つもり", "はず",
+  "～ため", "～ために", "～について", "～によると", "～ばかり", "～だけ", "～など", "～つもり",
+  "～はず", "～がる", "～やすい", "～にくい", "～まま", "～おき", "～始める", "～終わる", "～出す",
+  "～てしまう",
+]);
+
+function validateGrammarOnlyVocab(n5Data, n4Data) {
+  [...(n5Data?.entries || []), ...(n4Data?.entries || [])].forEach((entry) => {
+    [...new Set([entry.headword, ...(entry.variants || [])])].forEach((form) => {
+      const normalized = String(form || "").replace(/[~〜]/gu, "～");
+      check(
+        !grammarOnlyVocabHeadwords.has(normalized),
+        `${entry.id} ${form} is a grammar pattern and must be taught by a grammar card`,
+      );
+    });
+  });
+}
+
 function validateVocabLevelBoundaries(n5Data, n4Data) {
   const signature = (entry) =>
     `${canonicalText(entry?.headword)}\u0000${canonicalText(entry?.reading)}`;
@@ -1376,19 +1530,95 @@ function validatePromptDisambiguation(cards) {
   }
 }
 
+// Pitch accents come from reviewed Kanjium data; anything that cannot be tied to
+// a vocab entry or exceeds the reading's morae must fail validation, and the
+// manually rejected senses must stay unannotated.
+function validatePitchAccentData(pitchAccent, n5Json, n4Json, vocabCards) {
+  const entries = pitchAccent?.entries;
+  if (!entries || typeof entries !== "object") {
+    addError("pitch-accent-data.js does not expose AYAYA_PITCH_ACCENT.entries");
+    return;
+  }
+  check(
+    /CC BY-SA 4\.0/u.test(pitchAccent.license || "") && /kanjium/iu.test(pitchAccent.source || ""),
+    "pitch accent data lost its Kanjium CC BY-SA 4.0 attribution",
+  );
+  const vocabById = new Map([...n5Json.entries, ...n4Json.entries].map((entry) => [entry.id, entry]));
+  const smallKana = /[ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ]/u;
+  Object.entries(entries).forEach(([id, positions]) => {
+    const entry = vocabById.get(id);
+    if (!entry) {
+      addError(`pitch accent ${id} has no matching vocab entry`);
+      return;
+    }
+    const morae = [...entry.reading].filter((character) => !smallKana.test(character)).length;
+    check(
+      Array.isArray(positions) &&
+        positions.length > 0 &&
+        positions.every((position) => Number.isInteger(position) && position >= 0 && position <= morae),
+      `pitch accent ${id} (${entry.headword}/${entry.reading}) is not a valid mora index list`,
+    );
+  });
+  ["n5-001", "n5-091", "n4-195", "n4-426"].forEach((id) => {
+    check(!(id in entries), `pitch accent ${id} was rejected in review but is annotated again`);
+  });
+  [
+    ["n5-268", [0]],
+    ["n5-368", [0]],
+    ["n5-037", [1]],
+    ["n5-038", [0]],
+    ["n5-526", [2]],
+    ["n5-527", [1]],
+  ].forEach(([id, expected]) => {
+    check(
+      JSON.stringify(entries[id]) === JSON.stringify(expected),
+      `pitch accent regression for ${id}: expected ${JSON.stringify(expected)}, received ${JSON.stringify(entries[id])}`,
+    );
+  });
+  const rainCard = vocabCards.find((card) => card.id === "vocab-entry-n5-037-ja");
+  check(
+    rainCard?.meta?.startsWith("读音：あめ ①"),
+    `vocab meta does not show the reviewed pitch accent: ${rainCard?.meta}`,
+  );
+  const unannotatedCard = vocabCards.find((card) => card.id === "vocab-entry-n5-001-ja");
+  check(
+    unannotatedCard && !/[⓪①-⑩]/u.test(unannotatedCard.meta),
+    "a vocab entry without reviewed pitch data shows an accent",
+  );
+}
+
+// Every displayed example romaji must use a reviewed word division from
+// romaji-word-spacing.js, and that file must not keep entries for examples that
+// no longer display romaji.
+function validateRomajiWordSpacing(cards, spacingData) {
+  const displayed = allGeneratedExamples(cards).filter((example) => example.romajiStatus === "available");
+  const unreviewed = [...new Set(
+    displayed.filter((example) => example.romajiSpacing !== "reviewed").map((example) => example.ja),
+  )];
+  check(
+    unreviewed.length === 0,
+    `${unreviewed.length} displayed examples lack reviewed word spacing: ${sample(unreviewed, 8)}`,
+  );
+  const entries = Array.isArray(spacingData?.entries) ? spacingData.entries : [];
+  const keys = entries.map((spaced) => spaced.replace(/[ -]/gu, ""));
+  const displayedTexts = new Set(displayed.map((example) => example.ja));
+  const stale = keys.filter((key) => !displayedTexts.has(key));
+  check(stale.length === 0, `${stale.length} romaji spacing entries match no displayed example: ${sample(stale, 8)}`);
+  const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
+  check(duplicates.length === 0, `duplicate romaji spacing entries: ${sample(duplicates, 8)}`);
+  const malformed = entries.filter(
+    (spaced) => /^[ -]|[ -]$|[ -]{2,}|[ -][、。！？]|[、。！？][ -]/u.test(spaced),
+  );
+  check(malformed.length === 0, `malformed romaji spacing entries: ${sample(malformed, 8)}`);
+}
+
 function validateDeckCoverage(cards, tabDecks, data) {
-  const dynamicDecks = new Set([
-    "vocab-mistakes",
-    "vocab-n4-mistakes",
-    "grammar-n5-mistakes",
-    "grammar-n4-mistakes",
-  ]);
   const deckCounts = cards.reduce((counts, card) => {
     counts[card.deck] = (counts[card.deck] || 0) + 1;
     return counts;
   }, {});
   tabDecks.forEach((deck) => {
-    if (!dynamicDecks.has(deck)) check(deckCounts[deck] > 0, `HTML deck ${deck} has no generated cards`);
+    check(deckCounts[deck] > 0, `HTML deck ${deck} has no generated cards`);
   });
 
   const expectedDeckCounts = {
@@ -1927,21 +2157,24 @@ function validatePreferredReadingRegressions(runtime) {
   );
 
   const grammarExamples = runtime.grammarCards.flatMap((grammarCard) => grammarCard.examples || []);
-  const unsafeAmbiguityFixtures = [
-    "卒業後",
-    "雨が降り始めました",
-    "私は中国人です",
-    "田中さんはもう着いた",
-    "試験中",
-    "夢みたいな話",
-  ];
-  unsafeAmbiguityFixtures.forEach((needle) => {
+  // These readings are ambiguous in the shared tables (後 ご/あと, 降り ふり/おり,
+  // 私, 着い, 中 ちゅう/じゅう, 話 はなし/わ); example-readings.js resolves them for
+  // these exact sentences only.
+  const sentenceReviewedFixtures = new Map([
+    ["卒業後", "sotsugyougo"],
+    ["雨が降り始めました", "ame ga furihajimemashita"],
+    ["私は中国人です", "watashi wa chuugokujin desu"],
+    ["田中さんはもう着いた", "tanaka-san wa mou tsuita"],
+    ["試験中", "shikenchuu"],
+    ["夢みたいな話", "yume mitai na hanashi"],
+  ]);
+  sentenceReviewedFixtures.forEach((romaji, needle) => {
     const grammarExample = grammarExamples.find((candidate) => candidate.ja?.includes(needle));
-    check(Boolean(grammarExample), `ambiguous-reading grammar fixture is missing: ${needle}`);
+    check(Boolean(grammarExample), `sentence-reviewed reading fixture is missing: ${needle}`);
     if (!grammarExample) return;
     check(
-      grammarExample.romaji === "" && grammarExample.romajiStatus === "unavailable",
-      `${needle} must hide romaji when no context-safe reading is available; received ${grammarExample.romaji || "(blank)"} / ${grammarExample.romajiStatus}`,
+      grammarExample.romajiStatus === "available" && grammarExample.romaji.includes(romaji),
+      `${needle} must use its sentence-reviewed reading ${romaji}; received ${grammarExample.romaji || "(blank)"} / ${grammarExample.romajiStatus}`,
     );
   });
 
@@ -1971,49 +2204,76 @@ function validatePreferredReadingRegressions(runtime) {
   );
 
   const reviewedRomajiFixtures = new Map([
-    ["ここへ来てください", "koko e kitekudasai"],
-    ["あの人は外国人です", "anohito wa gaikokujindesu"],
-    ["思い出は心に残ります", "omoide wa kokoroninokorimasu"],
-    ["体の調子がいいです", "karadanochoushigaiidesu"],
-    ["気温が急に下がりました", "kiongakyuunisagarimashita"],
-    ["木で小さな小屋を建てました", "kidechiisanakoya o tatemashita"],
-    ["温かいうちに召し上がってください", "atatakaiuchinimeshiagattekudasai"],
-    ["区役所まで歩いて行きます", "kuyakushomadearuiteikimasu"],
-    ["六か月かかります", "rokkagetsukakarimasu"],
-    ["電車に間に合いました", "denshanimaniaimashita"],
-    ["新しい展覧会が開かれています", "atarashiitenrankaigahirakareteimasu"],
-    ["昔の友達を思い出しました", "mukashinotomodachi o omoidashimashita"],
-    ["木製の机を買いました", "mokuseinotsukue o kaimashita"],
-    ["物語の終わりは少し悲しかったです", "monogatarinoowari wa sukoshikanashikattadesu"],
-    ["自分の気持ちを正直に話しました", "jibunnokimochi o shoujikinihanashimashita"],
-    ["あの子は近所の小学生です", "anoko wa kinjonoshougakuseidesu"],
-    ["市役所は市民の意見を聞きました", "shiyakusho wa shiminnoiken o kikimashita"],
-    ["この建物は明治時代に建てられました", "konotatemono wa meijijidainitateraremashita"],
-    ["乗り換えの時間は十分間です", "norikaenojikan wa juppunkandesu"],
-    ["集合場所は駅の南口です", "shuugoubasho wa ekinominamiguchidesu"],
-    ["日本の食文化に興味があります", "nihonnoshokubunkanikyoumigaarimasu"],
-    ["この仕事は速さと正確さの両方が必要です", "konoshigoto wa hayasatoseikakusanoryouhougahitsuyoudesu"],
-    ["日本の都道府県では、都は東京都だけです", "nihonnotodoufukende wa, to wa toukyoutodakedesu"],
-    ["東京都の都庁は新宿にあります", "toukyoutonotochou wa shinjukuniarimasu"],
-    ["このはさみは紙を切るのに使います", "konohasami wa kami o kirunonitsukaimasu"],
-    ["この道で合っているはずです", "konomichideatteiruhazudesu"],
-    ["彼がそんなことを言うはずがありません", "karegasonnakoto o iuhazugaarimasen"],
-    ["長い間、大変お世話になりました", "nagaiaida, taihen osewaninarimashita"],
+    ["ここへ来てください", "koko e kite kudasai"],
+    ["あの人は外国人です", "ano hito wa gaikokujin desu"],
+    ["思い出は心に残ります", "omoide wa kokoro ni nokorimasu"],
+    ["体の調子がいいです", "karada no choushi ga ii desu"],
+    ["気温が急に下がりました", "kion ga kyuu ni sagarimashita"],
+    ["木で小さな小屋を建てました", "ki de chiisana koya o tatemashita"],
+    ["温かいうちに召し上がってください", "atatakai uchi ni meshiagatte kudasai"],
+    ["区役所まで歩いて行きます", "kuyakusho made aruite ikimasu"],
+    ["六か月かかります", "rokkagetsu kakarimasu"],
+    ["電車に間に合いました", "densha ni maniaimashita"],
+    ["新しい展覧会が開かれています", "atarashii tenrankai ga hirakarete imasu"],
+    ["昔の友達を思い出しました", "mukashi no tomodachi o omoidashimashita"],
+    ["木製の机を買いました", "mokusei no tsukue o kaimashita"],
+    ["物語の終わりは少し悲しかったです", "monogatari no owari wa sukoshi kanashikatta desu"],
+    ["自分の気持ちを正直に話しました", "jibun no kimochi o shoujiki ni hanashimashita"],
+    ["あの子は近所の小学生です", "ano ko wa kinjo no shougakusei desu"],
+    ["市役所は市民の意見を聞きました", "shiyakusho wa shimin no iken o kikimashita"],
+    ["この建物は明治時代に建てられました", "kono tatemono wa meiji jidai ni tateraremashita"],
+    ["乗り換えの時間は十分間です", "norikae no jikan wa juppunkan desu"],
+    ["集合場所は駅の南口です", "shuugoubasho wa eki no minamiguchi desu"],
+    ["日本の食文化に興味があります", "nihon no shokubunka ni kyoumi ga arimasu"],
+    ["この仕事は速さと正確さの両方が必要です", "kono shigoto wa hayasa to seikakusa no ryouhou ga hitsuyou desu"],
+    ["日本の都道府県では、都は東京都だけです", "nihon no todoufuken de wa, to wa toukyouto dake desu"],
+    ["東京都の都庁は新宿にあります", "toukyouto no tochou wa shinjuku ni arimasu"],
+    ["このはさみは紙を切るのに使います", "kono hasami wa kami o kiru noni tsukaimasu"],
+    ["今日は休みのはずです", "kyou wa yasumi no hazu desu"],
+    ["では、始めましょう", "dewa, hajimemashou"],
+    ["日本へ行けたらいいかなと思います", "nihon e iketara ii kana to omoimasu"],
+    ["人がたくさんいます", "hito ga takusan imasu"],
+    ["下町には小さな店がたくさんあります", "shitamachi ni wa chiisana mise ga takusan arimasu"],
+    ["彼がそんなことを言うはずがありません", "kare ga sonna koto o iu hazu ga arimasen"],
+    ["長い間、大変お世話になりました", "nagai aida, taihen osewa ni narimashita"],
     ["本をたくさん読みます", "hon o takusan yomimasu"],
     ["もちろん行きます", "mochiron ikimasu"],
-    ["この本はあの本より新しいです", "konohon wa anohon yoriatarashiidesu"],
-    ["金曜日に学校へ行きます", "kin'youbinigakkou e ikimasu"],
-    ["今夜は月がよく見えます", "kon'ya wa tsukigayokumiemasu"],
-    ["翻訳の仕事をしています", "hon'yakunoshigoto o shiteimasu"],
-    ["あの店の店員はとても親切です", "anomisenoten'in wa totemoshinsetsudesu"],
-    ["警察が事故の原因を調べています", "keisatsugajikonogen'in o shirabeteimasu"],
-    ["本屋で本を買います", "hon'yadehon o kaimasu"],
-    ["何を食べますか", "nani o tabemasuka"],
-    ["この坂を下ると駅があります", "konosaka o kudarutoekigaarimasu"],
-    ["銀行でお金を下ろします", "ginkoudeokane o oroshimasu"],
-    ["財布が空になりました", "saifugakaraninarimashita"],
-    ["目を閉じてください", "me o tojitekudasai"],
-    ["遠くで信号が光りました", "tookudeshingougahikarimashita"],
+    ["この本はあの本より新しいです", "kono hon wa ano hon yori atarashii desu"],
+    ["金曜日に学校へ行きます", "kin'youbi ni gakkou e ikimasu"],
+    ["今夜は月がよく見えます", "kon'ya wa tsuki ga yoku miemasu"],
+    ["翻訳の仕事をしています", "hon'yaku no shigoto o shite imasu"],
+    ["あの店の店員はとても親切です", "ano mise no ten'in wa totemo shinsetsu desu"],
+    ["警察が事故の原因を調べています", "keisatsu ga jiko no gen'in o shirabete imasu"],
+    ["本屋で本を買います", "hon'ya de hon o kaimasu"],
+    ["何を食べますか", "nani o tabemasu ka"],
+    ["この坂を下ると駅があります", "kono saka o kudaru to eki ga arimasu"],
+    ["銀行でお金を下ろします", "ginkou de okane o oroshimasu"],
+    ["財布が空になりました", "saifu ga kara ni narimashita"],
+    ["目を閉じてください", "me o tojite kudasai"],
+    ["遠くで信号が光りました", "tooku de shingou ga hikarimashita"],
+    // 十分 as "ten minutes", 上がる, and ん before a separate word.
+    ["駅まで十分かかります", "eki made juppun kakarimasu"],
+    ["十分くらい待ちました", "juppun kurai machimashita"],
+    ["バスを十分待ちました", "basu o juppun machimashita"],
+    ["時間は十分あります", "jikan wa juubun arimasu"],
+    ["火から白い煙が上がっています", "hi kara shiroi kemuri ga agatte imasu"],
+    ["彼はすっと立ち上がりました", "kare wa sutto tachiagarimashita"],
+    ["明日はたぶん雨です", "ashita wa tabun ame desu"],
+    ["学校に学生が百人います", "gakkou ni gakusei ga hyakunin imasu"],
+    // Reviewed word division keeps verb kana, conjunctions, and loanwords whole.
+    ["合格できて本当にうれしかったです", "goukaku dekite hontou ni ureshikatta desu"],
+    ["階段ですべらないように気をつけてください", "kaidan de suberanai you ni ki o tsukete kudasai"],
+    ["失敗しても、もう一度やります", "shippai shite mo, mou ichido yarimasu"],
+    ["日本語ももちろん勉強しています", "nihongo mo mochiron benkyou shite imasu"],
+    ["友達へのプレゼントを選びました", "tomodachi e no purezento o erabimashita"],
+    ["九時までに駅に来てください", "kuji made ni eki ni kite kudasai"],
+    ["京都とか奈良とかへ行きたいです", "kyouto toka nara toka e ikitai desu"],
+    ["行きたいです。でも、時間がありません", "ikitai desu. demo, jikan ga arimasen"],
+    ["危ない！車が来ます", "abunai! kuruma ga kimasu"],
+    ["家族は妹を「花ちゃん」と呼んでいます", "kazoku wa imouto o hana-chan to yonde imasu"],
+    ["今晩は出かけないつもりです", "konban wa dekakenai tsumori desu"],
+    ["会議はオンラインで行うことになりました", "kaigi wa onrain de okonau koto ni narimashita"],
+    ["先生に正しい泳ぎ方を教わりました", "sensei ni tadashii oyogikata o osowarimashita"],
   ]);
   const reviewedExamples = [...runtime.vocabCards, ...runtime.grammarCards]
     .flatMap((card) => card.examples || []);
@@ -2078,7 +2338,7 @@ function validateGrammarChoices(grammarCards, grammarData) {
 // Furigana must come from the same context-guarded segmentation as romaji:
 // a Kanji compound is either annotated by one reviewed reading or left bare,
 // never assembled from per-character readings (明日 → 明(あか)日(ひ)).
-function validateExampleFurigana(cards) {
+function validateExampleFurigana(cards, reviewedWordSplitsAt = () => []) {
   const kanji = /[\u3400-\u9fff]/u;
   const examples = new Map();
   cards.forEach((card) =>
@@ -2088,6 +2348,7 @@ function validateExampleFurigana(cards) {
   );
   const malformed = [];
   const splitCompounds = [];
+  const unannotated = [];
   examples.forEach((example, text) => {
     const segments = Array.isArray(example.ruby) ? example.ruby : null;
     if (
@@ -2110,14 +2371,35 @@ function validateExampleFurigana(cards) {
       while (end < characters.length && kanji.test(characters[end].character)) end += 1;
       const run = characters.slice(start, end);
       const annotated = run.filter((item) => item.reading);
-      const segmentCount = new Set(run.map((item) => item.segmentIndex)).size;
-      if (annotated.length && (annotated.length !== run.length || segmentCount > 1)) {
+      // A run may only be annotated in several pieces at the word boundaries of
+      // a reviewed word division (毎朝|三十分|歩き), never character by character.
+      const pieceBoundaries = run
+        .map((item, offset) => (offset && item.segmentIndex !== run[offset - 1].segmentIndex ? offset : null))
+        .filter((offset) => offset !== null);
+      // The division may start before the run (三か月|勉強 covers the run 月勉強).
+      const reviewedDivision = !pieceBoundaries.length ||
+        Array.from({ length: start + 1 }, (_, spanStart) => spanStart).some((spanStart) =>
+          reviewedWordSplitsAt(text, spanStart).some((surfaces) => {
+            const wordBoundaries = new Set();
+            surfaces.reduce((offset, word) => {
+              wordBoundaries.add(offset + word.length);
+              return offset + word.length;
+            }, spanStart);
+            return pieceBoundaries.every((offset) => wordBoundaries.has(start + offset));
+          }),
+        );
+      if (!annotated.length) unannotated.push(`${run.map((item) => item.character).join("")} in ${text}`);
+      if (annotated.length && (annotated.length !== run.length || !reviewedDivision)) {
         splitCompounds.push(`${run.map((item) => item.character).join("")} in ${text}`);
       }
       start = end;
     }
   });
   check(!malformed.length, `${malformed.length} examples have malformed ruby segments: ${sample(malformed, 8)}`);
+  check(
+    !unannotated.length,
+    `${unannotated.length} example Kanji have no reviewed furigana: ${sample(unannotated, 8)}`,
+  );
   check(
     !splitCompounds.length,
     `${splitCompounds.length} Kanji compounds are annotated piecewise: ${sample(splitCompounds, 8)}`,
@@ -2126,14 +2408,25 @@ function validateExampleFurigana(cards) {
   const renderedFixtures = new Map([
     ["明日は雨でしょう", "明日(あした)は雨(あめ)でしょう"],
     ["六か月かかります", "六(ろっ)か月(げつ)かかります"],
-    ["夜空で星が光っています", "夜空で星(ほし)が光(ひか)っています"],
+    ["夜空で星が光っています", "夜空(よぞら)で星(ほし)が光(ひか)っています"],
     ["店は九時に開きます", "店(みせ)は九時(くじ)に開(あ)きます"],
     ["電車に間に合いました", "電車(でんしゃ)に間(ま)に合(あ)いました"],
     ["昔の友達を思い出しました", "昔(むかし)の友達(ともだち)を思(おも)い出(だ)しました"],
     ["新しい展覧会が開かれています", "新(あたら)しい展覧会(てんらんかい)が開(ひら)かれています"],
-    ["会議は三時から行われます", "会議(かいぎ)は三時から行(おこな)われます"],
+    ["会議は三時から行われます", "会議(かいぎ)は三時(さんじ)から行(おこな)われます"],
     ["先生はもう昼ご飯を召し上がりました", "先生(せんせい)はもう昼(ひる)ご飯(はん)を召(め)し上(あ)がりました"],
-    ["湖に一そうの舟が浮かんでいます", "湖(みずうみ)に一(いっ)そうの舟(ふね)が浮かんでいます"],
+    ["湖に一そうの舟が浮かんでいます", "湖(みずうみ)に一(いっ)そうの舟(ふね)が浮(う)かんでいます"],
+    ["火から白い煙が上がっています", "火(ひ)から白(しろ)い煙(けむり)が上(あ)がっています"],
+    ["彼はすっと立ち上がりました", "彼(かれ)はすっと立(た)ち上(あ)がりました"],
+    ["駅まで十分ほどかかります", "駅(えき)まで十分(じゅっぷん)ほどかかります"],
+    ["時間は十分あります", "時間(じかん)は十分(じゅうぶん)あります"],
+    ["壁の塗り方を父に教わりました", "壁(かべ)の塗(ぬ)り方(かた)を父(ちち)に教(おそ)わりました"],
+    ["教科書の三十ページを開いてください", "教科書(きょうかしょ)の三十(さんじゅう)ページを開(ひら)いてください"],
+    ["毎朝三十分歩きます", "毎朝(まいあさ)三十分(さんじゅっぷん)歩(ある)きます"],
+    ["もう一度申します", "もう一度(いちど)申(もう)します"],
+    ["今日は一日家にいます", "今日(きょう)は一日(いちにち)家(いえ)にいます"],
+    ["この薬を一日三回飲んでください", "この薬(くすり)を一日(いちにち)三回(さんかい)飲(の)んでください"],
+    ["ドアが開いています", "ドアが開(あ)いています"],
   ]);
   renderedFixtures.forEach((expected, text) => {
     const rendered = (examples.get(text)?.ruby || [])
@@ -2218,7 +2511,8 @@ function checkFullStudyRevealTarget(stylesSource, appSource) {
   check(
     /width:\s*100%\s*;/u.test(revealRule) &&
       /max-width:\s*100%\s*;/u.test(revealRule) &&
-      /min-height:\s*100%\s*;/u.test(revealRule) &&
+      /grid-template-rows:\s*1fr\s*;/u.test(cardRule) &&
+      !/min-height:\s*100%\s*;/u.test(revealRule) &&
       /align-self:\s*stretch\s*;/u.test(revealRule),
     ".card-reveal must stretch across the full in-flow card surface",
   );
@@ -2313,6 +2607,9 @@ function main() {
     );
   }
   if (n5Json && n4Json) validateVocabLevelBoundaries(n5Json, n4Json);
+  if (n5Json) validateHeadwordRomaji("N5", n5Json);
+  if (n4Json) validateHeadwordRomaji("N4", n4Json);
+  if (n5Json && n4Json) validateGrammarOnlyVocab(n5Json, n4Json);
   if (n5Window && n4Window) validateCompatibilityExampleIndexes(n5Window, n4Window);
 
   if (report?.expected_counts) {
@@ -2342,7 +2639,20 @@ function main() {
     validateProductionLegacyVocabIds(runtime);
     validatePreferredReadingRegressions(runtime);
     validateGrammarChoices(runtime.grammarCards, runtime.data.grammar);
-    validateExampleFurigana(cards);
+    validateExampleFurigana(cards, runtime.cardData.reviewedWordSplitsAt);
+    capture("romaji word spacing check failed", () =>
+      validateRomajiWordSpacing(cards, loadScriptGlobal("romaji-word-spacing.js", "AYAYA_ROMAJI_SPACING")),
+    );
+    if (n5Json && n4Json) {
+      capture("pitch accent check failed", () =>
+        validatePitchAccentData(
+          loadScriptGlobal("pitch-accent-data.js", "AYAYA_PITCH_ACCENT"),
+          n5Json,
+          n4Json,
+          runtime.vocabCards,
+        ),
+      );
+    }
   }
 
   if (validationErrors.length) {
