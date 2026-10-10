@@ -21,6 +21,9 @@ const sourceFingerprintFiles = [
   "index.html",
   "n5-codex-vocab.js",
   "n5-codex-vocab.json",
+  "pitch-accent-data.js",
+  "romaji-word-spacing.js",
+  "example-readings.js",
   "styles.css",
 ];
 
@@ -98,14 +101,20 @@ function loadBundledData() {
     grammar: loadScriptGlobal("grammar-data.js", "AYAYA_GRAMMAR_DATA"),
     n4: loadScriptGlobal("ayaya-n4-codex-vocab.js", "AYAYA_N4_CODEX_VOCAB"),
     n5: loadScriptGlobal("n5-codex-vocab.js", "AYAYA_N5_CODEX_VOCAB"),
+    pitchAccent: loadScriptGlobal("pitch-accent-data.js", "AYAYA_PITCH_ACCENT"),
+    romajiSpacing: loadScriptGlobal("romaji-word-spacing.js", "AYAYA_ROMAJI_SPACING"),
+    exampleReadings: loadScriptGlobal("example-readings.js", "AYAYA_EXAMPLE_READINGS"),
   };
 }
 
-function loadCardData({ grammar, n4, n5 }) {
+function loadCardData({ grammar, n4, n5, pitchAccent, romajiSpacing, exampleReadings }) {
   const windowObject = {
     AYAYA_GRAMMAR_DATA: grammar,
     AYAYA_N4_CODEX_VOCAB: n4,
     AYAYA_N5_CODEX_VOCAB: n5,
+    AYAYA_PITCH_ACCENT: pitchAccent,
+    AYAYA_ROMAJI_SPACING: romajiSpacing,
+    AYAYA_EXAMPLE_READINGS: exampleReadings,
   };
   return runBrowserScript("card-data.js", windowObject).AYAYA_JP_CARD_DATA;
 }

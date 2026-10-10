@@ -553,6 +553,19 @@ const n4Words = n4Entries.map((entry) => [
   entry,
 ]);
 const grammarEntries = window.AYAYA_GRAMMAR_DATA?.entries || [];
+// Reviewed Kanjium pitch accents keyed by vocab source ID; entries without a
+// reliable value stay unannotated.
+const pitchAccentEntries = window.AYAYA_PITCH_ACCENT?.entries || {};
+const circledDigits = ["⓪", "①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩"];
+
+function pitchAccentLabel(sourceId) {
+  const positions = pitchAccentEntries[sourceId];
+  if (!Array.isArray(positions) || !positions.length) return "";
+  if (!positions.every((position) => Number.isInteger(position) && circledDigits[position])) {
+    return "";
+  }
+  return positions.map((position) => circledDigits[position]).join("/");
+}
 
 const specialRows = [
   {
@@ -2388,11 +2401,21 @@ function kanaSurfaceToHiragana(text) {
   );
 }
 
+// Loanword digraphs that are not kana cards but occur in the example corpus
+// (パーティー, ファックス, フィルム, フォーク, チェック), spelled in standard Hepburn.
+const loanwordKanaRomajiRows = [
+  ["てぃ", "ti"],
+  ["ふぁ", "fa"],
+  ["ふぃ", "fi"],
+  ["ふぉ", "fo"],
+  ["ちぇ", "che"],
+];
 const kanaRomajiRows = kanaRows
   .flatMap(([hiragana, katakana, romaji]) => [
     [kanaSurfaceToHiragana(hiragana), romaji],
     [kanaSurfaceToHiragana(katakana), romaji],
   ])
+  .concat(loanwordKanaRomajiRows)
   .sort((left, right) => right[0].length - left[0].length);
 
 const kanjiCharacterPattern = /[\u3400-\u9fff]/u;
@@ -2417,8 +2440,24 @@ const reviewedPreferredReadingsByEntryId = new Map([
     ["来れば", "くれば"],
     ["来よう", "こよう"],
   ]],
+  ["n5-315", [["一年中", "いちねんじゅう"], ["世界中", "せかいじゅう"]]],
+  ["n5-385", [["立っ", "たっ"], ["人が", "ひとが"]]],
+  ["n5-500", [
+    ["十一日", "じゅういちにち"],
+    ["二十五日", "にじゅうごにち"],
+    ["何日", "なんにち"],
+  ]],
   ["n5-588", [["降り", "ふり"], ["降っ", "ふっ"]]],
+  ["n5-622", [
+    ["三年前", "さんねんまえ"],
+    ["十年前", "じゅうねんまえ"],
+    ["二時間前", "にじかんまえ"],
+  ]],
+  ["n4-116", [["掛かっ", "かかっ"]]],
   ["n4-569", [["開き", "ひらき"]]],
+  ["n4-644", [["申し", "もうし"], ["一度申し", "いちどもうし"]]],
+  ["n4-694", [["沸き", "わき"], ["拍手", "はくしゅ"]]],
+  ["n4-764", [["下町", "したまち"], ["港町", "みなとまち"]]],
 ]);
 
 function isKanjiCharacter(character = "") {
@@ -2482,6 +2521,14 @@ const contextSpecificReadings = [
   ["明治", "めいじ"],
   ["明治時代", "めいじじだい"],
   ["十分間", "じゅっぷんかん"],
+  // 十分 means "ten minutes" in these reviewed examples (their translations say
+  // 十分钟); every other 十分 in the corpus is じゅうぶん ("enough").
+  ["十分かかり", "じゅっぷんかかり"],
+  ["十分くらい", "じゅっぷんくらい"],
+  ["十分ほど", "じゅっぷんほど"],
+  ["十分待ちました", "じゅっぷんまちました"],
+  ["十分以内", "じゅっぷんいない"],
+  ["大体十分", "だいたいじゅっぷん"],
   ["集合場所", "しゅうごうばしょ"],
   ["食文化", "しょくぶんか"],
   ["正確さ", "せいかくさ"],
@@ -2548,6 +2595,13 @@ const contextSpecificReadings = [
   ["思い出せ", "おもいだせ"],
   ["間に合", "まにあ"],
   ["召し上が", "めしあが"],
+  // 教わる is not a vocab entry, so 教 would otherwise take 教える's おし.
+  ["教わり", "おそわり"],
+  // ページを開いてください opens a book (transitive ひらく), unlike ドアが開く.
+  ["開いてください", "ひらいてください"],
+  // 上がる is not a vocab entry, so without these 上 falls back to the noun うえ.
+  ["上がっ", "あがっ"],
+  ["上がり", "あがり"],
   ["開かれ", "ひらかれ"],
   // 明日 has multiple readings; these reviewed beginner examples use あした.
   ["明日\ue000", "あした\ue000"],
@@ -2868,6 +2922,32 @@ const reviewedExactReadings = `
 豊か|ゆたか
 `.trim().split("\n").map((line) => line.split("|"));
 
+// Reviewed per-sentence readings from example-readings.js: each span lists its
+// words as [surface, reading]; they apply only to that exact example sentence.
+const exampleReadingSpansByText = new Map(
+  Object.entries(window.AYAYA_EXAMPLE_READINGS?.entries || {}).map(([text, spans]) => [
+    text,
+    spans.map((span) => span.split(" ").map((word) => word.split("|"))),
+  ]),
+);
+
+// The word division one sentence's reviewed spans use for ruby, keyed by span.
+function exampleReadingSplitFor(text, surface) {
+  const words = (exampleReadingSpansByText.get(text) || []).find(
+    (span) => span.map(([word]) => word).join("") === surface,
+  );
+  return words
+    ? { surfaces: words.map(([word]) => word), readings: words.map(([, reading]) => reading) }
+    : null;
+}
+
+function exampleReadingsForText(text) {
+  return (exampleReadingSpansByText.get(text) || []).map((words) => [
+    words.map(([surface]) => surface).join(""),
+    words.map(([, reading]) => reading).join(""),
+  ]);
+}
+
 const allVocabReadingEntries = [...n5Entries, ...n4Entries].flatMap((entry) =>
   readingEntriesForVocabEntry(entry),
 );
@@ -2955,12 +3035,6 @@ function tokenizeKnownReadings(text, preferredReadings = []) {
   return tokens;
 }
 
-function applyKnownReadings(text, preferredReadings = []) {
-  return tokenizeKnownReadings(text, preferredReadings)
-    .map((token) => token.reading ?? token.surface)
-    .join("");
-}
-
 function lastVowel(text) {
   const match = text.match(/[aeiou](?!.*[aeiou])/);
   return match ? match[0] : "";
@@ -2976,6 +3050,7 @@ const particleRomajiMarkers = new Map([
   ["\ue002", " o "],
   ["\ue003", "wa"],
   ["\ue004", " "],
+  ["\ue005", "-"],
 ]);
 const particleKanaMarkers = new Map([
   ["は", "\ue000"],
@@ -3031,7 +3106,6 @@ const reviewedLexicalKanaSpans = reviewedSpanMap([
     "黒いズボンをはいています",
     "白い靴下をはいています",
     "妹は青いスカートをはいています",
-    "両方の靴をはいて比べました",
   ]],
   ["はめ", ["寒いので手袋をはめました"]],
   ["はい", [
@@ -3051,14 +3125,12 @@ const reviewedLexicalKanaSpans = reviewedSpanMap([
     "考えてみても、やはり行きたいです",
   ]],
   ["はず", [
-    "この道で合っているはずです",
     "この道を行けば、駅に出るはずです",
     "この問題が簡単なはずがありません",
     "まだ七時ですから、店が閉まっているはずがないです",
     "今日は休みのはずです",
     "田中さんはもう着いたはずです",
     "彼がそんなことを言うはずがありません",
-    "彼はもう着いたはずです",
   ]],
 ]);
 
@@ -3071,23 +3143,28 @@ const reviewedMoraicNWordBoundaries = reviewedSpanMap([
   ["たくさん|あります", [
     "この店には日本の食べ物がたくさんあります",
     "家の周りに木がたくさんあります",
+    "下町には小さな店がたくさんあります",
   ]],
   ["たくさん|歩いて", ["たくさん歩いて疲れました"]],
-  ["たくさん|います", ["駅には人がたくさんいます"]],
+  ["たくさん|います", ["駅には人がたくさんいます", "人がたくさんいます"]],
+  ["たくさん|集まりました", ["若い人がたくさん集まりました"]],
   ["たくさん|雨", ["昨日、たくさん雨が降りました"]],
   ["たくさん|写しました", ["旅行で写真をたくさん写しました"]],
   ["十分|あります", ["時間は十分あります"]],
   ["もちろん|行きます", ["もちろん行きます"]],
   ["本|より", ["この本はあの本より新しいです"]],
   ["確認|いたします", ["荷物を確認いたします"]],
+  ["たぶん|雨", ["明日はたぶん雨です"]],
+  ["百人|います", ["学校に学生が百人います"]],
   ["本|や", [
-    "机の上に本やノートなどがあります",
     "机の上に本やノートがあります",
-    "本や雑誌などを買いました",
     "本や雑誌などを読みます",
   ]],
 ]);
 const attachedWaTokens = ["こんにちは", "こんばんは", "それでは", "または"];
+// The conjunction では (dewa) only opens a sentence in the reviewed corpus; inside
+// a sentence では is the particle pair で + は (de wa), so it is not matched there.
+const sentenceInitialAttachedWaTokens = ["では、"];
 
 function reviewedPairSignatureParts(label, pairs) {
   return pairs.map(([surface, reading]) => `${label}:${surface}\u0001${reading}`).sort();
@@ -3124,11 +3201,18 @@ const reviewedPronunciationSourceParts = [
   ...reviewedPairSignatureParts("effective", furiganaByLength),
   ...reviewedSpanSignatureParts("lexical", reviewedLexicalKanaSpans),
   ...reviewedSpanSignatureParts("n-boundary", reviewedMoraicNWordBoundaries),
+  ...[...exampleReadingSpansByText]
+    .map(([text, spans]) =>
+      `example-reading:${text}\u0001${spans.map((words) => words.map((word) => word.join("|")).join(" ")).join("\u0002")}`,
+    )
+    .sort(),
   ...attachedWaTokens.map((token) => `attached-wa:${token}`).sort(),
+  ...sentenceInitialAttachedWaTokens.map((token) => `initial-attached-wa:${token}`).sort(),
   ...[...unsafeGlobalReadingSurfaces].sort().map((surface) => `unsafe:${surface}`),
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
+  ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "10305:548b9e245dfdb771";
+const reviewedPronunciationSourceSignature = "11647:56ff0dd232c1a5be";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3139,7 +3223,11 @@ function reviewedTableMatchesCorpus(map) {
 const reviewedPronunciationCorpusIsCurrent =
   corpusSignature(reviewedPronunciationSourceParts) === reviewedPronunciationSourceSignature &&
   reviewedTableMatchesCorpus(reviewedLexicalKanaSpans) &&
-  reviewedTableMatchesCorpus(reviewedMoraicNWordBoundaries);
+  reviewedTableMatchesCorpus(reviewedMoraicNWordBoundaries) &&
+  [...exampleReadingSpansByText].every(([text, spans]) =>
+    reviewedExampleTextSet.has(text) &&
+      spans.every((words) => text.includes(words.map(([surface]) => surface).join(""))),
+  );
 
 function indexesForSpans(text, spans = []) {
   const indexes = new Set();
@@ -3176,6 +3264,9 @@ function attachedWaIndexesForText(text) {
       indexes.add(index + token.lastIndexOf("は"));
       fromIndex = index + token.length;
     }
+  });
+  sentenceInitialAttachedWaTokens.forEach((token) => {
+    if (text.startsWith(token)) indexes.add(token.lastIndexOf("は"));
   });
   return indexes;
 }
@@ -3273,21 +3364,228 @@ function kanaToRomaji(text) {
   return result.trim();
 }
 
-function sentenceToRomaji(text, preferredReadings = []) {
-  const reviewedText = stripSentencePeriods(text);
-  const pronunciationAwareText = markReviewedPronunciations(reviewedText);
-  if (pronunciationAwareText === null) return "";
-  const normalizedPunctuation = pronunciationAwareText
-    .replace(/[。．]/g, ". ")
-    .replace(/、/g, ", ")
-    .replace(/[！？]/g, (mark) => (mark === "！" ? "!" : "?"))
-    .replace(/[：；]/g, (mark) => (mark === "：" ? ":" : ";"))
-    .replace(/[「」『』]/g, "")
-    .replace(/[〜～・]/g, " ");
-  return kanaToRomaji(applyKnownReadings(normalizedPunctuation, preferredReadings))
+// Reviewed word division for sentence romaji. romaji-word-spacing.js lists every
+// displayed example with a space between words and "-" before a name suffix
+// (田中-さん); those positions are the only places a space may be added. The
+// spaced result must match the unspaced romaji letter for letter, otherwise the
+// sentence keeps its unspaced romaji, so word division can never change a reading.
+const romajiSpacingEntries = new Map(
+  (window.AYAYA_ROMAJI_SPACING?.entries || []).map((spaced) => [spaced.replace(/[ -]/gu, ""), spaced]),
+);
+
+function reviewedWordBoundaries(text) {
+  const spaced = romajiSpacingEntries.get(text);
+  if (!spaced) return null;
+  const boundaries = new Map();
+  let index = 0;
+  for (const character of spaced) {
+    if (character === " " || character === "-") {
+      boundaries.set(index, character === "-" ? "" : "");
+    } else {
+      index += character.length;
+    }
+  }
+  return boundaries;
+}
+
+function punctuationRomajiSource(character) {
+  if (/[。．]/u.test(character)) return ". ";
+  if (character === "、") return ", ";
+  if (character === "！") return "! ";
+  if (character === "？") return "? ";
+  if (character === "：") return ":";
+  if (character === "；") return ";";
+  if (/[「」『』]/u.test(character)) return "";
+  if (/[〜～・]/u.test(character)) return " ";
+  return character;
+}
+
+// Multi-word Kanji spans that one reviewed reading covers as a whole (the
+// tokenizer never matches a Kanji word from inside a longer Kanji run). Each
+// entry lists the words and their readings so word division can split them.
+const reviewedCompoundWordSplits = new Map(
+  [
+    ["毎日復習", "毎日|復習", "まいにち|ふくしゅう"],
+    ["明治時代", "明治|時代", "めいじ|じだい"],
+    ["十分以内", "十分|以内", "じゅっぷん|いない"],
+    ["大体十分", "大体|十分", "だいたい|じゅっぷん"],
+    ["十分待ちました", "十分|待ちました", "じゅっぷん|まちました"],
+    ["一度申し", "一度|申し", "いちど|もうし"],
+    ["三年前", "三年|前", "さんねん|まえ"],
+    ["十年前", "十年|前", "じゅうねん|まえ"],
+    ["二時間前", "二時間|前", "にじかん|まえ"],
+  ].map(([surface, surfaces, readings]) => [
+    surface,
+    { surfaces: surfaces.split("|"), readings: readings.split("|") },
+  ]),
+);
+// Multi-word spans from example-readings.js split the same way.
+exampleReadingSpansByText.forEach((spans) => {
+  spans.filter((words) => words.length > 1).forEach((words) => {
+    const surface = words.map(([word]) => word).join("");
+    if (reviewedCompoundWordSplits.has(surface)) return;
+    reviewedCompoundWordSplits.set(surface, {
+      surfaces: words.map(([word]) => word),
+      readings: words.map(([, reading]) => reading),
+    });
+  });
+});
+
+// Splits one reading token at a reviewed word boundary. Kana runs shared by the
+// surface and its reading anchor the split (具合が悪い → ぐあい|が|わるい,
+// 十分かかり → じゅっぷん|かかり); a boundary inside a Kanji run needs a
+// reviewedCompoundWordSplits entry, otherwise the sentence's spacing is rejected.
+function splitReadingAt(surface, reading, offset) {
+  const compound = reviewedCompoundWordSplits.get(surface);
+  if (
+    compound &&
+    compound.surfaces.join("") === surface &&
+    compound.readings.join("") === reading
+  ) {
+    let surfaceOffset = 0;
+    let readingOffset = 0;
+    for (let index = 0; index < compound.surfaces.length - 1; index += 1) {
+      surfaceOffset += compound.surfaces[index].length;
+      readingOffset += compound.readings[index].length;
+      if (surfaceOffset === offset) {
+        return [reading.slice(0, readingOffset), reading.slice(readingOffset)];
+      }
+    }
+  }
+  const readingOffset = alignedReadingOffset(surface, reading, offset);
+  return readingOffset === null
+    ? null
+    : [reading.slice(0, readingOffset), reading.slice(readingOffset)];
+}
+
+// Maps a surface offset to a reading offset using the kana runs as anchors;
+// every Kanji run must be followed by a kana run that occurs exactly once in
+// the rest of the reading, so the alignment is never a guess.
+function alignedReadingOffset(surface, reading, offset) {
+  const runs = surface.match(/[ぁ-ゖァ-ヺー\ue000-\ue003]+|[^ぁ-ゖァ-ヺー\ue000-\ue003]+/gu) || [];
+  const normalizedReading = kanaSurfaceToHiragana(reading);
+  let surfaceIndex = 0;
+  let readingIndex = 0;
+  for (let runIndex = 0; runIndex < runs.length; runIndex += 1) {
+    const run = runs[runIndex];
+    const runEnd = surfaceIndex + run.length;
+    if (isKanaOrMarker(run[0])) {
+      const kana = kanaSurfaceToHiragana(run);
+      if (!normalizedReading.startsWith(kana, readingIndex)) return null;
+      if (offset >= surfaceIndex && offset < runEnd) return readingIndex + (offset - surfaceIndex);
+      readingIndex += kana.length;
+    } else {
+      if (offset > surfaceIndex && offset < runEnd) return null;
+      if (offset === surfaceIndex) return readingIndex;
+      const nextRun = runs[runIndex + 1];
+      if (nextRun === undefined) return null;
+      const nextKana = kanaSurfaceToHiragana(nextRun);
+      const found = normalizedReading.indexOf(nextKana, readingIndex + 1);
+      if (found < 0 || normalizedReading.indexOf(nextKana, found + 1) >= 0) return null;
+      readingIndex = found;
+    }
+    surfaceIndex = runEnd;
+  }
+  return null;
+}
+
+function isKanaOrMarker(character) {
+  return isKanaCharacter(character) || /[-]/u.test(character);
+}
+
+function spacedReadingStream(tokens, sourceIndexes, boundaries, text = "") {
+  const used = new Set();
+  const parts = [];
+  for (const token of tokens) {
+    const output = token.reading ?? token.surface;
+    const inner = [];
+    [...token.surface].forEach((_, offset) => {
+      const sourceIndex = sourceIndexes[token.start + offset];
+      if (sourceIndex < 0 || !boundaries.has(sourceIndex) || used.has(sourceIndex)) return;
+      used.add(sourceIndex);
+      if (offset === 0) parts.push(boundaries.get(sourceIndex));
+      else inner.push([offset, boundaries.get(sourceIndex)]);
+    });
+    if (!inner.length) {
+      parts.push(output);
+      continue;
+    }
+    if (token.reading === null) return null;
+    // Word boundaries of a reviewed multi-word span, in whole-token offsets, so
+    // a span with several words (毎朝|三十分|歩き) can be split more than once.
+    const compound =
+      exampleReadingSplitFor(text, token.surface) || reviewedCompoundWordSplits.get(token.surface);
+    const compoundOffsets = new Map();
+    if (
+      compound &&
+      compound.surfaces.join("") === token.surface &&
+      compound.readings.join("") === token.reading
+    ) {
+      let surfaceOffset = 0;
+      let readingOffset = 0;
+      compound.surfaces.forEach((word, index) => {
+        surfaceOffset += word.length;
+        readingOffset += compound.readings[index].length;
+        compoundOffsets.set(surfaceOffset, readingOffset);
+      });
+    }
+    let surface = token.surface;
+    let reading = token.reading;
+    let consumed = 0;
+    let readingConsumed = 0;
+    for (const [offset, marker] of inner) {
+      const split = compoundOffsets.has(offset)
+        ? [
+            reading.slice(0, compoundOffsets.get(offset) - readingConsumed),
+            reading.slice(compoundOffsets.get(offset) - readingConsumed),
+          ]
+        : splitReadingAt(surface, reading, offset - consumed);
+      if (!split) return null;
+      parts.push(split[0], marker);
+      surface = surface.slice(offset - consumed);
+      reading = split[1];
+      consumed = offset;
+      readingConsumed += split[0].length;
+    }
+    parts.push(reading);
+  }
+  return used.size === boundaries.size ? parts.join("") : null;
+}
+
+function finishSentenceRomaji(kana) {
+  return kanaToRomaji(kana)
     .replace(/\s+/g, " ")
     .replace(/\s+([,!?/:;.])/g, "$1")
+    .replace(/ ?- ?/g, "-")
     .trim();
+}
+
+function sentenceRomaji(text, preferredReadings = []) {
+  const reviewedText = stripSentencePeriods(text);
+  const marked = markReviewedPronunciationsWithSourceIndexes(reviewedText);
+  if (!marked) return { romaji: "", spacing: "unavailable" };
+  let normalized = "";
+  const sourceIndexes = [];
+  [...marked.marked].forEach((character, index) => {
+    for (const output of punctuationRomajiSource(character)) {
+      normalized += output;
+      sourceIndexes.push(marked.sourceIndexes[index]);
+    }
+  });
+  const tokens = tokenizeKnownReadings(normalized, [
+    ...preferredReadings,
+    ...exampleReadingsForText(reviewedText),
+  ]);
+  const unspaced = finishSentenceRomaji(tokens.map((token) => token.reading ?? token.surface).join(""));
+  const boundaries = reviewedWordBoundaries(reviewedText);
+  if (!boundaries) return { romaji: unspaced, spacing: "unreviewed" };
+  const spacedKana = spacedReadingStream(tokens, sourceIndexes, boundaries, reviewedText);
+  const spaced = spacedKana === null ? null : finishSentenceRomaji(spacedKana);
+  const letters = (value) => value.replace(/[\s'-]/g, "");
+  if (spaced === null || letters(spaced) !== letters(unspaced)) {
+    return { romaji: unspaced, spacing: "rejected" };
+  }
+  return { romaji: spaced, spacing: "reviewed" };
 }
 
 const pronunciationMarkerPattern = /[-]/u;
@@ -3374,7 +3672,7 @@ function rubySegmentsForText(text, preferredReadings = []) {
   };
   let consumed = 0;
 
-  tokenizeKnownReadings(marked, preferredReadings).forEach(({ start, surface, reading }) => {
+  tokenizeKnownReadings(marked, [...preferredReadings, ...exampleReadingsForText(text)]).forEach(({ start, surface, reading }) => {
     let surfaceLength = surface.length;
     let rubyReading = reading;
     while (
@@ -3402,7 +3700,15 @@ function rubySegmentsForText(text, preferredReadings = []) {
       pushPlain(text.slice(sourceStart, sourceEnd));
     } else {
       const rubyEnd = rubySourceIndexes.at(-1) + 1;
-      splitRubyAroundKana(text.slice(sourceStart, rubyEnd), rubyReading).forEach(([part, rt]) => {
+      const rubySurface = text.slice(sourceStart, rubyEnd);
+      // A reviewed multi-word reading (一度申し → 一度|申し) is annotated word by
+      // word, so one ruby never spans two words.
+      const compound =
+        exampleReadingSplitFor(text, rubySurface) || reviewedCompoundWordSplits.get(rubySurface);
+      const rubyParts = compound && compound.readings.join("") === rubyReading
+        ? compound.surfaces.map((part, partIndex) => [part, compound.readings[partIndex]])
+        : [[rubySurface, rubyReading]];
+      rubyParts.flatMap(([part, partReading]) => splitRubyAroundKana(part, partReading)).forEach(([part, rt]) => {
         if (rt) segments.push([part, rt]);
         else pushPlain(part);
       });
@@ -3422,13 +3728,14 @@ function normalizeExamples(examples = [], preferredReadings = []) {
   return examples.map((example) => {
     const ja = stripSentencePeriods(example.ja || "");
     const zh = stripSentencePeriods(example.zh || "");
-    const generatedRomaji = sentenceToRomaji(ja, preferredReadings);
-    const hasSafeRomaji = isSafeRomaji(generatedRomaji);
+    const generated = sentenceRomaji(ja, preferredReadings);
+    const hasSafeRomaji = isSafeRomaji(generated.romaji);
     return {
       ...example,
       ja,
-      romaji: hasSafeRomaji ? generatedRomaji : "",
+      romaji: hasSafeRomaji ? generated.romaji : "",
       romajiStatus: hasSafeRomaji ? "available" : "unavailable",
+      romajiSpacing: hasSafeRomaji ? generated.spacing : "unavailable",
       furiganaEntries: preferredReadings,
       ruby: rubySegmentsForText(ja, preferredReadings),
       zh,
@@ -3514,7 +3821,8 @@ function makeVocabDeckCards({
     const speechMeta = sourceEntry?.speech_reading && sourceEntry.speech_reading !== reading
       ? `　语音示范：${sourceEntry.speech_reading}`
       : "";
-    const readingMeta = `读音：${reading}${romaji ? `　罗马音：${romaji}` : ""}${speechMeta}${meaningMeta}`;
+    const pitchAccent = pitchAccentLabel(sourceId);
+    const readingMeta = `读音：${reading}${pitchAccent ? ` ${pitchAccent}` : ""}${romaji ? `　罗马音：${romaji}` : ""}${speechMeta}${meaningMeta}`;
     // Keep stable IDs in a namespace that can never collide with the old
     // array-index IDs (for example, old `vocab-n4-100-ja`).
     const cardBaseId = `vocab-entry-${sourceId}`;
@@ -3854,11 +4162,21 @@ function makeGrammarCards(level) {
   });
 }
 
+// Reviewed word divisions (example-readings.js spans and multi-word readings)
+// whose surface starts at index in text; used to audit word-by-word ruby.
+function reviewedWordSplitsAt(text, index) {
+  return [
+    ...(exampleReadingSpansByText.get(text) || []).map((words) => words.map(([word]) => word)),
+    ...[...reviewedCompoundWordSplits.values()].map(({ surfaces }) => surfaces),
+  ].filter((surfaces) => text.startsWith(surfaces.join(""), index));
+}
+
 window.AYAYA_JP_CARD_DATA = {
   sourceNotes,
   furiganaEntries: furiganaByLength,
   makeGrammarCards,
   makeKanaCards,
   makeVocabCards,
+  reviewedWordSplitsAt,
 };
 })();

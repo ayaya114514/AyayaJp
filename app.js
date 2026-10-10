@@ -6,6 +6,15 @@ const STORE_META_KEY = "__meta";
 const STORE_SCHEMA_VERSION = 4;
 const ROUND_QUEUE_ORDER_VERSION = 1;
 const VALID_RATINGS = new Set(["clear", "unsure", "forgot", "correct", "wrong"]);
+// "unsure" is no longer offered, but legacy ratings keep their cards in the 不认识 pool.
+const UNKNOWN_RATINGS = new Set(["unsure", "forgot", "wrong"]);
+const UNKNOWN_POOL_SUFFIX = "-unknown";
+const LEGACY_MISTAKE_DECKS = {
+  "vocab-mistakes": "vocab-ja-zh-unknown",
+  "vocab-n4-mistakes": "vocab-n4-ja-zh-unknown",
+  "grammar-n5-mistakes": "grammar-n5-zh-ja-unknown",
+  "grammar-n4-mistakes": "grammar-n4-zh-ja-unknown",
+};
 
 const cardData = window.AYAYA_JP_CARD_DATA;
 const isCardDataMissing = !cardData;
@@ -20,12 +29,28 @@ const isGrammarDataMissing =
   window.AYAYA_GRAMMAR_DATA.entries.length === 0;
 const cardFamilyCache = new Map();
 
+// Every tab deck has a main pool (the tab's own id) and a 不认识 pool (id + suffix).
+function isUnknownPool(deck) {
+  return deck.endsWith(UNKNOWN_POOL_SUFFIX);
+}
+
+function baseDeckOf(deck) {
+  return isUnknownPool(deck) ? deck.slice(0, -UNKNOWN_POOL_SUFFIX.length) : deck;
+}
+
+function unknownPoolOf(deck) {
+  return `${baseDeckOf(deck)}${UNKNOWN_POOL_SUFFIX}`;
+}
+
+function counterpartPoolOf(deck) {
+  return isUnknownPool(deck) ? baseDeckOf(deck) : unknownPoolOf(deck);
+}
+
 function cardFamilyForDeck(deck) {
+  deck = baseDeckOf(deck);
   if (["hiragana", "katakana", "romaji", "special"].includes(deck)) return "kana";
-  if (["vocab-ja-zh", "vocab-zh-ja", "vocab-mistakes"].includes(deck)) return "vocab-n5";
-  if (["vocab-n4-ja-zh", "vocab-n4-zh-ja", "vocab-n4-mistakes"].includes(deck)) {
-    return "vocab-n4";
-  }
+  if (["vocab-ja-zh", "vocab-zh-ja"].includes(deck)) return "vocab-n5";
+  if (["vocab-n4-ja-zh", "vocab-n4-zh-ja"].includes(deck)) return "vocab-n4";
   if (deck.startsWith("grammar-n5-")) return "grammar-n5";
   if (deck.startsWith("grammar-n4-")) return "grammar-n4";
   return null;
@@ -88,11 +113,15 @@ const elements = {
   studyCard: document.querySelector("#studyCard"),
   tabs: document.querySelectorAll(".tab-button"),
   undoRating: document.querySelector("#undoRating"),
+  poolToggle: document.querySelector("#poolToggle"),
+  unknownCount: document.querySelector("#unknownCount"),
+  poolToggleLabel: document.querySelector("#poolToggleLabel"),
   feedbackRow: document.querySelector(".feedback-row"),
   feedbackButtons: document.querySelectorAll(".feedback"),
 };
 
 const undoButtonHome = elements.undoRating?.parentElement || null;
+const poolToggleHome = elements.poolToggle?.parentElement || null;
 const storeWriterId =
   window.crypto?.randomUUID?.() ||
   `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
@@ -879,8 +908,8 @@ function expandDeckGroupForDeck(deck) {
 }
 
 function expandSidebarForDeck(deck) {
-  expandDeckGroupForDeck(deck);
-  expandDeckLevelForDeck(deck);
+  expandDeckGroupForDeck(baseDeckOf(deck));
+  expandDeckLevelForDeck(baseDeckOf(deck));
 }
 
 function arraysEqual(left, right) {
@@ -888,7 +917,12 @@ function arraysEqual(left, right) {
 }
 
 function knownDecks() {
-  return new Set([...elements.tabs].map((tab) => tab.dataset.deck).filter(Boolean));
+  return new Set(
+    [...elements.tabs]
+      .map((tab) => tab.dataset.deck)
+      .filter(Boolean)
+      .flatMap((deck) => [deck, unknownPoolOf(deck)]),
+  );
 }
 
 function isVocabDeck(deck) {
@@ -900,11 +934,11 @@ function isGrammarDeck(deck) {
 }
 
 function isN4VocabDeck(deck) {
-  return ["vocab-n4-ja-zh", "vocab-n4-zh-ja", "vocab-n4-mistakes"].includes(deck);
+  return cardFamilyForDeck(deck) === "vocab-n4";
 }
 
 function isN5VocabDeck(deck) {
-  return ["vocab-ja-zh", "vocab-zh-ja", "vocab-mistakes"].includes(deck);
+  return cardFamilyForDeck(deck) === "vocab-n5";
 }
 
 function isDeckDataMissing(deck) {
@@ -974,8 +1008,10 @@ function syncSessionRoundState(options = {}) {
   if (!roundState || typeof roundState !== "object") return;
 
   const deckNames = knownDecks();
-  if (!preserveActiveDeck && deckNames.has(roundState.activeDeck)) {
-    activeDeck = roundState.activeDeck;
+  const storedActiveDeck =
+    LEGACY_MISTAKE_DECKS[roundState.activeDeck] || roundState.activeDeck;
+  if (!preserveActiveDeck && deckNames.has(storedActiveDeck)) {
+    activeDeck = storedActiveDeck;
   }
 
   Object.entries(roundState.decks || {}).forEach(([deck, state]) => {
@@ -1146,55 +1182,17 @@ function getState(cardId) {
   return store[cardId];
 }
 
-function hasMistakeRating(card) {
-  return ["unsure", "forgot"].includes(getState(card.id).lastRating);
-}
-
-function isMistakeCard(card) {
-  return card.isVocab && hasMistakeRating(card);
-}
-
-function isN5MistakeCard(card) {
-  return isMistakeCard(card) && ["vocab-ja-zh", "vocab-zh-ja"].includes(card.deck);
-}
-
-function isN4MistakeCard(card) {
-  return isMistakeCard(card) && ["vocab-n4-ja-zh", "vocab-n4-zh-ja"].includes(card.deck);
-}
-
-function isGrammarMistakeCard(card) {
-  if (!card.isGrammar) return false;
-  if (card.isChoice) return getState(card.id).lastRating === "wrong";
-  return hasMistakeRating(card);
-}
-
-function isN5GrammarMistakeCard(card) {
-  return isGrammarMistakeCard(card) && card.deck.startsWith("grammar-n5-");
-}
-
-function isN4GrammarMistakeCard(card) {
-  return isGrammarMistakeCard(card) && card.deck.startsWith("grammar-n4-");
+// A card's latest rating decides its pool, so every rating moves it immediately.
+function isUnknownCard(card) {
+  return UNKNOWN_RATINGS.has(compactCardState(store[card.id])?.lastRating);
 }
 
 function getDeckCards(deck = activeDeck) {
-  const familyCards = getFamilyCards(deck);
-  if (deck === "vocab-mistakes") {
-    return familyCards.filter(isN5MistakeCard);
-  }
-
-  if (deck === "vocab-n4-mistakes") {
-    return familyCards.filter(isN4MistakeCard);
-  }
-
-  if (deck === "grammar-n5-mistakes") {
-    return familyCards.filter(isN5GrammarMistakeCard);
-  }
-
-  if (deck === "grammar-n4-mistakes") {
-    return familyCards.filter(isN4GrammarMistakeCard);
-  }
-
-  return familyCards.filter((card) => card.deck === deck);
+  const baseDeck = baseDeckOf(deck);
+  const wantsUnknown = isUnknownPool(deck);
+  return getFamilyCards(deck).filter(
+    (card) => card.deck === baseDeck && isUnknownCard(card) === wantsUnknown,
+  );
 }
 
 function shuffleList(items) {
@@ -1249,7 +1247,7 @@ function buildQueue() {
   const completedIds = hadCompleted
     ? sessionCompleted[activeDeck]
     : new Set(
-        activeDeck.endsWith("-mistakes")
+        isUnknownPool(activeDeck)
           ? []
           : deckCards.filter((card) => getState(card.id).reviews > 0).map((card) => card.id),
       );
@@ -1301,6 +1299,28 @@ function restoreUndoButtonHome() {
   }
 }
 
+function restorePoolToggleHome() {
+  if (!poolToggleHome || elements.poolToggle.parentElement === poolToggleHome) return;
+  if (elements.undoRating.parentElement === poolToggleHome) {
+    poolToggleHome.insertBefore(elements.poolToggle, elements.undoRating);
+  } else {
+    poolToggleHome.append(elements.poolToggle);
+  }
+}
+
+function renderPoolToggle() {
+  const inUnknownPool = isUnknownPool(activeDeck);
+  const unknownCount = getDeckCards(unknownPoolOf(activeDeck)).length;
+  const label = inUnknownPool ? "返回认识板块" : "切换到不认识板块";
+  elements.unknownCount.textContent = unknownCount;
+  elements.unknownCount.hidden = inUnknownPool;
+  elements.poolToggleLabel.textContent = inUnknownPool ? "返回认识" : "不认识";
+  elements.poolToggle.classList.toggle("is-active", inUnknownPool);
+  elements.poolToggle.setAttribute("aria-pressed", String(inUnknownPool));
+  elements.poolToggle.setAttribute("aria-label", `${label}（${unknownCount} 张不认识）`);
+  elements.poolToggle.title = label;
+}
+
 function focusSoon(element) {
   if (!element || element.disabled || element.hidden) return;
   window.requestAnimationFrame(() => {
@@ -1347,9 +1367,10 @@ function render() {
   elements.dueCount.textContent = dueCount;
   elements.reviewedCount.textContent = reviewedCount;
   updateUndoButton();
+  renderPoolToggle();
 
   elements.tabs.forEach((tab) => {
-    const isActive = tab.dataset.deck === activeDeck;
+    const isActive = tab.dataset.deck === baseDeckOf(activeDeck);
     tab.classList.toggle("active", isActive);
     tab.setAttribute("aria-pressed", String(isActive));
   });
@@ -1361,6 +1382,7 @@ function render() {
   }
 
   restoreUndoButtonHome();
+  restorePoolToggleHome();
   elements.studyCard.hidden = false;
   elements.flashcard.hidden = false;
   elements.emptyState.hidden = true;
@@ -1626,30 +1648,26 @@ function renderEmpty(deckCards) {
   elements.answerPanel.setAttribute("aria-hidden", "true");
   clearAnswer();
   elements.emptyState.hidden = false;
+  elements.emptyState.append(elements.poolToggle);
   if (lastReview) {
     elements.emptyState.append(elements.undoRating);
   } else {
     restoreUndoButtonHome();
   }
   elements.studyAnyWay.hidden = deckCards.length === 0;
-  if (activeDeck === "vocab-mistakes" && !deckCards.length) {
-    elements.roundStatusText.textContent = "暂无错题，去 N5 模块里练几张吧。";
-    return;
-  }
-  if (activeDeck === "vocab-n4-mistakes" && !deckCards.length) {
-    elements.roundStatusText.textContent = "暂无错题，去 N4 模块里练几张吧。";
-    return;
-  }
-  if (activeDeck === "grammar-n5-mistakes" && !deckCards.length) {
-    elements.roundStatusText.textContent = "暂无语法错题，去 N5 语法模块练几张吧。";
-    return;
-  }
-  if (activeDeck === "grammar-n4-mistakes" && !deckCards.length) {
-    elements.roundStatusText.textContent = "暂无语法错题，去 N4 语法模块练几张吧。";
+  if (isUnknownPool(activeDeck)) {
+    elements.roundStatusText.textContent = deckCards.length
+      ? `这一轮已经完成，仍不认识 ${deckCards.length} 张。`
+      : "没有不认识的卡片。";
     return;
   }
 
-  elements.roundStatusText.textContent = deckCards.length ? "这一轮已经完成。" : "没有可用卡片";
+  const counterpartCount = getDeckCards(counterpartPoolOf(activeDeck)).length;
+  elements.roundStatusText.textContent = deckCards.length
+    ? `这一轮已经完成：认识 ${deckCards.length}，不认识 ${counterpartCount}。`
+    : counterpartCount
+      ? `全部 ${counterpartCount} 张都在不认识板块。`
+      : "没有可用卡片";
 }
 
 function revealCard() {
@@ -1689,7 +1707,79 @@ function captureReviewSnapshot() {
     previousQueue: [...(sessionQueues[activeDeck] || [])],
     previousRoundCount: getRoundCount(activeDeck),
     previousState: cloneStore(state),
+    counterpartDeck: counterpartPoolOf(activeDeck),
+    previousCounterpart: capturePoolRound(counterpartPoolOf(activeDeck)),
   };
+}
+
+function capturePoolRound(deck) {
+  return {
+    completed: sessionCompleted[deck] ? new Set(sessionCompleted[deck]) : null,
+    completionEvents: sessionCompletionEvents[deck]
+      ? { ...sessionCompletionEvents[deck] }
+      : null,
+    queue: Array.isArray(sessionQueues[deck]) ? [...sessionQueues[deck]] : null,
+    roundCompletionEvents: sessionRoundCompletionEvents[deck]
+      ? [...sessionRoundCompletionEvents[deck]]
+      : null,
+    roundGeneration: Number.isInteger(sessionRoundGenerations[deck])
+      ? sessionRoundGenerations[deck]
+      : null,
+    roundId: sessionRoundIds[deck] || null,
+  };
+}
+
+function restorePoolRound(deck, snapshot) {
+  if (!snapshot) return;
+  const restore = (record, value) => {
+    if (value === null) delete record[deck];
+    else record[deck] = value;
+  };
+  restore(sessionCompleted, snapshot.completed && new Set(snapshot.completed));
+  restore(sessionCompletionEvents, snapshot.completionEvents && { ...snapshot.completionEvents });
+  restore(sessionQueues, snapshot.queue && [...snapshot.queue]);
+  restore(
+    sessionRoundCompletionEvents,
+    snapshot.roundCompletionEvents && [...snapshot.roundCompletionEvents],
+  );
+  restore(sessionRoundGenerations, snapshot.roundGeneration);
+  restore(sessionRoundIds, snapshot.roundId);
+}
+
+// After a rating moves the current card out of the active pool, settle it in the
+// other pool: 不认识 cards wait in that pool's queue, and cards marked 认识 from the
+// 不认识 pool count as done for the main pool's current round.
+function settleMovedCard(cardId) {
+  const card = getFamilyCards(activeDeck).find((item) => item.id === cardId);
+  if (!card || isUnknownCard(card) === isUnknownPool(activeDeck)) return;
+
+  const targetDeck = counterpartPoolOf(activeDeck);
+  if (Array.isArray(sessionQueues[targetDeck])) {
+    sessionQueues[targetDeck] = sessionQueues[targetDeck].filter((id) => id !== cardId);
+  }
+  if (isUnknownPool(targetDeck)) {
+    sessionCompleted[targetDeck]?.delete(cardId);
+    if (sessionCompletionEvents[targetDeck]) delete sessionCompletionEvents[targetDeck][cardId];
+    if (Array.isArray(sessionQueues[targetDeck])) {
+      // A finished round that gains a card continues as a new epoch; reopening the
+      // old one would read as an undone round and roll back its round count.
+      if (
+        sessionQueues[targetDeck].length === 0 &&
+        sessionRoundCompletionEvents[targetDeck]?.length
+      ) {
+        advanceSessionRoundEpoch(targetDeck);
+        sessionRoundCompletionEvents[targetDeck] = [];
+      }
+      sessionQueues[targetDeck].push(cardId);
+    }
+    return;
+  }
+  if (!(sessionCompleted[targetDeck] instanceof Set)) return;
+  sessionCompleted[targetDeck].add(cardId);
+  if (!sessionCompletionEvents[targetDeck]) sessionCompletionEvents[targetDeck] = {};
+  if (lastReview?.appliedEventId) {
+    sessionCompletionEvents[targetDeck][cardId] = [lastReview.appliedEventId];
+  }
 }
 
 function applyRating(rating, details = {}) {
@@ -1727,6 +1817,7 @@ function completeCurrentCard(options = {}) {
   if (lastReview?.appliedEventId) {
     sessionCompletionEvents[activeDeck][currentCard.id] = [lastReview.appliedEventId];
   }
+  settleMovedCard(currentCard.id);
   if (sessionQueues[activeDeck].length === 0 && sessionCompleted[activeDeck].size > 0) {
     sessionRoundCounts[activeDeck] = getRoundCount(activeDeck) + 1;
     sessionRoundCompletionEvents[activeDeck] = [
@@ -1843,6 +1934,7 @@ function undoLastReview() {
     sessionRoundIds[activeDeck] = snapshot.previousRoundId;
     sessionQueues[activeDeck] = [...snapshot.previousQueue];
     sessionRoundCounts[activeDeck] = snapshot.previousRoundCount;
+    restorePoolRound(snapshot.counterpartDeck, snapshot.previousCounterpart);
   }
   removeAppliedReview(snapshot, persistedStore[snapshot.cardId], concurrentReviewExists);
   saveRoundState();
@@ -1975,6 +2067,17 @@ function handleSidebarKeydown(event) {
   }
 }
 
+// iOS Safari pauses other apps' music when a page claims the default audio session;
+// "ambient" mixes speech with background audio instead (it follows the mute switch).
+function preferMixedAudio() {
+  try {
+    const audioSession = typeof navigator === "undefined" ? null : navigator.audioSession;
+    if (audioSession && audioSession.type !== "ambient") audioSession.type = "ambient";
+  } catch {
+    // Browsers without the Audio Session API keep their default behavior.
+  }
+}
+
 function supportsSpeech() {
   return Boolean(
     "speechSynthesis" in window &&
@@ -2058,6 +2161,7 @@ function scheduleSpeechStart(text, options, generation, delay = 0, attempt = 0) 
     );
 
     try {
+      preferMixedAudio();
       synthesizer.speak(utterance);
     } catch {
       activeSpeechUtterance = null;
@@ -2116,6 +2220,36 @@ function cancelSpeech() {
     synthesizer.cancel();
     speechBlockedUntil = Math.max(speechBlockedUntil, Date.now() + 120);
   }
+}
+
+// iPadOS Safari can keep a stale 100dvh after the tab returns from the
+// background, pushing the bottom of the card off screen. Pin the shell to the
+// measured layout viewport instead and re-measure whenever the page resumes.
+function syncViewportHeight() {
+  const viewport = window.visualViewport;
+  const height = viewport ? viewport.height * (viewport.scale || 1) : window.innerHeight;
+  const rootStyle = document.documentElement.style;
+  if (!Number.isFinite(height) || height <= 0 || !rootStyle) return;
+  rootStyle.setProperty("--app-height", `${Math.round(height)}px`);
+  if (window.scrollY) window.scrollTo(0, 0);
+}
+
+function bindViewportHeight() {
+  const resync = () => {
+    syncViewportHeight();
+    // Safari reports the restored viewport a moment after the resume events.
+    window.requestAnimationFrame(syncViewportHeight);
+    window.setTimeout(syncViewportHeight, 350);
+  };
+  syncViewportHeight();
+  window.addEventListener("resize", syncViewportHeight);
+  window.addEventListener("orientationchange", resync);
+  window.addEventListener("pageshow", resync);
+  window.addEventListener("focus", resync);
+  window.visualViewport?.addEventListener("resize", syncViewportHeight);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") resync();
+  });
 }
 
 function bindInputModality() {
@@ -2339,9 +2473,9 @@ function handleStoreStorageChange(event) {
   }
 }
 
-const ratingShortcuts = { 1: "clear", 2: "unsure", 3: "forgot" };
+const ratingShortcuts = { 1: "clear", 2: "forgot" };
 
-// 1/2/3 rate a revealed card; 1–4 pick a choice (A–D) before it is answered.
+// 1/2 rate a revealed card (认识/不认识); 1–4 pick a choice (A–D) before it is answered.
 function handleStudyShortcut(event) {
   if (event.defaultPrevented || event.repeat || event.isComposing) return;
   if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
@@ -2391,6 +2525,17 @@ function bindInteractions() {
         nextCard();
         focusPrimaryStudyAction();
       });
+    });
+  });
+
+  elements.poolToggle.addEventListener("click", (event) => {
+    event.stopPropagation();
+    runSafely(() => {
+      clearLastReview();
+      activeDeck = counterpartPoolOf(activeDeck);
+      saveRoundState();
+      nextCard();
+      focusPrimaryStudyAction();
     });
   });
 
@@ -2460,6 +2605,8 @@ function bindInteractions() {
 
 function initializeApp() {
   assertRequiredElements();
+  preferMixedAudio();
+  bindViewportHeight();
   bindInputModality();
   elements.answerPanel.setAttribute("role", "region");
   elements.answerPanel.setAttribute("aria-label", "答案区域");

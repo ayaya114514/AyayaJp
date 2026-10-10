@@ -30,9 +30,10 @@ window.AYAYA_N5_CODEX_VOCAB = {
     "source_notes": [
       "The duplicate 在る / 有る records were merged under the modern kana headword ある while preserving both orthographic variants.",
       "Reading, part-of-speech, example alignment, same-sense duplicates and retained cross-level distinctions were re-audited on 2026-08-18; merged_source_ids preserve prior study state.",
-      "Dictionary forms, readings, coarse part-of-speech labels, senses, and all example rows were re-audited against JMdict and for Japanese/Chinese learning accuracy on 2026-08-30."
+      "Dictionary forms, readings, coarse part-of-speech labels, senses, and all example rows were re-audited against JMdict and for Japanese/Chinese learning accuracy on 2026-08-30.",
+      "On 2026-10-10 every entry was re-audited again: headword romaji now follows the particle and n' rules with the same word division as the examples, category labels were corrected, pure grammar patterns were migrated to grammar cards, and unnatural examples were rewritten."
     ],
-    "entry_count": 716
+    "entry_count": 713
   },
   "entries": [
     {
@@ -341,7 +342,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "aku",
       "part_of_speech": "verb",
-      "meaning_zh": "开；打开；开始营业（自动词）",
+      "meaning_zh": "开；开着；开始营业（自动词）",
       "kanji_readings": [
         {
           "form": "開く",
@@ -429,8 +430,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "请举手。"
         },
         {
-          "ja": "音を少し上げます。",
-          "zh": "把声音调高一点。"
+          "ja": "ボリュームを少し上げます。",
+          "zh": "把音量调高一点。"
         },
         {
           "ja": "弟にプレゼントをあげます。",
@@ -2737,8 +2738,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "请往上看。"
         },
         {
-          "ja": "階段を上へ行きます。",
-          "zh": "上楼梯往上走。"
+          "ja": "姉は上の部屋にいます。",
+          "zh": "姐姐在楼上的房间里。"
         }
       ],
       "note_zh": ""
@@ -3439,7 +3440,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "お～"
       ],
       "romaji": "o~",
-      "part_of_speech": "noun",
+      "part_of_speech": "prefix",
       "meaning_zh": "礼貌前缀；尊敬前缀",
       "kanji_readings": [],
       "examples": [
@@ -6495,38 +6496,6 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n5-181",
-      "jlpt": "N5",
-      "headword": "～がる",
-      "source_form": "～がる",
-      "variants": [
-        "～がる"
-      ],
-      "reading": "～がる",
-      "reading_variants": [
-        "～がる"
-      ],
-      "romaji": "~garu",
-      "part_of_speech": "suffix/pattern",
-      "meaning_zh": "显得……；表现出……",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "子供が寒がっています。",
-          "zh": "孩子表现出很冷的样子。"
-        },
-        {
-          "ja": "妹は犬を怖がります。",
-          "zh": "妹妹怕狗。"
-        },
-        {
-          "ja": "友達は行きたがっています。",
-          "zh": "朋友显得很想去。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
       "id": "n5-182",
       "jlpt": "N5",
       "headword": "軽い",
@@ -7080,7 +7049,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "kissaten",
       "part_of_speech": "noun",
-      "meaning_zh": "咖啡馆；茶餐厅",
+      "meaning_zh": "咖啡馆；（日式）茶馆",
       "kanji_readings": [
         {
           "form": "喫茶店",
@@ -7476,6 +7445,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
     },
     {
       "id": "n5-208",
+      "merged_source_ids": ["n4-180"],
       "jlpt": "N5",
       "headword": "嫌い",
       "source_form": "嫌い",
@@ -7562,7 +7532,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "kiru",
       "part_of_speech": "verb",
-      "meaning_zh": "穿（上半身衣物）",
+      "meaning_zh": "穿（上衣、外套、连衣裙、和服等）",
       "kanji_readings": [
         {
           "form": "着る",
@@ -7732,7 +7702,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "きんようび"
       ],
-      "romaji": "kinyoubi",
+      "romaji": "kin'youbi",
       "part_of_speech": "noun",
       "meaning_zh": "星期五",
       "kanji_readings": [
@@ -8174,7 +8144,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "ぐらい"
       ],
       "romaji": "~kurai",
-      "part_of_speech": "suffix/pattern",
+      "part_of_speech": "particle",
       "meaning_zh": "大约；左右",
       "kanji_readings": [],
       "examples": [
@@ -8954,8 +8924,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "派出所在车站附近。"
         },
         {
-          "ja": "交番で友達に会います。",
-          "zh": "在派出所见朋友。"
+          "ja": "交番で道を聞きました。",
+          "zh": "在派出所问了路。"
         }
       ],
       "note_zh": ""
@@ -9190,16 +9160,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "九つの町へ行きました。",
-          "zh": "去了九个城镇。"
+          "ja": "子供は今年で九つになります。",
+          "zh": "孩子今年满九岁。"
         },
         {
           "ja": "九つください。",
           "zh": "请给我九个。"
         },
         {
-          "ja": "九つの本を読みました。",
-          "zh": "读了九本书。"
+          "ja": "りんごが九つあります。",
+          "zh": "有九个苹果。"
         }
       ],
       "note_zh": ""
@@ -9397,16 +9367,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "今年、学校へ行きます。",
-          "zh": "今年去学校。"
+          "ja": "今年、日本へ行きます。",
+          "zh": "今年去日本。"
         },
         {
           "ja": "今年は忙しいです。",
           "zh": "今年很忙。"
         },
         {
-          "ja": "今年、友達に会います。",
-          "zh": "今年见朋友。"
+          "ja": "今年の夏は暑いです。",
+          "zh": "今年夏天很热。"
         }
       ],
       "note_zh": ""
@@ -9566,7 +9536,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "コピーする"
       ],
-      "romaji": "kopiisuru",
+      "romaji": "kopii suru",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "复印；复制",
       "kanji_readings": [],
@@ -9713,8 +9683,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "今月、学校へ行きます。",
-          "zh": "这个月去学校。"
+          "ja": "今月は雨が多いです。",
+          "zh": "这个月雨水多。"
         },
         {
           "ja": "今月は忙しいです。",
@@ -9820,8 +9790,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "今晩、学校へ行きます。",
-          "zh": "今晚去学校。"
+          "ja": "今晩、映画を見ます。",
+          "zh": "今晚看电影。"
         },
         {
           "ja": "今晩は忙しいです。",
@@ -9992,7 +9962,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "saki",
       "part_of_speech": "noun",
-      "meaning_zh": "前方；先；刚才；将来",
+      "meaning_zh": "前方；前头；先（做）；将来",
       "kanji_readings": [
         {
           "form": "先",
@@ -10298,16 +10268,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "さ来年、学校へ行きます。",
-          "zh": "后年去学校。"
+          "ja": "さ来年、日本へ行きます。",
+          "zh": "后年去日本。"
         },
         {
           "ja": "さ来年は忙しいです。",
           "zh": "后年很忙。"
         },
         {
-          "ja": "さ来年、友達に会います。",
-          "zh": "后年见朋友。"
+          "ja": "さ来年、弟は大学生になります。",
+          "zh": "后年弟弟就上大学了。"
         }
       ],
       "note_zh": ""
@@ -10542,7 +10512,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "しかし"
       ],
       "romaji": "shikashi",
-      "part_of_speech": "conjunction/expression",
+      "part_of_speech": "conjunction",
       "meaning_zh": "但是；然而",
       "kanji_readings": [],
       "examples": [
@@ -10777,8 +10747,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "请往下看。"
         },
         {
-          "ja": "階段を下へ行きます。",
-          "zh": "下楼梯往下走。"
+          "ja": "下の名前は何ですか。",
+          "zh": "你的名（不是姓）叫什么？"
         }
       ],
       "note_zh": ""
@@ -11168,7 +11138,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "じゃ"
       ],
       "romaji": "jaa",
-      "part_of_speech": "conjunction/expression",
+      "part_of_speech": "conjunction",
       "meaning_zh": "那么；那就",
       "kanji_readings": [],
       "examples": [
@@ -11339,7 +11309,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "~juu",
       "part_of_speech": "suffix/pattern",
-      "meaning_zh": "整个……；……期间",
+      "meaning_zh": "整个……；全……",
       "kanji_readings": [
         {
           "form": "～中",
@@ -11352,8 +11322,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "一整天都在家。"
         },
         {
-          "ja": "夏休み中、旅行しました。",
-          "zh": "暑假期间旅行了。"
+          "ja": "この町は一年中にぎやかです。",
+          "zh": "这个城镇一年到头都很热闹。"
         },
         {
           "ja": "世界中に友達がいます。",
@@ -11745,7 +11715,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "～じん"
       ],
       "romaji": "~jin",
-      "part_of_speech": "counter/suffix",
+      "part_of_speech": "suffix",
       "meaning_zh": "……人（国籍、身份）",
       "kanji_readings": [
         {
@@ -11767,7 +11737,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "那个人是外国人。"
         }
       ],
-      "note_zh": "接在数字或名词后使用；例句中去掉了前缀符号「～」。"
+      "note_zh": "接在国名、地名等名词后，表示国籍或出身；例句中去掉了前缀符号「～」。"
     },
     {
       "id": "n5-327",
@@ -12031,8 +12001,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "すぐに"
       ],
-      "romaji": "suguni",
-      "part_of_speech": "adverb/expression",
+      "romaji": "sugu ni",
+      "part_of_speech": "adverb",
       "meaning_zh": "马上；立刻",
       "kanji_readings": [],
       "examples": [
@@ -12064,7 +12034,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "すこし"
       ],
       "romaji": "sukoshi",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "一点；少量",
       "kanji_readings": [
         {
@@ -12138,7 +12108,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "～ずつ"
       ],
       "romaji": "~zutsu",
-      "part_of_speech": "suffix/pattern",
+      "part_of_speech": "particle",
       "meaning_zh": "每……；各……；一点点地",
       "kanji_readings": [],
       "examples": [
@@ -12946,7 +12916,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "そして"
       ],
       "romaji": "soshite",
-      "part_of_speech": "conjunction/expression",
+      "part_of_speech": "conjunction",
       "meaning_zh": "然后；并且",
       "kanji_readings": [],
       "examples": [
@@ -13144,7 +13114,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "soba",
       "part_of_speech": "noun",
-      "meaning_zh": "旁边；附近；荞麦面",
+      "meaning_zh": "旁边；附近",
       "kanji_readings": [],
       "examples": [
         {
@@ -13156,8 +13126,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "坐在妈妈旁边。"
         },
         {
-          "ja": "そばを食べました。",
-          "zh": "吃了荞麦面。"
+          "ja": "窓のそばに机があります。",
+          "zh": "窗户旁边有桌子。"
         }
       ],
       "note_zh": ""
@@ -13244,7 +13214,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "それから"
       ],
       "romaji": "sorekara",
-      "part_of_speech": "conjunction/expression",
+      "part_of_speech": "conjunction",
       "meaning_zh": "然后；从那以后",
       "kanji_readings": [],
       "examples": [
@@ -13275,8 +13245,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "それでは"
       ],
-      "romaji": "soredeha",
-      "part_of_speech": "conjunction/expression",
+      "romaji": "soredewa",
+      "part_of_speech": "conjunction",
       "meaning_zh": "那么；既然这样",
       "kanji_readings": [],
       "examples": [
@@ -13630,38 +13600,6 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n5-380",
-      "jlpt": "N5",
-      "headword": "～だけ",
-      "source_form": "～だけ",
-      "variants": [
-        "～だけ"
-      ],
-      "reading": "～だけ",
-      "reading_variants": [
-        "～だけ"
-      ],
-      "romaji": "~dake",
-      "part_of_speech": "suffix/pattern",
-      "meaning_zh": "只；仅",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "水だけ飲みます。",
-          "zh": "只喝水。"
-        },
-        {
-          "ja": "少しだけ待ってください。",
-          "zh": "请稍等一下。"
-        },
-        {
-          "ja": "一人だけ来ました。",
-          "zh": "只来了一个人。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
       "id": "n5-381",
       "jlpt": "N5",
       "headword": "たくさん",
@@ -13674,7 +13612,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "たくさん"
       ],
       "romaji": "takusan",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "很多",
       "kanji_readings": [],
       "examples": [
@@ -13825,8 +13763,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "车站前站着人。"
         },
         {
-          "ja": "授業の後で立ちました。",
-          "zh": "课后站起来了。"
+          "ja": "電車でずっと立っていました。",
+          "zh": "在电车上一直站着。"
         }
       ],
       "note_zh": ""
@@ -14198,7 +14136,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "だれか"
       ],
-      "romaji": "dareka",
+      "romaji": "dare ka",
       "part_of_speech": "indefinite pronoun",
       "meaning_zh": "某人；有人",
       "kanji_readings": [
@@ -14273,7 +14211,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "だんだん"
       ],
       "romaji": "dandan",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "渐渐地",
       "kanji_readings": [],
       "examples": [
@@ -14746,7 +14684,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "ちょっと"
       ],
       "romaji": "chotto",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "稍微；一点儿",
       "kanji_readings": [],
       "examples": [
@@ -15014,8 +14952,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "妈妈做晚饭。"
         },
         {
-          "ja": "友達にケーキを作りました。",
-          "zh": "给朋友做了蛋糕。"
+          "ja": "友達の誕生日にケーキを作りました。",
+          "zh": "朋友过生日时做了蛋糕。"
         },
         {
           "ja": "家で朝ご飯を作ります。",
@@ -15519,8 +15457,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "では"
       ],
-      "romaji": "deha",
-      "part_of_speech": "conjunction/expression",
+      "romaji": "dewa",
+      "part_of_speech": "conjunction",
       "meaning_zh": "那么；那就",
       "kanji_readings": [],
       "examples": [
@@ -15584,7 +15522,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "でも"
       ],
       "romaji": "demo",
-      "part_of_speech": "conjunction/expression",
+      "part_of_speech": "conjunction",
       "meaning_zh": "但是；不过",
       "kanji_readings": [],
       "examples": [
@@ -15971,7 +15909,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "どう"
       ],
       "romaji": "dou",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "怎么样；如何",
       "kanji_readings": [],
       "examples": [
@@ -16003,7 +15941,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "どうして"
       ],
       "romaji": "doushite",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "为什么",
       "kanji_readings": [],
       "examples": [
@@ -16247,7 +16185,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "～とき"
       ],
       "romaji": "~toki",
-      "part_of_speech": "noun/suffix",
+      "part_of_speech": "noun",
       "meaning_zh": "……的时候",
       "kanji_readings": [
         {
@@ -16269,7 +16207,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "遇到困难时问老师。"
         }
       ],
-      "note_zh": "接在数字或名词后使用；例句中去掉了前缀符号「～」。"
+      "note_zh": "名词，前面接「名词＋の」「な形容词＋な」、动词或い形容词；例句中去掉了前缀符号「～」。"
     },
     {
       "id": "n5-455",
@@ -16284,7 +16222,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "ときどき"
       ],
       "romaji": "tokidoki",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "有时",
       "kanji_readings": [
         {
@@ -16437,12 +16375,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "一年は十二か月です。",
-          "zh": "一年有十二个月。"
+          "ja": "父は年を取りました。",
+          "zh": "父亲上年纪了。"
         },
         {
-          "ja": "今年は忙しいです。",
-          "zh": "今年很忙。"
+          "ja": "兄と姉は年が近いです。",
+          "zh": "哥哥和姐姐年龄相近。"
         },
         {
           "ja": "年を聞かないでください。",
@@ -16565,7 +16503,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "とても"
       ],
       "romaji": "totemo",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "非常；很",
       "kanji_readings": [],
       "examples": [
@@ -16717,8 +16655,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "飞机飞往东京。"
         },
         {
-          "ja": "子供が高く飛びました。",
-          "zh": "孩子跳得很高。"
+          "ja": "風で帽子が飛びました。",
+          "zh": "帽子被风吹飞了。"
         }
       ],
       "note_zh": ""
@@ -17271,7 +17209,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "なぜ"
       ],
       "romaji": "naze",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "为什么",
       "kanji_readings": [],
       "examples": [
@@ -17350,8 +17288,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "夏休み、学校へ行きます。",
-          "zh": "暑假去学校。"
+          "ja": "夏休みに海へ行きます。",
+          "zh": "暑假去海边。"
         },
         {
           "ja": "夏休みは忙しいです。",
@@ -17360,38 +17298,6 @@ window.AYAYA_N5_CODEX_VOCAB = {
         {
           "ja": "夏休み、友達に会います。",
           "zh": "暑假见朋友。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
-      "id": "n5-486",
-      "jlpt": "N5",
-      "headword": "～など",
-      "source_form": "～など",
-      "variants": [
-        "～など"
-      ],
-      "reading": "～など",
-      "reading_variants": [
-        "～など"
-      ],
-      "romaji": "~nado",
-      "part_of_speech": "particle",
-      "meaning_zh": "……等等",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "机の上に本やノートなどがあります。",
-          "zh": "桌上有书、笔记本等。"
-        },
-        {
-          "ja": "野菜などを買いました。",
-          "zh": "买了蔬菜等东西。"
-        },
-        {
-          "ja": "日曜日は掃除などをします。",
-          "zh": "星期天做打扫等事情。"
         }
       ],
       "note_zh": ""
@@ -17891,12 +17797,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "十日に会いましょう。",
-          "zh": "十号见吧。"
+          "ja": "十一日に会いましょう。",
+          "zh": "十一号见吧。"
         },
         {
-          "ja": "三日休みます。",
-          "zh": "休息三天。"
+          "ja": "二十五日は休みです。",
+          "zh": "二十五号休息。"
         },
         {
           "ja": "何日に行きますか。",
@@ -18126,9 +18032,10 @@ window.AYAYA_N5_CODEX_VOCAB = {
     {
       "id": "n5-507",
       "jlpt": "N5",
-      "headword": "温い",
+      "headword": "ぬるい",
       "source_form": "温い",
       "variants": [
+        "ぬるい",
         "温い"
       ],
       "reading": "ぬるい",
@@ -18137,7 +18044,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "nurui",
       "part_of_speech": "i-adjective",
-      "meaning_zh": "温的；不够热的",
+      "meaning_zh": "（热的东西）不够热；（凉的东西）不够凉；温吞",
       "kanji_readings": [
         {
           "form": "温い",
@@ -18146,19 +18053,19 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "このお茶は少し温いです。",
-          "zh": "这杯茶有点凉了。"
+          "ja": "このお茶は少しぬるいです。",
+          "zh": "这杯茶有点不够热。"
         },
         {
-          "ja": "お風呂のお湯が温いです。",
+          "ja": "お風呂のお湯がぬるいです。",
           "zh": "洗澡水不够热。"
         },
         {
-          "ja": "スープが温くなりました。",
-          "zh": "汤变温了。"
+          "ja": "スープがぬるくなりました。",
+          "zh": "汤变得温吞了。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "一般写假名「ぬるい」；汉字「温い」是常用汉字表以外的读法。"
     },
     {
       "id": "n5-508",
@@ -18362,8 +18269,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "爬山。"
         },
         {
-          "ja": "階段を登ってください。",
-          "zh": "请上楼梯。"
+          "ja": "猫が木に登りました。",
+          "zh": "猫爬上了树。"
         },
         {
           "ja": "友達と富士山に登りました。",
@@ -18967,7 +18874,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "はじめて"
       ],
       "romaji": "hajimete",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "第一次；初次",
       "kanji_readings": [
         {
@@ -21200,7 +21107,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "bunshou",
       "part_of_speech": "noun",
-      "meaning_zh": "文章；句子",
+      "meaning_zh": "文章",
       "kanji_readings": [
         {
           "form": "文章",
@@ -21213,12 +21120,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "读文章。"
         },
         {
-          "ja": "文章が好きです。",
-          "zh": "喜欢文章。"
+          "ja": "この文章は難しいです。",
+          "zh": "这篇文章很难。"
         },
         {
-          "ja": "朝、文章を読みました。",
-          "zh": "早上读了文章。"
+          "ja": "日本語で短い文章を書きました。",
+          "zh": "用日语写了一篇短文。"
         }
       ],
       "note_zh": ""
@@ -22057,12 +21964,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "每天早上去学校。"
         },
         {
-          "ja": "毎朝は忙しいです。",
-          "zh": "每天早上很忙。"
+          "ja": "毎朝、新聞を読みます。",
+          "zh": "每天早上看报纸。"
         },
         {
-          "ja": "毎朝、友達に会います。",
-          "zh": "每天早上见朋友。"
+          "ja": "毎朝、コーヒーを飲みます。",
+          "zh": "每天早上喝咖啡。"
         }
       ],
       "note_zh": ""
@@ -22075,35 +21982,35 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "variants": [
         "毎月"
       ],
-      "reading": "まいげつ",
+      "reading": "まいつき",
       "reading_variants": [
-        "まいげつ",
-        "まいつき"
+        "まいつき",
+        "まいげつ"
       ],
-      "romaji": "maigetsu",
+      "romaji": "maitsuki",
       "part_of_speech": "noun",
       "meaning_zh": "每个月",
       "kanji_readings": [
         {
           "form": "毎月",
-          "reading": "まいげつ"
+          "reading": "まいつき"
         }
       ],
       "examples": [
         {
-          "ja": "毎月、学校へ行きます。",
-          "zh": "每个月去学校。"
+          "ja": "毎月、家族に手紙を書きます。",
+          "zh": "每个月给家人写信。"
         },
         {
-          "ja": "毎月は忙しいです。",
-          "zh": "每个月很忙。"
+          "ja": "毎月、母に電話します。",
+          "zh": "每个月给妈妈打电话。"
         },
         {
           "ja": "毎月、友達に会います。",
           "zh": "每个月见朋友。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "也读「まいげつ」，语气较书面。"
     },
     {
       "id": "n5-617",
@@ -22128,12 +22035,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "毎週、学校へ行きます。",
-          "zh": "每周去学校。"
+          "ja": "毎週、プールで泳ぎます。",
+          "zh": "每周在游泳池游泳。"
         },
         {
-          "ja": "毎週は忙しいです。",
-          "zh": "每周很忙。"
+          "ja": "毎週、テニスをします。",
+          "zh": "每周打网球。"
         },
         {
           "ja": "毎週、友達に会います。",
@@ -22169,8 +22076,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "每天去学校。"
         },
         {
-          "ja": "毎日は忙しいです。",
-          "zh": "每天很忙。"
+          "ja": "毎日とても忙しいです。",
+          "zh": "每天都很忙。"
         },
         {
           "ja": "毎日、友達に会います。",
@@ -22203,12 +22110,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "毎年、学校へ行きます。",
-          "zh": "每年去学校。"
+          "ja": "毎年、夏に海へ行きます。",
+          "zh": "每年夏天去海边。"
         },
         {
-          "ja": "毎年は忙しいです。",
-          "zh": "每年很忙。"
+          "ja": "毎年、家族と旅行します。",
+          "zh": "每年和家人去旅行。"
         },
         {
           "ja": "毎年、友達に会います。",
@@ -22240,16 +22147,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "毎晩、学校へ行きます。",
-          "zh": "每天晚上去学校。"
+          "ja": "毎晩、早く寝ます。",
+          "zh": "每天晚上早睡。"
         },
         {
-          "ja": "毎晩は忙しいです。",
-          "zh": "每天晚上很忙。"
+          "ja": "毎晩、日本語を勉強します。",
+          "zh": "每天晚上学习日语。"
         },
         {
-          "ja": "毎晩、友達に会います。",
-          "zh": "每天晚上见朋友。"
+          "ja": "毎晩、テレビを見ます。",
+          "zh": "每天晚上看电视。"
         }
       ],
       "note_zh": ""
@@ -22318,12 +22225,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "三年前去了日本。"
         },
         {
-          "ja": "駅の前で待ちます。",
-          "zh": "在车站前等。"
+          "ja": "十年前にこの町に住んでいました。",
+          "zh": "十年前住在这个城镇。"
         },
         {
-          "ja": "寝る前に歯を磨きます。",
-          "zh": "睡前刷牙。"
+          "ja": "二時間前に昼ご飯を食べました。",
+          "zh": "两个小时前吃了午饭。"
         }
       ],
       "note_zh": ""
@@ -22410,7 +22317,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "また"
       ],
       "romaji": "mata",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "又；再；还",
       "kanji_readings": [],
       "examples": [
@@ -22442,7 +22349,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "まだ"
       ],
       "romaji": "mada",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "还；尚未",
       "kanji_readings": [],
       "examples": [
@@ -22488,12 +22395,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "去城镇。"
         },
         {
-          "ja": "町は駅の近くです。",
-          "zh": "城镇在车站附近。"
+          "ja": "この町は静かです。",
+          "zh": "这个城镇很安静。"
         },
         {
-          "ja": "町で友達に会います。",
-          "zh": "在城镇见朋友。"
+          "ja": "町で買い物をします。",
+          "zh": "在街上买东西。"
         }
       ],
       "note_zh": ""
@@ -22548,7 +22455,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "まっすぐ"
       ],
       "romaji": "massugu",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "笔直；一直",
       "kanji_readings": [],
       "examples": [
@@ -23478,12 +23385,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "去村庄。"
         },
         {
-          "ja": "村は駅の近くです。",
-          "zh": "村庄在车站附近。"
+          "ja": "祖父は小さい村に住んでいます。",
+          "zh": "爷爷住在一个小村子里。"
         },
         {
-          "ja": "村で友達に会います。",
-          "zh": "在村庄见朋友。"
+          "ja": "村の皆さんはとても親切です。",
+          "zh": "村里的大家都很亲切。"
         }
       ],
       "note_zh": ""
@@ -23607,7 +23514,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "もう"
       ],
       "romaji": "mou",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "已经；再；还",
       "kanji_readings": [],
       "examples": [
@@ -23745,7 +23652,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "もっと"
       ],
       "romaji": "motto",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "更；更加",
       "kanji_readings": [],
       "examples": [
@@ -23795,8 +23702,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "弄丢了重要的东西。"
         },
         {
-          "ja": "この物は何ですか。",
-          "zh": "这个东西是什么？"
+          "ja": "甘い物が好きです。",
+          "zh": "喜欢甜的东西。"
         }
       ],
       "note_zh": ""
@@ -24477,7 +24384,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "ゆっくりと"
       ],
       "romaji": "yukkuri",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "慢慢地；悠闲地",
       "kanji_readings": [],
       "examples": [
@@ -24583,7 +24490,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "よく"
       ],
       "romaji": "yoku",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "经常；好好地；很会",
       "kanji_readings": [],
       "examples": [
@@ -24884,8 +24791,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "来月、学校へ行きます。",
-          "zh": "下个月去学校。"
+          "ja": "来月から新しい仕事が始まります。",
+          "zh": "下个月开始新工作。"
         },
         {
           "ja": "来月は忙しいです。",
@@ -24921,8 +24828,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "来週、学校へ行きます。",
-          "zh": "下周去学校。"
+          "ja": "来週、テストがあります。",
+          "zh": "下周有考试。"
         },
         {
           "ja": "来週は忙しいです。",
@@ -24958,16 +24865,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "来年、学校へ行きます。",
-          "zh": "明年去学校。"
+          "ja": "来年、大学に入ります。",
+          "zh": "明年上大学。"
         },
         {
           "ja": "来年は忙しいです。",
           "zh": "明年很忙。"
         },
         {
-          "ja": "来年、友達に会います。",
-          "zh": "明年见朋友。"
+          "ja": "来年、友達と旅行します。",
+          "zh": "明年和朋友去旅行。"
         }
       ],
       "note_zh": ""
@@ -25174,8 +25081,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "吃日本料理。"
         },
         {
-          "ja": "晩ご飯を料理します。",
-          "zh": "做晚饭。"
+          "ja": "日曜日は家で料理をします。",
+          "zh": "星期天在家做饭。"
         }
       ],
       "note_zh": ""

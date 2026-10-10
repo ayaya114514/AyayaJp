@@ -118,10 +118,6 @@
                     <span class="deck-label">中→日</span>
                     <span class="deck-round-count" aria-label="已完成 0 轮">0轮</span>
                   </button>
-                  <button class="tab-button vocab-tab" type="button" data-deck="vocab-mistakes" aria-pressed="false">
-                    <span class="deck-label">错题集</span>
-                    <span class="deck-round-count" aria-label="已完成 0 轮">0轮</span>
-                  </button>
                 </div>
               </div>
               <div class="deck-level" data-level="n4">
@@ -140,10 +136,6 @@
                   </button>
                   <button class="tab-button vocab-tab" type="button" data-deck="vocab-n4-zh-ja" aria-pressed="false">
                     <span class="deck-label">中→日</span>
-                    <span class="deck-round-count" aria-label="已完成 0 轮">0轮</span>
-                  </button>
-                  <button class="tab-button vocab-tab" type="button" data-deck="vocab-n4-mistakes" aria-pressed="false">
-                    <span class="deck-label">错题集</span>
                     <span class="deck-round-count" aria-label="已完成 0 轮">0轮</span>
                   </button>
                 </div>
@@ -181,10 +173,6 @@
                     <span class="deck-label">选择题</span>
                     <span class="deck-round-count" aria-label="已完成 0 轮">0轮</span>
                   </button>
-                  <button class="tab-button grammar-tab" type="button" data-deck="grammar-n5-mistakes" aria-pressed="false">
-                    <span class="deck-label">错题集</span>
-                    <span class="deck-round-count" aria-label="已完成 0 轮">0轮</span>
-                  </button>
                 </div>
               </div>
               <div class="deck-level" data-level="grammar-n4">
@@ -211,10 +199,6 @@
                   </button>
                   <button class="tab-button grammar-tab" type="button" data-deck="grammar-n4-choice" aria-pressed="false">
                     <span class="deck-label">选择题</span>
-                    <span class="deck-round-count" aria-label="已完成 0 轮">0轮</span>
-                  </button>
-                  <button class="tab-button grammar-tab" type="button" data-deck="grammar-n4-mistakes" aria-pressed="false">
-                    <span class="deck-label">错题集</span>
                     <span class="deck-round-count" aria-label="已完成 0 轮">0轮</span>
                   </button>
                 </div>
@@ -247,6 +231,17 @@
                 <span class="stat-value" id="reviewedCount">0</span>
                 <span class="stat-label">已练</span>
               </div>
+              <button
+                class="stat pool-toggle"
+                id="poolToggle"
+                type="button"
+                title="切换到不认识板块"
+                aria-label="切换到不认识板块"
+                aria-pressed="false"
+              >
+                <span class="stat-value" id="unknownCount">0</span>
+                <span class="stat-label" id="poolToggleLabel">不认识</span>
+              </button>
               <button class="icon-button stat-action undo-button" id="undoRating" type="button" title="撤回上次评分" aria-label="撤回上次评分" disabled>
                 ↶
               </button>
@@ -319,9 +314,8 @@
               <div class="examples-list" id="examplesList"></div>
             </div>
             <div class="feedback-row" hidden>
-              <button class="feedback clear" type="button" data-rating="clear" aria-keyshortcuts="1" title="快捷键 1">清楚</button>
-              <button class="feedback unsure" type="button" data-rating="unsure" aria-keyshortcuts="2" title="快捷键 2">不确定</button>
-              <button class="feedback forgot" type="button" data-rating="forgot" aria-keyshortcuts="3" title="快捷键 3">遗忘</button>
+              <button class="feedback clear" type="button" data-rating="clear" aria-keyshortcuts="1" title="快捷键 1">认识</button>
+              <button class="feedback forgot" type="button" data-rating="forgot" aria-keyshortcuts="2" title="快捷键 2">不认识</button>
             </div>
             <button class="primary-button choice-next" id="choiceNext" type="button" hidden>下一题</button>
           </div>
@@ -347,6 +341,9 @@
     <script src="./n5-codex-vocab.js" defer></script>
     <script src="./ayaya-n4-codex-vocab.js" defer></script>
     <script src="./grammar-data.js" defer></script>
+    <script src="./pitch-accent-data.js" defer></script>
+    <script src="./romaji-word-spacing.js" defer></script>
+    <script src="./example-readings.js" defer></script>
     <script src="./card-data.js" defer></script>
     <script src="./app.js" defer></script>
   </body>

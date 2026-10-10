@@ -27,6 +27,8 @@
   --answer-bg: rgba(36, 40, 47, 0.52);
   --study-gradient-start: rgba(28, 31, 37, 0.98);
   --study-gradient-end: rgba(23, 26, 31, 0.98);
+  /* Opaque match for the bottom of the study card, behind pinned buttons. */
+  --answer-backing: rgb(23, 26, 31);
   --empty-gradient-end: rgba(23, 26, 31, 0.98);
   --backdrop: rgba(0, 0, 0, 0.5);
   --shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
@@ -55,6 +57,7 @@ body {
   height: 100vh;
   height: 100svh;
   height: 100dvh;
+  height: var(--app-height, 100dvh);
   min-height: 0;
   margin: 0;
   overflow: hidden;
@@ -415,7 +418,7 @@ h2 {
 }
 
 .stats-grid {
-  grid-template-columns: auto repeat(2, minmax(0, 1fr)) auto;
+  grid-template-columns: auto repeat(3, minmax(0, 1fr)) auto;
   align-self: start;
   align-items: center;
   margin-bottom: 0;
@@ -446,6 +449,35 @@ h2 {
   color: var(--muted);
   font-size: 0.8rem;
   white-space: nowrap;
+}
+
+.pool-toggle {
+  min-width: 0;
+  border-color: rgba(168, 79, 58, 0.55);
+  cursor: pointer;
+}
+
+.pool-toggle:hover {
+  border-color: var(--warm);
+}
+
+.pool-toggle.is-active {
+  border-color: var(--warm);
+  background: rgba(168, 79, 58, 0.22);
+}
+
+.pool-toggle.is-active .stat-label {
+  color: var(--ink);
+}
+
+.empty-state .pool-toggle {
+  min-width: min(360px, calc(100vw - 72px));
+  min-height: 56px;
+  font-size: 1.1rem;
+}
+
+.empty-state .pool-toggle .stat-label {
+  font-size: 1rem;
 }
 
 .stat-action {
@@ -528,6 +560,10 @@ h2 {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  /* The reveal button fills the card through the stretched 1fr row. A
+     percentage min-height would make WebKit size this row from its previous
+     height and starve the answer row. */
+  grid-template-rows: 1fr;
   min-height: 88px;
   padding: 0;
   border: 0;
@@ -544,7 +580,6 @@ h2 {
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  min-height: 100%;
   align-self: stretch;
   place-content: center;
   justify-items: center;
@@ -676,8 +711,11 @@ h2 {
 .answer-panel {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  align-self: end;
+  /* The answer row is content-sized and only shrinks when the card is full, so
+     stretching keeps a long answer inside its row (scrolling there) instead of
+     growing upward over the prompt; flex-start keeps its top reachable. */
+  justify-content: flex-start;
+  align-self: stretch;
   block-size: auto;
   min-height: 0;
   overflow-x: hidden;
@@ -930,9 +968,30 @@ h2 {
 
 .feedback-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   margin-top: 8px;
+}
+
+/* When a long answer scrolls, the rating and next buttons stay in view, with
+   an opaque backing over the content scrolling underneath them. */
+.feedback-row,
+.choice-next {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+}
+
+.feedback-row,
+.choice-next {
+  /* Extend the backing over the 8px gap above and the panel padding below. */
+  box-shadow:
+    0 -8px 0 var(--answer-backing),
+    0 16px 0 var(--answer-backing);
+}
+
+.feedback-row {
+  background: var(--answer-backing);
 }
 
 .feedback,
@@ -947,11 +1006,6 @@ h2 {
 
 .feedback.forgot {
   background: var(--warm);
-}
-
-.feedback.unsure {
-  background: var(--gold);
-  color: var(--gold-ink);
 }
 
 .feedback.clear {

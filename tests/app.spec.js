@@ -259,11 +259,12 @@ test("long mobile cards stay contained and never overlap the answer", async ({ p
     expectContainedBy(revealedFlashcardBox, revealedPromptBox);
     expectContainedBy(revealedFlashcardBox, revealedSubtleBox);
     expect(revealedSubtleBox.y + revealedSubtleBox.height).toBeLessThanOrEqual(answerBox.y + 1);
+    await expect(page.locator('.feedback[data-rating="clear"]')).toBeInViewport();
     await expectNoHorizontalOverflow(page);
 
-    await page.locator("#deckMenuButton").click();
-    await page.locator('[data-deck="vocab-mistakes"]').click();
+    await page.locator("#poolToggle").click();
     await expect(page.locator("#emptyState")).toBeVisible();
+    await expect(page.locator("#emptyState #poolToggle")).toBeVisible();
     const emptyBox = await boundingBox(page.locator("#emptyState"));
     expect(emptyBox.height).toBeGreaterThanOrEqual(height - 32);
     expect(emptyBox.x).toBeGreaterThanOrEqual(0);
@@ -331,9 +332,42 @@ test("reveal, rating, next card, and empty deck keep a useful focus target", asy
   await expectAnswerHidden(page);
 
   await page.locator("#deckMenuButton").click();
-  await page.locator('[data-deck="vocab-mistakes"]').click();
+  await page.locator('[data-deck="vocab-ja-zh"]').click();
+  await page.locator("#poolToggle").click();
   await expect(page.locator("#emptyState")).toBeVisible();
   await expect(page.locator("#emptyDeckMenuButton")).toBeFocused();
+});
+
+test("不认识 moves a card into its own pool and 认识 moves it back", async ({ page }) => {
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0", "hiragana-1"]));
+  const toggle = page.locator("#poolToggle");
+  await expect(page.locator(".feedback")).toHaveText(["认识", "不认识"]);
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+
+  const unknownPrompt = await page.locator("#cardPrompt").textContent();
+  await page.locator("#cardReveal").click();
+  await page.locator('.feedback[data-rating="forgot"]').click();
+  await expect(page.locator("#unknownCount")).toHaveText("1");
+  await expect(page.locator("#dueCount")).toHaveText("1");
+
+  await page.locator("#cardReveal").click();
+  await page.locator('.feedback[data-rating="clear"]').click();
+  await expect(page.locator("#roundStatusText")).toContainText("认识 45，不认识 1");
+
+  await page.locator("#emptyState #poolToggle").click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("#cardPrompt")).toHaveText(unknownPrompt);
+  await page.locator("#cardReveal").click();
+  await page.locator('.feedback[data-rating="clear"]').click();
+  await expect(page.locator("#emptyState")).toBeVisible();
+  await expect(page.locator("#roundStatusText")).toHaveText("没有不认识的卡片。");
+  await expect(page.locator("#poolToggleLabel")).toHaveText("返回认识");
+  await expect(page.locator("#unknownCount")).toBeHidden();
+
+  await page.locator("#emptyState #poolToggle").click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  await expect(page.locator("#roundStatusText")).toContainText("认识 46，不认识 0");
+  await expectNoHorizontalOverflow(page);
 });
 
 test("the last card keeps Undo visible, focused, and usable", async ({ page }) => {
@@ -690,6 +724,13 @@ test("iPhone 14 choice cards fit without a second scrolling panel", async ({
   expect(lastChoiceBox.y + lastChoiceBox.height).toBeLessThanOrEqual(
     studyBox.y + studyBox.height + 1,
   );
+  // The choices get a row tall enough for them instead of overflowing it (and
+  // growing up over the prompt).
+  const choicePanel = await page.locator("#answerPanel").evaluate((element) => ({
+    clientHeight: element.clientHeight,
+    scrollHeight: element.scrollHeight,
+  }));
+  expect(choicePanel.scrollHeight).toBeLessThanOrEqual(choicePanel.clientHeight + 1);
 
   await page
     .locator('.choice-option:not([data-choice-id="n5-grammar-001-correct"])')
@@ -718,4 +759,35 @@ test("iPhone 14 choice cards fit without a second scrolling panel", async ({
   expect(answeredLayout.feedbackOverflow).toBe("hidden");
   expect(answeredLayout.studyBottom).toBeLessThanOrEqual(answeredLayout.viewportHeight);
   await expect(page.locator("#memoryChain")).toHaveCount(0);
+});
+
+test("revealed vocab shows its reviewed pitch accent", async ({ page }) => {
+  await openWithStore(
+    page,
+    progressFixture({ deck: "vocab-ja-zh", queue: ["vocab-entry-n5-037-ja"] }),
+  );
+  await expect(page.locator("#cardPrompt")).toHaveText("雨");
+  await expect(page.locator("#answerMeta")).not.toContainText("①");
+
+  await page.locator("#cardReveal").click();
+  await expect(page.locator("#answerMeta")).toContainText("读音：あめ ①");
+});
+
+test("returning to the page re-measures a stale viewport height", async ({ page }) => {
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
+  await page.evaluate(() => {
+    document.documentElement.style.setProperty("--app-height", `${window.innerHeight + 240}px`);
+  });
+  expect(await page.evaluate(() => document.body.getBoundingClientRect().height)).toBeGreaterThan(
+    await page.evaluate(() => window.innerHeight),
+  );
+
+  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent("pageshow", { persisted: true })));
+  await expect
+    .poll(() =>
+      page.evaluate(() => Math.round(document.body.getBoundingClientRect().height) - window.innerHeight),
+    )
+    .toBe(0);
+  const studyBottom = await page.evaluate(() => document.querySelector("#studyCard").getBoundingClientRect().bottom);
+  expect(studyBottom).toBeLessThanOrEqual(await page.evaluate(() => window.innerHeight));
 });
