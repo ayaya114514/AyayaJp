@@ -85,13 +85,15 @@ const elements = {
   cardReveal: document.querySelector("#cardReveal"),
   cardType: document.querySelector("#cardType"),
   cardPrompt: document.querySelector("#cardPrompt"),
+  cardPattern: document.querySelector("#cardPattern"),
   cardSubtle: document.querySelector("#cardSubtle"),
   choiceBlock: document.querySelector("#choiceBlock"),
   choiceFeedback: document.querySelector("#choiceFeedback"),
   choiceList: document.querySelector("#choiceList"),
   choiceNext: document.querySelector("#choiceNext"),
+  currentCount: document.querySelector("#currentCount"),
+  currentPoolTab: document.querySelector("#currentPoolTab"),
   dueCount: document.querySelector("#dueCount"),
-  emptyDeckMenuButton: document.querySelector("#emptyDeckMenuButton"),
   emptyState: document.querySelector("#emptyState"),
   exampleBlock: document.querySelector("#exampleBlock"),
   examplesList: document.querySelector("#examplesList"),
@@ -101,9 +103,11 @@ const elements = {
   deckMenuButton: document.querySelector("#deckMenuButton"),
   deckSidebar: document.querySelector("#deckSidebar"),
   loadErrorBanner: document.querySelector("#loadErrorBanner"),
+  metaBlock: document.querySelector("#metaBlock"),
+  moduleTitle: document.querySelector("#moduleTitle"),
   roundStatusText: document.querySelector("#roundStatusText"),
+  revealHint: document.querySelector("#revealHint"),
   reviewedCount: document.querySelector("#reviewedCount"),
-  sidebarBackdrop: document.querySelector("#sidebarBackdrop"),
   speechStatus: document.querySelector("#speechStatus"),
   speakWord: document.querySelector("#speakWord"),
   studyAnyWay: document.querySelector("#studyAnyWay"),
@@ -119,7 +123,6 @@ const elements = {
 };
 
 const undoButtonHome = elements.undoRating?.parentElement || null;
-const poolToggleHome = elements.poolToggle?.parentElement || null;
 const storeWriterId =
   window.crypto?.randomUUID?.() ||
   `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
@@ -805,7 +808,7 @@ function saveStore() {
   if (elements.loadErrorBanner) renderLoadStatus();
 }
 
-// The drawer used to persist collapsed groups; the compact grid has none.
+// The old module drawer persisted collapsed groups; the module page has none.
 function clearRetiredSidebarState() {
   try {
     localStorage.removeItem(RETIRED_SIDEBAR_STATE_KEY);
@@ -1202,26 +1205,52 @@ function restoreUndoButtonHome() {
   }
 }
 
-function restorePoolToggleHome() {
-  if (!poolToggleHome || elements.poolToggle.parentElement === poolToggleHome) return;
-  if (elements.undoRating.parentElement === poolToggleHome) {
-    poolToggleHome.insertBefore(elements.poolToggle, elements.undoRating);
-  } else {
-    poolToggleHome.append(elements.poolToggle);
-  }
+// Cards left in a pool's current round. The active pool's queue is already
+// built; the other pool counts its cards not yet completed this round (a pool
+// never opened yet treats reviewed main-pool cards as done, like buildQueue).
+function remainingCount(deck) {
+  if (deck === activeDeck) return reviewQueue.length;
+  const deckCards = getDeckCards(deck);
+  const completedIds =
+    sessionCompleted[deck] instanceof Set
+      ? sessionCompleted[deck]
+      : new Set(
+          isUnknownPool(deck)
+            ? []
+            : deckCards.filter((card) => getState(card.id).reviews > 0).map((card) => card.id),
+        );
+  return deckCards.filter((card) => !completedIds.has(card.id)).length;
 }
 
+// The bottom bar's 当前 / 不认识 tabs select the active deck's main or 不认识
+// pool; each badge shows the cards left in that pool's round.
 function renderPoolToggle() {
   const inUnknownPool = isUnknownPool(activeDeck);
-  const unknownCount = getDeckCards(unknownPoolOf(activeDeck)).length;
-  const label = inUnknownPool ? "返回认识板块" : "切换到不认识板块";
-  elements.unknownCount.textContent = unknownCount;
-  elements.unknownCount.hidden = inUnknownPool;
-  elements.poolToggleLabel.textContent = inUnknownPool ? "返回认识" : "不认识";
+  const mainDeck = baseDeckOf(activeDeck);
+  const currentLeft = remainingCount(mainDeck);
+  const unknownLeft = remainingCount(unknownPoolOf(mainDeck));
+  elements.currentCount.textContent = currentLeft;
+  elements.currentCount.hidden = currentLeft === 0;
+  elements.unknownCount.textContent = unknownLeft;
+  elements.unknownCount.hidden = unknownLeft === 0;
+  elements.currentPoolTab.classList.toggle("is-active", !inUnknownPool);
+  elements.currentPoolTab.setAttribute("aria-pressed", String(!inUnknownPool));
+  elements.currentPoolTab.setAttribute("aria-label", `当前板块（剩余 ${currentLeft} 张）`);
   elements.poolToggle.classList.toggle("is-active", inUnknownPool);
   elements.poolToggle.setAttribute("aria-pressed", String(inUnknownPool));
-  elements.poolToggle.setAttribute("aria-label", `${label}（${unknownCount} 张不认识）`);
-  elements.poolToggle.title = label;
+  elements.poolToggle.setAttribute("aria-label", `不认识板块（剩余 ${unknownLeft} 张）`);
+}
+
+function switchPool(toUnknown) {
+  if (isUnknownPool(activeDeck) === toUnknown) {
+    focusPrimaryStudyAction();
+    return;
+  }
+  clearLastReview();
+  activeDeck = counterpartPoolOf(activeDeck);
+  saveRoundState();
+  nextCard();
+  focusPrimaryStudyAction();
 }
 
 function focusSoon(element) {
@@ -1240,7 +1269,7 @@ function focusPrimaryStudyAction(options = {}) {
     } else if (!elements.studyAnyWay.hidden) {
       focusSoon(elements.studyAnyWay);
     } else {
-      focusSoon(elements.emptyDeckMenuButton);
+      focusSoon(elements.deckMenuButton);
     }
     return;
   }
@@ -1278,6 +1307,7 @@ function render() {
     tab.setAttribute("aria-pressed", String(isActive));
   });
   renderDeckRoundCounts();
+  elements.moduleTitle.textContent = moduleTitleFor(activeDeck);
 
   if (!currentCard) {
     renderEmpty(deckCards);
@@ -1285,7 +1315,6 @@ function render() {
   }
 
   restoreUndoButtonHome();
-  restorePoolToggleHome();
   elements.studyCard.hidden = false;
   elements.flashcard.hidden = false;
   elements.emptyState.hidden = true;
@@ -1301,17 +1330,29 @@ function render() {
       currentCard.deck,
     ),
   );
-  elements.cardType.textContent = currentCard.type || "";
-  elements.cardType.hidden = !currentCard.type;
   elements.cardPrompt.textContent = currentCard.prompt;
   elements.cardPrompt.lang = currentCard.promptLang || "";
   const hidesPromptReading =
     currentCard.isVocab &&
     ["vocab-ja-zh", "vocab-n4-ja-zh"].includes(currentCard.deck);
   const showsCardSubtle = Boolean(currentCard.subtle) && !hidesPromptReading;
-  elements.cardSubtle.textContent = showsCardSubtle ? currentCard.subtle : "";
-  elements.cardSubtle.lang = showsCardSubtle ? currentCard.subtleLang || "" : "";
-  elements.cardSubtle.hidden = !showsCardSubtle;
+  const cardTag = cardTagFor(
+    currentCard,
+    `${elements.moduleTitle.textContent} ${showsCardSubtle ? currentCard.subtle : ""}`,
+  );
+  elements.cardType.textContent = cardTag;
+  elements.cardType.hidden = !cardTag;
+  // Grammar sentence cards lead with their pattern in large type and show the
+  // sentence as a smaller line under it; other cards keep the subtitle below.
+  const showsPattern = showsCardSubtle && isGrammarSentenceCard(currentCard);
+  const showsBelow = showsCardSubtle && !showsPattern;
+  elements.flashcard.classList.toggle("is-pattern-first", showsPattern);
+  elements.cardPattern.textContent = showsPattern ? currentCard.subtle : "";
+  elements.cardPattern.lang = showsPattern ? currentCard.subtleLang || "" : "";
+  elements.cardPattern.hidden = !showsPattern;
+  elements.cardSubtle.textContent = showsBelow ? currentCard.subtle : "";
+  elements.cardSubtle.lang = showsBelow ? currentCard.subtleLang || "" : "";
+  elements.cardSubtle.hidden = !showsBelow;
   elements.cardReveal.disabled = Boolean(currentCard.isChoice || isRevealed);
   elements.cardReveal.setAttribute(
     "aria-expanded",
@@ -1322,15 +1363,19 @@ function render() {
     currentCard.isChoice ? "选择下方答案" : isRevealed ? "答案已显示" : "显示答案",
   );
   const revealDescriptionIds = [
-    currentCard.type ? "cardType" : "",
+    cardTag ? "cardType" : "",
+    showsPattern ? "cardPattern" : "",
     "cardPrompt",
-    showsCardSubtle ? "cardSubtle" : "",
+    showsBelow ? "cardSubtle" : "",
     !isRevealed && !currentCard.isChoice ? "cardRevealHint" : "",
   ].filter(Boolean);
   elements.cardReveal.setAttribute("aria-describedby", revealDescriptionIds.join(" "));
   const canSpeak = Boolean(isRevealed ? primarySpeech(currentCard) : currentCard.frontSpeech);
   const canUseSpeech = supportsSpeech();
   elements.speakWord.hidden = !canSpeak;
+  // With no subtitle beside it the speaker moves to the band's top-right
+  // corner, opposite the undo "<", instead of taking a row of its own.
+  elements.flashcard.classList.toggle("speaker-corner", !showsBelow);
   elements.speakWord.disabled = !canSpeak || !canUseSpeech;
   elements.speakWord.setAttribute("aria-label", isRevealed ? "重播答案读音" : "播放题面读音");
   elements.speakWord.title = elements.speakWord.getAttribute("aria-label");
@@ -1343,6 +1388,8 @@ function render() {
   );
   elements.answerPanel.setAttribute("aria-hidden", String(!isRevealed && !currentCard.isChoice));
 
+  elements.revealHint.hidden = Boolean(isRevealed || currentCard.isChoice);
+
   if (currentCard.isChoice) {
     renderChoiceCard(currentCard);
     return;
@@ -1354,14 +1401,84 @@ function render() {
   }
 
   elements.feedbackRow.hidden = false;
-  elements.answerMain.textContent = currentCard.answer;
+  elements.answerMain.textContent = answerRepeatedInMeta(currentCard) ? "" : currentCard.answer;
   elements.answerMain.lang = currentCard.answerLang || "";
-  elements.answerMeta.textContent = currentCard.meta;
+  renderMeta(currentCard.meta);
   const hasExample = Boolean(currentCard.examples?.length);
   elements.exampleBlock.hidden = !hasExample;
   if (hasExample) {
     renderExamples(currentCard.examples);
   }
+}
+
+// "N5 词汇 · 日→中" from the module page's row and cell labels; read out with the
+// progress counts and used to drop card tags that repeat the module name.
+function moduleTitleFor(deck) {
+  const tab = [...elements.tabs].find((item) => item.dataset.deck === baseDeckOf(deck));
+  const row = tab?.closest(".deck-row")?.querySelector(".deck-row-title")?.textContent?.trim();
+  const label = tab?.querySelector(".deck-label")?.textContent?.trim();
+  return [row, label, isUnknownPool(deck) ? "不认识" : ""].filter(Boolean).join(" · ");
+}
+
+// The card's learning category (搭配, 表达, 拗音...) without the level and
+// direction that the module title already shows; hidden when the title or the
+// visible subtitle already says it.
+function isGrammarSentenceCard(card) {
+  return Boolean(card.isGrammar && /-(?:zh-ja|ja-zh)$/u.test(card.deck));
+}
+
+function cardTagFor(card, shownText) {
+  const tag = String(card.type || "")
+    .replace(/^N[45]\s+/u, "")
+    .replace(/\s*(?:日文|中文)\s*→\s*(?:中文|日文)$/u, "")
+    .replace(/^语法(?=\S)/u, "")
+    .trim();
+  return tag && !shownText.includes(tag) ? tag : "";
+}
+
+// Card meta is "key：value" pairs joined by full-width spaces; each pair gets
+// its own row in the 说明 section.
+function metaRows(meta) {
+  return String(meta || "")
+    .split("　")
+    .filter(Boolean)
+    .map((part) => {
+      const match = part.match(/^([^：]{1,12})：(.*)$/u);
+      return match ? [match[1], match[2]] : ["", part];
+    });
+}
+
+// Kana-module answers such as "マ / ma" only repeat rows of the 说明 section
+// (片假名：マ　罗马音：ma), so those cards show 说明 without the answer line.
+// Vocab and grammar answers (meanings, sentences) never repeat their meta.
+function answerRepeatedInMeta(card) {
+  if (card.isVocab || card.isGrammar || card.isChoice) return false;
+  const values = new Set(metaRows(card.meta).map(([, value]) => value.trim()));
+  const parts = String(card.answer || "")
+    .split(/\s*\/\s*/u)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  return parts.length > 0 && parts.every((part) => values.has(part));
+}
+
+function renderMeta(meta) {
+  const rows = metaRows(meta).map(([key, value]) => {
+    const row = document.createElement("div");
+    row.className = "meta-row";
+    if (key) {
+      const label = document.createElement("span");
+      label.className = "meta-key";
+      label.textContent = key;
+      row.append(label);
+    }
+    const text = document.createElement("span");
+    text.className = "meta-value";
+    text.textContent = value;
+    row.append(text);
+    return row;
+  });
+  elements.answerMeta.replaceChildren(...rows);
+  elements.metaBlock.hidden = rows.length === 0;
 }
 
 function appendRuby(parent, text, reading) {
@@ -1395,13 +1512,6 @@ function renderExamples(examples) {
     const item = document.createElement("div");
     item.className = "example-item";
 
-    const number = document.createElement("span");
-    number.className = "example-number";
-    number.textContent = `${index + 1}`;
-
-    const body = document.createElement("div");
-    body.className = "example-body";
-
     const text = document.createElement("div");
     text.className = "example-text";
 
@@ -1422,19 +1532,17 @@ function renderExamples(examples) {
     zh.lang = "zh-CN";
 
     const button = document.createElement("button");
-    button.className = "icon-button example-speak";
+    button.className = "icon-button speaker-button example-speak";
     button.type = "button";
     button.title = "播放例句";
     button.setAttribute("aria-label", `播放例句 ${index + 1}`);
-    button.textContent = "▶";
     button.addEventListener("click", (event) => {
       event.stopPropagation();
       runSafely(() => speak(example.speech || example.ja));
     });
 
     text.append(ja, romaji, zh);
-    body.append(text, button);
-    item.append(number, body);
+    item.append(text, button);
     elements.examplesList.append(item);
   });
 }
@@ -1450,7 +1558,7 @@ function renderChoiceCard(card) {
   if (!isRevealed) {
     elements.answerMain.textContent = "";
     elements.answerMain.removeAttribute("lang");
-    elements.answerMeta.textContent = "";
+    renderMeta("");
     elements.exampleBlock.hidden = true;
     elements.examplesList.replaceChildren();
     elements.choiceFeedback.hidden = true;
@@ -1460,7 +1568,7 @@ function renderChoiceCard(card) {
 
   elements.answerMain.textContent = selectedChoice?.isCorrect ? "回答正确" : "回答错误";
   elements.answerMain.lang = "zh-CN";
-  elements.answerMeta.textContent = card.meta;
+  renderMeta(card.meta);
   renderChoiceFeedback();
   const hasExample = Boolean(card.examples?.length);
   elements.exampleBlock.hidden = !hasExample;
@@ -1528,7 +1636,7 @@ function renderChoiceFeedback() {
 function clearAnswer() {
   elements.answerMain.textContent = "";
   elements.answerMain.removeAttribute("lang");
-  elements.answerMeta.textContent = "";
+  renderMeta("");
   elements.choiceBlock.hidden = true;
   elements.choiceFeedback.hidden = true;
   elements.choiceFeedback.replaceChildren();
@@ -1547,11 +1655,11 @@ function renderEmpty(deckCards) {
   elements.studyCard.classList.remove("is-choice");
   elements.flashcard.hidden = true;
   elements.flashcard.classList.remove("is-choice");
+  elements.revealHint.hidden = true;
   elements.answerPanel.classList.remove("is-revealed");
   elements.answerPanel.setAttribute("aria-hidden", "true");
   clearAnswer();
   elements.emptyState.hidden = false;
-  elements.emptyState.append(elements.poolToggle);
   if (lastReview) {
     elements.emptyState.append(elements.undoRating);
   } else {
@@ -1852,12 +1960,6 @@ function undoLastReview() {
   focusPrimaryStudyAction();
 }
 
-function sidebarFocusableElements() {
-  return [...elements.deckSidebar.querySelectorAll("button:not(:disabled), [href], [tabindex]")].filter(
-    (element) => element.tabIndex >= 0 && !element.closest("[hidden]"),
-  );
-}
-
 function isSidebarHistoryEntry(state = window.history?.state) {
   return isStoreObject(state) && state[SIDEBAR_HISTORY_STATE_KEY] === true;
 }
@@ -1868,7 +1970,7 @@ function pushSidebarHistoryEntry() {
   try {
     window.history.pushState({ ...currentState, [SIDEBAR_HISTORY_STATE_KEY]: true }, "");
   } catch {
-    // The drawer remains usable when an embedded browser blocks History API writes.
+    // The module page remains usable when an embedded browser blocks History API writes.
   }
 }
 
@@ -1882,8 +1984,15 @@ function consumeSidebarHistoryEntry() {
     window.history.back();
   } catch {
     sidebarHistoryClosing = false;
-    // Closing the drawer must not depend on History API availability.
+    // Closing the module page must not depend on History API availability.
   }
+}
+
+function isInsideInert(element) {
+  for (let node = element; node; node = node.parentElement) {
+    if (node.inert) return true;
+  }
+  return false;
 }
 
 function canReceiveSidebarReturnFocus(element) {
@@ -1892,12 +2001,12 @@ function canReceiveSidebarReturnFocus(element) {
       !element.disabled &&
       !element.hidden &&
       !element.closest?.("[hidden]") &&
-      !element.closest?.(".study-area")?.inert,
+      !isInsideInert(element),
   );
 }
 
 function sidebarReturnTarget() {
-  return [sidebarReturnFocus, elements.emptyDeckMenuButton, elements.deckMenuButton].find(
+  return [sidebarReturnFocus, elements.deckMenuButton].find(
     canReceiveSidebarReturnFocus,
   );
 }
@@ -1917,13 +2026,15 @@ function setSidebarOpen(isOpen, options = {}) {
     if (shouldSyncHistory) pushSidebarHistoryEntry();
   }
 
+  // The module page covers the card (or finished-round screen), which goes
+  // inert; the bottom bar stays usable to switch back.
   elements.deckSidebar.classList.toggle("is-open", isOpen);
   elements.deckSidebar.setAttribute("aria-hidden", String(!isOpen));
   elements.deckMenuButton.setAttribute("aria-expanded", String(isOpen));
-  elements.emptyDeckMenuButton.setAttribute("aria-expanded", String(isOpen));
-  elements.sidebarBackdrop.hidden = !isOpen;
   elements.deckSidebar.inert = !isOpen;
-  elements.studyArea.inert = isOpen;
+  elements.studyCard.inert = isOpen;
+  elements.emptyState.inert = isOpen;
+  elements.studyArea.classList.toggle("is-picking", isOpen);
 
   if (isOpen) {
     window.requestAnimationFrame(() => {
@@ -1952,21 +2063,6 @@ function handleSidebarKeydown(event) {
   if (event.key === "Escape") {
     event.preventDefault();
     setSidebarOpen(false);
-    return;
-  }
-
-  if (event.key !== "Tab") return;
-  const focusable = sidebarFocusableElements();
-  if (!focusable.length) return;
-  const first = focusable[0];
-  const last = focusable.at(-1);
-
-  if (event.shiftKey && document.activeElement === first) {
-    event.preventDefault();
-    last.focus();
-  } else if (!event.shiftKey && document.activeElement === last) {
-    event.preventDefault();
-    first.focus();
   }
 }
 
@@ -2246,17 +2342,15 @@ function finishLoadingStatus() {
 function showFatalError(error) {
   console.error("Failed to initialize AyayaJp:", error);
   elements.studyArea?.setAttribute("aria-busy", "false");
-  if (elements.studyArea) elements.studyArea.inert = false;
+  elements.studyArea?.classList.remove("is-picking");
+  if (elements.studyCard) elements.studyCard.inert = false;
+  if (elements.emptyState) elements.emptyState.inert = false;
   if (elements.deckSidebar) {
     elements.deckSidebar.classList.remove("is-open");
     elements.deckSidebar.inert = true;
     elements.deckSidebar.setAttribute("aria-hidden", "true");
   }
   if (elements.deckMenuButton) elements.deckMenuButton.setAttribute("aria-expanded", "false");
-  if (elements.emptyDeckMenuButton) {
-    elements.emptyDeckMenuButton.setAttribute("aria-expanded", "false");
-  }
-  if (elements.sidebarBackdrop) elements.sidebarBackdrop.hidden = true;
   if (elements.studyCard) elements.studyCard.hidden = false;
   if (elements.emptyState) elements.emptyState.hidden = true;
   if (elements.appStatus) elements.appStatus.hidden = true;
@@ -2433,11 +2527,16 @@ function bindInteractions() {
   elements.poolToggle.addEventListener("click", (event) => {
     event.stopPropagation();
     runSafely(() => {
-      clearLastReview();
-      activeDeck = counterpartPoolOf(activeDeck);
-      saveRoundState();
-      nextCard();
-      focusPrimaryStudyAction();
+      setSidebarOpen(false, { restoreFocus: false });
+      switchPool(true);
+    });
+  });
+
+  elements.currentPoolTab.addEventListener("click", (event) => {
+    event.stopPropagation();
+    runSafely(() => {
+      setSidebarOpen(false, { restoreFocus: false });
+      switchPool(false);
     });
   });
 
@@ -2463,20 +2562,12 @@ function bindInteractions() {
     runSafely(restartDeckRound);
   });
 
-  elements.emptyDeckMenuButton.addEventListener("click", () => {
-    runSafely(() => setSidebarOpen(true));
-  });
-
   elements.deckMenuButton.addEventListener("click", (event) => {
     event.stopPropagation();
     runSafely(() => setSidebarOpen(!elements.deckSidebar.classList.contains("is-open")));
   });
 
   elements.closeDeckMenu.addEventListener("click", () => {
-    runSafely(() => setSidebarOpen(false));
-  });
-
-  elements.sidebarBackdrop.addEventListener("click", () => {
     runSafely(() => setSidebarOpen(false));
   });
 

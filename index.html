@@ -10,7 +10,7 @@
       name="description"
       content="日语练习"
     />
-    <meta name="theme-color" content="#121417" />
+    <meta name="theme-color" content="#08090b" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:title" content="AyayaJp" />
@@ -57,206 +57,77 @@
           此应用需要 JavaScript 才能运行。请启用 JavaScript 后刷新页面。
         </div>
       </noscript>
-      <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true" hidden></div>
-      <aside
-        class="deck-sidebar"
-        id="deckSidebar"
-        aria-hidden="true"
-        aria-labelledby="deckSidebarTitle"
-        inert
-      >
-        <div class="sidebar-header">
-          <h2 id="deckSidebarTitle">学习模块</h2>
-          <button class="icon-button" id="closeDeckMenu" type="button" title="关闭模块菜单" aria-label="关闭模块菜单">
-            ×
-          </button>
-        </div>
-        <nav class="deck-tabs" aria-label="学习模块">
-          <div class="deck-row" data-row="base" role="group" aria-labelledby="deck-row-base">
-            <h3 class="deck-row-title" id="deck-row-base">基础</h3>
-            <div class="deck-row-items" data-count="4">
-              <button class="tab-button active" type="button" data-deck="hiragana" aria-pressed="true">
-                <span class="deck-label">平假名</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="katakana" aria-pressed="false">
-                <span class="deck-label">片假名</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="romaji" aria-pressed="false">
-                <span class="deck-label">罗马音</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="special" aria-pressed="false">
-                <span class="deck-label">进阶发音</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-            </div>
-          </div>
-          <div class="deck-row" data-row="vocab-n5" role="group" aria-labelledby="deck-row-vocab-n5">
-            <h3 class="deck-row-title" id="deck-row-vocab-n5">N5 词汇</h3>
-            <div class="deck-row-items" data-count="2">
-              <button class="tab-button" type="button" data-deck="vocab-ja-zh" aria-pressed="false">
-                <span class="deck-label">日→中</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="vocab-zh-ja" aria-pressed="false">
-                <span class="deck-label">中→日</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-            </div>
-          </div>
-          <div class="deck-row" data-row="vocab-n4" role="group" aria-labelledby="deck-row-vocab-n4">
-            <h3 class="deck-row-title" id="deck-row-vocab-n4">N4 词汇</h3>
-            <div class="deck-row-items" data-count="2">
-              <button class="tab-button" type="button" data-deck="vocab-n4-ja-zh" aria-pressed="false">
-                <span class="deck-label">日→中</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="vocab-n4-zh-ja" aria-pressed="false">
-                <span class="deck-label">中→日</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-            </div>
-          </div>
-          <div class="deck-row" data-row="grammar-n5" role="group" aria-labelledby="deck-row-grammar-n5">
-            <h3 class="deck-row-title" id="deck-row-grammar-n5">N5 语法</h3>
-            <div class="deck-row-items" data-count="4">
-              <button class="tab-button" type="button" data-deck="grammar-n5-zh-ja" aria-pressed="false">
-                <span class="deck-label">中→日</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="grammar-n5-ja-zh" aria-pressed="false">
-                <span class="deck-label">日→中</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="grammar-n5-pattern-zh" aria-pressed="false">
-                <span class="deck-label">文型</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="grammar-n5-choice" aria-pressed="false">
-                <span class="deck-label">选择题</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-            </div>
-          </div>
-          <div class="deck-row" data-row="grammar-n4" role="group" aria-labelledby="deck-row-grammar-n4">
-            <h3 class="deck-row-title" id="deck-row-grammar-n4">N4 语法</h3>
-            <div class="deck-row-items" data-count="4">
-              <button class="tab-button" type="button" data-deck="grammar-n4-zh-ja" aria-pressed="false">
-                <span class="deck-label">中→日</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="grammar-n4-ja-zh" aria-pressed="false">
-                <span class="deck-label">日→中</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="grammar-n4-pattern-zh" aria-pressed="false">
-                <span class="deck-label">文型</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-              <button class="tab-button" type="button" data-deck="grammar-n4-choice" aria-pressed="false">
-                <span class="deck-label">选择题</span>
-                <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
-              </button>
-            </div>
-          </div>
-        </nav>
-      </aside>
 
       <section class="study-area" aria-labelledby="appTitle" aria-busy="true">
         <div class="study-card" id="studyCard">
-          <div class="study-header">
-            <section class="stats-grid" aria-label="学习进度">
+          <div class="word-band">
+            <div class="study-header">
+              <section class="stats-grid" aria-label="学习进度">
+                <button class="chevron-button undo-button" id="undoRating" type="button" title="撤回上次评分" aria-label="撤回上次评分" disabled>
+                  <span class="undo-text">撤回</span>
+                </button>
+                <p class="sr-only">
+                  <span id="moduleTitle"></span>，待练 <span id="dueCount">0</span>，已练
+                  <span id="reviewedCount">0</span>
+                </p>
+              </section>
+
+              <div
+                class="app-status"
+                id="appStatus"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+                hidden
+              ></div>
+              <div
+                class="load-error-banner"
+                id="loadErrorBanner"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+                tabindex="-1"
+                hidden
+              ></div>
+              <div
+                class="fatal-error-banner"
+                id="fatalErrorBanner"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+                tabindex="-1"
+                hidden
+              >
+                应用未能启动。请刷新页面；如果问题持续，请确认所有本地资源都能正常加载。
+              </div>
+            </div>
+
+            <div class="card" id="flashcard">
               <button
-                class="icon-button stat-action module-button"
-                id="deckMenuButton"
+                class="card-reveal"
+                id="cardReveal"
                 type="button"
-                title="切换模块"
-                aria-label="切换模块"
-                aria-controls="deckSidebar"
+                aria-controls="answerPanel"
+                aria-describedby="cardPrompt cardSubtle cardRevealHint"
                 aria-expanded="false"
               >
-                ☰
+                <span class="card-type" id="cardType"></span>
+                <span class="card-pattern" id="cardPattern" hidden></span>
+                <span class="card-prompt" id="cardPrompt"></span>
+                <span class="sr-only" id="cardRevealHint">按下以显示答案</span>
               </button>
-              <div class="stat">
-                <span class="stat-value" id="dueCount">0</span>
-                <span class="stat-label">待练</span>
+              <div class="card-phonetic">
+                <span class="card-subtle" id="cardSubtle"></span>
+                <button class="icon-button speaker-button prompt-speak" id="speakWord" type="button" title="播放读音" aria-label="播放读音"></button>
               </div>
-              <div class="stat">
-                <span class="stat-value" id="reviewedCount">0</span>
-                <span class="stat-label">已练</span>
-              </div>
-              <button
-                class="stat pool-toggle"
-                id="poolToggle"
-                type="button"
-                title="切换到不认识板块"
-                aria-label="切换到不认识板块"
-                aria-pressed="false"
-              >
-                <span class="stat-value" id="unknownCount">0</span>
-                <span class="stat-label" id="poolToggleLabel">不认识</span>
-              </button>
-              <button class="icon-button stat-action undo-button" id="undoRating" type="button" title="撤回上次评分" aria-label="撤回上次评分" disabled>
-                ↶
-              </button>
-            </section>
-
-            <div
-              class="app-status"
-              id="appStatus"
-              role="status"
-              aria-live="polite"
-              aria-atomic="true"
-              hidden
-            ></div>
-            <div
-              class="load-error-banner"
-              id="loadErrorBanner"
-              role="alert"
-              aria-live="assertive"
-              aria-atomic="true"
-              tabindex="-1"
-              hidden
-            ></div>
-            <div
-              class="fatal-error-banner"
-              id="fatalErrorBanner"
-              role="alert"
-              aria-live="assertive"
-              aria-atomic="true"
-              tabindex="-1"
-              hidden
-            >
-              应用未能启动。请刷新页面；如果问题持续，请确认所有本地资源都能正常加载。
+              <div
+                class="speech-status"
+                id="speechStatus"
+                role="status"
+                aria-live="polite"
+                hidden
+              ></div>
             </div>
-          </div>
-
-          <div class="card" id="flashcard">
-            <button
-              class="card-reveal"
-              id="cardReveal"
-              type="button"
-              aria-controls="answerPanel"
-              aria-describedby="cardPrompt cardSubtle cardRevealHint"
-              aria-expanded="false"
-            >
-              <span class="card-type" id="cardType"></span>
-              <span class="card-prompt" id="cardPrompt"></span>
-              <span class="card-subtle" id="cardSubtle"></span>
-              <span class="sr-only" id="cardRevealHint">按下以显示答案</span>
-            </button>
-            <button class="icon-button prompt-speak" id="speakWord" type="button" title="播放读音" aria-label="播放读音">
-              ▶
-            </button>
-            <div
-              class="speech-status"
-              id="speechStatus"
-              role="status"
-              aria-live="polite"
-              hidden
-            ></div>
           </div>
 
           <div class="answer-panel" id="answerPanel" aria-hidden="true">
@@ -265,32 +136,163 @@
               <div class="choice-feedback" id="choiceFeedback" hidden></div>
             </div>
             <div class="answer-main" id="answerMain"></div>
-            <div class="answer-meta" id="answerMeta"></div>
-            <div class="example-block" id="exampleBlock" hidden>
-              <div class="examples-list" id="examplesList"></div>
+            <div class="answer-details">
+              <section class="answer-section" id="metaBlock" aria-labelledby="metaTitle" hidden>
+                <h3 class="answer-section-title" id="metaTitle">说明</h3>
+                <div class="answer-meta" id="answerMeta"></div>
+              </section>
+              <section class="answer-section example-block" id="exampleBlock" aria-labelledby="exampleTitle" hidden>
+                <h3 class="answer-section-title" id="exampleTitle">例句</h3>
+                <div class="examples-list" id="examplesList"></div>
+              </section>
             </div>
             <div class="feedback-row" hidden>
-              <button class="feedback clear" type="button" data-rating="clear" aria-keyshortcuts="1" title="快捷键 1">认识</button>
-              <button class="feedback forgot" type="button" data-rating="forgot" aria-keyshortcuts="2" title="快捷键 2">不认识</button>
+              <button class="feedback clear" type="button" data-rating="clear" aria-keyshortcuts="1">认识</button>
+              <button class="feedback forgot" type="button" data-rating="forgot" aria-keyshortcuts="2">不认识</button>
             </div>
             <button class="primary-button choice-next" id="choiceNext" type="button" hidden>下一题</button>
           </div>
+          <p class="reveal-hint" id="revealHint" aria-hidden="true" hidden>点击屏幕显示答案</p>
         </div>
 
         <div class="empty-state" id="emptyState" hidden>
           <h2>当前模块完成</h2>
           <p id="roundStatusText"></p>
+          <button class="primary-button restart-button" id="studyAnyWay" type="button">重新开始</button>
+        </div>
+
+        <section
+          class="deck-page"
+          id="deckSidebar"
+          aria-hidden="true"
+          aria-labelledby="deckSidebarTitle"
+          inert
+        >
+          <div class="deck-page-header">
+            <button class="chevron-button" id="closeDeckMenu" type="button" title="返回学习" aria-label="返回学习"></button>
+            <h2 id="deckSidebarTitle">学习模块</h2>
+          </div>
+          <nav class="deck-tabs" aria-label="学习模块">
+            <div class="deck-row" data-row="base" role="group" aria-labelledby="deck-row-base">
+              <h3 class="deck-row-title" id="deck-row-base">基础</h3>
+              <div class="deck-row-items" data-count="4">
+                <button class="tab-button active" type="button" data-deck="hiragana" aria-pressed="true">
+                  <span class="deck-label">平假名</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="katakana" aria-pressed="false">
+                  <span class="deck-label">片假名</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="romaji" aria-pressed="false">
+                  <span class="deck-label">罗马音</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="special" aria-pressed="false">
+                  <span class="deck-label">进阶发音</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+              </div>
+            </div>
+            <div class="deck-row" data-row="vocab-n5" role="group" aria-labelledby="deck-row-vocab-n5">
+              <h3 class="deck-row-title" id="deck-row-vocab-n5">N5 词汇</h3>
+              <div class="deck-row-items" data-count="2">
+                <button class="tab-button" type="button" data-deck="vocab-ja-zh" aria-pressed="false">
+                  <span class="deck-label">日→中</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="vocab-zh-ja" aria-pressed="false">
+                  <span class="deck-label">中→日</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+              </div>
+            </div>
+            <div class="deck-row" data-row="vocab-n4" role="group" aria-labelledby="deck-row-vocab-n4">
+              <h3 class="deck-row-title" id="deck-row-vocab-n4">N4 词汇</h3>
+              <div class="deck-row-items" data-count="2">
+                <button class="tab-button" type="button" data-deck="vocab-n4-ja-zh" aria-pressed="false">
+                  <span class="deck-label">日→中</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="vocab-n4-zh-ja" aria-pressed="false">
+                  <span class="deck-label">中→日</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+              </div>
+            </div>
+            <div class="deck-row" data-row="grammar-n5" role="group" aria-labelledby="deck-row-grammar-n5">
+              <h3 class="deck-row-title" id="deck-row-grammar-n5">N5 语法</h3>
+              <div class="deck-row-items" data-count="4">
+                <button class="tab-button" type="button" data-deck="grammar-n5-zh-ja" aria-pressed="false">
+                  <span class="deck-label">中→日</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="grammar-n5-ja-zh" aria-pressed="false">
+                  <span class="deck-label">日→中</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="grammar-n5-pattern-zh" aria-pressed="false">
+                  <span class="deck-label">文型</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="grammar-n5-choice" aria-pressed="false">
+                  <span class="deck-label">选择题</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+              </div>
+            </div>
+            <div class="deck-row" data-row="grammar-n4" role="group" aria-labelledby="deck-row-grammar-n4">
+              <h3 class="deck-row-title" id="deck-row-grammar-n4">N4 语法</h3>
+              <div class="deck-row-items" data-count="4">
+                <button class="tab-button" type="button" data-deck="grammar-n4-zh-ja" aria-pressed="false">
+                  <span class="deck-label">中→日</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="grammar-n4-ja-zh" aria-pressed="false">
+                  <span class="deck-label">日→中</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="grammar-n4-pattern-zh" aria-pressed="false">
+                  <span class="deck-label">文型</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+                <button class="tab-button" type="button" data-deck="grammar-n4-choice" aria-pressed="false">
+                  <span class="deck-label">选择题</span>
+                  <span class="deck-round-count" aria-label="已完成 0 轮" hidden>0轮</span>
+                </button>
+              </div>
+            </div>
+          </nav>
+        </section>
+
+        <nav class="bottom-bar" aria-label="学习导航">
+          <button class="bottom-tab" id="currentPoolTab" type="button" title="当前板块" aria-pressed="true">
+            <span class="bottom-tab-figure">
+              <span class="bottom-tab-icon icon-current" aria-hidden="true"></span>
+              <span class="bottom-tab-badge" id="currentCount" hidden>0</span>
+            </span>
+            <span class="bottom-tab-label">当前</span>
+          </button>
+          <button class="bottom-tab pool-toggle" id="poolToggle" type="button" title="不认识板块" aria-label="不认识板块" aria-pressed="false">
+            <span class="bottom-tab-figure">
+              <span class="bottom-tab-icon icon-unknown" aria-hidden="true"></span>
+              <span class="bottom-tab-badge" id="unknownCount" hidden>0</span>
+            </span>
+            <span class="bottom-tab-label" id="poolToggleLabel">不认识</span>
+          </button>
           <button
-            class="primary-button empty-menu-button"
-            id="emptyDeckMenuButton"
+            class="bottom-tab module-button"
+            id="deckMenuButton"
             type="button"
+            title="切换模块"
+            aria-label="切换模块"
             aria-controls="deckSidebar"
             aria-expanded="false"
           >
-            切换模块
+            <span class="bottom-tab-icon icon-modules" aria-hidden="true"></span>
+            <span class="bottom-tab-label">模块</span>
           </button>
-          <button class="primary-button restart-button" id="studyAnyWay" type="button">重新开始</button>
-        </div>
+        </nav>
       </section>
     </main>
 
