@@ -2567,25 +2567,22 @@ function checkFullStudyRevealTarget(stylesSource, appSource) {
   const studyRule = stylesSource.match(/(?:^|\n)\.study-card\s*\{([^}]*)\}/u)?.[1] || "";
   const cardRule = stylesSource.match(/(?:^|\n)\.card\s*\{([^}]*)\}/u)?.[1] || "";
   const revealRule = stylesSource.match(/(?:^|\n)\.card-reveal\s*\{([^}]*)\}/u)?.[1] || "";
-  const speakerRule = stylesSource.match(/(?:^|\n)\.prompt-speak\s*\{([^}]*)\}/u)?.[1] || "";
 
   check(/cursor:\s*pointer\s*;/u.test(studyRule), ".study-card must advertise its reveal target");
-  check(/position:\s*relative\s*;/u.test(cardRule), ".card must anchor the full reveal target");
+  check(/position:\s*relative\s*;/u.test(cardRule), ".card must anchor the speech status");
   check(
     !/position:\s*absolute\s*;/u.test(revealRule),
     ".card-reveal must remain in flow so long prompts contribute to intrinsic card height",
   );
   check(
-    /width:\s*100%\s*;/u.test(revealRule) &&
-      /max-width:\s*100%\s*;/u.test(revealRule) &&
-      /grid-template-rows:\s*1fr\s*;/u.test(cardRule) &&
-      !/min-height:\s*100%\s*;/u.test(revealRule) &&
-      /align-self:\s*stretch\s*;/u.test(revealRule),
-    ".card-reveal must stretch across the full in-flow card surface",
+    /width:\s*100%\s*;/u.test(revealRule) && /max-width:\s*100%\s*;/u.test(revealRule),
+    ".card-reveal must span the full card width",
   );
+  // The speaker sits beside the reading, outside the reveal button; clicks on it
+  // (and any other control) must not reveal the card.
   check(
-    /position:\s*absolute\s*;/u.test(speakerRule) && /z-index:\s*[1-9]\d*\s*;/u.test(speakerRule),
-    ".prompt-speak must stay above the full-card reveal target",
+    /function revealFromStudySurface[\s\S]*?closest\?\.\(\s*["']button\b/u.test(appSource),
+    "app.js study-surface reveal must ignore clicks on controls such as the speaker",
   );
   check(
     /elements\.studyCard\.addEventListener\(\s*["']click["']\s*,\s*revealFromStudySurface/u.test(

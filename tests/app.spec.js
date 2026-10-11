@@ -155,15 +155,17 @@ test("whole study surface reveals while interactive controls do not leak clicks"
   }
   await expectAnswerHidden(page);
 
-  await page.locator("#reviewedCount").click();
+  // The hint ignores pointer events, so a tap on it lands on the study surface.
+  await page.locator("#revealHint").click({ force: true });
   await expectAnswerRevealed(page);
 
   await page.locator('.feedback[data-rating="clear"]').click();
   await expect(page.locator("#dueCount")).toHaveText("1");
+  await expect(page.locator("#currentCount")).toHaveText("1");
   await expectAnswerHidden(page);
 
   await expect(page.locator("#memoryChain")).toHaveCount(0);
-  await page.locator("#reviewedCount").click();
+  await page.locator(".word-band").click({ position: { x: 4, y: 4 } });
   await expectAnswerRevealed(page);
 });
 
@@ -189,8 +191,7 @@ test("Japanese-to-Chinese vocab hides reading until the answer is revealed", asy
   await page.locator("#cardReveal").click();
   await expectAnswerRevealed(page);
   await expect(page.locator("#answerMain")).toHaveText("见面；遇见");
-  await expect(page.locator("#answerMeta")).toContainText("读音：あう");
-  await expect(page.locator("#answerMeta")).toContainText("罗马音：au");
+  await expect(page.locator("#answerMeta .meta-row")).toHaveText(["读音あう ①", "罗马音au"]);
   await expect(page.locator("#cardSubtle")).toBeHidden();
 });
 
@@ -236,16 +237,28 @@ test("long mobile cards stay contained and never overlap the answer", async ({ p
     await waitForApp(page);
 
     await expect(page.locator("#cardPrompt")).not.toHaveText("");
-    await expect(page.locator("#cardSubtle")).not.toHaveText("");
+    await expect(page.locator("#cardPattern")).not.toHaveText("");
+    await expect(page.locator("#cardPattern")).not.toContainText("文型");
+    await expect(page.locator("#cardSubtle")).toBeHidden();
 
+    const areaBox = await boundingBox(page.locator(".study-area"));
     const studyBox = await boundingBox(page.locator("#studyCard"));
+    const barBox = await boundingBox(page.locator(".bottom-bar"));
     const flashcardBox = await boundingBox(page.locator("#flashcard"));
     const promptBox = await boundingBox(page.locator("#cardPrompt"));
-    const subtleBox = await boundingBox(page.locator("#cardSubtle"));
+    const patternBox = await boundingBox(page.locator("#cardPattern"));
 
-    expect(studyBox.height).toBeGreaterThanOrEqual(height - 32);
+    expect(areaBox.height).toBeGreaterThanOrEqual(height - 32);
+    expect(studyBox.y + studyBox.height).toBeLessThanOrEqual(barBox.y + 1);
     expectContainedBy(flashcardBox, promptBox);
-    expectContainedBy(flashcardBox, subtleBox);
+    expectContainedBy(flashcardBox, patternBox);
+    expect(patternBox.y + patternBox.height).toBeLessThanOrEqual(promptBox.y + 1);
+    const [patternSize, sentenceSize] = await Promise.all(
+      ["#cardPattern", "#cardPrompt"].map((selector) =>
+        page.locator(selector).evaluate((node) => parseFloat(getComputedStyle(node).fontSize)),
+      ),
+    );
+    expect(patternSize).toBeGreaterThan(sentenceSize);
     await expectNoHorizontalOverflow(page);
 
     await page.locator("#cardReveal").click();
@@ -253,20 +266,22 @@ test("long mobile cards stay contained and never overlap the answer", async ({ p
 
     const revealedFlashcardBox = await boundingBox(page.locator("#flashcard"));
     const revealedPromptBox = await boundingBox(page.locator("#cardPrompt"));
-    const revealedSubtleBox = await boundingBox(page.locator("#cardSubtle"));
+    const revealedPatternBox = await boundingBox(page.locator("#cardPattern"));
     const answerBox = await boundingBox(page.locator("#answerMain"));
 
     expectContainedBy(revealedFlashcardBox, revealedPromptBox);
-    expectContainedBy(revealedFlashcardBox, revealedSubtleBox);
-    expect(revealedSubtleBox.y + revealedSubtleBox.height).toBeLessThanOrEqual(answerBox.y + 1);
+    expectContainedBy(revealedFlashcardBox, revealedPatternBox);
+    expect(revealedPromptBox.y + revealedPromptBox.height).toBeLessThanOrEqual(answerBox.y + 1);
     await expect(page.locator('.feedback[data-rating="clear"]')).toBeInViewport();
     await expectNoHorizontalOverflow(page);
 
     await page.locator("#poolToggle").click();
     await expect(page.locator("#emptyState")).toBeVisible();
-    await expect(page.locator("#emptyState #poolToggle")).toBeVisible();
+    await expect(page.locator(".bottom-bar #poolToggle")).toBeVisible();
     const emptyBox = await boundingBox(page.locator("#emptyState"));
-    expect(emptyBox.height).toBeGreaterThanOrEqual(height - 32);
+    const emptyBarBox = await boundingBox(page.locator(".bottom-bar"));
+    expect(emptyBox.height + emptyBarBox.height).toBeGreaterThanOrEqual(height - 32);
+    expect(emptyBox.y + emptyBox.height).toBeLessThanOrEqual(emptyBarBox.y + 1);
     expect(emptyBox.x).toBeGreaterThanOrEqual(0);
     expect(emptyBox.x + emptyBox.width).toBeLessThanOrEqual(320);
     await expectNoHorizontalOverflow(page);
@@ -290,6 +305,55 @@ test("speaker hover preserves its vertical position", async ({ page }, testInfo)
   expect(Math.abs(after.y - before.y)).toBeLessThanOrEqual(0.75);
 });
 
+// Renders every card through the app's own render() (face down, then
+// revealed; choice cards answered with a wrong option, which shows the most) and
+// fails if the answer panel or the page would need scrolling.
+test("every revealed card fits one screen without scrolling", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium", "sizes are set explicitly below");
+  test.setTimeout(240_000);
+
+  // Phone, laptop, and 11-inch iPad Air in Safari (portrait, and landscape
+  // with the tab bar showing).
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 1280, height: 800 },
+    { width: 820, height: 1100 },
+    { width: 1180, height: 700 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await openWithStore(page, {});
+    const overflowing = await page.evaluate(() => {
+      const families = ["hiragana", "vocab-ja-zh", "vocab-n4-ja-zh", "grammar-n5-zh-ja", "grammar-n4-zh-ja"];
+      const panel = document.querySelector("#answerPanel");
+      const band = document.querySelector("#flashcard");
+      const root = document.scrollingElement;
+      const failures = [];
+      for (const card of families.flatMap((deck) => getFamilyCards(deck))) {
+        activeDeck = card.deck;
+        currentCard = card;
+        currentChoiceOptions = card.isChoice ? buildChoiceOptions(card) : [];
+        selectedChoiceId = null;
+        isRevealed = false;
+        render();
+        if (card.isChoice) {
+          selectedChoiceId = currentChoiceOptions.find((option) => !option.isCorrect).id;
+        }
+        isRevealed = true;
+        render();
+        const overflow = Math.max(
+          panel.scrollHeight - panel.clientHeight,
+          band.scrollHeight - band.clientHeight,
+          root.scrollHeight - innerHeight,
+          root.scrollWidth - innerWidth,
+        );
+        if (overflow > 1) failures.push(`${card.id} +${overflow}px`);
+      }
+      return failures;
+    });
+    expect(overflowing, `${viewport.width}x${viewport.height}`).toEqual([]);
+  }
+});
+
 test("short landscape cards keep their content and answer separated", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium", "landscape geometry regression");
 
@@ -302,19 +366,19 @@ test("short landscape cards keep their content and answer separated", async ({ p
     }),
   );
 
-  const studyBox = await boundingBox(page.locator("#studyCard"));
+  const areaBox = await boundingBox(page.locator(".study-area"));
   const flashcardBox = await boundingBox(page.locator("#flashcard"));
   const promptBox = await boundingBox(page.locator("#cardPrompt"));
-  const subtleBox = await boundingBox(page.locator("#cardSubtle"));
-  expect(studyBox.height).toBeGreaterThanOrEqual(358);
+  const patternBox = await boundingBox(page.locator("#cardPattern"));
+  expect(areaBox.height).toBeGreaterThanOrEqual(358);
   expectContainedBy(flashcardBox, promptBox);
-  expectContainedBy(flashcardBox, subtleBox);
+  expectContainedBy(flashcardBox, patternBox);
   await expectNoHorizontalOverflow(page);
 
   await page.locator("#cardReveal").click();
   const answerBox = await boundingBox(page.locator("#answerMain"));
-  const revealedSubtleBox = await boundingBox(page.locator("#cardSubtle"));
-  expect(revealedSubtleBox.y + revealedSubtleBox.height).toBeLessThanOrEqual(answerBox.y + 1);
+  const revealedPromptBox = await boundingBox(page.locator("#cardPrompt"));
+  expect(revealedPromptBox.y + revealedPromptBox.height).toBeLessThanOrEqual(answerBox.y + 1);
   await expectNoHorizontalOverflow(page);
 });
 
@@ -335,7 +399,7 @@ test("reveal, rating, next card, and empty deck keep a useful focus target", asy
   await page.locator('[data-deck="vocab-ja-zh"]').click();
   await page.locator("#poolToggle").click();
   await expect(page.locator("#emptyState")).toBeVisible();
-  await expect(page.locator("#emptyDeckMenuButton")).toBeFocused();
+  await expect(page.locator("#deckMenuButton")).toBeFocused();
 });
 
 test("不认识 moves a card into its own pool and 认识 moves it back", async ({ page }) => {
@@ -354,17 +418,17 @@ test("不认识 moves a card into its own pool and 认识 moves it back", async 
   await page.locator('.feedback[data-rating="clear"]').click();
   await expect(page.locator("#roundStatusText")).toContainText("认识 45，不认识 1");
 
-  await page.locator("#emptyState #poolToggle").click();
+  await toggle.click();
   await expect(toggle).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator("#cardPrompt")).toHaveText(unknownPrompt);
   await page.locator("#cardReveal").click();
   await page.locator('.feedback[data-rating="clear"]').click();
   await expect(page.locator("#emptyState")).toBeVisible();
   await expect(page.locator("#roundStatusText")).toHaveText("没有不认识的卡片。");
-  await expect(page.locator("#poolToggleLabel")).toHaveText("返回认识");
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator("#unknownCount")).toBeHidden();
 
-  await page.locator("#emptyState #poolToggle").click();
+  await page.locator("#currentPoolTab").click();
   await expect(toggle).toHaveAttribute("aria-pressed", "false");
   await expect(page.locator("#roundStatusText")).toContainText("认识 46，不认识 0");
   await expectNoHorizontalOverflow(page);
@@ -398,7 +462,7 @@ test("changing modules clears Undo from the previous deck", async ({ page }) => 
   await page.locator('.feedback[data-rating="clear"]').click();
   await expect(page.locator("#emptyState #undoRating")).toBeEnabled();
 
-  const emptyMenuButton = page.locator("#emptyDeckMenuButton");
+  const emptyMenuButton = page.locator("#deckMenuButton");
   await expect(emptyMenuButton).toHaveAttribute("aria-controls", "deckSidebar");
   await expect(emptyMenuButton).toHaveAttribute("aria-expanded", "false");
   await emptyMenuButton.click();
@@ -411,7 +475,7 @@ test("changing modules clears Undo from the previous deck", async ({ page }) => 
   await expect(emptyMenuButton).toHaveAttribute("aria-expanded", "false");
 });
 
-test("browser Back closes the module drawer before leaving the app", async ({ page, baseURL }) => {
+test("browser Back closes the module page before leaving the app", async ({ page, baseURL }) => {
   await page.goto("/?previous=1");
   await waitForApp(page);
   await page.goto("/");
@@ -419,13 +483,14 @@ test("browser Back closes the module drawer before leaving the app", async ({ pa
 
   await page.locator("#deckMenuButton").click();
   await expect(page.locator("#deckSidebar")).toHaveClass(/\bis-open\b/);
-  await expect(page.locator(".study-area")).toHaveJSProperty("inert", true);
+  await expect(page.locator("#studyCard")).toHaveJSProperty("inert", true);
+  await expect(page.locator("#poolToggle")).toBeVisible();
 
   await page.goBack();
   await expect(page).toHaveURL(`${baseURL}/`);
   await expect(page.locator("#deckSidebar")).not.toHaveClass(/\bis-open\b/);
   await expect(page.locator("#deckSidebar")).toHaveAttribute("aria-hidden", "true");
-  await expect(page.locator(".study-area")).toHaveJSProperty("inert", false);
+  await expect(page.locator("#studyCard")).toHaveJSProperty("inert", false);
   await expect(page.locator("#deckMenuButton")).toBeFocused();
 
   await page.goForward();
@@ -627,6 +692,7 @@ test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async 
   const layout = await page.evaluate(() => {
     window.scrollTo(0, 200);
     const study = document.querySelector("#studyCard").getBoundingClientRect();
+    const area = document.querySelector(".study-area").getBoundingClientRect();
     const focusedStyle = getComputedStyle(document.activeElement);
     return {
       bodyOverflow: getComputedStyle(document.body).overflowY,
@@ -634,6 +700,7 @@ test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async 
       inputMode: document.documentElement.dataset.inputMode,
       outlineStyle: focusedStyle.outlineStyle,
       scrollY: window.scrollY,
+      areaHeight: area.height,
       study: {
         height: study.height,
         width: study.width,
@@ -653,7 +720,7 @@ test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async 
   await expect(page.locator("#memoryChain")).toHaveCount(0);
   expect(layout.study).toMatchObject({ x: 0, y: 0 });
   expect(layout.study.width).toBeGreaterThanOrEqual(layout.viewportWidth);
-  expect(layout.study.height).toBeGreaterThanOrEqual(layout.viewportHeight);
+  expect(layout.areaHeight).toBeGreaterThanOrEqual(layout.viewportHeight);
 
   await page.keyboard.press("Tab");
   await expect
@@ -770,7 +837,7 @@ test("revealed vocab shows its reviewed pitch accent", async ({ page }) => {
   await expect(page.locator("#answerMeta")).not.toContainText("①");
 
   await page.locator("#cardReveal").click();
-  await expect(page.locator("#answerMeta")).toContainText("读音：あめ ①");
+  await expect(page.locator("#answerMeta .meta-row").first()).toHaveText("读音あめ ①");
 });
 
 test("returning to the page re-measures a stale viewport height", async ({ page }) => {

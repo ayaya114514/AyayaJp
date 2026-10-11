@@ -29,6 +29,11 @@ class FakeClassList {
   }
 }
 
+// The 说明 rows rendered from card meta, as [key, value] text pairs.
+function metaRowTexts(answerMeta) {
+  return answerMeta.children.map((row) => row.children.map((cell) => cell.textContent));
+}
+
 class FakeElement {
   constructor(document, id = "", tagName = "div") {
     this.attributes = new Map();
@@ -231,14 +236,18 @@ class FakeDocument {
     const answerPanel = this.querySelector("#answerPanel");
     const feedbackRow = this.querySelector(".feedback-row");
     const emptyState = this.querySelector("#emptyState");
-    studyArea.append(studyCard, emptyState);
+    const bottomBar = this.querySelector(".bottom-bar");
+    studyArea.append(studyCard, emptyState, bottomBar);
     studyCard.append(statsGrid, flashcard, answerPanel);
     statsGrid.append(
-      this.querySelector("#deckMenuButton"),
+      this.querySelector("#undoRating"),
       this.querySelector("#dueCount"),
       this.querySelector("#reviewedCount"),
+    );
+    bottomBar.append(
+      this.querySelector("#currentPoolTab"),
       this.querySelector("#poolToggle"),
-      this.querySelector("#undoRating"),
+      this.querySelector("#deckMenuButton"),
     );
     flashcard.append(this.querySelector("#cardReveal"), this.querySelector("#speakWord"));
     answerPanel.append(
@@ -256,7 +265,6 @@ class FakeDocument {
     feedbackRow.append(...this.feedback);
     emptyState.append(
       this.querySelector("#roundStatusText"),
-      this.querySelector("#emptyDeckMenuButton"),
       this.querySelector("#studyAnyWay"),
     );
     this.querySelector("#deckSidebar").append(
@@ -289,8 +297,8 @@ class FakeDocument {
         "cardReveal",
         "choiceNext",
         "closeDeckMenu",
+        "currentPoolTab",
         "deckMenuButton",
-        "emptyDeckMenuButton",
         "poolToggle",
         "speakWord",
         "studyAnyWay",
@@ -783,23 +791,30 @@ function testSidebarFocusAndInertLifecycle() {
   const opener = harness.element("deckMenuButton");
   const closeButton = harness.element("closeDeckMenu");
   const sidebar = harness.element("deckSidebar");
-  const studyArea = harness.document.querySelector(".study-area");
+  const studyCard = harness.element("studyCard");
+  const unknownTab = harness.element("poolToggle");
 
   opener.focus();
   opener.dispatch("click");
 
-  assert(sidebar.classList.contains("is-open"), "sidebar did not open");
-  assert(sidebar.inert === false, "open sidebar remained inert");
-  assert(studyArea.inert === true, "background study area was not made inert");
+  assert(sidebar.classList.contains("is-open"), "module page did not open");
+  assert(sidebar.inert === false, "open module page remained inert");
+  assert(studyCard.inert === true, "the covered study card was not made inert");
+  assert(!unknownTab.inert && !opener.inert, "the bottom bar was made inert under the module page");
   assert(harness.document.activeElement === closeButton, "sidebar did not focus its close button");
 
   sidebar.dispatch("keydown", { key: "Escape" });
 
   assert(!sidebar.classList.contains("is-open"), "Escape did not close the sidebar");
-  assert(sidebar.inert === true, "closed sidebar did not become inert");
-  assert(studyArea.inert === false, "background remained inert after closing sidebar");
-  assert(harness.document.activeElement === opener, "sidebar did not restore focus to its opener");
-  assert(opener.getAttribute("aria-expanded") === "false", "sidebar opener ARIA state stayed expanded");
+  assert(sidebar.inert === true, "closed module page did not become inert");
+  assert(studyCard.inert === false, "study card remained inert after closing the module page");
+  assert(harness.document.activeElement === opener, "module page did not restore focus to its opener");
+  assert(opener.getAttribute("aria-expanded") === "false", "module page opener ARIA state stayed expanded");
+
+  opener.dispatch("click");
+  harness.element("currentPoolTab").dispatch("click");
+  assert(!sidebar.classList.contains("is-open"), "当前 did not leave the module page");
+  assert(studyCard.inert === false, "当前 left the study card inert");
 }
 
 function testLegacyMistakeRatingsOpenInUnknownPool() {
@@ -834,6 +849,8 @@ function testLegacyMistakeRatingsOpenInUnknownPool() {
   assert(harness.element("cardPrompt").textContent === card.prompt, "the 不认识 card was not queued");
 
   toggle.dispatch("click");
+  assert(toggle.getAttribute("aria-pressed") === "true", "tapping the active 不认识 tab left the pool");
+  harness.element("currentPoolTab").dispatch("click");
   assert(toggle.getAttribute("aria-pressed") === "false", "the toggle did not return to the main pool");
   assert(harness.element("studyCard").hidden === true, "a 不认识 card stayed in the main pool");
   assert(harness.element("unknownCount").textContent === 1, "the toggle did not count 不认识 cards");
@@ -880,14 +897,14 @@ function testRatingsMoveCardsBetweenPools() {
   harness.element("cardReveal").dispatch("click");
   clear.dispatch("click");
   assert(harness.element("unknownCount").textContent === 0, "认识 did not leave the 不认识 pool");
-  assert(harness.element("poolToggleLabel").textContent === "返回认识", "the toggle hid the way back");
+  assert(toggle.getAttribute("aria-pressed") === "true", "the 不认识 tab lost its selected state");
 
   harness.element("undoRating").dispatch("click");
   assert(harness.element("unknownCount").textContent === 1, "Undo did not return the card to 不认识");
   assert(harness.element("cardPrompt").textContent === unknownPrompt, "Undo did not restore the card");
   clear.dispatch("click");
 
-  toggle.dispatch("click");
+  harness.element("currentPoolTab").dispatch("click");
   assert(harness.element("studyCard").hidden === true, "a card marked 认识 was queued again this round");
   assert(harness.element("reviewedCount").textContent === 2, "the main pool lost the returned card");
   assert(
@@ -912,7 +929,7 @@ function testNewUnknownCardKeepsFinishedUnknownRounds() {
     JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds.decks["hiragana-unknown"].rounds;
   assert(unknownRounds() === 1, "finishing the 不认识 pool did not count a round");
 
-  toggle.dispatch("click");
+  harness.element("currentPoolTab").dispatch("click");
   assert(harness.element("cardPrompt").textContent !== firstPrompt, "the main pool repeated a moved card");
   harness.element("cardReveal").dispatch("click");
   forgot.dispatch("click");
@@ -1416,7 +1433,7 @@ function testChoiceAndEmptyDeckFocusLifecycle() {
   harness.tabs[2].dispatch("click");
   assert(harness.element("studyCard").hidden === true, "empty deck kept the study card visible");
   assert(
-    harness.document.activeElement === harness.element("emptyDeckMenuButton"),
+    harness.document.activeElement === harness.element("deckMenuButton"),
     "empty deck sent focus to a hidden study-card control",
   );
 }
@@ -2095,7 +2112,7 @@ function testJapaneseToChineseVocabHidesReadingUntilReveal() {
 
     assert(harness.element("cardPrompt").textContent === "会う", `${deck} lost its word prompt`);
     assert(
-      harness.element("cardType").textContent === card.type && !harness.element("cardType").hidden,
+      harness.element("cardType").textContent === "搭配" && !harness.element("cardType").hidden,
       `${deck} did not expose its learning category label`,
     );
     assert(
@@ -2116,7 +2133,8 @@ function testJapaneseToChineseVocabHidesReadingUntilReveal() {
       `${deck} did not reveal the Chinese meaning`,
     );
     assert(
-      harness.element("answerMeta").textContent === "读音：あう　罗马音：au",
+      JSON.stringify(metaRowTexts(harness.element("answerMeta"))) ===
+        JSON.stringify([["读音", "あう"], ["罗马音", "au"]]),
       `${deck} did not restore the reading after reveal`,
     );
     assert(harness.element("cardSubtle").hidden, `${deck} front reading reappeared after reveal`);
@@ -2197,7 +2215,7 @@ function testExamplesSpeakReviewedKana() {
   );
 
   const findButton = (element) =>
-    element.className === "icon-button example-speak" ? element : element.children.map(findButton).find(Boolean);
+    element.classList?.contains("example-speak") ? element : element.children?.map(findButton).find(Boolean);
   findButton(harness.element("examplesList")).dispatch("click");
   assert(
     harness.spoken.at(-1)?.text === "まいねん、なつにうみえいきます",

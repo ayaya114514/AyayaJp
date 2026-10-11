@@ -1,6 +1,7 @@
 :root {
   color-scheme: dark;
-  --bg: #121417;
+  /* Page backdrop, kept well below the panel tones so the panel stands out. */
+  --bg: #08090b;
   --panel: #1a1d22;
   --panel-rgb: 26, 29, 34;
   --ink: #f2f4f7;
@@ -8,7 +9,6 @@
   --line: #313640;
   --accent: #434954;
   --accent-strong: #5a616d;
-  --module-border: #5a616d;
   --success: #24745c;
   --warm: #a84f3a;
   --gold: #e0b75a;
@@ -16,22 +16,23 @@
   --blue: #82aee1;
   --blue-strong: #a5c6ec;
   --blue-ink: #101820;
-  --card-border: #2a2f37;
+  --card-border: #3a404b;
   --error-bg: rgba(216, 122, 94, 0.16);
   --error-ink: #ffd5c8;
   --page-glow-start: transparent;
   --page-glow-end: transparent;
-  --sidebar-bg: rgba(26, 29, 34, 0.98);
   --control-bg: rgba(44, 49, 57, 0.92);
   --control-soft: rgba(36, 40, 47, 0.8);
   --answer-bg: rgba(36, 40, 47, 0.52);
-  --study-gradient-start: rgba(28, 31, 37, 0.98);
-  --study-gradient-end: rgba(23, 26, 31, 0.98);
-  /* Opaque match for the bottom of the study card, behind pinned buttons. */
-  --answer-backing: rgb(23, 26, 31);
-  --empty-gradient-end: rgba(23, 26, 31, 0.98);
-  --backdrop: rgba(0, 0, 0, 0.5);
+  /* The word band and bottom bar share a lighter tone; the answer area
+     between them is darker, as in a dictionary app. */
+  --band-bg: #23262c;
+  --answer-area: #17191d;
+  /* Opaque match for the answer area, behind pinned buttons. */
+  --answer-backing: var(--answer-area);
   --shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+  --chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 5l-7 7 7 7'/%3E%3C/svg%3E");
+  --speaker-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9v6h4l5 4V5L8 9H4z' fill='black'/%3E%3Cpath d='M16.5 8.5a5 5 0 0 1 0 7'/%3E%3Cpath d='M19 6a8.5 8.5 0 0 1 0 12'/%3E%3C/svg%3E");
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Noto Sans SC", sans-serif;
@@ -81,9 +82,9 @@ button {
   grid-template-rows: minmax(0, 1fr);
   height: 100%;
   min-height: 0;
-  width: min(1120px, calc(100% - 32px));
+  width: min(760px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 14px 0 16px;
+  padding: 10px 0;
   overflow: hidden;
 }
 
@@ -164,60 +165,42 @@ h2 {
   transform: translateY(-1px);
 }
 
-.deck-tabs,
-.stats-grid {
-  display: grid;
-  gap: 8px;
-}
-
-.sidebar-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-  background: var(--backdrop);
-}
-
-.deck-sidebar {
-  position: fixed;
-  inset: 0 auto 0 0;
-  z-index: 30;
+/* The module page takes the card's place above the bottom bar. */
+.deck-page {
+  z-index: 2;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  width: min(340px, calc(100vw - 40px));
-  padding: 16px;
-  border-right: 1px solid var(--line);
-  background: var(--sidebar-bg);
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateX(-105%);
-  transition:
-    transform 180ms ease,
-    visibility 0s linear 180ms;
+  min-height: 0;
+  border: 1px solid var(--card-border);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  background: var(--answer-area);
+  overflow: hidden;
 }
 
-.deck-sidebar.is-open {
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateX(0);
-  transition-delay: 0s;
+.deck-page:not(.is-open) {
+  display: none;
 }
 
-.sidebar-header {
+.deck-page-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 4px;
+  padding: 10px clamp(12px, 3vw, 24px);
+  border-bottom: 1px solid var(--line);
+  background: var(--band-bg);
 }
 
-.sidebar-header h2 {
+.deck-page-header h2 {
   font-size: 1.08rem;
   font-weight: 900;
 }
 
 .deck-tabs {
+  display: grid;
   align-content: start;
-  grid-template-columns: 1fr;
+  gap: 14px;
+  padding: 16px clamp(12px, 3vw, 24px);
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
@@ -229,7 +212,7 @@ h2 {
 }
 
 .deck-row + .deck-row {
-  padding-top: 10px;
+  padding-top: 14px;
   border-top: 1px solid var(--line);
 }
 
@@ -257,7 +240,7 @@ h2 {
   position: relative;
   display: grid;
   min-width: 0;
-  min-height: 44px;
+  min-height: 48px;
   place-items: center;
   padding: 0 2px;
   border: 1px solid var(--line);
@@ -319,110 +302,176 @@ h2 {
   opacity: 0.48;
 }
 
+/* The undo "<" hangs in the band's top-left corner over the card instead of
+   taking a row of its own, so the prompt starts at the top of the band. */
 .stats-grid {
-  grid-template-columns: auto repeat(3, minmax(0, 1fr)) auto;
-  align-self: start;
-  align-items: center;
-  margin-bottom: 0;
-}
-
-.stat {
+  position: relative;
+  z-index: 1;
   display: flex;
-  min-height: 42px;
+  height: 0;
+  align-items: flex-start;
+}
+
+/* A bare "<" like a native back button: undo in the word band, return on the
+   module page. */
+.chevron-button {
+  display: inline-flex;
+  min-width: 44px;
+  height: 44px;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 4px 8px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--control-soft);
-}
-
-.stat-value {
-  display: inline;
-  font-size: clamp(0.9rem, 3vw, 1.06rem);
-  font-weight: 900;
-  line-height: 1;
-}
-
-.stat-label {
-  display: inline;
-  margin-top: 0;
+  gap: 2px;
+  margin-left: -10px;
+  padding: 0 8px 0 0;
+  border: 0;
+  background: transparent;
   color: var(--muted);
-  font-size: 0.8rem;
-  white-space: nowrap;
-}
-
-.pool-toggle {
-  min-width: 0;
-  border-color: rgba(168, 79, 58, 0.55);
   cursor: pointer;
-}
-
-.pool-toggle:hover {
-  border-color: var(--warm);
-}
-
-.pool-toggle.is-active {
-  border-color: var(--warm);
-  background: rgba(168, 79, 58, 0.22);
-}
-
-.pool-toggle.is-active .stat-label {
-  color: var(--ink);
-}
-
-.empty-state .pool-toggle {
-  min-width: min(360px, calc(100vw - 72px));
-  min-height: 56px;
-  font-size: 1.1rem;
-}
-
-.empty-state .pool-toggle .stat-label {
   font-size: 1rem;
+  font-weight: 800;
 }
 
-.stat-action {
-  width: 42px;
-  height: 42px;
-  font-size: 1.05rem;
-  font-weight: 900;
+.chevron-button::before {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  background: currentColor;
+  content: "";
+  -webkit-mask: var(--chevron-icon) center / contain no-repeat;
+  mask: var(--chevron-icon) center / contain no-repeat;
 }
 
-.module-button {
-  border-color: var(--module-border);
-  background: var(--accent);
-  color: #fff;
+.chevron-button:disabled {
+  cursor: default;
+  opacity: 0.3;
 }
 
-.module-button:hover {
-  border-color: var(--accent-strong);
-  background: var(--accent-strong);
+@media (hover: hover) {
+  .chevron-button:not(:disabled):hover {
+    color: var(--ink);
+  }
 }
 
-.undo-button {
-  border-color: rgba(49, 93, 143, 0.26);
-  background: rgba(49, 93, 143, 0.12);
-  color: var(--blue);
+/* The label only shows on the finished-round screen, where a bare "<" would
+   not read as undo. */
+.undo-text {
+  display: none;
 }
 
-.undo-button:not(:disabled) {
-  border-color: var(--blue);
-  background: var(--blue);
-  color: var(--blue-ink);
+.empty-state .undo-button {
+  margin-left: 0;
+  color: var(--blue-strong);
 }
 
-.undo-button:not(:disabled):hover {
-  border-color: var(--blue-strong);
-  background: var(--blue-strong);
+.empty-state .undo-text {
+  display: inline;
+}
+
+/* The card (or finished-round screen) and the bottom bar form one panel. The
+   card, the finished-round screen and the module page share the first row. */
+.study-card,
+.empty-state,
+.deck-page {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.bottom-bar {
+  grid-row: 2;
 }
 
 .study-area {
   position: relative;
-  display: block;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
   height: 100%;
   min-height: 0;
   overflow: hidden;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+/* 当前 / 不认识 select the deck's main or 不认识 pool; 模块 opens the drawer. */
+.bottom-bar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--card-border);
+  border-top-color: var(--line);
+  border-radius: 0 0 8px 8px;
+  background: var(--band-bg);
+}
+
+.bottom-tab {
+  position: relative;
+  display: grid;
+  min-height: 54px;
+  place-items: center;
+  align-content: center;
+  gap: 3px;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.bottom-tab.is-active,
+.bottom-tab[aria-expanded="true"] {
+  color: var(--blue-strong);
+}
+
+/* While the module page is open only 模块 reads as selected. */
+.study-area.is-picking .bottom-tab.is-active {
+  color: var(--muted);
+}
+
+@media (hover: hover) {
+  .bottom-tab:not(.is-active):not([aria-expanded="true"]):hover {
+    color: var(--ink);
+  }
+}
+
+.bottom-tab-icon {
+  width: 24px;
+  height: 24px;
+  background: currentColor;
+  -webkit-mask: var(--tab-icon) center / contain no-repeat;
+  mask: var(--tab-icon) center / contain no-repeat;
+}
+
+.icon-current {
+  --tab-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'%3E%3Crect x='5' y='3' width='14' height='18' rx='2'/%3E%3Cpath d='M9 8h6M9 12h6M9 16h3' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.icon-unknown {
+  --tab-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.4'/%3E%3Ccircle cx='12' cy='17' r='.6' fill='black'/%3E%3C/svg%3E");
+}
+
+.icon-modules {
+  --tab-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'%3E%3Crect x='4' y='4' width='6.5' height='6.5' rx='1.5'/%3E%3Crect x='13.5' y='4' width='6.5' height='6.5' rx='1.5'/%3E%3Crect x='4' y='13.5' width='6.5' height='6.5' rx='1.5'/%3E%3Crect x='13.5' y='13.5' width='6.5' height='6.5' rx='1.5'/%3E%3C/svg%3E");
+}
+
+/* The badge hangs off the icon's top-right corner in both tab layouts. */
+.bottom-tab-figure {
+  position: relative;
+  display: grid;
+}
+
+.bottom-tab-badge {
+  position: absolute;
+  top: -6px;
+  left: 16px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--warm);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 18px;
+  text-align: center;
 }
 
 .study-header {
@@ -431,21 +480,20 @@ h2 {
   gap: clamp(8px, 2vw, 16px);
 }
 
+/* Word band on top, answer area below it taking the remaining space (and
+   scrolling there). */
 .study-card {
   display: grid;
-  grid-template-rows: auto minmax(min-content, 1fr) minmax(0, auto);
+  grid-template-rows: auto minmax(0, 1fr);
   height: 100%;
   min-height: 0;
   max-height: 100%;
-  padding: clamp(12px, 3vw, 24px);
+  padding: 0;
   border: 1px solid var(--card-border);
-  border-radius: 8px;
-  background:
-    linear-gradient(160deg, var(--study-gradient-start), var(--study-gradient-end)),
-    var(--panel);
-  box-shadow: var(--shadow);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  background: var(--answer-area);
   cursor: pointer;
-  gap: clamp(8px, 2vw, 16px);
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
 }
@@ -454,20 +502,40 @@ h2 {
   cursor: default;
 }
 
+.word-band {
+  display: grid;
+  gap: 4px;
+  padding: 10px clamp(12px, 3vw, 24px);
+  border-bottom: 1px solid var(--line);
+  background: var(--band-bg);
+}
+
+/* Shares the answer row so it sits centered in the empty answer area. */
+.reveal-hint {
+  grid-row: 2;
+  grid-column: 1;
+  align-self: center;
+  justify-self: center;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 800;
+  pointer-events: none;
+}
+
 .study-card.is-choosing {
   cursor: default;
 }
 
 .card {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  /* The reveal button fills the card through the stretched 1fr row. A
-     percentage min-height would make WebKit size this row from its previous
-     height and starve the answer row. */
-  grid-template-rows: 1fr;
-  min-height: 88px;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 0 30px;
   border: 0;
   border-radius: 8px;
   background: transparent;
@@ -482,12 +550,9 @@ h2 {
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  align-self: stretch;
-  place-content: center;
   justify-items: center;
-  gap: 8px;
-  padding-block: clamp(14px, 4vw, 28px);
-  padding-inline: clamp(54px, 8vw, 76px);
+  gap: 10px;
+  padding: 4px 8px;
   border: 0;
   border-radius: 8px;
   background: transparent;
@@ -501,19 +566,14 @@ h2 {
 }
 
 .card-type {
-  position: absolute;
-  top: 6px;
-  right: clamp(54px, 9vw, 74px);
-  left: 8px;
-  overflow: hidden;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--control-soft);
   color: var(--muted);
-  font-size: clamp(0.74rem, 2vw, 0.82rem);
+  font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: 0.035em;
   line-height: 1.3;
-  text-align: left;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .card-prompt {
@@ -521,25 +581,51 @@ h2 {
   min-width: 0;
   max-width: 100%;
   overflow-wrap: anywhere;
-  font-size: clamp(3.1rem, 17vw, 8.5rem);
+  font-size: clamp(2.6rem, 12vw, 4.5rem);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.1;
   letter-spacing: 0;
 }
 
-.prompt-speak {
+.card-phonetic {
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+}
+
+.card.speaker-corner .card-phonetic {
   position: absolute;
-  top: 50%;
-  right: clamp(14px, 4vw, 28px);
-  z-index: 1;
-  transform: translateY(-50%);
-  width: clamp(34px, 7vw, 44px);
-  height: clamp(34px, 7vw, 44px);
+  top: 2px;
+  right: -4px;
+  min-height: 0;
+}
+
+/* Speaker glyph drawn with a mask so the buttons carry no text content. */
+.speaker-button {
   flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-color: transparent;
+  background: transparent;
+  color: var(--blue);
+}
+
+.speaker-button::before {
+  width: 20px;
+  height: 20px;
+  background: currentColor;
+  content: "";
+  -webkit-mask: var(--speaker-icon) center / contain no-repeat;
+  mask: var(--speaker-icon) center / contain no-repeat;
+}
+
+.icon-button.speaker-button:hover {
   border-color: rgba(130, 174, 225, 0.3);
   background: rgba(49, 93, 143, 0.16);
-  color: var(--blue);
-  font-size: 0.78rem;
+  transform: none;
 }
 
 .speech-status {
@@ -568,24 +654,18 @@ h2 {
   color: var(--gold);
 }
 
-.icon-button.prompt-speak:hover {
-  border-color: var(--blue);
-  background: rgba(49, 93, 143, 0.26);
-  transform: translateY(-50%);
-}
-
 .card.is-vocab .card-prompt {
-  font-size: clamp(2.35rem, 9vw, 5.6rem);
+  font-size: clamp(2rem, 8vw, 3.4rem);
   line-height: 1.04;
 }
 
 .card.is-zh-prompt .card-prompt {
-  font-size: clamp(2rem, 7vw, 4.2rem);
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
   line-height: 1.08;
 }
 
 .card.is-grammar .card-prompt {
-  font-size: clamp(1.55rem, 5.8vw, 3.8rem);
+  font-size: clamp(1.3rem, 5vw, 2.2rem);
   line-height: 1.12;
 }
 
@@ -594,12 +674,29 @@ h2 {
   line-height: 1.16;
 }
 
+/* Grammar sentence cards teach the pattern: it takes the large prompt size and
+   the example sentence shrinks to a secondary line under it. */
+.card-pattern {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-size: clamp(1.5rem, 7vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.card.is-pattern-first .card-prompt {
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
 .card-subtle {
   max-width: 100%;
   overflow-wrap: anywhere;
   color: var(--muted);
   font-size: 0.9rem;
-  min-height: 1.2em;
+  line-height: 1.35;
 }
 
 .answer-panel,
@@ -613,6 +710,8 @@ h2 {
 .answer-panel {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  padding: 10px clamp(12px, 3vw, 24px);
   /* The answer row is content-sized and only shrinks when the card is full, so
      stretching keeps a long answer inside its row (scrolling there) instead of
      growing upward over the prompt; flex-start keeps its top reachable. */
@@ -630,6 +729,12 @@ h2 {
   transition:
     opacity 140ms ease,
     transform 140ms ease;
+}
+
+/* The panel only takes programmatic focus after a reveal so screen readers
+   land on the answer; it is not a control, so it shows no focus ring. */
+.answer-panel:focus-visible {
+  outline: none;
 }
 
 .answer-panel.is-revealed {
@@ -662,17 +767,78 @@ h2 {
 }
 
 .answer-main {
-  margin-bottom: 3px;
-  font-size: clamp(1.25rem, 5.6vw, 2.5rem);
+  padding: 0 2px 8px;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(1.2rem, 5.2vw, 1.6rem);
   font-weight: 900;
-  line-height: 1.02;
+  line-height: 1.2;
   overflow-wrap: anywhere;
 }
 
-.answer-meta {
+.answer-main:empty {
+  display: none;
+}
+
+/* 说明 and 例句 sit side by side once the card is wide enough for two
+   380px columns (iPad landscape, desktop); a lone section fills the row. */
+.answer-details {
+  display: grid;
+  flex: 0 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 8px 12px;
+}
+
+.answer-details:not(:has(> :not([hidden]))) {
+  display: none;
+}
+
+.answer-section {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--control-soft);
+}
+
+.answer-section-title {
+  margin: 0;
+  padding: 6px 12px 0;
   color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.answer-meta {
+  display: grid;
+  gap: 4px;
+  padding: 4px 12px 8px;
   font-size: 0.92rem;
   line-height: 1.35;
+}
+
+.meta-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 10px;
+}
+
+.meta-key {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.meta-value {
+  grid-column: 2;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.meta-row > .meta-value:only-child {
+  grid-column: 1 / -1;
 }
 
 .choice-block {
@@ -763,6 +929,14 @@ h2 {
   padding-right: 2px;
 }
 
+/* Once answered, only the picked and the correct option stay, each with its
+   explanation, so the answer fits on one screen. */
+.choice-list.is-answered .choice-option:not(.is-selected):not(.is-correct),
+.study-card.is-choice.is-answering .choice-reason:not(.is-selected):not(.is-correct),
+.study-card.is-choice.is-answering .answer-details {
+  display: none;
+}
+
 .choice-reason {
   display: grid;
   gap: 2px;
@@ -785,41 +959,20 @@ h2 {
   border-left-color: var(--warm);
 }
 
-.example-block {
-  margin-top: 5px;
-  padding-top: 5px;
-  border-top: 1px solid var(--line);
-}
-
 .examples-list {
   display: grid;
-  gap: 5px;
 }
 
 .example-item {
   display: grid;
-  grid-template-columns: 1.16rem minmax(0, 1fr);
-  gap: 6px;
-}
-
-.example-number {
-  display: inline-grid;
-  width: 1.16rem;
-  height: 1.16rem;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 800;
-}
-
-.example-body {
-  display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 6px;
-  min-width: 0;
+  gap: 8px;
+  padding: 5px 6px 6px 12px;
+}
+
+.example-item + .example-item {
+  border-top: 1px solid var(--line);
 }
 
 .example-text {
@@ -827,10 +980,10 @@ h2 {
 }
 
 .example-ja {
-  margin-bottom: 1px;
-  font-size: clamp(0.86rem, 2.8vw, 1.08rem);
+  margin: 0 0 1px;
+  font-size: clamp(0.96rem, 3vw, 1.1rem);
   font-weight: 800;
-  line-height: 1.34;
+  line-height: 1.32;
 }
 
 .example-ja ruby {
@@ -839,40 +992,32 @@ h2 {
 
 .example-ja rt {
   color: var(--muted);
-  font-size: 0.42em;
+  font-size: 0.5em;
   font-weight: 700;
   line-height: 1;
 }
 
 .example-romaji {
-  margin-bottom: 1px;
+  margin: 0 0 1px;
   color: var(--blue);
   font-size: 0.8rem;
   font-weight: 800;
-  line-height: 1.24;
+  line-height: 1.3;
   overflow-wrap: anywhere;
 }
 
 .example-zh {
-  margin-bottom: 0;
+  margin: 0;
   color: var(--muted);
-  font-size: 0.84rem;
-  line-height: 1.25;
-}
-
-.example-speak {
-  width: 32px;
-  height: 32px;
-  background: rgba(49, 93, 143, 0.1);
-  color: var(--blue);
-  font-size: 0.75rem;
+  font-size: 0.86rem;
+  line-height: 1.35;
 }
 
 .feedback-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  margin-top: 8px;
+  gap: 10px;
+  margin-top: auto;
 }
 
 /* When a long answer scrolls, the rating and next buttons stay in view, with
@@ -906,12 +1051,26 @@ h2 {
   font-weight: 900;
 }
 
-.feedback.forgot {
-  background: var(--warm);
+.feedback {
+  display: grid;
+  min-height: 50px;
+  place-content: center;
+  gap: 2px;
+  border: 1.5px solid;
+  border-radius: 10px;
+  font-size: 1rem;
 }
 
 .feedback.clear {
-  background: var(--success);
+  border-color: #3f9f80;
+  background: rgba(36, 116, 92, 0.16);
+  color: #8fdcbf;
+}
+
+.feedback.forgot {
+  border-color: #c96a52;
+  background: rgba(168, 79, 58, 0.16);
+  color: #f3a993;
 }
 
 .primary-button {
@@ -920,7 +1079,7 @@ h2 {
 
 .choice-next {
   width: 100%;
-  margin-top: 8px;
+  margin-top: auto;
 }
 
 .feedback:hover,
@@ -935,12 +1094,10 @@ h2 {
   place-items: center;
   align-content: center;
   gap: 18px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background:
-    linear-gradient(160deg, var(--study-gradient-start), var(--empty-gradient-end)),
-    var(--panel);
-  box-shadow: var(--shadow);
+  border: 1px solid var(--card-border);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  background: var(--answer-area);
   text-align: center;
 }
 
@@ -958,7 +1115,6 @@ h2 {
   padding: 0 18px;
 }
 
-.empty-menu-button,
 .restart-button {
   min-width: min(360px, calc(100vw - 72px));
   min-height: 84px;
@@ -975,6 +1131,13 @@ h2 {
   }
 }
 
+/* Wide screens widen the card so 说明 and 例句 fit in two columns. */
+@media (min-width: 1000px) {
+  .app-shell {
+    width: min(1100px, calc(100% - 32px));
+  }
+}
+
 @media (max-width: 560px) {
   .app-shell {
     width: 100%;
@@ -988,66 +1151,65 @@ h2 {
     box-shadow: none;
   }
 
-  .study-card {
-    grid-template-rows: auto minmax(min-content, 1fr) minmax(0, auto);
-    gap: 8px;
+  .word-band {
     padding:
       max(10px, env(safe-area-inset-top))
       max(12px, env(safe-area-inset-right))
-      max(8px, env(safe-area-inset-bottom))
+      12px
       max(12px, env(safe-area-inset-left));
+  }
+
+  .answer-panel {
+    padding-inline: max(12px, env(safe-area-inset-left)) max(12px, env(safe-area-inset-right));
   }
 
   .empty-state {
     padding:
       max(14px, env(safe-area-inset-top))
       max(14px, env(safe-area-inset-right))
-      max(14px, env(safe-area-inset-bottom))
+      14px
       max(14px, env(safe-area-inset-left));
+  }
+
+  .deck-page {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .deck-page-header {
+    padding:
+      max(10px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      10px
+      max(12px, env(safe-area-inset-left));
+  }
+
+  .deck-tabs {
+    padding-inline: max(12px, env(safe-area-inset-left)) max(12px, env(safe-area-inset-right));
+  }
+
+  /* Edge-to-edge bar like a native tab bar, clear of the home indicator. */
+  .study-area {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .bottom-bar {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+    border-width: 1px 0 0;
+    border-radius: 0;
   }
 
   .feedback-row {
     gap: 6px;
   }
 
-  .card {
-    min-height: 82px;
-  }
 
-  .stat {
-    min-height: 44px;
-    gap: 5px;
-    padding-inline: 5px;
-  }
-
-  .stat-action {
-    width: 44px;
-    height: 44px;
-  }
-
-  .stat-value {
-    font-size: 1rem;
-  }
-
-  .stat-label {
-    font-size: 0.8rem;
-  }
-
-  .feedback {
-    min-height: 44px;
-    font-size: 0.94rem;
-  }
 
   .choice-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
-  }
-
-  .choice-list.is-answered .choice-option:not(.is-selected):not(.is-correct),
-  .study-card.is-choice.is-answering .choice-reason:not(.is-selected):not(.is-correct),
-  .study-card.is-choice.is-answering .answer-meta,
-  .study-card.is-choice.is-answering .example-block {
-    display: none;
   }
 
   .choice-list.is-answered .choice-option.is-selected.is-correct {
@@ -1080,14 +1242,6 @@ h2 {
 }
 
 @media (max-height: 640px) {
-  .card {
-    min-height: clamp(112px, 28svh, 180px);
-  }
-
-  .study-card.is-answering .card {
-    min-height: clamp(104px, 26svh, 166px);
-  }
-
   .choice-feedback {
     max-height: none;
   }
@@ -1111,12 +1265,7 @@ h2 {
   }
 
   .study-card {
-    grid-template-rows: auto auto auto;
-    padding:
-      max(10px, env(safe-area-inset-top))
-      max(12px, env(safe-area-inset-right))
-      max(10px, env(safe-area-inset-bottom))
-      max(12px, env(safe-area-inset-left));
+    grid-template-rows: auto auto;
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -1126,7 +1275,8 @@ h2 {
     -webkit-overflow-scrolling: touch;
   }
 
-  .empty-state {
+  .empty-state,
+  .deck-page {
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -1134,6 +1284,46 @@ h2 {
 
   .answer-panel {
     align-self: start;
+    padding-inline: max(12px, env(safe-area-inset-left)) max(12px, env(safe-area-inset-right));
+  }
+
+  .word-band {
+    padding:
+      max(10px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      12px
+      max(12px, env(safe-area-inset-left));
+  }
+
+  .study-area {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .bottom-bar {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+    border-width: 1px 0 0;
+    border-radius: 0;
+  }
+
+  .bottom-tab {
+    min-height: 44px;
+    grid-auto-flow: column;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  /* Icon, count, label in one row: the count sits inline instead of
+     overlapping the label. */
+  .bottom-tab-figure {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .bottom-tab-badge {
+    position: static;
   }
 }
 
