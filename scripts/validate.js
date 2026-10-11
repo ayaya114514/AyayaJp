@@ -375,15 +375,13 @@ function checkHtmlAndDomContracts(html, appSource) {
     "app.js must attach revealCard directly to #cardReveal",
   );
 
-  const levelContainers = tags.filter((tag) => tag.classes.has("deck-level"));
-  const levelToggles = tags.filter((tag) => tag.classes.has("deck-level-toggle"));
-  check(levelContainers.length > 0, "HTML must contain .deck-level containers");
-  check(
-    levelToggles.length === levelContainers.length,
-    `expected one .deck-level-toggle per .deck-level (${levelContainers.length}), found ${levelToggles.length}`,
-  );
+  const deckRows = tags.filter((tag) => tag.classes.has("deck-row"));
+  check(deckRows.length > 0, "HTML must contain .deck-row module groups");
+  deckRows.forEach((tag) => {
+    check(tag.attributes.role === "group", `${tagLabel(tag)} must use role=group`);
+    check(Boolean(tag.attributes["aria-labelledby"]), `${tagLabel(tag)} needs aria-labelledby`);
+  });
 
-  const controlsTargets = new Map();
   tags
     .filter((tag) => Object.hasOwn(tag.attributes, "aria-controls"))
     .forEach((tag) => {
@@ -391,27 +389,11 @@ function checkHtmlAndDomContracts(html, appSource) {
       check(targets.length > 0, `${tag.tag} has an empty aria-controls attribute`);
       targets.forEach((target) => {
         check(ids.has(target), `aria-controls references missing #${target}`);
-        if (!controlsTargets.has(target)) controlsTargets.set(target, []);
-        controlsTargets.get(target).push(tag);
       });
       check(
         Object.hasOwn(tag.attributes, "aria-expanded"),
         `${tag.tag} controlling ${targets.map((target) => `#${target}`).join(", ")} needs aria-expanded`,
       );
-    });
-
-  tags
-    .filter(
-      (tag) => tag.classes.has("deck-level-items") || tag.classes.has("deck-group-items"),
-    )
-    .forEach((tag) => {
-      check(Boolean(tag.attributes.id), `${[...tag.classes].join(".")} must have an id`);
-      if (tag.attributes.id) {
-        check(
-          controlsTargets.has(tag.attributes.id),
-          `#${tag.attributes.id} is not referenced by aria-controls`,
-        );
-      }
     });
 
   tags.forEach((tag) => {
