@@ -1526,7 +1526,7 @@ function renderExamples(examples) {
     button.textContent = "▶";
     button.addEventListener("click", (event) => {
       event.stopPropagation();
-      runSafely(() => speak(example.ja));
+      runSafely(() => speak(example.speech || example.ja));
     });
 
     text.append(ja, romaji, zh);
@@ -2296,7 +2296,7 @@ function speakForReveal(card = currentCard) {
     return;
   }
 
-  const firstExample = card.examples?.[0]?.ja;
+  const firstExample = card.examples?.[0]?.speech || card.examples?.[0]?.ja;
   if (firstExample) {
     speak(card.speech, { onEnd: () => speak(firstExample) });
   } else {

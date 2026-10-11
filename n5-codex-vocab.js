@@ -129,8 +129,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "空は青です。",
-          "zh": "天空是蓝色的。"
+          "ja": "青は私の好きな色です。",
+          "zh": "蓝色是我喜欢的颜色。"
         },
         {
           "ja": "青が好きです。",
@@ -3527,8 +3527,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这个城镇店很多。"
         },
         {
-          "ja": "この町は店が多いと思います。",
-          "zh": "我觉得这座城镇的店很多。"
+          "ja": "日本は山が多いです。",
+          "zh": "日本山很多。"
         }
       ],
       "note_zh": ""
@@ -7902,7 +7902,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         },
         {
           "ja": "口で言ってください。",
-          "zh": "请用嘴说。"
+          "zh": "请口头说出来。"
         }
       ],
       "note_zh": ""
@@ -8488,19 +8488,21 @@ window.AYAYA_N5_CODEX_VOCAB = {
     },
     {
       "id": "n5-237",
+      "merged_source_ids": ["n4-207"],
       "jlpt": "N5",
       "headword": "結構",
       "source_form": "結構",
       "variants": [
-        "結構"
+        "結構",
+        "けっこう"
       ],
       "reading": "けっこう",
       "reading_variants": [
         "けっこう"
       ],
       "romaji": "kekkou",
-      "part_of_speech": "noun",
-      "meaning_zh": "很好；足够；不用了",
+      "part_of_speech": "na-adjective/adverb/expression",
+      "meaning_zh": "很好；可以；足够；不用了；相当",
       "kanji_readings": [
         {
           "form": "結構",
@@ -8513,15 +8515,15 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "不用了。"
         },
         {
-          "ja": "これは結構おいしいです。",
-          "zh": "这个相当好吃。"
+          "ja": "この店はけっこう安いです。",
+          "zh": "这家店相当便宜。"
         },
         {
           "ja": "もう結構です。",
           "zh": "已经够了。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "「結構です」可表示“很好／可以”，也常用来礼貌地拒绝（“不用了”）；表示“相当”的副词用法常写假名「けっこう」。"
     },
     {
       "id": "n5-238",
@@ -12141,20 +12143,20 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "sutoobu",
       "part_of_speech": "noun",
-      "meaning_zh": "暖炉；取暖器",
+      "meaning_zh": "取暖器；火炉",
       "kanji_readings": [],
       "examples": [
         {
           "ja": "ストーブを使います。",
-          "zh": "使用暖炉。"
+          "zh": "使用取暖器。"
         },
         {
           "ja": "ストーブを買いました。",
-          "zh": "买了暖炉。"
+          "zh": "买了取暖器。"
         },
         {
           "ja": "ストーブで部屋を暖めます。",
-          "zh": "用暖炉把房间暖起来。"
+          "zh": "用取暖器把房间暖起来。"
         }
       ],
       "note_zh": ""
@@ -13726,8 +13728,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "我们是学生。"
         },
         {
-          "ja": "友達たちと旅行します。",
-          "zh": "和朋友们旅行。"
+          "ja": "学生たちが教室で話しています。",
+          "zh": "学生们在教室里说话。"
         }
       ],
       "note_zh": ""
@@ -20177,9 +20179,10 @@ window.AYAYA_N5_CODEX_VOCAB = {
     {
       "id": "n5-566",
       "jlpt": "N5",
-      "headword": "一月",
+      "headword": "ひと月",
       "source_form": "一月",
       "variants": [
+        "ひと月",
         "一月"
       ],
       "reading": "ひとつき",
@@ -20191,25 +20194,29 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "meaning_zh": "一个月",
       "kanji_readings": [
         {
+          "form": "ひと月",
+          "reading": "ひとつき"
+        },
+        {
           "form": "一月",
           "reading": "ひとつき"
         }
       ],
       "examples": [
         {
-          "ja": "一月ぐらい休みます。",
+          "ja": "ひと月ぐらい休みます。",
           "zh": "休息大约一个月。"
         },
         {
-          "ja": "一月で読みました。",
-          "zh": "用了一个月读完。"
+          "ja": "この本をひと月で読みました。",
+          "zh": "用了一个月读完这本书。"
         },
         {
-          "ja": "日本に一月いました。",
+          "ja": "日本にひと月いました。",
           "zh": "在日本待了一个月。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "表示“一个月”时常写作「ひと月」；写成「一月」容易被读成表示“一月份”的「いちがつ」。"
     },
     {
       "id": "n5-567",
@@ -20699,8 +20706,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "风吹得很大。"
         },
         {
-          "ja": "口でふうっと吹きます。",
-          "zh": "用嘴呼地吹。"
+          "ja": "ろうそくの火を吹いて消します。",
+          "zh": "把蜡烛吹灭。"
         },
         {
           "ja": "春に暖かい風が吹きます。",

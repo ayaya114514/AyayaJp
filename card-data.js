@@ -3212,7 +3212,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "11647:56ff0dd232c1a5be";
+const reviewedPronunciationSourceSignature = "11636:377a57f5d631ee01";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3724,12 +3724,81 @@ function isSafeRomaji(text) {
   return /^[A-Za-z0-9\s,.'!?/:;()\-]+$/.test(text);
 }
 
+const speechParticleKana = new Map([
+  ["", "わ"],
+  ["", "え"],
+  ["", "を"],
+  ["", "わ"],
+]);
+
+// Text handed to speechSynthesis for an example: Kanji replaced by their reviewed
+// furigana and particle は/へ spelled わ/え as the romaji reads them, so the voice
+// says the displayed reading instead of guessing one (毎年 → まいねん, not まいとし).
+// Unreviewed sentences keep their text; validation requires every example be reviewed.
+function speechTextFor(text, ruby) {
+  const marked = markReviewedPronunciationsWithSourceIndexes(text);
+  if (!marked || ruby.map(([surface]) => surface).join("") !== text) return text;
+  const markedBySource = new Map();
+  [...marked.marked].forEach((character, index) => {
+    if (marked.sourceIndexes[index] >= 0) markedBySource.set(marked.sourceIndexes[index], character);
+  });
+  let sourceIndex = 0;
+  return ruby
+    .map(([surface, reading]) => {
+      const start = sourceIndex;
+      sourceIndex += surface.length;
+      if (reading) return reading;
+      return [...surface]
+        .map((character, offset) => speechParticleKana.get(markedBySource.get(start + offset)) || character)
+        .join("");
+    })
+    .join("");
+}
+
+function sentenceSpeech(text, examples = []) {
+  return examples.find((example) => example.ja === text)?.speech ?? speechTextFor(text, rubySegmentsForText(text));
+}
+
+// Other standard readings of the same headword (何 なん／なに, 毎年 まいねん／まいとし),
+// so an example read with one of them never contradicts the card. Longer
+// phrase forms (そう → そうです) and readings already in the label are skipped.
+function otherReadingsLabel(entry, reading) {
+  const bare = (value) => String(value || "").replace(/[～〜]/gu, "");
+  const others = (Array.isArray(entry?.reading_variants) ? entry.reading_variants : []).filter(
+    (variant) =>
+      !bare(reading).includes(bare(variant)) &&
+      !(bare(variant).startsWith(bare(reading)) && bare(variant).length > bare(reading).length),
+  );
+  return others.length ? `（也读 ${others.join("／")}）` : "";
+}
+
+// Text the browser voice reads for a word card: without the affix mark ～, and
+// with a particle は/へ spelled わ/え when the reviewed romaji reads it that way
+// (では → でわ), so the voice never says "deha" for a word shown as "dewa".
+function vocabSpeechKana(reading, romaji) {
+  const kana = String(reading || "").replace(/[～〜]/gu, "");
+  const target = String(romaji || "").replace(/[~～]/gu, "");
+  const letters = (value) => value.toLowerCase().replace(/[^a-z]/gu, "");
+  if (!target || target.includes("/") || letters(kanaToRomaji(kana)) === letters(target)) return kana;
+  const positions = [...kana].flatMap((character, index) => ("はへ".includes(character) ? [index] : []));
+  for (let mask = 1; mask < 2 ** positions.length; mask += 1) {
+    const characters = [...kana];
+    positions.forEach((position, bit) => {
+      if (mask & (1 << bit)) characters[position] = characters[position] === "は" ? "わ" : "え";
+    });
+    const candidate = characters.join("");
+    if (letters(kanaToRomaji(candidate)) === letters(target)) return candidate;
+  }
+  return kana;
+}
+
 function normalizeExamples(examples = [], preferredReadings = []) {
   return examples.map((example) => {
     const ja = stripSentencePeriods(example.ja || "");
     const zh = stripSentencePeriods(example.zh || "");
     const generated = sentenceRomaji(ja, preferredReadings);
     const hasSafeRomaji = isSafeRomaji(generated.romaji);
+    const ruby = rubySegmentsForText(ja, preferredReadings);
     return {
       ...example,
       ja,
@@ -3737,7 +3806,8 @@ function normalizeExamples(examples = [], preferredReadings = []) {
       romajiStatus: hasSafeRomaji ? "available" : "unavailable",
       romajiSpacing: hasSafeRomaji ? generated.spacing : "unavailable",
       furiganaEntries: preferredReadings,
-      ruby: rubySegmentsForText(ja, preferredReadings),
+      ruby,
+      speech: speechTextFor(ja, ruby),
       zh,
     };
   });
@@ -3816,13 +3886,14 @@ function makeVocabDeckCards({
     );
     const sentencePrompt = examples[0]?.zh || "";
     const sentenceAnswer = examples[0]?.ja || "";
-    const speechReading = sourceEntry?.speech_reading || reading;
+    const speechReading = vocabSpeechKana(sourceEntry?.speech_reading || reading, romaji);
+    const readingLabel = `${reading}${otherReadingsLabel(sourceEntry, reading)}`;
     const meaningMeta = "";
     const speechMeta = sourceEntry?.speech_reading && sourceEntry.speech_reading !== reading
       ? `　语音示范：${sourceEntry.speech_reading}`
       : "";
     const pitchAccent = pitchAccentLabel(sourceId);
-    const readingMeta = `读音：${reading}${pitchAccent ? ` ${pitchAccent}` : ""}${romaji ? `　罗马音：${romaji}` : ""}${speechMeta}${meaningMeta}`;
+    const readingMeta = `读音：${reading}${pitchAccent ? ` ${pitchAccent}` : ""}${otherReadingsLabel(sourceEntry, reading)}${romaji ? `　罗马音：${romaji}` : ""}${speechMeta}${meaningMeta}`;
     // Keep stable IDs in a namespace that can never collide with the old
     // array-index IDs (for example, old `vocab-n4-100-ja`).
     const cardBaseId = `vocab-entry-${sourceId}`;
@@ -3860,7 +3931,7 @@ function makeVocabDeckCards({
         type: `${typePrefix} ${categoryLabel} 日文 → 中文`,
         prompt: word,
         promptLang: "ja",
-        subtle: `读音：${reading}`,
+        subtle: `读音：${readingLabel}`,
         subtleLang: "zh-CN",
         answer: shortMeaning,
         answerLang: "zh-CN",
@@ -4066,7 +4137,7 @@ function makeGrammarChoiceCard(entry, examples) {
     answerLang: "zh-CN",
     meta: `正确文型：${entry.pattern}${entry.note ? `　提示：${entry.note}` : ""}`,
     sentenceAnswer: examples[0]?.ja || stripSentencePeriods(entry.answerJa),
-    speech: examples[0]?.ja || stripSentencePeriods(entry.answerJa),
+    speech: examples[0]?.speech || sentenceSpeech(stripSentencePeriods(entry.answerJa)),
     frontSpeech: "",
     choices,
     correctChoiceId,
@@ -4096,6 +4167,7 @@ function makeGrammarCards(level) {
     const answerJa = stripSentencePeriods(entry.answerJa);
     const promptZh = stripSentencePeriods(entry.promptZh);
     const firstExample = examples[0] || { ja: answerJa || "", zh: promptZh || "" };
+    const answerSpeech = sentenceSpeech(answerJa, examples);
 
     return [
       {
@@ -4114,7 +4186,7 @@ function makeGrammarCards(level) {
         answerLang: "ja",
         meta: baseMeta,
         sentenceAnswer: answerJa,
-        speech: answerJa,
+        speech: answerSpeech,
         frontSpeech: "",
         examples,
       },
@@ -4134,8 +4206,8 @@ function makeGrammarCards(level) {
         answerLang: "zh-CN",
         meta: baseMeta,
         sentenceAnswer: promptZh,
-        speech: answerJa,
-        frontSpeech: answerJa,
+        speech: answerSpeech,
+        frontSpeech: answerSpeech,
         examples,
       },
       {
@@ -4153,7 +4225,7 @@ function makeGrammarCards(level) {
         answerLang: "zh-CN",
         meta: entry.note ? `提示：${entry.note}` : "",
         sentenceAnswer: firstExample.zh,
-        speech: firstExample.ja,
+        speech: firstExample.speech || sentenceSpeech(firstExample.ja),
         frontSpeech: "",
         examples,
       },
@@ -4174,6 +4246,7 @@ function reviewedWordSplitsAt(text, index) {
 window.AYAYA_JP_CARD_DATA = {
   sourceNotes,
   furiganaEntries: furiganaByLength,
+  kanaToRomaji,
   makeGrammarCards,
   makeKanaCards,
   makeVocabCards,
