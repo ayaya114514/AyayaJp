@@ -2180,6 +2180,31 @@ function testStaleSpeechCallbackCannotUseNextCard() {
   );
 }
 
+function testExamplesSpeakReviewedKana() {
+  const card = baseCard({
+    examples: [{ ja: "毎年、夏に海へ行きます", romaji: "mainen, natsu ni umi e ikimasu", speech: "まいねん、なつにうみえいきます", zh: "每年夏天去海边" }],
+    frontSpeech: "まいねん",
+    id: "example-speech",
+    prompt: "毎年",
+    speech: "まいねん",
+  });
+  const harness = createHarness({ kanaCards: [card] });
+  harness.element("cardReveal").dispatch("click");
+  harness.spoken.at(-1).emitEnd();
+  assert(
+    harness.spoken.map((utterance) => utterance.text).join("|") === "まいねん|まいねん、なつにうみえいきます",
+    `reveal did not speak the reviewed example kana: ${harness.spoken.map((utterance) => utterance.text).join("|")}`,
+  );
+
+  const findButton = (element) =>
+    element.className === "icon-button example-speak" ? element : element.children.map(findButton).find(Boolean);
+  findButton(harness.element("examplesList")).dispatch("click");
+  assert(
+    harness.spoken.at(-1)?.text === "まいねん、なつにうみえいきます",
+    `example button spoke ${harness.spoken.at(-1)?.text} instead of its reviewed kana`,
+  );
+}
+
 function testIdleSpeechAvoidsSafariCancelRace() {
   const harness = createHarness({ kanaCards: [baseCard({ id: "speech-race" })] });
 
@@ -2318,6 +2343,7 @@ const tests = [
   ["Japanese-to-Chinese vocab hides reading until reveal", testJapaneseToChineseVocabHidesReadingUntilReveal],
   ["Chinese prompts do not speak hidden answers", testChinesePromptDoesNotSpeakHiddenAnswer],
   ["stale TTS callbacks are ignored", testStaleSpeechCallbackCannotUseNextCard],
+  ["examples speak their reviewed kana", testExamplesSpeakReviewedKana],
   ["idle TTS avoids Safari cancel races", testIdleSpeechAvoidsSafariCancelRace],
   ["speech failures are visible and retry once", testSpeechFailureIsVisibleAndRetriesOnce],
   ["choice answers mark relevant mobile details", testChoiceAnswerMarksRelevantMobileDetails],

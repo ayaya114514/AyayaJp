@@ -64,6 +64,7 @@ const expectedMergedSourceTargets = new Map([
   ["n4-377", "n4-376"],
   ["n4-613", "n4-612"],
   ["n4-180", "n5-208"],
+  ["n4-207", "n5-237"],
 ]);
 const allowedCrossLevelVocabOverlaps = new Set([
   "n5-081/n4-046",
@@ -1871,13 +1872,22 @@ function validateMergedVocabSources(runtime) {
     );
   });
 
+  // Word speech is the reading without the affix mark ～; only a particle は/へ
+  // may be spelled わ/え (では → でわ), which validateExampleSpeech pins down.
+  const sameSpeech = (speech = "", expected = "") =>
+    speech.length === expected.length &&
+    [...speech].every((character, index) =>
+      character === expected[index] ||
+      (expected[index] === "は" && character === "わ") ||
+      (expected[index] === "へ" && character === "え"),
+    );
   entries.forEach((entry) => {
-    const expectedSpeech = entry.speech_reading || entry.reading;
+    const expectedSpeech = (entry.speech_reading || entry.reading).replace(/[～〜]/gu, "");
     const cards = runtime.vocabCards.filter((card) => card.sourceId === entry.id);
     check(cards.length === 2, `${entry.id} must produce two vocabulary cards for speech validation`);
     cards.forEach((card) => {
       check(
-        card.speech === expectedSpeech,
+        sameSpeech(card.speech, expectedSpeech),
         `${card.id} speech must use ${entry.speech_reading ? "speech_reading" : "reading"}: ${expectedSpeech}`,
       );
     });
@@ -2444,6 +2454,81 @@ function validateExampleFurigana(cards, reviewedWordSplitsAt = () => []) {
   });
 }
 
+// Browser voices pick their own reading for Kanji (毎年 → まいとし while the card
+// shows まいねん), so every spoken sentence must be the reviewed kana, and that kana
+// must romanize to exactly the romaji the card displays.
+function validateExampleSpeech(cards, kanaToRomaji) {
+  const kanji = /[\u3400-\u9fff々]/u;
+  const letters = (value) => value.toLowerCase().replace(/[^a-z]/gu, "");
+  // Every card's copy is checked: the same sentence can carry different
+  // preferred readings under different entries.
+  const examples = new Map();
+  const missing = [];
+  const mismatched = [];
+  cards.forEach((card) =>
+    (card.examples || []).forEach((example) => {
+      const text = example.ja;
+      if (!examples.has(text)) examples.set(text, example);
+      if (typeof example.speech !== "string" || !example.speech || kanji.test(example.speech)) {
+        missing.push(`${card.id}: ${text}`);
+        return;
+      }
+      // を is read o in speech; the plain kana table spells it wo.
+      if (letters(kanaToRomaji(example.speech.replace(/を/gu, "お"))) !== letters(example.romaji)) {
+        mismatched.push(`${card.id}: ${text} → ${example.speech} / ${example.romaji}`);
+      }
+    }),
+  );
+  check(!missing.length, `${missing.length} examples have no reviewed kana speech: ${sample(missing, 8)}`);
+  check(
+    !mismatched.length,
+    `${mismatched.length} example speech readings differ from their romaji: ${sample(mismatched, 8)}`,
+  );
+  const kanjiSpeech = cards
+    .filter((card) => kanji.test(card.speech || "") || kanji.test(card.frontSpeech || ""))
+    .map((card) => card.id);
+  check(!kanjiSpeech.length, `${kanjiSpeech.length} cards speak Kanji text: ${sample(kanjiSpeech, 8)}`);
+  const affixSpeech = cards.filter((card) => /[～〜]/u.test(`${card.speech || ""}${card.frontSpeech || ""}`));
+  check(
+    !affixSpeech.length,
+    `${affixSpeech.length} cards speak the affix mark ～: ${sample(affixSpeech.map((card) => card.id), 8)}`,
+  );
+  const wordSpeech = new Map([
+    ["vocab-entry-n5-433-ja", "でわ"],
+    ["vocab-entry-n5-370-ja", "それでわ"],
+    ["vocab-entry-n4-615-ja", "またわ"],
+    ["vocab-entry-n5-094-ja", "えん"],
+    ["vocab-entry-n5-517-ja", "は"],
+    ["vocab-entry-n5-519-ja", "はい"],
+  ]);
+  // Cards list every standard reading so an example read the other way (何を → なに)
+  // never contradicts the card; phrase forms such as そう → そうです are not readings.
+  const readingLabels = new Map([
+    ["vocab-entry-n5-488-ja", "读音：なん（也读 なに）"],
+    ["vocab-entry-n5-619-ja", "读音：まいねん（也读 まいとし）"],
+    ["vocab-entry-n5-269-ja", "读音：～ころ（也读 ～ごろ）"],
+    ["vocab-entry-n5-358-ja", "读音：そう"],
+    ["vocab-entry-n5-590-ja", "读音：～ふん・～ぷん"],
+  ]);
+  readingLabels.forEach((expected, id) => {
+    const subtle = cards.find((card) => card.id === id)?.subtle;
+    check(subtle === expected, `reading label for ${id} expected ${expected}, received ${subtle || "(missing)"}`);
+  });
+  wordSpeech.forEach((expected, id) => {
+    const speech = cards.find((card) => card.id === id)?.speech;
+    check(speech === expected, `speech for ${id} expected ${expected}, received ${speech || "(missing)"}`);
+  });
+  const fixtures = new Map([
+    ["毎年、夏に海へ行きます", "まいねん、なつにうみえいきます"],
+    ["今日は一日家にいます", "きょうわいちにちいえにいます"],
+    ["駅まで十分ほどかかります", "えきまでじゅっぷんほどかかります"],
+  ]);
+  fixtures.forEach((expected, text) => {
+    const speech = examples.get(text)?.speech;
+    check(speech === expected, `speech for ${text} expected ${expected}, received ${speech || "(missing)"}`);
+  });
+}
+
 function checkReadmeDarkOnly(readme) {
   const positiveToggleClaims = readme
     .split(/\r?\n/u)
@@ -2640,6 +2725,7 @@ function main() {
     validatePreferredReadingRegressions(runtime);
     validateGrammarChoices(runtime.grammarCards, runtime.data.grammar);
     validateExampleFurigana(cards, runtime.cardData.reviewedWordSplitsAt);
+    validateExampleSpeech(cards, runtime.cardData.kanaToRomaji);
     capture("romaji word spacing check failed", () =>
       validateRomajiWordSpacing(cards, loadScriptGlobal("romaji-word-spacing.js", "AYAYA_ROMAJI_SPACING")),
     );
