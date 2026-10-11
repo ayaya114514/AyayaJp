@@ -1,6 +1,6 @@
 const STORAGE_KEY = "ayaya-jp-srs-v1";
 const ROUND_STATE_KEY = "__rounds";
-const SIDEBAR_STATE_KEY = "ayaya-jp-sidebar-v1";
+const RETIRED_SIDEBAR_STATE_KEY = "ayaya-jp-sidebar-v1";
 const SIDEBAR_HISTORY_STATE_KEY = "__ayayaJpSidebarOpen";
 const STORE_META_KEY = "__meta";
 const STORE_SCHEMA_VERSION = 4;
@@ -90,8 +90,6 @@ const elements = {
   choiceFeedback: document.querySelector("#choiceFeedback"),
   choiceList: document.querySelector("#choiceList"),
   choiceNext: document.querySelector("#choiceNext"),
-  deckGroupToggles: document.querySelectorAll(".deck-group-toggle"),
-  deckLevelToggles: document.querySelectorAll(".deck-level-toggle"),
   dueCount: document.querySelector("#dueCount"),
   emptyDeckMenuButton: document.querySelector("#emptyDeckMenuButton"),
   emptyState: document.querySelector("#emptyState"),
@@ -155,8 +153,6 @@ const sessionRoundIds = {};
 const sessionRoundCounts = {};
 const sessionQueueOrderVersions = {};
 let lastReview = null;
-let collapsedDeckLevels = loadCollapsedDeckLevels();
-let collapsedDeckGroups = loadCollapsedDeckGroups();
 
 function loadStore() {
   try {
@@ -809,107 +805,13 @@ function saveStore() {
   if (elements.loadErrorBanner) renderLoadStatus();
 }
 
-function loadCollapsedDeckLevels() {
+// The drawer used to persist collapsed groups; the compact grid has none.
+function clearRetiredSidebarState() {
   try {
-    const parsed = JSON.parse(localStorage.getItem(SIDEBAR_STATE_KEY));
-    return new Set(Array.isArray(parsed?.collapsedLevels) ? parsed.collapsedLevels : []);
+    localStorage.removeItem(RETIRED_SIDEBAR_STATE_KEY);
   } catch {
-    return new Set();
+    // Storage cleanup is optional.
   }
-}
-
-function loadCollapsedDeckGroups() {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(SIDEBAR_STATE_KEY));
-    return new Set(Array.isArray(parsed?.collapsedGroups) ? parsed.collapsedGroups : []);
-  } catch {
-    return new Set();
-  }
-}
-
-function saveSidebarState() {
-  try {
-    localStorage.setItem(
-      SIDEBAR_STATE_KEY,
-      JSON.stringify({
-        collapsedGroups: [...collapsedDeckGroups],
-        collapsedLevels: [...collapsedDeckLevels],
-      }),
-    );
-  } catch {
-    // Sidebar state persistence is optional.
-  }
-}
-
-function setDeckGroupExpanded(group, isExpanded, options = {}) {
-  const shouldSave = options.save !== false;
-  const groupName = group?.dataset.group;
-  const toggle = group?.querySelector(".deck-group-toggle");
-  const items = group?.querySelector(".deck-group-items");
-  if (!groupName || !toggle || !items) return;
-
-  toggle.setAttribute("aria-expanded", String(isExpanded));
-  items.hidden = !isExpanded;
-  group.classList.toggle("is-collapsed", !isExpanded);
-
-  if (isExpanded) {
-    collapsedDeckGroups.delete(groupName);
-  } else {
-    collapsedDeckGroups.add(groupName);
-  }
-  if (shouldSave) saveSidebarState();
-}
-
-function applyDeckGroupState() {
-  elements.deckGroupToggles.forEach((toggle) => {
-    const group = toggle.closest(".deck-group");
-    setDeckGroupExpanded(group, !collapsedDeckGroups.has(group?.dataset.group), { save: false });
-  });
-}
-
-function setDeckLevelExpanded(level, isExpanded, options = {}) {
-  const shouldSave = options.save !== false;
-  const levelName = level?.dataset.level;
-  const toggle = level?.querySelector(".deck-level-toggle");
-  const items = level?.querySelector(".deck-level-items");
-  if (!levelName || !toggle || !items) return;
-
-  toggle.setAttribute("aria-expanded", String(isExpanded));
-  items.hidden = !isExpanded;
-  level.classList.toggle("is-collapsed", !isExpanded);
-
-  if (isExpanded) {
-    collapsedDeckLevels.delete(levelName);
-  } else {
-    collapsedDeckLevels.add(levelName);
-  }
-  if (shouldSave) saveSidebarState();
-}
-
-function applyDeckLevelState() {
-  elements.deckLevelToggles.forEach((toggle) => {
-    const level = toggle.closest(".deck-level");
-    setDeckLevelExpanded(level, !collapsedDeckLevels.has(level?.dataset.level), { save: false });
-  });
-}
-
-function expandDeckLevelForDeck(deck) {
-  const level = [...document.querySelectorAll(".deck-level")].find((item) =>
-    [...item.querySelectorAll(".tab-button")].some((tab) => tab.dataset.deck === deck),
-  );
-  if (level) setDeckLevelExpanded(level, true);
-}
-
-function expandDeckGroupForDeck(deck) {
-  const group = [...document.querySelectorAll(".deck-group")].find((item) =>
-    [...item.querySelectorAll(".tab-button")].some((tab) => tab.dataset.deck === deck),
-  );
-  if (group) setDeckGroupExpanded(group, true);
-}
-
-function expandSidebarForDeck(deck) {
-  expandDeckGroupForDeck(baseDeckOf(deck));
-  expandDeckLevelForDeck(baseDeckOf(deck));
 }
 
 function arraysEqual(left, right) {
@@ -960,6 +862,7 @@ function renderDeckRoundCounts() {
     if (!badge) return;
     badge.textContent = `${roundCount}轮`;
     badge.setAttribute("aria-label", `已完成 ${roundCount} 轮`);
+    badge.hidden = roundCount === 0;
   });
 }
 
@@ -2519,7 +2422,6 @@ function bindInteractions() {
         const nextDeck = tab.dataset.deck;
         if (nextDeck !== activeDeck) clearLastReview();
         activeDeck = nextDeck;
-        expandSidebarForDeck(activeDeck);
         saveRoundState();
         setSidebarOpen(false, { restoreFocus: false });
         nextCard();
@@ -2536,26 +2438,6 @@ function bindInteractions() {
       saveRoundState();
       nextCard();
       focusPrimaryStudyAction();
-    });
-  });
-
-  elements.deckGroupToggles.forEach((toggle) => {
-    toggle.addEventListener("click", (event) => {
-      event.stopPropagation();
-      runSafely(() => {
-        const group = toggle.closest(".deck-group");
-        setDeckGroupExpanded(group, toggle.getAttribute("aria-expanded") !== "true");
-      });
-    });
-  });
-
-  elements.deckLevelToggles.forEach((toggle) => {
-    toggle.addEventListener("click", (event) => {
-      event.stopPropagation();
-      runSafely(() => {
-        const level = toggle.closest(".deck-level");
-        setDeckLevelExpanded(level, toggle.getAttribute("aria-expanded") !== "true");
-      });
     });
   });
 
@@ -2621,9 +2503,7 @@ function initializeApp() {
   if (isDeckDataMissing(activeDeck)) {
     activeDeck = "hiragana";
   }
-  applyDeckGroupState();
-  applyDeckLevelState();
-  expandSidebarForDeck(activeDeck);
+  clearRetiredSidebarState();
   setSidebarOpen(isSidebarHistoryEntry(), { restoreFocus: false, syncHistory: false });
   renderLoadStatus();
   nextCard();
