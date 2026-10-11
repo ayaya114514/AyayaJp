@@ -187,7 +187,6 @@ h2 {
   padding: 16px;
   border-right: 1px solid var(--line);
   background: var(--sidebar-bg);
-  box-shadow: 18px 0 60px rgba(57, 47, 31, 0.18);
   visibility: hidden;
   pointer-events: none;
   transform: translateX(-105%);
