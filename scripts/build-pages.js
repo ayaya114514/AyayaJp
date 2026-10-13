@@ -4,6 +4,8 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
+const { loadAudioManifest } = require("./audio-lib");
+
 const rootDir = path.resolve(__dirname, "..");
 const outputDir = path.join(rootDir, "_site");
 const runtimeAssets = [
@@ -14,6 +16,7 @@ const runtimeAssets = [
   "pitch-accent-data.js",
   "romaji-word-spacing.js",
   "example-readings.js",
+  "audio-manifest.js",
   "card-data.js",
   "app.js",
 ];
@@ -47,6 +50,19 @@ function main() {
     fs.copyFileSync(path.join(rootDir, relativePath), path.join(outputDir, relativePath));
   });
 
+  // Clip names hash the spoken text, not the audio: a clip re-rendered in place
+  // (after an audio-prosody.tsv fix) keeps its URL, so browsers may replay the
+  // old take until GitHub Pages' 10-minute cache expires. No ?v= is added.
+  const audio = loadAudioManifest();
+  const clipKeys = audio ? audio.keys.split(" ").filter(Boolean) : [];
+  if (clipKeys.length) {
+    fs.mkdirSync(path.join(outputDir, audio.directory), { recursive: true });
+    clipKeys.forEach((key) => {
+      const relativePath = `${audio.directory}${key}.mp3`;
+      fs.copyFileSync(path.join(rootDir, relativePath), path.join(outputDir, relativePath));
+    });
+  }
+
   const sourceHtml = fs.readFileSync(path.join(rootDir, "index.html"), "utf8");
   fs.writeFileSync(path.join(outputDir, "index.html"), versionHtml(sourceHtml, version));
   fs.writeFileSync(path.join(outputDir, ".nojekyll"), "");
@@ -59,7 +75,7 @@ function main() {
     }
   });
 
-  console.log(`Built GitHub Pages artifact with asset version ${version}`);
+  console.log(`Built GitHub Pages artifact with asset version ${version} and ${clipKeys.length} audio clips`);
 }
 
 main();

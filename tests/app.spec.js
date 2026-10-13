@@ -131,6 +131,34 @@ test("a failed main script exposes the fatal fallback instead of a blank app", a
   await expect(page.locator("#fatalErrorBanner")).toBeFocused();
 });
 
+test("revealing a card plays its pre-rendered VOICEVOX clip instead of speechSynthesis", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__clipPlays = [];
+    window.__synthesisTexts = [];
+    const nativePlay = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function play() {
+      window.__clipPlays.push(this.src);
+      return nativePlay.call(this);
+    };
+    if (window.speechSynthesis) {
+      window.speechSynthesis.speak = (utterance) => window.__synthesisTexts.push(utterance.text);
+    }
+  });
+  const clipResponse = page.waitForResponse((response) =>
+    /\/audio\/[^/]+\/[0-9a-z]+\.mp3$/u.test(new URL(response.url()).pathname),
+  );
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
+
+  await page.locator("#revealHint").click({ force: true });
+  await expectAnswerRevealed(page);
+  expect((await clipResponse).ok()).toBe(true);
+  const plays = await page.evaluate(() => window.__clipPlays);
+  expect(plays).toHaveLength(1);
+  expect(plays[0]).toMatch(/\/audio\/[^/]+\/[0-9a-z]+\.mp3$/u);
+  expect(await page.evaluate(() => window.__synthesisTexts)).toEqual([]);
+  await expect(page.locator("#deckSidebar .deck-credit")).toHaveText("音声：VOICEVOX:No.7");
+});
+
 test("whole study surface reveals while interactive controls do not leak clicks", async ({ page }) => {
   await openWithStore(
     page,
@@ -405,7 +433,8 @@ test("reveal, rating, next card, and empty deck keep a useful focus target", asy
 test("不认识 moves a card into its own pool and 认识 moves it back", async ({ page }) => {
   await openWithStore(page, isolatedHiraganaFixture(["hiragana-0", "hiragana-1"]));
   const toggle = page.locator("#poolToggle");
-  await expect(page.locator(".feedback")).toHaveText(["认识", "不认识"]);
+  await expect(page.locator(".feedback")).toHaveText(["认识", "模糊", "不认识"]);
+  await expect(page.locator(".bottom-bar .bottom-tab-label")).toHaveText(["当前", "模糊", "不认识", "模块"]);
   await expect(toggle).toHaveAttribute("aria-pressed", "false");
 
   const unknownPrompt = await page.locator("#cardPrompt").textContent();
@@ -431,6 +460,25 @@ test("不认识 moves a card into its own pool and 认识 moves it back", async 
   await page.locator("#currentPoolTab").click();
   await expect(toggle).toHaveAttribute("aria-pressed", "false");
   await expect(page.locator("#roundStatusText")).toContainText("认识 46，不认识 0");
+  await expectNoHorizontalOverflow(page);
+});
+
+test("模糊 moves a card into the 模糊 pool between 当前 and 不认识", async ({ page }) => {
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0", "hiragana-1"]));
+  const fuzzyTab = page.locator("#fuzzyPoolTab");
+  const fuzzyPrompt = await page.locator("#cardPrompt").textContent();
+  await page.locator("#cardReveal").click();
+  await page.locator('.feedback[data-rating="unsure"]').click();
+  await expect(page.locator("#fuzzyCount")).toHaveText("1");
+  await expect(page.locator("#unknownCount")).toBeHidden();
+
+  await fuzzyTab.click();
+  await expect(fuzzyTab).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("#cardPrompt")).toHaveText(fuzzyPrompt);
+  await page.locator("#cardReveal").click();
+  await page.locator('.feedback[data-rating="forgot"]').click();
+  await expect(page.locator("#roundStatusText")).toHaveText("没有模糊的卡片。");
+  await expect(page.locator("#unknownCount")).toHaveText("1");
   await expectNoHorizontalOverflow(page);
 });
 

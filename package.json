@@ -7,6 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
+    "build:audio": "node scripts/build-audio.js",
     "build:pages": "node scripts/build-pages.js",
     "build:pitch": "node scripts/build-pitch-accents.js",
     "check": "npm run validate && npm run validate:bundle && npm run test:contracts",

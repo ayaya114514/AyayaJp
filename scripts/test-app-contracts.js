@@ -2,7 +2,9 @@
 
 const vm = require("vm");
 
-const { read } = require("./validation-lib");
+const { audioClipKey, collectSpokenTexts, loadAudioProsody } = require("./audio-lib");
+const { describeQuery, parseProsody } = require("./build-audio");
+const { buildRuntime, read } = require("./validation-lib");
 
 class FakeClassList {
   constructor() {
@@ -222,7 +224,7 @@ class FakeDocument {
       tab.dataset.deck = deck;
       return tab;
     });
-    this.feedback = ["clear", "forgot"].map((rating) => {
+    this.feedback = ["clear", "unsure", "forgot"].map((rating) => {
       const button = new FakeElement(this, "", "button");
       button.className = `feedback ${rating}`;
       button.dataset.rating = rating;
@@ -246,6 +248,7 @@ class FakeDocument {
     );
     bottomBar.append(
       this.querySelector("#currentPoolTab"),
+      this.querySelector("#fuzzyPoolTab"),
       this.querySelector("#poolToggle"),
       this.querySelector("#deckMenuButton"),
     );
@@ -299,6 +302,7 @@ class FakeDocument {
         "closeDeckMenu",
         "currentPoolTab",
         "deckMenuButton",
+        "fuzzyPoolTab",
         "poolToggle",
         "speakWord",
         "studyAnyWay",
@@ -359,6 +363,7 @@ function baseCard(overrides = {}) {
 }
 
 function createHarness({
+  audioTexts = null,
   grammarCards = [],
   initialStore,
   kanaCards = [baseCard()],
@@ -430,7 +435,47 @@ function createHarness({
     },
     speechSynthesis,
   };
+  // <audio> stand-in: records each play() and lets a test end or reject it.
+  const clipPlayers = [];
+  class FakeAudio {
+    constructor() {
+      this.listeners = new Map();
+      this.pauseCount = 0;
+      this.plays = [];
+      clipPlayers.push(this);
+    }
+
+    addEventListener(type, listener) {
+      this.listeners.set(type, listener);
+    }
+
+    emit(type) {
+      this.listeners.get(type)?.();
+    }
+
+    pause() {
+      this.pauseCount += 1;
+    }
+
+    play() {
+      const playback = { src: this.src, reject: null };
+      this.plays.push(playback);
+      return {
+        catch(handler) {
+          playback.reject = handler;
+        },
+      };
+    }
+  }
+  if (audioTexts) {
+    window.AYAYA_AUDIO = {
+      credit: "VOICEVOX:No.7",
+      directory: "audio/test/",
+      keys: audioTexts.map(audioClipKey).join(" "),
+    };
+  }
   const context = {
+    ...(audioTexts ? { Audio: FakeAudio } : {}),
     HTMLElement: FakeElement,
     Math: Object.assign(Object.create(Math), { random }),
     SpeechSynthesisUtterance: FakeUtterance,
@@ -444,6 +489,7 @@ function createHarness({
   vm.createContext(context);
   vm.runInContext(read("app.js"), context, { filename: "app.js" });
   return {
+    clipPlayers,
     context,
     document,
     element(id) {
@@ -679,11 +725,11 @@ function testRetiredStableSourceIdMigratesToRetainedEntry() {
     JSON.stringify(saved.__rounds.decks[deck].queue) === JSON.stringify([]),
     "a legacy 不确定 card stayed in the main pool queue",
   );
-  harness.element("poolToggle").dispatch("click");
-  const unknownRound = JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds.decks[`${deck}-unknown`];
+  harness.element("fuzzyPoolTab").dispatch("click");
+  const fuzzyRound = JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds.decks[`${deck}-fuzzy`];
   assert(
-    JSON.stringify(unknownRound?.queue) === JSON.stringify([card.id]),
-    "retired stable source ID was not migrated into the 不认识 pool queue",
+    JSON.stringify(fuzzyRound?.queue) === JSON.stringify([card.id]),
+    "retired stable source ID was not migrated into the 模糊 pool queue",
   );
 }
 
@@ -831,8 +877,8 @@ function testLegacyMistakeRatingsOpenInUnknownPool() {
     initialStore: JSON.stringify({
       [card.id]: {
         lastRatedAt: 10,
-        lastRating: "unsure",
-        ratingHistory: [{ at: 10, rating: "unsure" }],
+        lastRating: "forgot",
+        ratingHistory: [{ at: 10, rating: "forgot" }],
         reviews: 1,
       },
       __rounds: { activeDeck: "vocab-mistakes", decks: {} },
@@ -845,7 +891,7 @@ function testLegacyMistakeRatingsOpenInUnknownPool() {
   assert(toggle.getAttribute("aria-pressed") === "true", "the legacy mistake deck did not reopen as 不认识");
   assert(harness.tabs[1].classList.contains("active"), "the 不认识 pool did not highlight its tab");
   assert(harness.element("studyCard").hidden === false, "the 不认识 pool incorrectly opened empty");
-  assert(harness.element("dueCount").textContent === 1, "a legacy 不确定 card was excluded from 不认识");
+  assert(harness.element("dueCount").textContent === 1, "a legacy 遗忘 card was excluded from 不认识");
   assert(harness.element("cardPrompt").textContent === card.prompt, "the 不认识 card was not queued");
 
   toggle.dispatch("click");
@@ -913,6 +959,48 @@ function testRatingsMoveCardsBetweenPools() {
   );
 }
 
+function testFuzzyPoolSitsBetweenKnownAndUnknown() {
+  const cards = ["a", "b", "c"].map((key) => baseCard({ id: `fuzzy-${key}`, prompt: key }));
+  const harness = createHarness({ kanaCards: cards, random: () => 0 });
+  const rate = (rating) => {
+    harness.element("cardReveal").dispatch("click");
+    harness.document.feedback.find((button) => button.dataset.rating === rating).dispatch("click");
+  };
+  const fuzzyTab = harness.element("fuzzyPoolTab");
+  assert(
+    harness.document.feedback.map((button) => button.dataset.rating).join() === "clear,unsure,forgot",
+    "模糊 is not between 认识 and 不认识",
+  );
+
+  const fuzzyPrompt = harness.element("cardPrompt").textContent;
+  rate("unsure");
+  assert(harness.element("fuzzyCount").textContent === 1, "模糊 did not enter the 模糊 pool");
+  assert(harness.element("unknownCount").textContent === 0, "模糊 was counted as 不认识");
+  rate("forgot");
+  rate("clear");
+  assert(
+    harness.element("roundStatusText").textContent.includes("认识 1，模糊 1，不认识 1"),
+    "the finished round did not split into 认识, 模糊 and 不认识",
+  );
+
+  fuzzyTab.dispatch("click");
+  assert(fuzzyTab.getAttribute("aria-pressed") === "true", "the 模糊 tab was not selected");
+  assert(harness.element("cardPrompt").textContent === fuzzyPrompt, "the 模糊 pool lost the card");
+  rate("forgot");
+  assert(harness.element("fuzzyCount").textContent === 0, "不认识 did not leave the 模糊 pool");
+  assert(harness.element("unknownCount").textContent === 2, "不认识 from 模糊 did not enter 不认识");
+  harness.element("undoRating").dispatch("click");
+  assert(harness.element("fuzzyCount").textContent === 1, "Undo did not return the card to 模糊");
+  assert(harness.element("unknownCount").textContent === 1, "Undo left the card in 不认识");
+  rate("clear");
+  assert(harness.element("roundStatusText").textContent === "没有模糊的卡片。", "认识 did not leave 模糊");
+
+  harness.element("poolToggle").dispatch("click");
+  rate("unsure");
+  assert(harness.element("fuzzyCount").textContent === 1, "模糊 from 不认识 did not enter 模糊");
+  assert(harness.element("unknownCount").textContent === 0, "模糊 did not leave 不认识");
+}
+
 function testNewUnknownCardKeepsFinishedUnknownRounds() {
   const cards = [baseCard({ id: "pool-a", prompt: "a" }), baseCard({ id: "pool-b", prompt: "b" })];
   const harness = createHarness({ kanaCards: cards, random: () => 0 });
@@ -978,13 +1066,20 @@ function testNumberKeysRateRevealedCards() {
   dispatchDocumentKey(harness, "2");
   assert(harness.element("cardPrompt").textContent === promptBefore, "a shortcut rated a hidden answer");
   harness.element("cardReveal").dispatch("click");
-  assert(dispatchDocumentKey(harness, "3").defaultPrevented === false, "the retired shortcut 3 still rates");
+  assert(dispatchDocumentKey(harness, "4").defaultPrevented === false, "an unused shortcut 4 rated a card");
   assert(dispatchDocumentKey(harness, "2", { repeat: true }).defaultPrevented === false, "auto-repeat rated a card");
   const event = dispatchDocumentKey(harness, "2");
   assert(event.defaultPrevented, "rating shortcut was not handled");
   const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
   const ratedId = promptBefore === "a" ? first.id : second.id;
-  assert(saved[ratedId]?.lastRating === "forgot", "shortcut 2 did not record 不认识");
+  assert(saved[ratedId]?.lastRating === "unsure", "shortcut 2 did not record 模糊");
+  harness.element("cardReveal").dispatch("click");
+  assert(dispatchDocumentKey(harness, "3").defaultPrevented, "shortcut 3 was not handled");
+  const otherId = ratedId === first.id ? second.id : first.id;
+  assert(
+    JSON.parse(harness.storage.get("ayaya-jp-srs-v1"))[otherId]?.lastRating === "forgot",
+    "shortcut 3 did not record 不认识",
+  );
   assert(harness.element("cardPrompt").textContent !== promptBefore, "rating shortcut did not advance");
 }
 
@@ -2265,6 +2360,98 @@ function testSpeechFailureIsVisibleAndRetriesOnce() {
   );
 }
 
+function clipUrl(text) {
+  return `./audio/test/${audioClipKey(text)}.mp3`;
+}
+
+function testClipsPlayInsteadOfSpeechSynthesis() {
+  const card = baseCard({
+    examples: [
+      { ja: "毎年、夏に海へ行きます", romaji: "mainen, natsu ni umi e ikimasu", speech: "まいねん、なつにうみえいきます", zh: "每年夏天去海边" },
+      { ja: "毎年行きます", romaji: "mainen ikimasu", speech: "まいねんいきます", zh: "每年去" },
+    ],
+    frontSpeech: "まいねん",
+    id: "clip-speech",
+    prompt: "毎年",
+    speech: "まいねん",
+  });
+  const harness = createHarness({
+    audioTexts: ["まいねん", "まいねん、なつにうみえいきます"],
+    kanaCards: [card],
+  });
+  harness.element("cardReveal").dispatch("click");
+  const [player] = harness.clipPlayers;
+  assert(harness.clipPlayers.length === 1, "clips did not share one reusable <audio> element");
+  assert(player.plays[0]?.src === clipUrl("まいねん"), `reveal played ${player.plays[0]?.src}`);
+  assert(harness.spoken.length === 0, "a text with a clip still used speechSynthesis");
+
+  player.emit("ended");
+  assert(
+    player.plays[1]?.src === clipUrl("まいねん、なつにうみえいきます"),
+    "the first example clip did not follow the word clip",
+  );
+  player.emit("ended");
+  assert(player.plays.length === 2, "an ended example clip chained another clip");
+
+  harness.element("speakWord").dispatch("click");
+  assert(player.pauseCount >= 1 && player.plays.at(-1).src === clipUrl("まいねん"), "replay did not restart the clip");
+
+  const findButtons = (element) =>
+    element.classList?.contains("example-speak") ? [element] : (element.children || []).flatMap(findButtons);
+  findButtons(harness.element("examplesList"))[1].dispatch("click");
+  assert(harness.spoken.at(-1)?.text === "まいねんいきます", "a text without a clip did not fall back to speechSynthesis");
+}
+
+function testClipFailureFallsBackToSpeech() {
+  const harness = createHarness({
+    audioTexts: ["answer"],
+    kanaCards: [baseCard({ id: "clip-failure" })],
+  });
+  harness.element("cardReveal").dispatch("click");
+  const [player] = harness.clipPlayers;
+  const first = player.plays[0];
+  harness.element("speakWord").dispatch("click");
+  first.reject(new Error("superseded"));
+  assert(harness.spoken.length === 0, "a superseded clip's rejection started speechSynthesis");
+
+  player.plays.at(-1).reject(new Error("NotSupportedError"));
+  assert(
+    harness.spoken.length === 1 && harness.spoken[0].text === "answer",
+    "a clip that failed to play was not spoken by speechSynthesis",
+  );
+}
+
+function testClipKeysMatchBuildScript() {
+  const harness = createHarness();
+  const texts = [...collectSpokenTexts(buildRuntime()).keys()];
+  const mismatched = texts.filter((text) => harness.context.audioClipKey(text) !== audioClipKey(text));
+  assert(texts.length > 1000, "spoken text collection is unexpectedly small");
+  assert(!mismatched.length, `app.js and scripts/audio-lib.js hash clips differently: ${mismatched.slice(0, 3)}`);
+}
+
+// The report notation and audio-prosody.tsv must read the same way, or
+// validation could not tell whether a reviewed line was applied.
+function testProsodyNotationRoundTrips() {
+  const query = (notation) => ({
+    accent_phrases: parseProsody(notation).map((phrase) => ({
+      moras: phrase.moras.map((text) => ({ text })),
+      accent: phrase.accent,
+      pause_mora: phrase.pause ? { text: "、" } : null,
+      is_interrogative: phrase.interrogative,
+    })),
+  });
+  ["ア'ア、/ソオデ'スカ", "アナ'タワ/ガクセエデ'スカ？", "ニホ'ンワ/ド'ンナ/クニデ'スカ？", "キテ'/イマ'ス"].forEach((notation) => {
+    assert(describeQuery(query(notation)) === notation, `prosody notation does not round-trip: ${notation}`);
+  });
+  ["アア", "ア'ア'", "'アア", "アa'"].forEach((notation) => {
+    assert(parseProsody(notation) === null, `invalid prosody notation was accepted: ${notation}`);
+  });
+  const lines = [...loadAudioProsody()];
+  const invalid = lines.filter(([, notation]) => !parseProsody(notation));
+  assert(lines.length > 500, "audio-prosody.tsv is unexpectedly small");
+  assert(!invalid.length, `audio-prosody.tsv has unparsable lines: ${invalid.slice(0, 3)}`);
+}
+
 function testChoiceAnswerMarksRelevantMobileDetails() {
   const choiceCard = baseCard({
     choices: [
@@ -2364,6 +2551,11 @@ const tests = [
   ["examples speak their reviewed kana", testExamplesSpeakReviewedKana],
   ["idle TTS avoids Safari cancel races", testIdleSpeechAvoidsSafariCancelRace],
   ["speech failures are visible and retry once", testSpeechFailureIsVisibleAndRetriesOnce],
+  ["reviewed texts play VOICEVOX clips", testClipsPlayInsteadOfSpeechSynthesis],
+  ["failed clips fall back to speechSynthesis", testClipFailureFallsBackToSpeech],
+  ["app and build script share clip keys", testClipKeysMatchBuildScript],
+  ["模糊 pool sits between 认识 and 不认识", testFuzzyPoolSitsBetweenKnownAndUnknown],
+  ["reviewed prosody notation round-trips through the build report", testProsodyNotationRoundTrips],
   ["choice answers mark relevant mobile details", testChoiceAnswerMarksRelevantMobileDetails],
   ["shuffle avoids random sort", testShuffleDoesNotUseRandomSort],
 ];
