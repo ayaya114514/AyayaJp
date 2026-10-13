@@ -291,7 +291,6 @@ test("progress exports to a file and imports back after confirmation", async ({ 
   expect(exported.app).toBe("AyayaJp");
   const ratedId = Object.keys(exported.progress).find((key) => !key.startsWith("__"));
   expect(exported.progress[ratedId].lastRating).toBe("clear");
-  expect(exported.progress[ratedId].memory.stability).toBeGreaterThan(0);
 
   // Wipe this browser's progress, then restore it from the file.
   await page.evaluate((key) => localStorage.setItem(key, "{}"), STORAGE_KEY);

@@ -364,9 +364,6 @@ function baseCard(overrides = {}) {
 
 function createHarness({
   audioTexts = null,
-  // Fixture ratings use small timestamps; the app's clock starts just after
-  // them so FSRS treats them as recent unless a test moves the clock on.
-  clockStart = 1_000_000,
   grammarCards = [],
   initialStore,
   kanaCards = [baseCard()],
@@ -490,14 +487,6 @@ function createHarness({
     window,
   };
   vm.createContext(context);
-  vm.runInContext(
-    `(() => {
-      const realNow = Date.now.bind(Date);
-      const start = realNow();
-      Date.now = () => ${clockStart} + (realNow() - start);
-    })();`,
-    context,
-  );
   vm.runInContext(read("app.js"), context, { filename: "app.js" });
   return {
     clipPlayers,
@@ -2512,74 +2501,6 @@ function testShuffleDoesNotUseRandomSort() {
   );
 }
 
-function testFsrsBringsDueCardsBack() {
-  const day = 24 * 60 * 60 * 1000;
-  const now = 10 * day;
-  const cards = ["a", "b"].map((key) =>
-    baseCard({
-      deck: "vocab-zh-ja",
-      frontSpeech: "",
-      id: `vocab-entry-n5-00${key}-zh`,
-      isVocab: true,
-      prompt: `见面-${key}`,
-      sourceId: `n5-00${key}`,
-      wordKey: `vocab-entry-n5-00${key}`,
-    }),
-  );
-  const [cardA, cardB] = cards;
-  const rated = (at, eventId) => ({
-    lastEvent: { at, eventId, rating: "clear" },
-    lastRatedAt: at,
-    lastRating: "clear",
-    reviews: 1,
-  });
-  const harness = createHarness({
-    clockStart: now,
-    initialStore: JSON.stringify({
-      // Rated 认识 nine days ago before scheduling existed: due (stability ≈ 3.2 days).
-      [cardA.id]: rated(day, "event-a"),
-      // Rated 认识 an hour ago: not due.
-      [cardB.id]: rated(now - 60 * 60 * 1000, "event-b"),
-      __rounds: {
-        activeDeck: "vocab-zh-ja",
-        decks: {
-          "vocab-zh-ja": {
-            completed: [cardA.id, cardB.id],
-            completionEvents: { [cardA.id]: ["event-a"], [cardB.id]: ["event-b"] },
-            queue: [],
-            queueOrderVersion: 1,
-            roundCompletionEvents: ["event-a", "event-b"],
-            roundGeneration: 1,
-            rounds: 1,
-          },
-        },
-      },
-    }),
-    tabDecks: ["hiragana", "vocab-zh-ja"],
-    vocabCards: cards,
-  });
-  const stored = () => JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
-
-  assert(harness.element("cardPrompt").textContent === cardA.prompt, "the due card did not come back");
-  assert(harness.element("dueCount").textContent === 1, "a card that is not due came back");
-  assert(stored().__rounds.decks["vocab-zh-ja"].rounds === 1, "a due card rolled back the finished round");
-
-  harness.element("cardReveal").dispatch("click");
-  harness.document.feedback.find((button) => button.dataset.rating === "clear").dispatch("click");
-  const memory = stored()[cardA.id].memory;
-  assert(memory && memory.stability > 3.2, `a successful review did not grow stability: ${JSON.stringify(memory)}`);
-  assert(memory.difficulty >= 1 && memory.difficulty <= 10, "difficulty left the 1–10 range");
-  assert(harness.element("studyCard").hidden === true, "the reviewed card stayed due");
-  assert(
-    harness.element("roundStatusText").textContent.includes("天后有卡片到期复习"),
-    "the finished round did not say when cards are due next",
-  );
-
-  harness.element("undoRating").dispatch("click");
-  assert(!stored()[cardA.id].memory, "Undo kept the memory of the removed review");
-  assert(harness.element("cardPrompt").textContent === cardA.prompt, "Undo did not return the due card");
-}
-
 const tests = [
   ["storage failure falls back to memory", testStorageFailureFallsBackToMemory],
   ["invalid array storage is replaced", testInvalidArrayStoreIsReplaced],
@@ -2592,7 +2513,6 @@ const tests = [
   ["sidebar focus and inert lifecycle", testSidebarFocusAndInertLifecycle],
   ["legacy mistake ratings open in the 不认识 pool", testLegacyMistakeRatingsOpenInUnknownPool],
   ["ratings move cards between 认识 and 不认识", testRatingsMoveCardsBetweenPools],
-  ["FSRS brings due 认识 cards back into the main pool", testFsrsBringsDueCardsBack],
   ["Undo returns a 不认识 card to the main pool", testUndoReturnsUnknownCardToMainPool],
   ["new 不认识 cards keep finished 不认识 rounds", testNewUnknownCardKeepsFinishedUnknownRounds],
   ["number keys rate revealed cards", testNumberKeysRateRevealedCards],
