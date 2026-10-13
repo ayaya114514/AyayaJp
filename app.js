@@ -13,17 +13,6 @@ const UNKNOWN_RATINGS = new Set(["forgot", "wrong"]);
 const POOL_KINDS = ["main", "fuzzy", "unknown"];
 const POOL_SUFFIXES = { fuzzy: "-fuzzy", unknown: "-unknown" };
 const POOL_NAMES = { main: "当前", fuzzy: "模糊", unknown: "不认识" };
-// FSRS-5 (open-spaced-repetition) with its published default parameters decides
-// when a card in the main pool is due again. At the 90% recall target the
-// interval in days equals the card's stability.
-const FSRS_WEIGHTS = [
-  0.40255, 1.18385, 3.173, 15.69105, 7.1949, 0.5345, 1.4604, 0.0046, 1.54575, 0.1192,
-  1.01925, 1.9395, 0.11, 0.29605, 2.2698, 0.2315, 2.9898, 0.51655, 0.6621,
-];
-const FSRS_DECAY = -0.5;
-const FSRS_FACTOR = 19 / 81;
-const DAY_MS = 24 * 60 * 60 * 1000;
-const FSRS_GRADES = { forgot: 1, wrong: 1, unsure: 2, clear: 3, correct: 3 };
 const LEGACY_MISTAKE_DECKS = {
   "vocab-mistakes": "vocab-ja-zh-unknown",
   "vocab-n4-mistakes": "vocab-n4-ja-zh-unknown",
@@ -295,84 +284,6 @@ function ratingEventKey(item) {
   return `${item?.at || ""}:${item?.rating || ""}:${item?.choiceId || ""}`;
 }
 
-function fsrsDifficulty(value) {
-  return Math.min(10, Math.max(1, value));
-}
-
-function fsrsInitialDifficulty(grade) {
-  const w = FSRS_WEIGHTS;
-  return fsrsDifficulty(w[4] - Math.exp(w[5] * (grade - 1)) + 1);
-}
-
-function fsrsInitialMemory(grade) {
-  return { stability: FSRS_WEIGHTS[grade - 1], difficulty: fsrsInitialDifficulty(grade) };
-}
-
-function fsrsRetrievability(elapsedDays, stability) {
-  return (1 + (FSRS_FACTOR * elapsedDays) / stability) ** FSRS_DECAY;
-}
-
-// One review: stability uses the difficulty from before this review, as in the
-// reference implementation; reviews less than a day apart use the same-day rule.
-function fsrsNextMemory(memory, grade, elapsedDays) {
-  const w = FSRS_WEIGHTS;
-  const { stability: previousStability, difficulty: previousDifficulty } = memory;
-  let stability;
-  if (elapsedDays < 1) {
-    stability = previousStability * Math.exp(w[17] * (grade - 3 + w[18]));
-  } else {
-    const recall = fsrsRetrievability(elapsedDays, previousStability);
-    stability =
-      grade === 1
-        ? Math.min(
-            previousStability,
-            w[11] *
-              previousDifficulty ** -w[12] *
-              ((previousStability + 1) ** w[13] - 1) *
-              Math.exp(w[14] * (1 - recall)),
-          )
-        : previousStability *
-          (Math.exp(w[8]) *
-            (11 - previousDifficulty) *
-            previousStability ** -w[9] *
-            (Math.exp(w[10] * (1 - recall)) - 1) *
-            (grade === 2 ? w[15] : 1) *
-            (grade === 4 ? w[16] : 1) +
-            1);
-  }
-  const damped = previousDifficulty - w[6] * (grade - 3) * ((10 - previousDifficulty) / 9);
-  const difficulty = fsrsDifficulty(w[7] * fsrsInitialDifficulty(4) + (1 - w[7]) * damped);
-  return {
-    stability: Math.round(Math.max(0.01, stability) * 10000) / 10000,
-    difficulty: Math.round(difficulty * 10000) / 10000,
-  };
-}
-
-function isFsrsMemory(value) {
-  return Boolean(
-    isStoreObject(value) &&
-      Number.isFinite(value.stability) &&
-      value.stability > 0 &&
-      Number.isFinite(value.difficulty) &&
-      value.difficulty >= 1 &&
-      value.difficulty <= 10,
-  );
-}
-
-// Progress saved before scheduling existed has no memory yet: it starts from
-// the card's last rating at the time it was given.
-function memoryForState(state) {
-  if (isFsrsMemory(state?.memory)) return state.memory;
-  const grade = FSRS_GRADES[state?.lastRating];
-  return grade ? fsrsInitialMemory(grade) : null;
-}
-
-function dueAtForState(state) {
-  const memory = memoryForState(state);
-  if (!memory || !Number.isFinite(state?.lastRatedAt) || state.lastRatedAt <= 0) return null;
-  return state.lastRatedAt + memory.stability * DAY_MS;
-}
-
 function reviewCount(state) {
   return Number.isInteger(state?.reviews) ? Math.max(0, state.reviews) : 0;
 }
@@ -434,9 +345,6 @@ function compactCardState(value) {
           ? 1
           : 0,
   };
-  if (isFsrsMemory(value.memory)) {
-    compacted.memory = { stability: value.memory.stability, difficulty: value.memory.difficulty };
-  }
   return compacted.reviews > 0 || compacted.lastRating || compacted.lastEvent ? compacted : null;
 }
 
@@ -1256,18 +1164,6 @@ function buildChoiceOptions(card) {
   return options;
 }
 
-// Main-pool cards already done this round come back once FSRS says they are
-// due, most overdue first. Cards in the 模糊 / 不认识 pools are always queued.
-function dueCompletedIds(deck, deckCards, completedIds, now = Date.now()) {
-  if (isReviewPool(deck)) return [];
-  return deckCards
-    .filter((card) => completedIds.has(card.id))
-    .map((card) => [card.id, dueAtForState(compactCardState(store[card.id]))])
-    .filter(([, dueAt]) => dueAt !== null && dueAt <= now)
-    .sort((left, right) => left[1] - right[1])
-    .map(([cardId]) => cardId);
-}
-
 function buildQueue() {
   ensureSessionRoundEpoch(activeDeck);
   const deckCards = getDeckCards();
@@ -1297,20 +1193,6 @@ function buildQueue() {
   if (needsQueueOrderMigration) {
     nextQueue = avoidSameOrder(shuffleList(nextQueue), nextQueue);
   }
-  const dueIds = dueCompletedIds(activeDeck, deckCards, completedIds);
-  if (dueIds.length) {
-    // A finished round that gains due cards continues as a new epoch; reopening
-    // the old one would read as an undone round and roll back its round count.
-    if (nextQueue.length === 0 && sessionRoundCompletionEvents[activeDeck]?.length) {
-      advanceSessionRoundEpoch(activeDeck);
-      sessionRoundCompletionEvents[activeDeck] = [];
-    }
-    dueIds.forEach((cardId) => {
-      completedIds.delete(cardId);
-      if (sessionCompletionEvents[activeDeck]) delete sessionCompletionEvents[activeDeck][cardId];
-    });
-    nextQueue = [...dueIds, ...nextQueue];
-  }
   const nextQueueOrderVersion = Math.max(
     previousQueueOrderVersion,
     ROUND_QUEUE_ORDER_VERSION,
@@ -1318,7 +1200,6 @@ function buildQueue() {
   const shouldSave =
     !hadQueue ||
     !hadCompleted ||
-    dueIds.length > 0 ||
     previousQueueOrderVersion !== nextQueueOrderVersion ||
     !arraysEqual(sessionQueues[activeDeck], nextQueue);
 
@@ -1362,10 +1243,7 @@ function remainingCount(deck) {
             ? []
             : deckCards.filter((card) => getState(card.id).reviews > 0).map((card) => card.id),
         );
-  return (
-    deckCards.filter((card) => !completedIds.has(card.id)).length +
-    dueCompletedIds(deck, deckCards, completedIds).length
-  );
+  return deckCards.filter((card) => !completedIds.has(card.id)).length;
 }
 
 function poolTabs() {
@@ -1800,13 +1678,6 @@ function clearAnswer() {
   elements.examplesList.replaceChildren();
 }
 
-function dueInText(milliseconds) {
-  const hours = Math.ceil(milliseconds / (60 * 60 * 1000));
-  if (hours <= 1) return "1 小时内";
-  if (hours < 24) return `${hours} 小时后`;
-  return `${Math.ceil(hours / 24)} 天后`;
-}
-
 function renderEmpty(deckCards) {
   updateUndoButton();
   elements.studyCard.hidden = true;
@@ -1841,13 +1712,8 @@ function renderEmpty(deckCards) {
     fuzzyCount ? "模糊" : "",
     unknownCount ? "不认识" : "",
   ].filter(Boolean).join("和");
-  const nextDueAt = deckCards
-    .map((card) => dueAtForState(compactCardState(store[card.id])))
-    .filter(Number.isFinite)
-    .sort((left, right) => left - right)[0];
-  const nextDueText = Number.isFinite(nextDueAt) ? `${dueInText(nextDueAt - Date.now())}有卡片到期复习。` : "";
   elements.roundStatusText.textContent = deckCards.length
-    ? `这一轮已经完成：认识 ${deckCards.length}，${fuzzyCount ? `模糊 ${fuzzyCount}，` : ""}不认识 ${unknownCount}。${nextDueText}`
+    ? `这一轮已经完成：认识 ${deckCards.length}，${fuzzyCount ? `模糊 ${fuzzyCount}，` : ""}不认识 ${unknownCount}。`
     : elsewhere
       ? `全部 ${fuzzyCount + unknownCount} 张都在${elsewhere}板块。`
       : "没有可用卡片";
@@ -1969,17 +1835,10 @@ function applyRating(rating, details = {}) {
   requestPersistentStorage();
   lastReview = captureReviewSnapshot();
   const state = getState(currentCard.id);
-  const ratedAt = Date.now();
-  const grade = FSRS_GRADES[rating];
-  const previousMemory = memoryForState(state);
-  state.memory =
-    previousMemory && Number.isFinite(state.lastRatedAt) && state.lastRatedAt > 0
-      ? fsrsNextMemory(previousMemory, grade, Math.max(0, ratedAt - state.lastRatedAt) / DAY_MS)
-      : fsrsInitialMemory(grade);
 
   state.reviews += 1;
   state.lastRating = rating;
-  state.lastRatedAt = ratedAt;
+  state.lastRatedAt = Date.now();
   storeWriterSequence += 1;
   const eventId = `${storeWriterId}-${storeWriterSequence}`;
   lastReview.appliedEventId = eventId;
@@ -2096,9 +1955,6 @@ function removeAppliedReview(snapshot, persistedState, concurrentReviewExists) {
     lastRating: ownEventIsLatest ? previous.lastRating : persisted.lastRating,
     reviews: Math.max(0, persisted.reviews - 1),
   };
-  const restoredMemory = ownEventIsLatest ? previous.memory : persisted.memory;
-  if (restoredMemory) store[snapshot.cardId].memory = restoredMemory;
-  else delete store[snapshot.cardId].memory;
 }
 
 function undoLastReview() {
@@ -2601,12 +2457,7 @@ function bindInputModality() {
     true,
   );
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") {
-      cancelSpeech();
-      return;
-    }
-    // Cards may have come due while the page sat finished in the background.
-    if (!currentCard && !elements.deckSidebar.classList.contains("is-open")) runSafely(nextCard);
+    if (document.visibilityState === "hidden") cancelSpeech();
   });
 }
 
