@@ -3146,7 +3146,12 @@ const reviewedMoraicNWordBoundaries = reviewedSpanMap([
     "下町には小さな店がたくさんあります",
   ]],
   ["たくさん|歩いて", ["たくさん歩いて疲れました"]],
-  ["たくさん|います", ["駅には人がたくさんいます", "人がたくさんいます"]],
+  ["たくさん|います", [
+    "駅には人がたくさんいます",
+    "人がたくさんいます",
+    "池に魚がたくさんいます",
+    "私の大学には留学生がたくさんいます",
+  ]],
   ["たくさん|集まりました", ["若い人がたくさん集まりました"]],
   ["たくさん|雨", ["昨日、たくさん雨が降りました"]],
   ["たくさん|写しました", ["旅行で写真をたくさん写しました"]],
@@ -3156,6 +3161,12 @@ const reviewedMoraicNWordBoundaries = reviewedSpanMap([
   ["確認|いたします", ["荷物を確認いたします"]],
   ["たぶん|雨", ["明日はたぶん雨です"]],
   ["百人|います", ["学校に学生が百人います"]],
+  ["三人|います", ["田中さんには子供が三人います"]],
+  ["何人|います", ["兄弟は何人いますか"]],
+  ["一本|あります", ["庭に高い木が一本あります"]],
+  ["二本|あります", ["机の上に鉛筆が二本あります"]],
+  ["三本|あります", ["かばんにボールペンが三本あります"]],
+  ["毎晩|遅く", ["お父さんは毎晩遅く帰ります"]],
   ["本|や", [
     "机の上に本やノートがあります",
     "本や雑誌などを読みます",
@@ -3212,7 +3223,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "11636:232c4a1a57c6b4fd";
+const reviewedPronunciationSourceSignature = "11686:499a2f2f67d18dab";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3862,6 +3873,10 @@ function makeVocabDeckCards({
   typePrefix,
   words,
 }) {
+  // Words written the same way (十 じゅう／とお, 一日 いちにち／ついたち) cannot be
+  // told apart from the kanji alone, so their 日→中 cards show the reading up front.
+  const promptCounts = new Map();
+  words.forEach(([, word]) => promptCounts.set(word, (promptCounts.get(word) || 0) + 1));
   return words.flatMap(([
     sourceId,
     word,
@@ -3933,6 +3948,7 @@ function makeVocabDeckCards({
         promptLang: "ja",
         subtle: `读音：${readingLabel}`,
         subtleLang: "zh-CN",
+        ...(promptCounts.get(word) > 1 ? { showsReadingOnFront: true } : {}),
         answer: shortMeaning,
         answerLang: "zh-CN",
         meta: readingMeta,

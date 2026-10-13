@@ -35,7 +35,7 @@ const engineUrl = process.env.VOICEVOX_URL || "http://127.0.0.1:50021";
 // Changing the voice or any synthesis setting needs a new directory so cached
 // clips under the old URLs are never mixed with the new ones.
 const voice = {
-  directory: "audio/no7-announce-v3",
+  directory: "audio/no7-announce-v4",
   credit: "VOICEVOX:No.7",
   speaker: 30, // No.7 アナウンス
   speedScale: 0.9,
@@ -410,67 +410,83 @@ async function planQuery(text, sources, pitchAccents, prosody) {
   return error ? { error } : { ...plan, method: `${plan.method}+prosody` };
 }
 
-// VOICEVOX output is quiet and a lone mora is far quieter than a sentence;
-// level every clip so the voiced part sits at targetRmsDb (peaks capped) and
-// stays audible over music.
-const targetRmsDb = -18;
-const peakCeilingDb = -1;
+// VOICEVOX output is quiet and soft, and a lone mora is far quieter than a
+// sentence. Every clip is shaped for listening over music: cut rumble and
+// boxiness, lift presence and air, compress, then level the voiced part to
+// targetRmsDb (about -11.5 LUFS for a sentence) with a limiter catching peaks.
+const sampleRate = 24000;
+const toneFilters = [
+  "highpass=f=90",
+  "equalizer=f=250:t=q:w=1:g=-2",
+  "equalizer=f=3000:t=q:w=1.2:g=4",
+  "equalizer=f=6000:t=q:w=1:g=2",
+  "acompressor=threshold=-30dB:ratio=4:attack=3:release=60:makeup=1",
+].join(",");
+const targetRmsDb = -10.5;
+const limiter = "alimiter=limit=0.84:attack=2:release=40:level=false"; // -1.5 dBFS, room for MP3 overshoot
 
-function wavSamples(wav) {
-  let offset = 12;
-  let format = null;
-  while (offset + 8 <= wav.length) {
-    const id = wav.toString("ascii", offset, offset + 4);
-    const size = wav.readUInt32LE(offset + 4);
-    if (id === "fmt ") {
-      format = { channels: wav.readUInt16LE(offset + 10), bits: wav.readUInt16LE(offset + 22) };
-    } else if (id === "data") {
-      if (!format || format.bits !== 16 || format.channels !== 1) throw new Error("expected 16-bit mono WAV");
-      const samples = new Float64Array(size / 2);
-      for (let index = 0; index < samples.length; index += 1) {
-        samples[index] = wav.readInt16LE(offset + 8 + index * 2) / 32768;
-      }
-      return samples;
-    }
-    offset += 8 + size + (size % 2);
-  }
-  throw new Error("WAV has no data chunk");
+// Float32 mono PCM at sampleRate, so nothing is clipped before the limiter.
+function shapedSamples(wav) {
+  const pcm = execFileSync(
+    "ffmpeg",
+    [
+      "-v", "error", "-f", "wav", "-i", "pipe:0",
+      "-af", toneFilters,
+      "-ac", "1", "-ar", String(sampleRate), "-f", "f32le", "pipe:1",
+    ],
+    { input: wav, maxBuffer: 64 * 1024 * 1024 },
+  );
+  return { pcm, samples: new Float32Array(pcm.buffer, pcm.byteOffset, pcm.length / 4) };
 }
 
-function levelingGainDb(wav) {
-  const samples = wavSamples(wav);
-  const windowSize = 240; // 10 ms at 24 kHz
+function voicedRmsDb(samples) {
+  const windowSize = sampleRate / 100; // 10 ms
   const windows = [];
-  let peak = 0;
   for (let start = 0; start + windowSize <= samples.length; start += windowSize) {
     let power = 0;
-    for (let index = start; index < start + windowSize; index += 1) {
-      power += samples[index] * samples[index];
-      peak = Math.max(peak, Math.abs(samples[index]));
-    }
+    for (let index = start; index < start + windowSize; index += 1) power += samples[index] * samples[index];
     windows.push(power / windowSize);
   }
   const loudest = Math.max(...windows);
-  if (!peak || !loudest) throw new Error("silent clip");
+  if (!loudest) throw new Error("silent clip");
   // Voiced windows: within 30 dB of the loudest one.
   const voiced = windows.filter((power) => power >= loudest / 1000);
-  const rmsDb = 10 * Math.log10(voiced.reduce((sum, power) => sum + power, 0) / voiced.length);
-  return Math.min(targetRmsDb - rmsDb, peakCeilingDb - 20 * Math.log10(peak));
+  return 10 * Math.log10(voiced.reduce((sum, power) => sum + power, 0) / voiced.length);
 }
 
+function decodedPeak(file) {
+  const pcm = execFileSync("ffmpeg", ["-v", "error", "-i", file, "-f", "f32le", "pipe:1"], {
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  const samples = new Float32Array(pcm.buffer, pcm.byteOffset, pcm.length / 4);
+  return samples.reduce((peak, sample) => Math.max(peak, Math.abs(sample)), 0);
+}
+
+// MP3 encoding can overshoot the limiter; a decoded peak above -0.5 dBFS would
+// clip on playback, so the clip is trimmed by the overshoot and re-encoded.
+const decodedPeakCeiling = 0.94;
+
 function encodeMp3(wav, destination) {
-  const gainDb = levelingGainDb(wav);
-  execFileSync(
-    "ffmpeg",
-    [
-      "-v", "error", "-y", "-f", "wav", "-i", "pipe:0",
-      "-af", `volume=${gainDb.toFixed(2)}dB`,
-      "-ac", "1", "-ar", "24000", "-codec:a", "libmp3lame", "-b:a", "32k",
-      "-map_metadata", "-1",
-      destination,
-    ],
-    { input: wav },
-  );
+  const { pcm, samples } = shapedSamples(wav);
+  const gainDb = targetRmsDb - voicedRmsDb(samples);
+  let trimDb = 0;
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    execFileSync(
+      "ffmpeg",
+      [
+        "-v", "error", "-y", "-f", "f32le", "-ar", String(sampleRate), "-ac", "1", "-i", "pipe:0",
+        "-af", `volume=${gainDb.toFixed(2)}dB,${limiter},volume=${trimDb.toFixed(2)}dB`,
+        "-codec:a", "libmp3lame", "-b:a", "48k",
+        "-map_metadata", "-1",
+        destination,
+      ],
+      { input: pcm },
+    );
+    const peak = decodedPeak(destination);
+    if (peak <= decodedPeakCeiling) return;
+    trimDb += 20 * Math.log10(decodedPeakCeiling / peak) - 0.2;
+  }
+  throw new Error("decoded peak stays above the ceiling");
 }
 
 function writeManifest(keys) {
