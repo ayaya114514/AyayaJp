@@ -6,9 +6,13 @@ const STORE_META_KEY = "__meta";
 const STORE_SCHEMA_VERSION = 4;
 const ROUND_QUEUE_ORDER_VERSION = 1;
 const VALID_RATINGS = new Set(["clear", "unsure", "forgot", "correct", "wrong"]);
-// "unsure" is no longer offered, but legacy ratings keep their cards in the 不认识 pool.
-const UNKNOWN_RATINGS = new Set(["unsure", "forgot", "wrong"]);
-const UNKNOWN_POOL_SUFFIX = "-unknown";
+// A card's latest rating decides its pool: 模糊 (unsure) or 不认识 (forgot, wrong);
+// any other rating keeps it in the main pool.
+const FUZZY_RATINGS = new Set(["unsure"]);
+const UNKNOWN_RATINGS = new Set(["forgot", "wrong"]);
+const POOL_KINDS = ["main", "fuzzy", "unknown"];
+const POOL_SUFFIXES = { fuzzy: "-fuzzy", unknown: "-unknown" };
+const POOL_NAMES = { main: "当前", fuzzy: "模糊", unknown: "不认识" };
 const LEGACY_MISTAKE_DECKS = {
   "vocab-mistakes": "vocab-ja-zh-unknown",
   "vocab-n4-mistakes": "vocab-n4-ja-zh-unknown",
@@ -28,22 +32,37 @@ const isGrammarDataMissing =
   !Array.isArray(window.AYAYA_GRAMMAR_DATA?.entries) ||
   window.AYAYA_GRAMMAR_DATA.entries.length === 0;
 const cardFamilyCache = new Map();
+// Pre-rendered VOICEVOX clips (audio-manifest.js); texts without one use speechSynthesis.
+const audioClips =
+  typeof window.AYAYA_AUDIO?.keys === "string" && typeof window.AYAYA_AUDIO.directory === "string"
+    ? {
+        directory: window.AYAYA_AUDIO.directory,
+        keys: new Set(window.AYAYA_AUDIO.keys.split(" ").filter(Boolean)),
+      }
+    : null;
 
-// Every tab deck has a main pool (the tab's own id) and a 不认识 pool (id + suffix).
-function isUnknownPool(deck) {
-  return deck.endsWith(UNKNOWN_POOL_SUFFIX);
+// Every tab deck has a main pool (the tab's own id), a 模糊 pool and a 不认识
+// pool (id + suffix). The two review pools only hold cards rated into them.
+function poolKindOf(deck) {
+  return POOL_KINDS.find((kind) => kind !== "main" && deck.endsWith(POOL_SUFFIXES[kind])) || "main";
+}
+
+function isReviewPool(deck) {
+  return poolKindOf(deck) !== "main";
 }
 
 function baseDeckOf(deck) {
-  return isUnknownPool(deck) ? deck.slice(0, -UNKNOWN_POOL_SUFFIX.length) : deck;
+  const kind = poolKindOf(deck);
+  return kind === "main" ? deck : deck.slice(0, -POOL_SUFFIXES[kind].length);
 }
 
-function unknownPoolOf(deck) {
-  return `${baseDeckOf(deck)}${UNKNOWN_POOL_SUFFIX}`;
+function poolOf(deck, kind) {
+  const base = baseDeckOf(deck);
+  return kind === "main" ? base : `${base}${POOL_SUFFIXES[kind]}`;
 }
 
-function counterpartPoolOf(deck) {
-  return isUnknownPool(deck) ? baseDeckOf(deck) : unknownPoolOf(deck);
+function otherPoolsOf(deck) {
+  return POOL_KINDS.map((kind) => poolOf(deck, kind)).filter((pool) => pool !== deck);
 }
 
 function cardFamilyForDeck(deck) {
@@ -93,6 +112,8 @@ const elements = {
   choiceNext: document.querySelector("#choiceNext"),
   currentCount: document.querySelector("#currentCount"),
   currentPoolTab: document.querySelector("#currentPoolTab"),
+  fuzzyCount: document.querySelector("#fuzzyCount"),
+  fuzzyPoolTab: document.querySelector("#fuzzyPoolTab"),
   dueCount: document.querySelector("#dueCount"),
   emptyState: document.querySelector("#emptyState"),
   exampleBlock: document.querySelector("#exampleBlock"),
@@ -144,6 +165,8 @@ let speechGeneration = 0;
 let speechStartTimer = null;
 let speechBlockedUntil = 0;
 let activeSpeechUtterance = null;
+let clipPlayer = null;
+let activeClip = null;
 let sidebarReturnFocus = null;
 let sidebarHistoryClosing = false;
 const sessionQueues = {};
@@ -826,7 +849,7 @@ function knownDecks() {
     [...elements.tabs]
       .map((tab) => tab.dataset.deck)
       .filter(Boolean)
-      .flatMap((deck) => [deck, unknownPoolOf(deck)]),
+      .flatMap((deck) => POOL_KINDS.map((kind) => poolOf(deck, kind))),
   );
 }
 
@@ -1089,16 +1112,17 @@ function getState(cardId) {
 }
 
 // A card's latest rating decides its pool, so every rating moves it immediately.
-function isUnknownCard(card) {
-  return UNKNOWN_RATINGS.has(compactCardState(store[card.id])?.lastRating);
+function cardPoolKind(card) {
+  const rating = compactCardState(store[card.id])?.lastRating;
+  if (FUZZY_RATINGS.has(rating)) return "fuzzy";
+  if (UNKNOWN_RATINGS.has(rating)) return "unknown";
+  return "main";
 }
 
 function getDeckCards(deck = activeDeck) {
   const baseDeck = baseDeckOf(deck);
-  const wantsUnknown = isUnknownPool(deck);
-  return getFamilyCards(deck).filter(
-    (card) => card.deck === baseDeck && isUnknownCard(card) === wantsUnknown,
-  );
+  const kind = poolKindOf(deck);
+  return getFamilyCards(deck).filter((card) => card.deck === baseDeck && cardPoolKind(card) === kind);
 }
 
 function shuffleList(items) {
@@ -1153,7 +1177,7 @@ function buildQueue() {
   const completedIds = hadCompleted
     ? sessionCompleted[activeDeck]
     : new Set(
-        isUnknownPool(activeDeck)
+        isReviewPool(activeDeck)
           ? []
           : deckCards.filter((card) => getState(card.id).reviews > 0).map((card) => card.id),
       );
@@ -1215,39 +1239,43 @@ function remainingCount(deck) {
     sessionCompleted[deck] instanceof Set
       ? sessionCompleted[deck]
       : new Set(
-          isUnknownPool(deck)
+          isReviewPool(deck)
             ? []
             : deckCards.filter((card) => getState(card.id).reviews > 0).map((card) => card.id),
         );
   return deckCards.filter((card) => !completedIds.has(card.id)).length;
 }
 
-// The bottom bar's 当前 / 不认识 tabs select the active deck's main or 不认识
-// pool; each badge shows the cards left in that pool's round.
-function renderPoolToggle() {
-  const inUnknownPool = isUnknownPool(activeDeck);
-  const mainDeck = baseDeckOf(activeDeck);
-  const currentLeft = remainingCount(mainDeck);
-  const unknownLeft = remainingCount(unknownPoolOf(mainDeck));
-  elements.currentCount.textContent = currentLeft;
-  elements.currentCount.hidden = currentLeft === 0;
-  elements.unknownCount.textContent = unknownLeft;
-  elements.unknownCount.hidden = unknownLeft === 0;
-  elements.currentPoolTab.classList.toggle("is-active", !inUnknownPool);
-  elements.currentPoolTab.setAttribute("aria-pressed", String(!inUnknownPool));
-  elements.currentPoolTab.setAttribute("aria-label", `当前板块（剩余 ${currentLeft} 张）`);
-  elements.poolToggle.classList.toggle("is-active", inUnknownPool);
-  elements.poolToggle.setAttribute("aria-pressed", String(inUnknownPool));
-  elements.poolToggle.setAttribute("aria-label", `不认识板块（剩余 ${unknownLeft} 张）`);
+function poolTabs() {
+  return [
+    { kind: "main", tab: elements.currentPoolTab, badge: elements.currentCount },
+    { kind: "fuzzy", tab: elements.fuzzyPoolTab, badge: elements.fuzzyCount },
+    { kind: "unknown", tab: elements.poolToggle, badge: elements.unknownCount },
+  ];
 }
 
-function switchPool(toUnknown) {
-  if (isUnknownPool(activeDeck) === toUnknown) {
+// The bottom bar's 当前 / 模糊 / 不认识 tabs select the active deck's main,
+// 模糊 or 不认识 pool; each badge shows the cards left in that pool's round.
+function renderPoolToggle() {
+  const activeKind = poolKindOf(activeDeck);
+  poolTabs().forEach(({ kind, tab, badge }) => {
+    const left = remainingCount(poolOf(activeDeck, kind));
+    const isActive = kind === activeKind;
+    badge.textContent = left;
+    badge.hidden = left === 0;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-pressed", String(isActive));
+    tab.setAttribute("aria-label", `${POOL_NAMES[kind]}板块（剩余 ${left} 张）`);
+  });
+}
+
+function switchPool(kind) {
+  if (poolKindOf(activeDeck) === kind) {
     focusPrimaryStudyAction();
     return;
   }
   clearLastReview();
-  activeDeck = counterpartPoolOf(activeDeck);
+  activeDeck = poolOf(activeDeck, kind);
   saveRoundState();
   nextCard();
   focusPrimaryStudyAction();
@@ -1370,8 +1398,9 @@ function render() {
     !isRevealed && !currentCard.isChoice ? "cardRevealHint" : "",
   ].filter(Boolean);
   elements.cardReveal.setAttribute("aria-describedby", revealDescriptionIds.join(" "));
-  const canSpeak = Boolean(isRevealed ? primarySpeech(currentCard) : currentCard.frontSpeech);
-  const canUseSpeech = supportsSpeech();
+  const speakerText = isRevealed ? primarySpeech(currentCard) : currentCard.frontSpeech;
+  const canSpeak = Boolean(speakerText);
+  const canUseSpeech = supportsSpeech() || Boolean(canSpeak && audioClipUrl(speakerText));
   elements.speakWord.hidden = !canSpeak;
   // With no subtitle beside it the speaker moves to the band's top-right
   // corner, opposite the undo "<", instead of taking a row of its own.
@@ -1417,7 +1446,7 @@ function moduleTitleFor(deck) {
   const tab = [...elements.tabs].find((item) => item.dataset.deck === baseDeckOf(deck));
   const row = tab?.closest(".deck-row")?.querySelector(".deck-row-title")?.textContent?.trim();
   const label = tab?.querySelector(".deck-label")?.textContent?.trim();
-  return [row, label, isUnknownPool(deck) ? "不认识" : ""].filter(Boolean).join(" · ");
+  return [row, label, isReviewPool(deck) ? POOL_NAMES[poolKindOf(deck)] : ""].filter(Boolean).join(" · ");
 }
 
 // The card's learning category (搭配, 表达, 拗音...) without the level and
@@ -1666,18 +1695,25 @@ function renderEmpty(deckCards) {
     restoreUndoButtonHome();
   }
   elements.studyAnyWay.hidden = deckCards.length === 0;
-  if (isUnknownPool(activeDeck)) {
+  const kind = poolKindOf(activeDeck);
+  if (kind !== "main") {
+    const name = POOL_NAMES[kind];
     elements.roundStatusText.textContent = deckCards.length
-      ? `这一轮已经完成，仍不认识 ${deckCards.length} 张。`
-      : "没有不认识的卡片。";
+      ? `这一轮已经完成，仍${name} ${deckCards.length} 张。`
+      : `没有${name}的卡片。`;
     return;
   }
 
-  const counterpartCount = getDeckCards(counterpartPoolOf(activeDeck)).length;
+  const fuzzyCount = getDeckCards(poolOf(activeDeck, "fuzzy")).length;
+  const unknownCount = getDeckCards(poolOf(activeDeck, "unknown")).length;
+  const elsewhere = [
+    fuzzyCount ? "模糊" : "",
+    unknownCount ? "不认识" : "",
+  ].filter(Boolean).join("和");
   elements.roundStatusText.textContent = deckCards.length
-    ? `这一轮已经完成：认识 ${deckCards.length}，不认识 ${counterpartCount}。`
-    : counterpartCount
-      ? `全部 ${counterpartCount} 张都在不认识板块。`
+    ? `这一轮已经完成：认识 ${deckCards.length}，${fuzzyCount ? `模糊 ${fuzzyCount}，` : ""}不认识 ${unknownCount}。`
+    : elsewhere
+      ? `全部 ${fuzzyCount + unknownCount} 张都在${elsewhere}板块。`
       : "没有可用卡片";
 }
 
@@ -1718,8 +1754,7 @@ function captureReviewSnapshot() {
     previousQueue: [...(sessionQueues[activeDeck] || [])],
     previousRoundCount: getRoundCount(activeDeck),
     previousState: cloneStore(state),
-    counterpartDeck: counterpartPoolOf(activeDeck),
-    previousCounterpart: capturePoolRound(counterpartPoolOf(activeDeck)),
+    previousOtherPools: otherPoolsOf(activeDeck).map((deck) => [deck, capturePoolRound(deck)]),
   };
 }
 
@@ -1757,18 +1792,19 @@ function restorePoolRound(deck, snapshot) {
   restore(sessionRoundIds, snapshot.roundId);
 }
 
-// After a rating moves the current card out of the active pool, settle it in the
-// other pool: 不认识 cards wait in that pool's queue, and cards marked 认识 from the
-// 不认识 pool count as done for the main pool's current round.
+// After a rating moves the current card out of the active pool, settle it in its
+// new pool: 模糊 / 不认识 cards wait in that pool's queue, and cards marked 认识 from
+// a review pool count as done for the main pool's current round.
 function settleMovedCard(cardId) {
   const card = getFamilyCards(activeDeck).find((item) => item.id === cardId);
-  if (!card || isUnknownCard(card) === isUnknownPool(activeDeck)) return;
+  if (!card) return;
+  const targetDeck = poolOf(activeDeck, cardPoolKind(card));
+  if (targetDeck === activeDeck) return;
 
-  const targetDeck = counterpartPoolOf(activeDeck);
   if (Array.isArray(sessionQueues[targetDeck])) {
     sessionQueues[targetDeck] = sessionQueues[targetDeck].filter((id) => id !== cardId);
   }
-  if (isUnknownPool(targetDeck)) {
+  if (isReviewPool(targetDeck)) {
     sessionCompleted[targetDeck]?.delete(cardId);
     if (sessionCompletionEvents[targetDeck]) delete sessionCompletionEvents[targetDeck][cardId];
     if (Array.isArray(sessionQueues[targetDeck])) {
@@ -1945,7 +1981,7 @@ function undoLastReview() {
     sessionRoundIds[activeDeck] = snapshot.previousRoundId;
     sessionQueues[activeDeck] = [...snapshot.previousQueue];
     sessionRoundCounts[activeDeck] = snapshot.previousRoundCount;
-    restorePoolRound(snapshot.counterpartDeck, snapshot.previousCounterpart);
+    snapshot.previousOtherPools.forEach(([deck, round]) => restorePoolRound(deck, round));
   }
   removeAppliedReview(snapshot, persistedStore[snapshot.cardId], concurrentReviewExists);
   saveRoundState();
@@ -2067,7 +2103,9 @@ function handleSidebarKeydown(event) {
 }
 
 // iOS Safari pauses other apps' music when a page claims the default audio session;
-// "ambient" mixes speech with background audio instead (it follows the mute switch).
+// "ambient" lets <audio> clips mix with it instead (and follows the Silent switch).
+// speechSynthesis ignores the page's session (WebKit bug 278598) and still
+// interrupts music, which is why reviewed texts play pre-rendered clips.
 function preferMixedAudio() {
   try {
     const audioSession = typeof navigator === "undefined" ? null : navigator.audioSession;
@@ -2175,20 +2213,100 @@ function scheduleSpeechStart(text, options, generation, delay = 0, attempt = 0) 
   }
 }
 
-function speak(text, options = {}) {
-  if (!text) return;
+// Must stay identical to audioClipKey() in scripts/audio-lib.js (validation
+// compares them). A synchronous hash keeps play() inside the tap handler, which
+// iOS requires for the first clip.
+function audioClipKey(text) {
+  let h1 = 0xdeadbeef;
+  let h2 = 0x41c6ce57;
+  for (let index = 0; index < text.length; index += 1) {
+    const code = text.charCodeAt(index);
+    h1 = Math.imul(h1 ^ code, 2654435761);
+    h2 = Math.imul(h2 ^ code, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+  h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+  h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
+}
+
+function audioClipUrl(text) {
+  if (!audioClips || typeof Audio !== "function") return null;
+  const key = audioClipKey(text);
+  return audioClips.keys.has(key) ? `./${audioClips.directory}${key}.mp3` : null;
+}
+
+// One reused <audio> element: once a tap has started it, iOS lets later play()
+// calls (the example chained after the word) run without a new gesture.
+function getClipPlayer() {
+  if (clipPlayer) return clipPlayer;
+  clipPlayer = new Audio();
+  clipPlayer.preload = "auto";
+  clipPlayer.addEventListener("ended", () => {
+    const clip = activeClip;
+    if (!clip) return;
+    activeClip = null;
+    if (clip.options.onEnd) window.setTimeout(clip.options.onEnd, 0);
+  });
+  clipPlayer.addEventListener("error", () => fallBackFromClip(activeClip));
+  return clipPlayer;
+}
+
+function stopClip() {
+  activeClip = null;
+  if (!clipPlayer) return;
+  try {
+    clipPlayer.pause();
+  } catch {
+    // A player that cannot pause has nothing left to stop.
+  }
+}
+
+// A clip that fails to load or play is spoken by speechSynthesis instead.
+function fallBackFromClip(clip) {
+  if (!clip || clip !== activeClip || clip.generation !== speechGeneration) return;
+  activeClip = null;
   if (!supportsSpeech()) {
-    setSpeechStatus("此浏览器不支持语音播放。", "error");
+    setSpeechStatus("语音播放失败，请稍后重试。", "error");
     return;
   }
-  const synthesizer = window.speechSynthesis;
+  scheduleSpeechStart(clip.text, clip.options, clip.generation);
+}
+
+function playClip(url, text, options, generation) {
+  const clip = { generation, options, text };
+  activeClip = clip;
+  clearSpeechStatus();
+  preferMixedAudio();
+  try {
+    const player = getClipPlayer();
+    player.src = url;
+    const playback = player.play();
+    if (playback && typeof playback.catch === "function") {
+      playback.catch(() => fallBackFromClip(clip));
+    }
+  } catch {
+    fallBackFromClip(clip);
+  }
+}
+
+function speak(text, options = {}) {
+  if (!text) return;
   speechGeneration += 1;
   const generation = speechGeneration;
   if (speechStartTimer !== null) {
     window.clearTimeout(speechStartTimer);
     speechStartTimer = null;
   }
-
+  stopClip();
+  const clipUrl = audioClipUrl(text);
+  if (!supportsSpeech()) {
+    if (clipUrl) playClip(clipUrl, text, options, generation);
+    else setSpeechStatus("此浏览器不支持语音播放。", "error");
+    return;
+  }
+  const synthesizer = window.speechSynthesis;
   const hasActiveSpeech = Boolean(
     activeSpeechUtterance || synthesizer.speaking || synthesizer.pending,
   );
@@ -2198,6 +2316,10 @@ function speak(text, options = {}) {
     speechBlockedUntil = Math.max(speechBlockedUntil, Date.now() + 120);
   }
 
+  if (clipUrl) {
+    playClip(clipUrl, text, options, generation);
+    return;
+  }
   const delay = Math.max(0, speechBlockedUntil - Date.now());
   scheduleSpeechStart(text, options, generation, delay);
 }
@@ -2208,6 +2330,7 @@ function cancelSpeech() {
     window.clearTimeout(speechStartTimer);
     speechStartTimer = null;
   }
+  stopClip();
 
   if (!supportsSpeech()) return;
   const synthesizer = window.speechSynthesis;
@@ -2470,9 +2593,9 @@ function handleStoreStorageChange(event) {
   }
 }
 
-const ratingShortcuts = { 1: "clear", 2: "forgot" };
+const ratingShortcuts = { 1: "clear", 2: "unsure", 3: "forgot" };
 
-// 1/2 rate a revealed card (认识/不认识); 1–4 pick a choice (A–D) before it is answered.
+// 1/2/3 rate a revealed card (认识/模糊/不认识); 1–4 pick a choice (A–D) before it is answered.
 function handleStudyShortcut(event) {
   if (event.defaultPrevented || event.repeat || event.isComposing) return;
   if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
@@ -2524,19 +2647,13 @@ function bindInteractions() {
     });
   });
 
-  elements.poolToggle.addEventListener("click", (event) => {
-    event.stopPropagation();
-    runSafely(() => {
-      setSidebarOpen(false, { restoreFocus: false });
-      switchPool(true);
-    });
-  });
-
-  elements.currentPoolTab.addEventListener("click", (event) => {
-    event.stopPropagation();
-    runSafely(() => {
-      setSidebarOpen(false, { restoreFocus: false });
-      switchPool(false);
+  poolTabs().forEach(({ kind, tab }) => {
+    tab.addEventListener("click", (event) => {
+      event.stopPropagation();
+      runSafely(() => {
+        setSidebarOpen(false, { restoreFocus: false });
+        switchPool(kind);
+      });
     });
   });
 

@@ -2666,7 +2666,7 @@ const reviewedExactReadings = `
 祈り|いのり
 急ぎ|いそぎ
 泣き|なき
-泣き声|なきこえ
+泣き声|なきごえ
 教え|おしえ
 驚き|おどろき
 勤め|つとめ
@@ -3212,7 +3212,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "11636:377a57f5d631ee01";
+const reviewedPronunciationSourceSignature = "11636:232c4a1a57c6b4fd";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>

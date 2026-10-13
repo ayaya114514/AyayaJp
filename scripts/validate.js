@@ -25,6 +25,14 @@ const {
   sample,
   validateReportStructure,
 } = require("./validation-lib");
+const {
+  audioClipKey,
+  audioProsodyFile,
+  audioReportFile,
+  collectSpokenTexts,
+  loadAudioManifest,
+  loadAudioProsody,
+} = require("./audio-lib");
 
 const validationErrors = [];
 const allowedLanguageTags = new Set(["en", "ja", "zh-CN"]);
@@ -35,6 +43,7 @@ const expectedDependencyScripts = [
   "pitch-accent-data.js",
   "romaji-word-spacing.js",
   "example-readings.js",
+  "audio-manifest.js",
   "card-data.js",
   "app.js",
 ];
@@ -2439,6 +2448,64 @@ function validateExampleFurigana(cards, reviewedWordSplitsAt = () => []) {
 // Browser voices pick their own reading for Kanji (毎年 → まいとし while the card
 // shows まいねん), so every spoken sentence must be the reviewed kana, and that kana
 // must romanize to exactly the romaji the card displays.
+// Every spoken text needs a VOICEVOX clip whose reading build-audio.js verified
+// (or a reported skip), so edited readings cannot keep playing a stale clip
+// unnoticed; texts without a clip fall back to speechSynthesis.
+function validateAudioClips(runtime, html) {
+  const manifest = loadAudioManifest();
+  if (!manifest) {
+    addError("audio-manifest.js is missing; run npm run build:audio with a VOICEVOX engine");
+    return;
+  }
+  check(
+    typeof manifest.credit === "string" && html.includes(`音声：${manifest.credit}`),
+    `index.html must show the VOICEVOX voice credit 音声：${manifest.credit}`,
+  );
+  const keys = new Set(manifest.keys.split(" ").filter(Boolean));
+  const missingFiles = [...keys].filter(
+    (key) => !fs.existsSync(path.join(rootDir, `${manifest.directory}${key}.mp3`)),
+  );
+  check(!missingFiles.length, `audio-manifest.js lists clips with no file: ${sample(missingFiles)}`);
+
+  const reportPath = path.join(rootDir, audioReportFile);
+  const reportRows = fs.existsSync(reportPath)
+    ? fs.readFileSync(reportPath, "utf8").trim().split("\n").slice(1).map((line) => line.split("\t"))
+    : [];
+  const reported = new Map(
+    reportRows.map(([key, status, method, text, detail]) => [text, { key, status, method, detail }]),
+  );
+  const unreported = [];
+  const unlisted = [];
+  collectSpokenTexts(runtime).forEach((sources, text) => {
+    const key = audioClipKey(text);
+    const row = reported.get(text);
+    if (!row || row.key !== key) unreported.push(text);
+    else if (row.status === "ok" && !keys.has(key)) unlisted.push(text);
+  });
+  check(
+    !unreported.length,
+    `${unreported.length} spoken text(s) have no verified VOICEVOX clip; run npm run build:audio: ${sample(unreported)}`,
+  );
+  check(!unlisted.length, `verified clips missing from audio-manifest.js: ${sample(unlisted)}`);
+
+  // Reviewed prosody must belong to a spoken text and be what the clip was rendered with.
+  const spoken = collectSpokenTexts(runtime);
+  const stale = [];
+  const unapplied = [];
+  loadAudioProsody().forEach((notation, text) => {
+    const row = reported.get(text);
+    if (!spoken.has(text)) stale.push(text);
+    else if (row?.status !== "ok" || !row.method.endsWith("+prosody") || row.detail.split(" ← ")[0] !== notation) {
+      unapplied.push(`${text} → ${notation}`);
+    }
+  });
+  check(!stale.length, `${audioProsodyFile} lists texts the app never speaks: ${sample(stale)}`);
+  check(
+    !unapplied.length,
+    `${unapplied.length} reviewed prosody line(s) are not what the clip was rendered with; run npm run build:audio: ${sample(unapplied)}`,
+  );
+}
+
 function validateExampleSpeech(cards, kanaToRomaji) {
   const kanji = /[\u3400-\u9fff々]/u;
   const letters = (value) => value.toLowerCase().replace(/[^a-z]/gu, "");
@@ -2705,6 +2772,7 @@ function main() {
     validateGrammarChoices(runtime.grammarCards, runtime.data.grammar);
     validateExampleFurigana(cards, runtime.cardData.reviewedWordSplitsAt);
     validateExampleSpeech(cards, runtime.cardData.kanaToRomaji);
+    capture("audio clip check failed", () => validateAudioClips(runtime, html));
     capture("romaji word spacing check failed", () =>
       validateRomajiWordSpacing(cards, loadScriptGlobal("romaji-word-spacing.js", "AYAYA_ROMAJI_SPACING")),
     );
