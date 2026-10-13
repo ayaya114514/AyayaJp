@@ -1,5 +1,6 @@
 "use strict";
 
+const fs = require("fs");
 const { test, expect } = require("@playwright/test");
 
 const STORAGE_KEY = "ayaya-jp-srs-v1";
@@ -134,7 +135,14 @@ test("a failed main script exposes the fatal fallback instead of a blank app", a
 test("revealing a card plays its pre-rendered VOICEVOX clip instead of speechSynthesis", async ({ page }) => {
   await page.addInitScript(() => {
     window.__clipPlays = [];
+    window.__clipBlobs = [];
     window.__synthesisTexts = [];
+    const nativeCreateObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => {
+      const url = nativeCreateObjectURL.call(URL, blob);
+      window.__clipBlobs.push(url);
+      return url;
+    };
     const nativePlay = HTMLMediaElement.prototype.play;
     HTMLMediaElement.prototype.play = function play() {
       window.__clipPlays.push(this.src);
@@ -144,17 +152,28 @@ test("revealing a card plays its pre-rendered VOICEVOX clip instead of speechSyn
       window.speechSynthesis.speak = (utterance) => window.__synthesisTexts.push(utterance.text);
     }
   });
+  const clipRequests = [];
+  page.on("request", (request) => {
+    if (/\/audio\/[^/]+\/[0-9a-z]+\.mp3$/u.test(new URL(request.url()).pathname)) clipRequests.push(request);
+  });
   const clipResponse = page.waitForResponse((response) =>
     /\/audio\/[^/]+\/[0-9a-z]+\.mp3$/u.test(new URL(response.url()).pathname),
   );
   await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
+  // The card's clip is fetched while its front is shown, before any tap.
+  expect((await clipResponse).ok()).toBe(true);
+  await expect
+    .poll(async () => clipRequests.length > 0 && (await page.evaluate(() => window.__clipBlobs.length)) === clipRequests.length)
+    .toBe(true);
+  const preloadedCount = clipRequests.length;
 
   await page.locator("#revealHint").click({ force: true });
   await expectAnswerRevealed(page);
-  expect((await clipResponse).ok()).toBe(true);
   const plays = await page.evaluate(() => window.__clipPlays);
   expect(plays).toHaveLength(1);
-  expect(plays[0]).toMatch(/\/audio\/[^/]+\/[0-9a-z]+\.mp3$/u);
+  expect(plays[0]).toMatch(/^blob:/u);
+  expect(await page.evaluate(() => window.__clipBlobs)).toContain(plays[0]);
+  expect(clipRequests).toHaveLength(preloadedCount);
   expect(await page.evaluate(() => window.__synthesisTexts)).toEqual([]);
   await expect(page.locator("#deckSidebar .deck-credit")).toHaveText("音声：VOICEVOX:No.7");
 });
@@ -221,6 +240,89 @@ test("Japanese-to-Chinese vocab hides reading until the answer is revealed", asy
   await expect(page.locator("#answerMain")).toHaveText("见面；遇见");
   await expect(page.locator("#answerMeta .meta-row")).toHaveText(["读音あう ①", "罗马音au"]);
   await expect(page.locator("#cardSubtle")).toBeHidden();
+});
+
+test("words written alike show their reading on the 日→中 front", async ({ page }) => {
+  await openWithStore(
+    page,
+    progressFixture({
+      deck: "vocab-ja-zh",
+      queue: ["vocab-entry-n5-451-ja"],
+    }),
+  );
+
+  // 十 is also read じゅう (another card), so the front must say which one is asked.
+  await expect(page.locator("#cardPrompt")).toHaveText("十");
+  await expect(page.locator("#cardSubtle")).toBeVisible();
+  await expect(page.locator("#cardSubtle")).toHaveText("读音：とお");
+});
+
+test("progress exports to a file and imports back after confirmation", async ({ page }) => {
+  // Seed only the first load: the import reloads the page, and openWithStore's
+  // init script would reset storage on every navigation.
+  await page.addInitScript(
+    ({ storageKey, storedState }) => {
+      if (sessionStorage.getItem("seeded")) return;
+      sessionStorage.setItem("seeded", "1");
+      localStorage.clear();
+      localStorage.setItem(storageKey, JSON.stringify(storedState));
+    },
+    { storageKey: STORAGE_KEY, storedState: isolatedHiraganaFixture(["hiragana-0", "hiragana-1"]) },
+  );
+  await page.goto("/");
+  await waitForApp(page);
+  await page.locator("#cardReveal").click({ force: true });
+  await expectAnswerRevealed(page);
+  await page.locator('[data-rating="clear"]').click();
+
+  await page.locator("#deckMenuButton").click();
+  const footer = page.locator(".deck-footer");
+  await expect(footer).toBeVisible();
+  const footerBox = await footer.boundingBox();
+  const viewport = page.viewportSize();
+  expect(footerBox.y + footerBox.height).toBeLessThanOrEqual(viewport.height + 1);
+  expect(footerBox.x + footerBox.width).toBeLessThanOrEqual(viewport.width + 1);
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.locator("#exportProgress").click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toMatch(/^AyayaJp-progress-\d{4}-\d{2}-\d{2}\.json$/u);
+  const exported = JSON.parse(fs.readFileSync(await download.path(), "utf8"));
+  expect(exported.app).toBe("AyayaJp");
+  const ratedId = Object.keys(exported.progress).find((key) => !key.startsWith("__"));
+  expect(exported.progress[ratedId].lastRating).toBe("clear");
+  expect(exported.progress[ratedId].memory.stability).toBeGreaterThan(0);
+
+  // Wipe this browser's progress, then restore it from the file.
+  await page.evaluate((key) => localStorage.setItem(key, "{}"), STORAGE_KEY);
+  page.once("dialog", (dialog) => dialog.accept());
+  await Promise.all([
+    page.waitForEvent("load"),
+    page.locator("#importProgressFile").setInputFiles({
+      name: "progress.json",
+      mimeType: "application/json",
+      buffer: Buffer.from(JSON.stringify(exported)),
+    }),
+  ]);
+  const restored = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)), STORAGE_KEY);
+  expect(restored[ratedId].lastRating).toBe("clear");
+  expect(restored.__meta.revision).toBeGreaterThan(exported.progress.__meta?.revision || 0);
+});
+
+test("a file that is not an AyayaJp export is rejected without touching progress", async ({ page }) => {
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
+  const before = await page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY);
+  await page.locator("#deckMenuButton").click();
+  const dialogPromise = page.waitForEvent("dialog");
+  await page.locator("#importProgressFile").setInputFiles({
+    name: "other.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify({ hello: "world" })),
+  });
+  const dialog = await dialogPromise;
+  expect(dialog.message()).toContain("不是 AyayaJp");
+  await dialog.dismiss();
+  expect(await page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY)).toBe(before);
 });
 
 test("legacy fixed kana order reshuffles once and remains stable on reload", async ({
@@ -774,6 +876,45 @@ test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async 
   await expect
     .poll(() => page.evaluate(() => document.documentElement.dataset.inputMode))
     .toBe("keyboard");
+});
+
+test("说明 and 例句 stay inside the answer panel and only sit side by side when they fit", async ({
+  page,
+}, testInfo) => {
+  await openWithStore(
+    page,
+    progressFixture({
+      deck: "grammar-n5-pattern-zh",
+      queue: ["grammar-n5-grammar-048-pattern"],
+    }),
+  );
+  await page.locator("#cardReveal").click({ force: true });
+  await expectAnswerRevealed(page);
+
+  const layout = await page.evaluate(() => {
+    const panel = document.querySelector("#answerPanel") || document.querySelector(".answer-panel");
+    const style = getComputedStyle(panel);
+    const box = panel.getBoundingClientRect();
+    const contentLeft = box.left + parseFloat(style.paddingLeft);
+    const contentRight = box.right - parseFloat(style.paddingRight);
+    const sections = [...document.querySelectorAll(".answer-details > .answer-section:not([hidden])")].map(
+      (section) => section.getBoundingClientRect(),
+    );
+    return {
+      contentLeft,
+      contentRight,
+      sections: sections.map((rect) => ({ left: rect.left, right: rect.right, top: rect.top })),
+    };
+  });
+
+  expect(layout.sections).toHaveLength(2);
+  layout.sections.forEach((section) => {
+    expect(section.left).toBeGreaterThanOrEqual(layout.contentLeft - 0.5);
+    expect(section.right).toBeLessThanOrEqual(layout.contentRight + 0.5);
+  });
+  const sideBySide = layout.sections[0].top === layout.sections[1].top;
+  expect(sideBySide).toBe(layout.contentRight - layout.contentLeft >= 380 * 2 + 12);
+  if (testInfo.project.name === "desktop-chromium") expect(sideBySide).toBe(true);
 });
 
 test("iPhone 14 landscape scrolls only inside the study card", async ({ page }, testInfo) => {

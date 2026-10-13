@@ -90,9 +90,10 @@ tmippwzvkc	ok	surface	あさ、ニュースをよみました	ア'サ、/ニュ'
 1d9f46s1bd1	ok	pitch	あさい	アサイ'
 31o38tplt5	ok	surface	あさいさらにサラダをいれました	アサイ'/サラニ'/サ'ラダオ/イレマ'シタ
 1020turggwl	ok	pitch	あさごはん	アサゴ'ハン
-d8n16h2z2n	ok	surface+prosody	あさごはんがすきです	アサゴ'ハンガ/スキ'デス
+w1crq8114	ok	surface+prosody	あさごはんにくだものをたべます	アサゴ'ハンニ/クダ'モノオ/タベマ'ス
+1asyh74jkye	ok	surface+prosody	あさごはんにパンをたべました	アサゴ'ハンニ/パ'ンオ/タベマ'シタ
+2dnd98pwntz	ok	surface+prosody	あさごはんのまえに、かおをあらいます	アサゴ'ハンノ/マ'エニ、/カオオ'/アライマ'ス
 2eddo8l7z0v	ok	surface+prosody	あさごはんわたいせつだといわれています	アサゴ'ハンワ/タイセツダト'/イワレテ'/イマ'ス
-25it00r2vyu	ok	surface+prosody	あさごはんをください	アサゴ'ハンオ/クダサ'イ
 145f8l0re7g	ok	surface+prosody	あさごはんをたべてからがっこうえいきます	アサゴ'ハンオ/タ'ベテカラ/ガッコオエ'/イキマ'ス
 2avwjdrz5cf	ok	surface+prosody	あさごはんをたべないでがっこうえいきました	アサゴ'ハンオ/タベ'ナイデ/ガッコオエ'/イキマ'シタ
 152qb779h0n	ok	surface+prosody	あさごはんをたべました。それから、がっこうえいきました	アサゴ'ハンオ/タベマ'シタ、/ソレカラ'、/ガッコオエ'/イキマ'シタ
@@ -113,6 +114,7 @@ hpryqmgc9c	ok	surface	あさはやくがっこうにむかいました	ア'サ/�
 r0tkn80myy	ok	surface	あさわいそがしいです	ア'サワ/イソガシ'イデス
 nkrkiosf8n	ok	surface+prosody	あさわいそがしくて、あさごはんをたべませんでした	ア'サワ/イソガシ'クテ、/アサゴ'ハンオ/タベマセ'ンデシタ
 249pu1ugidc	ok	surface	あさわいつもコーヒーをのみます	ア'サワ/イ'ツモ/コオヒ'イオ/ノミマ'ス
+6y2yvievr2	ok	surface	あさわいつもパンをたべます	ア'サワ/イ'ツモ/パ'ンオ/タベマ'ス
 297q2dbzg4j	ok	surface	あさわこうつうがこんでいます	ア'サワ/コオツウガ'/コ'ンデ/イマ'ス
 1qqb8s4sjxj	ok	surface	あさわたいていパンをたべます	ア'サワ/タイテエ'/パ'ンオ/タベマ'ス
 28iljimezjm	ok	pitch	あし	アシ'
@@ -243,19 +245,23 @@ j4l5agh08e	ok	surface	あたらしいじしょをかいました	アタラシ'�
 jvp4uwdp0h	ok	surface	あたらしいしょうひんがはっぴょうされました	アタラシ'イ/ショ'オヒンガ/ハッピョオ'/サレマ'シタ
 fid1haxx24	ok	surface	あたらしいスカートをかいました	アタラシ'イ/スカ'アトオ/カイマ'シタ
 2gjsco8k1cp	ok	surface	あたらしいせいかつがはじまります	アタラシ'イ/セエカツガ'/ハジマリマ'ス
+1i403clz8ab	ok	surface+prosody	あたらしいせっけんをおふろにおきました	アタラシ'イ/セッケンオ'/オフ'ロニ/オキマ'シタ
 1bfavz6z5a2	ok	surface	あたらしいせびろをかいました	アタラシ'イ/セビロオ'/カイマ'シタ
 19u9fgu5omt	ok	surface	あたらしいせんせいがきました	アタラシ'イ/センセ'エガ/キマ'シタ
 fhwvglwyjs	ok	surface	あたらしいせんたくきわおとがしずかです	アタラシ'イ/センタク'キワ/オト'ガ/シ'ズカデス
 5opyl31n8d	ok	surface	あたらしいソフトをパソコンにいれました	アタラシ'イ/ソ'フトオ/パソコンニ'/イレマ'シタ
 1f897wpfhd9	ok	surface+prosody	あたらしいてんらんかいがひらかれています	アタラシ'イ/テンラ'ンカイガ/ヒラカ'レテ/イマ'ス
+22n4q1jauhc	ok	surface	あたらしいとけいがほしいです	アタラシ'イ/トケエガ'/ホシ'イデス
 pn91sldjnd	ok	surface	あたらしいとしをむかえました	アタラシ'イ/トシ'オ/ムカエマ'シタ
 13hcml1fwpb	ok	surface	あたらしいノートがいります	アタラシ'イ/ノ'オトガ/イリマ'ス
+29owt6ge4i4	ok	surface	あたらしいノートになまえをかきました	アタラシ'イ/ノ'オトニ/ナマエオ'/カキマ'シタ
 gu7vmblee6	ok	surface	あたらしいパソコンをしごとにつかっています	アタラシ'イ/パソコンオ'/シゴトニ'/ツカッテ'/イマ'ス
 1hgijiug5ld	ok	surface	あたらしいふくをかいました	アタラシ'イ/フク'オ/カイマ'シタ
 29iv59allg9	ok	surface	あたらしいふくをきました	アタラシ'イ/フク'オ/キマ'シタ
 l7vv3y98d5	ok	surface	あたらしいふくをともだちにみせました	アタラシ'イ/フク'オ/トモダチニ'/ミセマ'シタ
 50nlqf5lmj	ok	surface	あたらしいぶちょうがしゃいんにあいさつしました	アタラシ'イ/ブチョオガ'/シャ'インニ/ア'イサツ/シマ'シタ
 itdt57o9w7	ok	surface	あたらしいぶんぽうをよしゅうしています	アタラシ'イ/ブンポオオ'/ヨシュウ'/シテ'/イマ'ス
+1k23x42piqd	ok	surface	あたらしいベッドわとてもおおきいです	アタラシ'イ/ベ'ッドワ/トテモ'/オオキ'イデス
 1t5irg5nya5	ok	surface	あたらしいほうりつがらいげつからはじまります	アタラシ'イ/ホオリツガ'/ラ'イゲツカラ/ハジマリマ'ス
 1libjo06w8k	ok	surface	あたらしいほんがほしいです	アタラシ'イ/ホ'ンガ/ホシ'イデス
 18lc7jphhib	ok	surface	あたらしいほんをかいました	アタラシ'イ/ホ'ンオ/カイマ'シタ
@@ -266,6 +272,7 @@ j0gc4m5vqz	ok	surface	あたらしいようふくをかいました	アタラシ
 26kzdacstzq	ok	surface	あちらえどうぞ	アチラエ'/ド'オゾ
 zd0o8nbuo9	ok	surface	あちらわせんせいです	アチラワ'/センセ'エデス
 299yywwbnfb	ok	pitch	あつい	アツ'イ
+geexn94ngo	ok	surface+prosody	あついおちゃわいかがですか	アツ'イ/オチャワ'/イカ'ガデスカ？
 wbb8k6tbo3	ok	surface	あついスープをゆっくりのみます	アツ'イ/ス'ウプオ/ユック'リ/ノミマ'ス
 14uvl7iuwfb	ok	surface	あついなべにさわってしまいました	アツ'イ/ナ'ベニ/サワッテ'/シマイマ'シタ
 vid6h8rdmz	ok	surface+prosody	あついので、きをつけてください	アツ'イノデ、/キオ'/ツ'ケテ/クダサ'イ
@@ -305,6 +312,7 @@ m7e4r69jth	ok	surface	あににじてんしゃをかしました	ア'ニニ/ジ�
 2i2b2mqwlk	ok	surface	あにわえきまえではいしゃをしています	ア'ニワ/エキマ'エデ/ハ'イシャオ/シテ'/イマ'ス
 q4308a33iw	ok	surface	あにわかいしゃいんです	ア'ニワ/カイシャ'インデス
 uijtxn8zp2	ok	surface	あにわギターをひきます	ア'ニワ/ギ'タアオ/ヒキマ'ス
+19v8704rpbq	ok	surface	あにわけいかんになりました	ア'ニワ/ケエカンニ'/ナリマ'シタ
 9jg4e7ubl1	ok	surface+prosody	あにわけんりつのこうとうがっこうにかよっています	ア'ニワ/ケンリツノ'/コオトオガ'ッコオニ/カヨッテ'/イマ'ス
 1josexrfxj3	ok	ruby-kana+prosody	あにわことしはたちになります	ア'ニワ/コトシ'/ハ'タチニ/ナリマ'ス ← 兄はコトシハタチになります
 1j5mwsjsak7	ok	surface	あにわしやくしょでこうむいんとしてはたらいています	ア'ニワ/シヤ'クショデ/コオム'イント/シテ'/ハタライテ'/イマ'ス
@@ -320,11 +328,13 @@ o7qq7bx5yt	ok	surface	あにわだいがくでいがくをまなんでいます	
 2agdfaybnp6	ok	surface	あねのあかちゃんわさらいげつうまれるよていです	アネノ'/ア'カチャンワ/サライゲツ'/ウマレル'/ヨテエデ'ス
 5i8wo1l1vr	ok	surface	あねわうえのへやにいます	アネワ'/ウエノ'/ヘヤ'ニ/イマ'ス
 1x00q9yha1p	ok	surface	あねわかみがながいです	アネワ'/カミ'ガ/ナガ'イデス
+2agtxe7l19a	ok	surface	あねわギターがとてもじょうずです	アネワ'/ギ'タアガ/トテモ'/ジョオズ'デス
 nvongdof0j	ok	surface	あねわギターをひけます	アネワ'/ギ'タアオ/ヒケマ'ス
 86ls2577yz	ok	surface	あねわせんせいです	アネワ'/センセ'エデス
 17oprqf6el3	ok	surface	あねわだいがくできょういくをまなんでいます	アネワ'/ダイガクデ'/キョオイクオ'/マナンデ'/イマ'ス
 16gp1uczwf0	ok	surface	あねわテニスがとてもじょうずです	アネワ'/テ'ニスガ/トテモ'/ジョオズ'デス
 finzc9fjal	ok	surface	あねわとうきょうのだいがくせいです	アネワ'/トオキョオノ'/ダイガ'クセエデス
+qnw13seewg	ok	surface	あねわびょういんでいしゃをしています	アネワ'/ビョオインデ'/イシャオ'/シテ'/イマ'ス
 2fh8cdy89f7	ok	surface	あねわびょういんでかんごしとしてはたらいています	アネワ'/ビョオインデ'/カンゴ'シト/シテ'/ハタライテ'/イマ'ス
 25g4r8ol7x9	ok	surface	あねわらいねんけっこんします	アネワ'/ライネン'/ケッコン'/シマ'ス
 2bq1bck8i0l	ok	surface	あねわりょうりがじょうずです	アネワ'/リョ'オリガ/ジョオズ'デス
@@ -396,6 +406,7 @@ eni3y4f31p	ok	surface	あめがまどをつよくうっています	ア'メガ/�
 1hfackj1qsq	ok	surface	あめでしあいがちゅうしになりました	ア'メデ/シアイガ'/チュウシニ'/ナリマ'シタ
 1e9mh9sg810	ok	surface	あめです。しかし、でかけます	ア'メデス、/シカ'シ、/デカケマ'ス
 e766r77bfa	ok	surface	あめです。でも、さんぽします	ア'メデス、/デ'モ、/サンポ'/シマ'ス
+1z7ux8k2yn9	ok	surface	あめですから、かさをもっていきます	ア'メデスカラ、/カ'サオ/モ'ッテ/イキマ'ス
 25t8kehah9i	ok	surface	あめでテニスのしあいがちゅうしになりました	ア'メデ/テ'ニスノ/シアイガ'/チュウシニ'/ナリマ'シタ
 97ih7ypjvs	ok	surface	あめでふくがぬれました	ア'メデ/フク'ガ/ヌレマ'シタ
 12w7hx32nei	ok	surface	あめでみちがすべります	ア'メデ/ミチガ'/スベリマ'ス
@@ -419,6 +430,7 @@ qbwpnpjfwn	ok	kana	アメリカ	アメリカ'
 12bub5xfcgj	ok	surface	あめをひとつください	アメオ'/ヒト'ツ/クダサ'イ
 1ljep0ckksn	ok	pitch	あやまる	アヤマ'ル
 jqbc7fub5u	ok	pitch	あらう	アラウ'
+1l4tlrac4gv	ok	surface	あらったコップをここにおいてください	アラッタ'/コップオ'/ココニ'/オイテ'/クダサ'イ
 bfe0cbkoqj	ok	surface	あらったしたぎをそとにほします	アラッタ'/シタギオ'/ソ'トニ/ホシマ'ス
 1c8nxnev3uy	ok	pitch	ある	ア'ル
 9r0i934nzj	ok	surface	あるきながらはなしました	アルキナ'ガラ/ハナシマ'シタ
@@ -468,6 +480,7 @@ stogd7isej	ok	surface	いえにかえってからしゅくだいをします	イ
 2a3lzpz7j93	ok	surface	いえにもどります	イエ'ニ/モドリマ'ス
 19xm72h1ie2	ok	surface	いえのうしろにちいさなはやしがあります	イエ'ノ/ウシロニ'/チ'イサナ/ハヤシガ'/アリマ'ス
 1q3mtujee39	ok	ruby-kana	いえのおもてでまっています	イエ'ノ/オモテ'デ/マ'ッテ/イマ'ス ← 家のオモテで待っています
+1zd7ms9h3mk	ok	surface	いえのちかくにおおきなかわがあります	イエ'ノ/チ'カクニ/オ'オキナ/カワ'ガ/アリマ'ス
 24mq5aiffva	ok	surface	いえのまわりにきがたくさんあります	イエ'ノ/マワリニ'/キ'ガ/タクサン'/アリマ'ス
 183og70myq3	ok	pitch	いか	イ'カ
 1iguiv28hdp	ok	pitch	いがい	イ'ガイ
@@ -487,27 +500,23 @@ lh5wz48u7m	ok	surface+prosody	いくつかいますか	イ'クツ/カイマ'ス�
 22vywfvo9k5	ok	kana	いくら	イ'クラ
 1tknrep2k51	ok	surface+prosody	いくらはらいましたか	イ'クラ/ハライマ'シタカ？
 1ibsmvuj1jo	ok	pitch	いけ	イケ'
-1hdp9v9ffpi	ok	surface	いけがあります	イケ'ガ/アリマ'ス
-hg1gw9214l	ok	surface	いけがきれいです	イケ'ガ/キ'レイデス
-14e1iammwt1	ok	surface	いけをみます	イケ'オ/ミマ'ス
+118d40591ir	ok	surface	いけにあかいさかながいます	イケ'ニ/アカイ'/サカナガ'/イマ'ス
+h6gmvggod5	ok	surface	いけにさかながたくさんいます	イケ'ニ/サカナガ'/タクサン'/イマ'ス
+f5jaovhfq9	ok	surface	いけのそばでしゃしんをとりました	イケ'ノ/ソ'バデ/シャシンオ'/トリマ'シタ
 do9aopou34	ok	pitch	いけん	イ'ケン
 1hj5s9f0xdz	ok	surface	いけんがふたつにわれました	イ'ケンガ/フタツ'ニ/ワレマ'シタ
 tqfssabd68	ok	pitch	いし	イシ'
 jgx4eu7fwp	ok	surface	いしにつまずいてころびました	イシ'ニ/ツマズイテ'/コロビマ'シタ
 25kaywskprg	ok	kana	いじめる	イジメル'
 tqbstbuhpt	ok	pitch	いしゃ	イシャ'
-1udeq42p8ay	ok	surface	いしゃとはなします	イシャト'/ハナシマ'ス
-179mtkynk3b	ok	surface	いしゃにあいます	イシャニ'/アイマ'ス
 1dnf5ufdsle	ok	surface	いしゃにびょうきをなおしてもらいました	イシャニ'/ビョオキオ'/ナオ'シテ/モライマ'シタ
 1f33iee6hl9	ok	pitch	いじょう	イ'ジョオ
 10gk1jahdzp	ok	pitch	いす	イス'
 i0fcwa00jo	ok	surface	いすがななつあります	イスガ'/ナナ'ツ/アリマ'ス
 20x091dj49p	ok	surface	いすにすわってください	イスニ'/スワッテ'/クダサ'イ
 2bzkfh7dvlw	ok	surface	いすにすわります	イスニ'/スワリマ'ス
-10uqxv59up0	ok	surface	いすをかいました	イスオ'/カイマ'シタ
 26xc4kiy2b3	ok	surface	いすをかべのよこにたてました	イスオ'/カベノ'/ヨコニ'/タテマ'シタ
 1jnr3qc9km5	ok	surface	いすをきれいにならべました	イスオ'/キ'レイニ/ナラベマ'シタ
-22r5po7op58	ok	surface	いすをつかいます	イスオ'/ツカイマ'ス
 13w4rm0kik8	ok	surface	いぜんのみせわ、いまのみせとわくらべものにならないほどちいさかったです	イ'ゼンノ/ミセ'ワ、/イ'マノ/ミセ'トワ/クラベモノニ'/ナラ'ナイホド/チイサ'カッタデス
 i2e0z2r1r8	ok	pitch	いそがしい	イソガシ'イ
 1q00ch25yar	ok	surface	いそがしいです。それでも、にほんごのべんきょうわつづけています	イソガシ'イデス、/ソレデ'モ、/ニホンゴノ'/ベンキョオワ'/ツズケテ'/イマ'ス
@@ -566,6 +575,7 @@ i0eema14g8	ok	surface	いっしゅうかんのあいだ、きょうとにたい�
 1defwtg6ida	ok	surface	いっしょにしゃしんをとりました	イッショニ'/シャシンオ'/トリマ'シタ
 1tcw8475dxy	ok	surface	いっしょにたべましょう	イッショニ'/タベマショ'オ
 2b3q7t14j6s	ok	surface+prosody	いっしょにひるごはんをたべましょう	イッショニ'/ヒルゴ'ハンオ/タベマショ'オ
+j9da5sm9gi	ok	surface+prosody	いっしょにひるごはんをたべませんか	イッショニ'/ヒルゴ'ハンオ/タベマセ'ンカ？
 vvs11nd3p6	ok	surface	いっしょにべんきょうしましょう	イッショニ'/ベンキョオ'/シマショ'オ
 vvy8y6mizd	ok	pitch	いつつ	イツ'ツ
 16w39smgfql	ok	surface	いつつください	イツ'ツ/クダサ'イ
@@ -694,12 +704,11 @@ t1se226cwa	ok	pitch	うまれる	ウマレル'
 19hzfkgh1es	ok	pitch	うみ	ウ'ミ
 2diqlckoihs	ok	surface+prosody	うみえいくのでサンダルをはきました	ウ'ミエ/イクノデ'/サンダルオ'/ハキマ'シタ
 1lmzb57rooe	ok	surface+prosody	うみがあおくみえます	ウ'ミガ/ア'オク/ミエマ'ス
-26fftkxr1oj	ok	surface	うみがあります	ウ'ミガ/アリマ'ス
-1dmina5wncb	ok	surface	うみがきれいです	ウ'ミガ/キ'レイデス
 2fnzxjr1wzf	ok	surface	うみでおよぎました	ウ'ミデ/オヨギマ'シタ
+mq1gaj18ng	ok	surface+prosody	うみでおよぐのがすきです	ウ'ミデ/オヨ'グノガ/スキ'デス
 jr3cn0xl63	ok	surface	うみではだがやけました	ウ'ミデ/ハ'ダガ/ヤケマ'シタ
 2ebyfchsrs	ok	surface	うみでひろったかいでアクセサリーをつくりました	ウ'ミデ/ヒロッタ'/カ'イデ/ア'クセサリイオ/ツクリマ'シタ
-jomn5uuuzc	ok	surface	うみをみます	ウ'ミオ/ミマ'ス
+2b0w0kho4w1	ok	surface	うみのちかくのみせで、おいしいさかなをたべました	ウ'ミノ/チ'カクノ/ミセ'デ、/オイシ'イ/サカナオ'/タベマ'シタ
 n5lrnzmcko	ok	pitch	うら	ウラ'
 1vx869f8ewy	ok	surface	うらのいみもかんがえてください	ウラ'ノ/イ'ミモ/カンガ'エテ/クダサ'イ
 2b0ey5rhdol	ok	pitch	うりば	ウリバ'
@@ -757,6 +766,7 @@ fhfwgpj63z	ok	surface	えきがちかくてべんりです	エ'キガ/チ'カク
 r6nm5qu6v2	ok	surface+prosody	えきからとおいのでねだんがやすいです	エ'キカラ/トオイノデ'/ネダンガ'/ヤス'イデス
 28y8bms2kvm	ok	surface+prosody	えきからとおくてふべんです	エ'キカラ/トオクテ'/フ'ベンデス
 1702vmxcp6o	ok	surface	えきであんないがほうそうされました	エ'キデ/アンナ'イガ/ホオソオ'/サレマ'シタ
+nio9di7qbu	ok	surface	えきでおおさかまでのきっぷをかいました	エ'キデ/オオサカマ'デノ/キップオ'/カイマ'シタ
 2a61s7zzmlm	ok	surface+prosody	えきでおべんとうをかいました	エ'キデ/オベントオオ'/カイマ'シタ
 1juewmucmdh	ok	surface	えきでかのじょをまっています	エ'キデ/カ'ノジョオ/マ'ッテ/イマ'ス
 81sw5gr54z	ok	surface	えきできっぷをかいます	エ'キデ/キップオ'/カイマ'ス
@@ -803,6 +813,7 @@ i9fyhahtog	ok	surface	えきののりかえがふくざつです	エ'キノ/ノ�
 aqvqyzu5wa	ok	surface+prosody	えきのまえでひだりにまがってください	エ'キノ/マ'エデ/ヒダリニ'/マガッテ'/クダサ'イ
 1zt3cmh5jrt	ok	surface	えきのまえでまちます	エ'キノ/マ'エデ/マチマ'ス
 10pt58rbr6d	ok	surface	えきのまえにおまわりさんがいます	エ'キノ/マ'エニ/オマ'ワリサンガ/イマ'ス
+11o6zkzb6ou	ok	surface	えきのまえにじてんしゃをとめました	エ'キノ/マ'エニ/ジテ'ンシャオ/トメマ'シタ
 1ytwtzyw54j	ok	surface	えきのまえにひとがたくさんならんでいました	エ'キノ/マ'エニ/ヒトガ'/タクサン'/ナランデ'/イマ'シタ
 1jnytdxw33v	ok	surface	えきのまえにひとがたっています	エ'キノ/マ'エニ/ヒトガ'/タ'ッテ/イマ'ス
 1s9u4mned30	ok	surface	えきのまえにひろいみちがあります	エ'キノ/マ'エニ/ヒロ'イ/ミチガ'/アリマ'ス
@@ -879,8 +890,6 @@ rpdfia14kr	ok	surface	えん	エ'ン
 207aumhzyyj	ok	surface	えんぴつでなまえをかきます	エンピツデ'/ナマエオ'/カキマ'ス
 1kd0nahxcwb	ok	surface+prosody	えんぴつのさきがおれています	エンピツノ'/サキガ'/オ'レテ/イマ'ス
 28zyuciwbjl	ok	surface	えんぴつのじをけしゴムでけしました	エンピツノ'/ジ'オ/ケシゴムデ'/ケシマ'シタ
-2eg14cakhtf	ok	surface	えんぴつをかいました	エンピツオ'/カイマ'シタ
-1pkskzqn3uj	ok	surface	えんぴつをつかいます	エンピツオ'/ツカイマ'ス
 fuxabtkgr8	ok	pitch	えんりょ	エンリョ'
 fq71zbtyfv	ok	surface+prosody	えんりょしないでたべてください	エンリョ'/シナイデ'/タ'ベテ/クダサ'イ
 21tkjukhv7t	ok	kana-accent	お	オ'
@@ -893,6 +902,7 @@ oin34g0n8o	ok	surface	おいわいのおかえしをおくりました	オイワ
 osk46u6y8p	ok	surface	おいわいのことばをカードにかきました	オイワイノ'/コトバ'オ/カ'アドニ/カキマ'シタ
 e7ub27rkf2	ok	pitch	おおい	オ'オイ
 23g7dqf5vhv	ok	pitch	おおきい	オオキ'イ
+1h738iazd95	ok	surface+prosody	おおきいおさらをにまいだしてください	オオキ'イ/オサラオ'/ニ'マイ/ダ'シテ/クダサ'イ
 1gjlotdayov	ok	surface	おおきいにもつをもっています	オオキ'イ/ニ'モツオ/モ'ッテ/イマ'ス
 1bu29phu6m3	ok	surface	おおきいめですね	オオキ'イ/メ'デスネ
 g3exvkwzte	ok	pitch	おおきな	オ'オキナ
@@ -916,17 +926,13 @@ pcgeyyx9n1	ok	pitch	オートバイ	オオト'バイ
 215hhx98bk4	ok	surface	おおゆきでこうつうがとまりました	オオユキデ'/コオツウガ'/トマリマ'シタ
 1ev6mcunl5c	ok	surface	おおゆきのため、でんしゃがとまりました	オオユキノ'/タメ'、/デンシャガ'/トマリマ'シタ
 2fyz1h1xzig	ok	pitch	おかあさん	オカ'アサン
-1xsmrdwy4rt	ok	surface	おかあさんとはなします	オカ'アサント/ハナシマ'ス
-253gtssql40	ok	surface	おかあさんにあいます	オカ'アサンニ/アイマ'ス
+23gqrbpakza	ok	surface	おかあさん、おなかがすきました	オカ'アサン、/オナカガ'/スキマ'シタ
 292ur5vh00i	ok	surface	おかあさんわげんきです	オカ'アサンワ/ゲ'ンキデス
 1uhgx3pg9lv	ok	surface+prosody	おかあさんわげんきですか	オカ'アサンワ/ゲ'ンキデスカ？
 2avk3aa6eve	ok	pitch	おかえし	オカエシ'
 1taj9qf10a5	ok	kana	おかげ	オカゲ'
 20eqjb2qhjh	ok	pitch	おかし	オカ'シ
 1ygzxuuax8u	ok	kana	おかしい	オカシ'イ
-nkwd58imqv	ok	surface+prosody	おかしがすきです	オカ'シガ/スキ'デス
-21l0rxhrhe2	ok	surface+prosody	おかしをください	オカ'シオ/クダサ'イ
-286ovei98zn	ok	surface+prosody	おかしをたべます	オカ'シオ/タベマ'ス
 1s8nkullrjv	ok	pitch	おかね	オカネ'
 ar2yj4unhx	ok	surface	おかねがあまりました	オカネガ'/アマリマ'シタ
 dpxxuuiiyw	ok	surface	おかねがあります	オカネガ'/アリマ'ス
@@ -968,11 +974,9 @@ cps86cl2o2	ok	surface+prosody	おさけわすきでわありません	オサケ�
 4e6zug8o9b	ok	surface+prosody	おさけをのみすぎないでください	オサケオ'/ノミスギ'ナイデ/クダサ'イ
 11g04otr1ir	ok	surface+prosody	おさら	オサラ'
 l9z2d6fnaa	ok	surface+prosody	おさらにりょうりをのせます	オサラニ'/リョ'オリオ/ノセマ'ス
-k6gsp36m7j	ok	surface+prosody	おさらをかいました	オサラオ'/カイマ'シタ
-2c1goyxg752	ok	surface+prosody	おさらをつかいます	オサラオ'/ツカイマ'ス
 2cy0y0wmrft	ok	kana	おじいさん	オジ'イサン
-1n5vabu4vum	ok	surface	おじいさんとはなします	オジ'イサント/ハナシマ'ス
-2e6i7pd7tp2	ok	surface	おじいさんにあいます	オジ'イサンニ/アイマ'ス
+143w93xmsn0	ok	surface	おじいさんにてがみをかきました	オジ'イサンニ/テガミオ'/カキマ'シタ
+1ukjgdv13hm	ok	surface	おじいさんわまいあさこうえんをさんぽします	オジ'イサンワ/マ'イアサ/コオエンオ'/サンポ'/シマ'ス
 1vl046c43g3	ok	pitch	おしいれ	オシイレ'
 q00h9i02bg	ok	surface	おしいれのなかにふるいはこがあります	オシイレノ'/ナ'カニ/フル'イ/ハコガ'/アリマ'ス
 1oz41tr8stf	ok	pitch	おしえる	オシエル'
@@ -988,12 +992,11 @@ ucin5r3u8f	ok	pitch	おたく	オタク'
 25unzuttrob	ok	surface+prosody	おたくわえきからちかいですか	オタクワ'/エ'キカラ/チカ'イデスカ？
 aojijziva8	ok	surface+prosody	おちたかみをひろってください	オ'チタ/カミ'オ/ヒロッテ'/クダサ'イ
 1g1w7kc1g6s	ok	pitch	おちゃ	オチャ'
-g0zb8xj5pv	ok	surface	おちゃがすきです	オチャガ'/スキ'デス
 1qw799t0rh5	ok	surface+prosody	おちゃでものみませんか	オチャデモ'/ノミマセ'ンカ？
 12yvdvkvpks	ok	surface	おちゃのためにおゆをわかします	オチャノ'/タメ'ニ/オユオ'/ワカシマ'ス
 1si46p5v17v	ok	surface+prosody	おちゃわいかがですか	オチャワ'/イカ'ガデスカ？
 1glea5w2f8o	ok	surface+prosody	おちゃをいただいてもいいですか	オチャオ'/イタダイテモ'/イ'イデスカ？
-411yv29fsr	ok	surface	おちゃをください	オチャオ'/クダサ'イ
+trpsq4qfyk	ok	surface+prosody	おちゃをいれましょうか	オチャオ'/イレマショ'オカ？
 1fjbh84gmrj	ok	surface+prosody	おちゃをさんばいいれます	オチャオ'/サ'ンバイ/イレマ'ス
 1v54acle9xe	ok	surface	おちゃをどうぞ	オチャオ'/ド'オゾ
 1jsbs2xdyyr	ok	surface	おちゃをのみました	オチャオ'/ノミマ'シタ
@@ -1013,8 +1016,8 @@ vrqgydsz78	ok	surface	おつりをうけとりました	オツリオ'/ウケト�
 j83yjpq5qg	ok	surface+prosody	おてあらいをかりてもいいですか	オテア'ライオ/カリテモ'/イ'イデスカ？
 rvmnsztzp8	ok	pitch	おと	オト'
 27569qxegz3	ok	pitch	おとうさん	オト'オサン
-115a0rj1bpo	ok	surface	おとうさんとはなします	オト'オサント/ハナシマ'ス
-iwv055vw4d	ok	surface	おとうさんにあいます	オト'オサンニ/アイマ'ス
+1uwn0v5v83r	ok	surface	おとうさんわいま、かいしゃにいます	オト'オサンワ/イ'マ、/カイシャニ'/イマ'ス
+21n61uv25lj	ok	surface	おとうさんわまいばんおそくかえります	オト'オサンワ/マ'イバン/オソクカエリマ'ス
 1jvnpfgnkwa	ok	pitch	おとうと	オトオト'
 1uosw5dpp5n	ok	surface	おとうとがそうじをするかわりに、わたしわりょうりをしました	オトオト'ガ/ソオジオ'/スル'/カワリニ'、/ワタシワ'/リョ'オリオ/シマ'シタ
 g3mpziwpp7	ok	surface	おとうとがとけいをこわしました	オトオト'ガ/トケエオ'/コワシマ'シタ
@@ -1035,6 +1038,7 @@ ili0ahom0t	ok	surface	おとうとわゲームばかりしています	オトオ
 d2ujacvvpc	ok	surface+prosody	おとうとわしゅくだいをしないで、あそんでばかりいます	オトオト'ワ/シュクダイオ'/シナイデ'、/アソンデバカリ'/イマ'ス
 1zbgxn1lypm	ok	surface	おとうとわそとであそびたがっています	オトオト'ワ/ソ'トデ/アソビタ'ガッテ/イマ'ス
 1gh9fsjewt8	ok	surface	おとうとわちゅうがくせいです	オトオト'ワ/チュウガ'クセエデス
+17fn5xkod0f	ok	surface	おとうとわやさいがきらいです	オトオト'ワ/ヤサイガ'/キライデ'ス
 fatg3ak0jj	ok	surface	おとうとわらいねん、こうこうにはいります	オトオト'ワ/ライネン'、/コオコオニ'/ハイリマ'ス
 1m6v2eg7jw1	ok	surface+prosody	おとうとわらいねんこうこうせいになります	オトオト'ワ/ライネン'/コオコ'オセエニ/ナリマ'ス
 24t1za73t1n	ok	surface	おとがしたほうこうをみました	オト'ガ/シタ'/ホオコオオ'/ミマ'シタ
@@ -1042,8 +1046,6 @@ dav5t7rv3c	ok	surface	おとがすぐきえました	オト'ガ/ス'グ/キエ�
 1q261s86ojs	ok	pitch	おとこ	オトコ'
 2g347y23gmb	ok	pitch	おとこのこ	オトコ'ノコ
 1i2ru3nsk71	ok	surface	おとこのこがはしっています	オトコ'ノコガ/ハシ'ッテ/イマ'ス
-q4pvy3m5mw	ok	surface	おとこのことはなします	オトコ'ノコト/ハナシマ'ス
-1y1nlku8qpl	ok	surface	おとこのこにあいます	オトコ'ノコニ/アイマ'ス
 1kagqzyp6m5	ok	surface	おとこのひとがえきにいます	オトコ'ノ/ヒトガ'/エ'キニ/イマ'ス
 1jtd39c3tj9	ok	surface	おとしよりにせきをゆずりました	オトシヨ'リニ/セ'キオ/ユズリマ'シタ
 285x2mqbrke	ok	pitch	おとす	オト'ス
@@ -1083,8 +1085,7 @@ njanjzam62	ok	surface	おにいさんわせがたかいです	オニ'イサン�
 wtqnm6erus	ok	surface	おねえさんわえいごがじょうずです	オネ'エサンワ/エエゴガ'/ジョオズ'デス
 oh4vz02xi0	ok	surface+prosody	おねえさんわがくせいですか	オネ'エサンワ/ガクセエデ'スカ？
 2250lsnh8c6	ok	kana	おばあさん	オバ'アサン
-t6kibg7tp1	ok	surface	おばあさんとはなします	オバ'アサント/ハナシマ'ス
-zt9jxl5otu	ok	surface	おばあさんにあいます	オバ'アサンニ/アイマ'ス
+3kd7k221pi	ok	surface	おばあさんのいえわえきからとおいです	オバ'アサンノ/イエ'ワ/エ'キカラ/トオイ'デス
 1otzu1vl7xw	ok	surface	おばあちゃんがえきまでむかえにきてくれました	オバ'アチャンガ/エ'キマデ/ムカエニ'/キ'テ/クレマ'シタ
 1wngsr2a6v7	ok	pitch	おばさん	オバサン'
 10ub52dt9zq	ok	surface	おばさんがケーキをつくりました	オバサンガ'/ケ'エキオ/ツクリマ'シタ
@@ -1095,6 +1096,7 @@ xpo3moajw5	ok	surface+prosody	おふろがわきました	オフ'ロガ/ワキ�
 215ftyzvkeo	ok	surface+prosody	おふろにはいりました	オフ'ロニ/ハイリマ'シタ
 1f4tqdfm13v	ok	surface+prosody	おふろにはいります	オフ'ロニ/ハイリマ'ス
 6tfubmtedz	ok	surface+prosody	おふろのおゆがぬるいです	オフ'ロノ/オユガ'/ヌル'イデス
+193nxphe9fr	ok	surface+prosody	おふろのみずがつめたいです	オフ'ロノ/ミズガ'/ツメタイ'デス
 1syatfgl14c	ok	surface+prosody	おふろわどこですか	オフ'ロワ/ド'コデスカ？
 1bs1du75ztc	ok	pitch	おべんとう	オベントオ'
 1iop8j28nc1	ok	surface+prosody	おべんとうをたべます	オベントオオ'/タベマ'ス
@@ -1147,9 +1149,8 @@ b7mp2suq42	ok	surface	おんがくをききます	オ'ンガクオ/キキマ'ス
 1leyedtm38b	ok	surface	おんがくをきくとこころがやすまります	オ'ンガクオ/キクト'/ココ'ロガ/ヤスマリマ'ス
 1xxc1w7elpm	ok	pitch	おんな	オンナ'
 25lk29c4jgr	ok	pitch	おんなのこ	オンナ'ノコ
+9cxy73z26v	ok	surface+prosody	おんなのこがあかいかさをさしています	オンナ'ノコガ/アカイ'/カ'サオ/サ'シテ/イマ'ス
 1du0qx9xgb4	ok	surface	おんなのこがうたっています	オンナ'ノコガ/ウタッテ'/イマ'ス
-1s71d6d0co6	ok	surface	おんなのことはなします	オンナ'ノコト/ハナシマ'ス
-im5rug7r0v	ok	surface	おんなのこにあいます	オンナ'ノコニ/アイマ'ス
 198uxhfocrs	ok	surface	おんなのひとがほんをよんでいます	オンナ'ノ/ヒトガ'/ホ'ンオ/ヨ'ンデ/イマ'ス
 ad3s3qpv4j	ok	pitch	か	カ'
 m1g651thk8	ok	kana-accent	が	ガ'
@@ -1192,8 +1193,7 @@ vkgyxzzt5	ok	pitch	かいけい	カイケエ'
 19dqdn5oem2	ok	surface	がいこくからワインをゆにゅうします	ガイコクカラ'/ワ'インオ/ユニュウ'/シマ'ス
 wn5bfryo8x	ok	surface+prosody	がいこくごをべんきょうします	ガイコクゴオ'/ベンキョオ'/シマ'ス
 1tks6o2kd38	ok	pitch	がいこくじん	ガイコク'ジン
-k4lzrl75rh	ok	surface	がいこくじんとはなします	ガイコク'ジント/ハナシマ'ス
-stnp8l1hyw	ok	surface	がいこくじんにあいます	ガイコク'ジンニ/アイマ'ス
+mfwu09s7tc	ok	surface	がいこくじんのともだちとえいごではなします	ガイコク'ジンノ/トモダチト'/エエゴデ'/ハナシマ'ス
 1iyapdd2669	ok	surface	がいこくのともだちがいます	ガイコクノ'/トモダチガ'/イマ'ス
 fpw8uzrm7a	ok	surface+prosody	かいしのさんじゅっぷんまえにかいじょうえはいりました	カイシノ'/サンジュ'ップン/マ'エニ/カイジョオエ'/ハイリマ'シタ
 1m0tgla0kab	ok	pitch	かいしゃ	カイシャ'
@@ -1243,17 +1243,15 @@ nv56t6x2el	ok	surface	かがみにかおがうつっています	カガミ'ニ/�
 13c70d42ycj	ok	pitch	かかり	カ'カリ
 w5il8cahi	ok	kana	かかる	カカ'ル
 14rtjdv2m4q	ok	pitch	かぎ	カギ'
+aqfcjzd9kt	ok	surface+prosody	かぎがどこにもありません	カギ'ガ/ド'コニモ/アリマセ'ン
 o7kmpj1692	ok	surface	かぎわさっきつくえのうえにおきました	カギ'ワ/サ'ッキ/ツクエノ'/ウエニ'/オキマ'シタ
 1m83alvpl43	ok	surface	かぎわつくえのひきだしにあります	カギ'ワ/ツクエノ'/ヒキダシニ'/アリマ'ス
-2d95dwtdp31	ok	surface	かぎをかいました	カギ'オ/カイマ'シタ
-zgmbzvkyyp	ok	surface	かぎをつかいます	カギ'オ/ツカイマ'ス
 1qoe2wnd2cf	ok	surface+prosody	かぎをなくさないでください	カギ'オ/ナクサナイデ'/クダサ'イ
 206amzplxei	ok	surface	かぎをポケットにいれました	カギ'オ/ポ'ケットニ/イレマ'シタ
 9jwe12ib4y	ok	pitch	かく	カ'ク
 2d2kqjhlw0	ok	pitch	がくせい	ガクセエ'
 srw2zue26q	ok	surface+prosody	がくせいたちがきょうしつではなしています	ガクセエタチガ'/キョオシツデ'/ハナ'シテ/イマ'ス
-iyb52zwirr	ok	surface	がくせいとはなします	ガクセエト'/ハナシマ'ス
-1nxm9mao1aa	ok	surface	がくせいにあいます	ガクセエニ'/アイマ'ス
+1gqna55stou	ok	surface	がくせいのとき、よくこのみせにきました	ガクセエノ'/トキ'、/ヨ'ク/コノ'/ミセ'ニ/キマ'シタ
 ofu202bugh	ok	surface	がくせいのわりあいがたかいです	ガクセエノ'/ワリアイガ'/タカ'イデス
 1cnjxvekx7m	ok	surface	がくぶ	ガクブ'
 kxi0v9q8z8	ok	surface	かげつ	カ'ゲツ
@@ -1263,8 +1261,6 @@ r4h4e26hb0	ok	pitch	かさ	カ'サ
 2afeg87pyez	ok	pitch	かざる	カザル'
 3yt398dbqr	ok	surface	かさをいりぐちにおきました	カ'サオ/イリグチニ'/オキマ'シタ
 1zk22z41vdy	ok	surface	かさをおってしまいました	カ'サオ/オ'ッテ/シマイマ'シタ
-1i49p6wkfx0	ok	surface	かさをかいました	カ'サオ/カイマ'シタ
-2easazqo0de	ok	surface	かさをつかいます	カ'サオ/ツカイマ'ス
 kvxueyrf82	ok	surface	かさをでんしゃにわすれました	カ'サオ/デンシャニ'/ワスレマ'シタ
 1u0atjeb9ze	ok	surface+prosody	かさをもたないででかけました	カ'サオ/モタ'ナイデ/デカケマ'シタ
 qpuvzc4o1f	ok	surface	かさをもっていきます	カ'サオ/モ'ッテ/イキマ'ス
@@ -1302,9 +1298,7 @@ qafdmeaye5	ok	surface	かぞくといっしょにすんでいます	カ'ゾク�
 12kusrrneim	ok	surface+prosody	かぞくといっしょにばんごはんをたべます	カ'ゾクト/イッショニ'/バンゴ'ハンオ/タベマ'ス
 16knxa7ygwu	ok	surface	かぞくとこうえんえはなみにいきました	カ'ゾクト/コオエンエ'/ハナミ'ニ/イキマ'シタ
 19wsxh78xn6	ok	surface	かぞくとでかけました	カ'ゾクト/デカケマ'シタ
-2a4amui0nqu	ok	surface	かぞくとはなします	カ'ゾクト/ハナシマ'ス
 wlqe54t3as	ok	surface	かぞくとりょこうします	カ'ゾクト/リョコオ'/シマ'ス
-2go0zxab266	ok	surface	かぞくにあいます	カ'ゾクニ/アイマ'ス
 1do2iuxogaq	ok	surface	かぞくのけんこうをいのっています	カ'ゾクノ/ケンコオオ'/イノ'ッテ/イマ'ス
 hz90mxz8a6	ok	surface	かぞくのためにはたらいています	カ'ゾクノ/タメ'ニ/ハタライテ'/イマ'ス
 m4jgdkltpf	ok	surface	かぞくのつごうでよていをかえました	カ'ゾクノ/ツゴオデ'/ヨテエオ'/カエマ'シタ
@@ -1350,6 +1344,7 @@ q0xa2teshq	ok	surface	がっこうにはちじにつきます	ガッコオニ'/�
 jpobcgwby9	ok	surface	がっこうのげきでおうさまのやくをしました	ガッコオノ'/ゲ'キデ/オオサマノ'/ヤク'オ/シマ'シタ
 2824t8r9vd0	ok	surface+prosody	がっこうのこくさいこうりゅうかいにさんかしました	ガッコオノ'/コクサイコオリュ'ウカイニ/サンカ'/シマ'シタ
 14wu7r9la9a	ok	surface+prosody	がっこうのコンピューターがあたらしくなりました	ガッコオノ'/コンピュ'ウタアガ/アタラ'シク/ナリマ'シタ
+1capibxiovn	ok	surface	がっこうのしょくどうのカレーわおいしいです	ガッコオノ'/ショクドオノ'/カレエワ'/オイシ'イデス
 bmdx6ikw46	ok	surface	がっこうのまえにこうえんがあります	ガッコオノ'/マ'エニ/コオエンガ'/アリマ'ス
 jiegqcla6o	ok	surface	がっこうのまえにみせがあります	ガッコオノ'/マ'エニ/ミセ'ガ/アリマ'ス
 gcy3x7ssgr	ok	ruby-kana	がっこうのもんわはちじにあきます	ガッコオノ'/モ'ンワ/ハチ'ジニ/アキマ'ス ← 学校の門は八時にアきます
@@ -1365,8 +1360,7 @@ gcy3x7ssgr	ok	ruby-kana	がっこうのもんわはちじにあきます	ガッ�
 1eol0ufpsie	ok	surface	かっていたさかながきのうしにました	カ'ッテ/イタ'/サカナガ'/キノ'オ/シニマ'シタ
 18lhwmgv4sz	ok	pitch	カップ	カ'ップ
 ludn5rbh8g	ok	surface	カップにコーヒーをいれます	カ'ップニ/コオヒ'イオ/イレマ'ス
-81ot2x3dxy	ok	surface	カップをかいました	カ'ップオ/カイマ'シタ
-55269vcbun	ok	surface	カップをつかいます	カ'ップオ/ツカイマ'ス
+2amundcd7g	ok	surface	カップをあらってください	カ'ップオ/アラッテ'/クダサ'イ
 f7d70628yf	ok	pitch	かてい	カテエ'
 798jliepzf	ok	surface	かていでにほんごをつかいます	カテエデ'/ニホンゴオ'/ツカイマ'ス
 zwq0fhybry	ok	surface	かていのあじがこいしいです	カテエノ'/アジガ'/コイシ'イデス
@@ -1392,10 +1386,10 @@ r8vwl2xai	ok	surface	かのじょわテレビのアナウンサーです	カ'ノ
 15yf1zboiig	ok	kana	かばん	カバン'
 15y5hc0w6cz	ok	surface	かばんがいっこあります	カバンガ'/イ'ッコ/アリマ'ス
 arrryohoyx	ok	surface	かばんからほんをだします	カバンカラ'/ホ'ンオ/ダシマ'ス
+276efv86riq	ok	surface+prosody	かばんにボールペンがさんぼんあります	カバンニ'/ボオルペンガ'/サ'ンボン/アリマ'ス
 14j76mgk1hf	ok	surface	かばんにほんをいれます	カバンニ'/ホ'ンオ/イレマ'ス
+5uwj9kfbb	ok	surface+prosody	かばんのなかになにがありますか	カバンノ'/ナ'カニ/ナ'ニガ/アリマ'スカ？
 ws1aue36yw	ok	surface	かばんのなかをみます	カバンノ'/ナ'カオ/ミマ'ス
-1d65l24rv2q	ok	surface	かばんをかいました	カバンオ'/カイマ'シタ
-k8uf57p86i	ok	surface	かばんをつかいます	カバンオ'/ツカイマ'ス
 tt4pqc29aa	ok	surface	かばんをもっています	カバンオ'/モ'ッテ/イマ'ス
 ko0k4x4jup	ok	pitch	かびん	カビン'
 1uwigwba6hm	ok	surface	かびんにはなをいれます	カビンニ'/ハナ'オ/イレマ'ス
@@ -1436,8 +1430,6 @@ impenpopev	ok	surface+prosody	ガムをかみながらはなさないでくだ�
 z1a058oa3p	ok	pitch	カメラ	カ'メラ
 25j4hc8ah2d	ok	surface	カメラでしゃしんをとります	カ'メラデ/シャシンオ'/トリマ'ス
 1umi6ehwmv5	ok	surface	カメラにフィルムをいれます	カ'メラニ/フィ'ルムオ/イレマ'ス
-28s1q0vrfg6	ok	surface	カメラをかいました	カ'メラオ/カイマ'シタ
-26a2nznyhi	ok	surface	カメラをつかいます	カ'メラオ/ツカイマ'ス
 oa647tm8hd	ok	surface	がめんにエラーがひょうじされました	ガメンニ'/エ'ラアガ/ヒョオジ'/サレマ'シタ
 oxj7einyg9	ok	pitch	かよう	カヨオ'
 k58u18krax	ok	pitch	かようび	カヨ'オビ
@@ -1463,9 +1455,6 @@ qfln84wtpu	ok	pitch	かるい	カルイ'
 1522vecb4oe	ok	surface+prosody	かるいにもつだけもっていきます	カルイ'/ニ'モツダケ/モ'ッテ/イキマ'ス
 t4lqlp0iql	ok	pitch	かれ	カ'レ
 q80uumiwk4	ok	pitch	カレー	カレエ'
-1xuvl9asyxw	ok	surface	カレーがすきです	カレエガ'/スキ'デス
-jt7hc6hgp1	ok	kana	カレーをください	カレエオ'/クダサ'イ
-xjz1kgiatw	ok	surface	カレーをたべます	カレエオ'/タベマ'ス
 zhstyhlnnz	ok	surface+prosody	かれががくせいかどうかしっていますか	カ'レガ/ガクセエカ'/ド'オカ/シッテ'/イマ'スカ？
 kk7fl5zagc	ok	surface	かれがクラスでもっともせがたかいです	カ'レガ/ク'ラスデ/モット'モ/セ'ガ/タカ'イデス
 1j6vqu6toct	ok	surface	かれがこないということをききました	カ'レガ/コ'ナイト/イウ'/コト'オ/キキマ'シタ
@@ -1522,21 +1511,17 @@ l54ui6gzxf	ok	surface	かれわりっぱなせんせいです	カ'レワ/リッ�
 1pq9dbwnhcr	ok	surface	かれわりょうりのうでがいいです	カ'レワ/リョ'オリノ/ウデ'ガ/イ'イデス
 266rpd50may	ok	surface	かれわわたしのすきなタイプです	カ'レワ/ワタシノ'/スキ'ナ/タ'イプデス
 kjddaxgzcd	ok	pitch	カレンダー	カレ'ンダア
-27hx45nqzft	ok	surface	カレンダーをかいました	カレ'ンダアオ/カイマ'シタ
+83i6ksf47	ok	surface	カレンダーにともだちのたんじょうびをかきます	カレ'ンダアニ/トモダチノ'/タンジョオ'ビオ/カキマ'ス
 gn0tyme9my	ok	surface	カレンダーをかべにかけます	カレ'ンダアオ/カベニ'/カケマ'ス
-1gu8h51b7yv	ok	surface	カレンダーをつかいます	カレ'ンダアオ/ツカイマ'ス
 dzviqkl110	ok	pitch	かわ	カワ'
 4sdr3mhj5w	ok	surface	がわ	ガワ'
 19c1yr6zcni	ok	kana	かわいい	カワイ'イ
-13824pabx4o	ok	surface	かわがあります	カワ'ガ/アリマ'ス
-ae99ml1nvu	ok	surface	かわがきれいです	カワ'ガ/キ'レイデス
 1wxgxj8lroo	ok	pitch	かわく	カワ'ク
 iuqge93ka2	ok	surface	かわでさかなをつりました	カワ'デ/サカナオ'/ツリマ'シタ
 1sesi0o6u15	ok	surface	かわでまるいいしをひろいました	カワ'デ/マルイ'/イシ'オ/ヒロイマ'シタ
 2d4nujau75e	ok	surface	かわにはしがあります	カワ'ニ/ハシ'ガ/アリマ'ス
 2f6kc5ls1bl	ok	pitch	かわり	カワリ'
 23bw6v7n8mf	ok	pitch	かわる	カワル'
-x5bqqomjn1	ok	surface	かわをみます	カワ'オ/ミマ'ス
 agptd2fllx	ok	surface	かわをわたりました	カワ'オ/ワタリマ'シタ
 ldba8c26ou	ok	surface	かんがえかたわひとによってかわります	カンガエカ'タワ/ヒトニ'/ヨッテ'/カワリマ'ス
 wbc0m42qio	ok	surface	かんがえてみても、やはりいきたいです	カンガ'エテ/ミ'テモ、/ヤハ'リ/イキタ'イデス
@@ -1568,13 +1553,11 @@ i1a9u9qtm4	ok	surface	きいろいかばんをかいました	キイロイ'/カ�
 1276fhm7ols	ok	pitch	きえる	キエル'
 1mclhqus9e8	ok	surface	きおんがきゅうにさがりました	キオンガ'/キュウニ'/サガリマ'シタ
 pyu53x5zdj	ok	surface+prosody	きおんわれいどまでさがりました	キオンワ'/レ'エドマデ/サガリマ'シタ
-jx095at5c8	ok	surface	きがあります	キ'ガ/アリマ'ス
 mr3madxu06	ok	pitch	きかい	キカ'イ
 1daxm092ipv	ok	surface+prosody	きかいがあれば、ぜひさんかします	キカ'イガ/アレ'バ、/ゼ'ヒ/サンカ'/シマ'ス
 25u1ocvsqes	ok	surface+prosody	きかいがあればほっかいどうえいきたいです	キカ'イガ/アレ'バ/ホッカ'イドオエ/イキタ'イデス
 k7uv7ejb3q	ok	surface+prosody	きかいのおとがおかしいです	キカ'イノ/オト'ガ/オカシ'イデス
 1m3tl94ll30	ok	surface+prosody	きかいのぐあいがわるいです	キカ'イノ/グアイガ'/ワル'イデス
-1lsnwtr0vo9	ok	surface	きがきれいです	キ'ガ/キ'レイデス
 x2hc86wn1w	ok	pitch	きかん	キカ'ン
 1idi174zl61	ok	pitch	きく	キク'
 10sd3h0oszp	ok	pitch	きけん	キケン'
@@ -1591,8 +1574,6 @@ r0v63zng94	ok	pitch	きそく	キソ'ク
 3cnls3r6er	ok	surface	きそくをまもらなければなりません	キ'ソクオ/マモラ'ナケレバ/ナリマセ'ン
 av65wa6bc7	ok	pitch	きた	キタ'
 1mltf9l50z9	ok	pitch	ギター	ギ'タア
-16e2y4giq2v	ok	surface	ギターをかいました	ギ'タアオ/カイマ'シタ
-f20hnfyz0d	ok	surface	ギターをつかいます	ギ'タアオ/ツカイマ'ス
 tnb901hj5f	ok	pitch	きたない	キタナ'イ
 1s7c2s9t6go	ok	surface	きたないてでたべないでください	キタナ'イ/テ'デ/タベ'ナイデ/クダサ'イ
 jo99zypd26	ok	surface	きたのそらにくもがみえます	キタノ'/ソ'ラニ/ク'モガ/ミエマ'ス
@@ -1602,18 +1583,15 @@ kinu8ugxjh	ok	surface	きっさてんえいきます	キッサテンエ'/イキ�
 wl6rk6y7r2	ok	surface	きっさてんわえきのちかくです	キッサテンワ'/エ'キノ/チ'カクデス
 o0m7i6rcq6	ok	pitch	きって	キッテ'
 1586bakurir	ok	surface+prosody	きってをあつめています	キッテオ'/アツ'メテ/イマ'ス
-4ngl7ell10	ok	surface	きってをかいました	キッテオ'/カイマ'シタ
-1cx0pqexj8o	ok	surface	きってをつかいます	キッテオ'/ツカイマ'ス
 1q0emaibeza	ok	surface	きってをにまいかいました	キッテオ'/ニ'マイ/カイマ'シタ
 1ms6sysxmin	ok	kana	きっと	キット'
 ngs5nliskl	ok	surface	きっとごうかくできるとおもいます	キット'/ゴオカク'/デキ'ルト/オモイマ'ス
 wqkp4o7bq0	ok	pitch	きっぷ	キップ'
 qr1r42tvs0	ok	surface	きっぷのかいかたがわかりません	キップノ'/カイカタガ'/ワカリマセ'ン
+1gfmt4xzqku	ok	surface+prosody	きっぷわどこでかいますか	キップワ'/ド'コデ/カイマ'スカ？
 1rax3qie903	ok	surface	きっぷわにひゃくえんです	キップワ'/ニヒャク'エンデス
 268i0ywiiv3	ok	surface	きっぷをいちまいください	キップオ'/イチ'マイ/クダサ'イ
 1fbgqijx47h	ok	surface	きっぷをえきいんにみせます	キップオ'/エキ'インニ/ミセマ'ス
-hgao04n9zn	ok	surface	きっぷをかいました	キップオ'/カイマ'シタ
-1mf0eeg3n0x	ok	surface	きっぷをつかいます	キップオ'/ツカイマ'ス
 13u96jedy7e	ok	surface	きでちいさなこやをたてました	キ'デ/チ'イサナ/コヤオ'/タテマ'シタ
 bvzm8ozz6r	ok	pitch	きぬ	キ'ヌ
 1nwr5fp8eok	ok	surface	きぬのぬのわてざわりがなめらかです	キ'ヌノ/ヌノワ'/テザ'ワリガ/ナメ'ラカデス
@@ -1645,6 +1623,7 @@ zgv8oeuxs7	ok	surface	きのうわおそくおきました	キノ'オワ/オソ�
 ewd1pfiusu	ok	surface	きのうわにじかんざんぎょうしました	キノ'オワ/ニジ'カン/ザンギョオ'/シマ'シタ
 1g6xr0uorev	ok	surface+prosody	きのうわはやくねました	キノ'オワ/ハ'ヤク/ネマ'シタ
 yl47g7n00g	ok	surface	きのうわひどいあめでした	キノ'オワ/ヒド'イ/ア'メデシタ
+ydfexvuasc	ok	surface	きのしたですこしやすみましょう	キ'ノ/シタデ'/スコ'シ/ヤスミマショ'オ
 rpl4lckat3	ok	pitch	きびしい	キビシ'イ
 16hpp9058b1	ok	surface	きびしいきそくをまもらなければなりません	キビシ'イ/キ'ソクオ/マモラ'ナケレバ/ナリマセ'ン
 nulhti2q47	ok	pitch	きぶん	キ'ブン
@@ -1674,15 +1653,12 @@ o68d63voeo	ok	surface	きゅうなようじができました	キュウナ'/ヨ�
 1ydh19ybvfm	ok	surface	きゅうにあめがふりだしました	キュウニ'/ア'メガ/フリダシマ'シタ
 km9avvyrxe	ok	ruby-kana	きゅうにあめがふりました	キュウニ'/ア'メガ/フリマ'シタ ← 急に雨がフりました
 1b8p119qu4i	ok	pitch	ぎゅうにく	ギュウニク'
-tfruffljjq	ok	surface	ぎゅうにくがすきです	ギュウニクガ'/スキ'デス
-2mttmyc6cw	ok	surface	ぎゅうにくをください	ギュウニクオ'/クダサ'イ
-26dxergsgtd	ok	surface	ぎゅうにくをたべます	ギュウニクオ'/タベマ'ス
+18et42en80r	ok	surface	ぎゅうにくとやさいでカレーをつくりました	ギュウニクト'/ヤサイデ'/カレエオ'/ツクリマ'シタ
 1worb5gf16b	ok	surface+prosody	きゅうにさむくなりました	キュウニ'/サ'ムク/ナリマ'シタ
 27oopiwvlp0	ok	surface	きゅうにでんわしてすみません	キュウニ'/デンワ'/シテ'/スミマセ'ン
 fifaescu9w	ok	surface	きゅうになまえをよばれておどろきました	キュウニ'/ナマエオ'/ヨバレテ'/オドロキマ'シタ
 1c9le49mfhs	ok	pitch	ぎゅうにゅう	ギュウニュウ'
-1mcnbkj7xms	ok	surface	ぎゅうにゅうがすきです	ギュウニュウガ'/スキ'デス
-1o6n7nydb1t	ok	surface	ぎゅうにゅうをください	ギュウニュウオ'/クダサ'イ
+bp6y2qttq5	ok	surface	ぎゅうにゅうをかってきてください	ギュウニュウオ'/カッテ'/キ'テ/クダサ'イ
 91a6koxy1z	ok	surface	ぎゅうにゅうをのみます	ギュウニュウオ'/ノミマ'ス
 1faxdxus80y	ok	pitch	きゅうよう	キュウヨオ'
 257axcmamxw	ok	surface+prosody	きゅうようができたのでかえります	キュウヨオガ'/デ'キタノデ/カエリマ'ス
@@ -1709,14 +1685,14 @@ ntms4vb182	ok	surface	きょうしつにがくせいもせんせいもいます	
 1bcr0vq0kg4	ok	surface	きょうしつにはいります	キョオシツニ'/ハイリマ'ス
 17dsox6idvq	ok	surface	きょうしつにわつくえがにじゅうあります	キョオシツニワ'/ツクエガ'/ニ'ジュウ/アリマ'ス
 f8dknfz2ai	ok	surface	きょうしつのすみまでていねいにそうじしました	キョオシツノ'/ス'ミマデ/テ'エネエニ/ソオジ'/シマ'シタ
+1ogrvggi3td	ok	surface	きょうしつのとけいわとまっています	キョオシツノ'/トケエワ'/トマッテ'/イマ'ス
 259dao48po5	ok	surface	きょうしつわにかいです	キョオシツワ'/ニカイデ'ス
 51xmanz5it	ok	surface	きょうしつをきれいにそうじします	キョオシツオ'/キ'レイニ/ソオジ'/シマ'ス
 27dv7avhh47	ok	surface+prosody	きょうじゅうにおわらせるのわむりです	キョオジュウニ'/オワラセルノワ'/ム'リデス
 bmr4nbcfxk	ok	pitch	きょうそう	キョオソオ'
 zctoe39kd1	ok	surface	きょうそうにかつためにれんしゅうします	キョオソオニ'/カ'ツ/タメ'ニ/レンシュウ'/シマ'ス
 sfhiefalml	ok	pitch	きょうだい	キョ'オダイ
-1a5y65rluff	ok	surface	きょうだいとはなします	キョ'オダイト/ハナシマ'ス
-2djlrxxl7y3	ok	surface	きょうだいにあいます	キョ'オダイニ/アイマ'ス
+lgr81zx7gx	ok	surface+prosody	きょうだいわなんにんいますか	キョ'オダイワ/ナ'ンニン/イマ'スカ？
 l0nmzxy5sy	ok	surface	きょうとでちいさなにんぎょうをかいました	キョ'オトデ/チ'イサナ/ニンギョオオ'/カイマ'シタ
 lb7pr2k29p	ok	surface	きょうとでふるいてらをけんがくしました	キョ'オトデ/フル'イ/テラ'オ/ケンガク'/シマ'シタ
 2480iqvz64c	ok	surface	きょうとでわふるいりょかんにとまりました	キョ'オトデワ/フル'イ/リョカンニ'/トマリマ'シタ
@@ -1748,6 +1724,7 @@ xnlh55h296	ok	surface	きょうわあついです	キョ'オワ/アツ'イデス
 27jkagkf9tv	ok	surface	きょうわいそがしいですから、いきません	キョ'オワ/イソガシ'イデスカラ、/イキマセ'ン
 1peftspe9lk	ok	ruby-kana+prosody	きょうわいちにちいえにいます	キョ'オワ/イチニチ'/イエ'ニ/イマ'ス ← 今日はイチニチイエにいます
 dscqh2u21d	ok	surface	きょうわいちにちじゅうはれです	キョ'オワ/イチニチジュウ'/ハレ'デス
+18eq0yalqtz	ok	surface	きょうわうみがとてもあおいです	キョ'オワ/ウ'ミガ/トテモ'/アオ'イデス
 2f2l85ckjh1	ok	surface+prosody	きょうわおさけをえんりょします	キョ'オワ/オサケオ'/エンリョ'/シマ'ス
 19kyt9mcy8j	ok	surface	きょうわおっとがゆうはんをつくりました	キョ'オワ/オットガ'/ユウハンオ'/ツクリマ'シタ
 6trhml3yh5	ok	surface	きょうわかぜがつよいです	キョ'オワ/カゼガ'/ツヨ'イデス
@@ -1821,7 +1798,6 @@ cm4u3pfchf	ok	surface	きれいなくうきをすいます	キ'レイナ/ク'ウ
 qx58acv10m	ok	kana	キロメートル	キロメ'エトル
 1e7zu24kkel	ok	surface	ぎろんがさかんにおこなわれています	ギ'ロンガ/サカンニ'/オコナワレテ'/イマ'ス
 i6vc0y0n83	ok	surface	きをつける	キオ'/ツケ'ル
-1kdxrtb883s	ok	surface	きをみます	キ'オ/ミマ'ス
 gv3ehigi51	ok	surface	きんきゅうのばあいわこのばんごうにでんわしてください	キンキュウノ'/バアイワ'/コノ'/バンゴ'オニ/デンワ'/シテ'/クダサ'イ
 fbiopv24d5	ok	pitch	ぎんこう	ギンコオ'
 4po9j3fazu	ok	surface	ぎんこうえいきます	ギンコオエ'/イキマ'ス
@@ -1869,11 +1845,9 @@ hbk17cbuzf	ok	surface	くすりをのみます	クスリオ'/ノミマ'ス
 1dyegsaa9i7	ok	surface	くすりをのんだらねつがさがりました	クスリオ'/ノ'ンダラ/ネツ'ガ/サガリマ'シタ
 hcnkjj419j	ok	kana	ください	クダサ'イ
 182jndvyp48	ok	pitch	くだもの	クダ'モノ
-n2vs5p45yj	ok	surface	くだものがすきです	クダ'モノガ/スキ'デス
 1jz0vlggjj8	ok	surface+prosody	くだもののなかで、なにがいちばんすきですか	クダ'モノノ/ナ'カデ、/ナ'ニガ/イチ'バン/スキ'デスカ？
 1i9jjn7pfis	ok	surface	くだもののなかでりんごがいちばんすきです	クダ'モノノ/ナ'カデ/リンゴガ'/イチ'バン/スキ'デス
-p6l3ok3pho	ok	surface	くだものをください	クダ'モノオ/クダサ'イ
-15hhvy3e6ez	ok	surface	くだものをたべます	クダ'モノオ/タベマ'ス
+ut3zgxq5h6	ok	surface+prosody	くだものわどこでうっていますか	クダ'モノワ/ド'コデ/ウッテ'/イマ'スカ？
 c7myw1hblu	ok	pitch	くち	クチ'
 j006ftq3jn	ok	surface	くちがいたいです	クチガ'/イタ'イデス
 1l9oax1jyh0	ok	surface	くちでいってください	クチデ'/イッテ'/クダサ'イ
@@ -1923,9 +1897,7 @@ iocqruwets	ok	surface+prosody	くるまがさんだいあります	クルマガ'
 wpzj26fea6	ok	surface+prosody	くるまにきをつけてください	クルマニ'/キオ'/ツ'ケテ/クダサ'イ
 1q34yhfz5ba	ok	surface	くるまにちゅういしてください	クルマニ'/チュ'ウイ/シテ'/クダサ'イ
 rjw1o9fmqs	ok	surface	くるまをえきまえのちゅうしゃじょうにとめました	クルマオ'/エキマ'エノ/チュウシャジョオニ'/トメマ'シタ
-1jydu3bf50v	ok	surface	くるまをかいました	クルマオ'/カイマ'シタ
 7nuoytemdf	ok	surface	くるまをちゅうしゃじょうにとめました	クルマオ'/チュウシャジョオニ'/トメマ'シタ
-159aclwlqnd	ok	surface	くるまをつかいます	クルマオ'/ツカイマ'ス
 3ha0sdk7kz	ok	kana	くれる	クレル'
 1s4hvnbs5s6	ok	pitch	くろ	ク'ロ
 1xkdj2lnfi1	ok	pitch	くろい	クロ'イ
@@ -1935,6 +1907,7 @@ emfbmigc46	ok	surface	くろいズボンをはいています	クロ'イ/ズ'ボ
 14s5ommosox	ok	surface	くろいねこがいすのしたにいます	クロ'イ/ネ'コガ/イスノ'/シタニ'/イマ'ス
 nkqhsuzjcq	ok	surface	くろいねこをみました	クロ'イ/ネ'コオ/ミマ'シタ
 1ty1ccua4f	ok	surface	くろいペンでかいてください	クロ'イ/ペ'ンデ/カ'イテ/クダサ'イ
+1bfk9mhvocd	ok	surface+prosody	くろいペンとあおいペン、どちらがいいですか	クロ'イ/ペ'ント/アオ'イ/ペ'ン、/ド'チラガ/イ'イデスカ？
 kb7yu2b55f	ok	surface	くろがすきです	ク'ロガ/スキ'デス
 288t2hjkmuz	ok	surface	くろのペンをつかいます	ク'ロノ/ペ'ンオ/ツカイマ'ス
 12nm5e1g0t1	ok	surface	くわしいことわのちほどもうしあげます	クワシ'イ/コト'ワ/ノチホド'/モオシアゲマ'ス
@@ -1946,8 +1919,6 @@ y4evivvvae	ok	pitch	け	ケ'
 1nvnllfz2to	ok	pitch	けいかく	ケエカク'
 1104sktr2hs	ok	surface	けいかくどおりにすすんでいます	ケエカクド'オリニ/ススンデ'/イマ'ス
 5btr6xq1tx	ok	pitch	けいかん	ケエカン'
-28uc1xd0l51	ok	surface	けいかんとはなします	ケエカント'/ハナシマ'ス
-13tndyh9sqv	ok	surface	けいかんにあいます	ケエカンニ'/アイマ'ス
 23xq6sv4yb2	ok	pitch	けいけん	ケエケン'
 ugalcwgxmq	ok	pitch	けいざい	ケ'エザイ
 1xzng0bho9b	ok	surface	けいざいがくぶのがくせいです	ケエザイガク'ブノ/ガクセエデ'ス
@@ -2028,9 +1999,11 @@ zbegqa2xs3	ok	pitch	ご	ゴ'
 1wywoedmpci	ok	kana	こう	コ'オ
 1xfrl3rvpc4	ok	pitch	こうえん	コオエン'
 q0vlpebph7	ok	surface	こうえんえいきます	コオエンエ'/イキマ'ス
+1f61ko80bo1	ok	surface	こうえんでおとこのこがふたりあそんでいます	コオエンデ'/オトコ'ノコガ/フタリ'/アソンデ'/イマ'ス
 vscdnm6pms	ok	surface	こうえんでこどもがあそんでいます	コオエンデ'/コドモガ'/アソンデ'/イマ'ス
 wbh44khrp3	ok	surface	こうえんでさくらがさいています	コオエンデ'/サクラガ'/サイテ'/イマ'ス
 urxnfyybnt	ok	surface	こうえんでともだちにあいます	コオエンデ'/トモダチニ'/アイマ'ス
+15te6z7dayh	ok	surface	こうえんにおおきないけがあります	コオエンニ'/オ'オキナ/イケ'ガ/アリマ'ス
 2c05hxhxm83	ok	surface	こうえんにおおぜいのひとがいます	コオエンニ'/オオゼ'エノ/ヒトガ'/イマ'ス
 1xycjqnkp7y	ok	surface	こうえんにこどもがいます	コオエンニ'/コドモガ'/イマ'ス
 1enppcw388o	ok	surface	こうえんのこどもたちわげんきにあそんでいます	コオエンノ'/コドモ'タチワ/ゲ'ンキニ/アソンデ'/イマ'ス
@@ -2071,8 +2044,7 @@ kgt0w9oidj	ok	pitch	こうじょう	コオジョ'オ
 xja6s9prkx	ok	surface	こうじょうでわまいにちたくさんのぶひんをつくります	コオジョ'オデワ/マ'イニチ/タクサンノ'/ブヒンオ'/ツクリマ'ス
 xu2f1lvl4m	ok	surface+prosody	こうすればはやくできます	コ'オ/スレ'バ/ハ'ヤク/デキマ'ス
 qmpl6cf7wq	ok	pitch	こうちゃ	コオチャ'
-1iqydeaez2o	ok	surface	こうちゃがすきです	コオチャガ'/スキ'デス
-znktkhqb0p	ok	surface	こうちゃをください	コオチャオ'/クダサ'イ
+2ej7r4kcji6	ok	surface+prosody	こうちゃにさとうをいれますか	コオチャニ'/サト'オオ/イレマ'スカ？
 1i7tvcyto7l	ok	surface	こうちゃをのみます	コオチャオ'/ノミマ'ス
 1tsha7rossj	ok	pitch	こうちょう	コオチョオ'
 10ba6bpccro	ok	surface	こうちょうがにゅうがくしきではなしました	コオチョオガ'/ニュウガク'シキデ/ハナシマ'シタ
@@ -2090,6 +2062,7 @@ c5a5yi2rg4	ok	surface	こうどうのうしろのせきにすわりました	コ
 1s4wtla71g5	ok	pitch	こうばん	コオバン'
 1ako6w4en0a	ok	surface	こうばんえいきます	コオバンエ'/イキマ'ス
 1iy1rvxql6h	ok	surface	こうばんでみちをききました	コオバンデ'/ミチオ'/キキマ'シタ
+n2uhpnvakc	ok	surface	こうばんにけいかんがふたりいます	コオバンニ'/ケエカンガ'/フタリ'/イマ'ス
 1yxz721cg17	ok	surface	こうばんわえきのちかくです	コオバンワ'/エ'キノ/チ'カクデス
 1pyejrz6862	ok	pitch	こうむいん	コオム'イン
 166t1fnjksa	ok	surface	こうむいんのしけんをうけるつもりです	コオム'インノ/シケ'ンオ/ウケ'ル/ツモリデ'ス
@@ -2101,17 +2074,19 @@ rz79p36ppo	ok	surface	コートをぬいでください	コ'オトオ/ヌ'イデ
 23k299vmag0	ok	surface	コートをぬぎました	コ'オトオ/ヌギマ'シタ
 26we7rxuih8	ok	pitch	コーヒー	コオヒ'イ
 k8bgc5upd4	ok	surface	コーヒーかおちゃをください	コオヒ'イカ/オチャオ'/クダサ'イ
-172v3mefy7e	ok	surface	コーヒーがすきです	コオヒ'イガ/スキ'デス
 1a4g5px7i24	ok	surface	コーヒーとこうちゃのりょうほうがすきです	コオヒ'イト/コオチャノ'/リョオホ'オガ/スキ'デス
+yuie9ow47u	ok	surface	コーヒーにぎゅうにゅうをいれます	コオヒ'イニ/ギュウニュウオ'/イレマ'ス
 1x7sffjvtic	ok	surface	コーヒーにさとうをいれます	コオヒ'イニ/サト'オオ/イレマ'ス
 ps1lqw3o8e	ok	surface	コーヒーよりおちゃのほうがすきです	コオヒ'イヨリ/オチャノ'/ホ'オガ/スキ'デス
+1vlgt39spv0	ok	surface	コーヒーよりこうちゃのほうがすきです	コオヒ'イヨリ/コオチャノ'/ホ'オガ/スキ'デス
 1zpncpkhxf2	ok	surface+prosody	コーヒーわどうですか	コオヒ'イワ/ド'オデスカ？
 240hvn8wl8p	ok	surface+prosody	コーヒーわのみますが、おさけわのみません	コオヒ'イワ/ノミマ'スガ、/オサケワ'/ノミマセ'ン
-7lbxc1t93y	ok	kana	コーヒーをください	コオヒ'イオ/クダサ'イ
 2ak872f2xcr	ok	surface	コーヒーをにはいのみました	コオヒ'イオ/ニ'ハイ/ノミマ'シタ
 qf0hfjzfij	ok	surface	コーヒーをのみます	コオヒ'イオ/ノミマ'ス
 2eaistxrqmj	ok	surface+prosody	コーヒーをのみますか	コオヒ'イオ/ノミマ'スカ？
+1605b9uuet5	ok	surface+prosody	コーヒーをふたつおねがいします	コオヒ'イオ/フタツ'/オネガイシマ'ス
 2chzfakqett	ok	surface+prosody	ごかぞくわおげんきですか	ゴカ'ゾクワ/オゲ'ンキデスカ？
+e1j7vd88ko	ok	surface+prosody	ごかぞくわなんにんですか	ゴカ'ゾクワ/ナ'ンニンデスカ？
 1ap30ysqjar	ok	surface+prosody	ごきぼうわしょうちしました	ゴキボオワ'/ショオチ'/シマ'シタ
 1p7jt4z2m0m	ok	pitch	こくさい	コクサイ'
 1fhjgyqotpq	ok	pitch	こくさいせん	コクサイセン'
@@ -2231,8 +2206,6 @@ d6wor08qg0	ok	pitch	コップ	コップ'
 9xkq4iocc5	ok	surface+prosody	コップがおちてわれました	コップガ'/オ'チテ/ワレマ'シタ
 1b5m1nmns4j	ok	surface	コップにみずをいれます	コップニ'/ミズオ'/イレマ'ス
 26iyktp9gy0	ok	surface	コップにゆをそそいでおちゃをいれます	コップニ'/ユ'オ/ソソイデ'/オチャオ'/イレマ'ス
-21l9yaw8mag	ok	surface	コップをかいました	コップオ'/カイマ'シタ
-fwteyeauqj	ok	surface	コップをつかいます	コップオ'/ツカイマ'ス
 1umy02y4806	ok	kana	こと	コト'
 1w9il5lerjn	ok	pitch	ことし	コトシ'
 fo2fxeiuw2	ok	ruby-kana	ことし、にほんえいきます	コトシ'、/ニホ'ンエ/イキマ'ス ← 今年、ニホンへ行きます
@@ -2256,15 +2229,16 @@ i69rz46zl2	ok	surface	こどもがこうえんにいくとよろこびます	コ
 v8a5kma4pp	ok	surface+prosody	こどもがねているあいだに、せんたくしました	コドモガ'/ネテ'/イル'/アイダニ'、/センタク'/シマ'シタ
 28p9m2wbv5s	ok	surface	こどもたちがあそんでいます	コドモ'タチガ/アソンデ'/イマ'ス
 12g67nc3lwv	ok	surface	こどもたちががっこうでやさいをうえています	コドモ'タチガ/ガッコオデ'/ヤサイオ'/ウエテ'/イマ'ス
+uqyylhx6cb	ok	surface	こどもたちがかわでおよいでいます	コドモ'タチガ/カワ'デ/オヨ'イデ/イマ'ス
 1xus2aoz24j	ok	surface	こどもたちがこうえんでさわいでいます	コドモ'タチガ/コオエンデ'/サワ'イデ/イマ'ス
 22rqlan8069	ok	surface	こどもたちがすなはまであそんでいます	コドモ'タチガ/スナハマデ'/アソンデ'/イマ'ス
 1v0izz6d1vw	ok	surface	こどもたちがゆきであそんでいます	コドモ'タチガ/ユキ'デ/アソンデ'/イマ'ス
 1vfj2b53clh	ok	surface	こどもたちわクリスマスをたのしみにしています	コドモ'タチワ/クリス'マスオ/タノシ'ミニ/シテ'/イマ'ス
 vi7ek2pu1s	ok	surface	こどもたちわどうぶつえんをたのしみにしています	コドモ'タチワ/ドオブツ'エンオ/タノシ'ミニ/シテ'/イマ'ス
-n190lq97g6	ok	surface	こどもとはなします	コドモト'/ハナシマ'ス
 ta0d7p6nai	ok	surface	こどもとほしのなまえをしらべました	コドモト'/ホシノ'/ナマエオ'/シラベマ'シタ
-1ix2pv7cw90	ok	surface	こどもにあいます	コドモニ'/アイマ'ス
 quhpjllrq3	ok	surface	こどもにあめをあげます	コドモニ'/アメオ'/アゲマ'ス
+hq7iz1b3hw	ok	surface	こどもにナイフをわたさないでください	コドモニ'/ナ'イフオ/ワタサナ'イデ/クダサ'イ
+1df432lwtgp	ok	surface	こどもにフォークをもってきてください	コドモニ'/フォ'オクオ/モ'ッテ/キ'テ/クダサ'イ
 125gx5qtts3	ok	surface	こどものあそびわたいせつです	コドモノ'/アソビワ'/タイセツデ'ス
 1csig6ahq7f	ok	surface	こどものきょういくについてりょうしんがはなしあいました	コドモノ'/キョオイクニ'/ツ'イテ/リョ'オシンガ/ハナシアイマ'シタ
 i0uwoa8ts3	ok	surface	こどものころ、このまちにすんでいました	コドモノ'/コ'ロ、/コノ'/マチ'ニ/ス'ンデ/イマ'シタ
@@ -2272,12 +2246,14 @@ jpzfdgtrvw	ok	surface	こどものころ、ははにピアノをならわせら�
 p4n8sp8evy	ok	surface	こどものころ、よくおよぎました	コドモノ'/コ'ロ、/ヨ'ク/オヨギマ'シタ
 27bdyab3hxv	ok	surface	こどものころ、よくかわであそびました	コドモノ'/コ'ロ、/ヨ'ク/カワ'デ/アソビマ'シタ
 up9ks9g8d2	ok	surface+prosody	こどものころすいえいをならいました	コドモノコ'ロ/スイエエオ'/ナライマ'シタ
+1ke1f84j8zi	ok	surface	こどものとき、このまちにすんでいました	コドモノ'/トキ'、/コノ'/マチ'ニ/ス'ンデ/イマ'シタ
 1y9qxgjvgd	ok	surface	こどものとき、ピアノをならいました	コドモノ'/トキ'、/ピアノオ'/ナライマ'シタ
 mn73rhapkq	ok	surface	こどものとき、よくあそびました	コドモノ'/トキ'、/ヨ'ク/アソビマ'シタ
 euj69eajtf	ok	surface+prosody	こどものとき、よくかわであそびました	コドモノ'/トキ'、/ヨ'ク/カワ'デ/アソビマ'シタ
 1asm5gft9gb	ok	surface+prosody	こどものにゅうじょうりょうわむりょうです	コドモノ'/ニュウジョ'オリョオワ/ムリョオデ'ス
 137kzbgmvup	ok	surface	こどもみたいによろこんでいました	コドモミ'タイニ/ヨロコ'ンデ/イマ'シタ
 t1m565zl03	ok	surface	こどもわおおきなのりものがすきです	コドモワ'/オ'オキナ/ノリモノガ'/スキ'デス
+1p6i8n0evhi	ok	surface	こどもわおかしがだいすきです	コドモワ'/オカ'シガ/ダ'イスキデス
 aaoym9iu4r	ok	surface	こどもわことしでここのつになります	コドモワ'/コトシデ'/ココ'ノツニ/ナリマ'ス
 rey0bf5a0s	ok	surface	こどもわそのえいがをみたがっています	コドモワ'/ソノ'/エエガオ'/ミ'タガッテ/イマ'ス
 1hzw3voje4o	ok	surface	こどもわちゅうしゃがにがてです	コドモワ'/チュウシャガ'/ニガテデ'ス
@@ -2296,6 +2272,7 @@ ou0po44bdf	ok	kana	この	コノ'
 kjsd8q3oh1	ok	surface+prosody	このいしわとてもおもいです	コノ'/イシ'ワ/トテモ'/オモイデ'ス
 1bcaxggweeb	ok	surface	このいしわひかるときれいです	コノ'/イシ'ワ/ヒカ'ルト/キ'レイデス
 2093bd6oz27	ok	surface+prosody	このいすわこわれています	コノ'/イスワ'/コワ'レテ/イマ'ス
+1di07cc02e8	ok	surface	このいすわふるいですが、じょうぶです	コノ'/イスワ'/フル'イデスガ、/ジョオブデ'ス
 xef67ilqqb	ok	surface	このいとでボタンをつけます	コノ'/イ'トデ/ボタンオ'/ツケマ'ス
 1ek0flig028	ok	surface	このいぬわおおきいです	コノ'/イヌ'ワ/オオキ'イデス
 17oa62v5bfc	ok	surface	このいぬわけがながいです	コノ'/イヌ'ワ/ケガ'/ナガ'イデス
@@ -2319,6 +2296,7 @@ uynp12erh6	ok	surface	このえきでののりかえわすこしふくざつで�
 23bncz88ujp	ok	surface	このえわきれいです	コノ'/エ'ワ/キ'レイデス
 zlryque3wx	ok	surface+prosody	このえんぴつわじゅうえんです	コノ'/エンピツワ'/ジュ'ウエンデス
 1dyww78rj2x	ok	surface	このえんぴつわみじかいです	コノ'/エンピツワ'/ミジカ'イデス
+h8ugx39q2j	ok	surface	このえんぴつわもうみじかいです	コノ'/エンピツワ'/モ'オ/ミジカ'イデス
 15p634rx2pg	ok	surface	このおかしわいしみたいです	コノ'/オカ'シワ/イシ'ミタイデス
 w2czf5sqd	ok	surface	このおちゃわあついです	コノ'/オチャワ'/アツ'イデス
 2dujf6uud3	ok	surface	このおちゃわすこしぬるいです	コノ'/オチャワ'/スコ'シ/ヌル'イデス
@@ -2328,12 +2306,14 @@ zghfhdjnoc	ok	surface	このがくせいわまいにちとしょかんでべん�
 1t0b0q14x8p	ok	surface	このかさわおきゃくさまのわすれものです	コノ'/カ'サワ/オキャクサ'マノ/ワスレモノデ'ス
 j36d32k2bx	ok	ruby-kana+prosody	このガソリンスタンドわにじゅうよじかんあいています	コノ'/ガソリンスタ'ンドワ/ニジュウヨジ'カン/アイテ'/イマ'ス ← このガソリンスタンドはニジュウヨジカンアいています
 20s6vd4z6l7	ok	surface	このがっこうにわせいとがおおいです	コノ'/ガッコオニワ'/セ'エトガ/オ'オイデス
+1zzgl1j60l0	ok	surface	このカップわとてもうすいです	コノ'/カ'ップワ/トテモ'/ウスイ'デス
 24m0cwqcepl	ok	surface	このかのぶんぽうわすこしむずかしいです	コノ'/カ'ノ/ブンポオワ'/スコ'シ/ムズカシ'イデス
 2b55pq2qbqv	ok	surface	このかばんわおもすぎます	コノ'/カバンワ'/オモスギマ'ス
 1cqjjif72e1	ok	surface+prosody	このかばんわかるいです	コノ'/カバンワ'/カルイデ'ス
 3s4txdokrm	ok	surface	このかばんわじょうぶです	コノ'/カバンワ'/ジョオブデ'ス
 1ikzri3464a	ok	surface	このかばんわちいさいです	コノ'/カバンワ'/チイサ'イデス
 jo9c4jbmn6	ok	surface	このかばんわちゃいろです	コノ'/カバンワ'/チャイロデ'ス
+1ou4rx69hf3	ok	surface	このかばんわポケットがおおいです	コノ'/カバンワ'/ポ'ケットガ/オ'オイデス
 1px6vebmy35	ok	surface	このかびんわきれいです	コノ'/カビンワ'/キ'レイデス
 1q0nwidbqee	ok	surface	このかみにいろのぬりかたがかいてあります	コノ'/カミ'ニ/イロ'ノ/ヌリ'カタガ/カ'イテ/アリマ'ス
 26adktgx29n	ok	surface	このかみになまえとじゅうしょをかいてください	コノ'/カミ'ニ/ナマエト'/ジュ'ウショオ/カ'イテ/クダサ'イ
@@ -2342,8 +2322,12 @@ xjqed48kiy	ok	surface	このかみわしろです	コノ'/カミ'ワ/シ'ロデ�
 lu2mw4our1	ok	surface	このかみをコピーします	コノ'/カミ'オ/コ'ピイ/シマ'ス
 293bmhko854	ok	surface	このかみをすてちゃいけません	コノ'/カミ'オ/ステチャ'/イケマセ'ン
 2cue7o4pz3	ok	surface	このかみをすてるなといわれました	コノ'/カミ'オ/ステル'ナト/イワレマ'シタ
+1bl3meozd7g	ok	ruby-kana	このカメラわちいさくてかるいです	コノ'/カ'メラワ/チイサ'クテ/カルイ'デス ← このカメラは小さくてカルいです
+2dhhiwv1dzv	ok	surface	このカメラわふるいので、フィルムをつかいます	コノ'/カ'メラワ/フル'イノデ、/フィ'ルムオ/ツカイマ'ス
 1qix08zooh0	ok	surface	このカレーわおいしいです	コノ'/カレエワ'/オイシ'イデス
 1w1oir4gnkq	ok	ruby-kana	このカレーわからいです	コノ'/カレエワ'/カラ'イデス ← このカレーはカラいです
+dr7gv64tyl	ok	ruby-kana	このカレーわすこしからいです	コノ'/カレエワ'/スコ'シ/カラ'イデス ← このカレーは少しカラいです
+203np026i0k	ok	surface	このかわのみずわとてもきれいです	コノ'/カワ'ノ/ミズワ'/トテモ'/キ'レイデス
 jmfgzma4iw	ok	surface+prosody	このかわわあさいです	コノ'/カワ'ワ/アサイデ'ス
 1ble589vni4	ok	surface	このかわわながいです	コノ'/カワ'ワ/ナガ'イデス
 mmnxujc38c	ok	surface	このかわわふかいです	コノ'/カワ'ワ/フカ'イデス
@@ -2355,6 +2339,7 @@ jzrrvo2zp6	ok	surface+prosody	このかんじをどうやっておぼえます�
 15fvemugai4	ok	surface+prosody	このきかいわコピーとファックスができます	コノ'/キカ'イワ/コ'ピイト/ファ'ックスガ/デキマ'ス
 260yvrr80mu	ok	surface+prosody	このきかいわじどうではこをはこびます	コノ'/キカ'イワ/ジドオデ'/ハコオ'/ハコビマ'ス
 1oxr46wazpf	ok	surface+prosody	このきかいわふるいほうしきでうごきます	コノ'/キカ'イワ/フル'イ/ホオシキデ'/ウゴキマ'ス
+eymju5hsc6	ok	surface	このきってわとてもきれいです	コノ'/キッテワ'/トテモ'/キ'レイデス
 102g6jjk262	ok	ruby-kana+prosody	このきものにわあかいはながかかれています	コノ'/キモノニワ'/アカイ'/ハナ'ガ/カカ'レテ/イマ'ス ← この着物には赤い花がカかれています
 4re43iruo	ok	surface+prosody	このきものわきぬでできています	コノ'/キモノワ'/キ'ヌデ/デ'キテ/イマ'ス
 2bb78jniyry	ok	surface	このきょうかいわひゃくねんまえにたてられました	コノ'/キョオカイワ'/ヒャク'ネン/マ'エニ/タテラレマ'シタ
@@ -2365,6 +2350,7 @@ ipavwm73j	ok	surface+prosody	このくすりわろくじかんおきにのみま
 1eo90qxkpsa	ok	surface+prosody	このくすりをいちにちさんかいのんでください	コノ'/クスリオ'/イチニチ'/サンカイ'/ノ'ンデ/クダサ'イ
 1qubi1e3nr9	ok	surface	このくすりをのまなければなりません	コノ'/クスリオ'/ノマ'ナケレバ/ナリマセ'ン
 1ide2iyjpiy	ok	surface+prosody	このくすりをみずでさんばいにうすめてつかいます	コノ'/クスリオ'/ミズデ'/サンバイニ'/ウスメテ'/ツカイマ'ス
+1dte0gf920i	ok	surface	このくだものわとてもあまいです	コノ'/クダ'モノワ/トテモ'/アマイ'デス
 108tyue5ata	ok	surface	このくつわあしにあいます	コノ'/クツ'ワ/アシ'ニ/アイマ'ス
 x72m80u1w5	ok	surface	このくつわあたらしいです	コノ'/クツ'ワ/アタラシ'イデス
 9evqdbibwp	ok	surface	このくつわあるきにくいです	コノ'/クツ'ワ/アルキニク'イデス
@@ -2394,6 +2380,7 @@ wvldjbirjt	ok	surface	このケーキにわバターがはいっています	コ
 1ku7xonezuu	ok	surface	このこたえがただしいかどうかかくにんします	コノ'/コタ'エガ/タダシ'イカ/ド'オカ/カクニン'/シマ'ス
 i8chst1udx	ok	surface	このこたえわまちがいかもしれません	コノ'/コタ'エワ/マチガ'イカモ/シレマセ'ン
 icwmewb1li	ok	surface+prosody	このコップわうすいガラスでできています	コノ'/コップワ'/ウスイ'/ガラスデ'/デ'キテ/イマ'ス
+13u39pnecy6	ok	surface	このコップわちちのです	コノ'/コップワ'/チ'チノデス
 d7c035rqng	ok	ruby-kana+prosody	このことばのいみわなんですか	コノ'/コトバ'ノ/イ'ミワ/ナ'ンデスカ？ ← この言葉の意味はナンですか
 1bpzbumi3kq	ok	surface	このことばわカタカナです	コノ'/コトバ'ワ/カタカ'ナデス
 uunva5zjme	ok	surface	このこめわにいがたでつくられました	コノ'/コメ'ワ/ニイガタデ'/ツクラレマ'シタ
@@ -2455,12 +2442,16 @@ u8r96yvsf4	ok	surface	このたいかいわじょせいもさんかできます	
 1m6n8iudrpd	ok	surface	このたてものわめいじじだいにたてられました	コノ'/タテ'モノワ/メエジジ'ダイニ/タテラレマ'シタ
 1k1o4nxpdo9	ok	surface	このたんごのはつおんわむずかしいです	コノ'/タンゴノ'/ハツオンワ'/ムズカシ'イデス
 r0oqggvkfq	ok	surface	このちずわちりのじゅぎょうでつかいます	コノ'/チ'ズワ/チ'リノ/ジュ'ギョオデ/ツカイマ'ス
+w00ccin28p	ok	surface	このちゃわんわははがきょうとでかいました	コノ'/チャワンワ'/ハ'ハガ/キョ'オトデ/カイマ'シタ
 blu4khrm8q	ok	surface	このちゅうしゃじょうわいちじかんさんびゃくえんです	コノ'/チュウシャジョオワ'/イチジ'カン/サンビャク'エンデス
 h3r43unssk	ok	surface	このつかいかたわただしいです	コノ'/ツカイカタワ'/タダシ'イデス
 12twflwwssl	ok	surface	このつくえわきでつくられています	コノ'/ツクエワ'/キ'デ/ツク'ラレテ/イマ'ス
+13q7gwy122l	ok	surface+prosody	このつくえわきでできています	コノ'/ツクエワ'/キ'デ/デ'キテ/イマ'ス
 3dwikwzo88	ok	surface	このつくえわひくいです	コノ'/ツクエワ'/ヒク'イデス
 1c8sp6rsyt1	ok	surface+prosody	このつつみをあけてもいいですか	コノ'/ツツミ'オ/アケテモ'/イ'イデスカ？
+2e4haxh7l8g	ok	surface	このテープでえいごのべんきょうをします	コノ'/テ'エプデ/エエゴノ'/ベンキョオオ'/シマ'ス
 27qlqyt4y07	ok	surface+prosody	このテーブルわまるいです	コノ'/テエブルワ'/マルイデ'ス
+1fr6raks7y2	ok	surface	このテープレコーダーわもうつかいません	コノ'/テエプレコ'オダアワ/モ'オ/ツカイマセ'ン
 qdm08dzkj9	ok	surface	このでぐちからそとえでます	コノ'/デ'グチカラ/ソ'トエ/デマ'ス
 1r59yw9xulq	ok	surface	このてつづきにわパスポートがひつようです	コノ'/テツ'ズキニワ/パスポ'オトガ/ヒツヨオデ'ス
 19zn6q8piiy	ok	surface	このてつづきわインターネットでもできます	コノ'/テツ'ズキワ/インタアネ'ットデモ/デキマ'ス
@@ -2480,6 +2471,7 @@ jk0uesljsa	ok	ruby-kana	このドアわひとがちかづくとじどうであ�
 162192l18vo	ok	surface	このとけいわふるいですが、まだうごきます	コノ'/トケエワ'/フル'イデスガ、/マ'ダ/ウゴキマ'ス
 1jxrmqirnbg	ok	surface	このとけいわまだうごいています	コノ'/トケエワ'/マ'ダ/ウゴ'イテ/イマ'ス
 bxne87oj2e	ok	surface	このとしょかんわしみんならむりょうでつかえます	コノ'/トショ'カンワ/シ'ミンナラ/ムリョオデ'/ツカエマ'ス
+17bxgoka2wz	ok	surface	このにくわたかいですが、おいしいです	コノ'/ニク'ワ/タカ'イデスガ、/オイシ'イデス
 2dpj6i0um91	ok	surface+prosody	このにもつわおもいです	コノ'/ニ'モツワ/オモイデ'ス
 11e483e7msi	ok	surface	このにもつわごキログラムです	コノ'/ニ'モツワ/ゴキログ'ラムデス
 18ab9r1rr8t	ok	surface	このぬのわソフトなてざわりです	コノ'/ヌノワ'/ソ'フトナ/テザ'ワリデス
@@ -2490,15 +2482,18 @@ bxne87oj2e	ok	surface	このとしょかんわしみんならむりょうでつ�
 2eh6t6roog9	ok	surface+prosody	このはこわあのはこのにばいおもいです	コノ'/ハコワ'/アノ'/ハコノ'/ニバイ'/オモイデ'ス
 90amf4652x	ok	surface	このはこわおもくてもてません	コノ'/ハコワ'/オモクテ'/モテマセ'ン
 1wea0yfnydk	ok	surface+prosody	このはこわたてがながいです	コノ'/ハコワ'/タ'テガ/ナガ'イデス
+1xztrzr8do2	ok	surface	このはこわとてもおもいです	コノ'/ハコワ'/トテモ'/オモイ'デス
 w59x9zr739	ok	surface	このはこをくるまにはこんでください	コノ'/ハコオ'/クルマニ'/ハコンデ'/クダサ'イ
 1wnmv0aj42u	ok	surface+prosody	このはさみわかみをきるのにつかいます	コノ'/ハサミ'ワ/カミ'オ/キ'ルノニ/ツカイマ'ス
 2anan1t2hnm	ok	surface	このバスわえきとくうこうをむすぶろせんです	コノ'/バ'スワ/エ'キト/クウコオオ'/ムスブ'/ロセンデ'ス
 9botn6icvo	ok	surface	このはなしわすこしいいづらいです	コノ'/ハナシ'ワ/スコ'シ/イイズラ'イデス
+2fdg5745vho	ok	surface+prosody	このはなのなまえをしっていますか	コノ'/ハナ'ノ/ナマエオ'/シッテ'/イマ'スカ？
 1so5l77ea94	ok	surface+prosody	このはなわあかいです	コノ'/ハナ'ワ/アカイデ'ス
 267fn7khtf2	ok	surface	このはなわあまいにおいがします	コノ'/ハナ'ワ/アマイ'/ニオ'イガ/シマ'ス
 drvun0qxih	ok	surface+prosody	このはなわきいろいです	コノ'/ハナ'ワ/キイロイデ'ス
 1x1l0afvrnk	ok	surface	このはなわきれいです	コノ'/ハナ'ワ/キ'レイデス
 23ydcfrjudm	ok	surface	このはわてのひらよりおおきいです	コノ'/ハワ'/テ'ノヒラヨリ/オオキ'イデス
+1ydhzwv4on0	ok	surface	このハンカチわははにもらいました	コノ'/ハンカチワ'/ハ'ハニ/モライマ'シタ
 2dlori6jaxl	ok	ruby-kana+prosody	このばんごうわなんですか	コノ'/バンゴ'オワ/ナ'ンデスカ？ ← この番号はナンですか
 46iwbecucv	ok	surface+prosody	このハンドバッグわちいさいですが、かるいです	コノ'/ハンドバ'ッグワ/チイサ'イデスガ、/カルイデ'ス
 21ki5y8d20s	ok	surface	このパンのやわらかさがすきです	コノ'/パ'ンノ/ヤワラカ'サガ/スキ'デス
@@ -2548,6 +2543,7 @@ z7oll0xwju	ok	ruby-kana+prosody	このへんをすこしさんぽしました	�
 16hwuulv1tp	ok	surface	このペンをつかいます	コノ'/ペ'ンオ/ツカイマ'ス
 1ub4wtkrbza	ok	surface	このほうほうでわだめかもしれません	コノ'/ホオホオデワ'/ダメ'カモ/シレマセ'ン
 2amank0pwp	ok	surface+prosody	このほうほうのほうがかんたんなのでわないでしょうか	コノ'/ホオホオノ'/ホ'オガ/カンタンナノデ'ワナイデショオカ？
+17htyh177ph	ok	surface	このボールペンわひゃくえんです	コノ'/ボオルペンワ'/ヒャク'エンデス
 c3wdentq9i	ok	surface+prosody	このボタンをおさないでください	コノ'/ボタンオ'/オサナイデ'/クダサ'イ
 2ds0q9ktcyq	ok	surface	このボタンをおしてください	コノ'/ボタンオ'/オシテ'/クダサ'イ
 2bwaxt5bgqc	ok	ruby-kana	このボタンをおすと、ドアがあきます	コノ'/ボタンオ'/オスト'、/ド'アガ/アキマ'ス ← このボタンを押すと、ドアがアきます
@@ -2577,6 +2573,7 @@ ujc5cjopdp	ok	surface	このまちでわでんしゃがいちばんはやいの�
 28mq82t4edx	ok	surface+prosody	このまちにすんでいるのです	コノ'/マチ'ニ/ス'ンデ/イルノデ'ス
 1ulwx7482o	ok	surface+prosody	このまちにわいちまんにんすんでいます	コノ'/マチ'ニワ/イチマ'ンニン/ス'ンデ/イマ'ス
 f8rgb1tx9d	ok	surface	このまちにわおおきないえにすむかねもちがおおいです	コノ'/マチ'ニワ/オ'オキナ/イエ'ニ/ス'ム/カネモ'チガ/オ'オイデス
+9x0x7co5dj	ok	surface	このまちにわがいこくじんがたくさんすんでいます	コノ'/マチ'ニワ/ガイコク'ジンガ/タクサン'/ス'ンデ/イマ'ス
 76ifrcader	ok	surface	このまちにわながいれきしがあります	コノ'/マチ'ニワ/ナガ'イ/レキシガ'/アリマ'ス
 24qv7ojft05	ok	surface+prosody	このまちのじんこうわやくじゅうまんにんです	コノ'/マチ'ノ/ジンコオワ'/ヤ'ク/ジュウマ'ンニンデス
 zd31yutkiw	ok	surface	このまちのよさをともだちにつたえたいです	コノ'/マチ'ノ/ヨ'サオ/トモダチニ'/ツタエタ'イデス
@@ -2600,6 +2597,7 @@ pimh5tgsq0	ok	surface	このみせ、けっこうべんりじゃないか	コノ
 1zpq19najqu	ok	surface	このみせにわあたたかいのみものもあります	コノ'/ミセ'ニワ/アタタカ'イ/ノミ'モノモ/アリマ'ス
 26kq39rtybf	ok	surface	このみせにわたまにきます	コノ'/ミセ'ニワ/タマニ'/キマ'ス
 1l3s9fx0lld	ok	ruby-kana	このみせにわにほんのたべものがたくさんあります	コノ'/ミセ'ニワ/ニホ'ンノ/タベモ'ノガ/タクサン'/アリマ'ス ← この店にはニホンの食べ物がたくさんあります
+14ubhe0u9u2	ok	surface	このみせのぎゅうにくわとてもたかいです	コノ'/ミセ'ノ/ギュウニクワ'/トテモ'/タカ'イデス
 1f1iawsq2lh	ok	surface	このみせのやさいわすこしたかいです	コノ'/ミセ'ノ/ヤサイワ'/スコ'シ/タカ'イデス
 21p2ua2nf7i	ok	surface	このみせわあじわいいですが、ねだんわたかいです	コノ'/ミセ'ワ/アジワ'/イ'イデスガ、/ネダンワ'/タカ'イデス
 wlysot0d2b	ok	surface	このみせわおいしいですよ	コノ'/ミセ'ワ/オイシ'イデスヨ
@@ -2625,6 +2623,7 @@ ijxfo9hwd2	ok	surface	このみせわゆうめいです	コノ'/ミセ'ワ/ユ�
 gn8n3ha0f1	ok	ruby-kana	このみそわすこしからいです	コノ'/ミ'ソワ/スコ'シ/カラ'イデス ← この味噌は少しカラいです
 2fe5e8argms	ok	surface	このみちわあかるくてあんしんです	コノ'/ミチワ'/アカルクテ'/アンシンデ'ス
 13jd8o20vw7	ok	surface	このみちわうみまでつづきます	コノ'/ミチワ'/ウ'ミマデ/ツズキマ'ス
+1nb40h1wn3v	ok	surface	このみちわくるまがおおいです	コノ'/ミチワ'/クルマガ'/オ'オイデス
 187i6tal4f5	ok	surface	このみちわくるまがすくなくてあんぜんです	コノ'/ミチワ'/クルマガ'/スクナ'クテ/アンゼンデ'ス
 x75oip1zx4	ok	surface	このみちわくるまがたくさんとおります	コノ'/ミチワ'/クルマガ'/タクサン'/トオリマ'ス
 w7fkwl40x5	ok	surface	このみちわせまいです	コノ'/ミチワ'/セマ'イデス
@@ -2654,20 +2653,24 @@ srskc0pm5x	ok	surface	このもんだいわひじょうにたいせつです	コ
 i5ak4afjma	ok	surface+prosody	このやまわむかしからのぼるのがむずかしいといわれています	コノ'/ヤマ'ワ/ムカシカラ'/ノボルノガ'/ムズカシ'イト/イワレテ'/イマ'ス
 1ow7zp5ru3o	ok	surface	このゆびわわすこしおおきすぎます	コノ'/ユビワワ'/スコ'シ/オオキスギマ'ス
 onvxwg8wx0	ok	surface	このラーメンわうまいです	コノ'/ラ'アメンワ/ウマ'イデス
+du1ppa1zki	ok	surface	このラジカセわおとがいいです	コノ'/ラジカセワ'/オト'ガ/イ'イデス
 159j8x35o3g	ok	surface	このりょうにわきびしいきそくがあります	コノ'/リョ'オニワ/キビシ'イ/キ'ソクガ/アリマ'ス
+1z9xo2n1au5	ok	surface	このりょうりにわとりにくをつかいます	コノ'/リョ'オリニワ/トリニクオ'/ツカイマ'ス
 4th1h8tn9p	ok	surface+prosody	このりょうりわおいしそうです	コノ'/リョ'オリワ/オイシソ'オデス
 g05itaeirg	ok	surface	このりょうりわかんたんにつくれます	コノ'/リョ'オリワ/カンタンニ'/ツクレマ'ス
 11j8swd38bm	ok	surface+prosody	このりょうりわどうですか	コノ'/リョ'オリワ/ド'オデスカ？
 2ft97kltli9	ok	surface	このりょうりわとてもおいしいです	コノ'/リョ'オリワ/トテモ'/オイシ'イデス
 yko2b187vm	ok	ruby-kana	このりょうりわにほんでわめずらしいです	コノ'/リョ'オリワ/ニホ'ンデワ/メズラシ'イデス ← この料理はニホンでは珍しいです
 12rd0jvxn5	ok	surface	このりょうりわまずいです	コノ'/リョ'オリワ/マズ'イデス
+wmlw8k9dc6	ok	surface	このれいぞうこわおおきくてべんりです	コノ'/レエゾ'オコワ/オ'オキクテ/ベ'ンリデス
 25nwontirjk	ok	surface	このレコードがすきです	コノ'/レコ'オドガ/スキ'デス
 24plr4f4d48	ok	surface+prosody	このロープわあまりふとくありません	コノ'/ロ'オプワ/アマリ'/フ'トク/アリマセ'ン
 hc46vycgse	ok	surface	このワープロにわかんじへんかんのきのうがあります	コノ'/ワアプロニワ'/カンジヘ'ンカンノ/キ'ノオガ/アリマ'ス
 1m872s6cx3	ok	pitch	ごはん	ゴ'ハン
-sw2xrvb4el	ok	surface	ごはんがすきです	ゴ'ハンガ/スキ'デス
-1ealbv024u5	ok	surface	ごはんをください	ゴ'ハンオ/クダサ'イ
-1klmzkpdthb	ok	surface	ごはんをたべます	ゴ'ハンオ/タベマ'ス
+2ahlhghkfuw	ok	surface	ごはんですよ。はやくきてください	ゴ'ハンデスヨ、/ハ'ヤクキテ/クダサ'イ
+20zo2e0ugob	ok	surface	ごはんのあとで、くすりをのみます	ゴ'ハンノ/ア'トデ、/クスリオ'/ノミマ'ス
+2c5bs5mz3rh	ok	surface+prosody	ごはんのまえにおかしをたべてわいけません	ゴ'ハンノ/マ'エニ/オカ'シオ/タ'ベテワ/イケマセ'ン
+hmtbkjrk0n	ok	surface	ごはんをもうすこしください	ゴ'ハンオ/モオスコ'シ/クダサ'イ
 1n90zwxw6at	ok	kana+prosody	コピーする	コ'ピイスル
 547xyi0s5h	ok	pitch	こまかい	コマカ'イ
 2fqmqbskurf	ok	surface+prosody	こまかいおかねわありますか	コマカ'イ/オカネワ'/アリマ'スカ？
@@ -2812,11 +2815,11 @@ zagcq1gpbd	ok	pitch	さいふ	サイフ'
 28yq9v0j3vd	ok	ruby-kana	さいふがからになりました	サイフガ'/カラ'ニ/ナリマ'シタ ← 財布がカラになりました
 x22lg29uj0	ok	surface	さいふがないことにきがつきました	サイフガ'/ナ'イ/コト'ニ/キガツキマ'シタ
 1ulelr8oahu	ok	surface	さいふがなくなりました	サイフガ'/ナクナリマ'シタ
+k517rvjcxw	ok	surface	さいふのなかにおかねがありません	サイフノ'/ナ'カニ/オカネガ'/アリマセ'ン
 3yrrfiqvbx	ok	surface	さいふをいえにわすれてしまいました	サイフオ'/イエ'ニ/ワスレテ'/シマイマ'シタ
+1n0pczbdyad	ok	surface	さいふをいえにわすれました	サイフオ'/イエ'ニ/ワスレマ'シタ
 2dsbssejo7p	ok	surface	さいふをおとしました	サイフオ'/オトシマ'シタ
-27k8690rzo5	ok	surface	さいふをかいました	サイフオ'/カイマ'シタ
 1irzcd96jsr	ok	surface	さいふをかばんにいれました	サイフオ'/カバンニ'/イレマ'シタ
-2aq59udc04b	ok	surface	さいふをつかいます	サイフオ'/ツカイマ'ス
 674bx8xseo	ok	surface	さいふをなくしてけいさつえいきました	サイフオ'/ナクシテ'/ケエサツエ'/イキマ'シタ
 1cxh0pf20hn	ok	surface	さいふをなくしました	サイフオ'/ナクシマ'シタ
 20jwo5ph0gn	ok	surface	さいふをぬすまれました	サイフオ'/ヌスマレマ'シタ
@@ -2827,11 +2830,9 @@ ohlnwsbxlj	ok	surface	さいふをわすれました。それで、いえにも�
 1fllgfurfhc	ok	pitch	さがす	サガス'
 21okwumfwep	ok	pitch	さかな	サカナ'
 8h0p0a3k17	ok	surface+prosody	さかながさんびきおよいでいます	サカナガ'/サンビキ'/オヨ'イデ/イマ'ス
-1skctu6r6lb	ok	surface	さかながすきです	サカナガ'/スキ'デス
 wbbiii5a1	ok	surface	さかながもうやけています	サカナガ'/モ'オ/ヤケテ'/イマ'ス
-21jui7tijq4	ok	surface	さかなをください	サカナオ'/クダサ'イ
+n9dfzemwqo	ok	surface+prosody	さかなとにくと、どちらがすきですか	サカナト'/ニク'ト、/ド'チラガ/スキ'デスカ？
 8c4m93rveh	ok	surface	さかなをたべました	サカナオ'/タベマ'シタ
-jmkzeq0qu5	ok	surface	さかなをたべます	サカナオ'/タベマ'ス
 25drmgnrt8x	ok	surface	さかなをやきます	サカナオ'/ヤキマ'ス
 2fl4kf7cwwe	ok	pitch	さがる	サガ'ル
 24jh3f86ehf	ok	pitch	さかん	サカン'
@@ -2870,6 +2871,7 @@ sl3nojk0xy	ok	surface	さとうのかわりにはちみつをいれました	サ
 okyzyhywtp	ok	pitch	さむい	サム'イ
 2b1jtuw163u	ok	surface	さむいです。でも、さんぽします	サム'イデス、/デ'モ、/サンポ'/シマ'ス
 kkhbnzvk7r	ok	surface	さむいですから、まどをしめます	サム'イデスカラ、/マ'ドオ/シメマ'ス
+13bbydxjhdm	ok	surface	さむいので、ストーブをつけました	サム'イノデ、/スト'オブオ/ツケマ'シタ
 2ad3iz5goiz	ok	surface	さむいのであたたかいかっこうをしてください	サム'イノデ/アタタカ'イ/カッコオオ'/シテ'/クダサ'イ
 1t23a0rpma2	ok	surface	さむいのであついゆにゆっくりはいりました	サム'イノデ/アツ'イ/ユ'ニ/ユック'リ/ハイリマ'シタ
 vcnwswqfup	ok	surface	さむいのでくびにマフラーをまきます	サム'イノデ/クビニ'/マ'フラアオ/マキマ'ス
@@ -3058,10 +3060,9 @@ k1qlet3204	ok	pitch	じてんしゃ	ジテ'ンシャ
 1vrahgmnk9x	ok	surface	じてんしゃがにだいあります	ジテ'ンシャガ/ニ'ダイ/アリマ'ス
 y1llk48nyg	ok	surface	じてんしゃでがっこうえいきます	ジテ'ンシャデ/ガッコオエ'/イキマ'ス
 irihqdgewn	ok	surface	じてんしゃできゅうなさかをのぼりました	ジテ'ンシャデ/キュウナ'/サカ'オ/ノボリマ'シタ
+bqrsd4dpgx	ok	surface+prosody	じてんしゃにのるのがすきです	ジテ'ンシャニ/ノルノガ'/スキ'デス
 1rvq0s1b15k	ok	surface	じてんしゃにのれます	ジテ'ンシャニ/ノレマ'ス
 15fbp4n42ey	ok	surface	じてんしゃわべんりなのりものです	ジテ'ンシャワ/ベ'ンリナ/ノリモノデ'ス
-2gxbu0g37c	ok	surface	じてんしゃをかいました	ジテ'ンシャオ/カイマ'シタ
-26mfu9vujf1	ok	surface	じてんしゃをつかいます	ジテ'ンシャオ/ツカイマ'ス
 18qworhmqxy	ok	pitch	じどう	ジドオ'
 29gi0j2pprg	ok	pitch	じどうしゃ	ジド'オシャ
 29hvf5zk7xw	ok	surface	じどうしゃがみちをはしっています	ジド'オシャガ/ミチオ'/ハシ'ッテ/イマ'ス
@@ -3397,8 +3398,6 @@ iqu1z4frbu	ok	surface	すずしいひがつづきます	スズシ'イ/ヒガ'/�
 1p30pewattz	ok	pitch	すてる	ステル'
 wzgkf8y2fj	ok	pitch	ストーブ	スト'オブ
 9m4rd5pn0r	ok	surface	ストーブでへやをあたためます	スト'オブデ/ヘヤ'オ/アタタメマ'ス
-1vy3aj1391o	ok	surface	ストーブをかいました	スト'オブオ/カイマ'シタ
-6l8h6zf79u	ok	surface	ストーブをつかいます	スト'オブオ/ツカイマ'ス
 o36gri6mzs	ok	pitch	すなはま	スナハマ'
 2gfhv7mre3h	ok	surface	すなはまをはだしであるきました	スナハマオ'/ハダシデ'/アルキマ'シタ
 272pf0o8088	ok	kana	すばらしい	スバラシ'イ
@@ -3406,16 +3405,20 @@ cisqxxj7i7	ok	surface	すばらしいけいけんになりました	スバラシ
 2ercvqddoch	ok	surface+prosody	すばらしいはっぴょうでした	スバラシ'イ/ハッピョオデ'シタ
 z2igm3n40u	ok	pitch	スプーン	スプ'ウン
 149dddbu9b2	ok	surface	スプーンでスープをのみます	スプ'ウンデ/ス'ウプオ/ノミマ'ス
-nydlqiaw3z	ok	surface	スプーンをかいました	スプ'ウンオ/カイマ'シタ
-cokoamtssy	ok	surface	スプーンをつかいます	スプ'ウンオ/ツカイマ'ス
+2e67ytnfcwu	ok	surface	スプーンわひきだしのなかにあります	スプ'ウンワ/ヒキダシノ'/ナ'カニ/アリマ'ス
 nhiivff1kf	ok	pitch	すべる	スベ'ル
 ehd9ptw9n0	ok	pitch	スポーツ	スポ'オツ
 o035b7dax8	ok	surface	スポーツがすきです	スポ'オツガ/スキ'デス
 dxa801tw1g	ok	pitch	ズボン	ズボ'ン
 255yqbhq6g	ok	surface	スマホでかんたんによやくできます	スマホデ'/カンタンニ'/ヨヤク'/デキマ'ス
 kpd24pupy	ok	pitch	すみ	ス'ミ
+adlkc214tg	ok	surface+prosody	すみません、おみずをいっぱいください	スミマセ'ン、/オミズオ'/イ'ッパイ/クダサ'イ
 1lunm1onbpr	ok	kana	すみません、これをコピーしてください	スミマセ'ン、/コレオ'/コ'ピイ/シテ'/クダサ'イ
+243g330ghfj	ok	surface	すみません、スプーンをもうひとつください	スミマセ'ン、/スプ'ウンオ/モ'オ/ヒト'ツ/クダサ'イ
 1jjijbx9670	ok	surface	すみません、ちょっとききたいんですけど	スミマセ'ン、/チョ'ット/キキタ'インデスケド
+1e6ouc7llss	ok	surface+prosody	すみません、でんわばんごうをおしえてください	スミマセ'ン、/デンワバ'ンゴオオ/オシエテ'/クダサ'イ
+1tx07e7vlx5	ok	surface+prosody	すみません、はいざらわありますか	スミマセ'ン、/ハイザラワ'/アリマ'スカ？
+2bgk7otsuwq	ok	surface	すみません、ペンをかしてください	スミマセ'ン、/ペ'ンオ/カシテ'/クダサ'イ
 iw2dnv7f5y	ok	pitch	すむ	ス'ム
 mx2gwle4tl	ok	kana	すり	ス'リ
 25371ofya6z	ok	surface	すりにあう	ス'リニ/ア'ウ
@@ -3444,9 +3447,8 @@ ofhhnl6icp	ok	pitch	せき	セ'キ
 wqxzji9q24	ok	surface+prosody	せきをかえてもいいですか	セ'キオ/カエテモ'/イ'イデスカ？
 f245conmwu	ok	surface+prosody	せっかくのきかいをたいせつにしてください	セッカク'ノ/キカ'イオ/タイセツニ'/シテ'/クダサ'イ
 pcfhe61v5n	ok	pitch	せっけん	セッケン'
+w9gqev4b67	ok	surface	せっけんがもうありません	セッケンガ'/モ'オ/アリマセ'ン
 2gm8xps6yqi	ok	surface	せっけんでてをあらいます	セッケンデ'/テ'オ/アライマ'ス
-xikwc778z0	ok	surface	せっけんをかいました	セッケンオ'/カイマ'シタ
-1o6tk04zjxf	ok	surface	せっけんをつかいます	セッケンオ'/ツカイマ'ス
 2356vpe4l6h	ok	pitch	せつめい	セツメエ'
 rjq0p27uo6	ok	surface+prosody	せつめいかいでしつもんしました	セツメ'エカイデ/シツモン'/シマ'シタ
 o69xkvmjl7	ok	surface	せつめいがたりないとおもいます	セツメエガ'/タリナイト'/オモイマ'ス
@@ -3488,6 +3490,7 @@ wi6ngx72yr	ok	surface	せんしゅう、としょかんえいきました	セン
 167md6jouwf	ok	surface	せんしゅう、ともだちとえいがをみました	センシュウ'、/トモダチト'/エエガオ'/ミマ'シタ
 1dxvocp5cnl	ok	surface+prosody	せんしゅうわがっこうがやすみでした	センシュウワ'/ガッコオガ'/ヤスミ'デシタ
 2he9jklnol	ok	pitch	せんせい	センセ'エ
+10b6wtzfzvs	ok	surface	せんせい、ちょっとしつもんがあります	センセ'エ、/チョ'ット/シツモンガ'/アリマ'ス
 1lnej02z0d6	ok	surface	せんせいが「さとうくん」とよびました	センセ'エガ/サ'トオクント/ヨビマ'シタ
 1om6cm011go	ok	surface	せんせいがおこっています	センセ'エガ/オコ'ッテ/イマ'ス
 1k84lsejl0y	ok	surface	せんせいががくせいをしかりました	センセ'エガ/ガクセエオ'/シカリマ'シタ
@@ -3499,8 +3502,6 @@ jple1w6w1x	ok	surface	せんせいがドアをあけました	センセ'エガ/�
 24sat6wiryu	ok	surface	せんせいからのれんらくをともだちにつたえてください	センセ'エカラノ/レンラクオ'/トモダチニ'/ツタエテ'/クダサ'イ
 we6zwpiyf4	ok	surface	せんせいからへんじをもらいました	センセ'エカラ/ヘンジ'オ/モライマ'シタ
 1803ggp4nu8	ok	surface	せんせいからほんをいただきました	センセ'エカラ/ホ'ンオ/イタダキマ'シタ
-ktu3lddhtc	ok	surface	せんせいとはなします	センセ'エト/ハナシマ'ス
-8tuwsa3qtv	ok	surface	せんせいにあいます	センセ'エニ/アイマ'ス
 13k0cm4tqab	ok	surface	せんせいにいみをたずねました	センセ'エニ/イ'ミオ/タズネマ'シタ
 25o2sbpxmm9	ok	surface	せんせいにおおきなこえでこたえました	センセ'エニ/オ'オキナ/コ'エデ/コタエマ'シタ
 1hpzqz1dgps	ok	surface+prosody	せんせいにおみやげをさしあげました	センセ'エニ/オミヤゲオ'/サシアゲマ'シタ
@@ -3807,8 +3808,12 @@ notznqpm4s	ok	pitch	たてる	タテ'ル
 r3p52008ca	ok	surface+prosody	たとえばなにがひつようですか	タト'エバ/ナ'ニガ/ヒツヨオデ'スカ？
 whpcm4b5iu	ok	pitch	たな	タナ'
 1gltvlkg135	ok	surface	たなかさんがひっこすとききました	タナカサンガ'/ヒッコ'スト/キキマ'シタ
+17eef22t8lo	ok	surface	たなかさんからでんわがありました	タナカサンカラ'/デンワガ'/アリマ'シタ
 6ey8ipljvo	ok	surface+prosody	たなかさんって、どんなひとですか	タナカサンッテ'、/ド'ンナ/ヒトデ'スカ？
 vh4d6q06qu	ok	surface	たなかさんというひとからでんわがありました	タナカサント'/イウ'/ヒトカラ'/デンワガ'/アリマ'シタ
+e3wh9018mf	ok	surface+prosody	たなかさんにわこどもがさんにんいます	タナカサンニワ'/コドモガ'/サンニ'ン/イマ'ス
+1we48z5gy2n	ok	surface	たなかさんのいえにわおとこのこがひとりいます	タナカサンノ'/イエ'ニワ/オトコ'ノコガ/ヒト'リ/イマ'ス
+h2fbivy2pa	ok	surface	たなかさんのおかあさんわりょうりがじょうずです	タナカサンノ'/オカ'アサンワ/リョ'オリガ/ジョオズ'デス
 1vhoempiitq	ok	surface	たなかさんのおくさんわせんせいです	タナカサンノ'/オ'クサンワ/センセ'エデス
 e0fegk5qo7	ok	surface	たなかさんのおじいさんわげんきです	タナカサンノ'/オジ'イサンワ/ゲ'ンキデス
 1rbcdrg1z5z	ok	surface	たなかさんのおじょうさんわだいがくせいです	タナカサンノ'/オジョ'オサンワ/ダイガ'クセエデス
@@ -3855,10 +3860,8 @@ sh3jah2fk9	ok	surface+prosody	たべすぎると、おなかがいたくなり�
 14ygurk4hzo	ok	surface	たべものをれいぞうこにいれます	タベモ'ノオ/レエゾ'オコニ/イレマ'ス
 bxbzdg0ufe	ok	pitch	たべる	タベ'ル
 vo914viqgr	ok	pitch	たまご	タマ'ゴ
-eygnm6rl70	ok	surface	たまごがすきです	タマ'ゴガ/スキ'デス
-2bbmx6ygvhi	ok	surface	たまごをください	タマ'ゴオ/クダサ'イ
-1bhohkrqxbo	ok	surface	たまごをたべます	タマ'ゴオ/タベマ'ス
 7925s3ty55	ok	surface	たまごをにこつかいます	タマ'ゴオ/ニ'コ/ツカイマ'ス
+2d9ge2hsmvo	ok	surface	たまごをみっつかってきてください	タマ'ゴオ/ミッツ'/カッテ'/キ'テ/クダサ'イ
 1mv6gq1o4tc	ok	kana	たまに	タマニ'
 11bcvh0hgw6	ok	surface	たまにえいがをみます	タマニ'/エエガオ'/ミマ'ス
 5zhktjwmer	ok	surface	たまにわゆっくりやすみたいです	タマニワ'/ユック'リ/ヤスミタ'イデス
@@ -3875,6 +3878,7 @@ t7yuiml78t	ok	surface+prosody	だれにあいますか	ダ'レニ/アイマ'ス�
 npk3ql6emt	ok	pitch	たんじょうび	タンジョ'オビ
 qujn5z05sb	ok	surface+prosody	たんじょうびにケーキをたべました	タンジョ'オビニ/ケ'エキオ/タベマ'シタ
 2171c3bxn5z	ok	surface+prosody	たんじょうびにプレゼントをもらいました	タンジョ'オビニ/プレ'ゼントオ/モライマ'シタ
+vrwpky1xos	ok	surface	たんじょうびにまんねんひつをもらいました	タンジョオ'ビニ/マンネ'ンヒツオ/モライマ'シタ
 2f3fgpvf2d1	ok	pitch	だんせい	ダンセエ'
 bhvzmsnkh3	ok	kana	だんだん	ダンダン'
 xcopbldweh	ok	surface+prosody	だんだんさむくなりました	ダンダン'/サ'ムク/ナリマ'シタ
@@ -3924,6 +3928,8 @@ me2hwqa31p	ok	surface	ちずをみます	チ'ズオ/ミマ'ス
 186i3ed6exd	ok	surface	ちちがよろしくともうしておりました	チ'チガ/ヨロシクト'/モ'オシテ/オリマ'シタ
 290eu58g4tn	ok	surface	ちちとでんわではなします	チ'チト/デンワデ'/ハナシマ'ス
 lvbat1ll0b	ok	surface	ちちにとけいをあげました	チ'チニ/トケエオ'/アゲマ'シタ
+idsx9pn4jg	ok	surface	ちちのたんじょうびにあたらしいカメラをあげました	チ'チノ/タンジョオ'ビニ/アタラシ'イ/カ'メラオ/アゲマ'シタ
+1scuq5t0844	ok	surface	ちちのテープレコーダーわとてもふるいです	チ'チノ/テエプレコ'オダアワ/トテモ'/フル'イデス
 1689c3zdskc	ok	ruby-kana+prosody	ちちわオートバイでかいしゃえかよっています	チ'チワ/オオト'バイデ/カイシャエ'/カヨッテ'/イマ'ス ← 父はオートバイで会社へカヨっています
 1oiwqidm9hl	ok	surface+prosody	ちちわおさけをのみません	チ'チワ/オサケオ'/ノミマセ'ン
 1co6vuvv30e	ok	surface	ちちわかいしゃでしごとをします	チ'チワ/カイシャデ'/シゴトオ'/シマ'ス
@@ -3948,6 +3954,7 @@ flay1jjmv8	ok	surface	ちちわとしをとりました	チ'チワ/トシ'オ/�
 222p1ernm7e	ok	surface	ちちわまいあさスーツでかいしゃえいきます	チ'チワ/マ'イアサ/ス'ウツデ/カイシャエ'/イキマ'ス
 29bcqu1zoh9	ok	surface	ちちわまいあさネクタイをしめます	チ'チワ/マ'イアサ/ネ'クタイオ/シメマ'ス
 1ihdnbo3ca5	ok	surface	ちちわまいあさひげをそります	チ'チワ/マ'イアサ/ヒゲオ'/ソリマ'ス
+21b8620rgm3	ok	ruby-kana	ちちわまいにちくるまでかいしゃえいきます	チ'チワ/マ'イニチ/クルマデ'/カイシャエ'/イキマ'ス ← 父はマイニチクルマで会社へ行きます
 2eva0uiwi5c	ok	ruby-kana	ちちわまいにちくるまをうんてんします	チ'チワ/マ'イニチ/クルマオ'/ウンテン'/シマ'ス ← 父はマイニチクルマを運転します
 rtzsolzauv	ok	surface	ちちわまだかえっていません	チ'チワ/マ'ダ/カ'エッテ/イマセ'ン
 20r0tgsw6yp	ok	surface	ちちわまちでとこやをしています	チ'チワ/マチ'デ/トコヤオ'/シテ'/イマ'ス
@@ -3958,9 +3965,8 @@ d2ifwr3cv8	ok	kana-accent	ちゃ	チャ'
 217qsl35aya	ok	surface	ちゃいろがすきです	チャイロガ'/スキ'デス
 om1i9ka3m1	ok	surface	ちゃいろのくつをかいました	チャイロノ'/クツ'オ/カイマ'シタ
 1z7s98pb68f	ok	pitch	ちゃわん	チャワン'
+1ir8cdpisbd	ok	surface+prosody	ちゃわんとおはしをならべてください	チャワント'/オハ'シオ/ナラベテ'/クダサ'イ
 4xxzc41lii	ok	surface	ちゃわんにごはんをいれます	チャワンニ'/ゴ'ハンオ/イレマ'ス
-ejiuftfv30	ok	surface	ちゃわんをかいました	チャワンオ'/カイマ'シタ
-se8kgfuvtt	ok	surface	ちゃわんをつかいます	チャワンオ'/ツカイマ'ス
 19xatluppzj	ok	kana	ちゃん	チャ'ン
 1nms5akxf4t	ok	kana-accent	ちゅ	チュ'
 1mf1aog24lv	ok	surface	ちゅう	チュ'ウ
@@ -4006,6 +4012,7 @@ b76e82elkj	ok	surface	ついたらかならずれんらくします	ツ'イタ�
 tcsuixzs8u	ok	pitch	つかう	ツカウ'
 2efsbj1aura	ok	pitch	つかまえる	ツカマエル'
 ngm5bn56q7	ok	surface+prosody	つかれたせんしゅをほかのせんしゅにかえました	ツカ'レタ/セ'ンシュオ/ホカノ'/セ'ンシュニ/カエマ'シタ
+13sj7ggug5k	ok	surface+prosody	つかれたので、ベッドですこしやすみます	ツカ'レタノデ、/ベ'ッドデ/スコ'シ/ヤスミマ'ス
 22vp78s4nle	ok	pitch	つかれる	ツカレ'ル
 1wr70svethl	ok	pitch	つき	ツキ'
 ng372avzvw	ok	pitch	つぎ	ツギ'
@@ -4036,6 +4043,7 @@ xgz39kbnak	ok	pitch	つくえ	ツクエ'
 f79hily1mp	ok	surface	つくえがよっつあります	ツクエガ'/ヨッツ'/アリマ'ス
 26afxxhjuv9	ok	surface	つくえからペンがおちました	ツクエカラ'/ペ'ンガ/オチマ'シタ
 1km6mb629dq	ok	surface	つくえでにほんごをべんきょうします	ツクエデ'/ニホンゴオ'/ベンキョオ'/シマ'ス
+1avw2dn2y04	ok	surface	つくえのうえにえんぴつがにほんあります	ツクエノ'/ウエニ'/エンピツガ'/ニ'ホン/アリマ'ス
 14p0wyc4txb	ok	surface	つくえのうえにしりょうがおいてあります	ツクエノ'/ウエニ'/シ'リョオガ/オイテ'/アリマ'ス
 nue2l4vm5m	ok	surface	つくえのうえにたべものがあります	ツクエノ'/ウエニ'/タベモ'ノガ/アリマ'ス
 1qpshe49r6n	ok	surface	つくえのうえにほんがあります	ツクエノ'/ウエニ'/ホ'ンガ/アリマ'ス
@@ -4088,6 +4096,7 @@ zkbgigb9x8	ok	pitch	つる	ツル'
 156238483gv	ok	surface	ていねいなおれいのてがみがとどきました	テ'エネエナ/オレエノ'/テガミガ'/トドキマ'シタ
 102ec85hdkl	ok	surface	ていねいなことばをつかいます	テ'エネエナ/コトバ'オ/ツカイマ'ス
 1egqu8shuuw	ok	pitch	テープ	テ'エプ
+24w5j444a83	ok	surface	テープでかみをかべにはりました	テ'エプデ/カミ'オ/カベニ'/ハリマ'シタ
 gajnxfanhb	ok	surface	テープではこをなおしました	テ'エプデ/ハコオ'/ナオシマ'シタ
 7a76cvdudw	ok	pitch	テーブル	テエブル'
 1pnw7pcmf0y	ok	surface	テーブルでごはんをたべます	テエブルデ'/ゴ'ハンオ/タベマ'ス
@@ -4098,14 +4107,11 @@ nh7n0bpwcb	ok	surface	テーブルのうえにほんがあります	テエブル
 sf1fs38hry	ok	kana	テーブルをきれいにします	テエブルオ'/キ'レイニ/シマ'ス
 26yjj6v3hfq	ok	pitch	テープレコーダー	テエプレコ'オダア
 29jptos8ls8	ok	surface	テープレコーダーでおんがくをききます	テエプレコ'オダアデ/オ'ンガクオ/キキマ'ス
-1314f5ozcy6	ok	surface	テープレコーダーをかいました	テエプレコ'オダアオ/カイマ'シタ
-215y5f95yx1	ok	surface	テープレコーダーをつかいます	テエプレコ'オダアオ/ツカイマ'ス
-1g4i44qyy8x	ok	surface	テープをかいました	テ'エプオ/カイマ'シタ
 8ethp3ggll	ok	surface+prosody	テープをすこしひきだしてください	テ'エプオ/スコ'シ/ヒキダ'シテ/クダサ'イ
-2ap13cj0fad	ok	surface	テープをつかいます	テ'エプオ/ツカイマ'ス
 2gmnn2yh5wp	ok	surface	てがきたないので、あらいます	テ'ガ/キタナ'イノデ、/アライマ'ス
 51a15h3p8n	ok	pitch	でかける	デカケル'
 jryea74qx1	ok	surface	でかけるしたくができました	デカケル'/シタクガ'/デキマ'シタ
+1uzrpti2nag	ok	surface	でかけるまえに、ドアにかぎをかけます	デカケル'/マ'エニ、/ド'アニ/カギ'オ/カケマ'ス
 je8web9obc	ok	surface	でかけるまえにかがみをみました	デカケル'/マ'エニ/カガミ'オ/ミマ'シタ
 8xdfp5x1u2	ok	surface	でかけるまえにてんきよほうをみました	デカケル'/マ'エニ/テンキヨ'ホオオ/ミマ'シタ
 1nj8vwpxd2a	ok	surface	でかけるまえにマスクをつけました	デカケル'/マ'エニ/マ'スクオ/ツケマ'シタ
@@ -4150,7 +4156,6 @@ qantaqd3qy	ok	surface	デパートでともだちにあいます	デパ'アト�
 k8s15bxwf3	ok	surface	てらのにわわとてもしずかです	テラ'ノ/ニワワ'/トテモ'/シ'ズカデス
 11jxgme8sp6	ok	pitch	でる	デ'ル
 88d4gjl7zx	ok	pitch	テレビ	テ'レビ
-2bi5sxzgxuw	ok	surface	テレビがすきです	テ'レビガ/スキ'デス
 1x8ognv4t6e	ok	surface	テレビでニュースをほうそうしています	テ'レビデ/ニュ'ウスオ/ホオソオ'/シテ'/イマ'ス
 2b8ubg8fwbo	ok	surface	テレビのおとがうるさいです	テ'レビノ/オト'ガ/ウルサ'イデス
 1stpf834itp	ok	surface+prosody	テレビのおとをすこしさげてください	テ'レビノ/オト'オ/スコ'シ/サ'ゲテ/クダサ'イ
@@ -4159,7 +4164,6 @@ k8s15bxwf3	ok	surface	てらのにわわとてもしずかです	テラ'ノ/ニ�
 18h4krnkouv	ok	kana+prosody	テレビをつけてください	テ'レビオ/ツ'ケテ/クダサ'イ
 55ei847up0	ok	surface	テレビをみながらごはんをたべないほうがいいです	テ'レビオ/ミナ'ガラ/ゴ'ハンオ/タベ'ナイ/ホ'オガ/イ'イデス
 27pfj61hmba	ok	surface	テレビをみました	テ'レビオ/ミマ'シタ
-214fl88wnxw	ok	surface	テレビをみます	テ'レビオ/ミマ'ス
 1scqqiadzg4	ok	pitch	でわ	デ'ワ
 bzipht1kum	ok	surface	でわ、いきます	デ'ワ、/イキマ'ス
 26i2zne04ee	ok	surface	でわ、はじめましょう	デ'ワ、/ハジメマショ'オ
@@ -4204,6 +4208,7 @@ cpwp3322jm	ok	surface	でんしゃがはしをとおりました	デンシャガ
 cex3rvfzm9	ok	surface+prosody	でんしゃでいくか、バスでいくか、かんがえています	デンシャデ'/イクカ'、/バ'スデ/イクカ'、/カンガ'エテ/イマ'ス
 vul4wci7ik	ok	surface	でんしゃでずっとたっていました	デンシャデ'/ズット'/タ'ッテ/イマ'シタ
 nn00t201n5	ok	surface	でんしゃにあかちゃんがのっています	デンシャニ'/ア'カチャンガ/ノッテ'/イマ'ス
+1tx6xa6gsvx	ok	surface	でんしゃにかさをわすれました	デンシャニ'/カ'サオ/ワスレマ'シタ
 jzg0eygzij	ok	surface	でんしゃにてぶくろをわすれてしまいました	デンシャニ'/テブ'クロオ/ワスレテ'/シマイマ'シタ
 fsgib6xhm4	ok	surface	でんしゃにまにあいました	デンシャニ'/マニアイマ'シタ
 5xicvexgey	ok	surface+prosody	でんしゃにまにあってよかったです	デンシャニ'/マニア'ッテ/ヨ'カッタデス
@@ -4227,9 +4232,7 @@ itr01e5opd	ok	surface	てんらんかいじょうにわおおくのひとがな�
 1qqoa3i3ne5	ok	surface	でんわがなっています	デンワガ'/ナッテ'/イマ'ス
 1meunmvuarl	ok	surface	でんわばんごうをおしえてください	デンワバ'ンゴオオ/オシエテ'/クダサ'イ
 1or721v0sf1	ok	surface	でんわまたわメールでれんらくしてください	デンワ'/マタ'ワ/メエルデ'/レンラク'/シテ'/クダサ'イ
-17ohrcqrdzi	ok	surface	でんわをかいました	デンワオ'/カイマ'シタ
 1y7w64uss9c	ok	surface	でんわをきりました	デンワオ'/キリマ'シタ
-2dcpmwmwspo	ok	surface	でんわをつかいます	デンワオ'/ツカイマ'ス
 13utg63mqk0	ok	pitch	と	ト'
 cvgmqva3gj	ok	kana-accent	ど	ド'
 unvcvnohsx	ok	pitch	ドア	ド'ア
@@ -4296,13 +4299,11 @@ rw3x67oc74	ok	surface	とおかにあいましょう	トオカニ'/アイマシ�
 bgapd47eop	ok	surface+prosody	とおかわやすみです	トオカワ'/ヤスミ'デス
 1oimmmgcei0	ok	surface	とおく	トオク'
 hyx4dx4qf7	ok	surface+prosody	とおくからでんしゃのおとがきこえます	トオク'カラ/デンシャノ'/オト'ガ/キコエマ'ス
-h92se48zsh	ok	ruby-kana+prosody	とおください	ト'オ/クダサ'イ ← トオください
 1jdahwkjnel	ok	surface+prosody	とおくでしんごうがひかりました	トオク'デ/シンゴオガ'/ヒカリマ'シタ
 e6fu8wwa37	ok	surface+prosody	とおくででんしゃのおとがきこえました	トオク'デ/デンシャノ'/オト'ガ/キコエマ'シタ
 edeyidmv6h	ok	surface+prosody	とおくにちいさなひかりがみえました	トオク'ニ/チ'イサナ/ヒカリ'ガ/ミエマ'シタ
 1qsnapv9qka	ok	surface+prosody	とおくにやまがみえます	トオク'ニ/ヤマ'ガ/ミエマ'ス
 t9phpwg08a	ok	surface+prosody	とおくまであるきました	トオク'マデ/アルキマ'シタ
-l6ys5xhw1d	ok	ruby-kana	とおまでかぞえます	ト'オマデ/カゾエマ'ス ← トオまで数えます
 hctirwhelt	ok	pitch	とおり	トオリ'
 p3h6un8esg	ok	pitch	とおる	ト'オル
 1pb7eud186t	ok	surface+prosody	とかいをはなれていなかえひっこしたいです	トカイオ'/ハナ'レテ/イナカエ'/ヒッコシタ'イデス
@@ -4317,9 +4318,7 @@ krfqaanxo0	ok	pitch	とくべつ	トクベツ'
 1e7gml6uy5u	ok	surface	とくべつにせつめいします	トクベツニ'/セツメエ'/シマ'ス
 2etfehaj1gp	ok	pitch	とけい	トケエ'
 la6lmua92j	ok	surface	とけいがとまりました	トケエガ'/トマリマ'シタ
-r7c2rtgibe	ok	surface	とけいをかいました	トケエオ'/カイマ'シタ
 hhtk369vs9	ok	surface	とけいをかべにかけました	トケエオ'/カベニ'/カケマ'シタ
-1nr3atd2gee	ok	surface	とけいをつかいます	トケエオ'/ツカイマ'ス
 1ij0i22p2l3	ok	kana	どこ	ド'コ
 wku127boem	ok	surface+prosody	どこえいきますか	ド'コエ/イキマ'スカ？
 1sgtc1qh5tb	ok	pitch	とこや	トコヤ'
@@ -4363,6 +4362,7 @@ otfg8s2tfz	ok	pitch	とどける	トドケ'ル
 19ym8mwwlfg	ok	surface+prosody	どなたにあいますか	ド'ナタニ/アイマ'スカ？
 1g4l3eqz5nw	ok	pitch	となり	トナリ'
 2fr0dqnws1e	ok	surface	となりにともだちがすわっています	トナリニ'/トモダチガ'/スワッテ'/イマ'ス
+nq4iqmtd49	ok	surface	となりのいえにおんなのこがうまれました	トナリノ'/イエ'ニ/オンナ'ノコガ/ウマレマ'シタ
 1xp9m8akuzx	ok	surface+prosody	となりのしまででんしゃでにじゅっぷんです	トナリノ'/シ'マデ/デンシャデ'/ニジュ'ップンデス
 1aowlvpg8wq	ok	surface	となりのへやからおとがきこえます	トナリノ'/ヘヤ'カラ/オト'ガ/キコエマ'ス
 27o8mmmmz1y	ok	surface	となりのへやわしずかです	トナリノ'/ヘヤ'ワ/シ'ズカデス
@@ -4411,6 +4411,7 @@ jebyv0dprm	ok	surface	ともだちとはなしました	トモダチト'/ハナ�
 1b4mhdl1bia	ok	surface	ともだちにうそをついてこうかいしました	トモダチニ'/ウ'ソオ/ツ'イテ/コ'オカイ/シマ'シタ
 19lizxbxfoc	ok	surface	ともだちにえをみせます	トモダチニ'/エ'オ/ミセマ'ス
 o3i6ndo9ij	ok	surface	ともだちにおかえしをかいました	トモダチニ'/オカエシオ'/カイマ'シタ
+1hrekmoj77h	ok	surface+prosody	ともだちにおかしをもらいました	トモダチニ'/オカ'シオ/モライマ'シタ
 1s0e83jugga	ok	surface	ともだちにおかねをかえしました	トモダチニ'/オカネオ'/カエシマ'シタ
 1d9qyt9f8xm	ok	surface	ともだちにかさをかりました	トモダチニ'/カ'サオ/カリマ'シタ
 1vr8wpuwy1x	ok	surface	ともだちにかんじをおしえました	トモダチニ'/カンジオ'/オシエマ'シタ
@@ -4464,9 +4465,8 @@ arigcsj44g	ok	pitch	とりかえる	トリカエル'
 1g021hjk3tv	ok	surface	とりがほそいえだにとまっています	トリガ'/ホソ'イ/エダニ'/トマッテ'/イマ'ス
 1pqxvzap5vm	ok	pitch	とりけす	トリケス'
 dcl23td8pi	ok	pitch	とりにく	トリニク'
-1q4qsyf92ha	ok	surface	とりにくがすきです	トリニクガ'/スキ'デス
-cjuogwho8o	ok	surface	とりにくをください	トリニクオ'/クダサ'イ
-2bmx44vg2ht	ok	surface	とりにくをたべます	トリニクオ'/タベマ'ス
+24xrew0aa54	ok	surface	とりにくがきらいなひともいます	トリニクガ'/キライナ'/ヒトモ'/イマ'ス
+jjptcgzxdb	ok	surface+prosody	とりにくをちいさくきってください	トリニクオ'/チイサ'ク/キ'ッテ/クダサ'イ
 x7e4slop7a	ok	surface	とりみたいにそらをとびたいです	トリミ'タイニ/ソ'ラオ/トビタ'イデス
 2fisjrbbu15	ok	surface	どりょくすれば、きっとじょうずになります	ド'リョク/スレ'バ、/キット'/ジョオズ'ニ/ナリマ'ス
 x1a8fur5we	ok	pitch	とる	ト'ル
@@ -4489,8 +4489,7 @@ j6ck7ppkxi	ok	surface+prosody	どんなようじでこちらえきましたか	�
 28vkgks7ei	ok	kana	ない	ナ'イ
 1ttq10wsgvz	ok	pitch	ナイフ	ナ'イフ
 1fwly2v5n3l	ok	surface	ナイフでりんごをきります	ナ'イフデ/リンゴオ'/キリマ'ス
-g1cugwbtpz	ok	surface	ナイフをかいました	ナ'イフオ/カイマ'シタ
-1sasrk7xnto	ok	surface	ナイフをつかいます	ナ'イフオ/ツカイマ'ス
+1l4mfrl8e9n	ok	surface	ナイフとフォークでたべます	ナ'イフト/フォ'オクデ/タベマ'ス
 204mmiff9qr	ok	pitch	なおす	ナオ'ス
 1pwpz7u7nf9	ok	pitch	なおる	ナオ'ル
 17rpyvmxb5k	ok	pitch	なか	ナ'カ
@@ -4517,6 +4516,7 @@ ru6hopnt7r	ok	pitch	なつ	ナツ'
 2ej9hmx5szr	ok	surface+prosody	なっとうをたべたことがありません	ナット'オオ/タ'ベタ/コト'ガ/アリマセ'ン
 1hxmovv6aiy	ok	surface	なつにうみえいきます	ナツ'ニ/ウ'ミエ/イキマ'ス
 f4nubim82f	ok	surface	なつにかぞくとかいがんをあるきました	ナツ'ニ/カ'ゾクト/カイガンオ'/アルキマ'シタ
+59fk73h1l6	ok	surface	なつにともだちとやまにのぼりました	ナツ'ニ/トモダチト'/ヤマ'ニ/ノボリマ'シタ
 ckrua2f4x	ok	surface	なつにプールでおよぎます	ナツ'ニ/プ'ウルデ/オヨギマ'ス
 139uhoalcnc	ok	surface+prosody	なつのおまつりではなびをみました	ナツ'ノ/オマツリデ'/ハ'ナビオ/ミマ'シタ
 1b9gap7qzao	ok	surface+prosody	なつのひるまわとてもあつくなります	ナツ'ノ/ヒルマ'ワ/トテモ'/ア'ツク/ナリマ'ス
@@ -4524,8 +4524,10 @@ ckrua2f4x	ok	surface	なつにプールでおよぎます	ナツ'ニ/プ'ウル�
 9zh61g0t7h	ok	pitch	なつやすみ	ナツヤ'スミ
 b6blv9rezb	ok	surface	なつやすみ、ともだちにあいます	ナツヤ'スミ、/トモダチニ'/アイマ'ス
 1j2tnz1ooba	ok	surface	なつやすみにうみえいきます	ナツヤ'スミニ/ウ'ミエ/イキマ'ス
+75hnbzxskq	ok	surface	なつやすみにかぞくとうみえいきました	ナツヤ'スミニ/カ'ゾクト/ウ'ミエ/イキマ'シタ
 1agktll30ei	ok	surface	なつやすみにそふのいええいきました	ナツヤ'スミニ/ソ'フノ/イエ'エ/イキマ'シタ
 50mbusjpzy	ok	surface	なつやすみにほっかいどうえいくことにしました	ナツヤ'スミニ/ホッカ'イドオエ/イク'/コト'ニ/シマ'シタ
+1afwkmod2lk	ok	surface	なつやすみにりょうしんのいええかえります	ナツヤ'スミニ/リョ'オシンノ/イエ'エ/カエリマ'ス
 19z69w9ovf0	ok	surface	なつやすみにりょこうします	ナツヤ'スミニ/リョコオ'/シマ'ス
 xg860xy0nj	ok	surface	なつやすみのあいだ、アルバイトをしました	ナツヤ'スミノ/アイダ'、/アルバ'イトオ/シマ'シタ
 23oh7e2033n	ok	surface+prosody	なつやすみのきかんわとしょかんがはやくしまります	ナツヤ'スミノ/キ'カンワ/トショ'カンガ/ハ'ヤク/シマリマ'ス
@@ -4588,10 +4590,9 @@ oyrmii7wxm	ok	pitch	にがい	ニガ'イ
 313qae2fg7	ok	kana	にぎやか	ニギ'ヤカ
 1t0a2e7ajeu	ok	surface	にぎやかなまちにすんでいます	ニギ'ヤカナ/マチ'ニ/ス'ンデ/イマ'ス
 n09ao2mjn1	ok	pitch	にく	ニク'
-1f5891cx8m1	ok	surface	にくがすきです	ニク'ガ/スキ'デス
-f4ywns6sbo	ok	surface	にくをください	ニク'オ/クダサ'イ
+xuu15kk3f9	ok	surface	にくわれいぞうこにいれてください	ニク'ワ/レエゾ'オコニ/イレテ'/クダサ'イ
+10bi15fou	ok	surface	にくをかいにみせえいきます	ニク'オ/カイニ'/ミセ'エ/イキマ'ス
 1i8oijp5pet	ok	surface	にくをさんびゃくグラムかいました	ニク'オ/サンビャクグ'ラム/カイマ'シタ
-j6azfbt6mz	ok	surface	にくをたべます	ニク'オ/タベマ'ス
 1octsh6fkx9	ok	surface	にくをたれにつけておきます	ニク'オ/タレニ'/ツケテ'/オキマ'ス
 sv3jvef0n1	ok	surface	にくをにキログラムください	ニク'オ/ニキログ'ラム/クダサ'イ
 gf1pd5lwep	ok	surface+prosody	にくをやきすぎないでください	ニク'オ/ヤキスギ'ナイデ/クダサ'イ
@@ -4621,6 +4622,7 @@ tbg1pit39h	ok	surface	にちようびにせんたくをします	ニチヨ'オ�
 yp6gh1n6ti	ok	surface	にちようびにゆっくりやすみました	ニチヨ'オビニ/ユック'リ/ヤスミマ'シタ
 lqnn7h41pc	ok	surface	にちようびわいえでゆっくりやすみます	ニチヨ'オビワ/イエ'デ/ユック'リ/ヤスミマ'ス
 10m1dj0wwfq	ok	surface	にちようびわいえでりょうりをします	ニチヨ'オビワ/イエ'デ/リョ'オリオ/シマ'ス
+ilzdhaef4m	ok	surface	にちようびわかぞくででかけます	ニチヨ'オビワ/カ'ゾクデ/デカケマ'ス
 2vtimjps6e	ok	surface	にちようびわときどきでかけます	ニチヨ'オビワ/トキドキ'/デカケマ'ス
 4h5pncods1	ok	surface+prosody	にちようびわやすみです	ニチヨ'オビワ/ヤスミ'デス
 25o85g54hnx	ok	pitch	にっき	ニッキ'
@@ -4688,6 +4690,7 @@ ltmicrusxm	ok	surface	にほんごをべんきょうするじかんです	ニホ
 25nbc8vrj0f	ok	surface	にほんごをよくべんきょうします	ニホンゴオ'/ヨ'ク/ベンキョオ'/シマ'ス
 cu0dgzh4ex	ok	ruby-kana+prosody	にほんしきのへやにとまりました	ニホンシキノ'/ヘヤ'ニ/トマリマ'シタ ← ニホンシキの部屋に泊まりました
 1jnqwbwcrru	ok	ruby-kana+prosody	にほんじんとはなすきかいがふえました	ニホンジ'ント/ハナ'ス/キカ'イガ/フエマ'シタ ← ニホンジンと話す機会が増えました
+hlqdcm28st	ok	ruby-kana	にほんでいちばんたかいやまわふじさんです	ニホ'ンデ/イチ'バン/タカ'イ/ヤマ'ワ/フ'ジサンデス ← ニホンで一番高い山は富士山です
 rueplavh2p	ok	ruby-kana	にほんでうんてんするにわめんきょがひつようです	ニホ'ンデ/ウンテン'/スルニワ'/メ'ンキョガ/ヒツヨオデ'ス ← ニホンで運転するには免許が必要です
 vyivlyucy2	ok	ruby-kana	にほんでくらしてみたいです	ニホ'ンデ/クラシテ'/ミ'タイデス ← ニホンで暮らしてみたいです
 208vw9hx9fv	ok	ruby-kana+prosody	にほんでじんじゃえいったり、ラーメンをたべたりしたいです	ニホ'ンデ/ジ'ンジャエ/イッタリ'、/ラ'アメンオ/タ'ベタリ/シタ'イデス ← ニホンで神社へ行ったり、ラーメンを食べたりしたいです
@@ -4761,7 +4764,9 @@ hmb7a123uu	ok	kana-accent	にょ	ニョ'
 1w1or69xzhi	ok	surface+prosody	にわでやさいをそだてています	ニワデ'/ヤサイオ'/ソダ'テテ/イマ'ス
 9o71t10skc	ok	surface	にわにあかいはながさきました	ニワニ'/アカイ'/ハナ'ガ/サキマ'シタ
 129had4pk66	ok	surface	にわにうつくしいはながさいています	ニワニ'/ウツクシ'イ/ハナ'ガ/サイテ'/イマ'ス
+2085glcfrbh	ok	surface	にわにきれいなはながさいています	ニワニ'/キ'レイナ/ハナ'ガ/サイテ'/イマ'ス
 211rvtugycu	ok	surface	にわにことりがとんできました	ニワニ'/コトリガ'/トンデ'/キマ'シタ
+2c0yzu3ibrk	ok	surface+prosody	にわにたかいきがいっぽんあります	ニワニ'/タカ'イ/キ'ガ/イ'ッポン/アリマ'ス
 p5ccwlxomx	ok	surface	にわにはなをうえました	ニワニ'/ハナ'オ/ウエマ'シタ
 r0spm19uzl	ok	surface	にわのきのえだをきりました	ニワノ'/キ'ノ/エダオ'/キリマ'シタ
 23ixxvta4lg	ok	surface	にわのくさをとりました	ニワノ'/クサ'オ/トリマ'シタ
@@ -4807,6 +4812,7 @@ f819eem756	ok	surface	ねだんをみておどろきました	ネダンオ'/ミ'
 129h8l1yntj	ok	pitch	ねつ	ネツ'
 23qy9p2aji	ok	surface	ねつがあって、かいしゃをやすみました	ネツ'ガ/ア'ッテ、/カイシャオ'/ヤスミマ'シタ
 w3zr0x0ktg	ok	surface	ねつがあります	ネツ'ガ/アリマ'ス
+1xc4g4uunv7	ok	surface	ねつがあるので、いしゃにいきます	ネツ'ガ/ア'ルノデ、/イシャニ'/イキマ'ス
 1d863kjtwha	ok	ruby-kana+prosody	ねつがあるのでひたいをひやしました	ネツ'ガ/ア'ルノデ/ヒタイオ'/ヒヤシマ'シタ ← 熱があるのでヒタイを冷やしました
 z1bywm0xw5	ok	pitch	ねっしん	ネ'ッシン
 3iyhnamizu	ok	surface	ねっしんなせんせいにおしえてもらいました	ネ'ッシンナ/センセ'エニ/オシエテ'/モライマ'シタ
@@ -4820,6 +4826,7 @@ vvxajfhqtx	ok	surface	ねっしんにせつめいをききました	ネ'ッシ�
 wqak853xtx	ok	pitch	ねむる	ネムル'
 1uyueofh99m	ok	pitch	ねる	ネル'
 1kt7nvmcm1u	ok	surface+prosody	ねるじかんがおそいです	ネル'/ジカンガ'/オソイデ'ス
+1gs21z8jyn2	ok	surface	ねるまえに、ストーブをけしてください	ネル'/マ'エニ、/スト'オブオ/ケシテ'/クダサ'イ
 9qjhevwuxt	ok	surface	ねるまえにすこしずつしょうせつをよみます	ネル'/マ'エニ/スコ'シズツ/ショオセツオ'/ヨミマ'ス
 m8sdar32fl	ok	surface	ねるまえにだんぼうをけしてください	ネル'/マ'エニ/ダンボオオ'/ケシテ'/クダサ'イ
 arq2eg933q	ok	surface	ねるまえににっきをかいています	ネル'/マ'エニ/ニッキオ'/カ'イテ/イマ'ス
@@ -4831,9 +4838,8 @@ kr4yjg32mx	ok	surface	ねるまえにれいぼうをけしてください	ネル
 nyriy6hc8	ok	pitch	ノート	ノ'オト
 1b2iz1w2p14	ok	surface	ノートにかんじをかきます	ノ'オトニ/カンジオ'/カキマ'ス
 1t621hczzon	ok	surface	ノートにたいせつなことをかきます	ノ'オトニ/タイセツナ'/コト'オ/カキマ'ス
-4i9dst4ag3	ok	surface	ノートをかいました	ノ'オトオ/カイマ'シタ
 2d0s0kjihej	ok	surface+prosody	ノートをかりてもいいですか	ノ'オトオ/カリテモ'/イ'イデスカ？
-17zyao6gx9l	ok	surface	ノートをつかいます	ノ'オトオ/ツカイマ'ス
+1vhyufly5zi	ok	surface+prosody	ノートをみせてください	ノ'オトオ/ミ'セテ/クダサ'イ
 ng3e5qh04w	ok	surface+prosody	のこりじかんわゼロです	ノコリジ'カンワ/ゼ'ロデス
 27usdo8yyno	ok	pitch	のこる	ノコ'ル
 dsaepb7brs	ok	kana	のど	ノ'ド
@@ -4869,8 +4875,7 @@ fgc7fhx6w2	ok	surface	はい、わかりました	ハ'イ、/ワカリマ'シタ
 axyuyofsp4	ok	pitch	はいけん	ハイケン'
 212gs0d3b8	ok	pitch	はいざら	ハイザラ'
 rin1xxx0n5	ok	surface	はいざらにたばこのはいをおとします	ハイザラニ'/タバコノ'/ハイオ'/オトシマ'ス
-cgliuvz57i	ok	surface	はいざらをかいました	ハイザラオ'/カイマ'シタ
-9856dbvap8	ok	surface	はいざらをつかいます	ハイザラオ'/ツカイマ'ス
+9hk28w4wm5	ok	surface	はいざらをきれいにあらいました	ハイザラオ'/キ'レイニ/アライマ'シタ
 nwweqlsvmu	ok	pitch	はいしゃ	ハ'イシャ
 bxl9gmuud9	ok	surface	はいしゃにはをみてもらいました	ハ'イシャニ/ハ'オ/ミ'テ/モライマ'シタ
 1mgtag4dzd2	ok	surface	ばいになる	バイニ'/ナ'ル
@@ -4886,12 +4891,11 @@ mt4q68wn4w	ok	kana	はく	ハク'
 pwh9alq1v	ok	surface	はこがむっつあります	ハコガ'/ムッツ'/アリマ'ス
 yoofz1onmh	ok	surface	はこにほんをいれました	ハコニ'/ホ'ンオ/イレマ'シタ
 16cfbkwk1on	ok	surface	はこのちゅういがきにわ「われもの」とあります	ハコノ'/チュウイガキニワ'/ワレモノト'/アリマ'ス
+2940tegm2xs	ok	surface+prosody	はこのなかになにがはいっていますか	ハコノ'/ナ'カニ/ナ'ニガ/ハ'イッテ/イマ'スカ？
 ko8sssfniu	ok	surface	はこのなかにほんがあります	ハコノ'/ナ'カニ/ホ'ンガ/アリマ'ス
 mz0z7ox2tp	ok	surface	はこのなかにほんがはいっています	ハコノ'/ナ'カニ/ホ'ンガ/ハ'イッテ/イマ'ス
 cs60lz6cbl	ok	pitch	はこぶ	ハコブ'
 p01ul6gqd7	ok	surface	はこをあけました	ハコオ'/アケマ'シタ
-w85qkwc9oj	ok	surface	はこをかいました	ハコオ'/カイマ'シタ
-1g5eohgtfv0	ok	surface	はこをつかいます	ハコオ'/ツカイマ'ス
 1tqxu3febqw	ok	surface	はこをろうかのすみにおいてください	ハコオ'/ロオカノ'/ス'ミニ/オイテ'/クダサ'イ
 s64jftk52r	ok	pitch	はし	ハシ'
 vo1uo2afhh	ok	surface	はしでごはんをたべます	ハ'シデ/ゴ'ハンオ/タベマ'ス
@@ -4958,9 +4962,7 @@ ontv0swgi1	ok	ruby-kana	はつかににほんえいきます	ハツカニ'/ニ�
 vkfebcu9co	ok	pitch	はっぴょう	ハッピョオ'
 lw0aho9f7n	ok	surface	はっぴょうのまえわきんちょうします	ハッピョオノ'/マ'エワ/キンチョオ'/シマ'ス
 19l2gxrx61	ok	pitch	はな	ハナ'
-2ah8kn9kobl	ok	surface	はながあります	ハナ'ガ/アリマ'ス
 350h811lzy	ok	surface	はながいたいです	ハナガ'/イタ'イデス
-1kg19p4n3dg	ok	surface	はながきれいです	ハナ'ガ/キ'レイデス
 kwr8gza4i9	ok	pitch	はなし	ハナシ'
 4nkuwxefej	ok	surface	はなしのとちゅうででんわがなりました	ハナシ'ノ/トチュウデ'/デンワガ'/ナリマ'シタ
 dt24t09v4	ok	surface	はなしをつづけてください	ハナシ'オ/ツズケテ'/クダサ'イ
@@ -4970,9 +4972,9 @@ dt24t09v4	ok	surface	はなしをつづけてください	ハナシ'オ/ツズ�
 2093blz1zll	ok	surface	はなみのきせつにわこのこうえんがこみます	ハナミ'ノ/キ'セツニワ/コノ'/コオエンガ'/コミマ'ス
 6fi16uylve	ok	surface	はなやわえきのちかくです	ハナ'ヤワ/エ'キノ/チ'カクデス
 txrg0dkz2w	ok	surface	はなをかみます	ハナオ'/カミマ'ス
-1w6g0qp5k2x	ok	surface	はなをみます	ハナ'オ/ミマ'ス
 1fsid9mkdc4	ok	pitch	はは	ハ'ハ
 n38h3xx7er	ok	surface	ははえのプレゼントをえらんでいます	ハ'ハエノ/プレ'ゼントオ/エラ'ンデ/イマ'ス
+2fdaool3lud	ok	surface+prosody	ははがあさごはんをつくっています	ハ'ハガ/アサゴ'ハンオ/ツク'ッテ/イマ'ス
 wz64269t14	ok	surface+prosody	ははがおべんとうをつくります	ハ'ハガ/オベントオオ'/ツクリマ'ス
 2dikj5gypex	ok	surface	ははがケーキをやきました	ハ'ハガ/ケ'エキオ/ヤキマ'シタ
 26j4hvez107	ok	surface	ははがげんかんまでむかえにきました	ハ'ハガ/ゲ'ンカンマデ/ムカエニ'/キマ'シタ
@@ -4993,6 +4995,7 @@ p7uko06fef	ok	surface	ははにあかいてぶくろをもらいました	ハ'�
 1bq65q6sska	ok	surface	ははにてがみをかきます	ハ'ハニ/テガミオ'/カキマ'ス
 11l54wux9d9	ok	surface	ははのきものをかりました	ハ'ハノ/キモノオ'/カリマ'シタ
 gdj1o254iu	ok	surface	ははのそばにすわります	ハ'ハノ/ソ'バニ/スワリマ'ス
+7eh0gkwric	ok	surface	ははのたんじょうびにはなをあげました	ハ'ハノ/タンジョオ'ビニ/ハナ'オ/アゲマ'シタ
 1uoo5zt7lso	ok	surface	ははのにもつをもってあげました	ハ'ハノ/ニ'モツオ/モ'ッテ/アゲマ'シタ
 1z7elpxlsgz	ok	surface	ははのゆびわをはこにしまいました	ハ'ハノ/ユビワオ'/ハコニ'/シマイマ'シタ
 1m277qotqec	ok	surface	ははのりょうりがだいすきです	ハ'ハノ/リョ'オリガ/ダ'イスキデス
@@ -5042,30 +5045,31 @@ waivvep6q6	ok	surface+prosody	はをみがいているあいだわすいどう�
 lox8x0009v	ok	pitch	ばん	バン'
 1i0u8q3s58m	ok	pitch	パン	パ'ン
 10ge040v6uh	ok	surface	パンがきれいにやけました	パ'ンガ/キ'レイニ/ヤケマ'シタ
-1c2cazfva4v	ok	surface	パンがすきです	パ'ンガ/スキ'デス
 rtwo1kng1c	ok	pitch	ハンカチ	ハンカ'チ
 1fq8z27el5i	ok	surface	ハンカチでてをふきます	ハンカチデ'/テ'オ/フキマ'ス
-29o2jn510xk	ok	surface	ハンカチをかいました	ハンカチオ'/カイマ'シタ
-1vdmhiveqfn	ok	surface	ハンカチをつかいます	ハンカチオ'/ツカイマ'ス
+su9fzkbe7i	ok	surface+prosody	ハンカチをもっていますか	ハンカチオ'/モ'ッテ/イマ'スカ？
 fzqqphglgp	ok	pitch	ばんぐみ	バングミ'
 1jj7cbxbhl6	ok	pitch	ばんごう	バンゴ'オ
 1c0qb8ntx9w	ok	surface	ばんごうをかきます	バンゴ'オオ/カキマ'ス
 1ude1q1js8a	ok	pitch	ばんごはん	バンゴ'ハン
+r9c75a7sy1	ok	surface+prosody	ばんごはんにカレーをつくります	バンゴ'ハンニ/カレエオ'/ツクリマ'ス
+1ex2kdgtfxx	ok	surface+prosody	ばんごはんのあとで、おさらをあらいます	バンゴ'ハンノ/ア'トデ、/オサラオ'/アライマ'ス
 tz68afrng8	ok	surface+prosody	ばんごはんのあとでしゅくだいをします	バンゴ'ハンノ/ア'トデ/シュクダイオ'/シマ'ス
+2f6ylpjjnia	ok	surface+prosody	ばんごはんわぶたにくのりょうりです	バンゴ'ハンワ/ブタニクノ'/リョ'オリデス
 1gwdc8jkm4m	ok	pitch	はんたい	ハンタイ'
 eyvi8sc137	ok	surface	はんたいがわ	ハンタイガワ'
 1faphqjc031	ok	surface	はんたいがわのホームえかいだんでいきます	ハンタイガワノ'/ホ'オムエ/カイダンデ'/イキマ'ス
 2d1hw5bdv0p	ok	surface	はんたいのてをあげてください	ハンタイノ'/テ'オ/アゲテ'/クダサ'イ
 1omjxwfa4fx	ok	surface	パンとぎゅうにゅうをかいました	パ'ント/ギュウニュウオ'/カイマ'シタ
+dwpn0ln6af	ok	surface	パンとぎゅうにゅうをかってきました	パ'ント/ギュウニュウオ'/カッテ'/キマ'シタ
 otnzigckp7	ok	pitch	ハンドバッグ	ハンドバ'ッグ
 1kwporthkj2	ok	surface	パンにいちごジャムをぬりました	パ'ンニ/イチゴ'ジャムオ/ヌリマ'シタ
 1wh6luuy543	ok	surface+prosody	ばんになるとすずしくなります	バンニ'/ナ'ルト/スズ'シク/ナリマ'ス
 1j6dy41ynld	ok	surface	パンにバターをぬります	パ'ンニ/バ'タアオ/ヌリマ'ス
 287yzv6rfgc	ok	pitch	はんぶん	ハンブ'ン
 lo7jmv372b	ok	surface	ばんわかぞくといっしょにしょくじします	バンワ'/カ'ゾクト/イッショニ'/ショクジ'/シマ'ス
-uzcxld5sua	ok	kana	パンをください	パ'ンオ/クダサ'イ
-5h53g6dr3u	ok	surface	パンをたべます	パ'ンオ/タベマ'ス
 gnqt832iyw	ok	surface	パンをはんぶんたべました	パ'ンオ/ハンブ'ン/タベマ'シタ
+40wwdr89n1	ok	surface	パンをはんぶんにきりました	パ'ンオ/ハンブ'ンニ/キリマ'シタ
 1svkazdwoqi	ok	pitch	ひ	ヒ'
 15v1t7dzhcq	ok	kana-accent	び	ビ'
 14bx0kurxv3	ok	kana-accent	ぴ	ピ'
@@ -5129,6 +5133,7 @@ i39otfen5c	ok	surface	ひどいことをいってしまいました	ヒド'イ/�
 rugsjvulyp	ok	surface	ひとがどんどんあつまってきました	ヒトガ'/ド'ンドン/アツマ'ッテ/キマ'シタ
 1h1yftfowty	ok	surface+prosody	ひとがふえて、しごともばいになりました	ヒトガ'/フ'エテ、/シゴトモ'/バイニ'/ナリマ'シタ
 kjucci10ts	ok	pitch	ひとつ	ヒト'ツ
+1sq93ae6ud7	ok	ruby-kana	ひとつからとおまでかぞえます	ヒト'ツカラ/ト'オマデ/カゾエマ'ス ← 一つからトオまで数えます
 23y72qxgiv8	ok	pitch	ひとつき	ヒト'ツキ
 ygk8258mzx	ok	surface+prosody	ひとつきぐらいやすみます	ヒト'ツキグライ/ヤスミマ'ス
 65dhgrvu27	ok	surface	ひとつください	ヒト'ツ/クダサ'イ
@@ -5191,14 +5196,13 @@ wei6ay8n2h	ok	surface	ひらがなをかきます	ヒラガナ'オ/カキマ'ス
 lfnaxwjvyp	ok	surface	ひる、がっこうえいきます	ヒル'、/ガッコオエ'/イキマ'ス
 8bih6ys10b	ok	surface	ひる、ともだちにあいます	ヒル'、/トモダチニ'/アイマ'ス
 je2l3otnk2	ok	pitch	ひるごはん	ヒルゴ'ハン
-yfadf4n14z	ok	surface+prosody	ひるごはんがすきです	ヒルゴ'ハンガ/スキ'デス
 1loimcrbzs6	ok	surface+prosody	ひるごはんにスープとサラダをちゅうもんしました	ヒルゴ'ハンニ/ス'ウプト/サ'ラダオ/チュウモン'/シマ'シタ
+o5v23bodht	ok	surface+prosody	ひるごはんのあとですこしねます	ヒルゴ'ハンノ/ア'トデ/スコ'シ/ネマ'ス
+hqlgnwcjbo	ok	surface+prosody	ひるごはんわいつもかいしゃのちかくでたべます	ヒルゴ'ハンワ/イ'ツモ/カイシャノ'/チ'カクデ/タベマ'ス
 tnym6zr2wo	ok	surface+prosody	ひるごはんわまだたべていません	ヒルゴ'ハンワ/マ'ダ/タ'ベテ/イマセ'ン
 2163jom5bxq	ok	surface+prosody	ひるごはんわもうよういしてあります	ヒルゴ'ハンワ/モ'オ/ヨ'オイ/シテ'/アリマ'ス
 smgyvt9iku	ok	surface+prosody	ひるごはんわラーメンにしましょう	ヒルゴ'ハンワ/ラ'アメンニ/シマショ'オ
-1d0q949jdgi	ok	surface+prosody	ひるごはんをください	ヒルゴ'ハンオ/クダサ'イ
 1j5jpl4nuvq	ok	surface+prosody	ひるごはんをたべたばかりなので、おなかがすいていません	ヒルゴ'ハンオ/タ'ベタバカリナノデ、/オナカガ'/スイテ'/イマセ'ン
-gjdwbf0qeu	ok	surface+prosody	ひるごはんをたべます	ヒルゴ'ハンオ/タベマ'ス
 bxaryg18l1	ok	surface	ひるごろでんわします	ヒル'ゴロ/デンワ'/シマ'ス
 uakrylzv3l	ok	pitch	ひるま	ヒルマ'
 1qrwv8qw648	ok	surface	ひるまわしごとでいえにいません	ヒルマ'ワ/シゴトデ'/イエ'ニ/イマセ'ン
@@ -5220,8 +5224,7 @@ g3v54rvlhw	ok	pitch	ファックス	ファ'ックス
 1rh02832983	ok	surface	ファックスがとどいたかでんわでかくにんしました	ファ'ックスガ/トド'イタカ/デンワデ'/カクニン'/シマ'シタ
 orwaqbt64m	ok	kana-accent	フィ	フィ'
 2e791qccrk7	ok	pitch	フィルム	フィ'ルム
-z06ta157jj	ok	surface	フィルムをかいました	フィ'ルムオ/カイマ'シタ
-2essg09062g	ok	surface	フィルムをつかいます	フィ'ルムオ/ツカイマ'ス
+1lj8eamg5ls	ok	surface+prosody	フィルムをいっぽんください	フィ'ルムオ/イ'ッポン/クダサ'イ
 1bqie0e318b	ok	pitch	ふうとう	フウトオ'
 2297ku795er	ok	surface	ふうとうにきってをはりました	フウトオニ'/キッテオ'/ハリマ'シタ
 1kf6gcglxz0	ok	surface	ふうとうにきってをはります	フウトオニ'/キッテオ'/ハリマ'ス
@@ -5236,8 +5239,7 @@ gigvnykuh3	ok	surface	プールえいきます	プ'ウルエ/イキマ'ス
 17g0podcw6b	ok	kana-accent	フォ	フォ'
 7urozcdk4k	ok	pitch	フォーク	フォ'オク
 187281rafww	ok	surface	フォークでケーキをたべます	フォ'オクデ/ケ'エキオ/タベマ'ス
-1zsju9ryzc0	ok	surface	フォークをかいました	フォ'オクオ/カイマ'シタ
-o9jbha51gk	ok	surface	フォークをつかいます	フォ'オクオ/ツカイマ'ス
+lti4k87axp	ok	surface+prosody	フォークわどこにありますか	フォ'オクワ/ド'コニ/アリマ'スカ？
 6f80crlaky	ok	pitch	ふかい	フカ'イ
 v8r5nwf372	ok	surface	ふかいはなしをしました	フカ'イ/ハナシ'オ/シマ'シタ
 i2odyhikvq	ok	pitch	ふく	フ'ク
@@ -5257,9 +5259,8 @@ acx6rd1f98	ok	surface	ふたつのさくひんわくらべものにならない�
 194t2hx5ae9	ok	surface	ふたつのみちがあります	フタツ'ノ/ミチガ'/アリマ'ス
 27f0ecyb0jc	ok	ruby-kana+prosody	ふたつめのかどをみぎにまがってください	フタツメノ'/カ'ドオ/ミギニ'/マガッテ'/クダサ'イ ← 二つ目のカドを右に曲がってください
 1tmkzusi7iw	ok	pitch	ぶたにく	ブタニク'
-13y3etmvt6m	ok	surface	ぶたにくがすきです	ブタニクガ'/スキ'デス
-k2w4b6ncil	ok	surface	ぶたにくをください	ブタニクオ'/クダサ'イ
-1z2khtmj3iw	ok	surface	ぶたにくをたべます	ブタニクオ'/タベマ'ス
+20xnxs1g10d	ok	surface	ぶたにくわぎゅうにくよりやすいです	ブタニクワ'/ギュウニクヨ'リ/ヤス'イデス
+tywysjdkn7	ok	surface	ぶたにくをすこしかってきてください	ブタニクオ'/スコ'シ/カッテ'/キ'テ/クダサ'イ
 1sznar85ilu	ok	pitch	ふたり	フタリ'
 20b822jn9ak	ok	surface+prosody	ふたりずつはいります	フタリ'ズツ/ハイリマ'ス
 rl4et5di77	ok	surface	ふたりでいきます	フタリ'デ/イキマ'ス
@@ -5318,6 +5319,7 @@ gspg38u9yt	ok	surface+prosody	ふるいビルをあんぜんのためになお�
 1mao3gtp2ls	ok	surface	ふるいほんをうりました	フル'イ/ホ'ンオ/ウリマ'シタ
 1cnn4cebyw1	ok	surface	ふるいほんをぜんぶかたづけました	フル'イ/ホ'ンオ/ゼ'ンブ/カタズケマ'シタ
 2fkcw0zilm	ok	surface	ふるいマッチがあります	フル'イ/マ'ッチガ/アリマ'ス
+2044mg8g5k8	ok	surface	ふるいラジカセをおとうとにあげました	フル'イ/ラジカセオ'/オトオト'ニ/アゲマ'シタ
 doim2kqjr1	ok	surface	ふるいレコードをききます	フル'イ/レコ'オドオ/キキマ'ス
 24l5n9gbmoo	ok	pitch	プレゼント	プレ'ゼント
 10lzjfze7f0	ok	surface	プレゼントをかみでつつみました	プレ'ゼントオ/カミ'デ/ツツミマ'シタ
@@ -5341,9 +5343,7 @@ f42vc3cj4k	ok	pitch	べつ	ベツ'
 19ijl7uutuc	ok	pitch	ベッド	ベ'ッド
 8q1ijlc4uf	ok	pitch	ペット	ペ'ット
 7edlus8opv	ok	surface	ペットとあそびます	ペ'ットト/アソビマ'ス
-200wz1eydwk	ok	surface	ベッドをかいました	ベ'ッドオ/カイマ'シタ
 1ns4otzo0or	ok	surface	ペットをかっています	ペ'ットオ/カ'ッテ/イマ'ス
-12vyepsp07g	ok	surface	ベッドをつかいます	ベ'ッドオ/ツカイマ'ス
 1qhh84q6zie	ok	surface	べつにいそいでいません	ベツニ'/イソ'イデ/イマセ'ン
 74rqaf0vwa	ok	surface	べつのしかたでこのもんだいをといてみましょう	ベツノ'/シカタデ'/コノ'/モンダイオ'/ト'イテ/ミマショ'オ
 e14swk6dp	ok	surface	べつのほうほうをかんがえましょう	ベツノ'/ホオホオオ'/カンガエマショ'オ
@@ -5352,9 +5352,11 @@ bbmb0mslxx	ok	pitch	へや	ヘヤ'
 1tfxc8o0846	ok	surface	へやえはいってください	ヘヤ'エ/ハ'イッテ/クダサ'イ
 2avfczt2l26	ok	surface	へやがあかるくなりました	ヘヤ'ガ/アカルクナリマ'シタ
 2432dlaw89	ok	surface	へやがしずかなことにおどろきました	ヘヤ'ガ/シ'ズカナ/コト'ニ/オドロキマ'シタ
+1d7uacwzzj5	ok	surface	へやがせまいので、ちいさいほんだなをかいました	ヘヤ'ガ/セマ'イノデ、/チイサ'イ/ホ'ンダナオ/カイマ'シタ
 wzg2gysyju	ok	pitch	へやだい	ヘヤダイ'
 2gj9wh2e8fr	ok	surface	へやでわぼうしをぬいでください	ヘヤ'デワ/ボオシオ'/ヌ'イデ/クダサ'イ
 nytr40yydi	ok	surface	へやにあたらしいつくえをおきました	ヘヤ'ニ/アタラシ'イ/ツクエオ'/オキマ'シタ
+e136i3j9ch	ok	surface	へやにいすがよっつあります	ヘヤ'ニ/イスガ'/ヨッツ'/アリマ'ス
 1aw046f5cuz	ok	surface+prosody	へやにだれかいますか	ヘヤ'ニ/ダ'レカ/イマ'スカ？
 2cwbzju289x	ok	surface	へやにちいさなむしがはいってきました	ヘヤ'ニ/チ'イサナ/ムシガ'/ハ'イッテ/キマ'シタ
 1ordbs8c3dv	ok	surface	へやにはなをかざりました	ヘヤ'ニ/ハナ'オ/カザリマ'シタ
@@ -5382,6 +5384,7 @@ wpi9ofizdi	ok	surface	へやをきれいにそうじしました	ヘヤ'オ/キ'
 2e75rm42fvr	ok	surface	べんきょうするじかんがすこしふえました	ベンキョオ'/スル'/ジカンガ'/スコ'シ/フエマ'シタ
 2bf6mj7bb9	ok	surface+prosody	べんきょうするほどおもしろくなります	ベンキョオ'/スルホド'/オモシ'ロク/ナリマ'ス
 i12rg172qt	ok	surface+prosody	べんきょうのじゃまをしないでください	ベンキョオノ'/ジャマオ'/シナイデ'/クダサ'イ
+2fsxm3l3cae	ok	surface	べんきょうのときわテレビをけしてください	ベンキョオノ'/トキ'ワ/テ'レビオ/ケシテ'/クダサ'イ
 419zythq38	ok	surface	べんきょうもあそびもほどほどがたいせつです	ベンキョオモ'/アソビモ'/ホドホドガ'/タイセツデ'ス
 1735zfn0ufc	ok	pitch	へんじ	ヘンジ'
 24ly3h5vsjk	ok	surface	へんじがおくれてすみません	ヘンジ'ガ/オクレテ'/スミマセ'ン
@@ -5391,9 +5394,7 @@ i12rg172qt	ok	surface+prosody	べんきょうのじゃまをしないでくだ�
 svlnj5wxip	ok	surface+prosody	へんなおとがしたのでみにいきました	ヘ'ンナ/オト'ガ/シタノデ'/ミニ'/イキマ'シタ
 19oc618ofdl	ok	pitch	べんり	ベ'ンリ
 1kq64ow9bgv	ok	surface	べんりなアプリをつかいます	ベ'ンリナ/ア'プリオ/ツカイマ'ス
-1lfu9ne15ld	ok	surface	ペンをかいました	ペ'ンオ/カイマ'シタ
 1avztg64v5a	ok	surface	ペンをかしてください	ペ'ンオ/カシテ'/クダサ'イ
-2zgzb7c2g5	ok	surface	ペンをつかいます	ペ'ンオ/ツカイマ'ス
 13qtldgta1p	ok	kana-accent	ほ	ホ'
 25s05wjipej	ok	kana-accent	ぼ	ボ'
 9kmrosd9rq	ok	kana-accent	ぽ	ポ'
@@ -5412,8 +5413,6 @@ jjpex2eiw1	ok	surface+prosody	ほうりつについてせんもんかにそう�
 270i3cj1usj	ok	surface	ボールがあたってまどガラスがわれました	ボオルガ'/アタッテ'/マドガ'ラスガ/ワレマ'シタ
 13zrvg6hroh	ok	pitch	ボールペン	ボオルペン'
 25g4bv5gvvk	ok	surface	ボールペンでなまえをかきました	ボオルペンデ'/ナマエオ'/カキマ'シタ
-3uklrkhnjj	ok	surface	ボールペンをかいました	ボオルペンオ'/カイマ'シタ
-skbu5nmf53	ok	surface	ボールペンをつかいます	ボオルペンオ'/ツカイマ'ス
 1zbm68jih5b	ok	surface+prosody	ボールわまるいです	ボオルワ'/マルイデ'ス
 yg2gznhy6a	ok	surface+prosody	ボールをとおくえなげました	ボオルオ'/トオク'エ/ナゲマ'シタ
 cppn4xasw7	ok	pitch	ほか	ホカ'
@@ -5451,8 +5450,7 @@ wizb2gc7j0	ok	pitch	ほん	ホ'ン
 233iko248sk	ok	surface	ほんがすきです	ホ'ンガ/スキ'デス
 1ucw4xbtrbz	ok	pitch	ほんだな	ホ'ンダナ
 2ehimarlpz1	ok	surface	ほんだなにほんをならべます	ホ'ンダナニ/ホ'ンオ/ナラベマ'ス
-173avfu96iy	ok	surface	ほんだなをかいました	ホ'ンダナオ/カイマ'シタ
-1habs6ki9ma	ok	surface	ほんだなをつかいます	ホ'ンダナオ/ツカイマ'ス
+vyaesaemwr	ok	surface	ほんだなのうえにとけいがあります	ホ'ンダナノ/ウエニ'/トケエガ'/アリマ'ス
 pe4tuz4gha	ok	pitch	ほんとう	ホントオ'
 16fvqqhysj6	ok	surface+prosody	ほんとうですか	ホントオデ'スカ？
 2wv92g76xw	ok	surface	ほんとうにありがとうございます	ホントオニ'/アリ'ガトオ/ゴザイマ'ス
@@ -5491,6 +5489,7 @@ sqlachlytu	ok	surface	まいあさ、しんぶんをよみます	マ'イアサ�
 2drd7k7cz7h	ok	surface+prosody	まいあささんぽするのがわたしのしゅうかんです	マ'イアサ/サンポ'/スルノガ'/ワタシノ'/シュウカンデ'ス
 11ori0ecdlp	ok	surface	まいあさしちじにおきます	マ'イアサ/シチ'ジニ/オキマ'ス
 1fn8hk3i2t6	ok	surface	まいあさジョギングしています	マ'イアサ/ジョギング'/シテ'/イマ'ス
+p0r9kwh3nr	ok	surface	まいあさたまごをひとつたべます	マ'イアサ/タマ'ゴオ/ヒト'ツ/タベマ'ス
 1bibu2i8dfg	ok	surface	まいあさはちじにいえをでます	マ'イアサ/ハチ'ジニ/イエ'オ/デマ'ス
 1nk3eg1blk4	ok	surface	まいあさろくじにおきます	マ'イアサ/ロク'ジニ/オキマ'ス
 1fdwei9ur6s	ok	pitch	まいしゅう	マイシュウ'
@@ -5499,6 +5498,7 @@ ve0w2410i5	ok	surface	まいしゅう、テニスをします	マイシュウ'�
 1sac1k8dyrr	ok	surface	まいしゅう、ともだちにあいます	マイシュウ'、/トモダチニ'/アイマ'ス
 ni76flxx6w	ok	surface	まいしゅう、プールでおよぎます	マイシュウ'、/プ'ウルデ/オヨギマ'ス
 43ahd7l0bf	ok	surface	まいしゅう、へやをそうじします	マイシュウ'、/ヘヤ'オ/ソオジ'/シマ'ス
+r7s0t4y6kz	ok	surface	まいしゅうおばあさんにでんわをかけます	マイシュウ'/オバ'アサンニ/デンワオ'/カケマ'ス
 1kf9tl7t29a	ok	surface	まいしゅうこのりょうりばんぐみをみています	マイシュウ'/コノ'/リョオリバ'ングミオ/ミ'テ/イマ'ス
 2bfs0ok2884	ok	pitch	まいつき	マイツキ'
 1sqtmzc2spz	ok	surface	まいつき、かぞくにてがみをかきます	マイツキ'、/カ'ゾクニ/テガミオ'/カキマ'ス
@@ -5529,6 +5529,7 @@ u9wj4cppb1	ok	surface	まいにちつづけるということがたいせつで�
 y32suo3a24	ok	surface	まいにちはちじかんはたらきます	マ'イニチ/ハチジ'カン/ハタラキマ'ス
 1miurbssllg	ok	surface+prosody	まいにちふくしゅうしなくてわいけません	マ'イニチ/フクシュウ'/シナ'クテワ/イケマセ'ン
 2f9t6fgk775	ok	surface	まいにちふくしゅうするようにします	マ'イニチ/フクシュウ'/スル'/ヨ'オニ/シマ'ス
+1jwonf8oyqf	ok	surface+prosody	まいにちやさいをたくさんたべましょう	マ'イニチ/ヤサイオ'/タクサン'/タベマショ'オ
 1bpwqgbylhd	ok	pitch	まいねん	マイネン'
 1vfa8do6s40	ok	ruby-kana+prosody	まいねん、かぞくとりょこうします	マイネン'、/カ'ゾクト/リョコオ'/シマ'ス ← マイネン、カゾクと旅行します
 f6x1p8uar0	ok	ruby-kana+prosody	まいねん、このまちでおまつりをおこないます	マイネン'、/コノ'/マチ'デ/オマツリオ'/オコナイマ'ス ← マイネン、この町でお祭りを行います
@@ -5538,6 +5539,7 @@ t73tqzdrie	ok	pitch	まいばん	マ'イバン
 27emp70fx66	ok	surface	まいばん、テレビをみます	マ'イバン、/テ'レビオ/ミマ'ス
 194i1wlziqh	ok	surface	まいばん、にほんごをべんきょうします	マ'イバン、/ニホンゴオ'/ベンキョオ'/シマ'ス
 14v888ms5uh	ok	surface+prosody	まいばん、はやくねます	マ'イバン、/ハ'ヤク/ネマ'ス
+2g5izs39dqx	ok	surface	まいばんギターのれんしゅうをします	マ'イバン/ギ'タアノ/レンシュウオ'/シマ'ス
 2csyyepcykz	ok	surface+prosody	まいばんじゅういちじにねます	マ'イバン/ジュウイチ'ジニ/ネマ'ス
 15gv3hk53ch	ok	surface+prosody	まいばんじゅういちじにベッドでねます	マ'イバン/ジュウイチ'ジニ/ベ'ッドデ/ネマ'ス
 1on6lg5m1e2	ok	pitch	まいる	マ'イル
@@ -5607,6 +5609,7 @@ fpx5fc8q1u	ok	surface	まつりではじめてきものをきました	マツリ
 892hyvyaxo	ok	surface	まどからつめたいかぜがはいります	マ'ドカラ/ツメタイ'/カゼガ'/ハイリマ'ス
 i578uh8xo8	ok	surface+prosody	まどからひがさしています	マ'ドカラ/ヒガ'/サ'シテ/イマ'ス
 2fx5ukp1g5b	ok	surface	まどからみえるけしきがきれいです	マ'ドカラ/ミエ'ル/ケ'シキガ/キ'レイデス
+130bh082wqf	ok	surface	まどからやまがみえます	マ'ドカラ/ヤマ'ガ/ミエマ'ス
 1up3ahckahy	ok	surface	まどがわのせきにすわりました	マドガワノ'/セ'キニ/スワリマ'シタ
 20p0boftppf	ok	surface	まどがわのよやくせきをとりました	マドガワノ'/ヨヤク'セキオ/トリマ'シタ
 yl6iggjeca	ok	surface	まどのそばにつくえがあります	マ'ドノ/ソ'バニ/ツクエガ'/アリマ'ス
@@ -5625,12 +5628,12 @@ rw6rw1d4p6	ok	surface	まわりのひとにめいわくをかけないでくだ�
 294w8rq50xy	ok	pitch	まんが	マンガ'
 29hezzamwxn	ok	pitch	まんなか	マンナカ'
 7tuxqo7vwv	ok	pitch	まんねんひつ	マンネ'ンヒツ
+1p92vzxjpu4	ok	surface+prosody	まんねんひつでかくのわむずかしいです	マンネ'ンヒツデ/カ'クノワ/ムズカシ'イデス
 pahp75ffws	ok	surface	まんねんひつでてがみをかきます	マンネ'ンヒツデ/テガミオ'/カキマ'ス
-1j3wz1ltv7l	ok	surface	まんねんひつをかいました	マンネ'ンヒツオ/カイマ'シタ
-jurig747bj	ok	surface	まんねんひつをつかいます	マンネ'ンヒツオ/ツカイマ'ス
 aptjpdike7	ok	kana-accent	み	ミ'
 ueff6u0b5f	ok	pitch	みえる	ミエ'ル
 2gknulf1h0i	ok	pitch	みがく	ミガク'
+15yefuttbi6	ok	ruby-kana+prosody	みかんをとおください	ミ'カンオ/ト'オ/クダサ'イ ← みかんをトオください
 dar1ctgqp5	ok	pitch	みぎ	ミギ'
 27gyhqol7el	ok	surface	みぎがわにぎんこうがあります	ミギガワニ'/ギンコオガ'/アリマ'ス
 kupvpi2iax	ok	surface	みきちゃんわわたしのおさななじみです	ミ'キチャンワ/ワタシノ'/オサナナ'ジミデス
@@ -5644,7 +5647,6 @@ pfk7u48qem	ok	surface	みぎにぎんこうがあります	ミギニ'/ギンコ�
 13wbodg2du3	ok	surface+prosody	みずうみにいっそうのふねがうかんでいます	ミズウ'ミニ/イッソオノ'/フ'ネガ/ウカンデ'/イマ'ス
 1luo2g3uo3m	ok	surface	みずうみのそばでしゃしんをとりました	ミズウ'ミノ/ソ'バデ/シャシンオ'/トリマ'シタ
 23w2zge8o3n	ok	surface	みずがいります	ミズガ'/イリマ'ス
-1hwxyrlxwo0	ok	surface	みずがすきです	ミズガ'/スキ'デス
 pqyzc3n1jg	ok	surface	みずがないとしょくぶつわしにます	ミズガ'/ナ'イト/ショク'ブツワ/シニマ'ス
 tvzpjzd6u9	ok	surface	みずがほしいです	ミズガ'/ホシ'イデス
 2bdxfivh2xk	ok	surface	みずだけのみます	ミズダケ'/ノミマ'ス
@@ -5659,6 +5661,7 @@ a8qvqp7les	ok	pitch	みせ	ミセ'
 al2cvmt2t4	ok	surface	みせえいきます	ミセ'エ/イキマ'ス
 lxsyk84wqb	ok	surface	みせがこむまえにはいりました	ミセ'ガ/コ'ム/マ'エニ/ハイリマ'シタ
 rgpyxacmwr	ok	surface	みせがねだんをさげました	ミセ'ガ/ネダンオ'/サゲマ'シタ
+9cywglhb6g	ok	surface	みせでぎゅうにくをさんびゃくグラムかいました	ミセ'デ/ギュウニクオ'/サンビャクグ'ラム/カイマ'シタ
 2g6wwpfxnb0	ok	surface	みせでコーヒーをたのみました	ミセ'デ/コオヒ'イオ/タノミマ'シタ
 1gjwxjdhw56	ok	surface	みせでしょうひんをぬすんだひとがつかまりました	ミセ'デ/ショ'オヒンオ/ヌス'ンダ/ヒトガ'/ツカマリマ'シタ
 25uzoihd2vh	ok	surface	みせでともだちにあいます	ミセ'デ/トモダチニ'/アイマ'ス
@@ -5875,6 +5878,7 @@ y5bluj4l9d	ok	surface	もんだいのこたえをノートにかきました	モ
 25xpddm0n54	ok	kana-accent	や	ヤ'
 i1ug9fyb7l	ok	surface	やいたケーキをひやしてからきります	ヤイタ'/ケ'エキオ/ヒヤ'シテカラ/キリマ'ス
 2ip1zu7dm6	ok	pitch	やおや	ヤオヤ'
+l9nupejavu	ok	surface	やおやでやさいをかいました	ヤオヤデ'/ヤサイオ'/カイマ'シタ
 23kx08m2av5	ok	surface	やおやでやさいをかいます	ヤオヤデ'/ヤサイオ'/カイマ'ス
 16l726pkmzf	ok	surface	やおやわえきのちかくです	ヤオヤワ'/エ'キノ/チ'カクデス
 52tgggbzyk	ok	surface	やかんでゆをわかしました	ヤカンデ'/ユ'オ/ワカシマ'シタ
@@ -5888,12 +5892,9 @@ prw1g9l9he	ok	pitch	やく	ヤク'
 1jp0po2o5cg	ok	surface+prosody	やくにたつ	ヤクニタ'ツ
 29yz5lduqq9	ok	pitch	やける	ヤケル'
 2d7z9d3obqh	ok	pitch	やさい	ヤサイ'
-1qgxni38bj1	ok	surface	やさいがすきです	ヤサイガ'/スキ'デス
 i86iaeyv23	ok	surface+prosody	やさいにみそをつけてたべました	ヤサイニ'/ミ'ソオ/ツ'ケテ/タベマ'シタ
-xjowpoe8in	ok	surface	やさいをください	ヤサイオ'/クダサ'イ
 1ixtf974a3u	ok	surface	やさいをしおでつけます	ヤサイオ'/シオ'デ/ツケマ'ス
 5f2vdfge9n	ok	surface	やさいをたくさんかいました	ヤサイオ'/タクサン'/カイマ'シタ
-loniar97jt	ok	surface	やさいをたべます	ヤサイオ'/タベマ'ス
 ictjykvvff	ok	surface+prosody	やさいをちいさくきります	ヤサイオ'/チ'イサク/キリマ'ス
 1gncurhw0fl	ok	pitch	やさしい	ヤサシイ'
 x4im4q2zfp	ok	surface	やさしいことばではなしてください	ヤサシイ'/コトバ'デ/ハナ'シテ/クダサ'イ
@@ -5926,8 +5927,6 @@ a4ggbezk61	ok	surface	やっとえきにつきました	ヤット'/エ'キニ/�
 1e3yd1kgy1o	ok	ruby-kana	やはりあめがふりました	ヤハ'リ/ア'メガ/フリマ'シタ ← やはり雨がフりました
 3m4j5te8y2	ok	surface	やはりにほんごわおもしろいです	ヤハ'リ/ニホンゴワ'/オモシロ'イデス
 qoo3jdotr1	ok	pitch	やま	ヤマ'
-1i9dohu6vbv	ok	surface	やまがあります	ヤマ'ガ/アリマ'ス
-19lv26h3n6s	ok	surface	やまがきれいです	ヤマ'ガ/キ'レイデス
 19w5p3c9244	ok	surface+prosody	やまだくんわきょうやすみです	ヤマダクンワ'/キョ'オ/ヤスミ'デス
 m8anrcnwvd	ok	surface	やまださんにあいました	ヤマダサンニ'/アイマ'シタ
 1g36wkti8ia	ok	surface	やまにしろいゆきがつもっています	ヤマ'ニ/シロ'イ/ユキ'ガ/ツモ'ッテ/イマ'ス
@@ -5937,7 +5936,6 @@ beh52996kr	ok	surface+prosody	やまのうえからあおいみずうみがみ�
 comccfcw0a	ok	surface	やまのくうきわきれいです	ヤマ'ノ/ク'ウキワ/キ'レイデス
 2ff4oku5we9	ok	surface	やまのけしきをしゃしんにとりました	ヤマ'ノ/ケ'シキオ/シャシンニ'/トリマ'シタ
 1jg9tjbq1i0	ok	surface	やまをおりるときわきをつけます	ヤマ'オ/オリ'ル/トキ'ワ/キオ'/ツケマ'ス
-w7fy828pi2	ok	surface	やまをみます	ヤマ'オ/ミマ'ス
 18sttzojnlw	ok	pitch	やむ	ヤム'
 2go1lrst049	ok	pitch	やめる	ヤメル'
 uljcqm9wd	ok	kana	やる	ヤル'
@@ -5952,6 +5950,7 @@ yclrs7bs27	ok	pitch	ゆうはん	ユウハン'
 1l9r79gw69e	ok	surface	ゆうはんわしちじです	ユウハンワ'/シチ'ジデス
 1x77yasvmb3	ok	pitch	ゆうびんきょく	ユウビ'ンキョク
 djjv4mnw34	ok	surface+prosody	ゆうびんきょくえいきます	ユウビ'ンキョクエ/イキマ'ス
+gkfdauq9jf	ok	surface+prosody	ゆうびんきょくできってをごまいかいました	ユウビ'ンキョクデ/キッテオ'/ゴ'マイ/カイマ'シタ
 fj844b4od5	ok	surface+prosody	ゆうびんきょくでともだちにあいます	ユウビ'ンキョクデ/トモダチニ'/アイマ'ス
 1gm006hu2ud	ok	surface+prosody	ゆうびんきょくわえきのちかくです	ユウビ'ンキョクワ/エ'キノ/チ'カクデス
 12jwwgr5e0p	ok	pitch	ゆうべ	ユウベ'
@@ -6050,6 +6049,7 @@ ipocgobwlm	ok	surface	よやくのなまえをかくにんしてください	ヨ
 xo9hnoh2t8	ok	surface+prosody	よるのみちわとてもくらいです	ヨ'ルノ/ミチワ'/トテモ'/クライデ'ス
 14mhx7hfloe	ok	surface	よるわあんぜんにきをつけます	ヨ'ルワ/アンゼンニ'/キオ'/ツケマ'ス
 153qte3qpao	ok	surface	よるわいえでほんをよみます	ヨ'ルワ/イエ'デ/ホ'ンオ/ヨミマ'ス
+uqixubo9un	ok	surface	よるわテレビでニュースをみます	ヨ'ルワ/テ'レビデ/ニュ'ウスオ/ミマ'ス
 16ncz4hunlq	ok	surface	よるわまちがしずかです	ヨ'ルワ/マチ'ガ/シ'ズカデス
 1b2hysoyufj	ok	surface	よるわもんをしめます	ヨ'ルワ/モ'ンオ/シメマ'ス
 26xfaryzrm7	ok	pitch	よろこぶ	ヨロコ'ブ
@@ -6065,6 +6065,7 @@ jcckknyric	ok	surface	らいげつ、おおさかえひっこします	ラ'イ�
 yryr0ysibz	ok	surface	らいげつ、ともだちにあいます	ラ'イゲツ、/トモダチニ'/アイマ'ス
 35p1okzsjg	ok	surface	らいげつ、むすめがだいがくをそつぎょうします	ラ'イゲツ、/ムスメ'ガ/ダイガクオ'/ソツギョオ'/シマ'ス
 1yvgv0mff9a	ok	surface	らいげつからあたらしいしごとがはじまります	ラ'イゲツカラ/アタラシ'イ/シゴトガ'/ハジマリマ'ス
+1s8bhcxkawj	ok	surface	らいげつのカレンダーをみてください	ラ'イゲツノ/カレ'ンダアオ/ミ'テ/クダサ'イ
 250m7lwlf3i	ok	ruby-kana+prosody	らいげつのついたちにあいましょう	ラ'イゲツノ/ツイタチ'ニ/アイマショ'オ ← 来月のツイタチに会いましょう
 xse05ph2yy	ok	surface	らいげつわいそがしいです	ラ'イゲツワ/イソガシ'イデス
 1kq22778vso	ok	pitch	らいしゅう	ライシュウ'
@@ -6092,8 +6093,6 @@ dnx97q5dhv	ok	pitch	ラジオ	ラ'ジオ
 1248ikmxhq7	ok	surface	ラジオをききます	ラ'ジオオ/キキマ'ス
 nkreu0z2m7	ok	pitch	ラジカセ	ラジカセ'
 1fszr20dynm	ok	surface	ラジカセでおんがくをききます	ラジカセデ'/オ'ンガクオ/キキマ'ス
-2d5gzt0lo76	ok	surface	ラジカセをかいました	ラジカセオ'/カイマ'シタ
-im7ywjie2b	ok	surface	ラジカセをつかいます	ラジカセオ'/ツカイマ'ス
 c8erfmu1ln	ok	kana-accent	り	リ'
 qvj9shcfmr	ok	kana	りっぱ	リッパ'
 jfyrsysqlw	ok	surface	りっぱなしごとをしました	リッパナ'/シゴトオ'/シマ'シタ
@@ -6102,8 +6101,7 @@ rjmviakoeo	ok	surface	りっぱなたてものですね	リッパナ'/タテ'モ
 xynjlh03bs	ok	kana-accent	りゅ	リュ'
 27egwmavx25	ok	pitch	りゆう	リユウ'
 26bvz9czfbz	ok	pitch	りゅうがくせい	リュウガ'クセエ
-2fz1c6spfjw	ok	surface	りゅうがくせいとはなします	リュウガ'クセエト/ハナシマ'ス
-1wzoxeckvck	ok	surface	りゅうがくせいにあいます	リュウガ'クセエニ/アイマ'ス
+rtp24w3t4w	ok	ruby-kana	りゅうがくせいのともだちににほんりょうりをおしえました	リュウガ'クセエノ/トモダチニ'/ニホンリョ'オリオ/オシエマ'シタ ← 留学生の友達にニホンリョウリを教えました
 owkjysec41	ok	surface+prosody	りゆうをきかずにしかるのわよくありません	リユウオ'/キカズニ'/シカルノワ'/ヨ'ク/アリマセ'ン
 1mr8mjgffim	ok	surface	りゆうをはっきりせつめいしました	リユウオ'/ハッキ'リ/セツメエ'/シマ'シタ
 1c95tfl5bnc	ok	kana-accent	りょ	リョ'
@@ -6111,8 +6109,7 @@ owkjysec41	ok	surface+prosody	りゆうをきかずにしかるのわよくあ�
 tevyvbfb88	ok	surface	りょうきんわにせんえんでございます	リョ'オキンワ/ニセンエンデゴザイマ'ス
 1ikap42pnz2	ok	surface	りょうしがふねからあみをなげました	リョ'オシガ/フ'ネカラ/アミ'オ/ナゲマ'シタ
 1phpnfuj1a0	ok	pitch	りょうしん	リョ'オシン
-1lhg57dw54m	ok	surface	りょうしんとはなします	リョ'オシント/ハナシマ'ス
-17cx86gaiw3	ok	surface	りょうしんにあいます	リョ'オシンニ/アイマ'ス
+7z44oadiyy	ok	surface	りょうしんといっしょにりょこうしました	リョ'オシント/イッショニ'/リョコオ'/シマ'シタ
 12fjykv89eq	ok	pitch	りょうほう	リョオホ'オ
 2ag6s1fa4sf	ok	pitch	りょうり	リョ'オリ
 16dnh9qdhli	ok	surface+prosody	りょうりがおわったらひをけしてください	リョ'オリガ/オワッタラ'/ヒ'オ/ケシテ'/クダサ'イ
@@ -6174,10 +6171,11 @@ l1z4stg7x7	ok	surface	るすのあいだににもつがとどきました	ル'�
 v4w9pux8n1	ok	pitch	れい	レ'エ
 nv0wllktfp	ok	pitch	れいぞうこ	レエゾ'オコ
 10esi7day7o	ok	surface	れいぞうこからバターをだします	レエゾ'オコカラ/バ'タアオ/ダシマ'ス
+1qojtcsinjs	ok	surface	れいぞうこにぎゅうにゅうがありません	レエゾ'オコニ/ギュウニュウガ'/アリマセ'ン
+x8e7msigbp	ok	surface	れいぞうこにたまごがまだあります	レエゾ'オコニ/タマ'ゴガ/マ'ダ/アリマ'ス
 17ekc6eq2ku	ok	surface	れいぞうこのぎゅうにゅうがなくなりました	レエゾ'オコノ/ギュウニュウガ'/ナクナリマ'シタ
+1kfoapi62cr	ok	surface	れいぞうこのなかになにもありません	レエゾ'オコノ/ナ'カニ/ナニモアリマセ'ン
 1i3ulukq7vy	ok	ruby-kana	れいぞうこのなかわからです	レエゾ'オコノ/ナ'カワ/カラ'デス ← 冷蔵庫の中はカラです
-1cr3hv6qoap	ok	surface	れいぞうこをかいました	レエゾ'オコオ/カイマ'シタ
-1rabebhgl6h	ok	surface	れいぞうこをつかいます	レエゾ'オコオ/ツカイマ'ス
 16urp440e8i	ok	pitch	れいぼう	レエボオ'
 14p72qizp0b	ok	surface	れいぼうがつよすぎてへやがさむいです	レエボオガ'/ツヨ'スギテ/ヘヤ'ガ/サム'イデス
 2eic5z9eu6e	ok	pitch	れきし	レキシ'
@@ -6233,6 +6231,7 @@ n3gybk37az	ok	surface	わからないことをかんごしにききました	ワ
 42t46atpd7	ok	surface	わからないじをじしょでしらべました	ワカラ'ナイ/ジ'オ/ジ'ショデ/シラベマ'シタ
 uwx2cu8jy3	ok	surface	わからないてんわせんせいにきいてください	ワカラ'ナイ/テンワ'/センセ'エニ/キイテ'/クダサ'イ
 wz6oxc7wnp	ok	surface+prosody	わからないてんをたずねてもいいですか	ワカラ'ナイ/テンオ'/タズ'ネテモ/イ'イデスカ？
+t5ccc39drn	ok	surface	わからないときわ、せんせいにきいてください	ワカラ'ナイ/トキ'ワ、/センセ'エニ/キイテ'/クダサ'イ
 mhb2x6xbw8	ok	surface	わからないときわまずじしょをみます	ワカラ'ナイ/トキ'ワ/マ'ズ/ジ'ショオ/ミマ'ス
 1ogs8kvsc2e	ok	surface	わからないところをよみなさい	ワカラ'ナイ/トコロオ'/ヨ'ミナサイ
 1fs8anxmc16	ok	surface	わからないばあいわかかりのひとにきいてください	ワカラ'ナイ/バアイワ'/カ'カリノ/ヒトニ'/キイテ'/クダサ'イ
@@ -6269,6 +6268,7 @@ guoq09tibr	ok	surface	わたしたちわおなじがっこうです	ワタシ'�
 g1ynq69c52	ok	surface+prosody	わたしのクラスわにじゅうにんです	ワタシノ'/ク'ラスワ/ニジュ'ウニンデス
 xrdu8dpwff	ok	surface	わたしのしゅみわしゃしんをとることです	ワタシノ'/シュ'ミワ/シャシンオ'/ト'ル/コト'デス
 1r55m7z4gs9	ok	surface	わたしのせんせいわきょうもげんきです	ワタシノ'/センセ'エワ/キョ'オモ/ゲ'ンキデス
+lk6lb0vm93	ok	surface	わたしのだいがくにわりゅうがくせいがたくさんいます	ワタシノ'/ダイガクニワ'/リュウガ'クセエガ/タクサン'/イマ'ス
 1m1jwa94mje	ok	surface	わたしのははわまだわかいです	ワタシノ'/ハ'ハワ/マ'ダ/ワカ'イデス
 1ejgagbwi6x	ok	surface	わたしのペットわねこです	ワタシノ'/ペ'ットワ/ネ'コデス
 1pubmphy9wi	ok	surface	わたしのへやわにかいにあります	ワタシノ'/ヘヤ'ワ/ニカイニ'/アリマ'ス
@@ -6286,7 +6286,9 @@ n1q3n5nk5e	ok	surface	わたしわかいじょうのうけつけがかりです	
 gn355i92p9	ok	surface	わたしわかまいません	ワタシワ'/カマイマセ'ン
 2bjql0gdlds	ok	ruby-kana	わたしわからいりょうりをたべません	ワタシワ'/カラ'イ/リョ'オリオ/タベマセ'ン ← 私はカラい料理を食べません
 5lfyqh4llc	ok	surface	わたしわかんじがすこしよめます	ワタシワ'/カンジガ'/スコ'シ/ヨメマ'ス
+25n3dsug2zv	ok	surface	わたしわきょうだいがいません	ワタシワ'/キョ'オダイガ/イマセ'ン
 2cqa218r21f	ok	surface	わたしわこうおもいます	ワタシワ'/コ'オ/オモイマ'ス
+21tjpqcwhgg	ok	surface	わたしわこのだいがくのがくせいです	ワタシワ'/コノ'/ダイガクノ'/ガクセエデ'ス
 ciu9xj4p76	ok	surface+prosody	わたしわさんばんです	ワタシワ'/サンバンデ'ス
 13okgs0f6c1	ok	surface	わたしわすこしおよげます	ワタシワ'/スコ'シ/オヨゲマ'ス
 1o8vrese1th	ok	ruby-kana	わたしわせいがひくいです	ワタシワ'/セ'イガ/ヒク'イデス ← 私はセイが低いです

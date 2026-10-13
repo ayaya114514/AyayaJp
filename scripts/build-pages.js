@@ -21,6 +21,16 @@ const runtimeAssets = [
   "app.js",
 ];
 
+// Home-screen install files: copied as is, they are not cached alongside the
+// versioned runtime assets.
+const staticAssets = [
+  "manifest.webmanifest",
+  "icons/icon.svg",
+  "icons/icon-192.png",
+  "icons/icon-512.png",
+  "icons/apple-touch-icon.png",
+];
+
 function contentVersion() {
   const hash = crypto.createHash("sha256");
   runtimeAssets.forEach((relativePath) => {
@@ -46,7 +56,8 @@ function main() {
   fs.rmSync(outputDir, { force: true, recursive: true });
   fs.mkdirSync(outputDir, { recursive: true });
 
-  runtimeAssets.forEach((relativePath) => {
+  [...runtimeAssets, ...staticAssets].forEach((relativePath) => {
+    fs.mkdirSync(path.dirname(path.join(outputDir, relativePath)), { recursive: true });
     fs.copyFileSync(path.join(rootDir, relativePath), path.join(outputDir, relativePath));
   });
 

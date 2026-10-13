@@ -13,6 +13,17 @@ const UNKNOWN_RATINGS = new Set(["forgot", "wrong"]);
 const POOL_KINDS = ["main", "fuzzy", "unknown"];
 const POOL_SUFFIXES = { fuzzy: "-fuzzy", unknown: "-unknown" };
 const POOL_NAMES = { main: "当前", fuzzy: "模糊", unknown: "不认识" };
+// FSRS-5 (open-spaced-repetition) with its published default parameters decides
+// when a card in the main pool is due again. At the 90% recall target the
+// interval in days equals the card's stability.
+const FSRS_WEIGHTS = [
+  0.40255, 1.18385, 3.173, 15.69105, 7.1949, 0.5345, 1.4604, 0.0046, 1.54575, 0.1192,
+  1.01925, 1.9395, 0.11, 0.29605, 2.2698, 0.2315, 2.9898, 0.51655, 0.6621,
+];
+const FSRS_DECAY = -0.5;
+const FSRS_FACTOR = 19 / 81;
+const DAY_MS = 24 * 60 * 60 * 1000;
+const FSRS_GRADES = { forgot: 1, wrong: 1, unsure: 2, clear: 3, correct: 3 };
 const LEGACY_MISTAKE_DECKS = {
   "vocab-mistakes": "vocab-ja-zh-unknown",
   "vocab-n4-mistakes": "vocab-n4-ja-zh-unknown",
@@ -284,6 +295,84 @@ function ratingEventKey(item) {
   return `${item?.at || ""}:${item?.rating || ""}:${item?.choiceId || ""}`;
 }
 
+function fsrsDifficulty(value) {
+  return Math.min(10, Math.max(1, value));
+}
+
+function fsrsInitialDifficulty(grade) {
+  const w = FSRS_WEIGHTS;
+  return fsrsDifficulty(w[4] - Math.exp(w[5] * (grade - 1)) + 1);
+}
+
+function fsrsInitialMemory(grade) {
+  return { stability: FSRS_WEIGHTS[grade - 1], difficulty: fsrsInitialDifficulty(grade) };
+}
+
+function fsrsRetrievability(elapsedDays, stability) {
+  return (1 + (FSRS_FACTOR * elapsedDays) / stability) ** FSRS_DECAY;
+}
+
+// One review: stability uses the difficulty from before this review, as in the
+// reference implementation; reviews less than a day apart use the same-day rule.
+function fsrsNextMemory(memory, grade, elapsedDays) {
+  const w = FSRS_WEIGHTS;
+  const { stability: previousStability, difficulty: previousDifficulty } = memory;
+  let stability;
+  if (elapsedDays < 1) {
+    stability = previousStability * Math.exp(w[17] * (grade - 3 + w[18]));
+  } else {
+    const recall = fsrsRetrievability(elapsedDays, previousStability);
+    stability =
+      grade === 1
+        ? Math.min(
+            previousStability,
+            w[11] *
+              previousDifficulty ** -w[12] *
+              ((previousStability + 1) ** w[13] - 1) *
+              Math.exp(w[14] * (1 - recall)),
+          )
+        : previousStability *
+          (Math.exp(w[8]) *
+            (11 - previousDifficulty) *
+            previousStability ** -w[9] *
+            (Math.exp(w[10] * (1 - recall)) - 1) *
+            (grade === 2 ? w[15] : 1) *
+            (grade === 4 ? w[16] : 1) +
+            1);
+  }
+  const damped = previousDifficulty - w[6] * (grade - 3) * ((10 - previousDifficulty) / 9);
+  const difficulty = fsrsDifficulty(w[7] * fsrsInitialDifficulty(4) + (1 - w[7]) * damped);
+  return {
+    stability: Math.round(Math.max(0.01, stability) * 10000) / 10000,
+    difficulty: Math.round(difficulty * 10000) / 10000,
+  };
+}
+
+function isFsrsMemory(value) {
+  return Boolean(
+    isStoreObject(value) &&
+      Number.isFinite(value.stability) &&
+      value.stability > 0 &&
+      Number.isFinite(value.difficulty) &&
+      value.difficulty >= 1 &&
+      value.difficulty <= 10,
+  );
+}
+
+// Progress saved before scheduling existed has no memory yet: it starts from
+// the card's last rating at the time it was given.
+function memoryForState(state) {
+  if (isFsrsMemory(state?.memory)) return state.memory;
+  const grade = FSRS_GRADES[state?.lastRating];
+  return grade ? fsrsInitialMemory(grade) : null;
+}
+
+function dueAtForState(state) {
+  const memory = memoryForState(state);
+  if (!memory || !Number.isFinite(state?.lastRatedAt) || state.lastRatedAt <= 0) return null;
+  return state.lastRatedAt + memory.stability * DAY_MS;
+}
+
 function reviewCount(state) {
   return Number.isInteger(state?.reviews) ? Math.max(0, state.reviews) : 0;
 }
@@ -345,6 +434,9 @@ function compactCardState(value) {
           ? 1
           : 0,
   };
+  if (isFsrsMemory(value.memory)) {
+    compacted.memory = { stability: value.memory.stability, difficulty: value.memory.difficulty };
+  }
   return compacted.reviews > 0 || compacted.lastRating || compacted.lastEvent ? compacted : null;
 }
 
@@ -1164,6 +1256,18 @@ function buildChoiceOptions(card) {
   return options;
 }
 
+// Main-pool cards already done this round come back once FSRS says they are
+// due, most overdue first. Cards in the 模糊 / 不认识 pools are always queued.
+function dueCompletedIds(deck, deckCards, completedIds, now = Date.now()) {
+  if (isReviewPool(deck)) return [];
+  return deckCards
+    .filter((card) => completedIds.has(card.id))
+    .map((card) => [card.id, dueAtForState(compactCardState(store[card.id]))])
+    .filter(([, dueAt]) => dueAt !== null && dueAt <= now)
+    .sort((left, right) => left[1] - right[1])
+    .map(([cardId]) => cardId);
+}
+
 function buildQueue() {
   ensureSessionRoundEpoch(activeDeck);
   const deckCards = getDeckCards();
@@ -1193,6 +1297,20 @@ function buildQueue() {
   if (needsQueueOrderMigration) {
     nextQueue = avoidSameOrder(shuffleList(nextQueue), nextQueue);
   }
+  const dueIds = dueCompletedIds(activeDeck, deckCards, completedIds);
+  if (dueIds.length) {
+    // A finished round that gains due cards continues as a new epoch; reopening
+    // the old one would read as an undone round and roll back its round count.
+    if (nextQueue.length === 0 && sessionRoundCompletionEvents[activeDeck]?.length) {
+      advanceSessionRoundEpoch(activeDeck);
+      sessionRoundCompletionEvents[activeDeck] = [];
+    }
+    dueIds.forEach((cardId) => {
+      completedIds.delete(cardId);
+      if (sessionCompletionEvents[activeDeck]) delete sessionCompletionEvents[activeDeck][cardId];
+    });
+    nextQueue = [...dueIds, ...nextQueue];
+  }
   const nextQueueOrderVersion = Math.max(
     previousQueueOrderVersion,
     ROUND_QUEUE_ORDER_VERSION,
@@ -1200,6 +1318,7 @@ function buildQueue() {
   const shouldSave =
     !hadQueue ||
     !hadCompleted ||
+    dueIds.length > 0 ||
     previousQueueOrderVersion !== nextQueueOrderVersion ||
     !arraysEqual(sessionQueues[activeDeck], nextQueue);
 
@@ -1243,7 +1362,10 @@ function remainingCount(deck) {
             ? []
             : deckCards.filter((card) => getState(card.id).reviews > 0).map((card) => card.id),
         );
-  return deckCards.filter((card) => !completedIds.has(card.id)).length;
+  return (
+    deckCards.filter((card) => !completedIds.has(card.id)).length +
+    dueCompletedIds(deck, deckCards, completedIds).length
+  );
 }
 
 function poolTabs() {
@@ -1362,6 +1484,7 @@ function render() {
   elements.cardPrompt.lang = currentCard.promptLang || "";
   const hidesPromptReading =
     currentCard.isVocab &&
+    !currentCard.showsReadingOnFront &&
     ["vocab-ja-zh", "vocab-n4-ja-zh"].includes(currentCard.deck);
   const showsCardSubtle = Boolean(currentCard.subtle) && !hidesPromptReading;
   const cardTag = cardTagFor(
@@ -1398,6 +1521,7 @@ function render() {
     !isRevealed && !currentCard.isChoice ? "cardRevealHint" : "",
   ].filter(Boolean);
   elements.cardReveal.setAttribute("aria-describedby", revealDescriptionIds.join(" "));
+  preloadCardClips(currentCard);
   const speakerText = isRevealed ? primarySpeech(currentCard) : currentCard.frontSpeech;
   const canSpeak = Boolean(speakerText);
   const canUseSpeech = supportsSpeech() || Boolean(canSpeak && audioClipUrl(speakerText));
@@ -1676,6 +1800,13 @@ function clearAnswer() {
   elements.examplesList.replaceChildren();
 }
 
+function dueInText(milliseconds) {
+  const hours = Math.ceil(milliseconds / (60 * 60 * 1000));
+  if (hours <= 1) return "1 小时内";
+  if (hours < 24) return `${hours} 小时后`;
+  return `${Math.ceil(hours / 24)} 天后`;
+}
+
 function renderEmpty(deckCards) {
   updateUndoButton();
   elements.studyCard.hidden = true;
@@ -1710,8 +1841,13 @@ function renderEmpty(deckCards) {
     fuzzyCount ? "模糊" : "",
     unknownCount ? "不认识" : "",
   ].filter(Boolean).join("和");
+  const nextDueAt = deckCards
+    .map((card) => dueAtForState(compactCardState(store[card.id])))
+    .filter(Number.isFinite)
+    .sort((left, right) => left - right)[0];
+  const nextDueText = Number.isFinite(nextDueAt) ? `${dueInText(nextDueAt - Date.now())}有卡片到期复习。` : "";
   elements.roundStatusText.textContent = deckCards.length
-    ? `这一轮已经完成：认识 ${deckCards.length}，${fuzzyCount ? `模糊 ${fuzzyCount}，` : ""}不认识 ${unknownCount}。`
+    ? `这一轮已经完成：认识 ${deckCards.length}，${fuzzyCount ? `模糊 ${fuzzyCount}，` : ""}不认识 ${unknownCount}。${nextDueText}`
     : elsewhere
       ? `全部 ${fuzzyCount + unknownCount} 张都在${elsewhere}板块。`
       : "没有可用卡片";
@@ -1830,12 +1966,20 @@ function settleMovedCard(cardId) {
 }
 
 function applyRating(rating, details = {}) {
+  requestPersistentStorage();
   lastReview = captureReviewSnapshot();
   const state = getState(currentCard.id);
+  const ratedAt = Date.now();
+  const grade = FSRS_GRADES[rating];
+  const previousMemory = memoryForState(state);
+  state.memory =
+    previousMemory && Number.isFinite(state.lastRatedAt) && state.lastRatedAt > 0
+      ? fsrsNextMemory(previousMemory, grade, Math.max(0, ratedAt - state.lastRatedAt) / DAY_MS)
+      : fsrsInitialMemory(grade);
 
   state.reviews += 1;
   state.lastRating = rating;
-  state.lastRatedAt = Date.now();
+  state.lastRatedAt = ratedAt;
   storeWriterSequence += 1;
   const eventId = `${storeWriterId}-${storeWriterSequence}`;
   lastReview.appliedEventId = eventId;
@@ -1952,6 +2096,9 @@ function removeAppliedReview(snapshot, persistedState, concurrentReviewExists) {
     lastRating: ownEventIsLatest ? previous.lastRating : persisted.lastRating,
     reviews: Math.max(0, persisted.reviews - 1),
   };
+  const restoredMemory = ownEventIsLatest ? previous.memory : persisted.memory;
+  if (restoredMemory) store[snapshot.cardId].memory = restoredMemory;
+  else delete store[snapshot.cardId].memory;
 }
 
 function undoLastReview() {
@@ -2237,6 +2384,72 @@ function audioClipUrl(text) {
   return audioClips.keys.has(key) ? `./${audioClips.directory}${key}.mp3` : null;
 }
 
+// Clips of the card on screen are fetched as soon as it renders, so the reveal
+// (and the example chained after it) plays from memory instead of waiting on a
+// request each. Only the most recently used clips are kept as blob URLs.
+const preloadedClipLimit = 60;
+const preloadedClips = new Map();
+
+function canPreloadClips() {
+  return (
+    typeof fetch === "function" &&
+    typeof URL !== "undefined" &&
+    typeof URL.createObjectURL === "function"
+  );
+}
+
+function touchPreloadedClip(url) {
+  const entry = preloadedClips.get(url);
+  if (!entry) return null;
+  preloadedClips.delete(url);
+  preloadedClips.set(url, entry);
+  return entry;
+}
+
+function evictPreloadedClips() {
+  for (const [url, entry] of preloadedClips) {
+    if (preloadedClips.size <= preloadedClipLimit) return;
+    // The clip playing right now keeps its blob URL until it is replaced.
+    if (entry.objectUrl && clipPlayer?.src === entry.objectUrl) continue;
+    preloadedClips.delete(url);
+    if (entry.objectUrl) URL.revokeObjectURL(entry.objectUrl);
+  }
+}
+
+function preloadClip(text) {
+  const url = text ? audioClipUrl(text) : null;
+  if (!url || touchPreloadedClip(url)) return;
+  const entry = { objectUrl: null };
+  preloadedClips.set(url, entry);
+  evictPreloadedClips();
+  fetch(url)
+    .then((response) => (response.ok ? response.blob() : Promise.reject(new Error(response.status))))
+    .then((blob) => {
+      if (preloadedClips.get(url) === entry) entry.objectUrl = URL.createObjectURL(blob);
+    })
+    .catch(() => {
+      // playClip() falls back to the network URL for a clip that failed here.
+      if (preloadedClips.get(url) === entry) preloadedClips.delete(url);
+    });
+}
+
+function preloadCardClips(card) {
+  if (!card || !canPreloadClips()) return;
+  const examples = card.examples || [];
+  [
+    card.frontSpeech,
+    primarySpeech(card),
+    card.sentenceAnswer,
+    ...examples.map((example) => example.speech || example.ja),
+  ].forEach(preloadClip);
+}
+
+// A clip still downloading plays from its network URL rather than waiting:
+// iOS only allows play() inside the tap that asked for it.
+function playableClipUrl(url) {
+  return touchPreloadedClip(url)?.objectUrl || url;
+}
+
 // One reused <audio> element: once a tap has started it, iOS lets later play()
 // calls (the example chained after the word) run without a new gesture.
 function getClipPlayer() {
@@ -2281,7 +2494,7 @@ function playClip(url, text, options, generation) {
   preferMixedAudio();
   try {
     const player = getClipPlayer();
-    player.src = url;
+    player.src = playableClipUrl(url);
     const playback = player.play();
     if (playback && typeof playback.catch === "function") {
       playback.catch(() => fallBackFromClip(clip));
@@ -2388,7 +2601,12 @@ function bindInputModality() {
     true,
   );
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") cancelSpeech();
+    if (document.visibilityState === "hidden") {
+      cancelSpeech();
+      return;
+    }
+    // Cards may have come due while the page sat finished in the background.
+    if (!currentCard && !elements.deckSidebar.classList.contains("is-open")) runSafely(nextCard);
   });
 }
 
@@ -2446,6 +2664,103 @@ function restartDeckRound() {
   saveRoundState();
   nextCard();
   focusPrimaryStudyAction();
+}
+
+// Optional module-page extras; a page without them still runs.
+const extraElements = {
+  exportProgress: document.querySelector("#exportProgress"),
+  importProgress: document.querySelector("#importProgress"),
+  importProgressFile: document.querySelector("#importProgressFile"),
+  silentModeHint: document.querySelector("#silentModeHint"),
+};
+const PROGRESS_FILE_APP = "AyayaJp";
+
+// Progress lives only in this browser's localStorage, which Safari clears for
+// sites unvisited for a while; a file export moves it to another browser or
+// restores it after such a loss.
+function exportProgress() {
+  const payload = {
+    app: PROGRESS_FILE_APP,
+    format: 1,
+    exportedAt: new Date().toISOString(),
+    progress: compactStoreForPersistence(store),
+  };
+  const url = URL.createObjectURL(new Blob([JSON.stringify(payload)], { type: "application/json" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `AyayaJp-progress-${payload.exportedAt.slice(0, 10)}.json`;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// An imported file replaces this browser's progress. It is written with a
+// revision above every known one so open tabs adopt it, then the page reloads.
+function importProgressText(text) {
+  let payload;
+  try {
+    payload = JSON.parse(text);
+  } catch {
+    payload = null;
+  }
+  if (payload?.app !== PROGRESS_FILE_APP || !isStoreObject(payload.progress)) {
+    window.alert("这不是 AyayaJp 导出的进度文件。");
+    return false;
+  }
+  if (!window.confirm("导入会替换这个浏览器里现在的学习进度，确定吗？")) return false;
+  const imported = compactStoreForPersistence(payload.progress);
+  const revision = Math.max(storeRevision(store), storeRevision(imported), storeRevision(readPersistedStoreForMerge())) + 1;
+  imported[STORE_META_KEY] = {
+    schemaVersion: STORE_SCHEMA_VERSION,
+    savedAt: Date.now(),
+    writerId: `import-${storeWriterId}`,
+    revision,
+    writeToken: `import-${storeWriterId}:${revision}`,
+  };
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(imported));
+  } catch (error) {
+    window.alert(`浏览器无法保存导入的进度（${error.name || "storage error"}）。`);
+    return false;
+  }
+  window.location.reload();
+  return true;
+}
+
+function bindProgressBackup() {
+  const { exportProgress: exportButton, importProgress: importButton, importProgressFile: fileInput } =
+    extraElements;
+  exportButton?.addEventListener("click", () => runSafely(exportProgress));
+  if (!importButton || !fileInput) return;
+  importButton.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", () => {
+    const [file] = fileInput.files || [];
+    fileInput.value = "";
+    if (file) file.text().then((text) => runSafely(() => importProgressText(text)));
+  });
+}
+
+// Asked once the learner rates a card, so a browser that prompts for it
+// (Firefox) does so only for someone actually studying here.
+let persistentStorageRequested = false;
+function requestPersistentStorage() {
+  if (persistentStorageRequested) return;
+  persistentStorageRequested = true;
+  try {
+    navigator.storage?.persist?.().catch(() => {});
+  } catch {
+    // Browsers without the Storage API keep the default eviction policy.
+  }
+}
+
+// The ambient audio session follows the iPhone silent switch (see preferMixedAudio).
+function showSilentModeHint() {
+  if (!extraElements.silentModeHint || typeof navigator === "undefined") return;
+  const isAppleTouch =
+    /iP(hone|ad|od)/u.test(navigator.userAgent || "") ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  extraElements.silentModeHint.hidden = !isAppleTouch;
 }
 
 function assertRequiredElements() {
@@ -2707,6 +3022,8 @@ function initializeApp() {
   elements.roundStatusText.setAttribute("aria-live", "polite");
   elements.roundStatusText.setAttribute("aria-atomic", "true");
   bindInteractions();
+  bindProgressBackup();
+  showSilentModeHint();
   loadRoundState();
   if (isDeckDataMissing(activeDeck)) {
     activeDeck = "hiragana";
