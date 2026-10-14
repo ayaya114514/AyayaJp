@@ -2588,7 +2588,11 @@ function bindProgressBackup() {
   fileInput.addEventListener("change", () => {
     const [file] = fileInput.files || [];
     fileInput.value = "";
-    if (file) file.text().then((text) => runSafely(() => importProgressText(text)));
+    if (!file) return;
+    file.text().then(
+      (text) => runSafely(() => importProgressText(text)),
+      () => window.alert("无法读取这个文件。"),
+    );
   });
 }
 

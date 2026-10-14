@@ -135,8 +135,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "上课期间请保持安静。"
         },
         {
-          "ja": "一週間の間、京都に滞在しました。",
-          "zh": "在京都停留了一周。"
+          "ja": "夏休みの間、京都に滞在しました。",
+          "zh": "暑假期间在京都逗留了。"
         }
       ],
       "note_zh": ""
@@ -192,7 +192,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "akachan",
       "part_of_speech": "noun",
-      "meaning_zh": "婴儿；宝宝",
+      "meaning_zh": "婴儿；宝宝（最常用、亲切）",
       "kanji_readings": [
         {
           "form": "赤ちゃん",
@@ -229,7 +229,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "akanbou",
       "part_of_speech": "noun",
-      "meaning_zh": "婴儿；小宝宝",
+      "meaning_zh": "婴儿（较直白、较旧的说法）",
       "kanji_readings": [
         {
           "form": "赤ん坊",
@@ -340,7 +340,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "asu",
       "part_of_speech": "noun",
-      "meaning_zh": "明天",
+      "meaning_zh": "明天（略书面）",
       "kanji_readings": [
         {
           "form": "明日",
@@ -599,7 +599,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "anna",
       "part_of_speech": "pre-noun/adverb",
-      "meaning_zh": "那样的",
+      "meaning_zh": "那样的（远称）",
       "kanji_readings": [],
       "examples": [
         {
@@ -959,7 +959,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "isogu",
       "part_of_speech": "verb",
-      "meaning_zh": "赶急；赶快",
+      "meaning_zh": "急忙；赶紧",
       "kanji_readings": [
         {
           "form": "急ぐ",
@@ -1078,8 +1078,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "曾经去过一次日本。"
         },
         {
-          "ja": "もう一度言ってください。",
-          "zh": "请再说一次。"
+          "ja": "この薬は一日に一度飲みます。",
+          "zh": "这个药一天吃一次。"
         },
         {
           "ja": "一度だけ会ったことがあります。",
@@ -1153,8 +1153,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "会场里满是人。"
         },
         {
-          "ja": "水を一杯ください。",
-          "zh": "请给我一杯水。"
+          "ja": "公園に子供がいっぱいいます。",
+          "zh": "公园里有很多孩子。"
         },
         {
           "ja": "予定がいっぱいで忙しいです。",
@@ -1325,7 +1325,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "irassharu",
       "part_of_speech": "verb",
-      "meaning_zh": "在；来；去（尊敬语）",
+      "meaning_zh": "在；来；去（尊敬语，常用）",
       "kanji_readings": [],
       "examples": [
         {
@@ -2184,7 +2184,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "oide ni naru",
       "part_of_speech": "verb",
-      "meaning_zh": "在；来；去（尊敬语）",
+      "meaning_zh": "在；来；去（尊敬语，更郑重）",
       "kanji_readings": [],
       "examples": [
         {
@@ -2428,7 +2428,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "okurimono",
       "part_of_speech": "noun",
-      "meaning_zh": "礼物",
+      "meaning_zh": "礼物；赠品（较正式）",
       "kanji_readings": [
         {
           "form": "贈り物",
@@ -2733,8 +2733,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "明日、先生のお宅へ伺います。",
-          "zh": "明天去老师府上拜访。"
+          "ja": "お宅はどちらですか。",
+          "zh": "您家在哪里？"
         },
         {
           "ja": "お宅は駅から近いですか。",
@@ -2951,8 +2951,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "隣の部屋から音が聞こえます。",
-          "zh": "从隔壁房间听得到声音。"
+          "ja": "雨の音を聞きながら寝ました。",
+          "zh": "听着雨声睡着了。"
         },
         {
           "ja": "テレビの音を少し下げてください。",
@@ -3439,7 +3439,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "练习不会喘不过气的游法。"
         }
       ],
-      "note_zh": ""
+      "note_zh": "",
+      "learning_category": "derived-form"
     },
     {
       "id": "n4-098",
@@ -3455,7 +3456,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "oriru",
       "part_of_speech": "verb",
-      "meaning_zh": "下（车、楼等）；下来",
+      "meaning_zh": "下（楼梯、山等）；从高处下来",
       "kanji_readings": [
         {
           "form": "下りる",
@@ -3464,8 +3465,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "次の駅で下ります。",
-          "zh": "在下一站下车。"
+          "ja": "母が二階から下りてきました。",
+          "zh": "妈妈从二楼下来了。"
         },
         {
           "ja": "階段をゆっくり下りてください。",
@@ -3492,7 +3493,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "oru",
       "part_of_speech": "verb",
-      "meaning_zh": "折；弯；折断",
+      "meaning_zh": "折；弯；折断（他动词）",
       "kanji_readings": [
         {
           "form": "折る",
@@ -3566,7 +3567,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "oreru",
       "part_of_speech": "verb",
-      "meaning_zh": "折断；折起来",
+      "meaning_zh": "断；折断；被折起（自动词）",
       "kanji_readings": [
         {
           "form": "折れる",
@@ -3583,8 +3584,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "铅笔尖断了。"
         },
         {
-          "ja": "この紙はきれいに折れます。",
-          "zh": "这张纸能折得很整齐。"
+          "ja": "転んで腕の骨が折れました。",
+          "zh": "摔倒后胳膊骨折了。"
         }
       ],
       "note_zh": ""
@@ -4047,7 +4048,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kaeru",
       "part_of_speech": "verb",
-      "meaning_zh": "改变；更换",
+      "meaning_zh": "改变；更换（他动词）",
       "kanji_readings": [
         {
           "form": "変える",
@@ -4613,7 +4614,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kanai",
       "part_of_speech": "noun",
-      "meaning_zh": "妻子；内人",
+      "meaning_zh": "内人（称自己的妻子，较旧的说法）",
       "kanji_readings": [
         {
           "form": "家内",
@@ -4687,7 +4688,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kanarazu",
       "part_of_speech": "adverb",
-      "meaning_zh": "一定；必定",
+      "meaning_zh": "一定；必定（表示确定、必须）",
       "kanji_readings": [
         {
           "form": "必ず",
@@ -4959,8 +4960,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "每天上学。"
         },
         {
-          "ja": "駅から会社に通うのは便利です。",
-          "zh": "从车站通勤去公司很方便。"
+          "ja": "家から会社まで電車で通っています。",
+          "zh": "我坐电车从家去公司上班。"
         },
         {
           "ja": "週に二回、日本語学校に通います。",
@@ -5168,7 +5169,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kawaru",
       "part_of_speech": "verb",
-      "meaning_zh": "改变；变化",
+      "meaning_zh": "变；改变；变化（自动词）",
       "kanji_readings": [
         {
           "form": "変わる",
@@ -5338,8 +5339,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "请用简单的日语说明。"
         },
         {
-          "ja": "この料理は簡単に作れます。",
-          "zh": "这道菜很容易做。"
+          "ja": "この機械の使い方は簡単です。",
+          "zh": "这台机器用法很简单。"
         }
       ],
       "note_zh": ""
@@ -5692,7 +5693,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kitto",
       "part_of_speech": "adverb",
-      "meaning_zh": "一定；肯定",
+      "meaning_zh": "一定；肯定（表示推测）",
       "kanji_readings": [],
       "examples": [
         {
@@ -5872,7 +5873,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kimaru",
       "part_of_speech": "verb",
-      "meaning_zh": "决定；定下来",
+      "meaning_zh": "定下来；决定了（自动词）",
       "kanji_readings": [
         {
           "form": "決まる",
@@ -5909,7 +5910,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kimi",
       "part_of_speech": "pronoun",
-      "meaning_zh": "你",
+      "meaning_zh": "你（关系亲近时用，较随意）",
       "kanji_readings": [
         {
           "form": "君",
@@ -5946,7 +5947,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kimeru",
       "part_of_speech": "verb",
-      "meaning_zh": "决定",
+      "meaning_zh": "决定；定（他动词）",
       "kanji_readings": [
         {
           "form": "決める",
@@ -6177,8 +6178,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "急に雨が降り出しました。",
-          "zh": "突然下起雨了。"
+          "ja": "急に電気が消えました。",
+          "zh": "灯突然灭了。"
         },
         {
           "ja": "急に寒くなりました。",
@@ -6353,7 +6354,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kyoumi",
       "part_of_speech": "noun",
-      "meaning_zh": "兴趣",
+      "meaning_zh": "兴趣；关心",
       "kanji_readings": [
         {
           "form": "興味",
@@ -6538,7 +6539,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kuukou",
       "part_of_speech": "noun",
-      "meaning_zh": "机场",
+      "meaning_zh": "机场（航空港）",
       "kanji_readings": [
         {
           "form": "空港",
@@ -7052,7 +7053,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "keikaku",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "计划",
+      "meaning_zh": "计划；规划",
       "kanji_readings": [
         {
           "form": "計画",
@@ -7106,7 +7107,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "成了很好的经验。"
         },
         {
-          "ja": "色々な仕事を経験しました。",
+          "ja": "いろいろな仕事を経験しました。",
           "zh": "经历过各种工作。"
         }
       ],
@@ -7139,8 +7140,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "丢了钱包后去了警察局。"
         },
         {
-          "ja": "警察が事故の原因を調べています。",
-          "zh": "警方正在调查事故原因。"
+          "ja": "家の前に警察の車が止まっています。",
+          "zh": "家门前停着警车。"
         },
         {
           "ja": "道に迷ったので警察に聞きました。",
@@ -7455,7 +7456,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "keredo",
       "part_of_speech": "conjunction",
-      "meaning_zh": "但是；不过",
+      "meaning_zh": "虽然……但是；不过（接在句子后）",
       "kanji_readings": [],
       "examples": [
         {
@@ -7922,7 +7923,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "koukou",
       "part_of_speech": "noun",
-      "meaning_zh": "高中",
+      "meaning_zh": "高中（简称）",
       "kanji_readings": [
         {
           "form": "高校",
@@ -8218,7 +8219,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "koutougakkou",
       "part_of_speech": "noun",
-      "meaning_zh": "高中",
+      "meaning_zh": "高中（正式名称）",
       "kanji_readings": [
         {
           "form": "高等学校",
@@ -8662,7 +8663,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "konogoro",
       "part_of_speech": "adverb/noun",
-      "meaning_zh": "近来；最近",
+      "meaning_zh": "近来；这阵子（指持续的状况）",
       "kanji_readings": [],
       "examples": [
         {
@@ -8811,7 +8812,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "これから"
       ],
-      "romaji": "kore kara",
+      "romaji": "korekara",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "从现在起；今后",
       "kanji_readings": [],
@@ -8973,8 +8974,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "这次考试好像很难。"
         },
         {
-          "ja": "今度こそ遅れません。",
-          "zh": "这次一定不迟到。"
+          "ja": "今度の日曜日は空いていますか。",
+          "zh": "这个星期天有空吗？"
         }
       ],
       "note_zh": ""
@@ -9105,7 +9106,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "gozonji",
       "part_of_speech": "noun",
-      "meaning_zh": "知道；认识",
+      "meaning_zh": "（您）知道；认识（尊敬语）",
       "kanji_readings": [
         {
           "form": "ご存じ",
@@ -9238,7 +9239,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "saikin",
       "part_of_speech": "noun/adverb",
-      "meaning_zh": "最近；近来",
+      "meaning_zh": "最近（也可指最近发生的一件事）",
       "kanji_readings": [
         {
           "form": "最近",
@@ -9321,16 +9322,16 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "最初に名前を書いてください。",
-          "zh": "请先写名字。"
+          "ja": "最初からもう一度説明します。",
+          "zh": "从头再说明一次。"
         },
         {
           "ja": "仕事の最初は少し緊張しました。",
           "zh": "刚开始工作时有些紧张。"
         },
         {
-          "ja": "最初からもう一度説明します。",
-          "zh": "从头再说明一次。"
+          "ja": "最初に名前を書いてください。",
+          "zh": "请先写名字。"
         }
       ],
       "note_zh": ""
@@ -9460,7 +9461,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "sagaru",
       "part_of_speech": "verb",
-      "meaning_zh": "下降；后退；降低",
+      "meaning_zh": "下降；后退；降低（自动词）",
       "kanji_readings": [
         {
           "form": "下がる",
@@ -9497,7 +9498,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "sageru",
       "part_of_speech": "verb",
-      "meaning_zh": "降低；垂下；撤下",
+      "meaning_zh": "降低；垂下；撤下（他动词）",
       "kanji_readings": [
         {
           "form": "下げる",
@@ -10032,8 +10033,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "已经过去的事，再怎么想也没有办法。"
         },
         {
-          "ja": "別の仕方でこの問題を解いてみましょう。",
-          "zh": "试着用另一种方法解这道题吧。"
+          "ja": "勉強の仕方を変えてみましょう。",
+          "zh": "试着改变一下学习方法吧。"
         }
       ],
       "note_zh": ""
@@ -10101,8 +10102,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "想通过考试。"
         },
         {
-          "ja": "試験の前に復習します。",
-          "zh": "考试前复习。"
+          "ja": "試験の結果はまだ分かりません。",
+          "zh": "考试结果还不知道。"
         }
       ],
       "note_zh": ""
@@ -10195,7 +10196,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "shitaku",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "准备；打点",
+      "meaning_zh": "（出门、做饭等的）准备；收拾",
       "kanji_readings": [
         {
           "form": "支度",
@@ -10204,16 +10205,16 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "旅行の支度をしています。",
-          "zh": "正在准备旅行。"
+          "ja": "出かける支度ができました。",
+          "zh": "出门准备好了。"
         },
         {
           "ja": "朝の支度に時間がかかります。",
           "zh": "早上准备要花时间。"
         },
         {
-          "ja": "出かける支度ができました。",
-          "zh": "出门准备好了。"
+          "ja": "母は台所で夕飯の支度をしています。",
+          "zh": "妈妈正在厨房准备晚饭。"
         }
       ],
       "note_zh": "常与「する」构成动词。"
@@ -10627,7 +10628,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "しゅっちょう"
       ],
-      "romaji": "shucchou",
+      "romaji": "shutchou",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "出差",
       "kanji_readings": [
@@ -10703,7 +10704,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "shumi",
       "part_of_speech": "noun",
-      "meaning_zh": "兴趣；爱好",
+      "meaning_zh": "爱好；业余爱好",
       "kanji_readings": [
         {
           "form": "趣味",
@@ -10868,8 +10869,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "被邀请参加婚礼。"
         },
         {
-          "ja": "招待状を送りました。",
-          "zh": "寄了邀请函。"
+          "ja": "先生を食事に招待しました。",
+          "zh": "邀请老师吃了饭。"
         }
       ],
       "note_zh": "常与「する」构成动词。"
@@ -11275,7 +11276,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "过红绿灯后右转。"
         },
         {
-          "ja": "青信号まで待ってください。",
+          "ja": "信号が青になるまで待ってください。",
           "zh": "请等到绿灯。"
         }
       ],
@@ -11590,7 +11591,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "じどう"
       ],
       "romaji": "jidou",
-      "part_of_speech": "noun/prefix",
+      "part_of_speech": "noun",
       "meaning_zh": "自动",
       "kanji_readings": [
         {
@@ -11894,7 +11895,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "junbi",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "准备",
+      "meaning_zh": "准备；筹备",
       "kanji_readings": [
         {
           "form": "準備",
@@ -12154,7 +12155,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "suiei",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "游泳",
+      "meaning_zh": "游泳（名词；游泳运动）",
       "kanji_readings": [
         {
           "form": "水泳",
@@ -12649,7 +12650,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "zuibun",
       "part_of_speech": "adverb",
-      "meaning_zh": "相当；非常；很",
+      "meaning_zh": "相当；非常（常带惊讶、感慨）",
       "kanji_readings": [],
       "examples": [
         {
@@ -12694,8 +12695,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "在东京独自生活。"
         },
         {
-          "ja": "日本の生活に慣れました。",
-          "zh": "习惯了日本的生活。"
+          "ja": "大学の生活はとても楽しいです。",
+          "zh": "大学生活很开心。"
         },
         {
           "ja": "健康な生活をしたいです。",
@@ -13236,7 +13237,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "zehi",
       "part_of_speech": "adverb",
-      "meaning_zh": "一定；务必",
+      "meaning_zh": "务必；一定（用于愿望、邀请）",
       "kanji_readings": [],
       "examples": [
         {
@@ -13543,7 +13544,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "祖母教我做了菜。"
         },
         {
-          "ja": "日曜日に祖母へ電話します。",
+          "ja": "日曜日に祖母に電話します。",
           "zh": "星期天给祖母打电话。"
         }
       ],
@@ -13563,7 +13564,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "sorede",
       "part_of_speech": "conjunction",
-      "meaning_zh": "因此；所以；然后",
+      "meaning_zh": "所以；因此（叙述已发生的结果）；然后呢",
       "kanji_readings": [],
       "examples": [
         {
@@ -13625,7 +13626,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "それほど"
       ],
-      "romaji": "sore hodo",
+      "romaji": "sorehodo",
       "part_of_speech": "adverb",
       "meaning_zh": "那么；那种程度",
       "kanji_readings": [],
@@ -13672,7 +13673,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "そろそろ準備をしなければなりません。",
-          "zh": "差不多必须准备了。"
+          "zh": "差不多该准备了。"
         }
       ],
       "note_zh": ""
@@ -13691,7 +13692,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "sonna",
       "part_of_speech": "pre-noun",
-      "meaning_zh": "那样的",
+      "meaning_zh": "那样的（中称）；那种",
       "kanji_readings": [],
       "examples": [
         {
@@ -13703,8 +13704,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "别露出那种表情。"
         },
         {
-          "ja": "そんなことを言わないでください。",
-          "zh": "请不要说那种话。"
+          "ja": "私もそんな経験があります。",
+          "zh": "我也有过那样的经历。"
         }
       ],
       "note_zh": ""
@@ -14204,8 +14205,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "椅子を壁の横に立てました。",
-          "zh": "把椅子立在墙边。"
+          "ja": "本を立てて並べてください。",
+          "zh": "请把书竖着摆放。"
         },
         {
           "ja": "旅行の計画を立てます。",
@@ -14634,7 +14635,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "daibu",
       "part_of_speech": "adverb",
-      "meaning_zh": "相当；很；大大地",
+      "meaning_zh": "相当；大大地（多指变化的程度）",
       "kanji_readings": [
         {
           "form": "大分",
@@ -14671,7 +14672,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "dakara",
       "part_of_speech": "conjunction",
-      "meaning_zh": "所以；因此",
+      "meaning_zh": "所以；因此（后面可接意志、请求）",
       "kanji_readings": [],
       "examples": [
         {
@@ -14964,8 +14965,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "被老师提醒了。"
         },
         {
-          "ja": "注意書きをよく読んでください。",
-          "zh": "请仔细阅读注意事项。"
+          "ja": "健康に注意しています。",
+          "zh": "我很注意健康。"
         }
       ],
       "note_zh": "常与「する」构成动词。"
@@ -15280,7 +15281,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "tsuku",
       "part_of_speech": "verb",
-      "meaning_zh": "附着；带有；开着",
+      "meaning_zh": "附着；沾上；带有",
       "kanji_readings": [
         {
           "form": "付く",
@@ -15293,8 +15294,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "衬衫上沾了污渍。"
         },
         {
-          "ja": "部屋の電気が付いています。",
-          "zh": "房间的灯开着。"
+          "ja": "あ、顔にご飯が付いていますよ。",
+          "zh": "啊，脸上沾着饭粒哦。"
         },
         {
           "ja": "この本にはCDが付いています。",
@@ -15363,8 +15364,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "明日の午後は都合がいいです。",
-          "zh": "明天下午我方便。"
+          "ja": "明日はちょっと都合が悪いです。",
+          "zh": "明天有点不方便。"
         },
         {
           "ja": "都合が悪ければ、来週でもかまいません。",
@@ -15576,7 +15577,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "tsuzuku",
       "part_of_speech": "verb",
-      "meaning_zh": "继续；持续",
+      "meaning_zh": "继续；持续（自动词）",
       "kanji_readings": [
         {
           "form": "続く",
@@ -15613,7 +15614,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "tsuzukeru",
       "part_of_speech": "verb",
-      "meaning_zh": "继续；持续做",
+      "meaning_zh": "继续做；坚持（他动词）",
       "kanji_readings": [
         {
           "form": "続ける",
@@ -15650,7 +15651,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "tsuma",
       "part_of_speech": "noun",
-      "meaning_zh": "妻子（称自己的妻子）",
+      "meaning_zh": "妻子（称自己的妻子，最常用）",
       "kanji_readings": [
         {
           "form": "妻",
@@ -15770,8 +15771,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "子供を病院へ連れて行きました。",
-          "zh": "带孩子去了医院。"
+          "ja": "母は子供を連れて買い物に行きました。",
+          "zh": "妈妈带着孩子去买东西了。"
         },
         {
           "ja": "友達を家に連れて来ます。",
@@ -16205,7 +16206,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "dekiru dake",
       "part_of_speech": "adverb",
-      "meaning_zh": "尽可能",
+      "meaning_zh": "尽可能（尽最大努力）",
       "kanji_readings": [],
       "examples": [
         {
@@ -16825,7 +16826,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "tomeru",
       "part_of_speech": "verb",
-      "meaning_zh": "停止；停住；阻止",
+      "meaning_zh": "停住；使……停下；阻止（他动词）",
       "kanji_readings": [
         {
           "form": "止める",
@@ -17023,8 +17024,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "小偷从窗户进了屋。"
         },
         {
-          "ja": "警察が泥棒を捕まえました。",
-          "zh": "警察抓住了小偷。"
+          "ja": "泥棒は車で逃げました。",
+          "zh": "小偷开车逃走了。"
         },
         {
           "ja": "泥棒に自転車を盗まれました。",
@@ -17482,7 +17483,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "narubeku",
       "part_of_speech": "adverb",
-      "meaning_zh": "尽量；尽可能",
+      "meaning_zh": "尽量（可能的话）",
       "kanji_readings": [],
       "examples": [
         {
@@ -17601,8 +17602,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "这朵花有甜甜的香味。"
         },
         {
-          "ja": "ガスの匂いがしたので窓を開けました。",
-          "zh": "因为闻到煤气味，我打开了窗户。"
+          "ja": "パンを焼く匂いで目が覚めました。",
+          "zh": "被烤面包的香味弄醒了。"
         }
       ],
       "note_zh": "常写假名「におい」。"
@@ -17815,7 +17816,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "四月に大学へ入学します。",
+          "ja": "四月に大学に入学します。",
           "zh": "四月进入大学。"
         },
         {
@@ -17856,8 +17857,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "出示票后入场。"
         },
         {
-          "ja": "入場は無料です。",
-          "zh": "入场免费。"
+          "ja": "入場は十時からです。",
+          "zh": "十点开始入场。"
         },
         {
           "ja": "入場する前に並んでください。",
@@ -18079,8 +18080,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "把墙刷成了白色。"
         },
         {
-          "ja": "パンにバターを塗ります。",
-          "zh": "把黄油涂在面包上。"
+          "ja": "パンにジャムを塗って食べました。",
+          "zh": "在面包上涂了果酱吃。"
         },
         {
           "ja": "薬を傷に塗ってください。",
@@ -18507,7 +18508,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "norikae",
       "part_of_speech": "noun",
-      "meaning_zh": "换乘",
+      "meaning_zh": "换乘（名词）",
       "kanji_readings": [
         {
           "form": "乗り換え",
@@ -18544,7 +18545,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "norikaeru",
       "part_of_speech": "verb",
-      "meaning_zh": "换乘；改乘",
+      "meaning_zh": "换乘；改乘（动词）",
       "kanji_readings": [
         {
           "form": "乗り換える",
@@ -18803,7 +18804,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "hajimeru",
       "part_of_speech": "verb",
-      "meaning_zh": "开始",
+      "meaning_zh": "开始（他动词）",
       "kanji_readings": [
         {
           "form": "始める",
@@ -19107,8 +19108,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "我反对那个意见。"
         },
         {
-          "ja": "駅は道の反対側にあります。",
-          "zh": "车站在路对面。"
+          "ja": "両親は私の留学に反対しています。",
+          "zh": "父母反对我去留学。"
         },
         {
           "ja": "反対の手を上げてください。",
@@ -19148,8 +19149,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "走楼梯去对面的站台。"
         },
         {
-          "ja": "紙の反対側にも名前を書いてください。",
-          "zh": "请也在纸的背面写上名字。"
+          "ja": "駅の反対側に新しい店ができました。",
+          "zh": "车站另一边开了一家新店。"
         }
       ],
       "note_zh": ""
@@ -19214,16 +19215,16 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "場合によって、予定を変えます。",
-          "zh": "根据情况改变计划。"
+          "ja": "場合によって、答えが違います。",
+          "zh": "根据情况，答案会不同。"
         },
         {
           "ja": "場合によっては中止になります。",
           "zh": "视情况会取消。"
         },
         {
-          "ja": "場合によって、先生に相談します。",
-          "zh": "视情况咨询老师。"
+          "ja": "場合によっては、先生に相談します。",
+          "zh": "视情况可能会咨询老师。"
         }
       ],
       "note_zh": ""
@@ -19241,7 +19242,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "ばい"
       ],
       "romaji": "bai",
-      "part_of_speech": "noun/suffix",
+      "part_of_speech": "noun/counter",
       "meaning_zh": "倍",
       "kanji_readings": [
         {
@@ -19400,8 +19401,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "今日は特別な日です。",
-          "zh": "今天是特别的日子。"
+          "ja": "雨の日は家で本を読みます。",
+          "zh": "下雨天在家看书。"
         },
         {
           "ja": "晴れた日は外を歩きます。",
@@ -19552,8 +19553,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "夜空中星星在闪。"
         },
         {
-          "ja": "この石は光るときれいです。",
-          "zh": "这块石头发光时很美。"
+          "ja": "猫の目が暗い所で光っています。",
+          "zh": "猫的眼睛在暗处发光。"
         },
         {
           "ja": "遠くで信号が光りました。",
@@ -19682,7 +19683,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "hikoujou",
       "part_of_speech": "noun",
-      "meaning_zh": "机场",
+      "meaning_zh": "飞机场；（多指小型的）机场",
       "kanji_readings": [
         {
           "form": "飛行場",
@@ -20190,7 +20191,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "fueru",
       "part_of_speech": "verb",
-      "meaning_zh": "增加；增多",
+      "meaning_zh": "增加；增多（自动词）",
       "kanji_readings": [
         {
           "form": "増える",
@@ -20244,8 +20245,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "进行了深入的谈话。"
         },
         {
-          "ja": "夜が深くなってきました。",
-          "zh": "夜渐深了。"
+          "ja": "この池は思ったより深いです。",
+          "zh": "这个池塘比想象的深。"
         }
       ],
       "note_zh": ""
@@ -20597,7 +20598,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "fuyasu",
       "part_of_speech": "verb",
-      "meaning_zh": "增加；增多",
+      "meaning_zh": "增加；使……增多（他动词）",
       "kanji_readings": [
         {
           "form": "増やす",
@@ -20716,8 +20717,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "到了秋天，葡萄会变甜。"
         },
         {
-          "ja": "ぶどうを洗って皿に載せました。",
-          "zh": "我把葡萄洗好放在盘子里。"
+          "ja": "ぶどうを洗って、みんなで食べました。",
+          "zh": "把葡萄洗了，大家一起吃了。"
         },
         {
           "ja": "このジュースはぶどうから作られています。",
@@ -20975,8 +20976,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "这是另一个问题。"
         },
         {
-          "ja": "支払いは別々でお願いします。",
-          "zh": "付款请分开。"
+          "ja": "別の日にもう一度来ます。",
+          "zh": "改天再来一次。"
         },
         {
           "ja": "別に急いでいません。",
@@ -22019,7 +22020,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "mitsukaru",
       "part_of_speech": "verb",
-      "meaning_zh": "被找到；找到",
+      "meaning_zh": "被找到；找得到（自动词）",
       "kanji_readings": [
         {
           "form": "見つかる",
@@ -22056,7 +22057,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "mitsukeru",
       "part_of_speech": "verb",
-      "meaning_zh": "找到；发现",
+      "meaning_zh": "找到；发现（他动词）",
       "kanji_readings": [
         {
           "form": "見つける",
@@ -22624,8 +22625,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "旅行报名截止到明天。"
         },
         {
-          "ja": "インターネットで講座に申し込みました。",
-          "zh": "我在网上报名了课程。"
+          "ja": "講座の申し込みはインターネットでできます。",
+          "zh": "课程可以在网上报名。"
         },
         {
           "ja": "申し込みには住所と電話番号が必要です。",
@@ -23493,8 +23494,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "我用手指指出了地图上的位置。"
         },
         {
-          "ja": "寒くて指が動きません。",
-          "zh": "冷得手指动不了。"
+          "ja": "足の指が痛いです。",
+          "zh": "脚趾疼。"
         }
       ],
       "note_zh": ""
@@ -23661,7 +23662,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "youi",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "准备",
+      "meaning_zh": "准备（好东西）；预备",
       "kanji_readings": [
         {
           "form": "用意",
@@ -23735,7 +23736,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "yogoreru",
       "part_of_speech": "verb",
-      "meaning_zh": "脏；弄脏",
+      "meaning_zh": "变脏；脏（自动词）",
       "kanji_readings": [
         {
           "form": "汚れる",
@@ -23809,7 +23810,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "yotei",
       "part_of_speech": "noun",
-      "meaning_zh": "计划；预定",
+      "meaning_zh": "预定；（日程）安排",
       "kanji_readings": [
         {
           "form": "予定",
@@ -23933,8 +23934,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "这里是预留座位，不能坐。"
         },
         {
-          "ja": "窓側の予約席を取りました。",
-          "zh": "我订了靠窗的座位。"
+          "ja": "このレストランは予約席が多いです。",
+          "zh": "这家餐厅的预留座位很多。"
         },
         {
           "ja": "予約席には名前が書いてありました。",
@@ -24011,7 +24012,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "通过考试后大家都很高兴。"
         },
         {
-          "ja": "子供が公園に行くと喜びます。",
+          "ja": "子供は公園に行くと喜びます。",
           "zh": "孩子去公园会很开心。"
         }
       ],
@@ -24450,8 +24451,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "两个人去年分手了。"
         },
         {
-          "ja": "道が二つに分かれています。",
-          "zh": "道路分成两条。"
+          "ja": "家族と別れて、一人で東京に来ました。",
+          "zh": "离开家人，一个人来到了东京。"
         }
       ],
       "note_zh": ""
@@ -24765,8 +24766,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "日本はアジアの東にあります。",
-          "zh": "日本位于亚洲东部。"
+          "ja": "アジアにはたくさんの国があります。",
+          "zh": "亚洲有很多国家。"
         },
         {
           "ja": "いつかアジアを旅行したいです。",
@@ -25368,7 +25369,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "reading_variants": [
         "サンドイッチ"
       ],
-      "romaji": "sandoicchi",
+      "romaji": "sandoitchi",
       "part_of_speech": "noun",
       "meaning_zh": "三明治",
       "kanji_readings": [],
@@ -25639,7 +25640,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "大切な部分をテキストに書き込みました。",
-          "zh": "我在教材的重要部分做了笔记。"
+          "zh": "我把重要的内容写在了教材上。"
         }
       ],
       "note_zh": ""
@@ -25882,7 +25883,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "purezento",
       "part_of_speech": "noun/suru-verb",
-      "meaning_zh": "礼物；赠送",
+      "meaning_zh": "礼物（最常用）；赠送",
       "kanji_readings": [],
       "examples": [
         {

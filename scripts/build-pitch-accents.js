@@ -22,6 +22,7 @@ const reviewedExclusions = {
   "n5-091": "ええ lists 1,2,0 without a sense split",
   "n4-195": "君（くん） is a suffix with no independent accent",
   "n4-426": "ちゃん is a suffix with no independent accent",
+  "n4-222": "講義 is both ① and ③ in Tokyo usage (Wiktionary); Kanjium lists only ③",
 };
 // Kanjium files the demonstrative senses under kanji forms; its kana-only
 // これ / それ rows (1) belong to the interjection sense.
