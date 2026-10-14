@@ -681,8 +681,8 @@ const specialRows = [
     legacyIds: ["special-21"],
     type: "促音",
     prompt: "っ + ch",
-    answer: "cch",
-    meta: "促音：っ + ch　罗马音：cch　例词：こっち",
+    answer: "tch",
+    meta: "促音：っ + ch　罗马音：tch　例词：こっち",
     speech: "こっち",
   },
   {
@@ -3223,7 +3223,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "11686:499a2f2f67d18dab";
+const reviewedPronunciationSourceSignature = "11822:d992ed326f7eea45";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3361,7 +3361,9 @@ function kanaToRomaji(text) {
         match[0] === "ん" && /^[aeiouy]/.test(romajiAt(kanaText, index + match[0].length))
           ? "'"
           : "";
-      result += `${shouldDoubleNextConsonant ? firstConsonant(romaji) : ""}${romaji}${moraSeparator}`;
+      // Hepburn writes っ before ch as t: こっち → kotchi, not kocchi.
+      const geminate = romaji.startsWith("ch") ? "t" : firstConsonant(romaji);
+      result += `${shouldDoubleNextConsonant ? geminate : ""}${romaji}${moraSeparator}`;
       shouldDoubleNextConsonant = false;
       index += match[0].length;
       continue;
@@ -3875,8 +3877,10 @@ function makeVocabDeckCards({
 }) {
   // Words written the same way (十 じゅう／とお, 一日 いちにち／ついたち) cannot be
   // told apart from the kanji alone, so their 日→中 cards show the reading up front.
+  // Count across both levels: 空（そら, N5）and 空（から, N4）must both show
+  // their reading even though they sit in different decks.
   const promptCounts = new Map();
-  words.forEach(([, word]) => promptCounts.set(word, (promptCounts.get(word) || 0) + 1));
+  [...n5Words, ...n4Words].forEach(([, word]) => promptCounts.set(word, (promptCounts.get(word) || 0) + 1));
   return words.flatMap(([
     sourceId,
     word,
@@ -4020,6 +4024,11 @@ const grammarGlossSynonyms = new Map([
   ["是不是", "吗"],
   ["不知道是否", "吗"],
   ["刚刚", "刚才"],
+  ["不许", "不可以"],
+  // Hearsay: 〜と言われている / 〜と聞いた / 〜によると / 〜そうだ.
+  ["听说", "据说"],
+  ["据", "据说"],
+  ["根据", "据说"],
   ["一样的", "样"],
   ["一样地", "样"],
   ["一样", "样"],
@@ -4053,7 +4062,16 @@ function grammarPatternParts(entry) {
 // contain the correct gloss (〜にくい / 〜づらい, まだ / まだ〜ていません), and
 // patterns that contain one another (〜のに / 〜のに, 〜ないで / 〜ないでください)
 // are never offered against each other.
+// Overlaps the gloss heuristic cannot see: 〜てやる is the casual 〜てあげる,
+// and its 「为……做」 gloss also fits 〜てくれる.
+const grammarOverlappingPairs = new Set([
+  "n4-grammar-092|n4-grammar-104",
+  "n4-grammar-097|n4-grammar-104",
+]);
+
 function grammarMeaningsOverlap(entry, candidate) {
+  const pairKey = [entry.id, candidate.id].sort().join("|");
+  if (grammarOverlappingPairs.has(pairKey)) return true;
   const patternsOverlap = grammarPatternParts(entry).some((left) =>
     grammarPatternParts(candidate).some((right) => {
       const [shorter, longer] = left.length <= right.length ? [left, right] : [right, left];
@@ -4096,6 +4114,9 @@ function grammarDistractorScore(entry, candidate) {
 
 function getGrammarDistractors(entry) {
   const usedTexts = new Set([grammarChoiceText(entry)]);
+  // Distractors must also differ from each other: three “必须……” options
+  // would leave the odd one out as an obvious answer.
+  const picked = [];
   return grammarEntries
     .filter((candidate) => candidate.id !== entry.id && candidate.level === entry.level)
     .filter((candidate) => !grammarMeaningsOverlap(entry, candidate))
@@ -4110,7 +4131,9 @@ function getGrammarDistractors(entry) {
     .filter(({ entry: candidate }) => {
       const text = grammarChoiceText(candidate);
       if (usedTexts.has(text)) return false;
+      if (picked.some((other) => grammarMeaningsOverlap(other, candidate))) return false;
       usedTexts.add(text);
+      picked.push(candidate);
       return true;
     })
     .slice(0, grammarChoiceCount - 1)

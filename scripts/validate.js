@@ -88,6 +88,7 @@ const allowedLearningCategories = new Set([
 ]);
 const expectedLearningCategories = new Map([
   ["n4-082", "compound"],
+  ["n4-097", "derived-form"],
   ["n4-151", "derived-form"],
   ["n4-186", "compound"],
   ["n4-218", "collocation"],
@@ -933,7 +934,7 @@ function headwordRomajiPattern(reading) {
     if (mora.kana === "ー") {
       piece = previous ? escapeRegExp(previous.at(-1)) : null;
     } else if (mora.kana === "っ") {
-      piece = next?.romaji ? escapeRegExp(next.romaji[0] === "c" ? "c" : next.romaji[0]) : null;
+      piece = next?.romaji ? escapeRegExp(next.romaji[0] === "c" ? "t" : next.romaji[0]) : null;
     } else if (mora.kana === "ん") {
       piece = next?.romaji && /^[aeiouy]/u.test(next.romaji) ? "n(?:'| )" : "n";
     } else if (mora.kana === "は") {
@@ -1261,7 +1262,7 @@ function validateGrammarSource(grammarData, expectedCount) {
     "n5-grammar-081 must demonstrate a genuine method question",
   );
   check(
-    grammarById.get("n4-grammar-055")?.examples?.[2]?.zh === "把不懂的部分读一读。",
+    grammarById.get("n4-grammar-055")?.examples?.[2]?.zh === "不懂的地方去问老师。",
     "n4-grammar-055 must retain the complete command translation",
   );
   check(
@@ -1551,7 +1552,7 @@ function validatePitchAccentData(pitchAccent, n5Json, n4Json, vocabCards) {
       `pitch accent ${id} (${entry.headword}/${entry.reading}) is not a valid mora index list`,
     );
   });
-  ["n5-001", "n5-091", "n4-195", "n4-426"].forEach((id) => {
+  ["n5-001", "n5-091", "n4-195", "n4-426", "n4-222"].forEach((id) => {
     check(!(id in entries), `pitch accent ${id} was rejected in review but is annotated again`);
   });
   [

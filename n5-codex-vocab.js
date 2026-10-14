@@ -248,8 +248,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "用红笔写名字。"
         },
         {
-          "ja": "顔が赤くなりました。",
-          "zh": "脸红了。"
+          "ja": "秋は山の木が赤くなります。",
+          "zh": "秋天山上的树会变红。"
         }
       ],
       "note_zh": ""
@@ -579,12 +579,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "足が痛いです。",
-          "zh": "脚疼。"
+          "ja": "弟は足が速いです。",
+          "zh": "弟弟跑得很快。"
         },
         {
-          "ja": "足で歩きます。",
-          "zh": "用脚走路。"
+          "ja": "たくさん歩いたので、足が痛いです。",
+          "zh": "走了很多路，所以脚疼。"
         },
         {
           "ja": "足を洗います。",
@@ -644,7 +644,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "asoko",
       "part_of_speech": "pronoun/demonstrative",
-      "meaning_zh": "那里；那个地方",
+      "meaning_zh": "那里（远称）；那个地方",
       "kanji_readings": [],
       "examples": [
         {
@@ -824,7 +824,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "achira",
       "part_of_speech": "pronoun/demonstrative",
-      "meaning_zh": "那边；那位（礼貌说法）",
+      "meaning_zh": "那边（远称）；那位（礼貌说法）",
       "kanji_readings": [],
       "examples": [
         {
@@ -965,9 +965,9 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "あっち"
       ],
-      "romaji": "acchi",
+      "romaji": "atchi",
       "part_of_speech": "pronoun/demonstrative",
-      "meaning_zh": "那边（口语）",
+      "meaning_zh": "那边（远称，口语）",
       "kanji_readings": [],
       "examples": [
         {
@@ -1174,7 +1174,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "ano",
       "part_of_speech": "pre-noun/interjection",
-      "meaning_zh": "那个（连体词）；嗯……",
+      "meaning_zh": "那个（连体词，远称）；嗯……",
       "kanji_readings": [],
       "examples": [
         {
@@ -1335,8 +1335,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "时间不太多。"
         },
         {
-          "ja": "お金が余りました。",
-          "zh": "钱剩下了。"
+          "ja": "余りのご飯でおにぎりを作りました。",
+          "zh": "用剩饭做了饭团。"
         }
       ],
       "note_zh": "表示“不太……”时通常写作假名「あまり」，后接否定；写作「余り」时常表示“剩余”。"
@@ -1438,12 +1438,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "手を洗います。",
-          "zh": "洗手。"
+          "ja": "週末に車を洗います。",
+          "zh": "周末洗车。"
         },
         {
-          "ja": "朝、顔を洗います。",
-          "zh": "早上洗脸。"
+          "ja": "セーターを手で洗いました。",
+          "zh": "用手洗了毛衣。"
         },
         {
           "ja": "皿をきれいに洗いました。",
@@ -1644,7 +1644,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "iu",
       "part_of_speech": "verb",
-      "meaning_zh": "说",
+      "meaning_zh": "说；讲（说出内容）；叫做",
       "kanji_readings": [
         {
           "form": "言う",
@@ -1681,7 +1681,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "ie",
       "part_of_speech": "noun",
-      "meaning_zh": "家；房子",
+      "meaning_zh": "家；房子（建筑物）",
       "kanji_readings": [
         {
           "form": "家",
@@ -1690,8 +1690,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "家へ帰ります。",
-          "zh": "回家。"
+          "ja": "あの白い家は田中さんの家です。",
+          "zh": "那栋白色的房子是田中先生家。"
         },
         {
           "ja": "家で勉強します。",
@@ -1717,7 +1717,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "いかが"
       ],
       "romaji": "ikaga",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "如何；怎么样（礼貌说法）",
       "kanji_readings": [],
       "examples": [
@@ -1760,8 +1760,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "明日、学校へ行きます。",
-          "zh": "明天去学校。"
+          "ja": "毎朝、バスで会社へ行きます。",
+          "zh": "每天早上坐公交车去公司。"
         },
         {
           "ja": "駅まで歩いて行きます。",
@@ -1828,8 +1828,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这个多少钱？"
         },
         {
-          "ja": "全部でいくらですか。",
-          "zh": "一共多少钱？"
+          "ja": "このりんごは一ついくらですか。",
+          "zh": "这个苹果一个多少钱？"
         },
         {
           "ja": "いくら払いましたか。",
@@ -2290,7 +2290,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "いつも"
       ],
       "romaji": "itsumo",
-      "part_of_speech": "adverb/expression",
+      "part_of_speech": "adverb",
       "meaning_zh": "总是；平时",
       "kanji_readings": [],
       "examples": [
@@ -2471,7 +2471,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "iya",
       "part_of_speech": "na-adjective",
-      "meaning_zh": "讨厌；不愿意；不喜欢",
+      "meaning_zh": "不愿意；讨厌（主观上排斥）",
       "kanji_readings": [
         {
           "form": "嫌",
@@ -2480,12 +2480,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "辛い食べ物は嫌です。",
-          "zh": "我不喜欢辣的食物。"
-        },
-        {
           "ja": "一人で行くのは嫌です。",
           "zh": "我不想一个人去。"
+        },
+        {
+          "ja": "毎日雨で嫌ですね。",
+          "zh": "每天都下雨，真烦人。"
         },
         {
           "ja": "嫌なことを忘れました。",
@@ -2628,8 +2628,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "把书放进包里。"
         },
         {
-          "ja": "コーヒーに砂糖を入れます。",
-          "zh": "往咖啡里放糖。"
+          "ja": "冷蔵庫に牛乳を入れました。",
+          "zh": "把牛奶放进了冰箱。"
         },
         {
           "ja": "名前をここに入れてください。",
@@ -2730,8 +2730,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "机の上に本があります。",
-          "zh": "桌子上有书。"
+          "ja": "テーブルの上にりんごが三つあります。",
+          "zh": "桌子上有三个苹果。"
         },
         {
           "ja": "上を見てください。",
@@ -2906,7 +2906,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "uchi",
       "part_of_speech": "noun",
-      "meaning_zh": "家；自己家；我们这边",
+      "meaning_zh": "家；自己家（口语）；我们这边",
       "kanji_readings": [],
       "examples": [
         {
@@ -3081,7 +3081,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "uwagi",
       "part_of_speech": "noun",
-      "meaning_zh": "外套；上衣",
+      "meaning_zh": "上衣；外衣",
       "kanji_readings": [
         {
           "form": "上着",
@@ -3094,8 +3094,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "穿外套。"
         },
         {
-          "ja": "暑いので上着を脱ぎます。",
-          "zh": "因为热，所以脱外套。"
+          "ja": "寒いので、上着を持って行きます。",
+          "zh": "因为冷，所以带外套去。"
         },
         {
           "ja": "新しい上着を買いました。",
@@ -3315,8 +3315,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "车站在学校附近。"
         },
         {
-          "ja": "駅で友達に会います。",
-          "zh": "在车站见朋友。"
+          "ja": "駅の前に大きな本屋があります。",
+          "zh": "车站前面有一家大书店。"
         }
       ],
       "note_zh": ""
@@ -3449,8 +3449,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "您的名字是什么？"
         },
         {
-          "ja": "お茶をどうぞ。",
-          "zh": "请喝茶。"
+          "ja": "お国はどちらですか。",
+          "zh": "您是哪国人？"
         },
         {
           "ja": "お母さんは元気ですか。",
@@ -3934,8 +3934,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "请拿出两个大盘子。"
         },
         {
-          "ja": "お皿に料理を載せます。",
-          "zh": "把菜盛到盘子里。"
+          "ja": "ケーキをお皿に載せました。",
+          "zh": "把蛋糕放到了盘子上。"
         }
       ],
       "note_zh": ""
@@ -3947,7 +3947,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "source_form": "伯父; 叔父さん",
       "variants": [
         "おじさん",
-        "伯父",
+        "伯父さん",
         "叔父さん"
       ],
       "reading": "おじさん",
@@ -3959,7 +3959,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "meaning_zh": "叔叔；伯父；舅舅；中年男性",
       "kanji_readings": [
         {
-          "form": "伯父",
+          "form": "伯父さん",
           "reading": "おじさん"
         },
         {
@@ -4177,7 +4177,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "otearai",
       "part_of_speech": "noun",
-      "meaning_zh": "洗手间；厕所",
+      "meaning_zh": "洗手间（较礼貌的说法）",
       "kanji_readings": [
         {
           "form": "お手洗い",
@@ -4186,16 +4186,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "お手洗いはどこですか。",
-          "zh": "厕所在哪里？"
+          "ja": "すみません、お手洗いはどちらですか。",
+          "zh": "不好意思，请问洗手间在哪边？"
         },
         {
-          "ja": "お手洗いへ行きます。",
-          "zh": "去厕所。"
+          "ja": "お手洗いは二階にあります。",
+          "zh": "洗手间在二楼。"
         },
         {
-          "ja": "お手洗いを借りてもいいですか。",
-          "zh": "可以借用厕所吗？"
+          "ja": "食事の前にお手洗いで手を洗います。",
+          "zh": "饭前在洗手间洗手。"
         }
       ],
       "note_zh": ""
@@ -4908,7 +4908,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "oyogu",
       "part_of_speech": "verb",
-      "meaning_zh": "游泳",
+      "meaning_zh": "游泳（动词）",
       "kanji_readings": [
         {
           "form": "泳ぐ",
@@ -4945,7 +4945,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "oriru",
       "part_of_speech": "verb",
-      "meaning_zh": "下车；下来",
+      "meaning_zh": "下（车）；下来",
       "kanji_readings": [
         {
           "form": "降りる",
@@ -5028,16 +5028,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "音楽を聞きます。",
-          "zh": "听音乐。"
+          "ja": "音楽の授業で歌を歌いました。",
+          "zh": "在音乐课上唱了歌。"
         },
         {
           "ja": "毎日、音楽を聞いています。",
           "zh": "每天听音乐。"
         },
         {
-          "ja": "音楽が好きです。",
-          "zh": "喜欢音乐。"
+          "ja": "音楽の先生はピアノが上手です。",
+          "zh": "音乐老师钢琴弹得很好。"
         }
       ],
       "note_zh": ""
@@ -5402,8 +5402,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "在车站买票。"
         },
         {
-          "ja": "新しい靴を買いました。",
-          "zh": "买了新鞋。"
+          "ja": "コンビニでお弁当を買いました。",
+          "zh": "在便利店买了便当。"
         },
         {
           "ja": "スーパーで野菜を買います。",
@@ -5619,8 +5619,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "写信。"
         },
         {
-          "ja": "名前を書いてください。",
-          "zh": "请写名字。"
+          "ja": "黒板に答えを書いてください。",
+          "zh": "请把答案写在黑板上。"
         },
         {
           "ja": "ノートに漢字を書きます。",
@@ -5773,8 +5773,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "因为下雨，所以带伞去。"
         },
         {
-          "ja": "雨なので傘を差します。",
-          "zh": "因为下雨，所以撑伞。"
+          "ja": "この傘は軽くて便利です。",
+          "zh": "这把伞又轻又方便。"
         }
       ],
       "note_zh": ""
@@ -5847,8 +5847,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "冷风从窗户吹进来。"
         },
         {
-          "ja": "風で帽子が飛びました。",
-          "zh": "帽子被风吹走了。"
+          "ja": "風が吹いて、少し涼しくなりました。",
+          "zh": "风一吹，凉快了一些。"
         }
       ],
       "note_zh": ""
@@ -6163,8 +6163,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "次の角を右に曲がります。",
-          "zh": "在下一个拐角右转。"
+          "ja": "角のパン屋はとてもおいしいです。",
+          "zh": "拐角那家面包店很好吃。"
         },
         {
           "ja": "角に店があります。",
@@ -6203,8 +6203,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "包里有什么？"
         },
         {
-          "ja": "かばんに本を入れます。",
-          "zh": "把书放进包里。"
+          "ja": "駅でかばんをなくしました。",
+          "zh": "在车站把包弄丢了。"
         }
       ],
       "note_zh": ""
@@ -7197,7 +7197,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "kyuu",
       "part_of_speech": "numeral",
-      "meaning_zh": "九",
+      "meaning_zh": "九（一般读法）",
       "kanji_readings": [
         {
           "form": "九",
@@ -7401,7 +7401,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         },
         {
           "ja": "私の兄弟は大阪に住んでいます。",
-          "zh": "我的兄弟住在大阪。"
+          "zh": "我的兄弟姐妹住在大阪。"
         }
       ],
       "note_zh": ""
@@ -7541,8 +7541,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "白いシャツを着ます。",
-          "zh": "穿白衬衫。"
+          "ja": "寒いので、セーターを着ます。",
+          "zh": "因为冷，所以穿毛衣。"
         },
         {
           "ja": "今日はコートを着ています。",
@@ -7741,7 +7741,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "ku",
       "part_of_speech": "numeral",
-      "meaning_zh": "九",
+      "meaning_zh": "九（用于九点、九月等）",
       "kanji_readings": [
         {
           "form": "九",
@@ -7823,12 +7823,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "请给我水。"
         },
         {
-          "ja": "少し待ってください。",
-          "zh": "请稍等一下。"
+          "ja": "切符を二枚ください。",
+          "zh": "请给我两张票。"
         },
         {
-          "ja": "もう一度言ってください。",
-          "zh": "请再说一次。"
+          "ja": "すみません、メニューを見せてください。",
+          "zh": "不好意思，请给我看一下菜单。"
         }
       ],
       "note_zh": "用于提出请求，常接动词て形；不是い形容词。"
@@ -8190,7 +8190,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         },
         {
           "ja": "このクラスは楽しいです。",
-          "zh": "这个班很开心。"
+          "zh": "在这个班上课很开心。"
         }
       ],
       "note_zh": ""
@@ -8278,7 +8278,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "kuruma",
       "part_of_speech": "noun",
-      "meaning_zh": "汽车；车",
+      "meaning_zh": "车；汽车（日常说法）",
       "kanji_readings": [
         {
           "form": "車",
@@ -8959,8 +8959,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "听得到老师的声音。"
         },
         {
-          "ja": "大きな声で話してください。",
-          "zh": "请大声说。"
+          "ja": "風邪で声が出ません。",
+          "zh": "因为感冒发不出声音。"
         },
         {
           "ja": "声が小さいです。",
@@ -8983,7 +8983,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "kooto",
       "part_of_speech": "noun",
-      "meaning_zh": "外套；大衣",
+      "meaning_zh": "大衣；外套",
       "kanji_readings": [],
       "examples": [
         {
@@ -9294,7 +9294,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "こっち"
       ],
-      "romaji": "kocchi",
+      "romaji": "kotchi",
       "part_of_speech": "pronoun/demonstrative",
       "meaning_zh": "这边（口语）",
       "kanji_readings": [],
@@ -9406,12 +9406,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "新しい言葉を覚えます。",
-          "zh": "记新词。"
+          "ja": "この言葉は子供でも分かります。",
+          "zh": "这个词连孩子都懂。"
         },
         {
-          "ja": "この言葉の意味は何ですか。",
-          "zh": "这个词是什么意思？"
+          "ja": "その言葉を聞いて、うれしくなりました。",
+          "zh": "听到那句话，我高兴起来了。"
         },
         {
           "ja": "日本語の言葉を勉強します。",
@@ -9483,8 +9483,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这家店很便宜。"
         },
         {
-          "ja": "この道をまっすぐ行ってください。",
-          "zh": "请沿这条路直走。"
+          "ja": "このかばんは誰のですか。",
+          "zh": "这个包是谁的？"
         }
       ],
       "note_zh": ""
@@ -9617,8 +9617,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "这是书。"
         },
         {
-          "ja": "これはいくらですか。",
-          "zh": "这个多少钱？"
+          "ja": "これは日本のお菓子です。",
+          "zh": "这是日本的点心。"
         },
         {
           "ja": "これは私のです。",
@@ -9861,8 +9861,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "私は二十歳です。",
-          "zh": "我二十岁。"
+          "ja": "妹は七歳です。",
+          "zh": "妹妹七岁。"
         },
         {
           "ja": "父は五十歳です。",
@@ -10400,7 +10400,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "reading": "し",
       "reading_variants": [
-        "し"
+        "し",
+        "よん"
       ],
       "romaji": "shi",
       "part_of_speech": "numeral",
@@ -10413,8 +10414,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "四月に学校が始まります。",
-          "zh": "学校四月开学。"
+          "ja": "四月は桜がきれいです。",
+          "zh": "四月的樱花很美。"
         },
         {
           "ja": "紙に四角を描きました。",
@@ -10454,8 +10455,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "七点起床。"
         },
         {
-          "ja": "今、何時ですか。",
-          "zh": "现在几点？"
+          "ja": "映画は何時に始まりますか。",
+          "zh": "电影几点开始？"
         },
         {
           "ja": "三時に会いましょう。",
@@ -10515,7 +10516,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "shikashi",
       "part_of_speech": "conjunction",
-      "meaning_zh": "但是；然而",
+      "meaning_zh": "但是；然而（较书面）",
       "kanji_readings": [],
       "examples": [
         {
@@ -10621,7 +10622,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "shigoto",
       "part_of_speech": "noun",
-      "meaning_zh": "工作",
+      "meaning_zh": "工作；职业（名词）",
       "kanji_readings": [
         {
           "form": "仕事",
@@ -10630,16 +10631,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "父は会社で仕事をします。",
-          "zh": "父亲在公司工作。"
-        },
-        {
-          "ja": "仕事が終わりました。",
-          "zh": "工作结束了。"
-        },
-        {
           "ja": "新しい仕事を探しています。",
           "zh": "正在找新工作。"
+        },
+        {
+          "ja": "仕事の後で、友達と食事をしました。",
+          "zh": "下班后和朋友吃了饭。"
+        },
+        {
+          "ja": "今日は仕事が多くて疲れました。",
+          "zh": "今天工作很多，好累。"
         }
       ],
       "note_zh": ""
@@ -10765,7 +10766,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "reading": "しち",
       "reading_variants": [
-        "しち"
+        "しち",
+        "なな"
       ],
       "romaji": "shichi",
       "part_of_speech": "numeral",
@@ -10782,8 +10784,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "七月很热。"
         },
         {
-          "ja": "毎朝七時に起きます。",
-          "zh": "每天早上七点起床。"
+          "ja": "今朝は七時半に家を出ました。",
+          "zh": "今天早上七点半出了家门。"
         },
         {
           "ja": "答えは七です。",
@@ -10880,7 +10882,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "jidousha",
       "part_of_speech": "noun",
-      "meaning_zh": "汽车",
+      "meaning_zh": "汽车（正式说法）",
       "kanji_readings": [
         {
           "form": "自動車",
@@ -10954,7 +10956,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "jibiki",
       "part_of_speech": "noun",
-      "meaning_zh": "词典；字典",
+      "meaning_zh": "字典；词典（较旧的说法）",
       "kanji_readings": [
         {
           "form": "字引",
@@ -11141,7 +11143,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "jaa",
       "part_of_speech": "conjunction",
-      "meaning_zh": "那么；那就",
+      "meaning_zh": "那么；那就（口语）",
       "kanji_readings": [],
       "examples": [
         {
@@ -11182,8 +11184,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "写真を撮ります。",
-          "zh": "拍照片。"
+          "ja": "これは家族の写真です。",
+          "zh": "这是家人的照片。"
         },
         {
           "ja": "この写真を見てください。",
@@ -11210,7 +11212,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "shatsu",
       "part_of_speech": "noun",
-      "meaning_zh": "衬衫",
+      "meaning_zh": "衬衫；汗衫",
       "kanji_readings": [],
       "examples": [
         {
@@ -11246,8 +11248,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "朝、シャワーを浴びます。",
-          "zh": "早上冲澡。"
+          "ja": "シャワーのお湯がとても熱いです。",
+          "zh": "淋浴的水很烫。"
         },
         {
           "ja": "シャワーを使います。",
@@ -11394,16 +11396,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "授業は九時に始まります。",
-          "zh": "课九点开始。"
+          "ja": "授業の後で、先生に質問しました。",
+          "zh": "下课后向老师提了问题。"
         },
         {
           "ja": "日本語の授業があります。",
           "zh": "有日语课。"
         },
         {
-          "ja": "授業中は静かにしてください。",
-          "zh": "上课时请安静。"
+          "ja": "明日は授業が休みです。",
+          "zh": "明天停课。"
         }
       ],
       "note_zh": ""
@@ -11435,8 +11437,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "做作业。"
         },
         {
-          "ja": "宿題を忘れました。",
-          "zh": "忘了作业。"
+          "ja": "今日は宿題がたくさんあります。",
+          "zh": "今天作业很多。"
         },
         {
           "ja": "宿題を先生に出します。",
@@ -11838,8 +11840,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "ここでたばこを吸わないでください。",
-          "zh": "请不要在这里吸烟。"
+          "ja": "大きく息を吸ってください。",
+          "zh": "请深吸一口气。"
         },
         {
           "ja": "きれいな空気を吸います。",
@@ -12046,12 +12048,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "少し待ってください。",
-          "zh": "请等一下。"
+          "ja": "少し寒いですね。",
+          "zh": "有点冷啊。"
         },
         {
-          "ja": "日本語が少し分かります。",
-          "zh": "懂一点日语。"
+          "ja": "少し休みましょう。",
+          "zh": "稍微休息一下吧。"
         },
         {
           "ja": "水を少し飲みます。",
@@ -12312,8 +12314,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "毎日、日本語を勉強します。",
-          "zh": "每天学习日语。"
+          "ja": "毎朝、公園で散歩をします。",
+          "zh": "每天早上在公园散步。"
         },
         {
           "ja": "家に帰ってから宿題をします。",
@@ -12373,7 +12375,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "reading": "せい",
       "reading_variants": [
-        "せい"
+        "せい",
+        "せ"
       ],
       "romaji": "sei",
       "part_of_speech": "noun",
@@ -12455,8 +12458,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "寒いのでセーターを着ます。",
-          "zh": "因为冷，所以穿毛衣。"
+          "ja": "冬はいつもセーターを着ています。",
+          "zh": "冬天总是穿着毛衣。"
         },
         {
           "ja": "母がセーターをくれました。",
@@ -12594,7 +12597,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "zero",
       "part_of_speech": "numeral",
-      "meaning_zh": "零",
+      "meaning_zh": "零（外来语）",
       "kanji_readings": [],
       "examples": [
         {
@@ -12737,7 +12740,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "sensei",
       "part_of_speech": "noun",
-      "meaning_zh": "老师；医生；先生",
+      "meaning_zh": "老师；医生（对老师、医生等的尊称）",
       "kanji_readings": [
         {
           "form": "先生",
@@ -12951,7 +12954,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "soko",
       "part_of_speech": "pronoun/demonstrative",
-      "meaning_zh": "那里",
+      "meaning_zh": "那里（中称）",
       "kanji_readings": [],
       "examples": [
         {
@@ -12983,7 +12986,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "sochira",
       "part_of_speech": "pronoun/demonstrative",
-      "meaning_zh": "那边；那位（礼貌说法）",
+      "meaning_zh": "那边（中称）；您那边（礼貌说法）",
       "kanji_readings": [],
       "examples": [
         {
@@ -13013,9 +13016,9 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "そっち"
       ],
-      "romaji": "socchi",
+      "romaji": "sotchi",
       "part_of_speech": "pronoun/demonstrative",
-      "meaning_zh": "那边（口语）",
+      "meaning_zh": "那边（中称，口语）；你那边",
       "kanji_readings": [],
       "examples": [
         {
@@ -13084,7 +13087,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "sono",
       "part_of_speech": "pre-noun/demonstrative",
-      "meaning_zh": "那个（连体词）",
+      "meaning_zh": "那个（连体词，中称）",
       "kanji_readings": [],
       "examples": [
         {
@@ -13185,7 +13188,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "sore",
       "part_of_speech": "pronoun/demonstrative",
-      "meaning_zh": "那个",
+      "meaning_zh": "那个（中称）",
       "kanji_readings": [],
       "examples": [
         {
@@ -13249,12 +13252,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "soredewa",
       "part_of_speech": "conjunction",
-      "meaning_zh": "那么；既然这样",
+      "meaning_zh": "那么（比「では」更郑重）；既然这样",
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "それでは、始めましょう。",
-          "zh": "那么，开始吧。"
+          "ja": "それでは、授業を始めます。",
+          "zh": "那么，现在开始上课。"
         },
         {
           "ja": "それでは、また明日。",
@@ -13871,8 +13874,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "和朋友聊天很开心。"
         },
         {
-          "ja": "楽しい一日でした。",
-          "zh": "是开心的一天。"
+          "ja": "日本語の勉強は楽しいです。",
+          "zh": "学日语很开心。"
         }
       ],
       "note_zh": ""
@@ -13936,8 +13939,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "请不要在这里吸烟。"
         },
         {
-          "ja": "父はたばこを吸いません。",
-          "zh": "父亲不吸烟。"
+          "ja": "たばこは外で吸ってください。",
+          "zh": "请到外面抽烟。"
         },
         {
           "ja": "たばこは体に悪いです。",
@@ -13959,7 +13962,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         "たぶん"
       ],
       "romaji": "tabun",
-      "part_of_speech": "noun",
+      "part_of_speech": "adverb",
       "meaning_zh": "大概；也许",
       "kanji_readings": [],
       "examples": [
@@ -14138,7 +14141,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "だれか"
       ],
-      "romaji": "dare ka",
+      "romaji": "dareka",
       "part_of_speech": "indefinite pronoun",
       "meaning_zh": "某人；有人",
       "kanji_readings": [
@@ -14338,8 +14341,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "学校离家很近。"
         },
         {
-          "ja": "近い店へ行きます。",
-          "zh": "去附近的店。"
+          "ja": "一番近い駅はどこですか。",
+          "zh": "最近的车站在哪里？"
         }
       ],
       "note_zh": ""
@@ -14368,7 +14371,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "答えが違います。",
-          "zh": "答案不一样。"
+          "zh": "答案不对。"
         },
         {
           "ja": "これは私のかばんと違います。",
@@ -14515,8 +14518,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "父は会社で働いています。",
-          "zh": "我父亲在公司工作。"
+          "ja": "父は毎朝新聞を読みます。",
+          "zh": "父亲每天早上看报纸。"
         },
         {
           "ja": "父と電話で話します。",
@@ -14839,8 +14842,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "次の駅で降ります。",
-          "zh": "在下一站下车。"
+          "ja": "次のバスは十時に来ます。",
+          "zh": "下一班公交车十点来。"
         },
         {
           "ja": "次は何ですか。",
@@ -14921,8 +14924,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "在房间里放了一张新书桌。"
         },
         {
-          "ja": "机の上に本があります。",
-          "zh": "桌上有书。"
+          "ja": "この机は少し低いです。",
+          "zh": "这张书桌有点矮。"
         }
       ],
       "note_zh": ""
@@ -15125,8 +15128,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "今日は風が強いです。",
-          "zh": "今天风很大。"
+          "ja": "このお酒は強いです。",
+          "zh": "这酒很烈。"
         },
         {
           "ja": "兄のサッカーチームは強いです。",
@@ -15166,8 +15169,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "洗手。"
         },
         {
-          "ja": "手を上げてください。",
-          "zh": "请举手。"
+          "ja": "右手で字を書きます。",
+          "zh": "用右手写字。"
         },
         {
           "ja": "手が冷たいです。",
@@ -15461,7 +15464,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "dewa",
       "part_of_speech": "conjunction",
-      "meaning_zh": "那么；那就",
+      "meaning_zh": "那么；那就（较正式）",
       "kanji_readings": [],
       "examples": [
         {
@@ -15525,7 +15528,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "demo",
       "part_of_speech": "conjunction",
-      "meaning_zh": "但是；不过",
+      "meaning_zh": "但是；不过（口语，放在句首）",
       "kanji_readings": [],
       "examples": [
         {
@@ -15672,12 +15675,12 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "電気をつけます。",
-          "zh": "开灯。"
+          "ja": "部屋の電気が消えています。",
+          "zh": "房间的灯关着。"
         },
         {
-          "ja": "電気を消してください。",
-          "zh": "请关灯。"
+          "ja": "この車は電気で走ります。",
+          "zh": "这辆车用电行驶。"
         },
         {
           "ja": "この部屋は電気が明るいです。",
@@ -15754,8 +15757,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "田中先生打来了电话。"
         },
         {
-          "ja": "電話が鳴っています。",
-          "zh": "电话正在响。"
+          "ja": "夜に友達と電話で話しました。",
+          "zh": "晚上和朋友打了电话。"
         }
       ],
       "note_zh": ""
@@ -15824,8 +15827,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "今天二十度。"
         },
         {
-          "ja": "もう一度言ってください。",
-          "zh": "请再说一次。"
+          "ja": "熱が三十八度あります。",
+          "zh": "发烧三十八度。"
         },
         {
           "ja": "三度行きました。",
@@ -15848,7 +15851,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "doa",
       "part_of_speech": "noun",
-      "meaning_zh": "门",
+      "meaning_zh": "门（西式的开关门）",
       "kanji_readings": [],
       "examples": [
         {
@@ -15880,7 +15883,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "toire",
       "part_of_speech": "noun",
-      "meaning_zh": "厕所；洗手间",
+      "meaning_zh": "厕所；洗手间（最常用的说法）",
       "kanji_readings": [],
       "examples": [
         {
@@ -15944,7 +15947,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "doushite",
       "part_of_speech": "adverb",
-      "meaning_zh": "为什么",
+      "meaning_zh": "为什么（口语常用）",
       "kanji_readings": [],
       "examples": [
         {
@@ -15952,8 +15955,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "为什么请假了？"
         },
         {
-          "ja": "どうして行きませんか。",
-          "zh": "为什么不去？"
+          "ja": "どうして来なかったんですか。",
+          "zh": "为什么没来呢？"
         },
         {
           "ja": "どうしてですか。",
@@ -16311,8 +16314,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "你去哪里？"
         },
         {
-          "ja": "トイレはどこですか。",
-          "zh": "洗手间在哪里？"
+          "ja": "どこで昼ご飯を食べますか。",
+          "zh": "在哪里吃午饭？"
         }
       ],
       "note_zh": ""
@@ -16442,7 +16445,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "dochira",
       "part_of_speech": "pronoun/demonstrative",
-      "meaning_zh": "哪边；哪位；哪个（礼貌说法）",
+      "meaning_zh": "哪边；哪位；哪个（两者之中，礼貌说法）",
       "kanji_readings": [],
       "examples": [
         {
@@ -16472,9 +16475,9 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "どっち"
       ],
-      "romaji": "docchi",
+      "romaji": "dotchi",
       "part_of_speech": "pronoun/demonstrative",
-      "meaning_zh": "哪边；哪个（口语）",
+      "meaning_zh": "哪边；哪个（两者之中，口语）",
       "kanji_readings": [],
       "examples": [
         {
@@ -16677,7 +16680,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "tomaru",
       "part_of_speech": "verb",
-      "meaning_zh": "停下；停止",
+      "meaning_zh": "停下；停止（自动词）",
       "kanji_readings": [
         {
           "form": "止まる",
@@ -16797,8 +16800,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "鳥が空を飛んでいます。",
-          "zh": "鸟在天上飞。"
+          "ja": "木の上に小さい鳥がいます。",
+          "zh": "树上有一只小鸟。"
         },
         {
           "ja": "朝、鳥が鳴きます。",
@@ -16936,7 +16939,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "dore",
       "part_of_speech": "pronoun/demonstrative",
-      "meaning_zh": "哪个",
+      "meaning_zh": "哪个（三个以上之中）",
       "kanji_readings": [],
       "examples": [
         {
@@ -17212,7 +17215,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "naze",
       "part_of_speech": "adverb",
-      "meaning_zh": "为什么",
+      "meaning_zh": "为什么（较书面）",
       "kanji_readings": [],
       "examples": [
         {
@@ -17220,8 +17223,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "为什么迟到了？"
         },
         {
-          "ja": "なぜ分かりませんか。",
-          "zh": "为什么不明白？"
+          "ja": "なぜそう思うんですか。",
+          "zh": "为什么那么想呢？"
         },
         {
           "ja": "なぜ日本語を勉強しますか。",
@@ -17443,8 +17446,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "请写名字。"
         },
         {
-          "ja": "あなたの名前は何ですか。",
-          "zh": "你的名字是什么？"
+          "ja": "この店の名前を知っていますか。",
+          "zh": "你知道这家店的名字吗？"
         },
         {
           "ja": "友達の名前を覚えました。",
@@ -17504,7 +17507,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "narabu",
       "part_of_speech": "verb",
-      "meaning_zh": "排队；排列",
+      "meaning_zh": "排队；排列（自动词）",
       "kanji_readings": [
         {
           "form": "並ぶ",
@@ -17541,7 +17544,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "naraberu",
       "part_of_speech": "verb",
-      "meaning_zh": "排列；摆放",
+      "meaning_zh": "排列；摆放（他动词）",
       "kanji_readings": [
         {
           "form": "並べる",
@@ -17619,8 +17622,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "何人来ますか。",
-          "zh": "几个人来？"
+          "ja": "何回行きましたか。",
+          "zh": "去了几次？"
         },
         {
           "ja": "何時ですか。",
@@ -17656,8 +17659,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "一たす一は二です。",
-          "zh": "一加一等于二。"
+          "ja": "二月は一年で一番短い月です。",
+          "zh": "二月是一年中最短的月份。"
         },
         {
           "ja": "答えは二です。",
@@ -17882,8 +17885,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "行李很重。"
         },
         {
-          "ja": "ここに荷物を置いてください。",
-          "zh": "请把行李放在这里。"
+          "ja": "郵便局で荷物を送りました。",
+          "zh": "在邮局寄了包裹。"
         }
       ],
       "note_zh": ""
@@ -17943,8 +17946,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "庭に花を植えました。",
-          "zh": "在院子里种了花。"
+          "ja": "庭に大きな木があります。",
+          "zh": "院子里有一棵大树。"
         },
         {
           "ja": "子供が庭で遊んでいます。",
@@ -18128,8 +18131,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "猫在桌子下面。"
         },
         {
-          "ja": "猫が好きです。",
-          "zh": "喜欢猫。"
+          "ja": "猫が窓の外を見ています。",
+          "zh": "猫在看窗外。"
         },
         {
           "ja": "黒い猫を見ました。",
@@ -18733,8 +18736,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "橋を渡ります。",
-          "zh": "过桥。"
+          "ja": "あの橋はとても長いです。",
+          "zh": "那座桥很长。"
         },
         {
           "ja": "川に橋があります。",
@@ -19052,7 +19055,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "hataraku",
       "part_of_speech": "verb",
-      "meaning_zh": "工作；劳动",
+      "meaning_zh": "工作；劳动（动词）",
       "kanji_readings": [
         {
           "form": "働く",
@@ -19274,7 +19277,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "hanasu",
       "part_of_speech": "verb",
-      "meaning_zh": "说；说话",
+      "meaning_zh": "说话；谈话；讲（某种语言）",
       "kanji_readings": [
         {
           "form": "話す",
@@ -19291,8 +19294,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "和朋友说了话。"
         },
         {
-          "ja": "ゆっくり話してください。",
-          "zh": "请慢慢说。"
+          "ja": "日本人と日本語で話しました。",
+          "zh": "和日本人用日语交谈了。"
         }
       ],
       "note_zh": ""
@@ -19435,8 +19438,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "春天很暖和。"
         },
         {
-          "ja": "春に花が咲きます。",
-          "zh": "春天花开。"
+          "ja": "春から大学生になります。",
+          "zh": "从春天开始就是大学生了。"
         },
         {
           "ja": "春休みに旅行します。",
@@ -19583,8 +19586,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "现在两点半。"
         },
         {
-          "ja": "パンを半分食べました。",
-          "zh": "吃了一半面包。"
+          "ja": "銀行は三時半まで開いています。",
+          "zh": "银行开到三点半。"
         },
         {
           "ja": "一時間半かかります。",
@@ -19607,7 +19610,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "ban",
       "part_of_speech": "noun",
-      "meaning_zh": "晚上",
+      "meaning_zh": "晚上（傍晚到睡前这段时间）",
       "kanji_readings": [
         {
           "form": "晩",
@@ -20129,8 +20132,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "车站里有很多人。"
         },
         {
-          "ja": "あの人は先生です。",
-          "zh": "那个人是老师。"
+          "ja": "あそこにいる人は私の兄です。",
+          "zh": "在那边的人是我哥哥。"
         },
         {
           "ja": "親切な人に会いました。",
@@ -20170,8 +20173,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "请给我一个。"
         },
         {
-          "ja": "一つずつ取ってください。",
-          "zh": "请一个一个拿。"
+          "ja": "あと一つ質問があります。",
+          "zh": "还有一个问题。"
         }
       ],
       "note_zh": ""
@@ -20282,8 +20285,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "今天有空。"
         },
         {
-          "ja": "暇な時、本を読みます。",
-          "zh": "有空的时候读书。"
+          "ja": "週末は暇ですか。",
+          "zh": "周末有空吗？"
         },
         {
           "ja": "明日は暇ではありません。",
@@ -20609,8 +20612,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "在信封上写地址。"
         },
         {
-          "ja": "封筒に切手を貼ります。",
-          "zh": "把邮票贴在信封上。"
+          "ja": "大きい封筒を一枚ください。",
+          "zh": "请给我一个大信封。"
         }
       ],
       "note_zh": ""
@@ -20998,8 +21001,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "雨が降っています。",
-          "zh": "正在下雨。"
+          "ja": "山の上では雪が降っています。",
+          "zh": "山上正在下雪。"
         },
         {
           "ja": "明日は雪が降ります。",
@@ -21473,8 +21476,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "帽子をかぶります。",
-          "zh": "戴帽子。"
+          "ja": "この帽子は父のです。",
+          "zh": "这顶帽子是父亲的。"
         },
         {
           "ja": "赤い帽子を買いました。",
@@ -21713,8 +21716,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "このボタンを押してください。",
-          "zh": "请按这个按钮。"
+          "ja": "このボタンは何ですか。",
+          "zh": "这个按钮是做什么的？"
         },
         {
           "ja": "シャツのボタンが取れました。",
@@ -21782,8 +21785,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "本を読みます。",
-          "zh": "读书。"
+          "ja": "この本は図書館で借りました。",
+          "zh": "这本书是在图书馆借的。"
         },
         {
           "ja": "本が好きです。",
@@ -22475,7 +22478,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "一直走到车站。"
         },
         {
-          "ja": "線をまっすぐ書きます。",
+          "ja": "線をまっすぐ引きます。",
           "zh": "把线画直。"
         }
       ],
@@ -22493,7 +22496,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "reading_variants": [
         "マッチ"
       ],
-      "romaji": "macchi",
+      "romaji": "matchi",
       "part_of_speech": "noun",
       "meaning_zh": "火柴",
       "kanji_readings": [],
@@ -22800,8 +22803,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "水を飲みます。",
-          "zh": "喝水。"
+          "ja": "この川の水はきれいです。",
+          "zh": "这条河的水很清。"
         },
         {
           "ja": "すみません、お水を一杯ください。",
@@ -22911,8 +22914,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この道をまっすぐ行ってください。",
-          "zh": "请沿这条路直走。"
+          "ja": "雪で道が白くなりました。",
+          "zh": "路因为下雪变白了。"
         },
         {
           "ja": "道が分かりません。",
@@ -23031,7 +23034,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
         },
         {
           "ja": "この町は緑が多いです。",
-          "zh": "这个城镇绿意很多。"
+          "zh": "这个城镇绿化很好。"
         }
       ],
       "note_zh": ""
@@ -23138,8 +23141,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "耳朵疼。"
         },
         {
-          "ja": "耳で音を聞きます。",
-          "zh": "用耳朵听声音。"
+          "ja": "犬は耳がいいです。",
+          "zh": "狗的听觉很好。"
         },
         {
           "ja": "耳をきれいにします。",
@@ -23179,8 +23182,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "看了电视。"
         },
         {
-          "ja": "この写真を見てください。",
-          "zh": "请看这张照片。"
+          "ja": "窓から外を見ました。",
+          "zh": "从窗户往外看了。"
         }
       ],
       "note_zh": ""
@@ -23530,8 +23533,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "已经做作业了。"
         },
         {
-          "ja": "もう一度言ってください。",
-          "zh": "请再说一次。"
+          "ja": "もう一度、ゆっくり読んでください。",
+          "zh": "请再慢慢读一遍。"
         },
         {
           "ja": "もう少し待ってください。",
@@ -23775,8 +23778,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この問題は難しいです。",
-          "zh": "这个问题很难。"
+          "ja": "この問題の答えを教えてください。",
+          "zh": "请告诉我这道题的答案。"
         },
         {
           "ja": "問題に答えてください。",
@@ -23820,8 +23823,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "花店在车站附近。"
         },
         {
-          "ja": "八百屋で野菜を買います。",
-          "zh": "在蔬菜水果店买蔬菜。"
+          "ja": "パン屋は朝七時から開いています。",
+          "zh": "面包店早上七点开门。"
         }
       ],
       "note_zh": ""
@@ -24205,7 +24208,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "yuuhan",
       "part_of_speech": "noun",
-      "meaning_zh": "晚饭；晚餐",
+      "meaning_zh": "晚饭（「夕」＝傍晚）",
       "kanji_readings": [
         {
           "form": "夕飯",
@@ -24461,7 +24464,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "youfuku",
       "part_of_speech": "noun",
-      "meaning_zh": "西式衣服；衣服",
+      "meaning_zh": "（西式）服装；衣服",
       "kanji_readings": [
         {
           "form": "洋服",
@@ -24470,8 +24473,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "新しい洋服を買いました。",
-          "zh": "买了新衣服。"
+          "ja": "着物より洋服のほうが楽です。",
+          "zh": "比起和服，穿西式衣服更轻松。"
         },
         {
           "ja": "洋服を着ます。",
@@ -25080,8 +25083,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "母は料理が上手です。",
-          "zh": "母亲很会做饭。"
+          "ja": "この料理は少し辛いです。",
+          "zh": "这道菜有点辣。"
         },
         {
           "ja": "日本の料理を食べます。",
@@ -25125,8 +25128,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "去日本旅行。"
         },
         {
-          "ja": "旅行は楽しいです。",
-          "zh": "旅行很开心。"
+          "ja": "夏休みに北海道を旅行しました。",
+          "zh": "暑假去北海道旅行了。"
         }
       ],
       "note_zh": ""
@@ -25145,7 +25148,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "rei",
       "part_of_speech": "numeral",
-      "meaning_zh": "零",
+      "meaning_zh": "零（汉字词）",
       "kanji_readings": [
         {
           "form": "零",
@@ -25394,7 +25397,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "waishatsu",
       "part_of_speech": "noun",
-      "meaning_zh": "衬衫；衬衣",
+      "meaning_zh": "衬衫（配西装穿，多为白色）",
       "kanji_readings": [],
       "examples": [
         {
