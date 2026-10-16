@@ -44,6 +44,8 @@ function collectSpokenTexts(runtime) {
 
   [...runtime.kanaCards, ...runtime.vocabCards, ...runtime.grammarCards].forEach((card) => {
     const examples = card.examples || [];
+    // Homophone word cards play their own clip (card-data.js homophoneClipTexts).
+    const clipText = (text) => (card.speechClip && text === card.speech ? card.speechClip : text);
     const exampleFor = (text) => examples.find((example) => (example.speech || example.ja) === text);
     const sourceFor = (text) => {
       const example = exampleFor(text);
@@ -57,9 +59,9 @@ function collectSpokenTexts(runtime) {
     };
 
     const primary = card.speech || card.sentenceAnswer || card.answer;
-    add(primary, sourceFor(primary));
-    add(card.frontSpeech, sourceFor(card.frontSpeech));
-    if (card.speech) add(card.speech, sourceFor(card.speech));
+    add(clipText(primary), sourceFor(primary));
+    add(clipText(card.frontSpeech), sourceFor(card.frontSpeech));
+    if (card.speech) add(clipText(card.speech), sourceFor(card.speech));
     if (card.sentenceAnswer && !card.isGrammar && !card.isVocab) {
       add(card.sentenceAnswer, sourceFor(card.sentenceAnswer));
     }
@@ -69,6 +71,11 @@ function collectSpokenTexts(runtime) {
     });
   });
   return texts;
+}
+
+// The kana a clip speaks: a homophone clip text is 「kana｜headword」.
+function spokenTextOf(clipText) {
+  return clipText.split("｜")[0];
 }
 
 const smallKana = new Set([..."ァィゥェォャュョヮ"]);
@@ -184,5 +191,6 @@ module.exports = {
   loadAudioProsody,
   normalizeMoras,
   readingMoras,
+  spokenTextOf,
   toKatakana,
 };

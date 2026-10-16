@@ -767,7 +767,7 @@ const specialRows = [
     ["che", "チェ", "外来音", "チェック"],
     ["ti", "ティ", "外来音", "パーティー"],
     ["di", "ディ", "外来音", "ディナー"],
-    ["tu", "トゥ", "外来音", "トゥール"],
+    ["tu", "トゥ", "外来音", "タトゥー"],
     ["du", "ドゥ", "外来音", "ヒンドゥー"],
     ["dyu", "デュ", "外来音", "デュエット"],
     ["wi", "ウィ", "外来音", "ウィーン"],
@@ -3223,7 +3223,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "11822:d992ed326f7eea45";
+const reviewedPronunciationSourceSignature = "11822:55c73562e7326594";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3881,6 +3881,7 @@ function makeVocabDeckCards({
   // their reading even though they sit in different decks.
   const promptCounts = new Map();
   [...n5Words, ...n4Words].forEach(([, word]) => promptCounts.set(word, (promptCounts.get(word) || 0) + 1));
+  const clipTexts = homophoneClipTexts();
   return words.flatMap(([
     sourceId,
     word,
@@ -3912,6 +3913,7 @@ function makeVocabDeckCards({
       ? `　语音示范：${sourceEntry.speech_reading}`
       : "";
     const pitchAccent = pitchAccentLabel(sourceId);
+    const speechClip = clipTexts.get(sourceId) ? { speechClip: clipTexts.get(sourceId) } : {};
     const readingMeta = `读音：${reading}${pitchAccent ? ` ${pitchAccent}` : ""}${otherReadingsLabel(sourceEntry, reading)}${romaji ? `　罗马音：${romaji}` : ""}${speechMeta}${meaningMeta}`;
     // Keep stable IDs in a namespace that can never collide with the old
     // array-index IDs (for example, old `vocab-n4-100-ja`).
@@ -3957,6 +3959,7 @@ function makeVocabDeckCards({
         answerLang: "zh-CN",
         meta: readingMeta,
         speech: speechReading,
+        ...speechClip,
         frontSpeech: speechReading,
         examples,
       },
@@ -3977,11 +3980,37 @@ function makeVocabDeckCards({
         meta: readingMeta,
         sentenceAnswer,
         speech: speechReading,
+        ...speechClip,
         frontSpeech: "",
         examples,
       },
     ];
   });
+}
+
+// Homophones speak the same kana but not always with the same accent (雨 ア'メ /
+// 飴 アメ, 橋 ハシ / 箸 ハ'シ), and clips are keyed by text. Words in a group
+// whose isolated accent differs get the clip text 「kana｜headword」 so each
+// card plays its own accent; a word without a Kanjium accent counts as differing.
+// Affixes (～回) keep the shared kana clip: they have no isolated accent.
+// Isolated, an accent on the last mora (尾高) sounds the same as 平板.
+function homophoneClipTexts() {
+  const moraCount = (kana) => [...kana].filter((character) => !"ゃゅょぁぃぅぇぉゎャュョァィゥェォヮ".includes(character)).length;
+  const groups = new Map();
+  [...n5Words, ...n4Words].forEach(([sourceId, word, reading, romaji, , , , , sourceEntry]) => {
+    if (/[～〜]/u.test(word)) return;
+    const speech = vocabSpeechKana(sourceEntry?.speech_reading || reading, romaji);
+    if (!groups.has(speech)) groups.set(speech, []);
+    const accent = pitchAccentEntries[sourceId]?.[0];
+    const shape = Number.isInteger(accent) ? (accent === moraCount(speech) ? 0 : accent) : `?${word}`;
+    groups.get(speech).push({ sourceId, word, shape });
+  });
+  const clipTexts = new Map();
+  groups.forEach((members, speech) => {
+    if (new Set(members.map(({ shape }) => shape)).size < 2) return;
+    members.forEach(({ sourceId, word }) => clipTexts.set(sourceId, `${speech}｜${word}`));
+  });
+  return clipTexts;
 }
 
 function makeVocabCards(level) {
@@ -4063,10 +4092,19 @@ function grammarPatternParts(entry) {
 // patterns that contain one another (〜のに / 〜のに, 〜ないで / 〜ないでください)
 // are never offered against each other.
 // Overlaps the gloss heuristic cannot see: 〜てやる is the casual 〜てあげる,
-// and its 「为……做」 gloss also fits 〜てくれる.
+// and its 「为……做」 gloss also fits 〜てくれる; 〜に行く literally also means
+// 「去往」; 〜ませんか / 〜ましょう are both invitations; 〜間に「趁……时」/
+// 〜頃「……时候」; 〜と / 〜なら are both 「如果」; 〜し / 〜とか〜とか both list;
+// 〜は〜が、〜は reads as 〜のに's 「虽然……但是……」.
 const grammarOverlappingPairs = new Set([
   "n4-grammar-092|n4-grammar-104",
   "n4-grammar-097|n4-grammar-104",
+  "n5-grammar-008|n5-grammar-063",
+  "n5-grammar-060|n5-grammar-061",
+  "n4-grammar-002|n4-grammar-033",
+  "n4-grammar-054|n4-grammar-108",
+  "n4-grammar-077|n4-grammar-115",
+  "n4-grammar-062|n4-grammar-120",
 ]);
 
 function grammarMeaningsOverlap(entry, candidate) {

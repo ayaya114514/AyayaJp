@@ -2402,6 +2402,32 @@ function testClipsPlayInsteadOfSpeechSynthesis() {
   assert(harness.spoken.at(-1)?.text === "まいねんいきます", "a text without a clip did not fall back to speechSynthesis");
 }
 
+// Homophones whose isolated accent differs (雨 ア'メ / 飴 アメ) must not share
+// one clip; homophones that sound alike in isolation (花 / 鼻) still do.
+function testHomophonesPlayTheirOwnClip() {
+  const runtime = buildRuntime();
+  const japaneseCard = (word) =>
+    runtime.vocabCards.find((card) => card.promptLang === "ja" && card.prompt === word);
+  const rain = japaneseCard("雨");
+  const candy = japaneseCard("飴");
+  assert(rain.speech === candy.speech, "雨 and 飴 no longer share their kana");
+  assert(
+    rain.speechClip && candy.speechClip && rain.speechClip !== candy.speechClip,
+    "雨 and 飴 still share one clip",
+  );
+  assert(!japaneseCard("花").speechClip && !japaneseCard("鼻").speechClip, "花 / 鼻 were split needlessly");
+  const texts = collectSpokenTexts(runtime);
+  assert(texts.has(candy.speechClip) && !texts.has(candy.speech), "飴 clip text is not rendered");
+
+  const card = baseCard({ id: "homophone", prompt: "飴", speech: "あめ", speechClip: "あめ｜飴" });
+  const harness = createHarness({ audioTexts: ["あめ", "あめ｜飴"], kanaCards: [card] });
+  harness.element("cardReveal").dispatch("click");
+  const [player] = harness.clipPlayers;
+  assert(player.plays[0]?.src === clipUrl("あめ｜飴"), `飴 played ${player.plays[0]?.src}`);
+  player.plays[0].reject(new Error("NotSupportedError"));
+  assert(harness.spoken.at(-1)?.text === "あめ", "the clip fallback did not speak the kana");
+}
+
 function testClipFailureFallsBackToSpeech() {
   const harness = createHarness({
     audioTexts: ["answer"],
@@ -2553,6 +2579,7 @@ const tests = [
   ["speech failures are visible and retry once", testSpeechFailureIsVisibleAndRetriesOnce],
   ["reviewed texts play VOICEVOX clips", testClipsPlayInsteadOfSpeechSynthesis],
   ["failed clips fall back to speechSynthesis", testClipFailureFallsBackToSpeech],
+  ["homophones play their own accent clip", testHomophonesPlayTheirOwnClip],
   ["app and build script share clip keys", testClipKeysMatchBuildScript],
   ["模糊 pool sits between 认识 and 不认识", testFuzzyPoolSitsBetweenKnownAndUnknown],
   ["reviewed prosody notation round-trips through the build report", testProsodyNotationRoundTrips],

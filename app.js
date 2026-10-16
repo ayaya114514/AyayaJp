@@ -1402,7 +1402,7 @@ function render() {
   preloadCardClips(currentCard);
   const speakerText = isRevealed ? primarySpeech(currentCard) : currentCard.frontSpeech;
   const canSpeak = Boolean(speakerText);
-  const canUseSpeech = supportsSpeech() || Boolean(canSpeak && audioClipUrl(speakerText));
+  const canUseSpeech = supportsSpeech() || Boolean(canSpeak && audioClipUrl(clipTextFor(speakerText)));
   elements.speakWord.hidden = !canSpeak;
   // With no subtitle beside it the speaker moves to the band's top-right
   // corner, opposite the undo "<", instead of taking a row of its own.
@@ -2234,6 +2234,12 @@ function audioClipKey(text) {
   return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
 }
 
+// Homophone word cards carry their own clip text (card-data.js
+// homophoneClipTexts), so 箸 does not play the clip of 橋.
+function clipTextFor(text, card = currentCard) {
+  return card?.speechClip && text === card.speech ? card.speechClip : text;
+}
+
 function audioClipUrl(text) {
   if (!audioClips || typeof Audio !== "function") return null;
   const key = audioClipKey(text);
@@ -2297,7 +2303,7 @@ function preloadCardClips(card) {
     primarySpeech(card),
     card.sentenceAnswer,
     ...examples.map((example) => example.speech || example.ja),
-  ].forEach(preloadClip);
+  ].forEach((text) => preloadClip(text && clipTextFor(text, card)));
 }
 
 // A clip still downloading plays from its network URL rather than waiting:
@@ -2369,7 +2375,7 @@ function speak(text, options = {}) {
     speechStartTimer = null;
   }
   stopClip();
-  const clipUrl = audioClipUrl(text);
+  const clipUrl = audioClipUrl(clipTextFor(text));
   if (!supportsSpeech()) {
     if (clipUrl) playClip(clipUrl, text, options, generation);
     else setSpeechStatus("此浏览器不支持语音播放。", "error");
