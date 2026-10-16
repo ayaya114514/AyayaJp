@@ -28,6 +28,7 @@ const {
   loadAudioProsody,
   normalizeMoras,
   readingMoras,
+  spokenTextOf,
   toKatakana,
 } = require("./audio-lib");
 
@@ -345,7 +346,8 @@ async function applyProsody(query, notation) {
   return describeQuery(query) === notation ? null : `prosody applied as ${describeQuery(query)}`;
 }
 
-async function planReading(text, sources, pitchAccents) {
+async function planReading(clipText, sources, pitchAccents) {
+  const text = spokenTextOf(clipText);
   const kanaSource = sources.find((source) => source.kind === "kana");
   const wordSource = sources.find((source) => source.kind === "word");
   const sentenceSource = sources.find((source) => source.kind === "sentence");
