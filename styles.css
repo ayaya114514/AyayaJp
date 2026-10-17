@@ -197,20 +197,31 @@ h2 {
   font-weight: 900;
 }
 
+/* Level groups sit further apart than the rows inside them, so the page reads
+   as 基础 + three blocks instead of one even grid. */
 .deck-tabs {
   display: grid;
   align-content: start;
-  gap: 10px;
-  gap: clamp(8px, 1cqh, 20px);
-  padding: 10px clamp(12px, 3vw, 24px);
-  padding-block: clamp(8px, 1cqh, 20px);
+  gap: 18px;
+  gap: clamp(16px, 2.6cqh, 28px);
+  padding: 12px clamp(12px, 3vw, 24px);
+  padding-block: clamp(10px, 1.6cqh, 24px);
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
 }
 
+/* Wide pages keep the cells at a readable width instead of stretching them. */
+.deck-tabs > * {
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
+}
+
 .deck-row {
   display: grid;
+  grid-template-columns: 2.6em minmax(0, 1fr);
+  align-items: center;
   gap: 8px;
 }
 
@@ -252,30 +263,56 @@ h2 {
   line-height: 1.3;
 }
 
-.deck-row + .deck-row {
-  padding-top: 10px;
-  padding-top: clamp(8px, 1cqh, 20px);
-  border-top: 1px solid var(--line);
-}
-
-/* The page has room the old drawer lacked: the row title is the anchor the eye
-   lands on, and the level badge tells the N5, N4 and N3 rows apart at a glance. */
 .deck-row-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   margin: 0;
   color: var(--ink);
-  font-size: 1.08rem;
+  font-size: 0.98rem;
   font-weight: 900;
   letter-spacing: 0.04em;
   line-height: 1.3;
 }
 
+/* One block per level: the badge heads it, its rule and the cells' tint carry
+   the level colour so a cell says which level it opens without the row title. */
+.deck-level-group {
+  --level-rgb: 130, 174, 225;
+  display: grid;
+  gap: 8px;
+}
+
+.deck-level-group[data-level="n4"] {
+  --level-rgb: 224, 183, 90;
+}
+
+.deck-level-group[data-level="n3"] {
+  --level-rgb: 132, 196, 150;
+}
+
+.deck-level-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.deck-level-title::after {
+  flex: 1;
+  height: 1px;
+  background: rgba(var(--level-rgb), 0.35);
+  content: "";
+}
+
+.deck-level-group .tab-button {
+  --cell-border: rgba(var(--level-rgb), 0.3);
+  --cell-bg: linear-gradient(rgba(var(--level-rgb), 0.06), rgba(var(--level-rgb), 0.06)), var(--control-bg);
+}
+
 .deck-level {
-  padding: 2px 7px;
+  padding: 3px 9px;
   border-radius: 5px;
-  font-size: 0.86rem;
+  font-size: 0.94rem;
+  font-weight: 900;
   letter-spacing: 0.02em;
 }
 
@@ -294,16 +331,12 @@ h2 {
   color: #9fdcb0;
 }
 
-/* One row per module and level: the cells are the practice directions, so every
-   deck is one tap away without scrolling or collapsing groups. */
+/* Every row shares the same four columns, so 日→中 and 中→日 sit in the same
+   place for vocab and grammar and every deck is one tap away. */
 .deck-row-items {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.deck-row-items[data-count="2"] {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .tab-button {
@@ -313,9 +346,9 @@ h2 {
   min-height: 48px;
   place-items: center;
   padding: 0 2px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--cell-border, var(--line));
   border-radius: 8px;
-  background: var(--control-bg);
+  background: var(--cell-bg, var(--control-bg));
   color: var(--muted);
   cursor: pointer;
   font-size: 0.9rem;
@@ -330,32 +363,23 @@ h2 {
   }
 }
 
-/* Module page cells grow with the page height so the seven rows fill the screen
-   instead of bunching at the top; short screens fall back to scrolling. */
+/* Module page cells grow a little with the page height (short screens fall
+   back to scrolling) and the label shrinks on narrow pages so 进阶发音 fits. */
 .deck-tabs .tab-button {
   min-height: 48px;
-  min-height: clamp(44px, 12cqh - 46px, 88px);
+  min-height: clamp(44px, 8cqh, 64px);
   font-size: 1.05rem;
-}
-
-/* Wide pages put each row's title beside its cells, so the seven rows still
-   fit one screen on a laptop or a landscape iPad. */
-@container (min-width: 640px) {
-  .deck-row {
-    grid-template-columns: 7.5em minmax(0, 1fr);
-    align-items: center;
-    gap: 12px;
-  }
-
-  .deck-tabs .tab-button {
-    min-height: clamp(44px, 12cqh - 16px, 88px);
-  }
+  font-size: min(1.05rem, 4cqw);
 }
 
 @media (max-width: 359px) {
-  .tab-button,
-  .deck-tabs .tab-button {
+  .tab-button {
     font-size: 0.86rem;
+  }
+
+  .deck-row,
+  .deck-row-items {
+    gap: 6px;
   }
 }
 
@@ -714,6 +738,7 @@ h2 {
   flex: 0 0 auto;
   width: 32px;
   height: 32px;
+  padding: 0;
   border-color: transparent;
   background: transparent;
   color: var(--blue);

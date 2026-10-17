@@ -1462,11 +1462,13 @@ function render() {
   }
 }
 
-// "N5 词汇 · 日→中" from the module page's row and cell labels; read out with the
-// progress counts and used to drop card tags that repeat the module name.
+// "N5 词汇 · 日→中" from the module page's level, row and cell labels; read out
+// with the progress counts and used to drop card tags that repeat the module name.
 function moduleTitleFor(deck) {
   const tab = [...elements.tabs].find((item) => item.dataset.deck === baseDeckOf(deck));
-  const row = tab?.closest(".deck-row")?.querySelector(".deck-row-title")?.textContent?.trim();
+  const level = tab?.closest(".deck-level-group")?.querySelector(".deck-level")?.textContent?.trim();
+  const rowTitle = tab?.closest(".deck-row")?.querySelector(".deck-row-title")?.textContent?.trim();
+  const row = [level, rowTitle].filter(Boolean).join(" ");
   const label = tab?.querySelector(".deck-label")?.textContent?.trim();
   return [row, label, isReviewPool(deck) ? POOL_NAMES[poolKindOf(deck)] : ""].filter(Boolean).join(" · ");
 }
