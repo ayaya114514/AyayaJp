@@ -3030,36 +3030,70 @@ const globalReadingKeys = new Set();
   .forEach(([surface, reading]) => addReadingEntry(furiganaByLength, globalReadingKeys, surface, reading));
 furiganaByLength.sort((left, right) => right[0].length - left[0].length);
 
-function readingEntriesForText(preferredReadings = []) {
-  const entries = [];
+// Groups reading entries by their first character, longest surface first, and
+// keeps only the first entry for each surface. The shared table is indexed once;
+// scanning all of it at every character made each deck build several times slower.
+function readingEntriesByFirstCharacter(entries, skipSurfaces = new Set()) {
+  const groups = new Map();
   const seenSurfaces = new Set();
-  [...preferredReadings, ...furiganaByLength].forEach(([surface, reading]) => {
-    if (!surface || !reading || seenSurfaces.has(surface)) return;
+  entries.forEach(([surface, reading]) => {
+    if (!surface || !reading || seenSurfaces.has(surface) || skipSurfaces.has(surface)) return;
     seenSurfaces.add(surface);
-    entries.push([surface, reading]);
+    if (!groups.has(surface[0])) groups.set(surface[0], []);
+    groups.get(surface[0]).push([surface, reading]);
   });
-  return entries.sort((left, right) => right[0].length - left[0].length);
+  groups.forEach((group) => group.sort((left, right) => right[0].length - left[0].length));
+  return { groups, surfaces: seenSurfaces };
+}
+
+let sharedReadingIndex = null;
+
+// Candidates starting at one character: longest first, and a sentence's own
+// readings before shared ones of the same length (shared entries whose surface
+// the sentence overrides are skipped).
+function* readingCandidatesAt(character, preferredIndex) {
+  if (!sharedReadingIndex) sharedReadingIndex = readingEntriesByFirstCharacter(furiganaByLength);
+  const preferred = preferredIndex.groups.get(character) || [];
+  const shared = sharedReadingIndex.groups.get(character) || [];
+  let preferredPosition = 0;
+  let sharedPosition = 0;
+  while (preferredPosition < preferred.length || sharedPosition < shared.length) {
+    const nextPreferred = preferred[preferredPosition];
+    const nextShared = shared[sharedPosition];
+    if (nextPreferred && (!nextShared || nextPreferred[0].length >= nextShared[0].length)) {
+      preferredPosition += 1;
+      yield nextPreferred;
+    } else {
+      sharedPosition += 1;
+      if (!preferredIndex.surfaces.has(nextShared[0])) yield nextShared;
+    }
+  }
 }
 
 // Splits text into reading matches and single unmatched characters. A Kanji
 // surface is never matched from inside a larger Kanji compound, so 明日 or 観光
 // cannot be assembled from the readings of 明 / 日 or 光 on their own.
 function tokenizeKnownReadings(text, preferredReadings = []) {
-  const readingEntries = readingEntriesForText(preferredReadings);
+  const preferredIndex = readingEntriesByFirstCharacter(preferredReadings);
   const tokens = [];
   let index = 0;
 
   while (index < text.length) {
-    const entry = readingEntries.find(([surface]) => {
-      if (!text.startsWith(surface, index)) return false;
+    let entry = null;
+    for (const candidate of readingCandidatesAt(text[index], preferredIndex)) {
+      const surface = candidate[0];
+      if (!text.startsWith(surface, index)) continue;
       const previousCharacter = text[index - 1] || "";
       const nextCharacter = text[index + surface.length] || "";
       const startsInsideCompound =
         isKanjiCharacter(surface[0]) && isKanjiCharacter(previousCharacter);
       const endsInsideCompound =
         isKanjiCharacter(surface.at(-1)) && isKanjiCharacter(nextCharacter);
-      return !startsInsideCompound && !endsInsideCompound;
-    });
+      if (!startsInsideCompound && !endsInsideCompound) {
+        entry = candidate;
+        break;
+      }
+    }
     if (entry) {
       tokens.push({ start: index, surface: entry[0], reading: entry[1] });
       index += entry[0].length;
@@ -3279,7 +3313,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "22987:de3089e2bd35f61d";
+const reviewedPronunciationSourceSignature = "22991:86a5d41562509264";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>

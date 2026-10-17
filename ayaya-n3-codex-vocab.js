@@ -29,9 +29,10 @@ window.AYAYA_N3_CODEX_VOCAB = {
     },
     "source_notes": [
       "Word selection follows Jonathan Waller's community JLPT N3 list (tanos.co.uk, mirrored with JMdict sequence numbers by stephenmk/yomitan-jlpt-vocab); no official JEES/JF fixed vocabulary list exists for the current JLPT.",
-      "Words already in the N5/N4 files are excluded; spellings, readings and parts of speech were checked against JMdict (jmdict-simplified 3.6.2, 2026-10-12)."
+      "Words already in the N5/N4 files are excluded; spellings, readings and parts of speech were checked against JMdict (jmdict-simplified 3.6.2, 2026-10-12).",
+      "12 basic greetings and words on the Waller N3 list (ありがとう, こんにちは, すみません, 日本, 曜日 and others) are taught in the N5 file instead."
     ],
-    "entry_count": 1499
+    "entry_count": 1487
   },
   "entries": [
     {
@@ -1302,8 +1303,8 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "天空出现了一道大彩虹。"
         },
         {
-          "ja": "約束の時間に、彼はやっと現れました。",
-          "zh": "到了约定的时间，他终于出现了。"
+          "ja": "一時間待って、彼はやっと現れました。",
+          "zh": "等了一个小时，他终于出现了。"
         },
         {
           "ja": "練習の結果が少しずつ現れてきました。",
@@ -1311,38 +1312,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
         }
       ],
       "note_zh": "感情、结果等“表现出来”时也写作「表れる」。"
-    },
-    {
-      "id": "n3-0036",
-      "jlpt": "N3",
-      "headword": "ありがとう",
-      "source_form": "ありがとう",
-      "variants": [
-        "ありがとう"
-      ],
-      "reading": "ありがとう",
-      "reading_variants": [
-        "ありがとう"
-      ],
-      "romaji": "arigatou",
-      "part_of_speech": "expression",
-      "meaning_zh": "谢谢",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "手伝ってくれて、ありがとう。",
-          "zh": "谢谢你帮我。"
-        },
-        {
-          "ja": "プレゼント、本当にありがとう。",
-          "zh": "礼物真是太谢谢了。"
-        },
-        {
-          "ja": "「ありがとう」と言って、笑いました。",
-          "zh": "说了声“谢谢”，笑了。"
-        }
-      ],
-      "note_zh": "礼貌说法是「ありがとうございます」；汉字为「有難う」，一般写假名。"
     },
     {
       "id": "n3-0037",
@@ -1357,7 +1326,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "あるいは"
       ],
-      "romaji": "aruiha",
+      "romaji": "aruiwa",
       "part_of_speech": "conjunction/adverb",
       "meaning_zh": "或者；或许",
       "kanji_readings": [
@@ -1648,7 +1617,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "あんなに"
       ],
-      "romaji": "annani",
+      "romaji": "anna ni",
       "part_of_speech": "adverb",
       "meaning_zh": "那么；那样（地）",
       "kanji_readings": [],
@@ -2444,44 +2413,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "note_zh": "常写作假名；汉字为「悪戯」。"
     },
     {
-      "id": "n3-0067",
-      "jlpt": "N3",
-      "headword": "いただきます",
-      "source_form": "いただきます",
-      "variants": [
-        "いただきます",
-        "頂きます"
-      ],
-      "reading": "いただきます",
-      "reading_variants": [
-        "いただきます"
-      ],
-      "romaji": "itadakimasu",
-      "part_of_speech": "expression",
-      "meaning_zh": "我开动了（饭前用语）",
-      "kanji_readings": [
-        {
-          "form": "頂きます",
-          "reading": "いただきます"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "「いただきます」と言ってから食べます。",
-          "zh": "说了“我开动了”再吃。"
-        },
-        {
-          "ja": "では、温かいうちにいただきます。",
-          "zh": "那我就趁热开动了。"
-        },
-        {
-          "ja": "みんなで手を合わせて、いただきます。",
-          "zh": "大家双手合十，开动了。"
-        }
-      ],
-      "note_zh": "饭前表示感谢的固定说法；饭后说「ごちそうさまでした」。"
-    },
-    {
       "id": "n3-0068",
       "jlpt": "N3",
       "headword": "痛み",
@@ -2641,7 +2572,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "いちどに"
       ],
-      "romaji": "ichidoni",
+      "romaji": "ichido ni",
       "part_of_speech": "adverb",
       "meaning_zh": "一次性地；同时",
       "kanji_readings": [
@@ -3490,7 +3421,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "いまにも"
       ],
-      "romaji": "imanimo",
+      "romaji": "ima ni mo",
       "part_of_speech": "adverb",
       "meaning_zh": "眼看就要；马上就要",
       "kanji_readings": [
@@ -3622,38 +3553,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
         }
       ],
       "note_zh": "也写作片假名「イライラ」。"
-    },
-    {
-      "id": "n3-0099",
-      "jlpt": "N3",
-      "headword": "いらっしゃい",
-      "source_form": "いらっしゃい",
-      "variants": [
-        "いらっしゃい"
-      ],
-      "reading": "いらっしゃい",
-      "reading_variants": [
-        "いらっしゃい"
-      ],
-      "romaji": "irasshai",
-      "part_of_speech": "expression",
-      "meaning_zh": "欢迎（光临）；来吧",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "いらっしゃい、どうぞ中へ。",
-          "zh": "欢迎，请进。"
-        },
-        {
-          "ja": "「いらっしゃい」と店の人が言いました。",
-          "zh": "店里的人说了声“欢迎光临”。"
-        },
-        {
-          "ja": "いつでもうちに遊びにいらっしゃい。",
-          "zh": "随时来我家玩吧。"
-        }
-      ],
-      "note_zh": "店员常说「いらっしゃいませ」；「いらっしゃい」较随便。"
     },
     {
       "id": "n3-0100",
@@ -6378,43 +6277,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n3-0174",
-      "jlpt": "N3",
-      "headword": "男の人",
-      "source_form": "男の人",
-      "variants": [
-        "男の人"
-      ],
-      "reading": "おとこのひと",
-      "reading_variants": [
-        "おとこのひと"
-      ],
-      "romaji": "otokonohito",
-      "part_of_speech": "noun",
-      "meaning_zh": "男人；男的",
-      "kanji_readings": [
-        {
-          "form": "男の人",
-          "reading": "おとこのひと"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "あの男の人は誰ですか。",
-          "zh": "那个男人是谁？"
-        },
-        {
-          "ja": "背の高い男の人が入ってきました。",
-          "zh": "一个高个子的男人走了进来。"
-        },
-        {
-          "ja": "受付の男の人に聞いてください。",
-          "zh": "请问前台的那位男士。"
-        }
-      ],
-      "note_zh": "比「男」礼貌；女性是「女の人」。"
-    },
-    {
       "id": "n3-0175",
       "jlpt": "N3",
       "headword": "劣る",
@@ -6526,43 +6388,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n3-0178",
-      "jlpt": "N3",
-      "headword": "お昼",
-      "source_form": "お昼",
-      "variants": [
-        "お昼"
-      ],
-      "reading": "おひる",
-      "reading_variants": [
-        "おひる"
-      ],
-      "romaji": "ohiru",
-      "part_of_speech": "noun",
-      "meaning_zh": "中午；午饭",
-      "kanji_readings": [
-        {
-          "form": "お昼",
-          "reading": "おひる"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "お昼に何を食べましたか。",
-          "zh": "中午吃了什么？"
-        },
-        {
-          "ja": "お昼ごろ、駅で会いましょう。",
-          "zh": "中午前后在车站见吧。"
-        },
-        {
-          "ja": "お昼はいつも会社の近くで食べます。",
-          "zh": "午饭总是在公司附近吃。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
       "id": "n3-0179",
       "jlpt": "N3",
       "headword": "オフィス",
@@ -6668,38 +6493,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
         }
       ],
       "note_zh": "多为男性对亲近者或晚辈使用，对外人显得粗鲁；汉字为「お前」。"
-    },
-    {
-      "id": "n3-0182",
-      "jlpt": "N3",
-      "headword": "おめでとう",
-      "source_form": "おめでとう",
-      "variants": [
-        "おめでとう"
-      ],
-      "reading": "おめでとう",
-      "reading_variants": [
-        "おめでとう"
-      ],
-      "romaji": "omedetou",
-      "part_of_speech": "expression",
-      "meaning_zh": "恭喜；祝贺",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "誕生日おめでとう。",
-          "zh": "生日快乐。"
-        },
-        {
-          "ja": "合格、おめでとう。",
-          "zh": "恭喜你考上了。"
-        },
-        {
-          "ja": "結婚おめでとうございます。",
-          "zh": "恭喜你们结婚。"
-        }
-      ],
-      "note_zh": "礼貌说法是「おめでとうございます」。"
     },
     {
       "id": "n3-0183",
@@ -8426,7 +8219,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "太热了，在树荫下休息吧。"
         },
         {
-          "ja": "人の陰で悪口を言ってはいけません。",
+          "ja": "陰で人の悪口を言ってはいけません。",
           "zh": "不能在背后说人坏话。"
         },
         {
@@ -8649,7 +8442,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "周末集中做家务。"
         },
         {
-          "ja": "夫と家事を分けてしています。",
+          "ja": "夫と家事を分担しています。",
           "zh": "和丈夫分担家务。"
         },
         {
@@ -13582,8 +13375,8 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "跑得太多，腿部肌肉很疼。"
         },
         {
-          "ja": "彼は筋肉が強いです。",
-          "zh": "他肌肉很发达。"
+          "ja": "年を取ると、筋肉が落ちます。",
+          "zh": "上了年纪，肌肉就会减少。"
         }
       ],
       "note_zh": ""
@@ -18507,38 +18300,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n3-0504",
-      "jlpt": "N3",
-      "headword": "ごめんなさい",
-      "source_form": "ごめんなさい",
-      "variants": [
-        "ごめんなさい"
-      ],
-      "reading": "ごめんなさい",
-      "reading_variants": [
-        "ごめんなさい"
-      ],
-      "romaji": "gomennasai",
-      "part_of_speech": "expression",
-      "meaning_zh": "对不起",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "遅れて、ごめんなさい。",
-          "zh": "来晚了，对不起。"
-        },
-        {
-          "ja": "ごめんなさい、今日は行けません。",
-          "zh": "对不起，今天去不了。"
-        },
-        {
-          "ja": "弟は母にごめんなさいと謝りました。",
-          "zh": "弟弟向妈妈道了歉，说对不起。"
-        }
-      ],
-      "note_zh": "比「すみません」随便，多用于亲近的人之间；汉字为「御免なさい」。"
-    },
-    {
       "id": "n3-0505",
       "jlpt": "N3",
       "headword": "小屋",
@@ -18804,7 +18565,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "こんなに"
       ],
-      "romaji": "konnani",
+      "romaji": "konna ni",
       "part_of_speech": "adverb",
       "meaning_zh": "这么；如此",
       "kanji_readings": [],
@@ -18860,38 +18621,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
         }
       ],
       "note_zh": "比「難しい」书面。"
-    },
-    {
-      "id": "n3-0514",
-      "jlpt": "N3",
-      "headword": "こんにちは",
-      "source_form": "こんにちは",
-      "variants": [
-        "こんにちは"
-      ],
-      "reading": "こんにちは",
-      "reading_variants": [
-        "こんにちは"
-      ],
-      "romaji": "konnichiwa",
-      "part_of_speech": "expression",
-      "meaning_zh": "你好；您好（白天的问候）",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "こんにちは、いい天気ですね。",
-          "zh": "你好，天气真好啊。"
-        },
-        {
-          "ja": "近所の人に「こんにちは」とあいさつしました。",
-          "zh": "和邻居打招呼说“你好”。"
-        },
-        {
-          "ja": "皆さん、こんにちは。",
-          "zh": "大家好。"
-        }
-      ],
-      "note_zh": "末尾的「は」读作「わ」。汉字为「今日は」，一般写假名。"
     },
     {
       "id": "n3-0515",
@@ -20771,7 +20500,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "じかに"
       ],
-      "romaji": "jikani",
+      "romaji": "jika ni",
       "part_of_speech": "adverb",
       "meaning_zh": "直接；亲自",
       "kanji_readings": [
@@ -20915,7 +20644,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "しきりに"
       ],
-      "romaji": "shikirini",
+      "romaji": "shikiri ni",
       "part_of_speech": "adverb",
       "meaning_zh": "频繁地；屡次；一个劲地",
       "kanji_readings": [
@@ -21873,7 +21602,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "じつに"
       ],
-      "romaji": "jitsuni",
+      "romaji": "jitsu ni",
       "part_of_speech": "adverb",
       "meaning_zh": "实在；的确",
       "kanji_readings": [
@@ -24048,8 +23777,8 @@ window.AYAYA_N3_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "この本は全部で十の章があります。",
-          "zh": "这本书一共有十章。"
+          "ja": "この本は五つの章に分かれています。",
+          "zh": "这本书分为五章。"
         },
         {
           "ja": "第一章を読み終わりました。",
@@ -25554,7 +25283,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "じょじょに"
       ],
-      "romaji": "jojoni",
+      "romaji": "jojo ni",
       "part_of_speech": "adverb",
       "meaning_zh": "渐渐地；慢慢地",
       "kanji_readings": [
@@ -27311,7 +27040,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "すこしも"
       ],
-      "romaji": "sukoshimo",
+      "romaji": "sukoshi mo",
       "part_of_speech": "adverb",
       "meaning_zh": "一点也（不）；丝毫（不）",
       "kanji_readings": [
@@ -27873,38 +27602,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
         }
       ],
       "note_zh": ""
-    },
-    {
-      "id": "n3-0760",
-      "jlpt": "N3",
-      "headword": "すみません",
-      "source_form": "すみません",
-      "variants": [
-        "すみません"
-      ],
-      "reading": "すみません",
-      "reading_variants": [
-        "すみません"
-      ],
-      "romaji": "sumimasen",
-      "part_of_speech": "expression",
-      "meaning_zh": "对不起；不好意思；劳驾；谢谢",
-      "kanji_readings": [],
-      "examples": [
-        {
-          "ja": "すみません、お水をください。",
-          "zh": "劳驾，请给我一杯水。"
-        },
-        {
-          "ja": "すみません、駅はどこですか。",
-          "zh": "劳驾，请问车站在哪里？"
-        },
-        {
-          "ja": "わざわざすみません。",
-          "zh": "让您特意跑一趟，真不好意思。"
-        }
-      ],
-      "note_zh": "用于道歉、搭话、道谢等多种场合。汉字为「済みません」，一般写假名。"
     },
     {
       "id": "n3-0761",
@@ -30301,7 +29998,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "そのうち"
       ],
-      "romaji": "sonouchi",
+      "romaji": "sono uchi",
       "part_of_speech": "adverb",
       "meaning_zh": "过几天；不久；改天",
       "kanji_readings": [],
@@ -30333,7 +30030,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "そのまま"
       ],
-      "romaji": "sonomama",
+      "romaji": "sono mama",
       "part_of_speech": "adverb/noun",
       "meaning_zh": "原样；就那样；直接",
       "kanji_readings": [],
@@ -32542,8 +32239,8 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "给母亲送了一束花。"
         },
         {
-          "ja": "古い手紙を束にしてしまいました。",
-          "zh": "把旧信件捆成一捆收起来了。"
+          "ja": "古い手紙をひもで束にしました。",
+          "zh": "用绳子把旧信件捆成了一捆。"
         },
         {
           "ja": "鍵の束をなくしてしまいました。",
@@ -32955,7 +32652,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "拿到了毕业所需的学分。"
         },
         {
-          "ja": "この授業の単位は二つです。",
+          "ja": "この授業は二単位です。",
           "zh": "这门课是两个学分。"
         }
       ],
@@ -35248,7 +34945,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "つねに"
       ],
-      "romaji": "tsuneni",
+      "romaji": "tsune ni",
       "part_of_speech": "adverb",
       "meaning_zh": "经常；总是",
       "kanji_readings": [
@@ -38202,7 +37899,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
         },
         {
           "ja": "今日はとにかく暑いです。",
-          "zh": "今天总之是热得很。"
+          "zh": "今天实在是太热了。"
         }
       ],
       "note_zh": ""
@@ -38330,7 +38027,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "ともに"
       ],
-      "romaji": "tomoni",
+      "romaji": "tomo ni",
       "part_of_speech": "adverb",
       "meaning_zh": "一起；共同；同时",
       "kanji_readings": [
@@ -38776,7 +38473,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "どんなに"
       ],
-      "romaji": "donnani",
+      "romaji": "donna ni",
       "part_of_speech": "adverb",
       "meaning_zh": "多么；无论怎样",
       "kanji_readings": [],
@@ -39316,7 +39013,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "なにも"
       ],
-      "romaji": "nanimo",
+      "romaji": "nani mo",
       "part_of_speech": "adverb",
       "meaning_zh": "什么也（不）；并（不）",
       "kanji_readings": [
@@ -39955,49 +39652,11 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "她嫣然一笑，挥了挥手。"
         },
         {
-          "ja": "先生がにっこりほめてくれました。",
-          "zh": "老师笑着表扬了我。"
+          "ja": "先生はにっこりして、私の作文をほめてくれました。",
+          "zh": "老师微笑着表扬了我的作文。"
         }
       ],
       "note_zh": ""
-    },
-    {
-      "id": "n3-1093",
-      "jlpt": "N3",
-      "headword": "日本",
-      "source_form": "日本",
-      "variants": [
-        "日本"
-      ],
-      "reading": "にほん",
-      "reading_variants": [
-        "にほん",
-        "にっぽん"
-      ],
-      "romaji": "nihon",
-      "part_of_speech": "noun",
-      "meaning_zh": "日本",
-      "kanji_readings": [
-        {
-          "form": "日本",
-          "reading": "にほん"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "日本は島の国です。",
-          "zh": "日本是一个岛国。"
-        },
-        {
-          "ja": "来年、日本に留学します。",
-          "zh": "明年去日本留学。"
-        },
-        {
-          "ja": "日本の四季は美しいです。",
-          "zh": "日本的四季很美。"
-        }
-      ],
-      "note_zh": "也读「にっぽん」，多用于正式场合或体育比赛等。"
     },
     {
       "id": "n3-1094",
@@ -43675,8 +43334,8 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "拼命跑，赶上了电车。"
         },
         {
-          "ja": "彼は必死の顔で助けを求めました。",
-          "zh": "他一脸拼命的样子求救。"
+          "ja": "彼は必死になって助けを求めました。",
+          "zh": "他拼命地求救。"
         },
         {
           "ja": "試験に合格するために必死で勉強しました。",
@@ -46438,7 +46097,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "べつに"
       ],
-      "romaji": "betsuni",
+      "romaji": "betsu ni",
       "part_of_speech": "adverb",
       "meaning_zh": "（后接否定）并不；另外",
       "kanji_readings": [
@@ -49888,8 +49547,8 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "午饭吃什么？"
         },
         {
-          "ja": "今夜は外で飯を食べます。",
-          "zh": "今晚在外面吃饭。"
+          "ja": "今夜は外で飯にしよう。",
+          "zh": "今晚在外面吃饭吧。"
         }
       ],
       "note_zh": "较随便，多为男性使用；礼貌说法是「ご飯」。"
@@ -49907,7 +49566,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "reading_variants": [
         "めったに"
       ],
-      "romaji": "mettani",
+      "romaji": "metta ni",
       "part_of_speech": "adverb",
       "meaning_zh": "（后接否定）很少；几乎不",
       "kanji_readings": [
@@ -50976,8 +50635,8 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "每个人都要尽到自己的职责。"
         },
         {
-          "ja": "彼はチームで大切な役割をしています。",
-          "zh": "他在队里起着重要作用。"
+          "ja": "このチームでの彼の役割はとても大切です。",
+          "zh": "他在这个队里的角色非常重要。"
         },
         {
           "ja": "家での役割を決めました。",
@@ -51929,7 +51588,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
         },
         {
           "ja": "山の上で夜明けを見ました。",
-          "zh": "在山顶上看了日出。"
+          "zh": "在山上看到了黎明。"
         },
         {
           "ja": "夜明けの空はとてもきれいでした。",
@@ -52267,43 +51926,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
         {
           "ja": "要点をノートに書きました。",
           "zh": "把要点写在了笔记本上。"
-        }
-      ],
-      "note_zh": ""
-    },
-    {
-      "id": "n3-1431",
-      "jlpt": "N3",
-      "headword": "曜日",
-      "source_form": "曜日",
-      "variants": [
-        "曜日"
-      ],
-      "reading": "ようび",
-      "reading_variants": [
-        "ようび"
-      ],
-      "romaji": "youbi",
-      "part_of_speech": "noun",
-      "meaning_zh": "星期；星期几",
-      "kanji_readings": [
-        {
-          "form": "曜日",
-          "reading": "ようび"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "今日は何曜日ですか。",
-          "zh": "今天星期几？"
-        },
-        {
-          "ja": "ごみを出す曜日が決まっています。",
-          "zh": "扔垃圾的日子是固定的。"
-        },
-        {
-          "ja": "曜日によって、授業が違います。",
-          "zh": "课程因星期几而不同。"
         }
       ],
       "note_zh": ""
@@ -52849,44 +52471,6 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "note_zh": ""
     },
     {
-      "id": "n3-1447",
-      "jlpt": "N3",
-      "headword": "よろしく",
-      "source_form": "よろしく",
-      "variants": [
-        "よろしく",
-        "宜しく"
-      ],
-      "reading": "よろしく",
-      "reading_variants": [
-        "よろしく"
-      ],
-      "romaji": "yoroshiku",
-      "part_of_speech": "adverb/expression",
-      "meaning_zh": "请多关照；代问好；适当地",
-      "kanji_readings": [
-        {
-          "form": "宜しく",
-          "reading": "よろしく"
-        }
-      ],
-      "examples": [
-        {
-          "ja": "これからもよろしくお願いします。",
-          "zh": "今后也请多关照。"
-        },
-        {
-          "ja": "ご家族の皆さんによろしく。",
-          "zh": "请代我向您的家人问好。"
-        },
-        {
-          "ja": "あとはよろしく頼みます。",
-          "zh": "剩下的就拜托你了。"
-        }
-      ],
-      "note_zh": "汉字为「宜しく」，一般写假名。"
-    },
-    {
       "id": "n3-1448",
       "jlpt": "N3",
       "headword": "ライター",
@@ -53236,11 +52820,11 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zh": "这个考试的合格率很低。"
         },
         {
-          "ja": "投票の率が上がりました。",
+          "ja": "投票率が上がりました。",
           "zh": "投票率提高了。"
         },
         {
-          "ja": "成功する率は五十パーセントです。",
+          "ja": "成功率は五十パーセントです。",
           "zh": "成功率是百分之五十。"
         }
       ],
