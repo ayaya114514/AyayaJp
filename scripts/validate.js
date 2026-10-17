@@ -977,6 +977,9 @@ function headwordRomajiPattern(reading) {
   return pattern === null ? null : new RegExp(`^${pattern}$`, "u");
 }
 
+// Readings whose final は is part of the word and read ha (母 はは).
+const readingFinalHaWords = new Set(["はは"]);
+
 // The headword romaji is shown on every vocabulary card; check it against the
 // reading so particle spellings (では → dewa, を → o) and n' cannot drift.
 function validateHeadwordRomaji(label, data) {
@@ -1007,6 +1010,12 @@ function validateHeadwordRomaji(label, data) {
       );
       if (reading.includes("では")) {
         check(/de ?wa/u.test(romaji), `${label} ${entry.id} romaji ${romaji} must spell では as dewa`);
+      }
+      // A final は after other kana is the fused topic particle (または,
+      // あるいは, こんにちは, 実は) and is read wa; the pattern above accepts
+      // either spelling, and the word audio is spoken from this romaji.
+      if (/.は$/u.test(reading) && !readingFinalHaWords.has(reading)) {
+        check(/wa$/u.test(romaji), `${label} ${entry.id} romaji ${romaji} must spell the final は of ${reading} as wa`);
       }
     });
   });
@@ -1674,6 +1683,17 @@ function validateRomajiWordSpacing(cards, spacingData) {
     (spaced) => /^[ -]|[ -]$|[ -]{2,}|[ -][、。！？]|[、。！？][ -]/u.test(spaced),
   );
   check(malformed.length === 0, `malformed romaji spacing entries: ${sample(malformed, 8)}`);
+  // Quote brackets are dropped from romaji, so a quote needs its own word
+  // breaks (に「こんにちは」 would otherwise read nikonnichiwa): 「 after a word
+  // is followed by a space, and 」 before a word is followed by one.
+  const fusedQuotes = entries.filter(
+    (spaced) =>
+      /[^\s、。！？「」『』][「『](?! )/u.test(spaced) || /[」』][^\s、。！？「」『』]/u.test(spaced),
+  );
+  check(
+    fusedQuotes.length === 0,
+    `romaji spacing entries need a word break at quote brackets: ${sample(fusedQuotes, 8)}`,
+  );
 }
 
 function validateDeckCoverage(cards, tabDecks, data) {

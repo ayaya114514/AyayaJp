@@ -21,11 +21,11 @@
     "example-readings.js",
     "styles.css"
   ],
-  "source_fingerprint": "sha256:d73d3a678c5776841fcc2a525ed676b3132d60cc24bb5f882c837be9536aecb5",
+  "source_fingerprint": "sha256:42f44cc2f0f24c65eda25b5ede147d1032ebd2618e3955ee49be0622d6f7887f",
   "expected_counts": {
-    "n5_entries": 713,
+    "n5_entries": 725,
     "n4_entries": 727,
-    "n3_entries": 1499,
+    "n3_entries": 1487,
     "grammar_entries": 337,
     "kana_cards": 241,
     "vocab_cards": 5878,

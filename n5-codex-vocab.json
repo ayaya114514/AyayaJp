@@ -26,9 +26,10 @@
       "The duplicate 在る / 有る records were merged under the modern kana headword ある while preserving both orthographic variants.",
       "Reading, part-of-speech, example alignment, same-sense duplicates and retained cross-level distinctions were re-audited on 2026-08-18; merged_source_ids preserve prior study state.",
       "Dictionary forms, readings, coarse part-of-speech labels, senses, and all example rows were re-audited against JMdict and for Japanese/Chinese learning accuracy on 2026-08-30.",
-      "On 2026-10-10 every entry was re-audited again: headword romaji now follows the particle and n' rules with the same word division as the examples, category labels were corrected, pure grammar patterns were migrated to grammar cards, and unnatural examples were rewritten."
+      "On 2026-10-10 every entry was re-audited again: headword romaji now follows the particle and n' rules with the same word division as the examples, category labels were corrected, pure grammar patterns were migrated to grammar cards, and unnatural examples were rewritten.",
+      "2026-10-17: 12 basic greetings and words that the community Waller list files under N3 (ありがとう, いただきます, いらっしゃい, おめでとう, ごめんなさい, こんにちは, すみません, よろしく, 男の人, 日本, 曜日, お昼) are taught here, since N5 learners meet them first."
     ],
-    "entry_count": 713
+    "entry_count": 725
   },
   "entries": [
     {
@@ -25702,6 +25703,423 @@
         {
           "ja": "悪いことをしてはいけません。",
           "zh": "不可以做坏事。"
+        }
+      ],
+      "note_zh": ""
+    },
+    {
+      "id": "n5-719",
+      "jlpt": "N5",
+      "headword": "ありがとう",
+      "source_form": "ありがとう",
+      "variants": [
+        "ありがとう"
+      ],
+      "reading": "ありがとう",
+      "reading_variants": [
+        "ありがとう"
+      ],
+      "romaji": "arigatou",
+      "part_of_speech": "expression",
+      "meaning_zh": "谢谢",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "手伝ってくれて、ありがとう。",
+          "zh": "谢谢你帮我。"
+        },
+        {
+          "ja": "プレゼント、本当にありがとう。",
+          "zh": "礼物真是太谢谢了。"
+        },
+        {
+          "ja": "「ありがとう」と言って、笑いました。",
+          "zh": "说了声“谢谢”，笑了。"
+        }
+      ],
+      "note_zh": "礼貌说法是「ありがとうございます」；汉字为「有難う」，一般写假名。"
+    },
+    {
+      "id": "n5-720",
+      "jlpt": "N5",
+      "headword": "いただきます",
+      "source_form": "いただきます",
+      "variants": [
+        "いただきます",
+        "頂きます"
+      ],
+      "reading": "いただきます",
+      "reading_variants": [
+        "いただきます"
+      ],
+      "romaji": "itadakimasu",
+      "part_of_speech": "expression",
+      "meaning_zh": "我开动了（饭前用语）",
+      "kanji_readings": [
+        {
+          "form": "頂きます",
+          "reading": "いただきます"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "「いただきます」と言ってから食べます。",
+          "zh": "说了“我开动了”再吃。"
+        },
+        {
+          "ja": "では、温かいうちにいただきます。",
+          "zh": "那我就趁热开动了。"
+        },
+        {
+          "ja": "みんなで手を合わせて、いただきます。",
+          "zh": "大家双手合十，开动了。"
+        }
+      ],
+      "note_zh": "饭前表示感谢的固定说法；饭后说「ごちそうさまでした」。"
+    },
+    {
+      "id": "n5-721",
+      "jlpt": "N5",
+      "headword": "いらっしゃい",
+      "source_form": "いらっしゃい",
+      "variants": [
+        "いらっしゃい"
+      ],
+      "reading": "いらっしゃい",
+      "reading_variants": [
+        "いらっしゃい"
+      ],
+      "romaji": "irasshai",
+      "part_of_speech": "expression",
+      "meaning_zh": "欢迎（光临）；来吧",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "いらっしゃい、どうぞ中へ。",
+          "zh": "欢迎，请进。"
+        },
+        {
+          "ja": "「いらっしゃい」と店の人が言いました。",
+          "zh": "店里的人说了声“欢迎光临”。"
+        },
+        {
+          "ja": "いつでもうちに遊びにいらっしゃい。",
+          "zh": "随时来我家玩吧。"
+        }
+      ],
+      "note_zh": "店员常说「いらっしゃいませ」；「いらっしゃい」较随便。"
+    },
+    {
+      "id": "n5-722",
+      "jlpt": "N5",
+      "headword": "おめでとう",
+      "source_form": "おめでとう",
+      "variants": [
+        "おめでとう"
+      ],
+      "reading": "おめでとう",
+      "reading_variants": [
+        "おめでとう"
+      ],
+      "romaji": "omedetou",
+      "part_of_speech": "expression",
+      "meaning_zh": "恭喜；祝贺",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "誕生日おめでとう。",
+          "zh": "生日快乐。"
+        },
+        {
+          "ja": "合格、おめでとう。",
+          "zh": "恭喜你考上了。"
+        },
+        {
+          "ja": "結婚おめでとうございます。",
+          "zh": "恭喜你们结婚。"
+        }
+      ],
+      "note_zh": "礼貌说法是「おめでとうございます」。"
+    },
+    {
+      "id": "n5-723",
+      "jlpt": "N5",
+      "headword": "ごめんなさい",
+      "source_form": "ごめんなさい",
+      "variants": [
+        "ごめんなさい"
+      ],
+      "reading": "ごめんなさい",
+      "reading_variants": [
+        "ごめんなさい"
+      ],
+      "romaji": "gomennasai",
+      "part_of_speech": "expression",
+      "meaning_zh": "对不起",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "遅れて、ごめんなさい。",
+          "zh": "来晚了，对不起。"
+        },
+        {
+          "ja": "ごめんなさい、今日は行けません。",
+          "zh": "对不起，今天去不了。"
+        },
+        {
+          "ja": "弟は母にごめんなさいと謝りました。",
+          "zh": "弟弟向妈妈道了歉，说对不起。"
+        }
+      ],
+      "note_zh": "比「すみません」随便，多用于亲近的人之间；汉字为「御免なさい」。"
+    },
+    {
+      "id": "n5-724",
+      "jlpt": "N5",
+      "headword": "こんにちは",
+      "source_form": "こんにちは",
+      "variants": [
+        "こんにちは"
+      ],
+      "reading": "こんにちは",
+      "reading_variants": [
+        "こんにちは"
+      ],
+      "romaji": "konnichiwa",
+      "part_of_speech": "expression",
+      "meaning_zh": "你好；您好（白天的问候）",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "こんにちは、いい天気ですね。",
+          "zh": "你好，天气真好啊。"
+        },
+        {
+          "ja": "近所の人に「こんにちは」とあいさつしました。",
+          "zh": "和邻居打招呼说“你好”。"
+        },
+        {
+          "ja": "皆さん、こんにちは。",
+          "zh": "大家好。"
+        }
+      ],
+      "note_zh": "末尾的「は」读作「わ」。汉字为「今日は」，一般写假名。"
+    },
+    {
+      "id": "n5-725",
+      "jlpt": "N5",
+      "headword": "すみません",
+      "source_form": "すみません",
+      "variants": [
+        "すみません"
+      ],
+      "reading": "すみません",
+      "reading_variants": [
+        "すみません"
+      ],
+      "romaji": "sumimasen",
+      "part_of_speech": "expression",
+      "meaning_zh": "对不起；不好意思；劳驾；谢谢",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "すみません、お水をください。",
+          "zh": "劳驾，请给我一杯水。"
+        },
+        {
+          "ja": "すみません、駅はどこですか。",
+          "zh": "劳驾，请问车站在哪里？"
+        },
+        {
+          "ja": "すみません、もう一度言ってください。",
+          "zh": "不好意思，请再说一遍。"
+        }
+      ],
+      "note_zh": "用于道歉、搭话、道谢等多种场合。汉字为「済みません」，一般写假名。"
+    },
+    {
+      "id": "n5-726",
+      "jlpt": "N5",
+      "headword": "よろしく",
+      "source_form": "よろしく",
+      "variants": [
+        "よろしく",
+        "宜しく"
+      ],
+      "reading": "よろしく",
+      "reading_variants": [
+        "よろしく"
+      ],
+      "romaji": "yoroshiku",
+      "part_of_speech": "adverb/expression",
+      "meaning_zh": "请多关照；代问好；适当地",
+      "kanji_readings": [
+        {
+          "form": "宜しく",
+          "reading": "よろしく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "これからもよろしくお願いします。",
+          "zh": "今后也请多关照。"
+        },
+        {
+          "ja": "ご家族の皆さんによろしく。",
+          "zh": "请代我向您的家人问好。"
+        },
+        {
+          "ja": "あとはよろしく頼みます。",
+          "zh": "剩下的就拜托你了。"
+        }
+      ],
+      "note_zh": "汉字为「宜しく」，一般写假名。"
+    },
+    {
+      "id": "n5-727",
+      "jlpt": "N5",
+      "headword": "男の人",
+      "source_form": "男の人",
+      "variants": [
+        "男の人"
+      ],
+      "reading": "おとこのひと",
+      "reading_variants": [
+        "おとこのひと"
+      ],
+      "romaji": "otokonohito",
+      "part_of_speech": "noun",
+      "meaning_zh": "男人；男的",
+      "kanji_readings": [
+        {
+          "form": "男の人",
+          "reading": "おとこのひと"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "あの男の人は誰ですか。",
+          "zh": "那个男人是谁？"
+        },
+        {
+          "ja": "背の高い男の人が入ってきました。",
+          "zh": "一个高个子的男人走了进来。"
+        },
+        {
+          "ja": "受付の男の人に聞いてください。",
+          "zh": "请问前台的那位男士。"
+        }
+      ],
+      "note_zh": "比「男」礼貌；女性是「女の人」。"
+    },
+    {
+      "id": "n5-728",
+      "jlpt": "N5",
+      "headword": "日本",
+      "source_form": "日本",
+      "variants": [
+        "日本"
+      ],
+      "reading": "にほん",
+      "reading_variants": [
+        "にほん",
+        "にっぽん"
+      ],
+      "romaji": "nihon",
+      "part_of_speech": "noun",
+      "meaning_zh": "日本",
+      "kanji_readings": [
+        {
+          "form": "日本",
+          "reading": "にほん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "日本の夏は暑いです。",
+          "zh": "日本的夏天很热。"
+        },
+        {
+          "ja": "来年、日本に留学します。",
+          "zh": "明年去日本留学。"
+        },
+        {
+          "ja": "日本の四季は美しいです。",
+          "zh": "日本的四季很美。"
+        }
+      ],
+      "note_zh": "也读「にっぽん」，多用于正式场合或体育比赛等。"
+    },
+    {
+      "id": "n5-729",
+      "jlpt": "N5",
+      "headword": "曜日",
+      "source_form": "曜日",
+      "variants": [
+        "曜日"
+      ],
+      "reading": "ようび",
+      "reading_variants": [
+        "ようび"
+      ],
+      "romaji": "youbi",
+      "part_of_speech": "noun",
+      "meaning_zh": "星期；星期几",
+      "kanji_readings": [
+        {
+          "form": "曜日",
+          "reading": "ようび"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "今日は何曜日ですか。",
+          "zh": "今天星期几？"
+        },
+        {
+          "ja": "ごみを出す曜日が決まっています。",
+          "zh": "扔垃圾的日子是固定的。"
+        },
+        {
+          "ja": "毎週同じ曜日に図書館へ行きます。",
+          "zh": "每周在同一天去图书馆。"
+        }
+      ],
+      "note_zh": ""
+    },
+    {
+      "id": "n5-730",
+      "jlpt": "N5",
+      "headword": "お昼",
+      "source_form": "お昼",
+      "variants": [
+        "お昼"
+      ],
+      "reading": "おひる",
+      "reading_variants": [
+        "おひる"
+      ],
+      "romaji": "ohiru",
+      "part_of_speech": "noun",
+      "meaning_zh": "中午；午饭",
+      "kanji_readings": [
+        {
+          "form": "お昼",
+          "reading": "おひる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "お昼に何を食べましたか。",
+          "zh": "中午吃了什么？"
+        },
+        {
+          "ja": "お昼ごろ、駅で会いましょう。",
+          "zh": "中午前后在车站见吧。"
+        },
+        {
+          "ja": "お昼はいつも会社の近くで食べます。",
+          "zh": "午饭总是在公司附近吃。"
         }
       ],
       "note_zh": ""
