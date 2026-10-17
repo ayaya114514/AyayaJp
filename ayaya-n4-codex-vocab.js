@@ -4734,7 +4734,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "form": "お金持ち",
-          "reading": "かねもち"
+          "reading": "おかねもち"
         }
       ],
       "examples": [

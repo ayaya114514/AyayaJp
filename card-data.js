@@ -1,8 +1,8 @@
 (() => {
 const sourceNotes = {
-  jlpt: "JLPT 官方不发布固定的词汇/汉字/语法项目清单；本项目的语法覆盖按官方等级说明、题型说明、样题/官方问题集说明，以及常见 N5/N4 教学清单整理。",
+  jlpt: "JLPT 官方不发布固定的词汇/汉字/语法项目清单；本项目的语法覆盖按官方等级说明、题型说明、样题/官方问题集说明，以及常见 N5/N4/N3 教学清单整理。",
   kana: "假名和发音规则按现代学习写法整理；进阶发音是代表性规则与外来音组合精选，不表示使用频率，也不是完整外来音表。单个假名「を」的键盘输入写作 wo；例句罗马字采用便于学习的 Hepburn 式 ASCII 写法：助词「は・へ・を」写作 wa・e・o，「ん」在同一词内的元音或 y 前写作 n'，长音保留假名拼写（如 ou、ei）或重复元音。",
-  vocabulary: "N5/N4 标签是项目维护的教学分级，不是官方固定词表。卡片会区分词汇、量词、词缀、表达、复合词、派生形式、固定表达和搭配；纯语法 pattern 只在语法模块学习。规范词形、原始词形、变体和人工校订说明保存在随项目版本控制的数据文件中。",
+  vocabulary: "N5/N4/N3 标签是项目维护的教学分级，不是官方固定词表。卡片会区分词汇、量词、词缀、表达、复合词、派生形式、固定表达和搭配；纯语法 pattern 只在语法模块学习。规范词形、原始词形、变体和人工校订说明保存在随项目版本控制的数据文件中。",
   examples: "词汇与表达例句是为本项目编写和校订的短学习句，不作为语料库引文；无法可靠生成纯拉丁字母罗马音时，界面会明确隐藏该行而不显示混合脚本结果。",
 };
 const kanaRows = [
@@ -552,6 +552,20 @@ const n4Words = n4Entries.map((entry) => [
   entry.examples || [],
   entry,
 ]);
+const n3Entries = window.AYAYA_N3_CODEX_VOCAB?.entries || [];
+const n3Words = n3Entries.map((entry) => [
+  entry.id,
+  entry.headword,
+  entry.reading,
+  entry.romaji,
+  entry.meaning_zh,
+  entry.examples?.[0]?.ja || "",
+  entry.examples?.[0]?.zh || "",
+  entry.examples || [],
+  entry,
+]);
+const allVocabEntries = [...n5Entries, ...n4Entries, ...n3Entries];
+const allVocabWords = [...n5Words, ...n4Words, ...n3Words];
 const grammarEntries = window.AYAYA_GRAMMAR_DATA?.entries || [];
 // Reviewed Kanjium pitch accents keyed by vocab source ID; entries without a
 // reliable value stay unannotated.
@@ -2402,13 +2416,18 @@ function kanaSurfaceToHiragana(text) {
 }
 
 // Loanword digraphs that are not kana cards but occur in the example corpus
-// (パーティー, ファックス, フィルム, フォーク, チェック), spelled in standard Hepburn.
+// (パーティー, ファックス, フィルム, フォーク, チェック, カフェ, ジェット機,
+// シェークスピア, ストップウォッチ), spelled in standard Hepburn.
 const loanwordKanaRomajiRows = [
   ["てぃ", "ti"],
   ["ふぁ", "fa"],
   ["ふぃ", "fi"],
+  ["ふぇ", "fe"],
   ["ふぉ", "fo"],
   ["ちぇ", "che"],
+  ["しぇ", "she"],
+  ["じぇ", "je"],
+  ["うぉ", "wo"],
 ];
 const kanaRomajiRows = kanaRows
   .flatMap(([hiragana, katakana, romaji]) => [
@@ -2948,9 +2967,27 @@ function exampleReadingsForText(text) {
   ]);
 }
 
-const allVocabReadingEntries = [...n5Entries, ...n4Entries].flatMap((entry) =>
-  readingEntriesForVocabEntry(entry),
-);
+// N3 headwords whose reading must not become a shared fallback: as a single
+// Kanji they would mislabel other words written with it (楽しい is たの, 生きる
+// い, 数える かぞ, 分かる わ, お金 かね, 量る はか, 下りる お, 運ぶ はこ, 表 is also おもて),
+// so their reading applies only to their own card's examples.
+const entryScopedReadingIds = new Set([
+  "n3-0074", // いつか (何時か would turn 何時から into いつか+ら)
+  "n3-0238", // 数 かず
+  "n3-0359", // 金 きん
+  "n3-0379", // 下り くだり
+  "n3-1077", // 生 なま
+  "n3-1209", // 表 ひょう
+  "n3-1244", // 縁 ふち
+  "n3-1261", // 分 ぶん
+  "n3-1335", // 実 み
+  "n3-1449", // 楽 らく
+  "n3-1460", // 量 りょう
+  "n3-1497", // 運 うん
+]);
+const allVocabReadingEntries = allVocabEntries
+  .filter((entry) => !entryScopedReadingIds.has(entry.id))
+  .flatMap((entry) => readingEntriesForVocabEntry(entry));
 // Keep broad coverage without allowing readings that are known to change by
 // grammatical role or suffix. Longer lexical/inflected forms are considered
 // before shorter ones, ambiguous readings are rejected below, and the tokenizer
@@ -3058,7 +3095,7 @@ const particleKanaMarkers = new Map([
   ["を", "\ue002"],
 ]);
 const reviewedExampleTexts = [...new Set(
-  [...n5Entries, ...n4Entries, ...grammarEntries]
+  [...allVocabEntries, ...grammarEntries]
     .flatMap((entry) => (entry.examples || []).map((example) => stripSentencePeriods(example.ja)))
     .filter(Boolean),
 )].sort();
@@ -3086,13 +3123,16 @@ function reviewedSpanMap(groups) {
 }
 
 // These are the only lexical は occurrences in the reviewed static example
-// corpus. Every other literal は/へ/を position in that exact corpus was
+// corpus (N5/N4/N3). Every other literal は/へ/を position in that exact corpus was
 // reviewed as a grammatical particle. No runtime tokenization or conjugation
 // guessing is used.
 const reviewedLexicalKanaSpans = reviewedSpanMap([
   ["はさみ", [
     "このはさみは紙を切るのに使います",
     "紙をはさみで切ります",
+    "はさみで紙を切ります",
+    "はさみを貸してください",
+    "このはさみはよく切れます",
   ]],
   ["はき", [
     "雨の日はこの靴をはきます",
@@ -3101,11 +3141,13 @@ const reviewedLexicalKanaSpans = reviewedSpanMap([
     "靴下をはきます",
     "黒いズボンをはきます",
     "朝、靴下をはきました",
+    "休みの日はジーンズをはきます",
   ]],
   ["はいて", [
     "黒いズボンをはいています",
     "白い靴下をはいています",
     "妹は青いスカートをはいています",
+    "試しにこの靴をはいてみてください",
   ]],
   ["はめ", ["寒いので手袋をはめました"]],
   ["はい", [
@@ -3118,11 +3160,24 @@ const reviewedLexicalKanaSpans = reviewedSpanMap([
     "今日は山がはっきり見えます",
     "名前をはっきり書いてください",
     "理由をはっきり説明しました",
+    "自分の意思をはっきり伝えてください",
+    "文句があるなら、はっきり言ってください",
   ]],
   ["やはり", [
     "やはり雨が降りました",
     "やはり日本語は面白いです",
     "考えてみても、やはり行きたいです",
+  ]],
+  ["はし", ["彼は器用にはしを使います"]],
+  ["はまっ", ["型にはまった考え方はよくないです"]],
+  ["はね", ["車に泥がはねました"]],
+  ["はじめ", [
+    "社長をはじめ、社員全員が会議に出ました",
+    "東京をはじめ、日本の大きな町を旅行しました",
+    "寿司をはじめ、日本料理はどれもおいしいです",
+    "病気になってはじめて、健康の大切さが分かりました",
+    "一人で住んではじめて、親のありがたさを知りました",
+    "日本に来てはじめて、雪を見ました",
   ]],
   ["はず", [
     "この道を行けば、駅に出るはずです",
@@ -3172,7 +3227,7 @@ const reviewedMoraicNWordBoundaries = reviewedSpanMap([
     "本や雑誌などを読みます",
   ]],
 ]);
-const attachedWaTokens = ["こんにちは", "こんばんは", "それでは", "または"];
+const attachedWaTokens = ["こんにちは", "こんばんは", "それでは", "または", "あるいは"];
 // The conjunction では (dewa) only opens a sentence in the reviewed corpus; inside
 // a sentence では is the particle pair で + は (de wa), so it is not matched there.
 const sentenceInitialAttachedWaTokens = ["では、"];
@@ -3187,7 +3242,7 @@ function reviewedSpanSignatureParts(label, map) {
     .sort();
 }
 
-const reviewedVocabEntries = [...n5Entries, ...n4Entries]
+const reviewedVocabEntries = [...allVocabEntries]
   .sort((left, right) => left.id.localeCompare(right.id));
 const reviewedPronunciationSourceParts = [
   ...reviewedExampleTexts.map((text) => `example:${text}`),
@@ -3220,10 +3275,11 @@ const reviewedPronunciationSourceParts = [
   ...attachedWaTokens.map((token) => `attached-wa:${token}`).sort(),
   ...sentenceInitialAttachedWaTokens.map((token) => `initial-attached-wa:${token}`).sort(),
   ...[...unsafeGlobalReadingSurfaces].sort().map((surface) => `unsafe:${surface}`),
+  ...[...entryScopedReadingIds].sort().map((id) => `entry-scoped:${id}`),
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "11822:55c73562e7326594";
+const reviewedPronunciationSourceSignature = "22987:de3089e2bd35f61d";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3871,16 +3927,17 @@ function vocabCategoryLabel(entry) {
 function makeVocabDeckCards({
   deckJaZh,
   deckZhJa,
+  hasLegacyIndexIds = true,
   idPrefix,
   typePrefix,
   words,
 }) {
   // Words written the same way (十 じゅう／とお, 一日 いちにち／ついたち) cannot be
   // told apart from the kanji alone, so their 日→中 cards show the reading up front.
-  // Count across both levels: 空（そら, N5）and 空（から, N4）must both show
+  // Count across all levels: 空（そら, N5）and 空（から, N4）must both show
   // their reading even though they sit in different decks.
   const promptCounts = new Map();
-  [...n5Words, ...n4Words].forEach(([, word]) => promptCounts.set(word, (promptCounts.get(word) || 0) + 1));
+  allVocabWords.forEach(([, word]) => promptCounts.set(word, (promptCounts.get(word) || 0) + 1));
   const clipTexts = homophoneClipTexts();
   return words.flatMap(([
     sourceId,
@@ -3919,7 +3976,10 @@ function makeVocabDeckCards({
     // array-index IDs (for example, old `vocab-n4-100-ja`).
     const cardBaseId = `vocab-entry-${sourceId}`;
     const sourceNumber = Number.parseInt(String(sourceId).split("-").at(-1), 10);
-    const legacyIndexes = Number.isInteger(sourceNumber) ? [sourceNumber - 1] : [index];
+    // N3 cards were introduced with stable IDs, so they have no array-index aliases.
+    const legacyIndexes = !hasLegacyIndexIds
+      ? []
+      : Number.isInteger(sourceNumber) ? [sourceNumber - 1] : [index];
     if (sourceId === "n5-040") legacyIndexes.push(40);
     const uniqueLegacyIndexes = [...new Set(legacyIndexes.filter((value) => value >= 0))];
     const mergedSourceIds = Array.isArray(sourceEntry?.merged_source_ids)
@@ -3997,7 +4057,7 @@ function makeVocabDeckCards({
 function homophoneClipTexts() {
   const moraCount = (kana) => [...kana].filter((character) => !"ゃゅょぁぃぅぇぉゎャュョァィゥェォヮ".includes(character)).length;
   const groups = new Map();
-  [...n5Words, ...n4Words].forEach(([sourceId, word, reading, romaji, , , , , sourceEntry]) => {
+  allVocabWords.forEach(([sourceId, word, reading, romaji, , , , , sourceEntry]) => {
     if (/[～〜]/u.test(word)) return;
     const speech = vocabSpeechKana(sourceEntry?.speech_reading || reading, romaji);
     if (!groups.has(speech)) groups.set(speech, []);
@@ -4031,9 +4091,20 @@ function makeVocabCards(level) {
       words: n4Words,
     });
 
+  const n3Cards = () =>
+    makeVocabDeckCards({
+      deckJaZh: "vocab-n3-ja-zh",
+      deckZhJa: "vocab-n3-zh-ja",
+      hasLegacyIndexIds: false,
+      idPrefix: "vocab-n3",
+      typePrefix: "N3",
+      words: n3Words,
+    });
+
   if (level === "N5") return n5Cards();
   if (level === "N4") return n4Cards();
-  return [...n5Cards(), ...n4Cards()];
+  if (level === "N3") return n3Cards();
+  return [...n5Cards(), ...n4Cards(), ...n3Cards()];
 }
 
 const grammarChoiceCount = 4;
@@ -4105,6 +4176,51 @@ const grammarOverlappingPairs = new Set([
   "n4-grammar-054|n4-grammar-108",
   "n4-grammar-077|n4-grammar-115",
   "n4-grammar-062|n4-grammar-120",
+  // N3: near-synonyms the gloss heuristic misses. 〜うちに / 〜最中に / 〜ところに
+  // all mean “正在……时”; 〜に対して reads as 关于 (〜に関して), 与……相比
+  // (〜に比べて) and 对着 (〜に向かって); 〜にしては / 〜わりに / 〜くせに are all
+  // 「虽然……但」; 〜わけではない / 〜とは限らない / 〜からといって all deny a
+  // general rule; 〜っぽい / 〜気味, 〜かける / 〜ようとする（刚要）, 〜ことだ /
+  // 〜ように / 〜こと（指示）, 〜てしかたがない / 〜てたまらない, 〜ほど〜ない /
+  // 〜ほど〜はない, 〜ば〜ほど / 〜一方だ（越来越）, 〜たびに / 〜ごとに（每次）,
+  // 〜からこそ / 〜もの / 〜んだから（理由）; and the additive group
+  // 〜ばかりでなく / 〜だけでなく / 〜に加えて / 〜上に / 〜はもちろん / 〜も〜ば〜も.
+  "n3-grammar-001|n3-grammar-002",
+  "n3-grammar-001|n3-grammar-099",
+  "n3-grammar-002|n3-grammar-099",
+  "n3-grammar-007|n3-grammar-008",
+  "n3-grammar-007|n3-grammar-058",
+  "n3-grammar-007|n3-grammar-100",
+  "n3-grammar-007|n3-grammar-104",
+  "n3-grammar-007|n3-grammar-105",
+  "n3-grammar-008|n3-grammar-058",
+  "n3-grammar-008|n3-grammar-100",
+  "n3-grammar-008|n3-grammar-104",
+  "n3-grammar-008|n3-grammar-105",
+  "n3-grammar-013|n3-grammar-014",
+  "n3-grammar-013|n3-grammar-057",
+  "n3-grammar-013|n3-grammar-111",
+  "n3-grammar-017|n3-grammar-018",
+  "n3-grammar-018|n3-grammar-019",
+  "n3-grammar-024|n3-grammar-089",
+  "n3-grammar-030|n3-grammar-032",
+  "n3-grammar-036|n3-grammar-037",
+  "n3-grammar-038|n3-grammar-097",
+  "n3-grammar-048|n3-grammar-050",
+  "n3-grammar-058|n3-grammar-100",
+  "n3-grammar-058|n3-grammar-104",
+  "n3-grammar-058|n3-grammar-105",
+  "n3-grammar-062|n3-grammar-072",
+  "n3-grammar-074|n3-grammar-094",
+  "n3-grammar-074|n3-grammar-095",
+  "n3-grammar-077|n3-grammar-113",
+  "n3-grammar-078|n3-grammar-079",
+  "n3-grammar-089|n3-grammar-101",
+  "n3-grammar-094|n3-grammar-095",
+  "n3-grammar-100|n3-grammar-104",
+  "n3-grammar-100|n3-grammar-105",
+  "n3-grammar-102|n3-grammar-113",
+  "n3-grammar-104|n3-grammar-105",
 ]);
 
 function grammarMeaningsOverlap(entry, candidate) {

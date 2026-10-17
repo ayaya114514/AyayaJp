@@ -452,7 +452,15 @@ test("every revealed card fits one screen without scrolling", async ({ page }, t
     await page.setViewportSize(viewport);
     await openWithStore(page, {});
     const overflowing = await page.evaluate(() => {
-      const families = ["hiragana", "vocab-ja-zh", "vocab-n4-ja-zh", "grammar-n5-zh-ja", "grammar-n4-zh-ja"];
+      const families = [
+        "hiragana",
+        "vocab-ja-zh",
+        "vocab-n4-ja-zh",
+        "vocab-n3-ja-zh",
+        "grammar-n5-zh-ja",
+        "grammar-n4-zh-ja",
+        "grammar-n3-zh-ja",
+      ];
       const panel = document.querySelector("#answerPanel");
       const band = document.querySelector("#flashcard");
       const root = document.scrollingElement;

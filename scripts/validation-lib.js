@@ -14,6 +14,8 @@ const minimumNodeMajor = 20;
 const preferredNodeMajor = 22;
 const sourceFingerprintFiles = [
   "app.js",
+  "ayaya-n3-codex-vocab.js",
+  "ayaya-n3-codex-vocab.json",
   "ayaya-n4-codex-vocab.js",
   "ayaya-n4-codex-vocab.json",
   "card-data.js",
@@ -30,6 +32,7 @@ const sourceFingerprintFiles = [
 const countKeys = [
   "n5_entries",
   "n4_entries",
+  "n3_entries",
   "grammar_entries",
   "kana_cards",
   "vocab_cards",
@@ -99,6 +102,7 @@ function loadScriptGlobal(relativePath, globalName) {
 function loadBundledData() {
   return {
     grammar: loadScriptGlobal("grammar-data.js", "AYAYA_GRAMMAR_DATA"),
+    n3: loadScriptGlobal("ayaya-n3-codex-vocab.js", "AYAYA_N3_CODEX_VOCAB"),
     n4: loadScriptGlobal("ayaya-n4-codex-vocab.js", "AYAYA_N4_CODEX_VOCAB"),
     n5: loadScriptGlobal("n5-codex-vocab.js", "AYAYA_N5_CODEX_VOCAB"),
     pitchAccent: loadScriptGlobal("pitch-accent-data.js", "AYAYA_PITCH_ACCENT"),
@@ -107,9 +111,10 @@ function loadBundledData() {
   };
 }
 
-function loadCardData({ grammar, n4, n5, pitchAccent, romajiSpacing, exampleReadings }) {
+function loadCardData({ grammar, n3, n4, n5, pitchAccent, romajiSpacing, exampleReadings }) {
   const windowObject = {
     AYAYA_GRAMMAR_DATA: grammar,
+    AYAYA_N3_CODEX_VOCAB: n3,
     AYAYA_N4_CODEX_VOCAB: n4,
     AYAYA_N5_CODEX_VOCAB: n5,
     AYAYA_PITCH_ACCENT: pitchAccent,
@@ -129,16 +134,19 @@ function buildRuntime(data = loadBundledData()) {
   const vocabCards = cardData.makeVocabCards();
   const grammarCards = cardData.makeGrammarCards();
   const vocabCardsByLevel = {
+    N3: cardData.makeVocabCards("N3"),
     N4: cardData.makeVocabCards("N4"),
     N5: cardData.makeVocabCards("N5"),
   };
   const grammarCardsByLevel = {
+    N3: cardData.makeGrammarCards("N3"),
     N4: cardData.makeGrammarCards("N4"),
     N5: cardData.makeGrammarCards("N5"),
   };
   const counts = {
     n5_entries: data.n5?.entries?.length,
     n4_entries: data.n4?.entries?.length,
+    n3_entries: data.n3?.entries?.length,
     grammar_entries: data.grammar?.entries?.length,
     kana_cards: kanaCards.length,
     vocab_cards: vocabCards.length,

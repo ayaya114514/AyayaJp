@@ -14,7 +14,7 @@ const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
 const outputPath = path.join(rootDir, "pitch-accent-data.js");
-const vocabSources = ["n5-codex-vocab.json", "ayaya-n4-codex-vocab.json"];
+const vocabSources = ["n5-codex-vocab.json", "ayaya-n4-codex-vocab.json", "ayaya-n3-codex-vocab.json"];
 
 // Manual review of every generated value against standard Tokyo accents.
 const reviewedExclusions = {
@@ -23,12 +23,15 @@ const reviewedExclusions = {
   "n4-195": "君（くん） is a suffix with no independent accent",
   "n4-426": "ちゃん is a suffix with no independent accent",
   "n4-222": "講義 is both ① and ③ in Tokyo usage (Wiktionary); Kanjium lists only ③",
+  "n3-0187": "おや (interjection) lists 2,1 without a sense split from 親",
 };
 // Kanjium files the demonstrative senses under kanji forms; its kana-only
 // これ / それ rows (1) belong to the interjection sense.
 const reviewedKanjiForms = {
   "n5-268": "此れ",
   "n5-368": "其れ",
+  // ひと月 is listed under its 一月 spelling (ひとつき ②, distinct from いちがつ).
+  "n5-566": "一月",
 };
 
 const kanjiPattern = /[㐀-鿿々]/u;
