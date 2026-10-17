@@ -200,10 +200,10 @@ h2 {
 .deck-tabs {
   display: grid;
   align-content: start;
-  gap: 14px;
-  gap: clamp(12px, 2.2cqh, 32px);
-  padding: 14px clamp(12px, 3vw, 24px);
-  padding-block: clamp(12px, 2.2cqh, 32px);
+  gap: 10px;
+  gap: clamp(8px, 1cqh, 20px);
+  padding: 10px clamp(12px, 3vw, 24px);
+  padding-block: clamp(8px, 1cqh, 20px);
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
@@ -253,13 +253,13 @@ h2 {
 }
 
 .deck-row + .deck-row {
-  padding-top: 14px;
-  padding-top: clamp(12px, 2.2cqh, 32px);
+  padding-top: 10px;
+  padding-top: clamp(8px, 1cqh, 20px);
   border-top: 1px solid var(--line);
 }
 
 /* The page has room the old drawer lacked: the row title is the anchor the eye
-   lands on, and the level badge tells the N5 and N4 rows apart at a glance. */
+   lands on, and the level badge tells the N5, N4 and N3 rows apart at a glance. */
 .deck-row-title {
   display: flex;
   align-items: center;
@@ -287,6 +287,11 @@ h2 {
 .deck-level[data-level="n4"] {
   background: rgba(224, 183, 90, 0.18);
   color: #f0d08a;
+}
+
+.deck-level[data-level="n3"] {
+  background: rgba(132, 196, 150, 0.18);
+  color: #9fdcb0;
 }
 
 /* One row per module and level: the cells are the practice directions, so every
@@ -325,12 +330,26 @@ h2 {
   }
 }
 
-/* Module page cells grow with the page height so the five rows fill the screen
+/* Module page cells grow with the page height so the seven rows fill the screen
    instead of bunching at the top; short screens fall back to scrolling. */
 .deck-tabs .tab-button {
-  min-height: 56px;
-  min-height: clamp(48px, 15.6cqh - 50px, 96px);
+  min-height: 48px;
+  min-height: clamp(44px, 12cqh - 46px, 88px);
   font-size: 1.05rem;
+}
+
+/* Wide pages put each row's title beside its cells, so the seven rows still
+   fit one screen on a laptop or a landscape iPad. */
+@container (min-width: 640px) {
+  .deck-row {
+    grid-template-columns: 7.5em minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+  }
+
+  .deck-tabs .tab-button {
+    min-height: clamp(44px, 12cqh - 16px, 88px);
+  }
 }
 
 @media (max-width: 359px) {

@@ -12,6 +12,7 @@ const runtimeAssets = [
   "styles.css",
   "n5-codex-vocab.js",
   "ayaya-n4-codex-vocab.js",
+  "ayaya-n3-codex-vocab.js",
   "grammar-data.js",
   "pitch-accent-data.js",
   "romaji-word-spacing.js",

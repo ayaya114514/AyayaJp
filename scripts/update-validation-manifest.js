@@ -21,6 +21,7 @@ function assertSourceCopiesMatch(data) {
   const pairs = [
     ["N5", readJson("n5-codex-vocab.json"), data.n5],
     ["N4", readJson("ayaya-n4-codex-vocab.json"), data.n4],
+    ["N3", readJson("ayaya-n3-codex-vocab.json"), data.n3],
   ];
   pairs.forEach(([label, jsonData, jsData]) => {
     if (JSON.stringify(jsonData) !== JSON.stringify(jsData)) {

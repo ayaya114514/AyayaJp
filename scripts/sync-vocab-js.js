@@ -11,6 +11,7 @@ const rootDir = path.resolve(__dirname, "..");
 const mirrors = [
   { json: "n5-codex-vocab.json", js: "n5-codex-vocab.js", global: "AYAYA_N5_CODEX_VOCAB" },
   { json: "ayaya-n4-codex-vocab.json", js: "ayaya-n4-codex-vocab.js", global: "AYAYA_N4_CODEX_VOCAB" },
+  { json: "ayaya-n3-codex-vocab.json", js: "ayaya-n3-codex-vocab.js", global: "AYAYA_N3_CODEX_VOCAB" },
 ];
 
 function renderMirror({ json, js, global }) {

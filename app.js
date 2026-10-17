@@ -28,6 +28,9 @@ const isN5VocabDataMissing =
 const isN4VocabDataMissing =
   !Array.isArray(window.AYAYA_N4_CODEX_VOCAB?.entries) ||
   window.AYAYA_N4_CODEX_VOCAB.entries.length === 0;
+const isN3VocabDataMissing =
+  !Array.isArray(window.AYAYA_N3_CODEX_VOCAB?.entries) ||
+  window.AYAYA_N3_CODEX_VOCAB.entries.length === 0;
 const isGrammarDataMissing =
   !Array.isArray(window.AYAYA_GRAMMAR_DATA?.entries) ||
   window.AYAYA_GRAMMAR_DATA.entries.length === 0;
@@ -70,8 +73,10 @@ function cardFamilyForDeck(deck) {
   if (["hiragana", "katakana", "romaji", "special"].includes(deck)) return "kana";
   if (["vocab-ja-zh", "vocab-zh-ja"].includes(deck)) return "vocab-n5";
   if (["vocab-n4-ja-zh", "vocab-n4-zh-ja"].includes(deck)) return "vocab-n4";
+  if (["vocab-n3-ja-zh", "vocab-n3-zh-ja"].includes(deck)) return "vocab-n3";
   if (deck.startsWith("grammar-n5-")) return "grammar-n5";
   if (deck.startsWith("grammar-n4-")) return "grammar-n4";
+  if (deck.startsWith("grammar-n3-")) return "grammar-n3";
   return null;
 }
 
@@ -80,8 +85,10 @@ function buildCardFamily(family) {
   if (family === "kana") return cardData.makeKanaCards();
   if (family === "vocab-n5") return cardData.makeVocabCards("N5");
   if (family === "vocab-n4") return cardData.makeVocabCards("N4");
+  if (family === "vocab-n3") return cardData.makeVocabCards("N3");
   if (family === "grammar-n5") return cardData.makeGrammarCards("N5");
   if (family === "grammar-n4") return cardData.makeGrammarCards("N4");
+  if (family === "grammar-n3") return cardData.makeGrammarCards("N3");
   return [];
 }
 
@@ -869,8 +876,13 @@ function isN5VocabDeck(deck) {
   return cardFamilyForDeck(deck) === "vocab-n5";
 }
 
+function isN3VocabDeck(deck) {
+  return cardFamilyForDeck(deck) === "vocab-n3";
+}
+
 function isDeckDataMissing(deck) {
   if (isCardDataMissing) return true;
+  if (isN3VocabDeck(deck)) return isN3VocabDataMissing;
   if (isN4VocabDeck(deck)) return isN4VocabDataMissing;
   if (isN5VocabDeck(deck)) return isN5VocabDataMissing;
   if (isGrammarDeck(deck)) return isGrammarDataMissing;
@@ -902,6 +914,9 @@ function renderLoadStatus() {
   }
   if (!isCardDataMissing && isN4VocabDataMissing) {
     messages.push("N4 词库加载失败，请确认 ayaya-n4-codex-vocab.js 已正确加载。其他模块仍可使用。");
+  }
+  if (!isCardDataMissing && isN3VocabDataMissing) {
+    messages.push("N3 词库加载失败，请确认 ayaya-n3-codex-vocab.js 已正确加载。其他模块仍可使用。");
   }
   if (!isCardDataMissing && isGrammarDataMissing) {
     messages.push("语法数据加载失败，请确认 grammar-data.js 已正确加载。其他模块仍可使用。");
@@ -1354,16 +1369,21 @@ function render() {
   elements.flashcard.classList.toggle("is-choice", Boolean(currentCard.isChoice));
   elements.flashcard.classList.toggle(
     "is-zh-prompt",
-    ["vocab-zh-ja", "vocab-n4-zh-ja", "grammar-n5-zh-ja", "grammar-n4-zh-ja"].includes(
-      currentCard.deck,
-    ),
+    [
+      "vocab-zh-ja",
+      "vocab-n4-zh-ja",
+      "vocab-n3-zh-ja",
+      "grammar-n5-zh-ja",
+      "grammar-n4-zh-ja",
+      "grammar-n3-zh-ja",
+    ].includes(currentCard.deck),
   );
   elements.cardPrompt.textContent = currentCard.prompt;
   elements.cardPrompt.lang = currentCard.promptLang || "";
   const hidesPromptReading =
     currentCard.isVocab &&
     !currentCard.showsReadingOnFront &&
-    ["vocab-ja-zh", "vocab-n4-ja-zh"].includes(currentCard.deck);
+    ["vocab-ja-zh", "vocab-n4-ja-zh", "vocab-n3-ja-zh"].includes(currentCard.deck);
   const showsCardSubtle = Boolean(currentCard.subtle) && !hidesPromptReading;
   const cardTag = cardTagFor(
     currentCard,
@@ -1460,7 +1480,7 @@ function isGrammarSentenceCard(card) {
 
 function cardTagFor(card, shownText) {
   const tag = String(card.type || "")
-    .replace(/^N[45]\s+/u, "")
+    .replace(/^N[3-5]\s+/u, "")
     .replace(/\s*(?:日文|中文)\s*→\s*(?:中文|日文)$/u, "")
     .replace(/^语法(?=\S)/u, "")
     .trim();
