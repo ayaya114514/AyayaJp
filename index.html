@@ -159,9 +159,10 @@
         </div>
 
         <div class="empty-state" id="emptyState" hidden>
-          <h2>当前模块完成</h2>
+          <h2 id="emptyTitle">当前模块完成</h2>
           <p id="roundStatusText"></p>
           <button class="primary-button restart-button" id="studyAnyWay" type="button">重新开始</button>
+          <button class="text-button" id="groupShowAll" type="button" hidden>练全部语法</button>
         </div>
 
         <section
@@ -203,7 +204,10 @@
               </div>
             </div>
             <section class="deck-level-group" data-level="n5" aria-labelledby="deck-level-n5">
-              <h3 class="deck-level-title" id="deck-level-n5"><span class="deck-level" data-level="n5">N5</span></h3>
+              <div class="deck-level-head">
+                <h3 class="deck-level-title" id="deck-level-n5"><span class="deck-level" data-level="n5">N5</span></h3>
+                <select class="group-select" data-family="grammar-n5" aria-label="N5 语法分组"></select>
+              </div>
               <div class="deck-row" data-row="vocab-n5" role="group" aria-labelledby="deck-level-n5 deck-row-vocab-n5">
                 <h4 class="deck-row-title" id="deck-row-vocab-n5">词汇</h4>
                 <div class="deck-row-items" data-count="2">
@@ -240,7 +244,10 @@
               </div>
             </section>
             <section class="deck-level-group" data-level="n4" aria-labelledby="deck-level-n4">
-              <h3 class="deck-level-title" id="deck-level-n4"><span class="deck-level" data-level="n4">N4</span></h3>
+              <div class="deck-level-head">
+                <h3 class="deck-level-title" id="deck-level-n4"><span class="deck-level" data-level="n4">N4</span></h3>
+                <select class="group-select" data-family="grammar-n4" aria-label="N4 语法分组"></select>
+              </div>
               <div class="deck-row" data-row="vocab-n4" role="group" aria-labelledby="deck-level-n4 deck-row-vocab-n4">
                 <h4 class="deck-row-title" id="deck-row-vocab-n4">词汇</h4>
                 <div class="deck-row-items" data-count="2">
@@ -277,7 +284,10 @@
               </div>
             </section>
             <section class="deck-level-group" data-level="n3" aria-labelledby="deck-level-n3">
-              <h3 class="deck-level-title" id="deck-level-n3"><span class="deck-level" data-level="n3">N3</span></h3>
+              <div class="deck-level-head">
+                <h3 class="deck-level-title" id="deck-level-n3"><span class="deck-level" data-level="n3">N3</span></h3>
+                <select class="group-select" data-family="grammar-n3" aria-label="N3 语法分组"></select>
+              </div>
               <div class="deck-row" data-row="vocab-n3" role="group" aria-labelledby="deck-level-n3 deck-row-vocab-n3">
                 <h4 class="deck-row-title" id="deck-row-vocab-n3">词汇</h4>
                 <div class="deck-row-items" data-count="2">

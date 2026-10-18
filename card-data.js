@@ -567,6 +567,14 @@ const n3Words = n3Entries.map((entry) => [
 const allVocabEntries = [...n5Entries, ...n4Entries, ...n3Entries];
 const allVocabWords = [...n5Words, ...n4Words, ...n3Words];
 const grammarEntries = window.AYAYA_GRAMMAR_DATA?.entries || [];
+// Adverbs and conjunctions that were also grammar cards (もう, きっと, それに)
+// are taught by their vocab cards only; the old grammar card IDs become legacy
+// aliases there so their progress carries over.
+const retiredGrammarIdsByVocab = new Map();
+(window.AYAYA_GRAMMAR_DATA?.retiredEntries || []).forEach(({ id, vocabId }) => {
+  if (!retiredGrammarIdsByVocab.has(vocabId)) retiredGrammarIdsByVocab.set(vocabId, []);
+  retiredGrammarIdsByVocab.get(vocabId).push(id);
+});
 // Reviewed Kanjium pitch accents keyed by vocab source ID; entries without a
 // reliable value stay unannotated.
 const pitchAccentEntries = window.AYAYA_PITCH_ACCENT?.entries || {};
@@ -3313,7 +3321,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "22991:86a5d41562509264";
+const reviewedPronunciationSourceSignature = "22934:7649ed15497bdd9c";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -4033,6 +4041,9 @@ function makeVocabDeckCards({
         ([mergedPrefix, legacyIndex]) => `${mergedPrefix}-${legacyIndex}-${direction}`,
       ),
       ...mergedSourceIds.map((mergedId) => `vocab-entry-${mergedId}-${direction}`),
+      ...(retiredGrammarIdsByVocab.get(sourceId) || []).map(
+        (grammarId) => `grammar-${grammarId}-${direction}`,
+      ),
     ])];
 
     return [
@@ -4141,210 +4152,49 @@ function makeVocabCards(level) {
   return [...n5Cards(), ...n4Cards(), ...n3Cards()];
 }
 
-const grammarChoiceCount = 4;
+// Groups bundle confusable patterns (ば・たら・と・なら, そうだ・ようだ・らしい)
+// so a level can be studied one group at a time; every grammar card is tagged
+// with its group's label.
+const grammarGroups = Array.isArray(window.AYAYA_GRAMMAR_DATA?.groups)
+  ? window.AYAYA_GRAMMAR_DATA.groups
+  : [];
+const grammarGroupLabels = new Map(grammarGroups.map((group) => [group.id, group.label]));
 
-// Options show meanings only: the formation column repeats the pattern text
-// itself (〜にくい → Vます形去ます + にくい), which would give the answer away.
-function grammarChoiceText(entry) {
-  return entry.meaningZh;
+// 说明 rows shared by a grammar point's cards; 辨析 says how the point differs
+// from the ones it is most often confused with.
+function grammarMeta(entry) {
+  return [
+    `接续：${entry.formation}`,
+    `意思：${entry.meaningZh}`,
+    entry.note ? `提示：${entry.note}` : "",
+    entry.contrast ? `辨析：${entry.contrast}` : "",
+  ].filter(Boolean).join("　");
 }
 
-// Near-synonymous gloss fragments that would make two options both right.
-const grammarGlossSynonyms = new Map([
-  ["比起", "比"],
-  ["别", "不要"],
-  ["请不要", "不要"],
-  ["尚未", "还没"],
-  ["是不是", "吗"],
-  ["不知道是否", "吗"],
-  ["刚刚", "刚才"],
-  ["不许", "不可以"],
-  // Hearsay: 〜と言われている / 〜と聞いた / 〜によると / 〜そうだ.
-  ["听说", "据说"],
-  ["据", "据说"],
-  ["根据", "据说"],
-  ["一样的", "样"],
-  ["一样地", "样"],
-  ["一样", "样"],
-  ...["似乎", "好像", "恐怕", "大概", "也许", "可能", "看起来", "显得"].map((word) => [word, "推测"]),
-]);
+const grammarBlank = "（　　）";
 
-// Each gloss becomes the set of fragments between …… placeholders, e.g.
-// 「比起……，……更……」→ {比, 更}; 「别……」→ {不要}.
-function grammarMeaningGlosses(entry) {
-  return String(entry.meaningZh || "")
-    .replace(/[（(][^）)]*[）)]/gu, "")
-    .split(/[；;、／/]/u)
-    .map((gloss) =>
-      gloss
-        .split(/…+|[，,\s。？?！!“”"「」]/u)
-        .filter(Boolean)
-        .map((fragment) => grammarGlossSynonyms.get(fragment) || fragment),
-    )
-    .filter((fragments) => fragments.length);
-}
-
-function grammarPatternParts(entry) {
-  return String(entry.pattern || "")
-    .replace(/[（(][^）)]*[）)]/gu, "")
-    .split(/[/／・]/u)
-    .map((part) => part.replace(/[〜~～+＋\s]|数量/gu, ""))
-    .filter(Boolean);
-}
-
-// A distractor must not also be a right answer: its gloss may not match or
-// contain the correct gloss (〜にくい / 〜づらい, まだ / まだ〜ていません), and
-// patterns that contain one another (〜のに / 〜のに, 〜ないで / 〜ないでください)
-// are never offered against each other.
-// Overlaps the gloss heuristic cannot see: 〜てやる is the casual 〜てあげる,
-// and its 「为……做」 gloss also fits 〜てくれる; 〜に行く literally also means
-// 「去往」; 〜ませんか / 〜ましょう are both invitations; 〜間に「趁……时」/
-// 〜頃「……时候」; 〜と / 〜なら are both 「如果」; 〜し / 〜とか〜とか both list;
-// 〜は〜が、〜は reads as 〜のに's 「虽然……但是……」.
-const grammarOverlappingPairs = new Set([
-  "n4-grammar-092|n4-grammar-104",
-  "n4-grammar-097|n4-grammar-104",
-  "n5-grammar-008|n5-grammar-063",
-  "n5-grammar-060|n5-grammar-061",
-  "n4-grammar-002|n4-grammar-033",
-  "n4-grammar-054|n4-grammar-108",
-  "n4-grammar-077|n4-grammar-115",
-  "n4-grammar-062|n4-grammar-120",
-  // N3: near-synonyms the gloss heuristic misses. 〜うちに / 〜最中に / 〜ところに
-  // all mean “正在……时”; 〜に対して reads as 关于 (〜に関して), 与……相比
-  // (〜に比べて) and 对着 (〜に向かって); 〜にしては / 〜わりに / 〜くせに are all
-  // 「虽然……但」; 〜わけではない / 〜とは限らない / 〜からといって all deny a
-  // general rule; 〜っぽい / 〜気味, 〜かける / 〜ようとする（刚要）, 〜ことだ /
-  // 〜ように / 〜こと（指示）, 〜てしかたがない / 〜てたまらない, 〜ほど〜ない /
-  // 〜ほど〜はない, 〜ば〜ほど / 〜一方だ（越来越）, 〜たびに / 〜ごとに（每次）,
-  // 〜からこそ / 〜もの / 〜んだから（理由）; and the additive group
-  // 〜ばかりでなく / 〜だけでなく / 〜に加えて / 〜上に / 〜はもちろん / 〜も〜ば〜も.
-  "n3-grammar-001|n3-grammar-002",
-  "n3-grammar-001|n3-grammar-099",
-  "n3-grammar-002|n3-grammar-099",
-  "n3-grammar-007|n3-grammar-008",
-  "n3-grammar-007|n3-grammar-058",
-  "n3-grammar-007|n3-grammar-100",
-  "n3-grammar-007|n3-grammar-104",
-  "n3-grammar-007|n3-grammar-105",
-  "n3-grammar-008|n3-grammar-058",
-  "n3-grammar-008|n3-grammar-100",
-  "n3-grammar-008|n3-grammar-104",
-  "n3-grammar-008|n3-grammar-105",
-  "n3-grammar-013|n3-grammar-014",
-  "n3-grammar-013|n3-grammar-057",
-  "n3-grammar-013|n3-grammar-111",
-  "n3-grammar-017|n3-grammar-018",
-  "n3-grammar-018|n3-grammar-019",
-  "n3-grammar-024|n3-grammar-089",
-  "n3-grammar-030|n3-grammar-032",
-  "n3-grammar-036|n3-grammar-037",
-  "n3-grammar-038|n3-grammar-097",
-  "n3-grammar-048|n3-grammar-050",
-  "n3-grammar-058|n3-grammar-100",
-  "n3-grammar-058|n3-grammar-104",
-  "n3-grammar-058|n3-grammar-105",
-  "n3-grammar-062|n3-grammar-072",
-  "n3-grammar-074|n3-grammar-094",
-  "n3-grammar-074|n3-grammar-095",
-  "n3-grammar-077|n3-grammar-113",
-  "n3-grammar-078|n3-grammar-079",
-  "n3-grammar-089|n3-grammar-101",
-  "n3-grammar-094|n3-grammar-095",
-  "n3-grammar-100|n3-grammar-104",
-  "n3-grammar-100|n3-grammar-105",
-  "n3-grammar-102|n3-grammar-113",
-  "n3-grammar-104|n3-grammar-105",
-]);
-
-function grammarMeaningsOverlap(entry, candidate) {
-  const pairKey = [entry.id, candidate.id].sort().join("|");
-  if (grammarOverlappingPairs.has(pairKey)) return true;
-  const patternsOverlap = grammarPatternParts(entry).some((left) =>
-    grammarPatternParts(candidate).some((right) => {
-      const [shorter, longer] = left.length <= right.length ? [left, right] : [right, left];
-      return shorter === longer || (shorter.length >= 2 && longer.includes(shorter));
-    }),
-  );
-  if (patternsOverlap) return true;
-  const isSubset = (small, large) => small.every((fragment) => large.includes(fragment));
-  return grammarMeaningGlosses(entry).some((left) =>
-    grammarMeaningGlosses(candidate).some((right) => {
-      if (isSubset(left, right) || isSubset(right, left)) return true;
-      const leftText = left.join("");
-      const rightText = right.join("");
-      const [shorter, longer] =
-        leftText.length <= rightText.length ? [leftText, rightText] : [rightText, leftText];
-      return shorter.length >= 2 && longer.includes(shorter);
-    }),
-  );
-}
-
-function grammarChoiceKeywords(entry) {
-  return `${entry.pattern} ${entry.meaningZh} ${entry.formation}`
-    .replace(/[〜、。；;：:（）()／/｜|]/g, " ")
-    .split(/\s+/)
-    .filter((item) => item.length >= 2);
-}
-
-function grammarDistractorScore(entry, candidate) {
-  const entryKeywords = new Set(grammarChoiceKeywords(entry));
-  const candidateKeywords = grammarChoiceKeywords(candidate);
-  const sharedKeywordScore = candidateKeywords.filter((item) => entryKeywords.has(item)).length * 4;
-  const sameFormationHeadScore =
-    entry.formation.slice(0, 2) === candidate.formation.slice(0, 2) ? 4 : 0;
-  const meaningOverlapScore = [...entry.meaningZh].filter((char) =>
-    candidate.meaningZh.includes(char),
-  ).length;
-
-  return sharedKeywordScore + sameFormationHeadScore + meaningOverlapScore;
-}
-
-function getGrammarDistractors(entry) {
-  const usedTexts = new Set([grammarChoiceText(entry)]);
-  // Distractors must also differ from each other: three “必须……” options
-  // would leave the odd one out as an obvious answer.
-  const picked = [];
-  return grammarEntries
-    .filter((candidate) => candidate.id !== entry.id && candidate.level === entry.level)
-    .filter((candidate) => !grammarMeaningsOverlap(entry, candidate))
-    .map((candidate) => ({
-      entry: candidate,
-      score: grammarDistractorScore(entry, candidate),
-    }))
-    .sort((left, right) => {
-      if (right.score !== left.score) return right.score - left.score;
-      return left.entry.id.localeCompare(right.entry.id);
-    })
-    .filter(({ entry: candidate }) => {
-      const text = grammarChoiceText(candidate);
-      if (usedTexts.has(text)) return false;
-      if (picked.some((other) => grammarMeaningsOverlap(other, candidate))) return false;
-      usedTexts.add(text);
-      picked.push(candidate);
-      return true;
-    })
-    .slice(0, grammarChoiceCount - 1)
-    .map(({ entry: candidate }) => candidate);
-}
-
+// The 选择题 deck is a fill-in drill: one reviewed example with the pattern
+// blanked out and its Chinese translation as the cue. The three wrong options
+// are reviewed one by one (a confusable pattern, a wrong conjugation or a form
+// that changes the meaning) and each says why it does not fit; validation
+// checks that the blank stands for exactly one place in the sentence.
 function makeGrammarChoiceCard(entry, examples) {
   const levelKey = entry.level.toLowerCase();
+  const drill = entry.drill;
+  const example = examples[drill.example];
   const correctChoiceId = `${entry.id}-correct`;
   const choices = [
     {
       id: correctChoiceId,
       isCorrect: true,
-      sourcePattern: entry.pattern,
-      text: grammarChoiceText(entry),
-      reason: `正确。${entry.pattern} 表示「${entry.meaningZh}」，接续是「${entry.formation}」。${entry.note ? `记忆点：${entry.note}` : "这个意思和接续都与题干文型一致。"}`,
+      text: drill.blank,
+      reason: `正确。${entry.pattern}：${entry.meaningZh}。`,
     },
-    ...getGrammarDistractors(entry).map((candidate) => ({
-      id: `${entry.id}-distractor-${candidate.id}`,
+    ...drill.distractors.map((distractor, index) => ({
+      id: `${entry.id}-drill-${index + 1}`,
       isCorrect: false,
-      sourcePattern: candidate.pattern,
-      text: grammarChoiceText(candidate),
-      reason: `错误。这是「${candidate.pattern}」的意思，不是「${entry.pattern}」。`,
+      text: distractor.text,
+      reason: `错误。${distractor.why}。`,
     })),
   ];
 
@@ -4355,20 +4205,25 @@ function makeGrammarChoiceCard(entry, examples) {
     isChoice: true,
     grammarKey: entry.id,
     grammarLevel: entry.level,
-    type: `${entry.level} 语法选择题`,
-    prompt: `选择「${entry.pattern}」的正确意思`,
-    promptLang: "zh-CN",
-    subtle: examples[0]?.ja || "",
-    subtleLang: "ja",
-    answer: grammarChoiceText(entry),
-    answerLang: "zh-CN",
-    meta: `正确文型：${entry.pattern}${entry.note ? `　提示：${entry.note}` : ""}`,
-    sentenceAnswer: examples[0]?.ja || stripSentencePeriods(entry.answerJa),
-    speech: examples[0]?.speech || sentenceSpeech(stripSentencePeriods(entry.answerJa)),
+    grammarGroup: entry.group,
+    tag: grammarGroupLabels.get(entry.group) || "",
+    type: `${entry.level} 语法填空`,
+    prompt: example.ja.replace(drill.blank, grammarBlank),
+    promptLang: "ja",
+    subtle: example.zh,
+    subtleLang: "zh-CN",
+    choiceLang: "ja",
+    answer: example.ja,
+    answerLang: "ja",
+    // The correct option's explanation already names the pattern and meaning.
+    meta: entry.contrast ? `辨析：${entry.contrast}` : "",
+    sentenceAnswer: example.ja,
+    speech: example.speech,
     frontSpeech: "",
     choices,
     correctChoiceId,
-    examples,
+    // Answered, the card shows the completed sentence only.
+    examples: [example],
   };
 }
 
@@ -4390,7 +4245,11 @@ function makeGrammarCards(level) {
   return grammarEntries.filter((entry) => !level || entry.level === level).flatMap((entry) => {
     const levelKey = entry.level.toLowerCase();
     const examples = normalizeExamples(Array.isArray(entry.examples) ? entry.examples.slice(0, 3) : []);
-    const baseMeta = `接续：${entry.formation}　意思：${entry.meaningZh}${entry.note ? `　提示：${entry.note}` : ""}`;
+    const baseMeta = grammarMeta(entry);
+    const groupFields = {
+      grammarGroup: entry.group,
+      tag: grammarGroupLabels.get(entry.group) || "",
+    };
     const answerJa = stripSentencePeriods(entry.answerJa);
     const promptZh = stripSentencePeriods(entry.promptZh);
     const firstExample = examples[0] || { ja: answerJa || "", zh: promptZh || "" };
@@ -4404,6 +4263,7 @@ function makeGrammarCards(level) {
         isGrammar: true,
         grammarKey: entry.id,
         grammarLevel: entry.level,
+        ...groupFields,
         type: `${entry.level} 语法 中文 → 日文`,
         prompt: promptZh,
         promptLang: "zh-CN",
@@ -4424,6 +4284,7 @@ function makeGrammarCards(level) {
         isGrammar: true,
         grammarKey: entry.id,
         grammarLevel: entry.level,
+        ...groupFields,
         type: `${entry.level} 语法 日文 → 中文`,
         prompt: answerJa,
         promptLang: "ja",
@@ -4443,6 +4304,7 @@ function makeGrammarCards(level) {
         isGrammar: true,
         grammarKey: entry.id,
         grammarLevel: entry.level,
+        ...groupFields,
         type: `${entry.level} 文型 → 含义/接续`,
         prompt: entry.pattern,
         promptLang: "ja",
@@ -4450,7 +4312,11 @@ function makeGrammarCards(level) {
         subtleLang: "ja",
         answer: entry.meaningZh,
         answerLang: "zh-CN",
-        meta: `接续：${entry.formation}${entry.note ? `　提示：${entry.note}` : ""}`,
+        meta: [
+          `接续：${entry.formation}`,
+          entry.note ? `提示：${entry.note}` : "",
+          entry.contrast ? `辨析：${entry.contrast}` : "",
+        ].filter(Boolean).join("　"),
         sentenceAnswer: firstExample.zh,
         speech: firstExample.speech || sentenceSpeech(firstExample.ja),
         frontSpeech: "",
@@ -4472,6 +4338,7 @@ function reviewedWordSplitsAt(text, index) {
 
 window.AYAYA_JP_CARD_DATA = {
   sourceNotes,
+  grammarGroups,
   furiganaEntries: furiganaByLength,
   kanaToRomaji,
   makeGrammarCards,

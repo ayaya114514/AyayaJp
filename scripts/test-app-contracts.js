@@ -365,6 +365,7 @@ function baseCard(overrides = {}) {
 function createHarness({
   audioTexts = null,
   grammarCards = [],
+  grammarGroups = [],
   initialStore,
   kanaCards = [baseCard()],
   random = Math.random,
@@ -401,6 +402,7 @@ function createHarness({
     AYAYA_GRAMMAR_DATA: { entries: [{}] },
     AYAYA_JP_CARD_DATA: {
       furiganaEntries: [],
+      grammarGroups,
       makeGrammarCards(level) {
         return grammarCards.filter(
           (card) => !level || card.grammarLevel === level || card.deck.includes(level.toLowerCase()),
@@ -2524,6 +2526,139 @@ function testChoiceAnswerMarksRelevantMobileDetails() {
   assert(!harness.element("exampleBlock").hidden, "answered choice removed its desktop examples");
 }
 
+function grammarGroupFixture() {
+  const deck = "grammar-n5-ja-zh";
+  const card = (id, group, tag) =>
+    baseCard({
+      deck,
+      grammarGroup: group,
+      grammarLevel: "N5",
+      id,
+      isGrammar: true,
+      prompt: `prompt ${id}`,
+      tag,
+    });
+  const storage = new Map([["ayaya-jp-grammar-group-v1", JSON.stringify({ "grammar-n5": "n5-a" })]]);
+  const harness = createHarness({
+    grammarCards: [card("grammar-a", "n5-a", "甲"), card("grammar-b", "n5-b", "乙")],
+    grammarGroups: [
+      { id: "n5-a", label: "甲", level: "N5" },
+      { id: "n5-b", label: "乙", level: "N5" },
+    ],
+    random: () => 0.99,
+    sharedStorage: storage,
+    tabDecks: ["hiragana", deck],
+  });
+  harness.tabs[1].dispatch("click");
+  return { deck, harness };
+}
+
+function testGrammarGroupNarrowsDeckButNotRound() {
+  const { deck, harness } = grammarGroupFixture();
+  assert(harness.element("cardPrompt").textContent === "prompt grammar-a", "group filter showed another group");
+  assert(harness.element("cardType").textContent === "甲", "grammar card did not show its group tag");
+  assert(harness.element("currentCount").textContent === 1, "group filter did not narrow the 当前 count");
+
+  harness.element("cardReveal").dispatch("click");
+  harness.document.feedback[0].dispatch("click");
+  assert(harness.element("studyCard").hidden === true, "finished group did not show its empty state");
+  assert(harness.element("emptyTitle").textContent === "这一组完成", "finished group used the module title");
+  assert(harness.element("studyAnyWay").textContent === "重练这一组", "finished group offered a full restart");
+  assert(harness.element("groupShowAll").hidden === false, "finished group hid the way back to all groups");
+  let round = JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds.decks[deck];
+  assert(round.rounds === 0, "finishing one group counted as finishing the round");
+  assert(JSON.stringify(round.queue) === JSON.stringify(["grammar-b"]), "other groups left the round queue");
+
+  harness.element("studyAnyWay").dispatch("click");
+  assert(harness.element("cardPrompt").textContent === "prompt grammar-a", "group restart did not reopen the group");
+  round = JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds.decks[deck];
+  assert(!round.completed.includes("grammar-a"), "group restart kept the group card completed");
+  assert(round.queue.includes("grammar-b"), "group restart dropped another group's card");
+
+  harness.element("cardReveal").dispatch("click");
+  harness.document.feedback[0].dispatch("click");
+  harness.element("groupShowAll").dispatch("click");
+  assert(harness.element("cardPrompt").textContent === "prompt grammar-b", "showing all groups did not continue the round");
+  assert(
+    harness.storage.get("ayaya-jp-grammar-group-v1") === "{}",
+    "showing all groups did not clear the saved filter",
+  );
+}
+
+function testChineseGrammarFrontHidesPatternUntilReveal() {
+  const card = baseCard({
+    deck: "grammar-n5-zh-ja",
+    grammarLevel: "N5",
+    id: "grammar-zh",
+    isGrammar: true,
+    prompt: "我想去日本",
+    promptLang: "zh-CN",
+    subtle: "〜たい",
+    subtleLang: "ja",
+    tag: "愿望",
+  });
+  const harness = createHarness({
+    grammarCards: [card],
+    tabDecks: ["hiragana", "grammar-n5-zh-ja"],
+  });
+  harness.tabs[1].dispatch("click");
+  assert(harness.element("cardPattern").hidden === true, "中→日 front gave the pattern away");
+  assert(harness.element("cardSubtle").hidden === true, "中→日 front showed the pattern as a subtitle");
+  assert(harness.element("cardType").textContent === "愿望", "中→日 front lost its group hint");
+  harness.element("cardReveal").dispatch("click");
+  assert(
+    harness.element("cardPattern").hidden === false && harness.element("cardPattern").textContent === "〜たい",
+    "revealed 中→日 card did not show its pattern",
+  );
+}
+
+function testFillInOptionsAreJapanese() {
+  const card = baseCard({
+    choiceLang: "ja",
+    choices: [
+      { id: "right", isCorrect: true, reason: "正确。", text: "行きたい" },
+      { id: "wrong", isCorrect: false, reason: "错误。", text: "行くたい" },
+    ],
+    correctChoiceId: "right",
+    deck: "grammar-n5-choice",
+    grammarLevel: "N5",
+    id: "grammar-fill-in",
+    isChoice: true,
+    isGrammar: true,
+    prompt: "日本へ（　　）です",
+  });
+  const harness = createHarness({
+    grammarCards: [card],
+    tabDecks: ["hiragana", "grammar-n5-choice"],
+  });
+  harness.tabs[1].dispatch("click");
+  const texts = harness.element("choiceList").children.map((option) => option.children[1]);
+  assert(texts.every((text) => text.lang === "ja"), "fill-in options were not marked Japanese");
+}
+
+function testRetiredGrammarProgressMovesToVocab() {
+  const vocabDeck = "vocab-ja-zh";
+  const retiredId = "grammar-n5-grammar-050-ja";
+  const vocabCard = baseCard({
+    deck: vocabDeck,
+    id: "vocab-entry-n5-658-ja",
+    isVocab: true,
+    legacyIds: ["vocab-657-ja", retiredId],
+  });
+  const harness = createHarness({
+    initialStore: JSON.stringify({
+      [retiredId]: { lastRatedAt: 50, lastRating: "unsure", reviews: 3 },
+    }),
+    kanaCards: [],
+    tabDecks: ["hiragana", vocabDeck],
+    vocabCards: [vocabCard],
+  });
+  harness.tabs[1].dispatch("click");
+  const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
+  assert(saved[vocabCard.id]?.reviews === 3, "retired grammar progress did not move to its vocab card");
+  assert(!Object.hasOwn(saved, retiredId), "retired grammar state remained after the move");
+}
+
 function testShuffleDoesNotUseRandomSort() {
   assert(
     !/\.sort\(\s*\(\s*\)\s*=>\s*Math\.random\(\)\s*-\s*0\.5\s*\)/u.test(read("app.js")),
@@ -2589,6 +2724,10 @@ const tests = [
   ["reviewed prosody notation round-trips through the build report", testProsodyNotationRoundTrips],
   ["choice answers mark relevant mobile details", testChoiceAnswerMarksRelevantMobileDetails],
   ["shuffle avoids random sort", testShuffleDoesNotUseRandomSort],
+  ["grammar groups narrow a deck but not its round", testGrammarGroupNarrowsDeckButNotRound],
+  ["中→日 grammar hides its pattern until reveal", testChineseGrammarFrontHidesPatternUntilReveal],
+  ["fill-in options are marked Japanese", testFillInOptionsAreJapanese],
+  ["retired grammar progress moves to vocab", testRetiredGrammarProgressMovesToVocab],
 ];
 
 const failures = [];
