@@ -1440,10 +1440,10 @@ function render() {
   const hidesPattern =
     isGrammarSentenceCard(currentCard) && currentCard.promptLang === "zh-CN" && !isRevealed;
   const showsCardSubtle = Boolean(currentCard.subtle) && !hidesPromptReading && !hidesPattern;
-  // Once a sentence card is revealed its pattern names the point, so the group
+  // Once a grammar card is revealed its pattern names the point, so the group
   // tag steps aside to keep the answer on one screen.
   const cardTag =
-    isGrammarSentenceCard(currentCard) && isRevealed
+    currentCard.isGrammar && !currentCard.isChoice && isRevealed
       ? ""
       : cardTagFor(
           currentCard,
