@@ -1136,6 +1136,10 @@ function validateVocabLevelBoundaries(n5Data, n4Data, n3Data) {
   });
 }
 
+function stripSentencePeriods(text = "") {
+  return String(text).trim().replace(/[。．.]+$/gu, "");
+}
+
 function validateGrammarSource(grammarData, expectedCount) {
   check(grammarData && Array.isArray(grammarData.entries), "grammar-data.js must expose entries");
   if (!Array.isArray(grammarData?.entries)) return;
@@ -1145,13 +1149,30 @@ function validateGrammarSource(grammarData, expectedCount) {
   );
   const requiredFields = [
     "answerJa",
+    "contrast",
     "formation",
+    "group",
     "id",
     "level",
     "meaningZh",
     "pattern",
     "promptZh",
   ];
+  const groups = Array.isArray(grammarData.groups) ? grammarData.groups : [];
+  check(groups.length > 0, "grammar-data.js must define groups");
+  const groupsById = new Map(groups.map((group) => [group.id, group]));
+  check(groupsById.size === groups.length, "grammar group ids must be unique");
+  groups.forEach((group) => {
+    check(
+      /^n[345]-[a-z]+$/u.test(group.id) && group.id.startsWith(String(group.level).toLowerCase()),
+      `grammar group ${group.id} id must start with its level`,
+    );
+    check(typeof group.label === "string" && group.label.trim(), `grammar group ${group.id} needs a label`);
+    check(
+      grammarData.entries.some((entry) => entry.group === group.id),
+      `grammar group ${group.id} has no entries`,
+    );
+  });
   grammarData.entries.forEach((entry, index) => {
     if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
       addError(`grammar entry ${index} must be an object`);
@@ -1164,6 +1185,34 @@ function validateGrammarSource(grammarData, expectedCount) {
       );
     });
     check(["N3", "N4", "N5"].includes(entry.level), `grammar entry ${entry.id} has invalid level`);
+    check(
+      groupsById.get(entry.group)?.level === entry.level,
+      `grammar entry ${entry.id} must belong to a group of its own level`,
+    );
+    // 说明 rows are split on full-width spaces.
+    ["contrast", "formation", "meaningZh", "note"].forEach((field) => {
+      check(!String(entry[field] || "").includes("　"), `grammar entry ${entry.id}.${field} must not contain a full-width space`);
+    });
+    const drill = entry.drill;
+    const drillText = stripSentencePeriods(entry.examples?.[drill?.example]?.ja || "");
+    check(
+      Number.isInteger(drill?.example) && drillText && typeof drill.blank === "string" &&
+        drill.blank && drillText.split(drill.blank).length === 2,
+      `grammar entry ${entry.id} drill blank must occur exactly once in one of its examples`,
+    );
+    const distractors = Array.isArray(drill?.distractors) ? drill.distractors : [];
+    check(distractors.length === 3, `grammar entry ${entry.id} drill needs three distractors`);
+    const optionTexts = [drill?.blank, ...distractors.map((distractor) => distractor?.text)];
+    check(
+      new Set(optionTexts).size === 4 && optionTexts.every((text) => typeof text === "string" && text),
+      `grammar entry ${entry.id} drill options must be four different texts`,
+    );
+    distractors.forEach((distractor) => {
+      check(
+        typeof distractor?.why === "string" && distractor.why.trim() && !/[。．]$/u.test(distractor.why),
+        `grammar entry ${entry.id} drill distractor ${distractor?.text} needs a reason without a closing period`,
+      );
+    });
     check(
       new RegExp(`^${String(entry.level).toLowerCase()}-grammar-\\d{3}$`, "u").test(entry.id),
       `grammar entry ${entry.id} id does not match its level ${entry.level}`,
@@ -2130,7 +2179,7 @@ function validateProductionLegacyVocabIds(runtime) {
     );
     (Array.isArray(card.legacyIds) ? card.legacyIds : []).forEach((legacyId) => {
       check(
-        /^(?:vocab(?:-n4)?-\d+|vocab-entry-n[45]-\d{3})-(?:ja|zh)$/u.test(legacyId),
+        /^(?:vocab(?:-n4)?-\d+|vocab-entry-n[45]-\d{3}|grammar-n[45]-grammar-\d{3})-(?:ja|zh)$/u.test(legacyId),
         `${card.id} has malformed legacy alias ${legacyId}`,
       );
       check(
@@ -2171,6 +2220,7 @@ function validateProductionLegacyVocabIds(runtime) {
     },
   };
 
+  const retiredGrammarEntries = runtime.data.grammar?.retiredEntries || [];
   Object.entries(levelConfigs).forEach(([label, config]) => {
     config.data.forEach((entry) => {
       const idMatch = new RegExp(`^${config.sourcePrefix}-(\\d{3})$`, "u").exec(entry.id);
@@ -2209,6 +2259,9 @@ function validateProductionLegacyVocabIds(runtime) {
           ...(Array.isArray(entry.merged_source_ids) ? entry.merged_source_ids : []).map(
             (mergedId) => `vocab-entry-${mergedId}-${direction}`,
           ),
+          ...retiredGrammarEntries
+            .filter((retired) => retired.vocabId === entry.id)
+            .map((retired) => `grammar-${retired.id}-${direction}`),
         ].sort();
         const actualAliases = Array.isArray(card.legacyIds) ? [...card.legacyIds].sort() : [];
         check(
@@ -2409,10 +2462,38 @@ function validatePreferredReadingRegressions(runtime) {
   });
 }
 
+// Grammar entries that only taught an adverb or conjunction (もう, きっと, それに)
+// are retired into the vocab card for the same word; their IDs must never come
+// back as grammar entries, and the vocab target must be that word.
+function validateRetiredGrammarEntries(runtime) {
+  const retired = runtime.data.grammar?.retiredEntries || [];
+  const liveIds = new Set(runtime.data.grammar.entries.map((entry) => entry.id));
+  const vocabById = new Map(
+    [...runtime.data.n5.entries, ...runtime.data.n4.entries].map((entry) => [entry.id, entry]),
+  );
+  check(new Set(retired.map((entry) => entry.id)).size === retired.length, "retired grammar ids must be unique");
+  retired.forEach(({ id, pattern, vocabId }) => {
+    check(/^n[45]-grammar-\d{3}$/u.test(id), `retired grammar id ${id} is malformed`);
+    check(!liveIds.has(id), `retired grammar id ${id} is still a grammar entry`);
+    const vocab = vocabById.get(vocabId);
+    check(Boolean(vocab), `retired grammar ${id} points to unknown vocab ${vocabId}`);
+    check(
+      Boolean(vocab) && String(pattern).includes(vocab.headword),
+      `retired grammar ${id} ${pattern} does not match vocab ${vocabId} ${vocab?.headword}`,
+    );
+  });
+}
+
+// 选择题 cards are fill-in drills built from a reviewed example: the prompt is
+// that sentence with exactly one blank, the correct option restores it, and
+// each wrong option carries its own reviewed reason.
 function validateGrammarChoices(grammarCards, grammarData) {
   const grammarById = new Map(grammarData.entries.map((entry) => [entry.id, entry]));
   const choiceCards = grammarCards.filter((card) => card.isChoice);
-  const crossLevel = [];
+  check(
+    choiceCards.length === grammarData.entries.length,
+    `every grammar entry needs one fill-in card: ${choiceCards.length}/${grammarData.entries.length}`,
+  );
   choiceCards.forEach((card) => {
     check(Array.isArray(card.choices) && card.choices.length === 4, `${card.id} needs four choices`);
     if (!Array.isArray(card.choices)) return;
@@ -2435,23 +2516,18 @@ function validateGrammarChoices(grammarCards, grammarData) {
       check(typeof choice.id === "string" && choice.id, `${card.id} has a choice without id`);
       check(typeof choice.text === "string" && choice.text, `${card.id} has a choice without text`);
       check(typeof choice.reason === "string" && choice.reason, `${card.id} has a choice without reason`);
-      if (choice.isCorrect || !owner) return;
-      const prefix = `${card.grammarKey}-distractor-`;
-      const candidateId = choice.sourceGrammarId ||
-        choice.grammarId ||
-        (choice.id.startsWith(prefix) ? choice.id.slice(prefix.length) : "");
-      const candidate = grammarById.get(candidateId);
-      check(Boolean(candidate), `${card.id} distractor ${choice.id} has no resolvable source grammar id`);
-      if (candidate && candidate.level !== owner.level) {
-        crossLevel.push(`${card.id} -> ${candidate.id} (${owner.level}/${candidate.level})`);
-      }
     });
-  });
-  if (crossLevel.length) {
-    addError(
-      `${crossLevel.length} grammar distractors cross deck levels: ${sample(crossLevel, 10)}`,
+    if (!owner) return;
+    const example = stripSentencePeriods(owner.examples?.[owner.drill?.example]?.ja || "");
+    check(
+      card.prompt.split("（　　）").length === 2 &&
+        card.prompt.replace("（　　）", correct[0]?.text || "") === example,
+      `${card.id} prompt must be its example with one blank the correct option fills`,
     );
-  }
+    check(card.answer === example, `${card.id} answer must be the completed example`);
+    check(card.subtle === stripSentencePeriods(owner.examples?.[owner.drill?.example]?.zh || ""),
+      `${card.id} must show its example's Chinese translation as the cue`);
+  });
 }
 
 // Furigana must come from the same context-guarded segmentation as romaji:
@@ -2903,6 +2979,7 @@ function main() {
     validateProductionLegacyVocabIds(runtime);
     validatePreferredReadingRegressions(runtime);
     validateGrammarChoices(runtime.grammarCards, runtime.data.grammar);
+    validateRetiredGrammarEntries(runtime);
     validateExampleFurigana(cards, runtime.cardData.reviewedWordSplitsAt);
     validateExampleSpeech(cards, runtime.cardData.kanaToRomaji);
     capture("audio clip check failed", () => validateAudioClips(runtime, html));

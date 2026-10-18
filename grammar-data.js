@@ -1,13 +1,439 @@
 window.AYAYA_GRAMMAR_DATA = {
   "sourceNote": "JLPT官方不发布固定语法/词汇清单；本数据按N5/N4常见学习范围整理，并结合官方考试题型说明、JLPT样题/官方问题集说明及常见教学清单校对。",
+  "groups": [
+    {
+      "id": "n5-topic",
+      "level": "N5",
+      "label": "は・が・も"
+    },
+    {
+      "id": "n5-case",
+      "level": "N5",
+      "label": "を・に・へ・で"
+    },
+    {
+      "id": "n5-link",
+      "level": "N5",
+      "label": "の・と・や・だけ"
+    },
+    {
+      "id": "n5-predicate",
+      "level": "N5",
+      "label": "判断与存在"
+    },
+    {
+      "id": "n5-adjective",
+      "level": "N5",
+      "label": "形容词与变化"
+    },
+    {
+      "id": "n5-compare",
+      "level": "N5",
+      "label": "比较与程度"
+    },
+    {
+      "id": "n5-aspect",
+      "level": "N5",
+      "label": "ている・た形"
+    },
+    {
+      "id": "n5-sequence",
+      "level": "N5",
+      "label": "时间与顺序"
+    },
+    {
+      "id": "n5-wish",
+      "level": "N5",
+      "label": "愿望与打算"
+    },
+    {
+      "id": "n5-invite",
+      "level": "N5",
+      "label": "邀请与提议"
+    },
+    {
+      "id": "n5-request",
+      "level": "N5",
+      "label": "请求・许可・禁止"
+    },
+    {
+      "id": "n5-must",
+      "level": "N5",
+      "label": "义务与建议"
+    },
+    {
+      "id": "n5-reason",
+      "level": "N5",
+      "label": "原因与转折"
+    },
+    {
+      "id": "n5-guess",
+      "level": "N5",
+      "label": "推测与说明"
+    },
+    {
+      "id": "n5-question",
+      "level": "N5",
+      "label": "疑问与语气"
+    },
+    {
+      "id": "n5-nominal",
+      "level": "N5",
+      "label": "〜のが・〜方"
+    },
+    {
+      "id": "n5-honorific",
+      "level": "N5",
+      "label": "敬语"
+    },
+    {
+      "id": "n4-time",
+      "level": "N4",
+      "label": "时间"
+    },
+    {
+      "id": "n4-condition",
+      "level": "N4",
+      "label": "条件"
+    },
+    {
+      "id": "n4-concession",
+      "level": "N4",
+      "label": "转折与让步"
+    },
+    {
+      "id": "n4-reason",
+      "level": "N4",
+      "label": "原因与目的"
+    },
+    {
+      "id": "n4-guess",
+      "level": "N4",
+      "label": "推测"
+    },
+    {
+      "id": "n4-appearance",
+      "level": "N4",
+      "label": "样子与比喻"
+    },
+    {
+      "id": "n4-hearsay",
+      "level": "N4",
+      "label": "传闻与引用"
+    },
+    {
+      "id": "n4-plan",
+      "level": "N4",
+      "label": "意志与计划"
+    },
+    {
+      "id": "n4-koto",
+      "level": "N4",
+      "label": "こと・よう句型"
+    },
+    {
+      "id": "n4-feeling",
+      "level": "N4",
+      "label": "他人的感情"
+    },
+    {
+      "id": "n4-giving",
+      "level": "N4",
+      "label": "授受"
+    },
+    {
+      "id": "n4-stage",
+      "level": "N4",
+      "label": "ところ・ばかり"
+    },
+    {
+      "id": "n4-te",
+      "level": "N4",
+      "label": "て形补助动词"
+    },
+    {
+      "id": "n4-compound",
+      "level": "N4",
+      "label": "复合动词"
+    },
+    {
+      "id": "n4-must",
+      "level": "N4",
+      "label": "必须与必要"
+    },
+    {
+      "id": "n4-command",
+      "level": "N4",
+      "label": "命令与建议"
+    },
+    {
+      "id": "n4-voice",
+      "level": "N4",
+      "label": "可能・被动・使役"
+    },
+    {
+      "id": "n4-honorific",
+      "level": "N4",
+      "label": "敬语"
+    },
+    {
+      "id": "n4-tone",
+      "level": "N4",
+      "label": "句末语气"
+    },
+    {
+      "id": "n4-particle",
+      "level": "N4",
+      "label": "助词表达"
+    },
+    {
+      "id": "n4-quantity",
+      "level": "N4",
+      "label": "数量与比较"
+    },
+    {
+      "id": "n4-nominal",
+      "level": "N4",
+      "label": "名词化"
+    },
+    {
+      "id": "n4-adverb",
+      "level": "N4",
+      "label": "副词呼应"
+    },
+    {
+      "id": "n3-time",
+      "level": "N3",
+      "label": "时间与先后"
+    },
+    {
+      "id": "n3-frequency",
+      "level": "N3",
+      "label": "频率与范围"
+    },
+    {
+      "id": "n3-change",
+      "level": "N3",
+      "label": "变化与同步"
+    },
+    {
+      "id": "n3-addition",
+      "level": "N3",
+      "label": "不仅……而且"
+    },
+    {
+      "id": "n3-reason",
+      "level": "N3",
+      "label": "原因"
+    },
+    {
+      "id": "n3-concession",
+      "level": "N3",
+      "label": "转折与让步"
+    },
+    {
+      "id": "n3-condition",
+      "level": "N3",
+      "label": "条件与假定"
+    },
+    {
+      "id": "n3-compare",
+      "level": "N3",
+      "label": "程度与比较"
+    },
+    {
+      "id": "n3-ni",
+      "level": "N3",
+      "label": "によって・にとって等"
+    },
+    {
+      "id": "n3-wo",
+      "level": "N3",
+      "label": "を中心に・を通して等"
+    },
+    {
+      "id": "n3-substitute",
+      "level": "N3",
+      "label": "代替与方式"
+    },
+    {
+      "id": "n3-limit",
+      "level": "N3",
+      "label": "限定与强调"
+    },
+    {
+      "id": "n3-koto",
+      "level": "N3",
+      "label": "こと句型"
+    },
+    {
+      "id": "n3-wake",
+      "level": "N3",
+      "label": "わけ・もの"
+    },
+    {
+      "id": "n3-instruction",
+      "level": "N3",
+      "label": "ように・べき"
+    },
+    {
+      "id": "n3-guess",
+      "level": "N3",
+      "label": "推测与断定"
+    },
+    {
+      "id": "n3-toiu",
+      "level": "N3",
+      "label": "という"
+    },
+    {
+      "id": "n3-intent",
+      "level": "N3",
+      "label": "意图"
+    },
+    {
+      "id": "n3-tendency",
+      "level": "N3",
+      "label": "倾向"
+    },
+    {
+      "id": "n3-suffix",
+      "level": "N3",
+      "label": "接尾词"
+    },
+    {
+      "id": "n3-compound",
+      "level": "N3",
+      "label": "复合动词"
+    },
+    {
+      "id": "n3-te",
+      "level": "N3",
+      "label": "て形表达"
+    },
+    {
+      "id": "n3-honorific",
+      "level": "N3",
+      "label": "敬语"
+    },
+    {
+      "id": "n3-colloquial",
+      "level": "N3",
+      "label": "口语缩约"
+    }
+  ],
+  "retiredEntries": [
+    {
+      "id": "n5-grammar-046",
+      "pattern": "でも",
+      "vocabId": "n5-435"
+    },
+    {
+      "id": "n5-grammar-047",
+      "pattern": "しかし",
+      "vocabId": "n5-293"
+    },
+    {
+      "id": "n5-grammar-048",
+      "pattern": "それから",
+      "vocabId": "n5-369"
+    },
+    {
+      "id": "n5-grammar-049",
+      "pattern": "そして",
+      "vocabId": "n5-360"
+    },
+    {
+      "id": "n5-grammar-050",
+      "pattern": "もう",
+      "vocabId": "n5-658"
+    },
+    {
+      "id": "n5-grammar-051",
+      "pattern": "まだ",
+      "vocabId": "n5-626"
+    },
+    {
+      "id": "n5-grammar-053",
+      "pattern": "いつも",
+      "vocabId": "n5-064"
+    },
+    {
+      "id": "n5-grammar-054",
+      "pattern": "とても",
+      "vocabId": "n5-463"
+    },
+    {
+      "id": "n5-grammar-055",
+      "pattern": "一番",
+      "vocabId": "n5-059"
+    },
+    {
+      "id": "n5-grammar-059",
+      "pattern": "一緒に",
+      "vocabId": "n5-062"
+    },
+    {
+      "id": "n5-grammar-079",
+      "pattern": "どんな〜",
+      "vocabId": "n5-476"
+    },
+    {
+      "id": "n5-grammar-080",
+      "pattern": "どうして",
+      "vocabId": "n5-447"
+    },
+    {
+      "id": "n4-grammar-032",
+      "pattern": "きっと",
+      "vocabId": "n4-160"
+    },
+    {
+      "id": "n4-grammar-040",
+      "pattern": "急に",
+      "vocabId": "n4-173"
+    },
+    {
+      "id": "n4-grammar-043",
+      "pattern": "または",
+      "vocabId": "n4-615"
+    },
+    {
+      "id": "n4-grammar-072",
+      "pattern": "さっき",
+      "vocabId": "n4-274"
+    },
+    {
+      "id": "n4-grammar-078",
+      "pattern": "そんなに",
+      "vocabId": "n4-391"
+    },
+    {
+      "id": "n4-grammar-080",
+      "pattern": "それに",
+      "vocabId": "n4-386"
+    },
+    {
+      "id": "n4-grammar-122",
+      "pattern": "やっと",
+      "vocabId": "n4-658"
+    },
+    {
+      "id": "n4-grammar-130",
+      "pattern": "ぜひ",
+      "vocabId": "n4-375"
+    }
+  ],
   "entries": [
     {
       "id": "n5-grammar-001",
       "level": "N5",
+      "group": "n5-predicate",
       "pattern": "〜です / 〜だ",
       "meaningZh": "是……；礼貌/普通判断",
       "formation": "N + です / N + だ；な形容詞語幹 + です / だ",
       "note": "です是礼貌体，だ是普通体。名词和な形容词不用加の。",
+      "contrast": "否定用じゃない／ではない；表示“有、在”用あります／います，不用です。",
       "promptZh": "我是学生。",
       "answerJa": "私は学生です。",
       "examples": [
@@ -23,15 +449,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "田中さんは元気だと思います。",
           "zh": "我觉得田中先生很有精神。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "です",
+        "distractors": [
+          {
+            "text": "じゃありません",
+            "why": "じゃありません是否定“不是”，与“我是学生”相反"
+          },
+          {
+            "text": "なです",
+            "why": "名词后直接接です，不加な"
+          },
+          {
+            "text": "だです",
+            "why": "だ是です的普通体，两者不能叠用"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-002",
       "level": "N5",
+      "group": "n5-predicate",
       "pattern": "〜じゃない / 〜ではない",
       "meaningZh": "不是……",
       "formation": "N / な形容詞語幹 + じゃない / ではない",
       "note": "じゃない较口语，ではない较书面；礼貌体是じゃありません/ではありません。",
+      "contrast": "名词、な形容词的否定；い形容词的否定是〜くない（高くない）。",
       "promptZh": "这不是我的包。",
       "answerJa": "これは私のかばんじゃありません。",
       "examples": [
@@ -47,15 +493,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "田中さんは学生じゃないと思います。",
           "zh": "我觉得田中先生不是学生。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "ではないです",
+        "distractors": [
+          {
+            "text": "くないです",
+            "why": "〜くない只用于い形容词；名词的否定是ではない"
+          },
+          {
+            "text": "ですない",
+            "why": "没有这种说法；名词的否定是ではない"
+          },
+          {
+            "text": "です",
+            "why": "です是肯定“是休息日”，与“不是”相反"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-003",
       "level": "N5",
+      "group": "n5-question",
       "pattern": "〜か",
       "meaningZh": "疑问；是否……",
       "formation": "句子 + か",
       "note": "礼貌疑问句句末通常不用问号；语调上扬。",
+      "contrast": "か表示提问；ね寻求对方共鸣；よ告诉对方新信息。",
       "promptZh": "这是什么？",
       "answerJa": "これは何ですか。",
       "examples": [
@@ -71,15 +537,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "コーヒーを飲みますか。",
           "zh": "喝咖啡吗？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "か",
+        "distractors": [
+          {
+            "text": "よ",
+            "why": "よ是告诉对方“明天去学校哦”，不是提问"
+          },
+          {
+            "text": "から",
+            "why": "から放在句末表示理由“因为要去”，不是提问"
+          },
+          {
+            "text": "が",
+            "why": "が放在句末表示“去，但是……”，话没说完"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-004",
       "level": "N5",
+      "group": "n5-topic",
       "pattern": "〜が",
       "meaningZh": "主语/对象标记；但是",
       "formation": "N + が；句子 + が",
       "note": "标记新信息或现象的主语；在好き、分かる、できる等表达中标记对象。接在句子后还可表示转折“但是”。",
+      "contrast": "が标记新信息、现象的主语，也标记好き・分かる・できる的对象；は提出话题或表示对比。",
       "promptZh": "正在下雨。",
       "answerJa": "雨が降っています。",
       "examples": [
@@ -95,15 +581,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "行きたいですが、時間がありません。",
           "zh": "想去，但是没有时间。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "が",
+        "distractors": [
+          {
+            "text": "を",
+            "why": "分かる的对象用が，不用を"
+          },
+          {
+            "text": "で",
+            "why": "で表示动作场所或手段，不能标记分かる的对象"
+          },
+          {
+            "text": "と",
+            "why": "と表示“和”，这里需要标记分かる的对象"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-005",
       "level": "N5",
+      "group": "n5-topic",
       "pattern": "〜は",
       "meaningZh": "主题标记",
       "formation": "N + は",
       "note": "读作わ。用于提出话题、对比或说明范围。",
+      "contrast": "は提出话题（读作wa）；用疑问词提问或回答时的主语用が（誰が来ましたか）。",
       "promptZh": "我是中国人。",
       "answerJa": "私は中国人です。",
       "examples": [
@@ -119,15 +625,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "コーヒーは飲みますが、お酒は飲みません。",
           "zh": "咖啡我喝，但酒不喝。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "は",
+        "distractors": [
+          {
+            "text": "も",
+            "why": "今日も是“今天也很热”，译文里没有“也”"
+          },
+          {
+            "text": "を",
+            "why": "を标记动作的宾语，暑い没有宾语"
+          },
+          {
+            "text": "に",
+            "why": "今日、明日等相对时间不接に"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-006",
       "level": "N5",
+      "group": "n5-case",
       "pattern": "〜を",
       "meaningZh": "宾语/经过点标记",
       "formation": "N + を",
       "note": "读作お。常标记动作对象，也可标记经过的场所。",
+      "contrast": "を标记动作对象，也可标记经过的场所；动作发生的场所用で。",
       "promptZh": "喝水。",
       "answerJa": "水を飲みます。",
       "examples": [
@@ -143,15 +669,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "公園を散歩します。",
           "zh": "在公园散步。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "を",
+        "distractors": [
+          {
+            "text": "に",
+            "why": "に表示时间、地点或对象，不标记“喝”的宾语"
+          },
+          {
+            "text": "が",
+            "why": "水が飲みます变成“水在喝”，主语不对"
+          },
+          {
+            "text": "へ",
+            "why": "へ表示移动的方向，不标记宾语"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-007",
       "level": "N5",
+      "group": "n5-case",
       "pattern": "〜に",
       "meaningZh": "时间/地点/对象/目的地",
       "formation": "N + に；时间词 + に",
       "note": "具体时间多用に；“今天、明天”等相对时间一般不用に。",
+      "contrast": "に表示具体时间、存在的地点、动作的对象；动作发生的场所用で。",
       "promptZh": "七点起床。",
       "answerJa": "七時に起きます。",
       "examples": [
@@ -167,15 +713,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "友達に電話します。",
           "zh": "给朋友打电话。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "に",
+        "distractors": [
+          {
+            "text": "で",
+            "why": "存在的地点（有……）用に；で表示动作发生的场所"
+          },
+          {
+            "text": "を",
+            "why": "を标记宾语或经过的场所，不表示存在的地点"
+          },
+          {
+            "text": "へ",
+            "why": "へ表示移动的方向，あります不是移动"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-008",
       "level": "N5",
+      "group": "n5-case",
       "pattern": "〜へ / 〜に",
       "meaningZh": "去往……；朝……",
       "formation": "地点 + へ / に + 行く/来る/帰る",
       "note": "へ读作え，强调方向；に更强调到达点。",
+      "contrast": "へ（读作e）强调方向，に强调到达点；跟行く・来る・帰る时两者常可互换。",
       "promptZh": "明天去京都。",
       "answerJa": "明日、京都へ行きます。",
       "examples": [
@@ -191,15 +757,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "駅へ歩いて行きます。",
           "zh": "走路去车站。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "へ",
+        "distractors": [
+          {
+            "text": "で",
+            "why": "で表示动作场所或手段，不表示目的地"
+          },
+          {
+            "text": "を",
+            "why": "を表示经过的场所，不表示目的地"
+          },
+          {
+            "text": "が",
+            "why": "が标记主语，京都不是“去”的人"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-009",
       "level": "N5",
+      "group": "n5-case",
       "pattern": "〜で",
       "meaningZh": "在……；用……；因为……",
       "formation": "地点/工具/材料/范围/原因 + で",
       "note": "表示动作发生的地点、手段或材料；接在疾病、事故等名词后，也可表示原因。",
+      "contrast": "で表示动作的场所、手段、原因；存在的场所用に（図書館にいます）。",
       "promptZh": "在图书馆学习。",
       "answerJa": "図書館で勉強します。",
       "examples": [
@@ -215,15 +801,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "病気で学校を休みました。",
           "zh": "因为生病没去学校。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "で",
+        "distractors": [
+          {
+            "text": "に",
+            "why": "に表示存在的地点；“在……学习”是动作，用で"
+          },
+          {
+            "text": "を",
+            "why": "図書館を勉強します变成“学习图书馆”"
+          },
+          {
+            "text": "へ",
+            "why": "へ表示移动方向，勉強します不是移动"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-010",
       "level": "N5",
+      "group": "n5-link",
       "pattern": "〜の",
       "meaningZh": "的；名词化；说明语气",
       "formation": "N + の + N；V/い形普通形 + の；な形/N肯定非过去 + なの；な形/N过去・否定普通形 + の",
       "note": "连接名词时相当于“的”；接在普通形后可把内容名词化。な形容词和名词只有肯定非过去形使用「なの」，如「静かなの／学生なの」；过去或否定形直接接「の」，如「静かだったの／学生ではないの」。句末的「の」还可用于口语中的说明或提问，礼貌表达常用「んです／のです」。",
+      "contrast": "の连接名词表示“的”，也可把动词名词化（走るのは好き）；な形容词修饰名词用な，不用の。",
       "promptZh": "这是我的书。",
       "answerJa": "これは私の本です。",
       "examples": [
@@ -239,15 +845,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "走るのは好きです。",
           "zh": "我喜欢跑步。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "の",
+        "distractors": [
+          {
+            "text": "な",
+            "why": "名词修饰名词用の；な用于な形容词"
+          },
+          {
+            "text": "と",
+            "why": "日本語と本是“日语和书”，与“日语书”不同"
+          },
+          {
+            "text": "が",
+            "why": "日本語が本を読みます变成“日语读书”"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-011",
       "level": "N5",
+      "group": "n5-topic",
       "pattern": "〜も",
       "meaningZh": "也；都；也不",
       "formation": "N + も；疑问词 + も + 否定",
       "note": "替换は/が/を的位置，表达追加或全面否定。",
+      "contrast": "も表示“也、都”；疑问词＋も＋否定表示全面否定（何も〜ない）。",
       "promptZh": "我也去。",
       "answerJa": "私も行きます。",
       "examples": [
@@ -263,16 +889,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "今日は何も食べていません。",
           "zh": "今天什么也没吃。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "も",
+        "distractors": [
+          {
+            "text": "を",
+            "why": "“什么也没……”要用何も＋否定"
+          },
+          {
+            "text": "か",
+            "why": "何か是“某个东西”，不表示“什么都”"
+          },
+          {
+            "text": "が",
+            "why": "何が是提问的主语，不能表示“什么也没”"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-012",
       "retiredVocabSourceIds": ["n5-380"],
       "level": "N5",
+      "group": "n5-link",
       "pattern": "〜だけ",
       "meaningZh": "只……；仅……",
       "formation": "N / 数量詞 + だけ；V/い形普通形 + だけ；な形肯定非过去：語幹 + なだけ；过去/否定普通形 + だけ",
       "note": "表示限定范围或数量；可与で、に、を等助词组合。",
+      "contrast": "だけ表示限定“只”；しか也表示“只”，但后面必须接否定（水しか飲みません）。",
       "promptZh": "只喝水。",
       "answerJa": "水だけ飲みます。",
       "examples": [
@@ -288,15 +934,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "休みは日曜日だけです。",
           "zh": "只有星期日休息。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "だけ",
+        "distractors": [
+          {
+            "text": "しか",
+            "why": "しか后面必须接否定：水しか飲みません"
+          },
+          {
+            "text": "も",
+            "why": "水も飲みます是“也喝水”"
+          },
+          {
+            "text": "まで",
+            "why": "水まで飲みます是“连水都喝”"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-013",
       "level": "N5",
+      "group": "n5-link",
       "pattern": "〜と",
       "meaningZh": "和；一起；引用",
       "formation": "N + と；句子 + と言う/思う",
       "note": "连接名词表示“和”；也可用于引用。",
+      "contrast": "と完全列举（パンと牛乳＝只有这两样）；や不完全列举，暗示还有别的。",
       "promptZh": "和朋友看电影。",
       "answerJa": "友達と映画を見ます。",
       "examples": [
@@ -312,15 +978,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "先生は大丈夫だと言いました。",
           "zh": "老师说没问题。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "と",
+        "distractors": [
+          {
+            "text": "や",
+            "why": "や用于列举事物，友達や映画会变成“看朋友、电影等”"
+          },
+          {
+            "text": "に",
+            "why": "友達に是“对朋友、给朋友”，不是“和朋友一起”"
+          },
+          {
+            "text": "を",
+            "why": "友達を映画を見ます用了两个を，句子不成立"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-014",
       "level": "N5",
+      "group": "n5-link",
       "pattern": "〜や",
       "meaningZh": "……和……等",
       "formation": "N + や + N など",
       "note": "非完全列举；暗示还有其他同类事物。",
+      "contrast": "や不完全列举（还有别的）；と完全列举，列出的就是全部。",
       "promptZh": "桌上有书、笔记本等。",
       "answerJa": "机の上に本やノートがあります。",
       "examples": [
@@ -336,15 +1022,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "休みの日に映画やドラマを見ます。",
           "zh": "休息日看电影、电视剧之类。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "や",
+        "distractors": [
+          {
+            "text": "と",
+            "why": "と是完全列举；译文的“等”说明还买了别的，用や"
+          },
+          {
+            "text": "を",
+            "why": "野菜を果物を用了两个を，句子不成立"
+          },
+          {
+            "text": "が",
+            "why": "野菜が果物を買いました变成“蔬菜买了水果”"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-015",
       "level": "N5",
+      "group": "n5-link",
       "pattern": "〜か〜か",
       "meaningZh": "……还是……",
       "formation": "V/い形普通形 + か；な形/N肯定非过去：語幹/N + か；过去/否定普通形 + か（两项并列）",
       "note": "表示二选一或不确定的两个选项。",
+      "contrast": "〜か〜か从两个选项中选一个；〜たり〜たり列举动作。",
       "promptZh": "今天去还是明天去，我还没决定。",
       "answerJa": "今日行くか、明日行くか、まだ決めていません。",
       "examples": [
@@ -360,15 +1066,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "電車で行くか、バスで行くか、考えています。",
           "zh": "在考虑坐电车去还是坐公交去。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "行くか、明日行くか",
+        "distractors": [
+          {
+            "text": "行ったり、明日行ったり",
+            "why": "たり〜たり列举动作，不表示“还是”"
+          },
+          {
+            "text": "行くし、明日行くし",
+            "why": "し用来列举理由，不表示二选一"
+          },
+          {
+            "text": "行くと、明日行くと",
+            "why": "と表示条件“一……就”，这里要说“还是”"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-016",
       "level": "N5",
+      "group": "n5-predicate",
       "pattern": "〜があります",
       "meaningZh": "有……；发生……",
       "formation": "N + があります",
       "note": "用于无生命物、抽象事物、活动、事件等。",
+      "contrast": "あります用于无生命的物体和事件；人和动物用います。",
       "promptZh": "桌子上有书。",
       "answerJa": "机の上に本があります。",
       "examples": [
@@ -384,15 +1110,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "時間がありますから、手伝います。",
           "zh": "因为有时间，所以帮忙。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "があります",
+        "distractors": [
+          {
+            "text": "がいます",
+            "why": "テスト没有生命，用あります"
+          },
+          {
+            "text": "をあります",
+            "why": "あります的主语用が，不用を"
+          },
+          {
+            "text": "がありません",
+            "why": "がありません是“没有考试”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-017",
       "level": "N5",
+      "group": "n5-predicate",
       "pattern": "〜がいます",
       "meaningZh": "有……；在……",
       "formation": "N(人/动物) + がいます",
       "note": "用于人或动物等有生命对象。",
+      "contrast": "います用于人和动物；物体和事件用あります。",
       "promptZh": "公园里有孩子。",
       "answerJa": "公園に子供がいます。",
       "examples": [
@@ -408,15 +1154,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "教室に先生がいます。",
           "zh": "老师在教室里。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "がいます",
+        "distractors": [
+          {
+            "text": "があります",
+            "why": "子供是人，用います"
+          },
+          {
+            "text": "をいます",
+            "why": "います的主语用が，不用を"
+          },
+          {
+            "text": "がいません",
+            "why": "がいません是“没有孩子”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-018",
       "level": "N5",
+      "group": "n5-wish",
       "pattern": "〜がほしい",
       "meaningZh": "想要……",
       "formation": "N + がほしい",
       "note": "通常用于说话人自己的愿望；第三人称要谨慎，常用ほしがっています。",
+      "contrast": "Nがほしい想要东西；想“做”某事用Vたい；说别人想要用ほしがっている。",
       "promptZh": "我想要一个新包。",
       "answerJa": "新しいかばんがほしいです。",
       "examples": [
@@ -432,15 +1198,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "冷たい水がほしいです。",
           "zh": "我想要凉水。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "がほしい",
+        "distractors": [
+          {
+            "text": "がたい",
+            "why": "たい接动词ます形，不能直接接名词"
+          },
+          {
+            "text": "が好き",
+            "why": "が好き是“喜欢”，不是“想要”"
+          },
+          {
+            "text": "がない",
+            "why": "がない是“没有新包”，不是“想要”"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-019",
       "level": "N5",
+      "group": "n5-adjective",
       "pattern": "い形容詞",
       "meaningZh": "い形容词谓语/修饰名词",
       "formation": "い形容詞 + です；い形容詞 + N",
       "note": "否定为〜くない，过去为〜かった。いい的变化是よくない/よかった。",
+      "contrast": "い形容词直接修饰名词（新しい靴），过去式是〜かった；な形容词修饰名词要加な。",
       "promptZh": "这个房间很宽敞。",
       "answerJa": "この部屋は広いです。",
       "examples": [
@@ -456,15 +1242,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "昨日は寒かったです。",
           "zh": "昨天很冷。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "寒かった",
+        "distractors": [
+          {
+            "text": "寒いでした",
+            "why": "い形容词的过去式是〜かったです，不说〜いでした"
+          },
+          {
+            "text": "寒くなかった",
+            "why": "寒くなかった是“不冷”，意思相反"
+          },
+          {
+            "text": "寒いだった",
+            "why": "い形容词后面不接だった"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-020",
       "level": "N5",
+      "group": "n5-adjective",
       "pattern": "な形容詞",
       "meaningZh": "な形容词谓语/修饰名词",
       "formation": "な形容詞語幹 + です；な形容詞語幹 + な + N",
       "note": "修饰名词时必须加な；作谓语时不加な。",
+      "contrast": "な形容词修饰名词加な（親切な人），作谓语不加な（静かです）；否定是〜ではありません。",
       "promptZh": "这个城市很安静。",
       "answerJa": "この町は静かです。",
       "examples": [
@@ -480,15 +1286,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本語の勉強は大変ではありません。",
           "zh": "学习日语并不辛苦。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "親切な",
+        "distractors": [
+          {
+            "text": "親切の",
+            "why": "な形容词修饰名词用な，不用の"
+          },
+          {
+            "text": "親切だ",
+            "why": "修饰名词时不用だ，要用な"
+          },
+          {
+            "text": "親切い",
+            "why": "親切是な形容词，没有〜い的形式"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-021",
       "level": "N5",
+      "group": "n5-sequence",
       "pattern": "〜ないで",
       "meaningZh": "不做……而……；别……",
       "formation": "Vない形 + で",
       "note": "可表示伴随状态“没有做A就做B”，也可用于轻微禁止。",
+      "contrast": "ないで表示“没做A就做B”；てから表示“做完A再做B”；ないでください是请别人别做。",
       "promptZh": "没吃早饭就去学校了。",
       "answerJa": "朝ご飯を食べないで学校へ行きました。",
       "examples": [
@@ -504,15 +1330,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "ここで写真を撮らないで。",
           "zh": "别在这里拍照。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "持たないで",
+        "distractors": [
+          {
+            "text": "持ってから",
+            "why": "持ってから是“带了伞之后”，意思相反"
+          },
+          {
+            "text": "持たなくて",
+            "why": "“没……就……”的伴随状态用ないで，不用なくて"
+          },
+          {
+            "text": "持たない",
+            "why": "ない形不能直接连接后面的动词，要用ないで"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-022",
       "level": "N5",
+      "group": "n5-request",
       "pattern": "〜ないでください",
       "meaningZh": "请不要……",
       "formation": "Vない形 + でください",
       "note": "礼貌地请求对方不要做某事。",
+      "contrast": "ないでください请别人别做；てください请别人做；てはいけません是规定的禁止。",
       "promptZh": "请不要在这里吸烟。",
       "answerJa": "ここでたばこを吸わないでください。",
       "examples": [
@@ -528,15 +1374,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "このボタンを押さないでください。",
           "zh": "请不要按这个按钮。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "話さないで",
+        "distractors": [
+          {
+            "text": "話して",
+            "why": "話してください是“请大声说话”，意思相反"
+          },
+          {
+            "text": "話さなくて",
+            "why": "请别人别做是〜ないでください，不说〜なくてください"
+          },
+          {
+            "text": "話しないで",
+            "why": "話す的ない形是話さない"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-023",
       "level": "N5",
+      "group": "n5-request",
       "pattern": "〜てください",
       "meaningZh": "请……",
       "formation": "Vて形 + ください",
       "note": "请求、指示常用表达；语气比命令形礼貌。",
+      "contrast": "Vてください请对方做；Vないでください请对方别做；Nをください是要东西。",
       "promptZh": "请稍等一下。",
       "answerJa": "少し待ってください。",
       "examples": [
@@ -552,15 +1418,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "もう一度言ってください。",
           "zh": "请再说一次。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "書いて",
+        "distractors": [
+          {
+            "text": "書きて",
+            "why": "書く的て形是書いて"
+          },
+          {
+            "text": "書かないで",
+            "why": "書かないでください是“请不要写”，意思相反"
+          },
+          {
+            "text": "書いた",
+            "why": "ください前接て形，不接た形"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-024",
       "level": "N5",
+      "group": "n5-request",
       "pattern": "〜てもいいです",
       "meaningZh": "可以……；也可以……",
       "formation": "Vて形 + もいいです",
       "note": "疑问句用于请求许可。回答可用はい、いいです/いいですよ。",
+      "contrast": "てもいい表示许可；てはいけません表示禁止；なくてもいい表示“不做也可以”。",
       "promptZh": "可以在这里拍照。",
       "answerJa": "ここで写真を撮ってもいいです。",
       "examples": [
@@ -576,15 +1462,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この本を借りてもいいですか。",
           "zh": "可以借这本书吗？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "休んでも",
+        "distractors": [
+          {
+            "text": "休んでは",
+            "why": "〜てはいいです不成立；ては后面接いけません"
+          },
+          {
+            "text": "休まなくても",
+            "why": "休まなくてもいい是“不休息也可以”，意思不同"
+          },
+          {
+            "text": "休みても",
+            "why": "休む的て形是休んで"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-025",
       "level": "N5",
+      "group": "n5-request",
       "pattern": "〜てはいけません",
       "meaningZh": "不可以……",
       "formation": "Vて形 + はいけません",
       "note": "表示规则、禁止。口语也说〜ちゃいけません。",
+      "contrast": "てはいけません表示规定、禁止；ちゃいけない是口语缩约；ないでください是请求。",
       "promptZh": "不可以在这里吸烟。",
       "answerJa": "ここでたばこを吸ってはいけません。",
       "examples": [
@@ -600,15 +1506,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "試験中に話してはいけません。",
           "zh": "考试中不可以说话。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "入っては",
+        "distractors": [
+          {
+            "text": "入らなくては",
+            "why": "入らなくてはいけません是“必须进去”，意思相反"
+          },
+          {
+            "text": "入りては",
+            "why": "入る的て形是入って"
+          },
+          {
+            "text": "入ったは",
+            "why": "禁止要用て形＋はいけません"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-026",
       "level": "N5",
+      "group": "n5-request",
       "pattern": "〜ちゃいけない / 〜じゃいけない",
       "meaningZh": "不许……；不能……",
       "formation": "Vて形 + はいけない → ちゃ/じゃいけない",
       "note": "口语缩约。ては→ちゃ，では→じゃ。",
+      "contrast": "ては→ちゃ、では→じゃ（飲んじゃいけない），意思同てはいけない，是口语。",
       "promptZh": "不可以在这里跑。",
       "answerJa": "ここで走っちゃいけません。",
       "examples": [
@@ -624,15 +1550,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この紙を捨てちゃいけません。",
           "zh": "不能扔掉这张纸。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "捨てちゃ",
+        "distractors": [
+          {
+            "text": "捨てじゃ",
+            "why": "捨てて的ては缩约成ちゃ；只有〜では才缩约成じゃ"
+          },
+          {
+            "text": "捨てなくちゃ",
+            "why": "捨てなくちゃいけません是“必须扔掉”，意思相反"
+          },
+          {
+            "text": "捨てるちゃ",
+            "why": "ちゃ由て形缩约而来：捨てて→捨てちゃ"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-027",
       "level": "N5",
+      "group": "n5-wish",
       "pattern": "〜たい",
       "meaningZh": "想做……",
       "formation": "Vます形去ます + たい",
       "note": "表达说话人自己的愿望；对象常用を/が。",
+      "contrast": "Vたい表示自己想做；说别人想做用たがっている；想要东西用ほしい。",
       "promptZh": "我想去日本。",
       "answerJa": "日本へ行きたいです。",
       "examples": [
@@ -648,15 +1594,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "週末はゆっくり休みたいです。",
           "zh": "周末想好好休息。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "行きたい",
+        "distractors": [
+          {
+            "text": "行くたい",
+            "why": "たい接ます形去ます：行きたい"
+          },
+          {
+            "text": "行きほしい",
+            "why": "ほしい接名词（Nがほしい），不接动词"
+          },
+          {
+            "text": "行かない",
+            "why": "行かないです是“不去”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-028",
       "level": "N5",
+      "group": "n5-aspect",
       "pattern": "〜たことがある",
       "meaningZh": "曾经……过",
       "formation": "Vた形 + ことがある",
       "note": "表示过去经验，不用于刚刚发生的一次事实。",
+      "contrast": "た形＋ことがある＝曾经……过（经验）；辞书形＋ことがある（N4）＝有时会……。",
       "promptZh": "我去过日本。",
       "answerJa": "日本へ行ったことがあります。",
       "examples": [
@@ -672,15 +1638,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この映画を見たことがありますか。",
           "zh": "你看过这部电影吗？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "行った",
+        "distractors": [
+          {
+            "text": "行く",
+            "why": "行くことがあります是“有时会去”，不是经验"
+          },
+          {
+            "text": "行って",
+            "why": "ことがある前接た形，不接て形"
+          },
+          {
+            "text": "行き",
+            "why": "ことがある前接た形：行ったことがある"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-029",
       "level": "N5",
+      "group": "n5-aspect",
       "pattern": "〜たり〜たりする",
       "meaningZh": "列举动作：又……又……",
       "formation": "Vた形 + り、Vた形 + りする",
       "note": "只列举代表性动作，不表示动作全部。",
+      "contrast": "〜たり〜たりする举例列举动作，最后要加する；用て形连接则表示按顺序做完。",
       "promptZh": "休息日会看看电影、买买东西。",
       "answerJa": "休みの日は映画を見たり、買い物をしたりします。",
       "examples": [
@@ -696,15 +1682,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本で神社へ行ったり、ラーメンを食べたりしたいです。",
           "zh": "在日本想去神社、吃拉面之类。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "見たり",
+        "distractors": [
+          {
+            "text": "見るたり",
+            "why": "たり接た形：見た＋り"
+          },
+          {
+            "text": "見たら",
+            "why": "見たら是条件“看了的话”，不是列举"
+          },
+          {
+            "text": "見ながら",
+            "why": "ながら是“一边……一边……”，不是列举"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-030",
       "level": "N5",
+      "group": "n5-aspect",
       "pattern": "〜ている",
       "meaningZh": "正在……；状态持续；习惯",
       "formation": "Vて形 + いる",
       "note": "动作进行、结果状态、习惯都可用。口语中整个「〜ている／〜でいる」常缩约为「〜てる／〜でる」，如「食べている→食べてる」。",
+      "contrast": "ている表示进行或结果状态（窓が開いている）；てある强调有人做过后留下的状态。",
       "promptZh": "现在正在学习日语。",
       "answerJa": "今、日本語を勉強しています。",
       "examples": [
@@ -720,15 +1726,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "毎朝ジョギングしています。",
           "zh": "每天早上慢跑。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "開いています",
+        "distractors": [
+          {
+            "text": "開けています",
+            "why": "開ける是他动词，不能说窓が開けています"
+          },
+          {
+            "text": "開きます",
+            "why": "開きます是“会打开”，不表示“开着”的状态"
+          },
+          {
+            "text": "開いていません",
+            "why": "開いていません是“没开”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-031",
       "level": "N5",
+      "group": "n5-aspect",
       "pattern": "〜てある",
       "meaningZh": "已经……着；事先……好了",
       "formation": "他動詞て形 + ある",
       "note": "强调人为动作后的结果状态，常含“为了某目的已做好”。",
+      "contrast": "他动词＋てある：有人有意做好后留下的状态（窓が開けてある）；自动词＋ている只描述状态（窓が開いている）。",
       "promptZh": "资料已经放在桌上了。",
       "answerJa": "机の上に資料が置いてあります。",
       "examples": [
@@ -744,15 +1770,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "ホテルはもう予約してあります。",
           "zh": "酒店已经预约好了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "置いてあります",
+        "distractors": [
+          {
+            "text": "置いています",
+            "why": "置く是他动词，資料が置いています变成“资料在放东西”"
+          },
+          {
+            "text": "置きます",
+            "why": "資料が置きます主语不对，也不表示状态"
+          },
+          {
+            "text": "置いてありません",
+            "why": "置いてありません是“没放着”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-032",
       "level": "N5",
+      "group": "n5-sequence",
       "pattern": "〜てから",
       "meaningZh": "……之后",
       "formation": "Vて形 + から",
       "note": "表示做完前项后再做后项，顺序明确。",
+      "contrast": "てから强调“做完A再做B”；前に是“做B之前先做A”；後で接た形（食べた後で）。",
       "promptZh": "做完作业后睡觉。",
       "answerJa": "宿題をしてから寝ます。",
       "examples": [
@@ -768,15 +1814,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "説明を聞いてから始めてください。",
           "zh": "听完说明后请开始。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "してから",
+        "distractors": [
+          {
+            "text": "する前に",
+            "why": "する前に是“做作业之前”，顺序相反"
+          },
+          {
+            "text": "したから",
+            "why": "したから是理由“因为做了”，不表示先后"
+          },
+          {
+            "text": "しながら",
+            "why": "しながら是“一边做作业一边睡”"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-033",
       "level": "N5",
+      "group": "n5-compare",
       "pattern": "〜すぎる",
       "meaningZh": "过于……；太……",
       "formation": "Vます形去ます / い形去い / な形語幹 + すぎる；いい → よすぎる；ない → なさすぎる",
       "note": "表示程度超过适当范围。「いい」「ない」分别不规则变为「よすぎる」「なさすぎる」。",
+      "contrast": "すぎる表示“过度”，带否定评价；只是“很”用とても；いい→よすぎる。",
       "promptZh": "昨天吃太多了。",
       "answerJa": "昨日、食べすぎました。",
       "examples": [
@@ -792,15 +1858,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "勉強しすぎないでください。",
           "zh": "请不要学习过度。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "重すぎます",
+        "distractors": [
+          {
+            "text": "重いすぎます",
+            "why": "い形容词去い再接すぎる：重すぎる"
+          },
+          {
+            "text": "重くすぎます",
+            "why": "すぎる前不用く形：重すぎる"
+          },
+          {
+            "text": "重くなります",
+            "why": "重くなります是“变重”，不是“太重”"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-034",
       "level": "N5",
+      "group": "n5-must",
       "pattern": "〜ほうがいい",
       "meaningZh": "最好……",
       "formation": "Vた形 / Vない形 + ほうがいい",
       "note": "用于建议。肯定建议常用た形，否定建议用ない形。",
+      "contrast": "ほうがいい是建议“最好”；肯定建议常用た形，否定建议用ない形；なければならない是必须。",
       "promptZh": "最好早点睡。",
       "answerJa": "早く寝たほうがいいです。",
       "examples": [
@@ -816,15 +1902,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "無理をしないほうがいいです。",
           "zh": "最好不要勉强。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "しない",
+        "distractors": [
+          {
+            "text": "した",
+            "why": "無理をしたほうがいい是“最好勉强”，意思相反"
+          },
+          {
+            "text": "しなくて",
+            "why": "否定的建议用ない形＋ほうがいい"
+          },
+          {
+            "text": "しません",
+            "why": "ほうがいい前接普通形，不接ます形"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-035",
       "level": "N5",
+      "group": "n5-must",
       "pattern": "〜なくてもいい",
       "meaningZh": "不……也可以；不必……",
       "formation": "Vない形去い + くてもいい",
       "note": "表示没有义务或不需要做某事。",
+      "contrast": "なくてもいい＝不必做；なければならない＝必须做；てもいい＝可以做。",
       "promptZh": "明天不来也可以。",
       "answerJa": "明日は来なくてもいいです。",
       "examples": [
@@ -840,15 +1946,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "全部食べなくてもいいですよ。",
           "zh": "不用全部吃完。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "来なくても",
+        "distractors": [
+          {
+            "text": "来ても",
+            "why": "来てもいい是“来也可以”，意思不同"
+          },
+          {
+            "text": "来なくては",
+            "why": "〜なくてはいいです不成立；なくては后面接いけません"
+          },
+          {
+            "text": "来るなくても",
+            "why": "来る的ない形是来ない"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-036",
       "level": "N5",
+      "group": "n5-must",
       "pattern": "〜ないといけない",
       "meaningZh": "必须……",
       "formation": "Vない形 + といけない",
       "note": "口语常用，表示义务或必要。",
+      "contrast": "ないといけない、なくてはいけない、なくちゃ都表示“必须”，口语程度不同；なくてもいい表示“不必”。",
       "promptZh": "明天必须早起。",
       "answerJa": "明日早く起きないといけません。",
       "examples": [
@@ -864,15 +1990,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "駅まで行かないといけません。",
           "zh": "必须去车站。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "飲まないと",
+        "distractors": [
+          {
+            "text": "飲むと",
+            "why": "飲むといけない是“吃了药就不好”，意思相反"
+          },
+          {
+            "text": "飲みないと",
+            "why": "飲む的ない形是飲まない"
+          },
+          {
+            "text": "飲んでは",
+            "why": "飲んではいけない是“不可以吃药”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-037",
       "level": "N5",
+      "group": "n5-must",
       "pattern": "〜なくちゃ",
       "meaningZh": "必须……；得……",
       "formation": "Vない形去い + くちゃ",
       "note": "〜なくてはいけない的口语缩略，常省略后面的いけない。",
+      "contrast": "なくちゃ是なくては的口语缩约，后面的いけない常省略。",
       "promptZh": "我得走了。",
       "answerJa": "もう行かなくちゃ。",
       "examples": [
@@ -888,15 +2034,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "明日までに払わなくちゃ。",
           "zh": "明天之前得付款。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "行かなくちゃ",
+        "distractors": [
+          {
+            "text": "行っちゃ",
+            "why": "行っちゃ是行っては的缩约，不表示“得走了”"
+          },
+          {
+            "text": "行かなくても",
+            "why": "行かなくても是“不去也可以”，意思相反"
+          },
+          {
+            "text": "行くなくちゃ",
+            "why": "行く的ない形是行かない"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-038",
       "level": "N5",
+      "group": "n5-must",
       "pattern": "〜なくてはいけない",
       "meaningZh": "必须……",
       "formation": "Vない形去い + くてはいけない",
       "note": "表示义务；比なくちゃ更正式。",
+      "contrast": "なくてはいけない用于日常的义务；なくてはならない更正式，多用于规则和职责。",
       "promptZh": "每天必须复习。",
       "answerJa": "毎日復習しなくてはいけません。",
       "examples": [
@@ -912,15 +2078,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "八時までに帰らなくてはいけません。",
           "zh": "八点前必须回去。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "帰らなくては",
+        "distractors": [
+          {
+            "text": "帰っては",
+            "why": "帰ってはいけません是“不可以回去”，意思相反"
+          },
+          {
+            "text": "帰りなくては",
+            "why": "帰る的ない形是帰らない"
+          },
+          {
+            "text": "帰らなくても",
+            "why": "〜なくてもいけません不成立；“不必”是なくてもいい"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-039",
       "level": "N5",
+      "group": "n5-must",
       "pattern": "〜なくてはならない",
       "meaningZh": "必须……；不得不……",
       "formation": "Vない形去い + くてはならない",
       "note": "书面/正式感较强，多用于规则、职责。",
+      "contrast": "なくてはならない较书面、正式，多用于规则和职责；日常多说なくてはいけない。",
       "promptZh": "重要的约定必须遵守。",
       "answerJa": "大切な約束は守らなくてはなりません。",
       "examples": [
@@ -936,15 +2122,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "パスポートを見せなくてはなりません。",
           "zh": "必须出示护照。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "守らなくては",
+        "distractors": [
+          {
+            "text": "守っては",
+            "why": "守ってはなりません是“不可以遵守”，意思相反"
+          },
+          {
+            "text": "守りなくては",
+            "why": "守る的ない形是守らない"
+          },
+          {
+            "text": "守らないで",
+            "why": "〜ないでなりません不成立；“必须”是なくてはならない"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-040",
       "level": "N5",
+      "group": "n5-sequence",
       "pattern": "〜前に",
       "meaningZh": "……之前",
       "formation": "V辞書形 / N + の + 前に",
       "note": "前接动词时用辞书形，不用た形。",
+      "contrast": "动词用辞书形＋前に（寝る前に），不用た形；名词用Nの前に。",
       "promptZh": "睡前刷牙。",
       "answerJa": "寝る前に歯を磨きます。",
       "examples": [
@@ -960,15 +2166,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本へ行く前に、少し勉強しました。",
           "zh": "去日本之前学了一点。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "寝る",
+        "distractors": [
+          {
+            "text": "寝た",
+            "why": "前に前接辞书形，不接た形"
+          },
+          {
+            "text": "寝て",
+            "why": "前に前接辞书形，不接て形"
+          },
+          {
+            "text": "寝ない",
+            "why": "寝ない前に意思不通；用辞书形：寝る前に"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-041",
       "level": "N5",
+      "group": "n5-link",
       "pattern": "〜まで",
       "meaningZh": "到……为止；甚至……",
       "formation": "时间/地点/N + まで；N + まで + 助詞",
       "note": "表示时间、地点或范围的终点；与「までに」不同，「まで」强调持续到某时。接一般名词还可表示意外的极端例子，相当于“连……都……”。",
+      "contrast": "まで表示持续到某时（五時まで勉強する）；までに表示期限（五時までに出す）。",
       "promptZh": "学习到五点。",
       "answerJa": "五時まで勉強します。",
       "examples": [
@@ -984,15 +2210,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この歌は子供まで知っています。",
           "zh": "这首歌连孩子都知道。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "まで",
+        "distractors": [
+          {
+            "text": "までに",
+            "why": "までに表示期限前做完一次的动作；“学习到五点”是持续，用まで"
+          },
+          {
+            "text": "から",
+            "why": "五時から是“从五点开始”，意思相反"
+          },
+          {
+            "text": "に",
+            "why": "五時に是“在五点（这个时间点）”，不表示持续到五点"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-042",
       "level": "N5",
+      "group": "n5-reason",
       "pattern": "〜から",
       "meaningZh": "因为……；从……",
       "formation": "句子 + から；时间/地点 + から",
       "note": "句尾可用来说明理由，也可表示起点。",
+      "contrast": "から表示理由，语气较主观，后项可接命令、意志；ので较客观、礼貌。",
       "promptZh": "因为今天忙，所以不去。",
       "answerJa": "今日は忙しいですから、行きません。",
       "examples": [
@@ -1008,15 +2254,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "九時から授業があります。",
           "zh": "九点开始有课。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "から",
+        "distractors": [
+          {
+            "text": "けど",
+            "why": "けど是转折“虽然冷，但是关窗”，意思不通"
+          },
+          {
+            "text": "のに",
+            "why": "のに是“明明……却……”，意思不通"
+          },
+          {
+            "text": "まで",
+            "why": "まで表示终点，不表示理由"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-043",
       "level": "N5",
+      "group": "n5-reason",
       "pattern": "〜ので",
       "meaningZh": "因为……；由于……",
       "formation": "V/い形普通形 + ので；な形/N肯定非过去：語幹/N + なので；过去/否定普通形 + ので",
       "note": "比から更柔和、客观，常用于礼貌说明原因。",
+      "contrast": "ので较客观、柔和；名词和な形容词接なので（雨なので）。",
       "promptZh": "因为下雨，所以待在家。",
       "answerJa": "雨なので、家にいます。",
       "examples": [
@@ -1032,15 +2298,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "明日早いので、今日は早く寝ます。",
           "zh": "因为明天早，所以今天早点睡。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "なので",
+        "distractors": [
+          {
+            "text": "だので",
+            "why": "名词接ので要用なので，不说だので"
+          },
+          {
+            "text": "ので",
+            "why": "名词后不能直接接ので，要用なので"
+          },
+          {
+            "text": "なのに",
+            "why": "なのに是“明明下雨却……”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-044",
       "level": "N5",
+      "group": "n5-reason",
       "pattern": "〜けど",
       "meaningZh": "不过……；虽然……",
       "formation": "普通形 / 丁寧形 + けど",
       "note": "口语转折，也可用于铺垫话题；普通体和礼貌体都可直接接续。",
+      "contrast": "けど是口语的转折，也用于开场铺垫；けれども较正式；のに带意外、不满（N4）。",
       "promptZh": "想去，不过没有时间。",
       "answerJa": "行きたいけど、時間がありません。",
       "examples": [
@@ -1056,15 +2342,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "すみません、ちょっと聞きたいんですけど。",
           "zh": "不好意思，我想问一下。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "けど",
+        "distractors": [
+          {
+            "text": "から",
+            "why": "から是理由“因为小所以好吃”，意思不对"
+          },
+          {
+            "text": "ので",
+            "why": "ので是理由“因为小所以好吃”，意思不对"
+          },
+          {
+            "text": "なら",
+            "why": "小さいなら是“如果小的话”，不是转折"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-045",
       "level": "N5",
+      "group": "n5-reason",
       "pattern": "〜けれども",
       "meaningZh": "但是……；虽然……",
       "formation": "普通形 / 丁寧形 + けれども",
       "note": "比けど更正式，普通体和礼貌体都可直接接续；也可说けれど/けど。",
+      "contrast": "けれども是けど的正式说法；在句首连接两个句子用でも、しかし。",
       "promptZh": "日语虽然难，但很有趣。",
       "answerJa": "日本語は難しいですけれども、楽しいです。",
       "examples": [
@@ -1080,159 +2386,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "少し高いけれども、買いたいです。",
           "zh": "虽然有点贵，但想买。"
         }
-      ]
-    },
-    {
-      "id": "n5-grammar-046",
-      "level": "N5",
-      "pattern": "でも",
-      "meaningZh": "但是；不过",
-      "formation": "句子。+ でも、句子。",
-      "note": "放在句首连接前后句，表示转折。",
-      "promptZh": "想去。但是没有时间。",
-      "answerJa": "行きたいです。でも、時間がありません。",
-      "examples": [
-        {
-          "ja": "行きたいです。でも、時間がありません。",
-          "zh": "想去。但是没有时间。"
-        },
-        {
-          "ja": "この服は高いです。でも、きれいです。",
-          "zh": "这件衣服很贵。但是很漂亮。"
-        },
-        {
-          "ja": "雨です。でも、散歩します。",
-          "zh": "下雨了。但是我要散步。"
-        }
-      ]
-    },
-    {
-      "id": "n5-grammar-047",
-      "level": "N5",
-      "pattern": "しかし",
-      "meaningZh": "然而；但是",
-      "formation": "句子。+ しかし、句子。",
-      "note": "较书面/正式的转折连接词。",
-      "promptZh": "价格便宜。然而有点旧。",
-      "answerJa": "値段は安いです。しかし、少し古いです。",
-      "examples": [
-        {
-          "ja": "値段は安いです。しかし、少し古いです。",
-          "zh": "价格便宜。然而有点旧。"
-        },
-        {
-          "ja": "難しいです。しかし、あきらめません。",
-          "zh": "很难。但是我不放弃。"
-        },
-        {
-          "ja": "雨が降っています。しかし、試合はあります。",
-          "zh": "正在下雨。但是比赛会举行。"
-        }
-      ]
-    },
-    {
-      "id": "n5-grammar-048",
-      "level": "N5",
-      "pattern": "それから",
-      "meaningZh": "然后；还有",
-      "formation": "句子 + それから + 句子",
-      "note": "按时间顺序追加动作，也可补充事项。",
-      "promptZh": "吃了早饭。然后去了学校。",
-      "answerJa": "朝ご飯を食べました。それから、学校へ行きました。",
-      "examples": [
-        {
-          "ja": "朝ご飯を食べました。それから、学校へ行きました。",
-          "zh": "吃了早饭。然后去了学校。"
-        },
-        {
-          "ja": "本を買いました。それから、ノートも買いました。",
-          "zh": "买了书。还有，也买了笔记本。"
-        },
-        {
-          "ja": "駅で友達に会います。それから、一緒に映画を見ます。",
-          "zh": "在车站见朋友。然后一起看电影。"
-        }
-      ]
-    },
-    {
-      "id": "n5-grammar-049",
-      "level": "N5",
-      "pattern": "そして",
-      "meaningZh": "然后；而且",
-      "formation": "句子 + そして + 句子",
-      "note": "连接顺序或并列信息，语气中性。",
-      "promptZh": "洗了澡。然后睡了。",
-      "answerJa": "シャワーを浴びました。そして、寝ました。",
-      "examples": [
-        {
-          "ja": "シャワーを浴びました。そして、寝ました。",
-          "zh": "洗了澡。然后睡了。"
-        },
-        {
-          "ja": "この町は静かです。そして、便利です。",
-          "zh": "这个城市很安静，而且方便。"
-        },
-        {
-          "ja": "母は優しいです。そして、料理が上手です。",
-          "zh": "母亲很温柔，而且擅长做饭。"
-        }
-      ]
-    },
-    {
-      "id": "n5-grammar-050",
-      "level": "N5",
-      "pattern": "もう",
-      "meaningZh": "已经；再；快要",
-      "formation": "もう + 肯定/否定；もう + 数量",
-      "note": "与否定连用表示“不再……”。",
-      "promptZh": "作业已经做完了。",
-      "answerJa": "宿題はもう終わりました。",
-      "examples": [
-        {
-          "ja": "宿題はもう終わりました。",
-          "zh": "作业已经做完了。"
-        },
-        {
-          "ja": "もう一杯お茶をください。",
-          "zh": "请再来一杯茶。"
-        },
-        {
-          "ja": "もう食べません。",
-          "zh": "我不再吃了。"
-        }
-      ]
-    },
-    {
-      "id": "n5-grammar-051",
-      "level": "N5",
-      "pattern": "まだ",
-      "meaningZh": "还；尚未",
-      "formation": "まだ + 肯定/否定",
-      "note": "肯定表示“还在”，否定表示“还没”。",
-      "promptZh": "还有时间。",
-      "answerJa": "まだ時間があります。",
-      "examples": [
-        {
-          "ja": "まだ時間があります。",
-          "zh": "还有时间。"
-        },
-        {
-          "ja": "宿題はまだ終わっていません。",
-          "zh": "作业还没做完。"
-        },
-        {
-          "ja": "父はまだ帰っていません。",
-          "zh": "父亲还没回来。"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "けれども",
+        "distractors": [
+          {
+            "text": "から",
+            "why": "から是理由“因为在下雨所以出门”，意思不对"
+          },
+          {
+            "text": "ので",
+            "why": "ので是理由“因为在下雨所以出门”，意思不对"
+          },
+          {
+            "text": "まで",
+            "why": "まで表示终点，不表示转折"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-052",
       "level": "N5",
+      "group": "n5-aspect",
       "pattern": "まだ〜ていません",
       "meaningZh": "还没……",
       "formation": "まだ + Vて形 + いません",
       "note": "表示某动作到目前为止尚未完成。",
+      "contrast": "まだ〜ていません表示到现在还没做；已经做了是もう〜ました。不说まだ食べませんでした。",
       "promptZh": "还没吃午饭。",
       "answerJa": "昼ご飯はまだ食べていません。",
       "examples": [
@@ -1248,87 +2430,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "旅行の予定はまだ決めていません。",
           "zh": "旅行计划还没定。"
         }
-      ]
-    },
-    {
-      "id": "n5-grammar-053",
-      "level": "N5",
-      "pattern": "いつも",
-      "meaningZh": "总是；经常",
-      "formation": "いつも + 句子",
-      "note": "表示习惯性频率。",
-      "promptZh": "早上总是喝咖啡。",
-      "answerJa": "朝はいつもコーヒーを飲みます。",
-      "examples": [
-        {
-          "ja": "朝はいつもコーヒーを飲みます。",
-          "zh": "早上总是喝咖啡。"
-        },
-        {
-          "ja": "田中さんはいつも親切です。",
-          "zh": "田中先生总是很亲切。"
-        },
-        {
-          "ja": "いつもこの道を通ります。",
-          "zh": "总是走这条路。"
-        }
-      ]
-    },
-    {
-      "id": "n5-grammar-054",
-      "level": "N5",
-      "pattern": "とても",
-      "meaningZh": "非常；很",
-      "formation": "とても + 形容詞/副詞",
-      "note": "表示程度高。否定中常用あまり〜ない。",
-      "promptZh": "这道菜非常好吃。",
-      "answerJa": "この料理はとてもおいしいです。",
-      "examples": [
-        {
-          "ja": "この料理はとてもおいしいです。",
-          "zh": "这道菜非常好吃。"
-        },
-        {
-          "ja": "今日はとても寒いです。",
-          "zh": "今天非常冷。"
-        },
-        {
-          "ja": "先生はとても親切です。",
-          "zh": "老师非常亲切。"
-        }
-      ]
-    },
-    {
-      "id": "n5-grammar-055",
-      "level": "N5",
-      "pattern": "一番",
-      "meaningZh": "最……；第一",
-      "formation": "一番 + 形容詞/な形容詞/位置名詞；Nの中で + 一番",
-      "note": "放在形容词前表示最高级；放在前、後、上、下等位置名词前表示最前、最后等位置，也可单独表示第一名或第一个。",
-      "promptZh": "我最喜欢这家店。",
-      "answerJa": "この店が一番好きです。",
-      "examples": [
-        {
-          "ja": "この店が一番好きです。",
-          "zh": "我最喜欢这家店。"
-        },
-        {
-          "ja": "一年で八月が一番暑いです。",
-          "zh": "一年里八月最热。"
-        },
-        {
-          "ja": "一番前に座ってください。",
-          "zh": "请坐在最前面。"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "食べていません",
+        "distractors": [
+          {
+            "text": "食べませんでした",
+            "why": "“还没吃”用まだ〜ていません，不用过去否定"
+          },
+          {
+            "text": "食べました",
+            "why": "まだ和食べました矛盾；“已经吃了”是もう食べました"
+          },
+          {
+            "text": "食べています",
+            "why": "まだ食べています是“还在吃”，意思不同"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-056",
       "level": "N5",
+      "group": "n5-compare",
       "pattern": "〜の中で〜が一番",
       "meaningZh": "在……之中最……",
       "formation": "Nの中で + Nが + 一番 + 形容詞",
       "note": "限定范围后表达最高级。",
+      "contrast": "三者以上用〜の中で〜が一番；两者比较用〜より〜のほうが。",
       "promptZh": "水果中我最喜欢苹果。",
       "answerJa": "果物の中でりんごが一番好きです。",
       "examples": [
@@ -1344,15 +2474,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本料理の中で寿司が一番有名です。",
           "zh": "日本料理中寿司最有名。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "の中で",
+        "distractors": [
+          {
+            "text": "より",
+            "why": "より用于两者比较，不和一番一起限定范围"
+          },
+          {
+            "text": "のほうが",
+            "why": "のほうが用于两者比较，句子里已经有が"
+          },
+          {
+            "text": "まで",
+            "why": "まで表示终点，不表示范围"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-057",
       "level": "N5",
+      "group": "n5-compare",
       "pattern": "〜より〜ほうが",
       "meaningZh": "比起……，……更……",
       "formation": "N1より N2のほうが + 形容詞",
       "note": "比较两个对象，后者程度更高。",
+      "contrast": "N1よりN2のほうが＝N2更……；N1はN2より＝N1更……，注意哪一方程度更高。",
       "promptZh": "比起公交，电车更快。",
       "answerJa": "バスより電車のほうが速いです。",
       "examples": [
@@ -1368,15 +2518,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "コーヒーよりお茶のほうが好きです。",
           "zh": "比起咖啡，我更喜欢茶。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "のほうが",
+        "distractors": [
+          {
+            "text": "より",
+            "why": "バスより電車より重复了比较基准，句子不成立"
+          },
+          {
+            "text": "ほど",
+            "why": "ほど用于否定比较（N1ほど〜ない），这里是肯定句"
+          },
+          {
+            "text": "と",
+            "why": "電車と速いです句子不成立"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-058",
       "level": "N5",
+      "group": "n5-compare",
       "pattern": "〜は〜より〜です",
       "meaningZh": "……比……更……",
       "formation": "N1は N2より + 形容詞です",
       "note": "以N1为主题，与N2比较。",
+      "contrast": "N1はN2より＋形容词：N1更……；否定的比较用N1はN2ほど〜ない。",
       "promptZh": "东京比大阪人多。",
       "answerJa": "東京は大阪より人が多いです。",
       "examples": [
@@ -1392,39 +2562,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "今日は昨日より暑いです。",
           "zh": "今天比昨天热。"
         }
-      ]
-    },
-    {
-      "id": "n5-grammar-059",
-      "level": "N5",
-      "pattern": "一緒に",
-      "meaningZh": "一起……",
-      "formation": "一緒に + V",
-      "note": "常与友達/家族/私と一起使用。",
-      "promptZh": "一起吃午饭吧。",
-      "answerJa": "一緒に昼ご飯を食べましょう。",
-      "examples": [
-        {
-          "ja": "一緒に昼ご飯を食べましょう。",
-          "zh": "一起吃午饭吧。"
-        },
-        {
-          "ja": "友達と一緒に帰ります。",
-          "zh": "和朋友一起回去。"
-        },
-        {
-          "ja": "明日、一緒に勉強しませんか。",
-          "zh": "明天一起学习吗？"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "より",
+        "distractors": [
+          {
+            "text": "ほど",
+            "why": "ほど要和否定一起用：大阪ほど多くない"
+          },
+          {
+            "text": "のほうが",
+            "why": "N1は〜のほうが不成立；可以说大阪より東京のほうが"
+          },
+          {
+            "text": "から",
+            "why": "大阪から是“从大阪”，不表示比较"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-060",
       "level": "N5",
+      "group": "n5-invite",
       "pattern": "〜ませんか",
       "meaningZh": "要不要……；……好吗（邀请）",
       "formation": "Vます形去ます + ませんか",
       "note": "用于邀请或礼貌提议。",
+      "contrast": "ませんか礼貌地邀请（先问对方意愿）；ましょう直接提议“一起……吧”；ましょうか主动提出帮忙。",
       "promptZh": "要不要一起看电影？",
       "answerJa": "一緒に映画を見ませんか。",
       "examples": [
@@ -1440,15 +2606,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "今晩、食事に行きませんか。",
           "zh": "今晚要不要去吃饭？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "見ませんか",
+        "distractors": [
+          {
+            "text": "見ましたか",
+            "why": "見ましたか是“看了吗”，不是邀请"
+          },
+          {
+            "text": "見ないでください",
+            "why": "見ないでください是“请不要看”"
+          },
+          {
+            "text": "見たことがありますか",
+            "why": "这是问经验“看过吗”，不是邀请"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-061",
       "level": "N5",
+      "group": "n5-invite",
       "pattern": "〜ましょう",
       "meaningZh": "一起……吧；我来……吧",
       "formation": "Vます形去ます + ましょう",
       "note": "用于邀请、提议或积极回应。",
+      "contrast": "ましょう提议一起做或积极回应；ませんか更委婉，先问对方意愿。",
       "promptZh": "一起回去吧。",
       "answerJa": "一緒に帰りましょう。",
       "examples": [
@@ -1464,15 +2650,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "明日また話しましょう。",
           "zh": "明天再聊吧。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "話しましょう",
+        "distractors": [
+          {
+            "text": "話しました",
+            "why": "明日和过去式話しました矛盾"
+          },
+          {
+            "text": "話すましょう",
+            "why": "ましょう接ます形去ます：話しましょう"
+          },
+          {
+            "text": "話しません",
+            "why": "話しません是“不再聊”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-062",
       "level": "N5",
+      "group": "n5-invite",
       "pattern": "〜ましょうか",
       "meaningZh": "我来……吧；要不要……",
       "formation": "Vます形去ます + ましょうか",
       "note": "常用于主动提出帮助。",
+      "contrast": "ましょうか用于主动提出帮忙“我来……吧？”；てください是请对方做。",
       "promptZh": "我来帮你拿行李吧？",
       "answerJa": "荷物を持ちましょうか。",
       "examples": [
@@ -1488,15 +2694,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "駅まで一緒に行きましょうか。",
           "zh": "要不要一起去车站？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "持ちましょうか",
+        "distractors": [
+          {
+            "text": "持ってください",
+            "why": "持ってください是“请你拿”，方向相反"
+          },
+          {
+            "text": "持ちましたか",
+            "why": "持ちましたか是“拿了吗”"
+          },
+          {
+            "text": "持ちたいですか",
+            "why": "持ちたいですか是“你想拿吗”，不是提出帮忙"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-063",
       "level": "N5",
+      "group": "n5-wish",
       "pattern": "〜に行く / 〜に来る",
       "meaningZh": "去/来做……",
       "formation": "Vます形去ます / 动作性N（買い物、食事等）+ に + 行く/来る",
       "note": "表示移动目的；名词需表示可进行的动作或活动，不能把任意名词直接接在「に行く／来る」前。",
+      "contrast": "ます形去ます＋に行く表示去的目的；去的地点用へ／に（図書館へ本を借りに行く）。",
       "promptZh": "去图书馆借书。",
       "answerJa": "図書館へ本を借りに行きます。",
       "examples": [
@@ -1512,15 +2738,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "駅へ母を迎えに行きます。",
           "zh": "去车站接妈妈。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "借りに",
+        "distractors": [
+          {
+            "text": "借りて",
+            "why": "借りて行きます是“借了书再去”，不表示目的"
+          },
+          {
+            "text": "借りるに",
+            "why": "目的的に接ます形去ます：借りに"
+          },
+          {
+            "text": "借りへ",
+            "why": "表示目的要用に，不用へ"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-064",
       "level": "N5",
+      "group": "n5-wish",
       "pattern": "〜にする",
       "meaningZh": "决定要……；选……",
       "formation": "N + にする",
       "note": "在多个选项中选择一个，也可用于点餐。",
+      "contrast": "Nにする表示主动选择、决定；Nになる表示自然变化或结果。",
       "promptZh": "饮料我要咖啡。",
       "answerJa": "飲み物はコーヒーにします。",
       "examples": [
@@ -1536,15 +2782,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "次の旅行は京都にします。",
           "zh": "下次旅行决定去京都。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "にします",
+        "distractors": [
+          {
+            "text": "になります",
+            "why": "なる表示变化或结果，不表示自己选择"
+          },
+          {
+            "text": "がします",
+            "why": "がします表示感觉到气味、声音，不表示选择"
+          },
+          {
+            "text": "をします",
+            "why": "コーヒーをします不成立"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-065",
       "level": "N5",
+      "group": "n5-nominal",
       "pattern": "〜方",
       "meaningZh": "……的方法",
       "formation": "Vます形去ます + 方",
       "note": "构成名词，表示做某动作的方法。",
+      "contrast": "ます形去ます＋方＝做法（読み方）；する动词说Nの仕方（勉強の仕方）。",
       "promptZh": "请告诉我这个汉字的读法。",
       "answerJa": "この漢字の読み方を教えてください。",
       "examples": [
@@ -1560,16 +2826,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本語の勉強の仕方を考えています。",
           "zh": "我在考虑日语的学习方法。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "買い方",
+        "distractors": [
+          {
+            "text": "買う方",
+            "why": "方接ます形去ます：買い方"
+          },
+          {
+            "text": "買い物",
+            "why": "買い物是“购物”，不是“买法”"
+          },
+          {
+            "text": "買って方",
+            "why": "方接ます形去ます，不接て形"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-066",
       "retiredVocabSourceIds": ["n4-447"],
       "level": "N5",
+      "group": "n5-wish",
       "pattern": "〜つもり",
       "meaningZh": "打算……",
       "formation": "V辞書形 / Vない形 + つもり",
       "note": "表示说话人计划或意图。",
+      "contrast": "つもり是自己的打算（较确定）；予定是已经安排好的计划（N4）。",
       "promptZh": "我打算明年去日本。",
       "answerJa": "来年日本へ行くつもりです。",
       "examples": [
@@ -1585,15 +2871,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "卒業後、東京で働くつもりです。",
           "zh": "毕业后打算在东京工作。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "出かけない",
+        "distractors": [
+          {
+            "text": "出かける",
+            "why": "出かけるつもり是“打算出门”，意思相反"
+          },
+          {
+            "text": "出かけます",
+            "why": "つもり前接普通形，不接ます形"
+          },
+          {
+            "text": "出かけて",
+            "why": "つもり前接辞书形或ない形，不接て形"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-067",
       "level": "N5",
+      "group": "n5-adjective",
       "pattern": "〜なる",
       "meaningZh": "变成……；成为……",
       "formation": "N + に / い形去い + く / な形語幹 + に + なる；いい → よくなる",
       "note": "表示自然变化、身份变化。「いい」不规则变为「よくなる」。",
+      "contrast": "なる表示自然变化（静かになる）；する表示人为改变（N4：静かにする）；い形容词用〜くなる。",
       "promptZh": "到了春天。",
       "answerJa": "春になりました。",
       "examples": [
@@ -1609,15 +2915,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "部屋が明るくなりました。",
           "zh": "房间变亮了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "明るく",
+        "distractors": [
+          {
+            "text": "明るい",
+            "why": "い形容词接なる要变成〜く：明るくなる"
+          },
+          {
+            "text": "明るに",
+            "why": "〜になる用于名词和な形容词；明るい要变成明るく"
+          },
+          {
+            "text": "明るくて",
+            "why": "なる前用く形，不用て形"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-068",
       "level": "N5",
+      "group": "n5-guess",
       "pattern": "〜んです",
       "meaningZh": "说明；强调背景",
       "formation": "V/い形普通形 + んです；な形/N肯定非过去：語幹/N + なんです；过去/否定普通形 + んです",
       "note": "用于解释原因、补充背景或带着关切提问。口语常用。",
+      "contrast": "んです用于解释原因、背景或关切地提问；のです是较正式的说法；名词接なんです。",
       "promptZh": "我有点头疼。",
       "answerJa": "少し頭が痛いんです。",
       "examples": [
@@ -1633,15 +2959,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "明日テストがあるんです。",
           "zh": "明天有考试。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "痛いんです",
+        "distractors": [
+          {
+            "text": "痛いなんです",
+            "why": "い形容词直接接んです，不加な"
+          },
+          {
+            "text": "痛いだんです",
+            "why": "い形容词后不加だ"
+          },
+          {
+            "text": "痛くないんです",
+            "why": "痛くないんです是“不疼”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-069",
       "level": "N5",
+      "group": "n5-guess",
       "pattern": "〜のです",
       "meaningZh": "说明；强调背景",
       "formation": "V/い形普通形 + のです；な形/N肯定非过去：語幹/N + なのです；过去/否定普通形 + のです",
       "note": "んです的较正式形式，用于说明原因、情况或强调背景。",
+      "contrast": "のです是んです的正式形，用来说明原因或情况。",
       "promptZh": "是因为电车停了。",
       "answerJa": "電車が止まったのです。",
       "examples": [
@@ -1657,15 +3003,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "今日は大切な試験があるのです。",
           "zh": "今天有重要考试。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "止まったのです",
+        "distractors": [
+          {
+            "text": "止まったなのです",
+            "why": "动词直接接のです，不加な"
+          },
+          {
+            "text": "止まるのです",
+            "why": "止まるのです是“会停”，而这里是已经停了"
+          },
+          {
+            "text": "止まったです",
+            "why": "动词后不能直接接です，要用のです"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-070",
       "level": "N5",
+      "group": "n5-nominal",
       "pattern": "〜のが好き",
       "meaningZh": "喜欢做……",
       "formation": "V辞書形 + のが好き",
       "note": "の把动词名词化，が标记喜好对象。",
+      "contrast": "动词要先名词化才能接が好き（読むのが好き），不说読むが好き；のが上手、のが下手同理。",
       "promptZh": "我喜欢读书。",
       "answerJa": "本を読むのが好きです。",
       "examples": [
@@ -1681,15 +3047,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "料理を作るのが好きです。",
           "zh": "我喜欢做饭。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "読むのが",
+        "distractors": [
+          {
+            "text": "読むが",
+            "why": "动词要加の名词化：読むのが好き"
+          },
+          {
+            "text": "読みが",
+            "why": "要用辞书形＋の：読むのが好き"
+          },
+          {
+            "text": "読んでが",
+            "why": "要用辞书形＋の，不用て形"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-071",
       "level": "N5",
+      "group": "n5-nominal",
       "pattern": "〜のが上手",
       "meaningZh": "擅长做……",
       "formation": "V辞書形 + のが上手",
       "note": "用于评价能力；说自己时可用得意です更自然。",
+      "contrast": "のが上手评价能力，多用于别人；说自己擅长用得意。反义是のが下手。",
       "promptZh": "姐姐擅长做饭。",
       "answerJa": "姉は料理を作るのが上手です。",
       "examples": [
@@ -1705,15 +3091,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼はピアノを弾くのが上手です。",
           "zh": "他擅长弹钢琴。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "上手",
+        "distractors": [
+          {
+            "text": "下手",
+            "why": "下手是“不擅长”，意思相反"
+          },
+          {
+            "text": "好き",
+            "why": "好き是“喜欢”，不是“擅长”"
+          },
+          {
+            "text": "上手な",
+            "why": "作谓语时不加な：上手です"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-072",
       "level": "N5",
+      "group": "n5-nominal",
       "pattern": "〜のが下手",
       "meaningZh": "不擅长做……",
       "formation": "V辞書形 + のが下手",
       "note": "用于表达不熟练、不拿手。",
+      "contrast": "のが下手＝不擅长；のが上手＝擅长；のが嫌い＝不喜欢。",
       "promptZh": "我不擅长唱歌。",
       "answerJa": "私は歌うのが下手です。",
       "examples": [
@@ -1729,15 +3135,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "道を説明するのが下手です。",
           "zh": "我不擅长说明路线。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "下手",
+        "distractors": [
+          {
+            "text": "上手",
+            "why": "上手是“擅长”，意思相反"
+          },
+          {
+            "text": "嫌い",
+            "why": "嫌い是“讨厌”，不是“不擅长”"
+          },
+          {
+            "text": "下手な",
+            "why": "作谓语时不加な：下手です"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-073",
       "level": "N5",
+      "group": "n5-sequence",
       "pattern": "〜とき",
       "meaningZh": "……的时候",
       "formation": "V/い形普通形 + とき；な形肯定非过去：語幹 + なとき；N肯定非过去：N + のとき；な形/N过去・否定普通形 + とき",
       "note": "表示时间点或场合。な形容词和名词只有肯定非过去形分别使用「な／の」；过去或否定形直接接「とき」，如「元気だったとき／学生ではないとき」。",
+      "contrast": "とき前的时态决定先后：行くとき（去之前、途中），行ったとき（到了之后）；名词用Nのとき。",
       "promptZh": "有空的时候读书。",
       "answerJa": "暇なとき、本を読みます。",
       "examples": [
@@ -1753,15 +3179,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "子供のとき、よく川で遊びました。",
           "zh": "小时候经常在河边玩。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "子供の",
+        "distractors": [
+          {
+            "text": "子供な",
+            "why": "名词接とき用の：子供のとき"
+          },
+          {
+            "text": "子供",
+            "why": "名词不能直接接とき，要用の"
+          },
+          {
+            "text": "子供だ",
+            "why": "名词接とき用の，不用だ"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-074",
       "level": "N5",
+      "group": "n5-guess",
       "pattern": "〜でしょう",
       "meaningZh": "大概……吧；是吧",
       "formation": "V/い形普通形 + でしょう；な形/N肯定非过去：語幹/N + でしょう；过去/否定普通形 + でしょう",
       "note": "表示推测或向对方确认。礼貌体。",
+      "contrast": "でしょう是礼貌的推测；だろう是普通体；かもしれない把握更低（N4）。",
       "promptZh": "明天大概会下雨吧。",
       "answerJa": "明日は雨でしょう。",
       "examples": [
@@ -1777,15 +3223,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "田中さんも行くでしょう。",
           "zh": "田中先生也会去吧。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "でしょう",
+        "distractors": [
+          {
+            "text": "ですでしょう",
+            "why": "名词直接接でしょう，不加です"
+          },
+          {
+            "text": "だでしょう",
+            "why": "名词直接接でしょう，不加だ"
+          },
+          {
+            "text": "でした",
+            "why": "でした是过去式，不表示推测"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-075",
       "level": "N5",
+      "group": "n5-guess",
       "pattern": "〜だろう",
       "meaningZh": "大概……吧",
       "formation": "V/い形普通形 + だろう；な形/N肯定非过去：語幹/N + だろう；过去/否定普通形 + だろう",
       "note": "でしょう的普通体，用于推测。",
+      "contrast": "だろう是でしょう的普通体，多用于自言自语或书面。",
       "promptZh": "明天大概会放晴吧。",
       "answerJa": "明日は晴れるだろう。",
       "examples": [
@@ -1801,15 +3267,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この店は有名だろう。",
           "zh": "这家店大概很有名吧。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "帰っただろう",
+        "distractors": [
+          {
+            "text": "帰るだろう",
+            "why": "帰るだろう是“大概会回去”，而译文是“已经回去了”"
+          },
+          {
+            "text": "帰っただった",
+            "why": "推测要用だろう，だった只是过去式"
+          },
+          {
+            "text": "帰ったなだろう",
+            "why": "动词直接接だろう，不加な"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-076",
       "level": "N5",
+      "group": "n5-question",
       "pattern": "〜ね",
       "meaningZh": "是吧；啊；请求共鸣",
       "formation": "句子 + ね",
       "note": "用于确认、共感、缓和语气。",
+      "contrast": "ね寻求对方共鸣、确认；よ告诉对方不知道的信息；か表示提问。",
       "promptZh": "今天真冷啊。",
       "answerJa": "今日は寒いですね。",
       "examples": [
@@ -1825,15 +3311,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "少し待ってくださいね。",
           "zh": "请稍等一下哦。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ね",
+        "distractors": [
+          {
+            "text": "か",
+            "why": "寒いですか是“冷吗？”，不是感叹"
+          },
+          {
+            "text": "よ",
+            "why": "よ是提醒对方不知道的事；“真冷啊”的共鸣用ね"
+          },
+          {
+            "text": "を",
+            "why": "を是宾语助词，不能放在句末"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-077",
       "level": "N5",
+      "group": "n5-question",
       "pattern": "〜よ",
       "meaningZh": "哦；提醒/强调",
       "formation": "句子 + よ",
       "note": "向对方提供新信息或加强提醒。",
+      "contrast": "よ提醒对方或告知新信息；ね寻求共鸣、确认。",
       "promptZh": "这家店很好吃哦。",
       "answerJa": "この店はおいしいですよ。",
       "examples": [
@@ -1849,15 +3355,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "そこは危ないですよ。",
           "zh": "那里很危险哦。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "よ",
+        "distractors": [
+          {
+            "text": "か",
+            "why": "危ないですか是“危险吗？”，不是提醒"
+          },
+          {
+            "text": "ね",
+            "why": "ね是寻求对方同感；提醒对方注意用よ"
+          },
+          {
+            "text": "が",
+            "why": "危ないですが是“危险，但是……”，话没说完"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-078",
       "level": "N5",
+      "group": "n5-question",
       "pattern": "〜なあ",
       "meaningZh": "啊；真……啊",
       "formation": "普通形 + なあ",
       "note": "表达感叹、愿望或自言自语。多用于普通体。",
+      "contrast": "なあ表达感叹或愿望，多为自言自语，接普通体（いい天気だなあ）。",
       "promptZh": "今天天气真好啊。",
       "answerJa": "今日はいい天気だなあ。",
       "examples": [
@@ -1873,63 +3399,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この部屋は静かだなあ。",
           "zh": "这个房间真安静啊。"
         }
-      ]
-    },
-    {
-      "id": "n5-grammar-079",
-      "level": "N5",
-      "pattern": "どんな〜",
-      "meaningZh": "什么样的……",
-      "formation": "どんな + N",
-      "note": "询问性质、种类、特征。",
-      "promptZh": "你喜欢什么样的音乐？",
-      "answerJa": "どんな音楽が好きですか。",
-      "examples": [
-        {
-          "ja": "どんな音楽が好きですか。",
-          "zh": "你喜欢什么样的音乐？"
-        },
-        {
-          "ja": "日本はどんな国ですか。",
-          "zh": "日本是个什么样的国家？"
-        },
-        {
-          "ja": "どんな仕事をしていますか。",
-          "zh": "你做什么样的工作？"
-        }
-      ]
-    },
-    {
-      "id": "n5-grammar-080",
-      "level": "N5",
-      "pattern": "どうして",
-      "meaningZh": "为什么",
-      "formation": "どうして + 句子",
-      "note": "询问原因，相当于なぜ，语气比なぜ更口语。表示“怎样、如何”的用法偏书面，初级问方法时用「どうやって」。",
-      "promptZh": "为什么没去学校？",
-      "answerJa": "どうして学校を休みましたか。",
-      "examples": [
-        {
-          "ja": "どうして学校を休みましたか。",
-          "zh": "为什么没去学校？"
-        },
-        {
-          "ja": "どうして日本語を勉強していますか。",
-          "zh": "为什么在学日语？"
-        },
-        {
-          "ja": "どうして泣いているんですか。",
-          "zh": "为什么在哭？"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "だなあ",
+        "distractors": [
+          {
+            "text": "だか",
+            "why": "だか不能结束句子"
+          },
+          {
+            "text": "ですか",
+            "why": "ですか是提问“天气好吗？”，不是感叹"
+          },
+          {
+            "text": "だでしょう",
+            "why": "だ和でしょう不能叠用"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-081",
       "level": "N5",
+      "group": "n5-question",
       "pattern": "どうやって",
       "meaningZh": "怎么；用什么方法",
       "formation": "どうやって + V",
       "note": "询问方法、路径、手段。",
+      "contrast": "どうやって问方法“怎么做”；どうして问原因“为什么”。",
       "promptZh": "到车站怎么去？",
       "answerJa": "駅までどうやって行きますか。",
       "examples": [
@@ -1945,15 +3443,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "どうやって予約しますか。",
           "zh": "怎么预约？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "どうやって",
+        "distractors": [
+          {
+            "text": "どうして",
+            "why": "どうして是问原因“为什么去”，不是问方法"
+          },
+          {
+            "text": "どんな",
+            "why": "どんな后面要接名词（どんな人）"
+          },
+          {
+            "text": "いつ",
+            "why": "いつ是问时间“什么时候去”"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-082",
       "level": "N5",
+      "group": "n5-question",
       "pattern": "〜はどうですか",
       "meaningZh": "……怎么样？",
       "formation": "N + はどうですか",
       "note": "询问状态、意见，也可提出建议。",
+      "contrast": "はどうですか询问意见或提建议；问“……怎么样”用どう，不用どんな。",
       "promptZh": "这道菜怎么样？",
       "answerJa": "この料理はどうですか。",
       "examples": [
@@ -1969,15 +3487,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "コーヒーはどうですか。",
           "zh": "来杯咖啡怎么样？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "どう",
+        "distractors": [
+          {
+            "text": "どんな",
+            "why": "どんな后面要接名词，不能单独作谓语"
+          },
+          {
+            "text": "どうして",
+            "why": "どうしてですか是问“为什么”"
+          },
+          {
+            "text": "どれ",
+            "why": "どれですか是问“哪一个”"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-083",
       "level": "N5",
+      "group": "n5-request",
       "pattern": "〜をください",
       "meaningZh": "请给我……",
       "formation": "N + をください",
       "note": "购物、点餐时常用；比ください单独使用更完整。",
+      "contrast": "Nをください是要东西；Vてください是请对方做动作。",
       "promptZh": "请给我水。",
       "answerJa": "水をください。",
       "examples": [
@@ -1993,15 +3531,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "切符を一枚ください。",
           "zh": "请给我一张票。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "を",
+        "distractors": [
+          {
+            "text": "が",
+            "why": "ください的对象用を，不用が"
+          },
+          {
+            "text": "に",
+            "why": "に不能标记想要的东西"
+          },
+          {
+            "text": "と",
+            "why": "切符と一枚ください不成立"
+          }
+        ]
+      }
     },
     {
       "id": "n5-grammar-084",
       "level": "N5",
+      "group": "n5-honorific",
       "pattern": "お〜 / ご〜",
       "meaningZh": "敬语前缀",
       "formation": "お + 多为和语词；ご + 多为汉语词",
       "note": "用于礼貌、美化或敬语表达；不是所有词都能随意加。也有习惯接「お」的汉语词，如「お電話」「お時間」「お食事」。",
+      "contrast": "お多接和语词（お名前），ご多接汉语词（ご家族）；也有习惯用お的汉语词（お電話）。",
       "promptZh": "请告诉我您的名字。",
       "answerJa": "お名前を教えてください。",
       "examples": [
@@ -2017,15 +3575,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "お茶をどうぞ。",
           "zh": "请喝茶。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "ご",
+        "distractors": [
+          {
+            "text": "お",
+            "why": "家族是汉语词，习惯用ご：ご家族"
+          },
+          {
+            "text": "おご",
+            "why": "前缀只用一个：ご家族"
+          },
+          {
+            "text": "様",
+            "why": "様接在名词后面（お客様），不放在前面"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-001",
       "level": "N4",
+      "group": "n4-time",
       "pattern": "〜間",
       "meaningZh": "在……期间；……之间",
       "formation": "V/い形普通形 + 間；な形肯定非过去：語幹 + な間；N肯定非过去：N + の間；な形/N过去・否定普通形 + 間",
       "note": "表示某段持续时间或两者之间。动词常用「〜ている間」，也可按时态和肯否使用「日本にいた間／日本にいない間」等普通形；な形容词和名词只有肯定非过去形分别使用「な／の」。",
+      "contrast": "間＋持续的动作：整段时间都在做；間に＋一次性的动作：在这段时间内的某个时候做完。",
       "promptZh": "暑假期间打了工。",
       "answerJa": "夏休みの間、アルバイトをしました。",
       "examples": [
@@ -2041,15 +3619,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "駅と学校の間に公園があります。",
           "zh": "车站和学校之间有公园。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "の間",
+        "distractors": [
+          {
+            "text": "な間",
+            "why": "名词接間用の：夏休みの間"
+          },
+          {
+            "text": "の前",
+            "why": "夏休みの前是“暑假之前”，不是“期间”"
+          },
+          {
+            "text": "まで",
+            "why": "夏休みまで是“到暑假为止”，不是“期间”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-002",
       "level": "N4",
+      "group": "n4-time",
       "pattern": "〜間に",
       "meaningZh": "在……期间内；趁……时",
       "formation": "V/い形普通形 + 間に；な形肯定非过去：語幹 + な間に；N肯定非过去：N + の間に；な形/N过去・否定普通形 + 間に",
       "note": "表示在某段时间内发生一次性动作或变化。动词常用「〜ている間に」，也可说「日本にいる間に」；な形容词和名词只有肯定非过去形分别使用「な／の」。",
+      "contrast": "間に＋一次性动作（在期间内做完）；間＋持续动作（整段时间都在做）；うちに（N3）带“趁”的语感。",
       "promptZh": "孩子睡着的时候洗了衣服。",
       "answerJa": "子供が寝ている間に、洗濯しました。",
       "examples": [
@@ -2065,15 +3663,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "昼休みの間に、銀行へ行きました。",
           "zh": "午休期间去了银行。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "いる間に",
+        "distractors": [
+          {
+            "text": "いた間に",
+            "why": "想去是将来的事，要用现在时：日本にいる間に"
+          },
+          {
+            "text": "いる前に",
+            "why": "いる前に意思不通；“在日本期间”用いる間に"
+          },
+          {
+            "text": "いるまで",
+            "why": "まで表示持续到某时，后面不接“想去一次”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-003",
       "level": "N4",
+      "group": "n4-adverb",
       "pattern": "あまり〜ない",
       "meaningZh": "不太……",
       "formation": "あまり + 否定形",
       "note": "表示程度不高、频率不高。",
+      "contrast": "あまり〜ない＝不太；全然〜ない＝完全不；なかなか〜ない＝怎么也（不容易）不。",
       "promptZh": "不太吃甜食。",
       "answerJa": "甘い物はあまり食べません。",
       "examples": [
@@ -2089,15 +3707,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "最近、あまり運動していません。",
           "zh": "最近不太运动。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "あまり",
+        "distractors": [
+          {
+            "text": "全然",
+            "why": "全然是“完全不”，程度太强"
+          },
+          {
+            "text": "なかなか",
+            "why": "なかなか〜ない用于期待的事难以实现，不用于这种评价"
+          },
+          {
+            "text": "よく",
+            "why": "よく不和否定一起表示“不太”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-004",
       "level": "N4",
+      "group": "n4-time",
       "pattern": "〜後で",
       "meaningZh": "……之后",
       "formation": "Vた形 / Nの + 後で",
       "note": "表示前项完成后做后项。",
+      "contrast": "後で接た形或Nの（食べた後で）；てから更强调紧接的先后；前に接辞书形。",
       "promptZh": "下课之后去图书馆。",
       "answerJa": "授業が終わった後で、図書館へ行きます。",
       "examples": [
@@ -2113,15 +3751,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "仕事の後で、友達に会いました。",
           "zh": "工作后见了朋友。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "終わった",
+        "distractors": [
+          {
+            "text": "終わる",
+            "why": "後で前接た形：終わった後で"
+          },
+          {
+            "text": "終わって",
+            "why": "後で前接た形，不接て形"
+          },
+          {
+            "text": "終わらない",
+            "why": "後で前不用否定形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-005",
       "level": "N4",
+      "group": "n4-condition",
       "pattern": "〜ば",
       "meaningZh": "如果……；只要……",
       "formation": "五段：う段→え段 + ば；一段：去る + れば；する→すれば；来る→来れば；い形：去い + ければ（いい→よければ）；な形/N：語幹/N + なら（ば）；否定：〜ない→〜なければ",
       "note": "表示条件和结果；后项多为自然结果、判断或愿望。",
+      "contrast": "ば多表示一般条件，后项常是结果、判断、愿望；たら可表示个别事情的先后；と表示必然结果，后项不接意志、请求。",
       "promptZh": "如果有时间，我会帮忙。",
       "answerJa": "時間があれば、手伝います。",
       "examples": [
@@ -2137,15 +3795,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "分からなければ、聞いてください。",
           "zh": "如果不明白，请问。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "安ければ",
+        "distractors": [
+          {
+            "text": "安いれば",
+            "why": "い形容词的ば形是去い＋ければ：安ければ"
+          },
+          {
+            "text": "安くても",
+            "why": "安くても是“即使便宜”，意思不同"
+          },
+          {
+            "text": "安いと",
+            "why": "と的后项不能接愿望（買いたい）"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-006",
       "level": "N4",
+      "group": "n4-condition",
       "pattern": "〜場合は",
       "meaningZh": "在……情况下",
       "formation": "V/い形普通形 + 場合は；な形肯定非过去：語幹 + な場合は；N肯定非过去：N + の場合は；な形/N过去・否定普通形 + 場合は",
       "note": "用于说明条件、规定或应对方法。な形容词和名词只有肯定非过去形分别使用「な／の」；过去或否定形直接接「場合は」。",
+      "contrast": "場合は用于规定、说明应对方法，较正式；日常说法多用たら。",
       "promptZh": "下雨的情况下，比赛取消。",
       "answerJa": "雨の場合は、試合は中止です。",
       "examples": [
@@ -2161,16 +3839,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "カードをなくした場合は、すぐに電話してください。",
           "zh": "如果卡丢了，请马上打电话。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "の場合は",
+        "distractors": [
+          {
+            "text": "な場合は",
+            "why": "名词接場合用の：雨の場合"
+          },
+          {
+            "text": "場合は",
+            "why": "名词不能直接接場合，要加の"
+          },
+          {
+            "text": "でも",
+            "why": "雨でも是“即使下雨”，和“取消”矛盾"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-007",
       "retiredVocabSourceIds": ["n4-762"],
       "level": "N4",
+      "group": "n4-particle",
       "pattern": "〜ばかり",
       "meaningZh": "净……；光……",
       "formation": "N + ばかり；Vて形 + ばかりいる",
       "note": "表示内容偏向某一事物或同一动作反复发生，常带说话人的不满。表示“刚做完”的「Vた形＋ばかり」另见 n4-grammar-084。",
+      "contrast": "Nばかり＝净是（常带不满）；Vたばかり＝刚刚；数量＋ばかり＝大约。",
       "promptZh": "弟弟光玩游戏。",
       "answerJa": "弟はゲームばかりしています。",
       "examples": [
@@ -2186,15 +3884,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "弟は宿題をしないで、遊んでばかりいます。",
           "zh": "弟弟不做作业，光顾着玩。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ばかり",
+        "distractors": [
+          {
+            "text": "まで",
+            "why": "ゲームまで是“连游戏都”，意思不对"
+          },
+          {
+            "text": "しか",
+            "why": "しか后面必须接否定"
+          },
+          {
+            "text": "ほど",
+            "why": "ゲームほどしています不成立"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-008",
       "level": "N4",
+      "group": "n4-particle",
       "pattern": "〜だけで",
       "meaningZh": "仅凭……；只要……就……",
       "formation": "V辞書形 / N + だけで",
       "note": "表示最低条件或限定手段。",
+      "contrast": "だけで＝仅凭这一点就（足够）；だけ只表示限定“只”。",
       "promptZh": "只看就明白。",
       "answerJa": "見るだけで分かります。",
       "examples": [
@@ -2210,16 +3928,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "名前を書くだけでいいです。",
           "zh": "只写名字就可以。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "見るだけで",
+        "distractors": [
+          {
+            "text": "見るだけ",
+            "why": "表示“仅凭……就”要加で：見るだけで"
+          },
+          {
+            "text": "見るしか",
+            "why": "しか后面必须接否定"
+          },
+          {
+            "text": "見ないで",
+            "why": "見ないで是“不看就”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-009",
       "retiredVocabSourceIds": ["n4-754"],
       "level": "N4",
+      "group": "n4-compound",
       "pattern": "〜出す",
       "meaningZh": "开始……；突然……起来",
       "formation": "Vます形去ます + 出す",
       "note": "表示动作开始，常带突然性或自然发生感。",
+      "contrast": "出す＝突然开始（常是不受控制的事）；始める＝一般的开始，可用于有计划的动作。",
       "promptZh": "突然下起雨来了。",
       "answerJa": "雨が急に降り出しました。",
       "examples": [
@@ -2235,15 +3973,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼は何も言わずに走り出しました。",
           "zh": "他什么也没说就跑了起来。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "泣き出しました",
+        "distractors": [
+          {
+            "text": "泣いて出しました",
+            "why": "复合动词接ます形去ます：泣き出す"
+          },
+          {
+            "text": "泣き終わりました",
+            "why": "泣き終わる是“哭完”，意思相反"
+          },
+          {
+            "text": "泣くのを出しました",
+            "why": "“开始哭”用泣き出す"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-010",
       "level": "N4",
+      "group": "n4-honorific",
       "pattern": "〜でございます",
       "meaningZh": "是……；为……",
       "formation": "N / な形容詞語幹 + でございます",
       "note": "です的更礼貌说法，常用于服务业、正式场合。",
+      "contrast": "でございます是です的郑重语；ございます是あります的郑重语。",
       "promptZh": "这边是前台。",
       "answerJa": "こちらが受付でございます。",
       "examples": [
@@ -2259,15 +4017,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "料金は二千円でございます。",
           "zh": "费用是两千日元。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "でございます",
+        "distractors": [
+          {
+            "text": "がございます",
+            "why": "がございます是“有”，这里要表达“是”"
+          },
+          {
+            "text": "でいらっしゃいます",
+            "why": "でいらっしゃる用来尊敬人，不用于金额"
+          },
+          {
+            "text": "でござります",
+            "why": "正确形式是ございます"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-011",
       "level": "N4",
+      "group": "n4-particle",
       "pattern": "〜でも",
       "meaningZh": "……之类；……也行",
       "formation": "N + でも",
       "note": "用于举例、提议，语气较柔和。",
+      "contrast": "Nでも用于委婉地举例提议“……之类的”；Nも＝也。",
       "promptZh": "喝杯茶之类的怎么样？",
       "answerJa": "お茶でも飲みませんか。",
       "examples": [
@@ -2283,15 +4061,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "分からないことがあったら、メールでもしてください。",
           "zh": "有不懂的事就发邮件之类给我吧。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "でも",
+        "distractors": [
+          {
+            "text": "しか",
+            "why": "お茶しか是“只……”，后面接否定，不是邀请"
+          },
+          {
+            "text": "ばかり",
+            "why": "ばかり是“净是”，不用于委婉的邀请"
+          },
+          {
+            "text": "まで",
+            "why": "お茶まで是“连茶都”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-012",
       "level": "N4",
+      "group": "n4-guess",
       "pattern": "〜のではないか / 〜んじゃないか",
       "meaningZh": "是不是……；恐怕……吧",
       "formation": "V/い形普通形 + のではないか；な形/N肯定非过去 + なのではないか；な形/N过去・否定普通形 + のではないか；口语中「のでは」常缩约为「んじゃ」",
       "note": "委婉地提出推测或疑问。注意区别于用来直接提醒、确认的「〜じゃないか」。",
+      "contrast": "のではないか委婉推测“是不是……”；じゃないか直接确认、提醒或责备“这不是……吗”。",
       "promptZh": "他是不是走错路了？",
       "answerJa": "彼は道を間違えたのではないか。",
       "examples": [
@@ -2307,15 +4105,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "田中さんはもう帰ったんじゃないですか。",
           "zh": "田中先生是不是已经回去了？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "簡単なの",
+        "distractors": [
+          {
+            "text": "簡単だの",
+            "why": "な形容词接のではないか用なの：簡単なのでは"
+          },
+          {
+            "text": "簡単の",
+            "why": "な形容词接の要用な：簡単なの"
+          },
+          {
+            "text": "簡単に",
+            "why": "簡単に是副词形，后面不能接ではないか"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-013",
       "level": "N4",
+      "group": "n4-tone",
       "pattern": "〜じゃないか",
       "meaningZh": "不是……吗；这不是……吗",
       "formation": "V/い形普通形 + じゃないか；な形/N肯定非过去 + じゃないか；な形/N过去・否定普通形 + じゃないか",
       "note": "用于直接确认、提醒、发现或轻微责备；礼貌形式是「〜じゃないですか」。な形容词和名词的肯定非过去形不加「だ」，如「便利じゃないか」；过去或否定形保留普通形，如「便利だったじゃないか」。",
+      "contrast": "じゃないか直接确认、提醒或责备“这不是……吗”；のではないか委婉推测“是不是……”。",
       "promptZh": "这不是已经没时间了吗？",
       "answerJa": "もう時間がないじゃないか。",
       "examples": [
@@ -2331,15 +4149,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "約束したじゃないですか。",
           "zh": "不是约好了吗？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ないじゃないか",
+        "distractors": [
+          {
+            "text": "ないだじゃないか",
+            "why": "い形容词（ない）后不加だ"
+          },
+          {
+            "text": "なくじゃないか",
+            "why": "要用普通形：ないじゃないか"
+          },
+          {
+            "text": "あるじゃないか",
+            "why": "あるじゃないか是“这不是还有时间吗”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-014",
       "level": "N4",
+      "group": "n4-must",
       "pattern": "〜が必要",
       "meaningZh": "需要……",
       "formation": "N + が必要",
       "note": "表示某物/某条件是必要的。",
+      "contrast": "Nが必要＝需要某物；V辞书形＋必要がある＝需要做某事。",
       "promptZh": "这个手续需要护照。",
       "answerJa": "この手続きにはパスポートが必要です。",
       "examples": [
@@ -2355,15 +4193,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "健康のために休みが必要です。",
           "zh": "为了健康需要休息。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "が必要",
+        "distractors": [
+          {
+            "text": "を必要",
+            "why": "必要です的对象用が"
+          },
+          {
+            "text": "がほしい",
+            "why": "がほしい是“想要”，不是“需要”"
+          },
+          {
+            "text": "に必要",
+            "why": "お金に必要です不成立"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-015",
       "level": "N4",
+      "group": "n4-appearance",
       "pattern": "〜がする",
       "meaningZh": "有……感觉/味道/声音",
       "formation": "N(音/匂い/味/感じ) + がする",
       "note": "表示通过感官感受到某种刺激。",
+      "contrast": "Nがする表示感官感受到的声音、气味、味道；看得见的样子用〜そうだ、〜に見える。",
       "promptZh": "厨房传来好闻的味道。",
       "answerJa": "台所からいい匂いがします。",
       "examples": [
@@ -2379,15 +4237,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "このスープは変な味がします。",
           "zh": "这汤有奇怪的味道。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "がします",
+        "distractors": [
+          {
+            "text": "をします",
+            "why": "感觉到气味用がする，不用をする"
+          },
+          {
+            "text": "があります",
+            "why": "“从厨房传来气味”用匂いがする"
+          },
+          {
+            "text": "になります",
+            "why": "になります是“变成”，意思不通"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-016",
       "level": "N4",
+      "group": "n4-feeling",
       "pattern": "〜がり",
       "meaningZh": "有……倾向的人；容易……的人",
       "formation": "形容詞語幹 + がり",
       "note": "多接怖い/恥ずかしい/寒い等，形成名词。",
+      "contrast": "形容词词干＋がり（寒がり）＝容易有某种感觉的人（名词）；〜がっている＝此刻显得……。",
       "promptZh": "妹妹很害羞。",
       "answerJa": "妹は恥ずかしがりです。",
       "examples": [
@@ -2403,16 +4281,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "怖がりの子供が泣いています。",
           "zh": "胆小的孩子在哭。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "寒がり",
+        "distractors": [
+          {
+            "text": "寒い",
+            "why": "い形容词后不能接なので的な"
+          },
+          {
+            "text": "寒そう",
+            "why": "寒そう是“看起来冷”，不是“怕冷的人”"
+          },
+          {
+            "text": "寒さ",
+            "why": "寒さ是“寒冷（的程度）”，不是“怕冷的人”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-017",
       "retiredVocabSourceIds": ["n5-181"],
       "level": "N4",
+      "group": "n4-feeling",
       "pattern": "〜がる / 〜がっている",
       "meaningZh": "显得……；想要……",
       "formation": "い形去い / な形語幹 / たい去い + がる",
       "note": "用于第三人称的感情、感觉、愿望外显。",
+      "contrast": "がる描述第三人称的感情、愿望（欲しがる）；说自己的感情用ほしい、たい。",
       "promptZh": "孩子觉得冷。",
       "answerJa": "子供が寒がっています。",
       "examples": [
@@ -2428,15 +4326,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "犬が外へ出たがっています。",
           "zh": "狗想出去。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "欲しがって",
+        "distractors": [
+          {
+            "text": "欲しくて",
+            "why": "〜くている不成立；第三人称用欲しがっている"
+          },
+          {
+            "text": "欲しいで",
+            "why": "い形容词没有〜いで的形式"
+          },
+          {
+            "text": "欲しい",
+            "why": "欲しいいます不成立；第三人称用欲しがっている"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-018",
       "level": "N4",
+      "group": "n4-honorific",
       "pattern": "ございます",
       "meaningZh": "有；在（郑重语）",
       "formation": "あります → ございます",
       "note": "「ございます」是「あります」的郑重表达，常用于服务业和正式场合。「です」的郑重表达是「でございます」，另见 n4-grammar-010。",
+      "contrast": "ございます是あります的郑重语；でございます是です的郑重语。",
       "promptZh": "入口在右侧。",
       "answerJa": "入口は右側にございます。",
       "examples": [
@@ -2452,16 +4370,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "質問がございましたら、受付へどうぞ。",
           "zh": "如有问题，请到前台。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "ございます",
+        "distractors": [
+          {
+            "text": "でございます",
+            "why": "でございます是“是”，这里要表达“有”"
+          },
+          {
+            "text": "いらっしゃいます",
+            "why": "いらっしゃる用于人，座位不用"
+          },
+          {
+            "text": "いたします",
+            "why": "いたす是する的谦让语"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-019",
       "retiredVocabSourceIds": ["n4-761"],
       "level": "N4",
+      "group": "n4-compound",
       "pattern": "〜始める",
       "meaningZh": "开始……",
       "formation": "Vます形去ます + 始める",
       "note": "表示动作或变化开始。",
+      "contrast": "始める＝开始（可以是有意的动作）；出す带“突然”；終わる表示做完。",
       "promptZh": "开始学习日语了。",
       "answerJa": "日本語を勉強し始めました。",
       "examples": [
@@ -2477,16 +4415,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "子供が歩き始めました。",
           "zh": "孩子开始走路了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "勉強し始めました",
+        "distractors": [
+          {
+            "text": "勉強して始めました",
+            "why": "复合动词接ます形去ます：勉強し始める"
+          },
+          {
+            "text": "勉強し終わりました",
+            "why": "勉強し終わる是“学完”，意思相反"
+          },
+          {
+            "text": "勉強する始めました",
+            "why": "始める接ます形去ます，不接辞书形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-020",
       "retiredVocabSourceIds": ["n4-537"],
       "level": "N4",
+      "group": "n4-guess",
       "pattern": "〜はずだ",
       "meaningZh": "应该……；按理说……",
       "formation": "V/い形普通形 + はず；な形肯定非过去：語幹 + なはず；N肯定非过去：N + のはず；过去/否定普通形 + はず",
       "note": "基于事实、常识或安排作判断。",
+      "contrast": "はず＝按道理推断“应该……”；かもしれない＝没有把握的“也许”；べき（N3）＝应当去做。",
       "promptZh": "田中先生应该已经到了。",
       "answerJa": "田中さんはもう着いたはずです。",
       "examples": [
@@ -2502,15 +4460,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この道を行けば、駅に出るはずです。",
           "zh": "走这条路应该会到车站。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "休みのはず",
+        "distractors": [
+          {
+            "text": "休みなはず",
+            "why": "名词接はず用の：休みのはず"
+          },
+          {
+            "text": "休みはず",
+            "why": "名词不能直接接はず，要加の"
+          },
+          {
+            "text": "休みのべき",
+            "why": "べき表示义务“应当”，接动词辞书形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-021",
       "level": "N4",
+      "group": "n4-guess",
       "pattern": "〜はずがない",
       "meaningZh": "不可能……；不应该……",
       "formation": "V/い形普通形 + はずがない；な形肯定非过去：語幹 + なはずがない；N肯定非过去：N + のはずがない；过去/否定普通形 + はずがない",
       "note": "强烈否定某种可能。",
+      "contrast": "はずがない＝按道理不可能（强烈否定）；わけがない（N3）意思相近，更口语。",
       "promptZh": "他不可能说那种话。",
       "answerJa": "彼がそんなことを言うはずがありません。",
       "examples": [
@@ -2526,15 +4504,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この問題が簡単なはずがありません。",
           "zh": "这道题不可能简单。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "簡単な",
+        "distractors": [
+          {
+            "text": "簡単の",
+            "why": "な形容词接はず用な：簡単なはず"
+          },
+          {
+            "text": "簡単だ",
+            "why": "な形容词接はず用な，不用だ"
+          },
+          {
+            "text": "簡単",
+            "why": "な形容词要加な才能接はず"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-022",
       "level": "N4",
+      "group": "n4-must",
       "pattern": "〜必要がある",
       "meaningZh": "有必要……；需要……",
       "formation": "V辞書形 + 必要がある",
       "note": "表示做某事有必要。否定为必要はない。",
+      "contrast": "V辞书形＋必要がある＝有必要做；否定是必要はない；需要某物用Nが必要だ。",
       "promptZh": "需要提交这份文件。",
       "answerJa": "この書類を出す必要があります。",
       "examples": [
@@ -2550,15 +4548,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "もう一度確認する必要があります。",
           "zh": "有必要再确认一次。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "予約する",
+        "distractors": [
+          {
+            "text": "予約して",
+            "why": "必要前接辞书形，不接て形"
+          },
+          {
+            "text": "予約した",
+            "why": "必要前接辞书形，不接た形"
+          },
+          {
+            "text": "予約します",
+            "why": "必要前接普通形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-023",
       "level": "N4",
+      "group": "n4-plan",
       "pattern": "意向形",
       "meaningZh": "意志形；……吧；打算……",
       "formation": "五段：う段→お段+う；一段：去る+よう；する→しよう；来る→来よう",
       "note": "单独用可表示邀请；与と思う连用表示打算。",
+      "contrast": "意向形单独用＝“……吧”（ましょう的普通体）；＋と思う＝打算。",
       "promptZh": "周末打算看电影。",
       "answerJa": "週末、映画を見ようと思います。",
       "examples": [
@@ -2574,15 +4592,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "明日から毎日運動しようと思っています。",
           "zh": "我打算从明天开始每天运动。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "帰ろう",
+        "distractors": [
+          {
+            "text": "帰よう",
+            "why": "帰る是五段动词，意向形是帰ろう"
+          },
+          {
+            "text": "帰りよう",
+            "why": "五段动词的意向形是う段→お段＋う：帰ろう"
+          },
+          {
+            "text": "帰ります",
+            "why": "帰ります只是陈述，不是“……吧”的提议"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-024",
       "level": "N4",
+      "group": "n4-honorific",
       "pattern": "いらっしゃる",
       "meaningZh": "在；来；去（尊敬语）",
       "formation": "いる/来る/行く → いらっしゃる",
       "note": "对对方或第三方表示尊敬。ます形为いらっしゃいます。",
+      "contrast": "いらっしゃる抬高对方的“在、来、去”；自己一方用おる、参る（谦让语）。",
       "promptZh": "老师在研究室。",
       "answerJa": "先生は研究室にいらっしゃいます。",
       "examples": [
@@ -2598,15 +4636,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "お客様がいらっしゃいました。",
           "zh": "客人来了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "いらっしゃいます",
+        "distractors": [
+          {
+            "text": "おります",
+            "why": "おる是谦让语，不能用于老师"
+          },
+          {
+            "text": "ございます",
+            "why": "ございます是あります的郑重语，不用于人"
+          },
+          {
+            "text": "いたします",
+            "why": "いたす是する的谦让语"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-025",
       "level": "N4",
+      "group": "n4-honorific",
       "pattern": "いたします",
       "meaningZh": "做（谦让语）",
       "formation": "する → いたす / いたします",
       "note": "说话人降低自己动作，常用于商务、服务场景。",
+      "contrast": "いたす是する的谦让语，用于自己的动作；なさる是する的尊敬语，用于对方的动作。",
       "promptZh": "稍后由我方联系您。",
       "answerJa": "後でこちらから連絡いたします。",
       "examples": [
@@ -2622,15 +4680,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "明日までに準備いたします。",
           "zh": "明天之前准备好。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "いたします",
+        "distractors": [
+          {
+            "text": "なさいます",
+            "why": "なさる是尊敬语，不用于自己的动作"
+          },
+          {
+            "text": "いらっしゃいます",
+            "why": "いらっしゃる是“在、来、去”的尊敬语"
+          },
+          {
+            "text": "でございます",
+            "why": "でございます是“是”的郑重语"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-026",
       "level": "N4",
+      "group": "n4-nominal",
       "pattern": "〜かどうか",
       "meaningZh": "是否……",
       "formation": "V/い形普通形 + かどうか；な形/N肯定非过去：語幹/N + かどうか；过去/否定普通形 + かどうか",
       "note": "把是否疑问嵌入句中。",
+      "contrast": "かどうか用于“是否”型的疑问；有疑问词时只用か（何時に来るか分からない）。",
       "promptZh": "不知道明天能不能去。",
       "answerJa": "明日行けるかどうか分かりません。",
       "examples": [
@@ -2646,15 +4724,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼が学生かどうか知っていますか。",
           "zh": "你知道他是不是学生吗？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "かどうか",
+        "distractors": [
+          {
+            "text": "どうか",
+            "why": "是否要用かどうか"
+          },
+          {
+            "text": "と",
+            "why": "行けると分かりません不成立"
+          },
+          {
+            "text": "かな",
+            "why": "かな只能放在句末"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-027",
       "level": "N4",
+      "group": "n4-tone",
       "pattern": "〜かしら",
       "meaningZh": "……呢；不知道是否……",
       "formation": "V/い形普通形 + かしら；な形/N肯定非过去 + かしら（也可用「なのかしら」）；な形/N过去・否定普通形 + かしら",
       "note": "主要用于自问或柔和地询问。传统上常与女性语气关联，但并非绝对；实际使用受年龄、地区和语境影响，有时带较老式或角色化的色彩。",
+      "contrast": "かしら和かな都表示自问；かしら带传统的女性语气，かな男女都用。",
       "promptZh": "明天会不会下雨呢。",
       "answerJa": "明日は雨かしら。",
       "examples": [
@@ -2670,15 +4768,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "田中さんはもう来たかしら。",
           "zh": "田中先生已经来了吗？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "かしら",
+        "distractors": [
+          {
+            "text": "だかしら",
+            "why": "名词接かしら不加だ"
+          },
+          {
+            "text": "よ",
+            "why": "よ是告诉对方“会下雨哦”，不是自问"
+          },
+          {
+            "text": "から",
+            "why": "から表示理由，不能这样结束句子"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-028",
       "level": "N4",
+      "group": "n4-tone",
       "pattern": "〜かい",
       "meaningZh": "……吗？",
       "formation": "V/い形普通形 + かい；な形/N肯定非过去 + かい；な形/N过去・否定普通形 + かい",
       "note": "用于亲近关系中的随意疑问。现代会话中常带男性、年长者或作品角色的语感，可能显得老式，不宜当作中性的通用问句。な形容词和名词的肯定非过去形不加「だ」，如「元気かい」；过去或否定形保留普通形，如「元気だったかい」。",
+      "contrast": "かい是随意的问句，带男性、年长者的语气；かな、かしら是自问。",
       "promptZh": "作业已经做完了吗？",
       "answerJa": "もう宿題は終わったかい。",
       "examples": [
@@ -2694,15 +4812,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "駅まで一人で行けるかい。",
           "zh": "能一个人去车站吗？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "かい",
+        "distractors": [
+          {
+            "text": "だかい",
+            "why": "い形容词后不加だ"
+          },
+          {
+            "text": "ね",
+            "why": "忙しいね是“今天很忙呢”，不是提问"
+          },
+          {
+            "text": "よ",
+            "why": "忙しいよ是“今天很忙哦”，不是提问"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-029",
       "level": "N4",
+      "group": "n4-guess",
       "pattern": "〜かもしれない",
       "meaningZh": "也许……；可能……",
       "formation": "V/い形普通形 + かもしれない；な形/N肯定非过去：語幹/N + かもしれない；过去/否定普通形 + かもしれない",
       "note": "表示不确定的推测。礼貌体为かもしれません。",
+      "contrast": "かもしれない把握较低“也许”；だろう／でしょう较有把握；はず有依据。",
       "promptZh": "明天可能会下雪。",
       "answerJa": "明日は雪が降るかもしれません。",
       "examples": [
@@ -2718,15 +4856,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この答えは間違いかもしれません。",
           "zh": "这个答案可能是错的。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "間違いかもしれません",
+        "distractors": [
+          {
+            "text": "間違いだかもしれません",
+            "why": "名词直接接かもしれない，不加だ"
+          },
+          {
+            "text": "間違いのかもしれません",
+            "why": "名词接かもしれない不加の"
+          },
+          {
+            "text": "間違いはずです",
+            "why": "名词接はず要加の；而且はず是有依据的推断"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-030",
       "level": "N4",
+      "group": "n4-tone",
       "pattern": "〜かな",
       "meaningZh": "……呢；不知道……",
       "formation": "V/い形普通形 + かな；な形/N肯定非过去：語幹/N + かな；过去/否定普通形 + かな",
       "note": "自言自语式疑问，也可表示轻微愿望。",
+      "contrast": "かな多为自言自语的疑问；直接问别人用か、ですか。",
       "promptZh": "明天会放晴吗？",
       "answerJa": "明日、晴れるかな。",
       "examples": [
@@ -2742,15 +4900,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本へ行けたらいいかなと思います。",
           "zh": "我想如果能去日本就好了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "かな",
+        "distractors": [
+          {
+            "text": "だかな",
+            "why": "动词后不加だ"
+          },
+          {
+            "text": "ね",
+            "why": "晴れるね是“会放晴呢”，不是疑问"
+          },
+          {
+            "text": "よ",
+            "why": "晴れるよ是“会放晴哦”，不是疑问"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-031",
       "level": "N4",
+      "group": "n4-particle",
       "pattern": "〜から作る / 〜で作る",
       "meaningZh": "由……制成；用……做",
       "formation": "材料/原料 + から/で + 作る",
       "note": "から常用于看不出原料变化；で常用于看得出材料。",
+      "contrast": "原料看不出原来的样子（葡萄→酒）多用から；看得出材料（木头桌子）多用で。",
       "promptZh": "葡萄酒由葡萄制成。",
       "answerJa": "ワインはぶどうから作られます。",
       "examples": [
@@ -2766,39 +4944,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "味噌は大豆から作ります。",
           "zh": "味噌由大豆制成。"
         }
-      ]
-    },
-    {
-      "id": "n4-grammar-032",
-      "level": "N4",
-      "pattern": "きっと",
-      "meaningZh": "一定；肯定",
-      "formation": "きっと + 推量/判断",
-      "note": "常与でしょう、はず、と思う等搭配。",
-      "promptZh": "明天一定会放晴吧。",
-      "answerJa": "明日はきっと晴れるでしょう。",
-      "examples": [
-        {
-          "ja": "明日はきっと晴れるでしょう。",
-          "zh": "明天一定会放晴吧。"
-        },
-        {
-          "ja": "彼ならきっと分かります。",
-          "zh": "如果是他，一定会明白。"
-        },
-        {
-          "ja": "努力すれば、きっと上手になります。",
-          "zh": "只要努力，一定会变熟练。"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "から",
+        "distractors": [
+          {
+            "text": "を",
+            "why": "原料不用を表示"
+          },
+          {
+            "text": "に",
+            "why": "原料不用に表示"
+          },
+          {
+            "text": "が",
+            "why": "ぶどうが作られます变成“葡萄被制造”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-033",
       "level": "N4",
+      "group": "n4-time",
       "pattern": "〜頃 / 〜ごろ",
       "meaningZh": "……左右；……时候",
       "formation": "时间点 + ごろ；V/い形普通形 + 頃；な形肯定非过去：語幹 + な頃；N肯定非过去：N + の頃；な形/N过去・否定普通形 + 頃",
       "note": "ごろ表示大约时间点；頃表示时期，可接「若い頃／元気な頃／子供の頃／学生だった頃」等。",
+      "contrast": "ごろ接时间点表示“左右”（七時ごろ）；頃表示时期（子供の頃）；数量的“大约”用ぐらい。",
       "promptZh": "七点左右出门。",
       "answerJa": "七時ごろ家を出ます。",
       "examples": [
@@ -2814,15 +4988,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "桜が咲く頃、日本へ行きたいです。",
           "zh": "樱花开的时候想去日本。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ごろ",
+        "distractors": [
+          {
+            "text": "まで",
+            "why": "七時まで家を出ます不成立；出门不是持续的动作"
+          },
+          {
+            "text": "おきに",
+            "why": "おきに表示“每隔”，接时间长度"
+          },
+          {
+            "text": "だけ",
+            "why": "七時だけ不表示“七点左右”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-034",
       "level": "N4",
+      "group": "n4-nominal",
       "pattern": "〜こと",
       "meaningZh": "把句子名词化；事情",
       "formation": "V/い形普通形 + こと；な形肯定非过去：語幹 + なこと；N肯定非过去：N + であること；な形/N过去・否定普通形 + こと",
       "note": "把动作、状态或整项内容变成名词成分。例如「静かなこと／学生であること／静かだったこと／学生ではないこと」。「こと」也可作为普通名词表示“事情”，此时不受上述接续限制。",
+      "contrast": "こと把句子名词化；な形容词接なこと（静かなこと），名词接であること。",
       "promptZh": "说日语很开心。",
       "answerJa": "日本語を話すことは楽しいです。",
       "examples": [
@@ -2838,15 +5032,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "部屋が静かなことに驚きました。",
           "zh": "房间如此安静，让我很惊讶。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "静かな",
+        "distractors": [
+          {
+            "text": "静かだ",
+            "why": "な形容词接こと用な：静かなこと"
+          },
+          {
+            "text": "静かの",
+            "why": "な形容词接こと用な，不用の"
+          },
+          {
+            "text": "静か",
+            "why": "な形容词要加な才能接こと"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-035",
       "level": "N4",
+      "group": "n4-koto",
       "pattern": "〜ことがある",
       "meaningZh": "有时会……",
       "formation": "V辞書形 / Vない形 + ことがある",
       "note": "表示偶尔发生的情况。不同于“たことがある”的经验。",
+      "contrast": "辞书形＋ことがある＝有时会……；た形＋ことがある（N5）＝曾经……过。",
       "promptZh": "忙的时候，有时不吃早饭。",
       "answerJa": "忙しいとき、朝ご飯を食べないことがあります。",
       "examples": [
@@ -2862,15 +5076,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "夜中に目が覚めることがあります。",
           "zh": "有时半夜醒来。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "覚める",
+        "distractors": [
+          {
+            "text": "覚めた",
+            "why": "覚めたことがある是经验“曾经醒过”，不是“有时”"
+          },
+          {
+            "text": "覚めて",
+            "why": "ことがある前接辞书形或た形，不接て形"
+          },
+          {
+            "text": "覚めます",
+            "why": "ことがある前用普通形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-036",
       "level": "N4",
+      "group": "n4-voice",
       "pattern": "〜ことができる",
       "meaningZh": "能够……；可以……",
       "formation": "V辞書形 + ことができる",
       "note": "表示能力或可能；比可能形更正式。",
+      "contrast": "辞书形＋ことができる＝能够（较正式），意思同可能形（買える）。",
       "promptZh": "会说一点日语。",
       "answerJa": "日本語を少し話すことができます。",
       "examples": [
@@ -2886,15 +5120,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "明日来ることができますか。",
           "zh": "明天能来吗？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "買う",
+        "distractors": [
+          {
+            "text": "買える",
+            "why": "可能形和ことができる不能叠用"
+          },
+          {
+            "text": "買った",
+            "why": "ことができる前接辞书形"
+          },
+          {
+            "text": "買い",
+            "why": "ことができる前接辞书形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-037",
       "level": "N4",
+      "group": "n4-koto",
       "pattern": "〜ことになる",
       "meaningZh": "决定……；结果是……",
       "formation": "V辞書形 / Vない形 + ことになる",
       "note": "多表示由外部决定或自然结果。",
+      "contrast": "ことになる＝（别人、客观情况）决定或结果；ことにする＝自己决定。",
       "promptZh": "已经决定下个月调去东京。",
       "answerJa": "来月、東京へ転勤することになりました。",
       "examples": [
@@ -2910,15 +5164,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "雨のため、試合を中止することになりました。",
           "zh": "因下雨，决定取消比赛。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "行うことになりました",
+        "distractors": [
+          {
+            "text": "行うようになりました",
+            "why": "ようになる表示逐渐变化，不表示决定"
+          },
+          {
+            "text": "行ったことになりました",
+            "why": "行ったことになる是“算作已经举行过”，意思不对"
+          },
+          {
+            "text": "行うことがありました",
+            "why": "ことがある是“有时会”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-038",
       "level": "N4",
+      "group": "n4-koto",
       "pattern": "〜ことにする",
       "meaningZh": "决定……",
       "formation": "V辞書形 / Vない形 + ことにする",
       "note": "表示说话人自己的决定。",
+      "contrast": "ことにする＝自己做出的决定；ことになる＝由别人或情况决定。",
       "promptZh": "决定每天学习三十分钟。",
       "answerJa": "毎日三十分勉強することにしました。",
       "examples": [
@@ -2934,15 +5208,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "夏休みに北海道へ行くことにしました。",
           "zh": "我决定暑假去北海道。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "しないことにします",
+        "distractors": [
+          {
+            "text": "しないことになります",
+            "why": "ことになる是别人或情况决定；“我决定”用ことにする"
+          },
+          {
+            "text": "しないようにします",
+            "why": "ようにする是“尽量不”，不是“决定”"
+          },
+          {
+            "text": "しなかったことにします",
+            "why": "しなかったことにする是“就当没做过”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-039",
       "level": "N4",
+      "group": "n4-koto",
       "pattern": "〜くする / 〜にする",
       "meaningZh": "使……变得……",
       "formation": "い形去い + くする（いい→よくする）；な形/名詞 + にする",
       "note": "表示人为改变状态。「いい」不规则变为「よくする」。",
+      "contrast": "人为改变用する（明るくする、静かにする）；自然变化用なる（明るくなる）。",
       "promptZh": "把房间弄亮了。",
       "answerJa": "部屋を明るくしました。",
       "examples": [
@@ -2958,39 +5252,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "机の上をきれいにします。",
           "zh": "把桌上整理干净。"
         }
-      ]
-    },
-    {
-      "id": "n4-grammar-040",
-      "level": "N4",
-      "pattern": "急に",
-      "meaningZh": "突然；一下子",
-      "formation": "急に + V / 形容詞",
-      "note": "表示变化或动作发生得突然。",
-      "promptZh": "突然下起雨来了。",
-      "answerJa": "急に雨が降り出しました。",
-      "examples": [
-        {
-          "ja": "急に雨が降り出しました。",
-          "zh": "突然下起雨来了。"
-        },
-        {
-          "ja": "友達が急に来ました。",
-          "zh": "朋友突然来了。"
-        },
-        {
-          "ja": "急に寒くなりました。",
-          "zh": "突然变冷了。"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "小さくして",
+        "distractors": [
+          {
+            "text": "小さくなって",
+            "why": "なる是自然变化，不能带宾语を"
+          },
+          {
+            "text": "小さいにして",
+            "why": "い形容词接する用く形：小さくする"
+          },
+          {
+            "text": "小さにして",
+            "why": "い形容词去い＋くする：小さくする"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-041",
       "level": "N4",
+      "group": "n4-time",
       "pattern": "〜までに",
       "meaningZh": "在……之前；截至……",
       "formation": "时间 + までに",
       "note": "表示期限。与まで不同，までに强调在期限前完成。",
+      "contrast": "までに＝在某时之前（期限，一次性动作）；まで＝持续到某时。",
       "promptZh": "请在明天之前交作业。",
       "answerJa": "明日までに宿題を出してください。",
       "examples": [
@@ -3006,16 +5296,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "来週までに返事をします。",
           "zh": "下周之前回复。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "までに",
+        "distractors": [
+          {
+            "text": "まで",
+            "why": "来是一次性的动作，期限用までに；まで表示持续到某时"
+          },
+          {
+            "text": "ごろ",
+            "why": "九時ごろ是“九点左右”，不是“九点之前”"
+          },
+          {
+            "text": "ばかり",
+            "why": "九時ばかり不表示期限"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-042",
       "retiredVocabSourceIds": ["n4-765"],
       "level": "N4",
+      "group": "n4-te",
       "pattern": "〜まま",
       "meaningZh": "保持……状态；就那样……",
       "formation": "Vた形 / Vない形 + まま；い形 + まま；な形語幹 + なまま；N + のまま",
       "note": "表示某个动作完成后的结果或某种状态保持不变，例如「開けたまま／開けないまま／若いまま／元気なまま／学生のまま」。",
+      "contrast": "た形＋まま＝保持该状态去做别的（多为不该这样）；ながら＝同时进行两个动作。",
       "promptZh": "灯开着就睡着了。",
       "answerJa": "電気をつけたまま寝てしまいました。",
       "examples": [
@@ -3031,39 +5341,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "何も言わないまま帰りました。",
           "zh": "什么也没说就回去了。"
         }
-      ]
-    },
-    {
-      "id": "n4-grammar-043",
-      "level": "N4",
-      "pattern": "または",
-      "meaningZh": "或者；或",
-      "formation": "N / 句子 + または + N / 句子",
-      "note": "较书面，用于选择项。",
-      "promptZh": "可以用现金或卡支付。",
-      "answerJa": "現金またはカードで払えます。",
-      "examples": [
-        {
-          "ja": "現金またはカードで払えます。",
-          "zh": "可以用现金或卡支付。"
-        },
-        {
-          "ja": "電話またはメールで連絡してください。",
-          "zh": "请用电话或邮件联系。"
-        },
-        {
-          "ja": "月曜日または火曜日に来てください。",
-          "zh": "请周一或周二来。"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "履いたまま",
+        "distractors": [
+          {
+            "text": "履くまま",
+            "why": "まま前接た形：履いたまま"
+          },
+          {
+            "text": "履きながら",
+            "why": "履きながら是“一边穿鞋一边进”，意思不对"
+          },
+          {
+            "text": "履いてから",
+            "why": "履いてから是“穿上鞋以后”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-044",
       "level": "N4",
+      "group": "n4-appearance",
       "pattern": "〜みたいだ",
       "meaningZh": "像……；似乎……",
       "formation": "V/い形普通形 + みたいだ；な形/N肯定非过去 + みたいだ；な形/N过去・否定普通形 + みたいだ",
       "note": "口语表达，可表示比喻或根据情况的推测。な形容词和名词的肯定非过去形不加「だ」，如「元気みたいだ／学生みたいだ」；过去或否定形保留普通形，如「元気だったみたいだ／学生ではないみたいだ」。",
+      "contrast": "みたいだ是口语，名词直接接（雨みたい）；ようだ较书面，名词要加の（雨のようだ）。",
       "promptZh": "这个点心像石头一样。",
       "answerJa": "このお菓子は石みたいです。",
       "examples": [
@@ -3079,15 +5385,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "田中さんは昨日、元気ではなかったみたいです。",
           "zh": "田中先生昨天好像没什么精神。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "雨みたい",
+        "distractors": [
+          {
+            "text": "雨のみたい",
+            "why": "名词直接接みたい，不加の"
+          },
+          {
+            "text": "雨なみたい",
+            "why": "名词直接接みたい，不加な"
+          },
+          {
+            "text": "雨だみたい",
+            "why": "名词的肯定非过去形接みたい时不加だ"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-045",
       "level": "N4",
+      "group": "n4-appearance",
       "pattern": "〜みたいな",
       "meaningZh": "像……一样的……",
       "formation": "V/い形普通形 + みたいな + N；な形/N肯定非过去 + みたいな + N；な形/N过去・否定普通形 + みたいな + N",
       "note": "修饰名词，表示比喻或类似。な形容词和名词的肯定非过去形不加「だ」；过去或否定形保留普通形，如「学生だったみたいな人」。",
+      "contrast": "みたいな修饰名词（夢みたいな話）；みたいに修饰动词、形容词（鳥みたいに飛ぶ）。",
       "promptZh": "真是像梦一样的事情啊。",
       "answerJa": "夢みたいな話ですね。",
       "examples": [
@@ -3103,15 +5429,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本みたいな安全な国に住みたいです。",
           "zh": "想住在像日本一样安全的国家。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "みたいな",
+        "distractors": [
+          {
+            "text": "みたいに",
+            "why": "修饰名词（話）要用みたいな"
+          },
+          {
+            "text": "みたいの",
+            "why": "みたい修饰名词用な，不用の"
+          },
+          {
+            "text": "そうな",
+            "why": "名词不能接样态的そうな"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-046",
       "level": "N4",
+      "group": "n4-appearance",
       "pattern": "〜みたいに",
       "meaningZh": "像……一样地",
       "formation": "V/い形普通形 + みたいに；な形/N肯定非过去 + みたいに；な形/N过去・否定普通形 + みたいに + V/形容詞",
       "note": "作状语，表示样态或比喻。な形容词和名词的肯定非过去形不加「だ」；过去或否定形保留普通形。",
+      "contrast": "みたいに修饰动词、形容词（像……一样地）；みたいな修饰名词。",
       "promptZh": "想像鸟一样在空中飞。",
       "answerJa": "鳥みたいに空を飛びたいです。",
       "examples": [
@@ -3127,15 +5473,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "子供みたいに喜んでいました。",
           "zh": "像孩子一样高兴。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "みたいに",
+        "distractors": [
+          {
+            "text": "みたいな",
+            "why": "修饰动词（飛ぶ）要用みたいに"
+          },
+          {
+            "text": "そうに",
+            "why": "名词不能接样态的そうに"
+          },
+          {
+            "text": "みたい",
+            "why": "みたい修饰动词要变成みたいに"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-047",
       "level": "N4",
+      "group": "n4-quantity",
       "pattern": "〜も",
       "meaningZh": "竟有……；多达……",
       "formation": "数量词 + も",
       "note": "强调数量多或程度超过预期。",
+      "contrast": "数量＋も强调“多”；数量＋しか＋否定强调“少”。",
       "promptZh": "昨天竟然睡了十个小时。",
       "answerJa": "昨日は十時間も寝ました。",
       "examples": [
@@ -3151,15 +5517,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この本を三回も読みました。",
           "zh": "这本书读了多达三遍。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "も",
+        "distractors": [
+          {
+            "text": "しか",
+            "why": "しか后面必须接否定"
+          },
+          {
+            "text": "だけ",
+            "why": "三十分だけ是“只走了三十分钟”，意思相反"
+          },
+          {
+            "text": "ごろ",
+            "why": "ごろ接时间点，不接时间长度"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-048",
       "level": "N4",
+      "group": "n4-command",
       "pattern": "〜な",
       "meaningZh": "不要……；禁止……",
       "formation": "V辞書形 + な",
       "note": "强烈禁止，语气生硬。日常对陌生人慎用。",
+      "contrast": "辞书形＋な＝强烈禁止（走るな）；ます形去ます＋なさい＝命令（走りなさい）。",
       "promptZh": "不要进这里。",
       "answerJa": "ここに入るな。",
       "examples": [
@@ -3175,16 +5561,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この紙を捨てるなと言われました。",
           "zh": "被告知不要扔这张纸。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "走るな",
+        "distractors": [
+          {
+            "text": "走りなさい",
+            "why": "走りなさい是命令“跑！”，意思相反"
+          },
+          {
+            "text": "走るなさい",
+            "why": "なさい接ます形去ます"
+          },
+          {
+            "text": "走らな",
+            "why": "禁止的な接辞书形：走るな"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-049",
       "retiredVocabSourceIds": ["n5-486", "n4-497"],
       "level": "N4",
+      "group": "n4-particle",
       "pattern": "〜など",
       "meaningZh": "……等；……之类",
       "formation": "N + など",
       "note": "举例并暗示还有其他同类事物。",
+      "contrast": "など表示举例“……等”；常和や一起用（本や雑誌など）。",
       "promptZh": "读书、杂志等。",
       "answerJa": "本や雑誌などを読みます。",
       "examples": [
@@ -3200,15 +5606,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "京都や奈良などへ行きたいです。",
           "zh": "想去京都、奈良等地。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "など",
+        "distractors": [
+          {
+            "text": "まで",
+            "why": "京都や奈良まで是“到京都、奈良为止”，意思不对"
+          },
+          {
+            "text": "ばかり",
+            "why": "ばかり是“净是、光”，不表示举例“等”"
+          },
+          {
+            "text": "しか",
+            "why": "しか后面必须接否定"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-050",
       "level": "N4",
+      "group": "n4-time",
       "pattern": "〜ながら",
       "meaningZh": "一边……一边……；虽然……",
       "formation": "Vます形去ます + ながら",
       "note": "初级重点是同一主体同时做两个动作；也有逆接用法。",
+      "contrast": "ながら：同一主语同时做两个动作，主要动作放在后面；間：在某段时间里。",
       "promptZh": "一边听音乐一边学习。",
       "answerJa": "音楽を聞きながら勉強します。",
       "examples": [
@@ -3224,15 +5650,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "テレビを見ながらご飯を食べないほうがいいです。",
           "zh": "最好不要一边看电视一边吃饭。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "聞きながら",
+        "distractors": [
+          {
+            "text": "聞くながら",
+            "why": "ながら接ます形去ます：聞きながら"
+          },
+          {
+            "text": "聞いてながら",
+            "why": "ながら接ます形去ます，不接て形"
+          },
+          {
+            "text": "聞いたまま",
+            "why": "聞いたまま是“听着的状态保持不变”，不是同时做两件事"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-051",
       "level": "N4",
+      "group": "n4-adverb",
       "pattern": "なかなか〜ない",
       "meaningZh": "怎么也不……；不容易……",
       "formation": "なかなか + 否定形",
       "note": "表示期待中的事情难以实现。",
+      "contrast": "なかなか〜ない＝期待的事难以实现（怎么也不……）；あまり〜ない＝不太。",
       "promptZh": "公交车怎么也不来。",
       "answerJa": "バスがなかなか来ません。",
       "examples": [
@@ -3248,15 +5694,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この問題はなかなか解けません。",
           "zh": "这道题怎么也解不出来。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "なかなか",
+        "distractors": [
+          {
+            "text": "あまり",
+            "why": "あまり来ません是“不太来（班次少）”，不是“怎么等也不来”"
+          },
+          {
+            "text": "もう",
+            "why": "もう来ません是“不再来了”"
+          },
+          {
+            "text": "よく",
+            "why": "よく不和否定一起表示“怎么也不”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-052",
       "level": "N4",
+      "group": "n4-must",
       "pattern": "〜なければいけない",
       "meaningZh": "必须……",
       "formation": "Vない形去い + ければいけない",
       "note": "表示义务，口语/日常中常用。",
+      "contrast": "なければいけない（日常）和なければならない（客观、正式）都表示必须；なくてもいい＝不必。",
       "promptZh": "明天之前必须付款。",
       "answerJa": "明日までに払わなければいけません。",
       "examples": [
@@ -3272,15 +5738,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "パスポートを持って行かなければいけません。",
           "zh": "必须带护照去。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "起きなければ",
+        "distractors": [
+          {
+            "text": "起きれば",
+            "why": "起きればいけません不成立"
+          },
+          {
+            "text": "起きなくても",
+            "why": "〜なくてもいけません不成立；“不必”是なくてもいい"
+          },
+          {
+            "text": "起きては",
+            "why": "起きてはいけません是“不可以早起”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-053",
       "level": "N4",
+      "group": "n4-must",
       "pattern": "〜なければならない",
       "meaningZh": "必须……",
       "formation": "Vない形去い + ければならない",
       "note": "比なければいけない更正式、客观。",
+      "contrast": "なければならない比なければいけない更客观、正式，多用于规则；日常口语说なきゃ。",
       "promptZh": "必须每天学习日语。",
       "answerJa": "毎日日本語を勉強しなければなりません。",
       "examples": [
@@ -3296,15 +5782,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "規則を守らなければなりません。",
           "zh": "必须遵守规则。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "守らなければ",
+        "distractors": [
+          {
+            "text": "守りなければ",
+            "why": "守る的ない形是守らない"
+          },
+          {
+            "text": "守れば",
+            "why": "守ればなりません不成立"
+          },
+          {
+            "text": "守っては",
+            "why": "守ってはなりません是“不可以遵守”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-054",
       "level": "N4",
+      "group": "n4-condition",
       "pattern": "〜なら",
       "meaningZh": "如果是……；说到……",
       "formation": "V/い形普通形 + なら；な形/N肯定非过去：語幹/N + なら；过去/否定普通形 + なら",
       "note": "接对方话题或提出假定条件。",
+      "contrast": "なら接对方的话题或假定“如果是……的话”，后项可接建议、意志；前项的事可以在后项之后发生。",
       "promptZh": "如果是日本料理，这家店不错。",
       "answerJa": "日本料理なら、この店がいいです。",
       "examples": [
@@ -3320,15 +5826,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "行かないなら、早く言ってください。",
           "zh": "如果不去，请早点说。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "なら",
+        "distractors": [
+          {
+            "text": "だら",
+            "why": "名词的条件形是なら或だったら，没有だら"
+          },
+          {
+            "text": "ば",
+            "why": "名词不能直接接ば"
+          },
+          {
+            "text": "と",
+            "why": "日本料理と是“和日本料理”，不是条件"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-055",
       "level": "N4",
+      "group": "n4-command",
       "pattern": "〜なさい",
       "meaningZh": "请做……；去做……",
       "formation": "Vます形去ます + なさい",
       "note": "较温和命令，多用于老师、父母对下级/孩子。",
+      "contrast": "なさい是长辈对晚辈的温和命令；てください是礼貌的请求；辞书形＋な是禁止。",
       "promptZh": "早点睡。",
       "answerJa": "早く寝なさい。",
       "examples": [
@@ -3344,15 +5870,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "分からないところは先生に聞きなさい。",
           "zh": "不懂的地方去问老师。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "寝なさい",
+        "distractors": [
+          {
+            "text": "寝るなさい",
+            "why": "なさい接ます形去ます：寝なさい"
+          },
+          {
+            "text": "寝るな",
+            "why": "寝るな是禁止“不许睡”，意思相反"
+          },
+          {
+            "text": "寝ません",
+            "why": "寝ません是“不睡”，不是命令"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-056",
       "level": "N4",
+      "group": "n4-honorific",
       "pattern": "なさる",
       "meaningZh": "做（尊敬语）",
       "formation": "する → なさる / なさいます",
       "note": "表示对对方或第三方动作的尊敬。",
+      "contrast": "なさる是する的尊敬语（对方的动作）；いたす是する的谦让语（自己的动作）。",
       "promptZh": "老师每天早上散步。",
       "answerJa": "先生は毎朝散歩をなさいます。",
       "examples": [
@@ -3368,15 +5914,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "お客様は予約をなさいましたか。",
           "zh": "客人预约了吗？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "なさいます",
+        "distractors": [
+          {
+            "text": "いたします",
+            "why": "いたす是谦让语，不能用于老师"
+          },
+          {
+            "text": "でございます",
+            "why": "でございます是“是”的郑重语"
+          },
+          {
+            "text": "いらっしゃいます",
+            "why": "散歩をいらっしゃる不成立"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-057",
       "level": "N4",
+      "group": "n4-nominal",
       "pattern": "〜に気がつく",
       "meaningZh": "注意到……；意识到……",
       "formation": "N + に気がつく；V/い形普通形 + ことに気がつく；な形肯定非过去：語幹 + なことに気がつく；N肯定非过去：N + であることに気がつく；な形/N过去・否定普通形 + ことに気がつく",
       "note": "表示发现之前没注意到的事物或情况。用「こと」名词化时，な形容词和名词的肯定非过去形分别使用「なこと／であること」；过去或否定普通形直接接「こと」。",
+      "contrast": "Nに気がつく；句子要先名词化：〜ことに気がつく。",
       "promptZh": "意识到钱包不见了。",
       "answerJa": "財布がないことに気がつきました。",
       "examples": [
@@ -3392,15 +5958,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼の気持ちに気がつきませんでした。",
           "zh": "没有察觉到他的心情。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ないことに",
+        "distractors": [
+          {
+            "text": "ないに",
+            "why": "句子要先名词化：ないことに"
+          },
+          {
+            "text": "ないことを",
+            "why": "気がつく的对象用に，不用を"
+          },
+          {
+            "text": "ないで",
+            "why": "ないで表示“不……而……”，不能作为気がつく的对象"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-058",
       "level": "N4",
+      "group": "n4-appearance",
       "pattern": "〜に見える",
       "meaningZh": "看起来……",
       "formation": "N / な形語幹 + に見える；い形去い + く見える（いい→よく見える）",
       "note": "根据外观判断。名词和な形容词接「に見える」；い形容词去「い」后接「く見える」。「いい」不规则变为「よく見える」。",
+      "contrast": "Nに見える／い形く見える：从外表看起来；〜そうだ（样态）是根据迹象推测。",
       "promptZh": "田中先生看起来年轻。",
       "answerJa": "田中さんは若く見えます。",
       "examples": [
@@ -3416,16 +6002,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼は学生に見えます。",
           "zh": "他看起来像学生。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "若く",
+        "distractors": [
+          {
+            "text": "若いに",
+            "why": "い形容词接見える用く形：若く見える"
+          },
+          {
+            "text": "若に",
+            "why": "い形容词要用く形：若く見える"
+          },
+          {
+            "text": "若い",
+            "why": "い形容词修饰見える要变成く形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-060",
       "retiredVocabSourceIds": ["n4-758"],
       "level": "N4",
+      "group": "n4-compound",
       "pattern": "〜にくい",
       "meaningZh": "难以……；不好……",
       "formation": "Vます形去ます + にくい",
       "note": "表示动作做起来困难或对象性质导致不易。",
+      "contrast": "にくい多因对象的性质难做；づらい多因身心感受难做；やすい＝容易。",
       "promptZh": "这个汉字难记。",
       "answerJa": "この漢字は覚えにくいです。",
       "examples": [
@@ -3441,15 +6047,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "先生の声は少し聞きにくいです。",
           "zh": "老师的声音有点难听清。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "覚えにくい",
+        "distractors": [
+          {
+            "text": "覚えやすい",
+            "why": "覚えやすい是“容易记”，意思相反"
+          },
+          {
+            "text": "覚えるにくい",
+            "why": "にくい接ます形去ます：覚えにくい"
+          },
+          {
+            "text": "覚えないにくい",
+            "why": "にくい接ます形去ます，不接否定形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-061",
       "level": "N4",
+      "group": "n4-quantity",
       "pattern": "〜の中で",
       "meaningZh": "在……之中",
       "formation": "N + の中で",
       "note": "限定比较或选择范围。",
+      "contrast": "三个以上的范围内比较用の中で；两者比较用どちら、〜より。",
       "promptZh": "水果中你最喜欢什么？",
       "answerJa": "果物の中で、何が一番好きですか。",
       "examples": [
@@ -3465,15 +6091,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この三つの中で、どれが一番安いですか。",
           "zh": "这三个当中，哪个最便宜？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "の中で",
+        "distractors": [
+          {
+            "text": "より",
+            "why": "より用于两者比较，这里是三个里选最便宜的"
+          },
+          {
+            "text": "のほうが",
+            "why": "のほうが用于两者比较"
+          },
+          {
+            "text": "まで",
+            "why": "まで表示终点，不表示范围"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-062",
       "level": "N4",
+      "group": "n4-concession",
       "pattern": "〜のに",
       "meaningZh": "明明……却……；虽然……但是……",
       "formation": "V/い形普通形 + のに；な形/N肯定非过去：語幹/N + なのに；过去/否定普通形 + のに",
       "note": "表示逆接，常带意外、不满或遗憾。",
+      "contrast": "のに＝明明……却……，带意外、不满（事实）；ても＝即使……也（假定）；けど只是中性的转折。",
       "promptZh": "明明在下雨，却没带伞。",
       "answerJa": "雨が降っているのに、傘を持っていません。",
       "examples": [
@@ -3489,15 +6135,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "もう夜なのに、外がうるさいです。",
           "zh": "明明已经晚上了，外面却很吵。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "のに",
+        "distractors": [
+          {
+            "text": "から",
+            "why": "から是理由“因为下雨所以没带伞”，意思不通"
+          },
+          {
+            "text": "ので",
+            "why": "ので是理由“因为下雨所以没带伞”，意思不通"
+          },
+          {
+            "text": "ても",
+            "why": "降っているても不成立；ても接て形：降っていても"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-063",
       "level": "N4",
+      "group": "n4-reason",
       "pattern": "〜のに",
       "meaningZh": "为了……；用于……",
       "formation": "V辞書形 + のに",
       "note": "表示用途、目的或评价基准。",
+      "contrast": "辞书形＋のに＋使う／かかる／必要＝用于……、做……要……；ために可表示更广的目的。",
       "promptZh": "这把剪刀用于剪纸。",
       "answerJa": "このはさみは紙を切るのに使います。",
       "examples": [
@@ -3513,15 +6179,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "漢字を覚えるのに時間がかかります。",
           "zh": "记汉字要花时间。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "切るのに",
+        "distractors": [
+          {
+            "text": "切るので",
+            "why": "ので表示原因，不表示用途"
+          },
+          {
+            "text": "切ったのに",
+            "why": "表示用途用辞书形＋のに，不用た形"
+          },
+          {
+            "text": "切るから",
+            "why": "から表示理由，不表示用途"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-064",
       "level": "N4",
+      "group": "n4-reason",
       "pattern": "〜のは〜だ",
       "meaningZh": "……的是……；之所以……是因为……",
       "formation": "V/い形普通形 + のは；な形/N肯定非过去 + なのは；な形/N过去・否定普通形 + のは + N/句子",
       "note": "用「の」把前项名词化，再说明、强调其内容或原因，如「大切なのは」。",
+      "contrast": "〜のは〜からだ用来强调原因（遅れたのは……からです）；〜のは〜ことだ强调内容。",
       "promptZh": "学习日语是因为想在旅行中使用。",
       "answerJa": "日本語を勉強しているのは、旅行で使いたいからです。",
       "examples": [
@@ -3537,15 +6223,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "遅れたのは電車が止まったからです。",
           "zh": "迟到是因为电车停运了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "からです",
+        "distractors": [
+          {
+            "text": "のでです",
+            "why": "ので后面不接です；强调原因用からです"
+          },
+          {
+            "text": "けどです",
+            "why": "けど是转折，不表示原因"
+          },
+          {
+            "text": "のにです",
+            "why": "のに是转折，不表示原因"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-065",
       "level": "N4",
+      "group": "n4-honorific",
       "pattern": "お／ご〜ください",
       "meaningZh": "请……（尊敬表达）",
       "formation": "お + 和语动词ます形去ます + ください；ご + 汉语系サ变动词词干 + ください",
       "note": "请对方做动作的尊敬表达。不能把任意汉语名词都套入此式；接「ご」的一般是可作サ变动词的汉语系词干，且存在「ご覧ください」等惯用或不规则表达。",
+      "contrast": "お〜ください是请对方做（尊敬）；お〜します（N3）是我为对方做（谦让）。",
       "promptZh": "请在这里等候。",
       "answerJa": "こちらでお待ちください。",
       "examples": [
@@ -3561,15 +6267,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "申込内容をご確認ください。",
           "zh": "请确认申请内容。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "お待ち",
+        "distractors": [
+          {
+            "text": "お待って",
+            "why": "お〜ください接ます形去ます：お待ちください"
+          },
+          {
+            "text": "ご待ち",
+            "why": "待つ是和语动词，用お"
+          },
+          {
+            "text": "お待つ",
+            "why": "お〜ください接ます形去ます"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-066",
       "level": "N4",
+      "group": "n4-honorific",
       "pattern": "お／ご〜になる",
       "meaningZh": "做……（尊敬语）",
       "formation": "お + 和语动词ます形去ます + になる；ご + 汉语系サ变动词词干 + になる",
       "note": "表示对对方或第三方动作的尊敬。不能把任意汉语名词都套入此式；接「ご」的一般是可作サ变动词的汉语系词干，并有「ご覧になる」等不规则表达。",
+      "contrast": "お〜になる是尊敬语（对方做）；お〜する（N3）是谦让语（我为对方做）。",
       "promptZh": "老师已经回去了。",
       "answerJa": "先生はもうお帰りになりました。",
       "examples": [
@@ -3585,16 +6311,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "先生も会議にご出席になります。",
           "zh": "老师也将出席会议。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "お帰りになりました",
+        "distractors": [
+          {
+            "text": "お帰りしました",
+            "why": "お〜する是谦让语，不能用于老师"
+          },
+          {
+            "text": "お帰るになりました",
+            "why": "お〜になる接ます形去ます：お帰りになる"
+          },
+          {
+            "text": "ご帰りになりました",
+            "why": "帰る是和语动词，用お"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-067",
       "retiredVocabSourceIds": ["n4-743"],
       "level": "N4",
+      "group": "n4-quantity",
       "pattern": "〜おきに",
       "meaningZh": "每隔……；每……",
       "formation": "数量词 + おきに",
       "note": "日、周、月等：「一日おき」＝隔一天（每两天一次）；时间、距离：「六時間おき」≈每六小时。",
+      "contrast": "おきに＝每隔（一日おき＝隔一天）；ごとに（N3）＝每（一日ごと＝每天）；时间、距离的おき≈ごと。",
       "promptZh": "每隔一天运动。",
       "answerJa": "一日おきに運動しています。",
       "examples": [
@@ -3610,16 +6356,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "一週間おきに病院へ行きます。",
           "zh": "隔一周去一次医院（每两周一次）。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "おきに",
+        "distractors": [
+          {
+            "text": "ばかり",
+            "why": "六時間ばかり是“大约六小时”，不是“每隔”"
+          },
+          {
+            "text": "まで",
+            "why": "六時間まで不表示频率"
+          },
+          {
+            "text": "ごろ",
+            "why": "ごろ接时间点，不接时间长度"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-068",
       "retiredVocabSourceIds": ["n4-744"],
       "level": "N4",
+      "group": "n4-compound",
       "pattern": "〜終わる",
       "meaningZh": "……完",
       "formation": "Vます形去ます + 終わる",
       "note": "表示动作完成。",
+      "contrast": "終わる表示动作完成；始める表示开始；続ける表示继续。",
       "promptZh": "作业做完了。",
       "answerJa": "宿題をやり終わりました。",
       "examples": [
@@ -3635,15 +6401,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "食べ終わった皿を片付けます。",
           "zh": "收拾吃完后的盘子。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "読み終わったら",
+        "distractors": [
+          {
+            "text": "読み始めたら",
+            "why": "読み始めたら是“开始读以后”，意思不对"
+          },
+          {
+            "text": "読み続けたら",
+            "why": "読み続けたら是“继续读的话”，意思不对"
+          },
+          {
+            "text": "読むの終わったら",
+            "why": "复合动词接ます形去ます：読み終わる"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-069",
       "level": "N4",
+      "group": "n4-voice",
       "pattern": "可能形 / 〜られる",
       "meaningZh": "能……；会……",
       "formation": "一段：去る+られる；五段：う段→え段+る；する→できる；来る→来られる",
       "note": "口语中一段动词常有ら抜き言葉，但学习和考试中建议用标准形。",
+      "contrast": "可能形的对象常用が（漢字が読める）；一段动词的标准形是〜られる，口语常说〜れる。",
       "promptZh": "我能读一点汉字。",
       "answerJa": "私は漢字が少し読めます。",
       "examples": [
@@ -3659,15 +6445,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この店ではカードが使えます。",
           "zh": "这家店可以用卡。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "使えます",
+        "distractors": [
+          {
+            "text": "使わせます",
+            "why": "使わせる是使役“让……使用”，意思不对"
+          },
+          {
+            "text": "使えられます",
+            "why": "五段动词的可能形是う段→え段＋る：使える"
+          },
+          {
+            "text": "使います",
+            "why": "カードが使います主语不对，也没有“能”的意思"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-070",
       "level": "N4",
+      "group": "n4-appearance",
       "pattern": "〜らしい",
       "meaningZh": "好像……；听说……；像……样",
       "formation": "传闻/推测：V/い形普通形 + らしい；な形/N肯定非过去 + らしい；な形/N过去・否定普通形 + らしい。典型特征：N + らしい",
       "note": "传闻或推测用法中，な形容词和名词的肯定非过去形不加「だ」，过去或否定形保留普通形。表示典型特征的「N＋らしい」按い形容词活用，可说「子供らしい／子供らしく／子供らしさ／子供らしい態度」。",
+      "contrast": "らしい：传闻或有根据的推测（雨らしい）；Nらしい：具有N的典型特征（春らしい）。",
       "promptZh": "明天好像会下雨。",
       "answerJa": "明日は雨らしいです。",
       "examples": [
@@ -3683,15 +6489,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "今日は春らしい天気です。",
           "zh": "今天是很有春天气息的天气。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "春らしい",
+        "distractors": [
+          {
+            "text": "春そうな",
+            "why": "名词不能接样态的そうな"
+          },
+          {
+            "text": "春のらしい",
+            "why": "名词直接接らしい，不加の"
+          },
+          {
+            "text": "春らしいの",
+            "why": "らしい修饰名词直接接名词，不加の"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-071",
       "level": "N4",
+      "group": "n4-nominal",
       "pattern": "〜さ",
       "meaningZh": "……度；……之处",
       "formation": "い形去い / な形語幹 + さ",
       "note": "把形容词变成名词，表示程度或性质。「いい」是不规则变化：いい → よさ。",
+      "contrast": "さ把形容词变成表示程度的名词（広さ）；み（N3）表示感受，只接部分形容词。",
       "promptZh": "这个房间的宽敞程度让我吃惊。",
       "answerJa": "この部屋の広さに驚きました。",
       "examples": [
@@ -3707,39 +6533,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この町のよさを友達に伝えたいです。",
           "zh": "我想把这座城镇的优点告诉朋友。"
         }
-      ]
-    },
-    {
-      "id": "n4-grammar-072",
-      "level": "N4",
-      "pattern": "さっき",
-      "meaningZh": "刚才",
-      "formation": "さっき + Vた / Vていた",
-      "note": "表示不久前。比先ほど口语。",
-      "promptZh": "刚才田中先生来电话了。",
-      "answerJa": "さっき田中さんから電話がありました。",
-      "examples": [
-        {
-          "ja": "さっき田中さんから電話がありました。",
-          "zh": "刚才田中先生来电话了。"
-        },
-        {
-          "ja": "さっき食べたばかりです。",
-          "zh": "刚才刚吃过。"
-        },
-        {
-          "ja": "鍵はさっき机の上に置きました。",
-          "zh": "钥匙刚才放在桌上了。"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "難しさ",
+        "distractors": [
+          {
+            "text": "難しい",
+            "why": "形容词要名词化才能接が：難しさ"
+          },
+          {
+            "text": "難しく",
+            "why": "く形是副词，不能接が"
+          },
+          {
+            "text": "難しそう",
+            "why": "難しそう是“看起来难”，不能直接接が"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-073",
       "level": "N4",
+      "group": "n4-voice",
       "pattern": "使役受身形 / 〜させられる",
       "meaningZh": "被迫……；被要求……",
       "formation": "五段：词尾变あ段（う→わ）+ せられる；口语可缩约为あ段（う→わ）+ される，但词尾为「す」的动词不缩约；一段：去る + させられる；する→させられる；来る→来させられる",
       "note": "表示被别人要求或迫使做某事。",
+      "contrast": "使役受身＝被迫做（自己不想做）；受身＝受到别人的动作；使役＝让别人做。",
       "promptZh": "小时候被妈妈要求学钢琴。",
       "answerJa": "子供のころ、母にピアノを習わせられました。",
       "examples": [
@@ -3755,15 +6577,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "先生に作文を書かせられました。",
           "zh": "被老师要求写作文。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "待たされました",
+        "distractors": [
+          {
+            "text": "待たれました",
+            "why": "待たれる是被动或尊敬，没有“被迫”的意思"
+          },
+          {
+            "text": "待たせました",
+            "why": "待たせる是使役“让别人等”"
+          },
+          {
+            "text": "待ちました",
+            "why": "待ちました只是“等了”，没有“被迫”的意思"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-074",
       "level": "N4",
+      "group": "n4-voice",
       "pattern": "使役形 / 〜させる",
       "meaningZh": "让……；使……",
       "formation": "五段：未然形+せる；一段：去る+させる；する→させる；来る→来させる",
       "note": "表示让某人做事或使某种情况发生。",
+      "contrast": "使役（読ませる）＝让别人做；使役受身（読ませられる）＝自己被迫做。",
       "promptZh": "妈妈让孩子早点睡。",
       "answerJa": "母は子供を早く寝させました。",
       "examples": [
@@ -3779,15 +6621,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この映画は人を泣かせます。",
           "zh": "这部电影让人哭。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "読ませました",
+        "distractors": [
+          {
+            "text": "読まれました",
+            "why": "読まれる是被动“被读”"
+          },
+          {
+            "text": "読ませられました",
+            "why": "使役受身是“被迫读”，主语是读的人"
+          },
+          {
+            "text": "読みました",
+            "why": "読みました是老师自己读"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-075",
       "level": "N4",
+      "group": "n4-voice",
       "pattern": "〜させてください",
       "meaningZh": "请让我……",
       "formation": "V使役て形 + ください",
       "note": "请求允许自己做某事。",
+      "contrast": "させてください请求“让我做”；てください是请对方做。",
       "promptZh": "请让我休息一下。",
       "answerJa": "少し休ませてください。",
       "examples": [
@@ -3803,15 +6665,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "今日は早く帰らせてください。",
           "zh": "今天请让我早点回去。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "休ませて",
+        "distractors": [
+          {
+            "text": "休んで",
+            "why": "休んでください是“请你休息”"
+          },
+          {
+            "text": "休まれて",
+            "why": "休まれる是被动或尊敬，不能表示“让我”"
+          },
+          {
+            "text": "休ませられて",
+            "why": "使役受身是“被迫休息”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-076",
       "level": "N4",
+      "group": "n4-adverb",
       "pattern": "さすが",
       "meaningZh": "不愧是……；到底是……",
       "formation": "さすが + N；さすがに + 句子",
       "note": "表示结果符合预期的赞叹；「さすがに」还可表示情况达到连说话人也承认的界限，常带有让步或“到了这种程度确实……”的语感，不是单纯的程度副词。",
+      "contrast": "さすが＝果然不愧（结果符合期待，多为称赞）；やっぱり＝和预想的一样（中性）。",
       "promptZh": "不愧是田中先生，说明得很好。",
       "answerJa": "さすが田中さん、説明が上手ですね。",
       "examples": [
@@ -3827,15 +6709,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "さすが先生ですね。何でも分かります。",
           "zh": "不愧是老师，什么都懂。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "さすが",
+        "distractors": [
+          {
+            "text": "やっと",
+            "why": "やっと是“终于”，意思不对"
+          },
+          {
+            "text": "全然",
+            "why": "全然后面要接否定"
+          },
+          {
+            "text": "急に",
+            "why": "急に是“突然”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-077",
       "level": "N4",
+      "group": "n4-reason",
       "pattern": "〜し",
       "meaningZh": "又……又……；而且……",
       "formation": "普通形 + し、普通形 + し",
       "note": "列举理由或并列事实，常用于解释判断。",
+      "contrast": "し列举多个理由或特点（安いし、おいしいし）；から一般只说一个理由。",
       "promptZh": "这家店又便宜又好吃，所以经常去。",
       "answerJa": "この店は安いし、おいしいし、よく行きます。",
       "examples": [
@@ -3851,39 +6753,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "時間もないし、タクシーで行きましょう。",
           "zh": "也没时间了，坐出租车去吧。"
         }
-      ]
-    },
-    {
-      "id": "n4-grammar-078",
-      "level": "N4",
-      "pattern": "そんなに",
-      "meaningZh": "那么；那么多；那么程度",
-      "formation": "そんなに + 形容詞/動詞",
-      "note": "常与否定搭配表示“并没有那么……”。",
-      "promptZh": "不用那么着急。",
-      "answerJa": "そんなに急がなくてもいいです。",
-      "examples": [
-        {
-          "ja": "そんなに急がなくてもいいです。",
-          "zh": "不用那么着急。"
-        },
-        {
-          "ja": "この店はそんなに高くありません。",
-          "zh": "这家店没有那么贵。"
-        },
-        {
-          "ja": "そんなに食べたら、お腹が痛くなりますよ。",
-          "zh": "吃那么多的话会肚子疼哦。"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "安いし",
+        "distractors": [
+          {
+            "text": "安いのに",
+            "why": "のに是“明明便宜却……”，意思不通"
+          },
+          {
+            "text": "安いだし",
+            "why": "い形容词直接接し，不加だ"
+          },
+          {
+            "text": "安いなら",
+            "why": "なら是假定“如果便宜”，这里是并列理由"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-079",
       "level": "N4",
+      "group": "n4-concession",
       "pattern": "それでも",
       "meaningZh": "即便如此；尽管那样",
       "formation": "句子。+ それでも + 句子",
       "note": "表示前项情况存在，但后项仍成立。",
+      "contrast": "それでも＝即便如此（在前句情况下仍然……）；それに＝而且（追加）。",
       "promptZh": "在下雨。即便如此，我还是去。",
       "answerJa": "雨が降っています。それでも、行きます。",
       "examples": [
@@ -3899,39 +6797,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "忙しいです。それでも、日本語の勉強は続けています。",
           "zh": "很忙。即便如此，日语学习还在坚持。"
         }
-      ]
-    },
-    {
-      "id": "n4-grammar-080",
-      "level": "N4",
-      "pattern": "それに",
-      "meaningZh": "而且；再加上",
-      "formation": "句子。+ それに + 句子",
-      "note": "追加理由或信息。",
-      "promptZh": "这个房间很宽敞。而且离车站近。",
-      "answerJa": "この部屋は広いです。それに、駅から近いです。",
-      "examples": [
-        {
-          "ja": "この部屋は広いです。それに、駅から近いです。",
-          "zh": "这个房间很宽敞。而且离车站近。"
-        },
-        {
-          "ja": "今日は寒いです。それに、風も強いです。",
-          "zh": "今天很冷。而且风也大。"
-        },
-        {
-          "ja": "このかばんは軽いです。それに、ポケットも多いです。",
-          "zh": "这个包很轻。而且口袋也多。"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "それでも",
+        "distractors": [
+          {
+            "text": "それに",
+            "why": "それに是“而且”，用于追加，不是转折"
+          },
+          {
+            "text": "それから",
+            "why": "それから是“然后”，表示先后"
+          },
+          {
+            "text": "だから",
+            "why": "だから是“所以”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-081",
       "level": "N4",
+      "group": "n4-hearsay",
       "pattern": "〜そうだ（传闻）",
       "meaningZh": "听说……；据说……",
       "formation": "普通形 + そうだ",
       "note": "传达听来的信息；不能接だろう、ようだ等推量。",
+      "contrast": "传闻そうだ接普通形（降るそうだ）＝听说；样态そうだ接ます形去ます（降りそうだ）＝看起来要……。",
       "promptZh": "听说明天会下雨。",
       "answerJa": "明日は雨が降るそうです。",
       "examples": [
@@ -3947,15 +6841,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この店はラーメンがおいしいそうです。",
           "zh": "听说这家店的拉面很好吃。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "降る",
+        "distractors": [
+          {
+            "text": "降り",
+            "why": "降りそうです是样态“看起来要下雨”"
+          },
+          {
+            "text": "降って",
+            "why": "传闻そうだ接普通形，不接て形"
+          },
+          {
+            "text": "降った",
+            "why": "降ったそうです是“听说下过雨”，时间不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-082",
       "level": "N4",
+      "group": "n4-appearance",
       "pattern": "〜そうだ（样态）",
       "meaningZh": "看起来……；快要……",
       "formation": "Vます形去ます / い形去い / な形語幹 + そうだ",
       "note": "根据外观或迹象判断。いい→よさそう，ない→なさそう。",
+      "contrast": "样态そうだ接ます形去ます（降りそうだ），表示看起来要……；传闻そうだ接普通形（降るそうだ）。",
       "promptZh": "这道菜看起来很好吃。",
       "answerJa": "この料理はおいしそうです。",
       "examples": [
@@ -3971,15 +6885,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "田中さんは忙しそうです。",
           "zh": "田中看起来很忙。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "降り",
+        "distractors": [
+          {
+            "text": "降る",
+            "why": "降るそうです是传闻“听说会下雨”"
+          },
+          {
+            "text": "降った",
+            "why": "降ったそうです是传闻“听说下过雨”"
+          },
+          {
+            "text": "降って",
+            "why": "样态そうだ接ます形去ます，不接て形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-083",
       "level": "N4",
+      "group": "n4-appearance",
       "pattern": "〜そうに / 〜そうな",
       "meaningZh": "看起来……地/的",
       "formation": "そうに + V；そうな + N",
       "note": "そうだ的副词/连体形。",
+      "contrast": "そうな修饰名词（おいしそうなケーキ）；そうに修饰动词（楽しそうに遊ぶ）。",
       "promptZh": "孩子开心地玩着。",
       "answerJa": "子供が楽しそうに遊んでいます。",
       "examples": [
@@ -3995,15 +6929,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼は眠そうにしています。",
           "zh": "他看起来很困。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "おいしそうな",
+        "distractors": [
+          {
+            "text": "おいしそうに",
+            "why": "修饰名词（ケーキ）要用そうな"
+          },
+          {
+            "text": "おいしいそうな",
+            "why": "样态そうだ接い形容词要去い：おいしそう"
+          },
+          {
+            "text": "おいしそうの",
+            "why": "そう修饰名词用な，不用の"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-084",
       "level": "N4",
+      "group": "n4-stage",
       "pattern": "〜たばかり",
       "meaningZh": "刚刚……",
       "formation": "Vた形 + ばかり",
       "note": "主观上觉得刚发生；不一定严格指几分钟前。",
+      "contrast": "たばかり＝说话人觉得刚发生不久，可修饰名词（買ったばかりの靴）；たところ＝动作刚结束的那一刻。",
       "promptZh": "刚来日本。",
       "answerJa": "日本に来たばかりです。",
       "examples": [
@@ -4019,15 +6973,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "買ったばかりの靴をなくしました。",
           "zh": "把刚买的鞋弄丢了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "買ったばかり",
+        "distractors": [
+          {
+            "text": "買ったところ",
+            "why": "たところ不能这样修饰名词；“刚买的鞋”用たばかりの"
+          },
+          {
+            "text": "買うばかり",
+            "why": "表示“刚刚”用た形＋ばかり"
+          },
+          {
+            "text": "買っているところ",
+            "why": "ているところ是“正在买”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-085",
       "level": "N4",
+      "group": "n4-stage",
       "pattern": "〜たところ",
       "meaningZh": "刚刚……；刚做完……",
       "formation": "Vた形 + ところ",
       "note": "强调动作刚刚结束的时间点。",
+      "contrast": "辞书形＋ところ＝正要；ているところ＝正在；たところ＝刚刚。",
       "promptZh": "现在刚到车站。",
       "answerJa": "今、駅に着いたところです。",
       "examples": [
@@ -4043,15 +7017,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "先生に電話したところです。",
           "zh": "刚给老师打了电话。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "着いた",
+        "distractors": [
+          {
+            "text": "着く",
+            "why": "着くところ是“正要到”"
+          },
+          {
+            "text": "着いている",
+            "why": "着いているところ意思不通；“刚到”用着いたところ"
+          },
+          {
+            "text": "着いて",
+            "why": "ところ前不接て形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-086",
       "level": "N4",
+      "group": "n4-voice",
       "pattern": "自動詞 / 他動詞",
       "meaningZh": "自动词/他动词用法",
       "formation": "自動詞：NがV；他動詞：NをV",
       "note": "自动词强调事物状态或变化；他动词强调人为动作。",
+      "contrast": "自动词：Nが開く（事物的状态、变化）；他动词：Nを開ける（人的动作）。",
       "promptZh": "门开着。",
       "answerJa": "ドアが開いています。",
       "examples": [
@@ -4067,15 +7061,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "電気が消えたので、電気をつけました。",
           "zh": "灯灭了，所以把灯打开了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "開いて",
+        "distractors": [
+          {
+            "text": "開けて",
+            "why": "開ける是他动词，要说ドアを開ける"
+          },
+          {
+            "text": "開いた",
+            "why": "ている前接て形"
+          },
+          {
+            "text": "開く",
+            "why": "ている前接て形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-087",
       "level": "N4",
+      "group": "n4-feeling",
       "pattern": "〜たがる",
       "meaningZh": "想要做……（第三人称）",
       "formation": "Vます形去ます + たがる",
       "note": "用于他人的愿望外显；通常不用来直接说自己的愿望。",
+      "contrast": "たがる描述别人显露出的愿望；说自己想做用たい。",
       "promptZh": "弟弟想去外面玩。",
       "answerJa": "弟は外で遊びたがっています。",
       "examples": [
@@ -4091,15 +7105,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "犬が散歩に行きたがっています。",
           "zh": "狗想去散步。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "見たがって",
+        "distractors": [
+          {
+            "text": "見たくて",
+            "why": "〜たくている不成立；第三人称用見たがっている"
+          },
+          {
+            "text": "見たいで",
+            "why": "たい没有〜いで的形式"
+          },
+          {
+            "text": "見たがり",
+            "why": "見たがり是名词，不能接います"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-088",
       "level": "N4",
+      "group": "n4-condition",
       "pattern": "〜たら",
       "meaningZh": "如果……；……之后；一……就……",
       "formation": "Vた形 + ら；い形：去い + かったら（いい→よかったら）；な形/N：語幹/N + だったら；否定：Vない形去い + かったら、い形去い + くなかったら（よくなかったら）、な形/N + ではなかったら",
       "note": "口语常用条件。可表示假定、确定条件、时间先后。",
+      "contrast": "たら：如果……／……之后，后项可接请求、意志；と的后项不能接请求；なら的前项可以后发生。",
       "promptZh": "如果有时间，就去看电影。",
       "answerJa": "時間があったら、映画を見に行きます。",
       "examples": [
@@ -4115,15 +7149,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "安かったら、買います。",
           "zh": "如果便宜就买。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "帰ったら",
+        "distractors": [
+          {
+            "text": "帰ると",
+            "why": "と的后项不能是请求（電話してください）"
+          },
+          {
+            "text": "帰るなら",
+            "why": "帰るなら是“如果你要回家（在回家前）”，时间顺序不同"
+          },
+          {
+            "text": "帰ったり",
+            "why": "たり用于列举动作，不表示条件"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-089",
       "level": "N4",
+      "group": "n4-command",
       "pattern": "〜たらどう",
       "meaningZh": "……怎么样；为什么不……",
       "formation": "Vた形 + らどうですか",
       "note": "用于给建议。语气比命令柔和。",
+      "contrast": "たらどうですか给对方提建议；たらいいですか是向对方寻求建议。",
       "promptZh": "问问老师怎么样？",
       "answerJa": "先生に聞いたらどうですか。",
       "examples": [
@@ -4139,15 +7193,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "病院へ行ったらどうですか。",
           "zh": "去医院怎么样？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "休んだら",
+        "distractors": [
+          {
+            "text": "休むなら",
+            "why": "なら后面不接どうですか表示建议"
+          },
+          {
+            "text": "休んでも",
+            "why": "休んでもどうですか不成立"
+          },
+          {
+            "text": "休んで",
+            "why": "て形不能接どうですか表示建议"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-090",
       "level": "N4",
+      "group": "n4-command",
       "pattern": "〜たらいいですか",
       "meaningZh": "该……才好？",
       "formation": "疑问词 + Vた形 + らいいですか",
       "note": "向对方寻求建议、指示。",
+      "contrast": "疑问词＋たらいいですか向对方寻求建议；たらどうですか是给对方提建议。",
       "promptZh": "去车站该怎么走？",
       "answerJa": "駅へはどう行ったらいいですか。",
       "examples": [
@@ -4163,15 +7237,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "困ったとき、誰に聞いたらいいですか。",
           "zh": "遇到困难时该问谁？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "行ったら",
+        "distractors": [
+          {
+            "text": "行っても",
+            "why": "行ってもいいですか是请求许可“可以带去吗”"
+          },
+          {
+            "text": "行って",
+            "why": "行っていいですか是请求许可“可以去吗”"
+          },
+          {
+            "text": "行ったり",
+            "why": "たり用于列举动作，不接いいですか"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-091",
       "level": "N4",
+      "group": "n4-reason",
       "pattern": "〜て / 〜で",
       "meaningZh": "……而；因为……所以……",
       "formation": "Vて形；い形：去い + くて（いい→よくて）；な形/N：語幹/N + で；否定：Vない形去い + くて、い形去い + くなくて（よくなくて）、な形/N + ではなくて",
       "note": "连接句子，可表示顺接、原因、并列。",
+      "contrast": "て形可表示原因（熱があって休んだ），后项一般不接命令、意志；明确说理由用から。",
       "promptZh": "早上早起，然后去了学校。",
       "answerJa": "朝早く起きて、学校へ行きました。",
       "examples": [
@@ -4187,15 +7281,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この部屋は静かで、勉強しやすいです。",
           "zh": "这个房间安静，容易学习。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "あって",
+        "distractors": [
+          {
+            "text": "あるで",
+            "why": "动词的て形是あって，没有あるで"
+          },
+          {
+            "text": "あったり",
+            "why": "たり用于列举动作，不表示原因"
+          },
+          {
+            "text": "あるのに",
+            "why": "のに是“明明发烧却……”，意思不通"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-092",
       "level": "N4",
+      "group": "n4-giving",
       "pattern": "〜てあげる",
       "meaningZh": "为别人做……",
       "formation": "Vて形 + あげる",
       "note": "说话人或自己一方为他人做有利动作；对上级慎用。",
+      "contrast": "てあげる：我（方）为别人做；てくれる：别人为我（方）做；てもらう：我请别人为我做。",
       "promptZh": "教了朋友日语。",
       "answerJa": "友達に日本語を教えてあげました。",
       "examples": [
@@ -4211,15 +7325,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "母の荷物を持ってあげました。",
           "zh": "帮妈妈拿了行李。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "持ってあげました",
+        "distractors": [
+          {
+            "text": "持ってくれました",
+            "why": "てくれる是别人为我做；这里是我为妈妈做"
+          },
+          {
+            "text": "持ってもらいました",
+            "why": "てもらう是我请别人为我做"
+          },
+          {
+            "text": "持ちてあげました",
+            "why": "持つ的て形是持って"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-093",
       "level": "N4",
+      "group": "n4-feeling",
       "pattern": "〜てほしい",
       "meaningZh": "希望别人做……",
       "formation": "Nに + Vて形 + ほしい",
       "note": "表达希望对方或第三者做某事。",
+      "contrast": "Vてほしい＝希望别人做（对方用に）；Vたい＝自己想做。",
       "promptZh": "希望老师再说明一次。",
       "answerJa": "先生にもう一度説明してほしいです。",
       "examples": [
@@ -4235,15 +7369,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "ここでは静かにしてほしいです。",
           "zh": "希望在这里保持安静。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "説明してほしい",
+        "distractors": [
+          {
+            "text": "説明したい",
+            "why": "説明したい是“我想说明”，主语不对"
+          },
+          {
+            "text": "説明しほしい",
+            "why": "ほしい要接て形：説明してほしい"
+          },
+          {
+            "text": "説明するほしい",
+            "why": "ほしい要接て形：説明してほしい"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-094",
       "level": "N4",
+      "group": "n4-te",
       "pattern": "〜ていく",
       "meaningZh": "……去；持续……下去；逐渐……",
       "formation": "Vて形 + いく",
       "note": "表示动作方向离开说话人，或变化从现在持续到未来。",
+      "contrast": "ていく：从现在往后持续，或离开说话人；てくる：从过去持续到现在，或靠近说话人。",
       "promptZh": "走着去车站。",
       "answerJa": "駅まで歩いていきます。",
       "examples": [
@@ -4259,15 +7413,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "人口は少しずつ減っていくでしょう。",
           "zh": "人口会逐渐减少吧。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "していきます",
+        "distractors": [
+          {
+            "text": "してきます",
+            "why": "これからも指将来，持续下去用ていく"
+          },
+          {
+            "text": "しておきます",
+            "why": "ておく是“事先做好”"
+          },
+          {
+            "text": "してしまいます",
+            "why": "てしまう是“做完、不小心”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-095",
       "level": "N4",
+      "group": "n4-te",
       "pattern": "〜ていた",
       "meaningZh": "过去正在……；曾经处于……状态",
       "formation": "Vて形 + いた",
       "note": "表示过去进行或过去状态。",
+      "contrast": "ていた＝过去某时正在做或处于某状态；た＝过去完成了一次动作。",
       "promptZh": "昨晚九点左右正在学习。",
       "answerJa": "昨日の夜、九時ごろ勉強していました。",
       "examples": [
@@ -4283,15 +7457,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "子供のころ、この町に住んでいました。",
           "zh": "小时候住在这个城市。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "勉強していました",
+        "distractors": [
+          {
+            "text": "勉強しています",
+            "why": "昨天的事要用过去时"
+          },
+          {
+            "text": "勉強しました",
+            "why": "“正在学习”的进行状态用ていた"
+          },
+          {
+            "text": "勉強してありました",
+            "why": "てある接他动词表示状态，不能这样用"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-096",
       "level": "N4",
+      "group": "n4-giving",
       "pattern": "〜ていただけませんか",
       "meaningZh": "能否请您……",
       "formation": "Vて形 + いただけませんか",
       "note": "非常礼貌的请求表达。",
+      "contrast": "ていただけませんか是最礼貌的请求；てくれませんか较随便；てください是一般的请求。",
       "promptZh": "能否请您再说明一次？",
       "answerJa": "もう一度説明していただけませんか。",
       "examples": [
@@ -4307,15 +7501,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "少し待っていただけませんか。",
           "zh": "能否请您稍等一下？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "待っていただけませんか",
+        "distractors": [
+          {
+            "text": "待っていただきませんか",
+            "why": "礼貌请求用可能形的否定：いただけませんか"
+          },
+          {
+            "text": "待ってさしあげませんか",
+            "why": "さしあげる是我为对方做，方向相反"
+          },
+          {
+            "text": "待たせていただけませんか",
+            "why": "待たせて是“让我等”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-097",
       "level": "N4",
+      "group": "n4-giving",
       "pattern": "〜てくれる",
       "meaningZh": "别人为我/我方做……",
       "formation": "Vて形 + くれる",
       "note": "表示他人为说话人或自己一方做有利动作。",
+      "contrast": "てくれる：别人为我（方）做，主语是做事的人；てもらう：主语是受益的我。",
       "promptZh": "朋友来车站接我了。",
       "answerJa": "友達が駅まで迎えに来てくれました。",
       "examples": [
@@ -4331,15 +7545,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "母が晩ご飯を作ってくれました。",
           "zh": "妈妈给我做了晚饭。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "作ってくれました",
+        "distractors": [
+          {
+            "text": "作ってあげました",
+            "why": "妈妈为我做要用てくれる；てあげる是为别人做"
+          },
+          {
+            "text": "作ってもらいました",
+            "why": "てもらう的主语是受益者，句子里主语是母"
+          },
+          {
+            "text": "作ってやりました",
+            "why": "てやる是对晚辈、动物的说法，方向也不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-098",
       "level": "N4",
+      "group": "n4-te",
       "pattern": "〜てくる",
       "meaningZh": "……来；逐渐……起来；做完再来",
       "formation": "Vて形 + くる",
       "note": "表示动作方向接近说话人，或变化从过去到现在。",
+      "contrast": "てくる：从过去到现在的变化（分かってきた），或靠近说话人；ていく：从现在往后的变化。",
       "promptZh": "我去买点饮料回来。",
       "answerJa": "ちょっと飲み物を買ってきます。",
       "examples": [
@@ -4355,15 +7589,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "友達が走ってきました。",
           "zh": "朋友跑过来了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "分かってきました",
+        "distractors": [
+          {
+            "text": "分かっていきました",
+            "why": "到现在为止的变化用てくる"
+          },
+          {
+            "text": "分かってみました",
+            "why": "分かる不能用てみる（试着）"
+          },
+          {
+            "text": "分かっておきました",
+            "why": "分かる不能用ておく（事先做好）"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-099",
       "level": "N4",
+      "group": "n4-te",
       "pattern": "〜てみる",
       "meaningZh": "试着……",
       "formation": "Vて形 + みる",
       "note": "表示尝试做某事。",
+      "contrast": "てみる＝试着做；ておく＝事先做好；てしまう＝做完、不小心。",
       "promptZh": "可以试穿这双鞋吗？",
       "answerJa": "この靴を履いてみてもいいですか。",
       "examples": [
@@ -4379,15 +7633,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "分からない言葉を辞書で調べてみます。",
           "zh": "试着用词典查不懂的词。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "調べてみます",
+        "distractors": [
+          {
+            "text": "調べておきます",
+            "why": "ておく是“事先查好”，不是“试着查”"
+          },
+          {
+            "text": "調べてあります",
+            "why": "てあります是“已经查好了”，意思不对"
+          },
+          {
+            "text": "調べるみます",
+            "why": "みる接て形：調べてみる"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-100",
       "level": "N4",
+      "group": "n4-giving",
       "pattern": "〜てもらう",
       "meaningZh": "请/让别人为我做……",
       "formation": "Nに + Vて形 + もらう",
       "note": "主语通常是接受恩惠的一方。",
+      "contrast": "てもらう：我请别人为我做（对方用に）；てくれる：别人为我做（对方用が）。",
       "promptZh": "请朋友帮我拍了照片。",
       "answerJa": "友達に写真を撮ってもらいました。",
       "examples": [
@@ -4403,15 +7677,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "駅まで兄に送ってもらいました。",
           "zh": "请哥哥送我到了车站。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "撮ってもらいました",
+        "distractors": [
+          {
+            "text": "撮ってあげました",
+            "why": "撮ってあげました是“我给朋友拍了”，方向相反"
+          },
+          {
+            "text": "撮ってくれました",
+            "why": "てくれる的做事人用が：友達が撮ってくれました"
+          },
+          {
+            "text": "撮ってやりました",
+            "why": "てやる是我为对方做，方向相反"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-101",
       "level": "N4",
+      "group": "n4-te",
       "pattern": "〜ておく",
       "meaningZh": "事先……；保持……",
       "formation": "Vて形 + おく",
       "note": "表示为将来做准备，或维持某状态。口语常缩成〜とく。",
+      "contrast": "ておく：为以后事先做好、或保持原状；てある：（有人做好后）现在的状态。",
       "promptZh": "旅行前先预约好酒店。",
       "answerJa": "旅行の前にホテルを予約しておきます。",
       "examples": [
@@ -4427,16 +7721,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "明日の資料を読んでおきました。",
           "zh": "事先读了明天的资料。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "開けておいて",
+        "distractors": [
+          {
+            "text": "開いておいて",
+            "why": "開く是自动词，要用他动词開ける"
+          },
+          {
+            "text": "開けてあって",
+            "why": "てあって不能接ください"
+          },
+          {
+            "text": "開けてみて",
+            "why": "開けてみて是“打开试试”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-102",
       "retiredVocabSourceIds": ["n4-757"],
       "level": "N4",
+      "group": "n4-te",
       "pattern": "〜てしまう / 〜ちゃう・〜じゃう",
       "meaningZh": "……完；不小心……了",
       "formation": "Vて形 + しまう；〜てしまう → 〜ちゃう；〜でしまう → 〜じゃう",
       "note": "表示完成，也可表示遗憾、失误。",
+      "contrast": "てしまう＝做完，或带遗憾的失误；口语缩约：てしまう→ちゃう，でしまう→じゃう。",
       "promptZh": "把钱包忘在家里了。",
       "answerJa": "財布を家に忘れてしまいました。",
       "examples": [
@@ -4452,15 +7766,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "大切なメールを消しちゃいました。",
           "zh": "不小心删掉了重要邮件。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "消しちゃいました",
+        "distractors": [
+          {
+            "text": "消しじゃいました",
+            "why": "消して的てしまう缩约成ちゃう；只有〜でしまう才缩约成じゃう"
+          },
+          {
+            "text": "消しておきました",
+            "why": "ておく是“事先删好”，没有“不小心”的意思"
+          },
+          {
+            "text": "消してみました",
+            "why": "てみる是“试着删”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-103",
       "level": "N4",
+      "group": "n4-reason",
       "pattern": "〜てすみません",
       "meaningZh": "因为……对不起",
       "formation": "Vて形 + すみません",
       "note": "为自己的行为或状况道歉。",
+      "contrast": "て形表示道歉的原因（遅れてすみません）；てよかった表示庆幸的原因。",
       "promptZh": "迟到了，对不起。",
       "answerJa": "遅れてすみません。",
       "examples": [
@@ -4476,15 +7810,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "心配をかけてすみませんでした。",
           "zh": "让您担心了，对不起。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "遅れて",
+        "distractors": [
+          {
+            "text": "遅れるから",
+            "why": "道歉的原因用て形：遅れてすみません"
+          },
+          {
+            "text": "遅れたら",
+            "why": "遅れたら是条件“如果迟到”，不表示原因"
+          },
+          {
+            "text": "遅れなくて",
+            "why": "遅れなくて是“没迟到”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-104",
       "level": "N4",
+      "group": "n4-giving",
       "pattern": "〜てやる",
       "meaningZh": "给……做；为……做（随意/上对下）",
       "formation": "Vて形 + やる",
       "note": "用于对动物、植物、晚辈等，语气随意。对人慎用。",
+      "contrast": "てやる用于对晚辈、动物、植物；对一般人用てあげる。",
       "promptZh": "给狗喂了水。",
       "answerJa": "犬に水を飲ませてやりました。",
       "examples": [
@@ -4500,15 +7854,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "けがをした猫を病院へ連れていってやりました。",
           "zh": "我把受伤的猫带去了医院。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "飲ませてやりました",
+        "distractors": [
+          {
+            "text": "飲ませてくれました",
+            "why": "てくれる是别人为我做，方向相反"
+          },
+          {
+            "text": "飲ませてもらいました",
+            "why": "てもらう是请对方为我做，意思不对"
+          },
+          {
+            "text": "飲ませていただきました",
+            "why": "いただく是请长辈为我做，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-105",
       "level": "N4",
+      "group": "n4-reason",
       "pattern": "〜てよかった",
       "meaningZh": "幸好……；很高兴……",
       "formation": "Vて形 + よかった",
       "note": "表示对已经发生的事感到安心或满意。",
+      "contrast": "てよかった＝幸好（事情实际发生了）；ばよかった（N3）＝要是……就好了（后悔，事情没发生）。",
       "promptZh": "赶上电车真好。",
       "answerJa": "電車に間に合ってよかったです。",
       "examples": [
@@ -4524,15 +7898,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "無事に着いてよかったです。",
           "zh": "平安到达真是太好了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "間に合って",
+        "distractors": [
+          {
+            "text": "間に合えば",
+            "why": "間に合えばよかった是后悔“要是赶上就好了”（其实没赶上）"
+          },
+          {
+            "text": "間に合うと",
+            "why": "と不和よかった构成“幸好”"
+          },
+          {
+            "text": "間に合わなくて",
+            "why": "間に合わなくて是“没赶上”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-106",
       "level": "N4",
+      "group": "n4-stage",
       "pattern": "〜ているところ",
       "meaningZh": "正在……的时候",
       "formation": "Vて形 + いるところ",
       "note": "强调动作正在进行的阶段。",
+      "contrast": "ているところ＝正在进行的那一刻；たところ＝刚做完；辞书形＋ところ＝正要做。",
       "promptZh": "现在正在吃午饭。",
       "answerJa": "今、昼ご飯を食べているところです。",
       "examples": [
@@ -4548,15 +7942,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "先生は今、電話しているところです。",
           "zh": "老师现在正在打电话。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "作っている",
+        "distractors": [
+          {
+            "text": "作る",
+            "why": "作るところ是“正要做”"
+          },
+          {
+            "text": "作った",
+            "why": "作ったところ是“刚做完”"
+          },
+          {
+            "text": "作って",
+            "why": "ところ前不接て形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-107",
       "level": "N4",
+      "group": "n4-concession",
       "pattern": "〜ても",
       "meaningZh": "即使……也……",
       "formation": "Vて形 + も；い形：去い + くても（いい→よくても）；な形/N：語幹/N + でも；否定：Vない形去い + くても、い形去い + くなくても（よくなくても）、な形/N + ではなくても",
       "note": "表示让步条件。",
+      "contrast": "ても＝即使……也（假定，不影响结果）；のに＝明明……（已是事实，带不满）。",
       "promptZh": "即使下雨也去。",
       "answerJa": "雨が降っても行きます。",
       "examples": [
@@ -4572,15 +7986,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "忙しくても日本語を勉強します。",
           "zh": "即使忙也学习日语。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "降っても",
+        "distractors": [
+          {
+            "text": "降ったら",
+            "why": "降ったら是“如果下雨就去”，意思不同"
+          },
+          {
+            "text": "降るのに",
+            "why": "のに是“明明在下雨”，用于已发生的事实"
+          },
+          {
+            "text": "降れば",
+            "why": "降れば是“如果下雨就去”，意思不同"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-108",
       "level": "N4",
+      "group": "n4-condition",
       "pattern": "〜と",
       "meaningZh": "一……就……；如果……就……",
       "formation": "V/い形非过去普通形 + と；な形/N肯定非过去：語幹/N + だと；V/い形/な形/N否定非过去普通形 + と",
       "note": "表示自然结果、习惯性结果、机器操作结果。表示这种条件时，后件通常不接命令、请求、意志或愿望。",
+      "contrast": "と表示必然、反复出现的结果（按下按钮门就开）；后项不能是命令、请求、意志。",
       "promptZh": "一到春天樱花就开。",
       "answerJa": "春になると、桜が咲きます。",
       "examples": [
@@ -4596,15 +8030,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "食べすぎると、お腹が痛くなります。",
           "zh": "吃太多的话肚子会疼。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "なると",
+        "distractors": [
+          {
+            "text": "なっても",
+            "why": "なっても是“即使到了春天”，意思相反"
+          },
+          {
+            "text": "なるのに",
+            "why": "のに是“明明……却……”，意思不通"
+          },
+          {
+            "text": "なるまで",
+            "why": "なるまで是“到春天为止”，意思不通"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-109",
       "level": "N4",
+      "group": "n4-hearsay",
       "pattern": "〜と言ってもいい",
       "meaningZh": "可以说是……",
       "formation": "普通形 + と言ってもいい",
       "note": "表示说话人认为这样说也不为过。",
+      "contrast": "と言ってもいい＝可以说是（说话人自己的判断）；と言われている＝人们说（一般的说法）。",
       "promptZh": "可以说他是这个城市最有名的人。",
       "answerJa": "彼はこの町で一番有名だと言ってもいいです。",
       "examples": [
@@ -4620,15 +8074,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この駅は町の中心だと言ってもいいでしょう。",
           "zh": "可以说这个车站是城市中心吧。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "と言ってもいいです",
+        "distractors": [
+          {
+            "text": "と言われています",
+            "why": "と言われています是“人们都说”，不是“可以说”"
+          },
+          {
+            "text": "と言ってはいけません",
+            "why": "と言ってはいけません是“不能说”"
+          },
+          {
+            "text": "を言ってもいいです",
+            "why": "引用的内容用と，不用を"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-110",
       "level": "N4",
+      "group": "n4-hearsay",
       "pattern": "〜という",
       "meaningZh": "叫作……；所谓……；说……",
       "formation": "N + という + N；句子 + という",
       "note": "用于名称、定义或引用内容。",
+      "contrast": "Nという＋N：介绍对方可能不熟悉的名称（田中という人）；口语说って。",
       "promptZh": "有位叫田中的人打来电话。",
       "answerJa": "田中さんという人から電話がありました。",
       "examples": [
@@ -4644,15 +8118,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "明日休むという連絡がありました。",
           "zh": "收到了明天请假的通知。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "という",
+        "distractors": [
+          {
+            "text": "が",
+            "why": "田中さんが人から不成立"
+          },
+          {
+            "text": "を",
+            "why": "田中さんを人から不成立"
+          },
+          {
+            "text": "と",
+            "why": "田中さんと人是“田中和某人”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-111",
       "level": "N4",
+      "group": "n4-hearsay",
       "pattern": "〜ということ",
       "meaningZh": "……这件事；也就是说……",
       "formation": "句子 + ということ",
       "note": "把整个句子名词化，也可用于总结解释。",
+      "contrast": "ということ把整句内容名词化（彼が来ないということ）；という＋N修饰名词。",
       "promptZh": "听说了他不来的事。",
       "answerJa": "彼が来ないということを聞きました。",
       "examples": [
@@ -4668,15 +8162,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "毎日続けるということが大切です。",
           "zh": "每天坚持这件事很重要。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ということを",
+        "distractors": [
+          {
+            "text": "ということが",
+            "why": "聞く的对象用を"
+          },
+          {
+            "text": "というを",
+            "why": "という后面要接名词（こと）才能接を"
+          },
+          {
+            "text": "という人を",
+            "why": "という人を聞きました意思不通"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-112",
       "level": "N4",
+      "group": "n4-hearsay",
       "pattern": "〜と言われている",
       "meaningZh": "据说……；被认为……",
       "formation": "普通形 + と言われている",
       "note": "表示一般说法、社会评价。",
+      "contrast": "と言われている＝一般认为、据说（社会上的说法）；と聞いた＝自己从某人那里听说。",
       "promptZh": "据说日本是安全的国家。",
       "answerJa": "日本は安全な国だと言われています。",
       "examples": [
@@ -4692,15 +8206,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "朝ご飯は大切だと言われています。",
           "zh": "人们说早饭很重要。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "と言われています",
+        "distractors": [
+          {
+            "text": "を言われています",
+            "why": "引用的内容用と，不用を"
+          },
+          {
+            "text": "と言わせています",
+            "why": "使役形“让人说”，意思不对"
+          },
+          {
+            "text": "と言いません",
+            "why": "と言いません是“不说”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-113",
       "level": "N4",
+      "group": "n4-hearsay",
       "pattern": "〜と聞いた",
       "meaningZh": "听说……",
       "formation": "普通形 + と聞いた",
       "note": "表示从别人那里听到的信息。",
+      "contrast": "と聞いた＝我听说；传闻也可以用普通形＋そうだ（引っ越すそうだ）。",
       "promptZh": "听说田中要搬家。",
       "answerJa": "田中さんが引っ越すと聞きました。",
       "examples": [
@@ -4716,15 +8250,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この店は安いと聞いて、来てみました。",
           "zh": "听说这家店便宜，就来试试了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "と聞きました",
+        "distractors": [
+          {
+            "text": "を聞きました",
+            "why": "引用的内容用と，不用を"
+          },
+          {
+            "text": "と聞かれました",
+            "why": "と聞かれました是“被问”"
+          },
+          {
+            "text": "と聞いてください",
+            "why": "と聞いてください是“请去问”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-114",
       "level": "N4",
+      "group": "n4-hearsay",
       "pattern": "〜と思う",
       "meaningZh": "我想……；认为……",
       "formation": "普通形 + と思う",
       "note": "表达判断、意见或推测。",
+      "contrast": "と思う表达说话人自己的意见；说第三人称的想法用と思っている。",
       "promptZh": "我觉得明天会下雨。",
       "answerJa": "明日は雨が降ると思います。",
       "examples": [
@@ -4740,15 +8294,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "田中さんは来ないと思います。",
           "zh": "我觉得田中不会来。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "難しいと",
+        "distractors": [
+          {
+            "text": "難しいだと",
+            "why": "い形容词接と思う不加だ"
+          },
+          {
+            "text": "難しくと",
+            "why": "と前用普通形：難しいと思う"
+          },
+          {
+            "text": "難しいを",
+            "why": "思う的内容用と，不用を"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-115",
       "level": "N4",
+      "group": "n4-particle",
       "pattern": "〜とか〜とか",
       "meaningZh": "……啦……啦；比如……之类",
       "formation": "N / 普通形 + とか + N / 普通形 + とか",
       "note": "口语列举，语气轻松。",
+      "contrast": "とか是口语的列举，名词、动作都可以；や只接名词；たり只接动作。",
       "promptZh": "休息日会看电影啦、购物啦之类。",
       "answerJa": "休みの日は映画を見るとか、買い物するとかします。",
       "examples": [
@@ -4764,15 +8338,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "甘い物とか辛い物とか、何でも食べます。",
           "zh": "甜的啦辣的啦，什么都吃。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "京都とか",
+        "distractors": [
+          {
+            "text": "京都たり",
+            "why": "たり接动词た形，不接名词"
+          },
+          {
+            "text": "京都し",
+            "why": "し接句子（普通形），不接名词"
+          },
+          {
+            "text": "京都から",
+            "why": "京都から是“从京都”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-116",
       "level": "N4",
+      "group": "n4-stage",
       "pattern": "〜ところ",
       "meaningZh": "正要……；正在……；刚刚……",
       "formation": "V辞書形 / Vている / Vた + ところ",
       "note": "表示动作阶段：前、进行中、刚结束。",
+      "contrast": "ところ表示动作的阶段：辞书形＝正要，ている＝正在，た形＝刚刚。",
       "promptZh": "现在正要出门。",
       "answerJa": "今から出かけるところです。",
       "examples": [
@@ -4788,15 +8382,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "ちょうど帰ってきたところです。",
           "zh": "正好刚回来。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "出かける",
+        "distractors": [
+          {
+            "text": "出かけた",
+            "why": "出かけたところ是“刚出门”"
+          },
+          {
+            "text": "出かけている",
+            "why": "出かけているところ意思不通"
+          },
+          {
+            "text": "出かけて",
+            "why": "ところ前不接て形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-117",
       "level": "N4",
+      "group": "n4-compound",
       "pattern": "〜続ける",
       "meaningZh": "继续……",
       "formation": "Vます形去ます + 続ける",
       "note": "表示动作或状态持续。",
+      "contrast": "続ける＝持续做下去；始める＝开始；終わる＝结束。",
       "promptZh": "每天持续学习日语。",
       "answerJa": "毎日日本語を勉強し続けています。",
       "examples": [
@@ -4812,15 +8426,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "失敗しても、練習し続けます。",
           "zh": "即使失败，也会继续练习。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "降り続けました",
+        "distractors": [
+          {
+            "text": "降り始めました",
+            "why": "三日間和“开始下”不搭"
+          },
+          {
+            "text": "降り終わりました",
+            "why": "降り終わる是“下完”，意思不对"
+          },
+          {
+            "text": "降って続けました",
+            "why": "复合动词接ます形去ます：降り続ける"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-118",
       "level": "N4",
+      "group": "n4-hearsay",
       "pattern": "〜って",
       "meaningZh": "叫作……；听说……；关于……",
       "formation": "N / 句子 + って",
       "note": "口语表达，可等于という、とは、って聞いた等。",
+      "contrast": "って是口语：＝という（叫作）、＝と聞いた（听说）、＝は（提出话题）。",
       "promptZh": "田中是个什么样的人？",
       "answerJa": "田中さんって、どんな人ですか。",
       "examples": [
@@ -4836,15 +8470,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "『お花見』って、どういう意味ですか。",
           "zh": "“赏花”是什么意思？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "だって",
+        "distractors": [
+          {
+            "text": "だよ",
+            "why": "だよ是自己告诉对方，没有“听说”的意思"
+          },
+          {
+            "text": "だから",
+            "why": "だから是“所以”，意思不对"
+          },
+          {
+            "text": "だっけ",
+            "why": "だっけ是确认自己记不清的事“……来着”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-119",
       "level": "N4",
+      "group": "n4-voice",
       "pattern": "受身形 / 〜られる",
       "meaningZh": "被……；受到……",
       "formation": "五段：う段→あ段 + れる（う→われる）；一段：去る + られる；する→される；来る→来られる",
       "note": "表示被动、受害或客观描述。",
+      "contrast": "受身＝被（别人的动作作用到自己）；一段动词的可能形和受身同形（食べられる），靠上下文区分。",
       "promptZh": "我被老师表扬了。",
       "answerJa": "私は先生に褒められました。",
       "examples": [
@@ -4860,15 +8514,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この本は多くの人に読まれています。",
           "zh": "这本书被很多人阅读。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "盗まれました",
+        "distractors": [
+          {
+            "text": "盗みました",
+            "why": "盗みました是“偷了”，主动态"
+          },
+          {
+            "text": "盗ませました",
+            "why": "盗ませる是使役“让别人偷”"
+          },
+          {
+            "text": "盗められました",
+            "why": "五段动词的被动是う段→あ段＋れる：盗まれる"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-120",
       "level": "N4",
+      "group": "n4-concession",
       "pattern": "〜は〜が、〜は",
       "meaningZh": "A是……，但B是……",
       "formation": "N1は〜が、N2は〜",
       "note": "用于对比两个主题。",
+      "contrast": "两个は表示对比（AはBですが、Cは……）；只是描述眼前的现象用が。",
       "promptZh": "哥哥个子高，但我矮。",
       "answerJa": "兄は背が高いですが、私は背が低いです。",
       "examples": [
@@ -4884,16 +8558,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この店は味はいいですが、値段は高いです。",
           "zh": "这家店味道好，但价格贵。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "が、",
+        "distractors": [
+          {
+            "text": "から、",
+            "why": "から是理由“因为喜欢所以不擅长”，意思不通"
+          },
+          {
+            "text": "ので、",
+            "why": "ので是理由，意思不通"
+          },
+          {
+            "text": "と、",
+            "why": "と表示条件或引用，这里是对比转折"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-121",
       "retiredVocabSourceIds": ["n4-767"],
       "level": "N4",
+      "group": "n4-compound",
       "pattern": "〜やすい",
       "meaningZh": "容易……；好……；易于……",
       "formation": "Vます形去ます + やすい",
       "note": "表示动作容易做或容易发生。",
+      "contrast": "やすい＝容易做、容易发生；にくい＝难做；都接ます形去ます。",
       "promptZh": "这本书容易读。",
       "answerJa": "この本は読みやすいです。",
       "examples": [
@@ -4909,39 +8603,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "冬は風邪をひきやすいです。",
           "zh": "冬天容易感冒。"
         }
-      ]
-    },
-    {
-      "id": "n4-grammar-122",
-      "level": "N4",
-      "pattern": "やっと",
-      "meaningZh": "终于；勉强",
-      "formation": "やっと + V",
-      "note": "表示经过努力、等待后终于实现。",
-      "promptZh": "作业终于做完了。",
-      "answerJa": "やっと宿題が終わりました。",
-      "examples": [
-        {
-          "ja": "やっと宿題が終わりました。",
-          "zh": "作业终于做完了。"
-        },
-        {
-          "ja": "やっと駅に着きました。",
-          "zh": "终于到车站了。"
-        },
-        {
-          "ja": "日本語で簡単な会話がやっとできるようになりました。",
-          "zh": "终于能用日语进行简单会话了。"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "ひきやすい",
+        "distractors": [
+          {
+            "text": "ひきにくい",
+            "why": "ひきにくい是“不容易感冒”，意思相反"
+          },
+          {
+            "text": "ひくやすい",
+            "why": "やすい接ます形去ます：ひきやすい"
+          },
+          {
+            "text": "ひいてやすい",
+            "why": "やすい接ます形去ます，不接て形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-123",
       "level": "N4",
+      "group": "n4-quantity",
       "pattern": "〜より",
       "meaningZh": "比……；与其……不如……",
       "formation": "N + より；V辞書形 + より",
       "note": "表示比较基准或选择倾向。",
+      "contrast": "Nより＝比N；V辞书形＋より＝与其……（一人で行くより）；ほど〜ない＝没有……那么。",
       "promptZh": "今天比昨天冷。",
       "answerJa": "今日は昨日より寒いです。",
       "examples": [
@@ -4957,15 +8647,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "一人で行くより、友達と行きたいです。",
           "zh": "比起一个人去，我想和朋友一起去。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "行くより",
+        "distractors": [
+          {
+            "text": "行ったより",
+            "why": "より前接辞书形：行くより"
+          },
+          {
+            "text": "行くほど",
+            "why": "ほど要和否定一起用"
+          },
+          {
+            "text": "行くのに",
+            "why": "のに是转折“明明……却”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-124",
       "level": "N4",
+      "group": "n4-plan",
       "pattern": "〜予定だ",
       "meaningZh": "计划……；预定……",
       "formation": "V辞書形 / Vない形 / Nの + 予定だ",
       "note": "表示已经安排好的计划。",
+      "contrast": "予定＝已经定好的安排（也可用于事情）；つもり＝个人的打算（只用于人）。",
       "promptZh": "计划下周去东京。",
       "answerJa": "来週、東京へ行く予定です。",
       "examples": [
@@ -4981,15 +8691,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "明日は出かけない予定です。",
           "zh": "计划明天不出门。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "からの予定",
+        "distractors": [
+          {
+            "text": "からな予定",
+            "why": "名词接予定用の"
+          },
+          {
+            "text": "から予定",
+            "why": "名词接予定要加の"
+          },
+          {
+            "text": "からのつもり",
+            "why": "会议没有意志，不用つもり"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-125",
       "level": "N4",
+      "group": "n4-appearance",
       "pattern": "〜ようだ",
       "meaningZh": "好像……；像……",
       "formation": "V/い形普通形 + ようだ；な形肯定非过去：語幹 + なようだ；N肯定非过去：N + のようだ；な形/N过去・否定普通形 + ようだ",
       "note": "较书面、较客观地表示比喻或根据情况作出的推测。な形容词和名词只有肯定非过去形分别使用「な／の」，如「静かなようだ／学生のようだ」；过去或否定形直接接「ようだ」，如「静かだったようだ／学生ではないようだ」。",
+      "contrast": "ようだ较书面，名词要加の（雨のようだ）；みたいだ是口语，名词直接接（雨みたいだ）。",
       "promptZh": "外面好像下雨了。",
       "answerJa": "外は雨のようです。",
       "examples": [
@@ -5005,15 +8735,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この部屋は静かなようです。",
           "zh": "这个房间似乎很安静。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "静かなよう",
+        "distractors": [
+          {
+            "text": "静かのよう",
+            "why": "な形容词接ようだ用な：静かなようだ"
+          },
+          {
+            "text": "静かだよう",
+            "why": "な形容词的肯定非过去形接ようだ用な，不用だ"
+          },
+          {
+            "text": "静かよう",
+            "why": "な形容词要加な才能接ようだ"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-126",
       "level": "N4",
+      "group": "n4-appearance",
       "pattern": "〜ように / 〜ような",
       "meaningZh": "像……一样地/的；为了能……／避免……",
       "formation": "比喻的前接形：V/い形普通形；な形肯定非过去：語幹 + な；N肯定非过去：N + の；な形/N过去・否定普通形。上述形态 + ように + V/形容詞，或 + ような + N。目的：V辞書形（多为非意志动词、可能形）/ Vない形 + ように",
       "note": "比喻时「ように」修饰谓语，「ような」修饰名词；表目的时多接可能形、非意志动词或否定形，意志动作的目的通常用「ために」。",
+      "contrast": "ような的口语说法是みたいな。",
       "promptZh": "想像老师一样说得好。",
       "answerJa": "先生のように上手に話したいです。",
       "examples": [
@@ -5029,15 +8779,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "忘れないように、メモしてください。",
           "zh": "为了不忘，请记笔记。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "忘れないように",
+        "distractors": [
+          {
+            "text": "忘れるように",
+            "why": "忘れるように是“为了忘记”，意思相反"
+          },
+          {
+            "text": "忘れないような",
+            "why": "ような修饰名词，这里要连接后面的动作"
+          },
+          {
+            "text": "忘れなくて",
+            "why": "なくて表示原因或并列，不表示目的"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-127",
       "level": "N4",
+      "group": "n4-koto",
       "pattern": "〜ようになる",
       "meaningZh": "变得会……；逐渐……",
       "formation": "V辞書形 / Vない形 + ようになる",
       "note": "表示能力、习惯、状态变化。",
+      "contrast": "ようになる＝能力、习惯的变化（结果）；ようにする＝有意识地努力；ことになる＝决定。",
       "promptZh": "变得会说一点日语了。",
       "answerJa": "少し日本語が話せるようになりました。",
       "examples": [
@@ -5053,15 +8823,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "辛い物が食べられるようになりました。",
           "zh": "变得能吃辣的东西了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "話せるようになりました",
+        "distractors": [
+          {
+            "text": "話せるようにしました",
+            "why": "能力的变化用ようになる；ようにする是有意识的努力"
+          },
+          {
+            "text": "話せることになりました",
+            "why": "ことになる表示决定，不表示能力的变化"
+          },
+          {
+            "text": "話せるになりました",
+            "why": "动词接なる要加よう：話せるようになる"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-128",
       "level": "N4",
+      "group": "n4-koto",
       "pattern": "〜ようにする",
       "meaningZh": "尽量……；设法……",
       "formation": "V辞書形 / Vない形 + ようにする",
       "note": "表示有意识地努力做到或避免某事。",
+      "contrast": "ようにする＝有意识地努力做到或避免；ようになる＝（不知不觉）变成那样。",
       "promptZh": "我尽量每天复习。",
       "answerJa": "毎日復習するようにします。",
       "examples": [
@@ -5077,15 +8867,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本語で話すようにしてください。",
           "zh": "请尽量用日语说。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "食べないようにしています",
+        "distractors": [
+          {
+            "text": "食べないようになっています",
+            "why": "ようになる是变化的结果，不是自己有意识的努力"
+          },
+          {
+            "text": "食べないことになっています",
+            "why": "ことになっている是“按规定”（N3），不是个人的努力"
+          },
+          {
+            "text": "食べないでしています",
+            "why": "〜ないでしている不成立"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-129",
       "level": "N4",
+      "group": "n4-plan",
       "pattern": "〜ようと思う",
       "meaningZh": "打算……；想要……",
       "formation": "V意向形 + と思う",
       "note": "表示较明确但还未最终实施的意图。",
+      "contrast": "ようと思う＝（现在）打算；ようと思っている＝一直以来的打算；つもり更确定。",
       "promptZh": "周末打算打扫房间。",
       "answerJa": "週末、部屋を掃除しようと思います。",
       "examples": [
@@ -5101,39 +8911,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "今日は早く寝ようと思います。",
           "zh": "今天打算早点睡。"
         }
-      ]
-    },
-    {
-      "id": "n4-grammar-130",
-      "level": "N4",
-      "pattern": "ぜひ",
-      "meaningZh": "一定；务必",
-      "formation": "ぜひ + Vたい / Vてください / Vましょう",
-      "note": "表达强烈希望或积极邀请。",
-      "promptZh": "请一定来日本。",
-      "answerJa": "ぜひ日本へ来てください。",
-      "examples": [
-        {
-          "ja": "ぜひ日本へ来てください。",
-          "zh": "请一定来日本。"
-        },
-        {
-          "ja": "ぜひ一度食べてみたいです。",
-          "zh": "一定想试吃一次。"
-        },
-        {
-          "ja": "今度ぜひ一緒に行きましょう。",
-          "zh": "下次一定一起去吧。"
-        }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "寝よう",
+        "distractors": [
+          {
+            "text": "寝る",
+            "why": "寝ると思います是推测“我觉得会睡”，不是打算"
+          },
+          {
+            "text": "寝ろう",
+            "why": "寝る是一段动词，意向形是寝よう"
+          },
+          {
+            "text": "寝ます",
+            "why": "と思う前用普通形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-131",
       "level": "N4",
+      "group": "n4-adverb",
       "pattern": "全然〜ない",
       "meaningZh": "完全不……；一点也不……",
       "formation": "全然 + 否定形",
       "note": "标准学习阶段常与否定搭配。",
+      "contrast": "全然〜ない＝完全不、一点也不；あまり〜ない＝不太。",
       "promptZh": "这道题完全不懂。",
       "answerJa": "この問題は全然分かりません。",
       "examples": [
@@ -5149,15 +8955,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本語はまだ全然上手ではありません。",
           "zh": "日语还完全不熟练。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "全然",
+        "distractors": [
+          {
+            "text": "あまり",
+            "why": "あまり是“不太冷”，程度不对"
+          },
+          {
+            "text": "まだ",
+            "why": "まだ寒くありません是“还不冷”，意思不对"
+          },
+          {
+            "text": "よく",
+            "why": "よく不和否定一起表示“一点也不”"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-132",
       "level": "N4",
+      "group": "n4-compound",
       "pattern": "〜づらい",
       "meaningZh": "难以……；不好……",
       "formation": "Vます形去ます + づらい",
       "note": "多表示心理上、身体上或状况上做某事困难。",
+      "contrast": "づらい多指心理或身体上不好做（言いづらい）；にくい偏客观的性质。",
       "promptZh": "这支笔不好写。",
       "answerJa": "このペンは書きづらいです。",
       "examples": [
@@ -5173,16 +8999,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "字が小さくて読みづらいです。",
           "zh": "字太小，不好读。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "言いづらい",
+        "distractors": [
+          {
+            "text": "言いやすい",
+            "why": "言いやすい是“容易说”，意思相反"
+          },
+          {
+            "text": "言うづらい",
+            "why": "づらい接ます形去ます：言いづらい"
+          },
+          {
+            "text": "言ってづらい",
+            "why": "づらい接ます形去ます，不接て形"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-133",
       "retiredVocabSourceIds": ["n4-752", "n4-410"],
       "level": "N4",
+      "group": "n4-reason",
       "pattern": "〜ために（目的）",
       "meaningZh": "为了……",
       "formation": "V辞書形 / N + の + ために",
       "note": "表示有意志行为的目的。与表示目标状态的「〜ように」不同，前项通常是说话人主动追求的动作或结果。",
+      "contrast": "ために＝有意志的目的（前后同一主语）；ように＝为了达到某状态（常接可能形、否定）。",
       "promptZh": "为了去日本留学，我正在学习日语。",
       "answerJa": "日本へ留学するために、日本語を勉強しています。",
       "examples": [
@@ -5198,15 +9044,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "試験に合格するために、毎日復習しています。",
           "zh": "为了通过考试，每天都在复习。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "合格するために",
+        "distractors": [
+          {
+            "text": "合格したために",
+            "why": "合格したために是“因为考上了”，表示原因"
+          },
+          {
+            "text": "合格するのに",
+            "why": "のに表示目的时后面要接使う、かかる、必要等"
+          },
+          {
+            "text": "合格するためで",
+            "why": "表示目的要说ために，不说ためで"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-134",
       "level": "N4",
+      "group": "n4-reason",
       "pattern": "〜ため（原因・理由）",
       "meaningZh": "由于……；因为……",
       "formation": "V/い形普通形 + ため；な形語幹 + な + ため；N + の + ため",
       "note": "表示较客观的原因或理由，语气比「から」「ので」正式，常见于说明和书面表达。",
+      "contrast": "同一个ため：前项是有意志的动作→目的“为了”；前项是事实、状况→原因“由于”（较书面）。",
       "promptZh": "由于大雪，电车停运了。",
       "answerJa": "大雪のため、電車が止まりました。",
       "examples": [
@@ -5222,16 +9088,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "体調が悪いため、今日は休みます。",
           "zh": "因为身体不舒服，今天请假。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "大雪のため",
+        "distractors": [
+          {
+            "text": "大雪なため",
+            "why": "名词接ため用の：大雪のため"
+          },
+          {
+            "text": "大雪ため",
+            "why": "名词不能直接接ため，要加の"
+          },
+          {
+            "text": "大雪のに",
+            "why": "名词接のに要用なのに，而且のに表示转折，不表示原因"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-135",
       "retiredVocabSourceIds": ["n4-759"],
       "level": "N4",
+      "group": "n4-particle",
       "pattern": "〜について",
       "meaningZh": "关于……；就……",
       "formation": "N + について；N + についての + N",
       "note": "标示谈论、思考、调查等动作涉及的主题；修饰后面的名词时使用「〜についての」。",
+      "contrast": "について＝关于（谈论的主题）；修饰名词用についての＋N；书面说法是に関して（N3）。",
       "promptZh": "发表关于日本文化的内容。",
       "answerJa": "日本の文化について発表します。",
       "examples": [
@@ -5247,16 +9133,36 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本の歴史についての本を読みました。",
           "zh": "读了一本关于日本历史的书。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "についての",
+        "distractors": [
+          {
+            "text": "について",
+            "why": "修饰名词（本）要用についての"
+          },
+          {
+            "text": "にとって",
+            "why": "にとって是“对……来说”，意思不对"
+          },
+          {
+            "text": "によって",
+            "why": "によって是“由于、通过”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-136",
       "retiredVocabSourceIds": ["n4-760"],
       "level": "N4",
+      "group": "n4-hearsay",
       "pattern": "〜によると",
       "meaningZh": "据……；根据……",
       "formation": "信息来源 + によると",
       "note": "用于指出消息来源，后项常与「〜そうだ」「〜らしい」等传闻表达呼应。",
+      "contrast": "によると指出消息来源，后面常配そうだ、らしい；によって表示手段、原因等。",
       "promptZh": "据天气预报，明天会下雨。",
       "answerJa": "天気予報によると、明日は雨だそうです。",
       "examples": [
@@ -5272,15 +9178,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "ニュースによると、電車が遅れているそうです。",
           "zh": "据新闻报道，电车晚点了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "によると",
+        "distractors": [
+          {
+            "text": "によって",
+            "why": "によって表示手段、原因，不指出消息来源"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，不是消息来源"
+          },
+          {
+            "text": "にとって",
+            "why": "にとって是“对……来说”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n4-grammar-137",
       "level": "N4",
+      "group": "n4-quantity",
       "pattern": "数量 + ばかり",
       "meaningZh": "大约……；左右……",
       "formation": "数量词 + ばかり",
       "note": "表示概数。不要与表示“净是……”的「〜ばかり」或表示“刚刚……”的「Vたばかり」混淆。这种用法略偏书面，日常口语中更常说「ぐらい／くらい」。",
+      "contrast": "数量＋ばかり＝大约（偏书面，口语多用ぐらい）；N＋ばかり＝净是。",
       "promptZh": "会场聚集了大约一百人。",
       "answerJa": "会場には百人ばかり集まりました。",
       "examples": [
@@ -5296,15 +9222,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "本を五冊ばかり買いました。",
           "zh": "买了大约五本书。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "ばかり",
+        "distractors": [
+          {
+            "text": "も",
+            "why": "一時間も是强调“竟然等了一个小时”，不是“大约”"
+          },
+          {
+            "text": "だけ",
+            "why": "一時間だけ是“只等了一个小时”"
+          },
+          {
+            "text": "ごろ",
+            "why": "ごろ接时间点，不接时间长度"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-001",
       "level": "N3",
+      "group": "n3-time",
       "pattern": "〜うちに",
       "meaningZh": "趁……的时候；在……期间（不知不觉）",
       "formation": "V辞書形 / Vている / Vない形 + うちに；い形 + うちに；な形語幹 + なうちに；N + のうちに",
       "note": "表示趁某状态还在时做某事，或在某段时间里不知不觉发生了变化。「Vないうちに」表示“趁还没……”。",
+      "contrast": "うちに＝趁（状态改变之前做）／不知不觉中；間に（N4）＝在某段时间内，没有“趁”的语感。",
       "promptZh": "请趁热吃。",
       "answerJa": "温かいうちに食べてください。",
       "examples": [
@@ -5320,15 +9266,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "本を読んでいるうちに、眠ってしまいました。",
           "zh": "看着书，不知不觉睡着了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "温かいうちに",
+        "distractors": [
+          {
+            "text": "温かいのに",
+            "why": "のに是“明明热却……”，意思不对"
+          },
+          {
+            "text": "温かかったら",
+            "why": "温かかったら是“如果热的话”，不是“趁热”"
+          },
+          {
+            "text": "温かいなうちに",
+            "why": "い形容词直接接うちに，不加な"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-002",
       "level": "N3",
+      "group": "n3-time",
       "pattern": "〜最中に",
       "meaningZh": "正在……的时候（突然）",
       "formation": "Vている + 最中に；N + の最中に",
       "note": "强调某动作正进行到一半时，发生了意外或打扰性的事情。",
+      "contrast": "最中に强调动作正进行到一半时被打断；うちに没有“被打断”的语感。",
       "promptZh": "正在吃饭的时候，来了电话。",
       "answerJa": "食事の最中に、電話がかかってきました。",
       "examples": [
@@ -5344,15 +9310,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "シャワーの最中に、お湯が出なくなりました。",
           "zh": "正在淋浴的时候，突然没有热水了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "の最中に",
+        "distractors": [
+          {
+            "text": "な最中に",
+            "why": "名词接最中用の：会議の最中"
+          },
+          {
+            "text": "最中に",
+            "why": "名词要加の才能接最中"
+          },
+          {
+            "text": "のついでに",
+            "why": "ついでに是“顺便”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-003",
       "level": "N3",
+      "group": "n3-time",
       "pattern": "〜たとたん（に）",
       "meaningZh": "刚一……就……",
       "formation": "Vた形 + とたん（に）",
       "note": "表示前项刚发生，紧接着就出现了意外的后项。后项不能是说话人有意志的动作或命令、请求。",
+      "contrast": "たとたん＝刚一……就（发生了意外），后项不接意志；てから只表示先后。",
       "promptZh": "刚一打开窗户，强风就吹了进来。",
       "answerJa": "窓を開けたとたん、強い風が入ってきました。",
       "examples": [
@@ -5368,15 +9354,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "家を出たとたん、雨が降り出しました。",
           "zh": "刚一出门就下起雨来了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "出たとたん",
+        "distractors": [
+          {
+            "text": "出るとたん",
+            "why": "とたん前接た形：出たとたん"
+          },
+          {
+            "text": "出てとたん",
+            "why": "とたん前接た形，不接て形"
+          },
+          {
+            "text": "出たついでに",
+            "why": "ついでに是“顺便”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-004",
       "level": "N3",
+      "group": "n3-change",
       "pattern": "〜とともに",
       "meaningZh": "和……一起；随着……",
       "formation": "N + とともに；V辞書形 + とともに",
       "note": "较书面。可表示“与……一起”，也可表示随着一方的变化，另一方也发生变化。",
+      "contrast": "とともに较书面：和……一起，或随着……；につれて只表示“随着……逐渐变化”。",
       "promptZh": "和家人一起搬到了新的城镇。",
       "answerJa": "家族とともに新しい町へ引っ越しました。",
       "examples": [
@@ -5392,15 +9398,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "時代とともに、言葉も変わっていきます。",
           "zh": "随着时代变化，语言也在不断变化。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "とともに",
+        "distractors": [
+          {
+            "text": "につれて",
+            "why": "につれて只表示随着变化，不表示“和……一起”"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          },
+          {
+            "text": "によって",
+            "why": "によって是“由于、通过”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-005",
       "level": "N3",
+      "group": "n3-change",
       "pattern": "〜につれて",
       "meaningZh": "随着……（逐渐）",
       "formation": "V辞書形 / N + につれて",
       "note": "表示随着前项的变化，后项也逐渐变化。前后项都必须是变化的事情。",
+      "contrast": "につれて：前后都是逐渐的变化；一方だ：一个劲儿地朝一个方向变化。",
       "promptZh": "随着天气变冷，感冒的人会增多。",
       "answerJa": "寒くなるにつれて、風邪をひく人が増えます。",
       "examples": [
@@ -5416,15 +9442,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "町が大きくなるにつれて、緑が少なくなりました。",
           "zh": "随着城市变大，绿地变少了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "練習するにつれて",
+        "distractors": [
+          {
+            "text": "練習したにつれて",
+            "why": "につれて前接辞书形"
+          },
+          {
+            "text": "練習するについて",
+            "why": "について是“关于”，意思不对"
+          },
+          {
+            "text": "練習するにとって",
+            "why": "にとって接名词，表示“对……来说”"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-006",
       "level": "N3",
+      "group": "n3-change",
       "pattern": "〜にしたがって",
       "meaningZh": "随着……；按照……",
       "formation": "V辞書形 / N + にしたがって",
       "note": "可表示随着前项的变化后项也变化（与「につれて」相近），也可表示按照规则、指示行动。较书面。",
+      "contrast": "につれて没有“按照（指示、规则）”的意思。",
       "promptZh": "请按照老师的指示进行作业。",
       "answerJa": "先生の指示にしたがって、作業を進めてください。",
       "examples": [
@@ -5440,15 +9486,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "人口が増えるにしたがって、問題も増えました。",
           "zh": "随着人口增加，问题也增多了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "にしたがって",
+        "distractors": [
+          {
+            "text": "につれて",
+            "why": "につれて只表示随着变化，没有“按照”的意思"
+          },
+          {
+            "text": "に対して",
+            "why": "に対して是“对……”，意思不对"
+          },
+          {
+            "text": "にかけて",
+            "why": "にかけて表示时间、空间范围"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-007",
       "level": "N3",
+      "group": "n3-addition",
       "pattern": "〜ばかりでなく / 〜ばかりか",
       "meaningZh": "不仅……而且……；不但……甚至……",
       "formation": "V/い形普通形 + ばかりでなく；な形語幹 + なばかりでなく；N + ばかりでなく（「ばかりか」接续相同）",
       "note": "后项常用「も」「まで」。「ばかりか」语气更强，后项多是程度更高、出乎意料的事，不接命令或意志表达。",
+      "contrast": "≈だけでなく（略书面）；ばかりか语气更强。",
       "promptZh": "他不仅会说英语，还会说中文。",
       "answerJa": "彼は英語ばかりでなく、中国語も話せます。",
       "examples": [
@@ -5464,15 +9530,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "雨ばかりか、風まで強くなってきました。",
           "zh": "不但下雨，甚至连风也大起来了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ばかりでなく",
+        "distractors": [
+          {
+            "text": "ばかりで",
+            "why": "ばかりで不表示“不仅”"
+          },
+          {
+            "text": "しか",
+            "why": "しか后面必须接否定"
+          },
+          {
+            "text": "のかわりに",
+            "why": "のかわりに是“代替英语”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-008",
       "level": "N3",
+      "group": "n3-addition",
       "pattern": "〜だけでなく",
       "meaningZh": "不只是……，……也……",
       "formation": "V/い形普通形 + だけでなく；な形語幹 + なだけでなく；N + だけでなく",
       "note": "后项多带「も」。比「ばかりでなく」更日常。",
+      "contrast": "だけでなく日常常用；名词直接接（Nだけでなく），な形容词用なだけでなく。",
       "promptZh": "不只学日语，也在学英语。",
       "answerJa": "日本語だけでなく、英語も勉強しています。",
       "examples": [
@@ -5488,15 +9574,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この公園は広いだけでなく、とても静かです。",
           "zh": "这个公园不只宽敞，还很安静。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "広いだけでなく",
+        "distractors": [
+          {
+            "text": "広いなだけでなく",
+            "why": "い形容词直接接だけでなく，不加な"
+          },
+          {
+            "text": "広いだけで",
+            "why": "広いだけで是“光是宽敞就”，意思不对"
+          },
+          {
+            "text": "広いのに",
+            "why": "のに是转折“明明……却”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-009",
       "level": "N3",
+      "group": "n3-reason",
       "pattern": "〜おかげで",
       "meaningZh": "多亏……；托……的福",
       "formation": "V/い形普通形 + おかげで；な形語幹 + なおかげで；N + のおかげで",
       "note": "表示因为某原因带来了好的结果，常带感谢之情。也可反讽地用于坏结果。",
+      "contrast": "おかげで用于好结果（带感谢）；せいで用于坏结果（带责备）。",
       "promptZh": "多亏了老师，我才通过了考试。",
       "answerJa": "先生のおかげで、試験に合格できました。",
       "examples": [
@@ -5512,15 +9618,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "駅が近いおかげで、通勤が楽です。",
           "zh": "多亏离车站近，上下班很轻松。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "おかげで",
+        "distractors": [
+          {
+            "text": "せいで",
+            "why": "せいで用于坏结果；退烧是好结果"
+          },
+          {
+            "text": "くせに",
+            "why": "くせに是责备“明明……却”，意思不对"
+          },
+          {
+            "text": "かわりに",
+            "why": "かわりに是“代替、作为交换”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-010",
       "level": "N3",
+      "group": "n3-reason",
       "pattern": "〜せいで / 〜せいか",
       "meaningZh": "都怪……；由于……（导致不好的结果）",
       "formation": "V/い形普通形 + せいで；な形語幹 + なせいで；N + のせいで（「せいか」接续相同）",
       "note": "表示造成不好结果的原因，带责备的语气。「〜せいか」表示“也许是因为……”。",
+      "contrast": "せいで用于坏结果（带责备）；おかげで用于好结果；せいか＝也许是因为……。",
       "promptZh": "都怪下雨，比赛取消了。",
       "answerJa": "雨のせいで、試合が中止になりました。",
       "examples": [
@@ -5536,15 +9662,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "年のせいか、最近よく物を忘れます。",
           "zh": "也许是上了年纪，最近经常忘事。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "のせいで",
+        "distractors": [
+          {
+            "text": "のおかげで",
+            "why": "おかげで用于好结果；比赛取消是坏结果"
+          },
+          {
+            "text": "なせいで",
+            "why": "名词接せい用の：雨のせい"
+          },
+          {
+            "text": "のくせに",
+            "why": "くせに是“明明……却”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-011",
       "level": "N3",
+      "group": "n3-ni",
       "pattern": "〜によって / 〜による",
       "meaningZh": "由于……；通过……；由……（被动句的动作者）",
       "formation": "N + によって；N + による + N",
       "note": "较书面。表示原因、手段，或在被动句中表示创作者、发明者等动作主体。表示“因……而不同”的用法另见 n3-grammar-012。",
+      "contrast": "によって：原因、手段，或被动句中的作者、发明者；修饰名词用による＋N。",
       "promptZh": "这幅画是毕加索画的。",
       "answerJa": "この絵はピカソによって描かれました。",
       "examples": [
@@ -5560,15 +9706,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "インターネットによって、世界が近くなりました。",
           "zh": "通过互联网，世界变近了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "による",
+        "distractors": [
+          {
+            "text": "によって",
+            "why": "修饰名词（被害）要用による"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          },
+          {
+            "text": "にとって",
+            "why": "にとって是“对……来说”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-012",
       "level": "N3",
+      "group": "n3-ni",
       "pattern": "〜によって違う",
       "meaningZh": "因……而不同",
       "formation": "N + によって + 違う／異なる／さまざまだ",
       "note": "表示随着前项（人、地区、时间等）的不同，情况也各不相同。",
+      "contrast": "N＋によって違う：随N不同而不同；Nによると（N4）是“根据（消息）”。",
       "promptZh": "想法因人而异。",
       "answerJa": "考え方は人によって違います。",
       "examples": [
@@ -5584,15 +9750,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "国によって、習慣はさまざまです。",
           "zh": "习惯因国家而各不相同。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "によって",
+        "distractors": [
+          {
+            "text": "によると",
+            "why": "によると指出消息来源，不表示“因……而不同”"
+          },
+          {
+            "text": "にとって",
+            "why": "にとって是“对……来说”，意思不对"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-013",
       "level": "N3",
+      "group": "n3-ni",
       "pattern": "〜に対して",
       "meaningZh": "对……；对于……；与……相反",
       "formation": "N + に対して；N + に対する + N；V/い形普通形 + のに対して；な形語幹 + なのに対して",
       "note": "表示动作、感情所针对的对象，也可表示两者的对比。",
+      "contrast": "に対して＝针对对象（态度、动作）；について＝关于（话题）。",
       "promptZh": "不可以对客人说失礼的话。",
       "answerJa": "お客様に対して、失礼なことを言ってはいけません。",
       "examples": [
@@ -5608,15 +9794,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "兄は背が高いのに対して、弟は低いです。",
           "zh": "哥哥个子高，与此相反，弟弟个子矮。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "に対して",
+        "distractors": [
+          {
+            "text": "について",
+            "why": "について是“关于客人”，不是“对客人说”"
+          },
+          {
+            "text": "にとって",
+            "why": "にとって后面接评价，意思不对"
+          },
+          {
+            "text": "によって",
+            "why": "によって是“由于、通过”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-014",
       "level": "N3",
+      "group": "n3-ni",
       "pattern": "〜に関して / 〜に関する",
       "meaningZh": "关于……；有关……",
       "formation": "N + に関して；N + に関する + N",
       "note": "与「について」意思相近，但更正式、书面。",
+      "contrast": "に関して是について的书面说法；修饰名词用に関する＋N。",
       "promptZh": "关于这个问题，请告诉我你的意见。",
       "answerJa": "この問題に関して、意見を聞かせてください。",
       "examples": [
@@ -5632,15 +9838,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "事故に関して、警察が説明しました。",
           "zh": "关于事故，警察做了说明。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "に関する",
+        "distractors": [
+          {
+            "text": "に関して",
+            "why": "修饰名词（本）要用に関する"
+          },
+          {
+            "text": "に対する",
+            "why": "に対する是“对……的（态度）”，意思不对"
+          },
+          {
+            "text": "によって",
+            "why": "によって是“由于、通过”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-015",
       "level": "N3",
+      "group": "n3-ni",
       "pattern": "〜として",
       "meaningZh": "作为……；以……的身份",
       "formation": "N + として；N + としての + N",
       "note": "表示身份、立场、资格或名目。「〜としては」表示“就……而言”。",
+      "contrast": "として＝以……的身份、资格；にとって＝对……来说（评价的立场）。",
       "promptZh": "以留学生的身份来到了日本。",
       "answerJa": "留学生として日本に来ました。",
       "examples": [
@@ -5656,15 +9882,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "親としての責任があります。",
           "zh": "有作为父母的责任。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "として",
+        "distractors": [
+          {
+            "text": "にとって",
+            "why": "にとって是“对留学生来说”，意思不对"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          },
+          {
+            "text": "によって",
+            "why": "によって是“由于、通过”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-016",
       "level": "N3",
+      "group": "n3-ni",
       "pattern": "〜にとって",
       "meaningZh": "对……来说",
       "formation": "N + にとって",
       "note": "表示从某人或某立场来看的评价、判断。后项多为「大切だ／難しい／うれしい」等评价。",
+      "contrast": "にとって后面接评价（大切だ、難しい）；に対して后面接动作、态度。",
       "promptZh": "对我来说，家人最重要。",
       "answerJa": "私にとって、家族が一番大切です。",
       "examples": [
@@ -5680,15 +9926,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "留学は彼にとって、いい経験になりました。",
           "zh": "留学对他来说成了很好的经历。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "にとって",
+        "distractors": [
+          {
+            "text": "として",
+            "why": "として是“作为孩子”，意思不对"
+          },
+          {
+            "text": "に対して",
+            "why": "に対して后面接动作、态度，不接“难”这种评价"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-017",
       "level": "N3",
+      "group": "n3-compare",
       "pattern": "〜にしては",
       "meaningZh": "就……而言（却）；作为……来说算是……",
       "formation": "V普通形 / N + にしては",
       "note": "表示按前项的标准来看，后项与一般预想不符，可用于褒义和贬义。",
+      "contrast": "にしては＝按某标准来看（结果出乎意料）；わりに意思相近，可接程度性的名词（値段のわりに）。",
       "promptZh": "作为第一次来说，做得挺好啊。",
       "answerJa": "初めてにしては、上手にできましたね。",
       "examples": [
@@ -5704,15 +9970,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "四月にしては、今日は寒いです。",
           "zh": "就四月来说，今天挺冷的。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "にしては",
+        "distractors": [
+          {
+            "text": "にとって",
+            "why": "にとって是“对……来说”，意思不对"
+          },
+          {
+            "text": "として",
+            "why": "として是“作为”，意思不对"
+          },
+          {
+            "text": "にしても",
+            "why": "にしても是“就算……也”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-018",
       "level": "N3",
+      "group": "n3-compare",
       "pattern": "〜わりに（は）",
       "meaningZh": "虽然……但（出乎意料）；按……来说",
       "formation": "V/い形普通形 + わりに；な形語幹 + なわりに；N + のわりに",
       "note": "表示从前项的程度来看，后项出乎意料地偏高或偏低。与「にしては」相近。",
+      "contrast": "わりに前接名词用の（値段のわりに）；かわりに是“代替、作为交换”。",
       "promptZh": "这家店按价格来说，量很多。",
       "answerJa": "この店は値段のわりに、量が多いです。",
       "examples": [
@@ -5728,15 +10014,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "今日は冬のわりに暖かいです。",
           "zh": "今天按冬天来说挺暖和。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "のわりに",
+        "distractors": [
+          {
+            "text": "なわりに",
+            "why": "名词接わりに用の：値段のわりに"
+          },
+          {
+            "text": "のかわりに",
+            "why": "かわりに是“代替”，意思不对"
+          },
+          {
+            "text": "わりに",
+            "why": "名词要加の才能接わりに"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-019",
       "level": "N3",
+      "group": "n3-concession",
       "pattern": "〜くせに",
       "meaningZh": "明明……却……（带责备）",
       "formation": "V/い形普通形 + くせに；な形語幹 + なくせに；N + のくせに",
       "note": "与「のに」相近，但带强烈的不满、轻视或责备，多用于口语，不用于上级。前后主语一致。",
+      "contrast": "くせに＝のに＋强烈的责备、轻视，前后主语相同；のに语气较轻。",
       "promptZh": "明明知道，却不告诉我。",
       "answerJa": "知っているくせに、教えてくれません。",
       "examples": [
@@ -5752,15 +10058,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "自分ではできないくせに、人に文句を言います。",
           "zh": "自己明明做不到，却抱怨别人。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "のくせに",
+        "distractors": [
+          {
+            "text": "なくせに",
+            "why": "名词接くせに用の：子供のくせに"
+          },
+          {
+            "text": "のおかげで",
+            "why": "おかげで是“多亏”，意思不对"
+          },
+          {
+            "text": "のせいで",
+            "why": "せいで是“都怪”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-020",
       "level": "N3",
+      "group": "n3-instruction",
       "pattern": "〜ように言う / 〜ように頼む",
       "meaningZh": "让（某人）……；叫（某人）……（转述指示）",
       "formation": "V辞書形 / Vない形 + ように + 言う／頼む／注意する",
       "note": "间接转述命令、请求或提醒的内容。直接引用时用「〜てください」等。",
+      "contrast": "ように言う、ように頼む用来转述指示；直接引用时用「〜てください」と言う。",
       "promptZh": "老师让学生安静。",
       "answerJa": "先生は学生に、静かにするように言いました。",
       "examples": [
@@ -5776,15 +10102,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "友達に、遅れないように頼みました。",
           "zh": "拜托朋友不要迟到。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "するように",
+        "distractors": [
+          {
+            "text": "してくださいように",
+            "why": "转述时用辞书形＋ように，不用てください"
+          },
+          {
+            "text": "するために",
+            "why": "ために是目的“为了”，不能转述指示"
+          },
+          {
+            "text": "するのに",
+            "why": "のに是转折或用途，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-021",
       "level": "N3",
+      "group": "n3-koto",
       "pattern": "〜ことにしている",
       "meaningZh": "（按自己的决定）坚持……；习惯于……",
       "formation": "V辞書形 / Vない形 + ことにしている",
       "note": "表示根据自己的决定而养成的习惯或原则。",
+      "contrast": "ことにしている＝自己定下并坚持的习惯；ことになっている＝规定或别人定的安排。",
       "promptZh": "我坚持每天早上走三十分钟。",
       "answerJa": "毎朝、三十分歩くことにしています。",
       "examples": [
@@ -5800,15 +10146,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "週末は家族と過ごすことにしています。",
           "zh": "我习惯周末和家人一起度过。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ことにしています",
+        "distractors": [
+          {
+            "text": "ことになっています",
+            "why": "ことになっている是规定；“我坚持”是自己的决定"
+          },
+          {
+            "text": "ことがあります",
+            "why": "ことがある是“有时会”，意思不对"
+          },
+          {
+            "text": "ようになっています",
+            "why": "ようになる是“变成”，不是自己的决定"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-022",
       "level": "N3",
+      "group": "n3-koto",
       "pattern": "〜ことになっている",
       "meaningZh": "按规定……；定好要……",
       "formation": "V辞書形 / Vない形 + ことになっている",
       "note": "表示规则、惯例或已经安排好的预定，决定者通常不是说话人自己。",
+      "contrast": "按规定、安排；ことにしている是自己的习惯。",
       "promptZh": "这个宿舍规定晚上十点前要回来。",
       "answerJa": "この寮では、夜十時までに帰ることになっています。",
       "examples": [
@@ -5824,15 +10190,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "来週、大阪へ出張することになっています。",
           "zh": "已经定好下周去大阪出差。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "ことになっています",
+        "distractors": [
+          {
+            "text": "ことにしています",
+            "why": "ことにしている是个人的习惯，不是规定"
+          },
+          {
+            "text": "ことはありません",
+            "why": "ことはない是“不必”，意思不对"
+          },
+          {
+            "text": "ことがあります",
+            "why": "ことがある是“有时会”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-023",
       "level": "N3",
+      "group": "n3-wake",
       "pattern": "〜わけだ",
       "meaningZh": "怪不得……；当然……；也就是说……",
       "formation": "V/い形普通形 + わけだ；な形語幹 + なわけだ；N + な／である + わけだ",
       "note": "表示根据事实或道理得出的当然结论，也用于恍然大悟或换一种说法。",
+      "contrast": "わけだ＝根据事实得出的当然结论（怪不得）；わけではない＝部分否定；わけがない＝不可能。",
       "promptZh": "窗户开着呢。怪不得这么冷。",
       "answerJa": "窓が開いていますね。寒いわけです。",
       "examples": [
@@ -5848,15 +10234,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "一日千円なら、一週間で七千円になるわけです。",
           "zh": "一天一千日元的话，一周就是七千日元。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "寒いわけです",
+        "distractors": [
+          {
+            "text": "寒いわけがありません",
+            "why": "わけがない是“不可能冷”，意思相反"
+          },
+          {
+            "text": "寒いわけではありません",
+            "why": "わけではない是“并不是冷”，意思不对"
+          },
+          {
+            "text": "寒いなわけです",
+            "why": "い形容词直接接わけ，不加な"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-024",
       "level": "N3",
+      "group": "n3-wake",
       "pattern": "〜わけではない",
       "meaningZh": "并不是……；并非……",
       "formation": "V/い形普通形 + わけではない；な形語幹 + なわけではない；N + な／である + わけではない",
       "note": "部分否定，表示并不完全是那样。常与「全部」「いつも」「必ずしも」等连用。",
+      "contrast": "わけではない＝部分否定“并不是……”；わけがない＝完全否定“不可能”。",
       "promptZh": "并不是讨厌吃肉。",
       "answerJa": "肉が嫌いなわけではありません。",
       "examples": [
@@ -5872,15 +10278,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "毎日料理をするわけではありません。",
           "zh": "并不是每天都做饭。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "わけではありません",
+        "distractors": [
+          {
+            "text": "わけがありません",
+            "why": "わけがない是“不可能讨厌”，语气太强"
+          },
+          {
+            "text": "わけにはいきません",
+            "why": "わけにはいかない是“不能（做）”，意思不对"
+          },
+          {
+            "text": "わけです",
+            "why": "わけだ是“怪不得讨厌”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-025",
       "level": "N3",
+      "group": "n3-wake",
       "pattern": "〜わけにはいかない",
       "meaningZh": "不能……（因情理、道义）",
       "formation": "V辞書形 + わけにはいかない；Vない形 + わけにはいかない（不能不……）",
-      "note": "表示由于社会常识、道义或当时的情况而不能那样做，不是能力上的“不能”。「Vないわけにはいかない」表示“不能不……”。",
+      "note": "不是能力上的“不能”；「Vないわけにはいかない」＝“不能不……”。",
+      "contrast": "不同于わけがない（不可能）。",
       "promptZh": "明天要考试，不能去玩。",
       "answerJa": "明日は試験なので、遊ぶわけにはいきません。",
       "examples": [
@@ -5896,15 +10322,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "先生に頼まれたので、やらないわけにはいきません。",
           "zh": "是老师拜托的，不能不做。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "休むわけにはいきません",
+        "distractors": [
+          {
+            "text": "休むわけではありません",
+            "why": "わけではない是“并不是休息”，意思不对"
+          },
+          {
+            "text": "休むわけです",
+            "why": "わけだ是“怪不得休息”，意思不对"
+          },
+          {
+            "text": "休まないわけにはいきません",
+            "why": "这句是“不能不休息”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-026",
       "level": "N3",
+      "group": "n3-wake",
       "pattern": "〜わけがない",
       "meaningZh": "不可能……；绝不会……",
       "formation": "V/い形普通形 + わけがない；な形語幹 + なわけがない；N + な／である + わけがない",
       "note": "表示说话人强烈否定某种可能，与「はずがない」相近，更口语化。",
+      "contrast": "わけがない≈はずがない（不可能），わけがない更口语。",
       "promptZh": "这么难的题不可能解得出来。",
       "answerJa": "こんな難しい問題が解けるわけがありません。",
       "examples": [
@@ -5920,15 +10366,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼がうそをつくわけがありません。",
           "zh": "他不可能撒谎。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "わけがありません",
+        "distractors": [
+          {
+            "text": "わけではありません",
+            "why": "わけではない是“并不是撒谎”，意思不对"
+          },
+          {
+            "text": "わけにはいきません",
+            "why": "わけにはいかない是“不能（撒谎）”，意思不对"
+          },
+          {
+            "text": "わけです",
+            "why": "わけだ是“怪不得”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-027",
       "level": "N3",
+      "group": "n3-guess",
       "pattern": "〜に違いない",
       "meaningZh": "一定……；肯定是……",
       "formation": "V/い形普通形 + に違いない；な形語幹 / N + に違いない",
       "note": "表示说话人根据某些依据作出的强烈推断，比「だろう」更确信，多用于书面。",
+      "contrast": "に違いない＝有依据的强烈推断（较书面）；に決まっている＝更主观、口语的断定。",
       "promptZh": "灯开着，他一定在家。",
       "answerJa": "電気がついているから、家にいるに違いありません。",
       "examples": [
@@ -5944,15 +10410,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "あの人は田中さんのお姉さんに違いありません。",
           "zh": "那个人一定是田中的姐姐。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "に違いありません",
+        "distractors": [
+          {
+            "text": "に違います",
+            "why": "に違います是“与……不同”"
+          },
+          {
+            "text": "のに違いありません",
+            "why": "名词直接接に違いない，不加の"
+          },
+          {
+            "text": "かもしれません",
+            "why": "かもしれない是“也许”，不是“一定”"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-028",
       "level": "N3",
+      "group": "n3-guess",
       "pattern": "〜に決まっている",
       "meaningZh": "肯定……；一定是……（主观断定）",
       "formation": "V/い形普通形 + に決まっている；な形語幹 / N + に決まっている",
       "note": "表示说话人非常主观的断定，多用于口语，比「に違いない」更随意。",
+      "contrast": "に決まっている＝说话人主观的断定（口语）；に違いない＝有依据的推断（较书面）。",
       "promptZh": "吃那么多，肯定会胖。",
       "answerJa": "そんなに食べたら、太るに決まっています。",
       "examples": [
@@ -5968,15 +10454,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼の話はうそに決まっている。",
           "zh": "他说的肯定是谎话。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "太るに決まっています",
+        "distractors": [
+          {
+            "text": "太るに決めています",
+            "why": "決める是“决定”，意思不对"
+          },
+          {
+            "text": "太ることにしています",
+            "why": "ことにしている是自己的习惯，意思不对"
+          },
+          {
+            "text": "太るわけがありません",
+            "why": "わけがない是“不可能胖”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-029",
       "level": "N3",
+      "group": "n3-colloquial",
       "pattern": "〜っけ",
       "meaningZh": "是不是……来着？（确认记不清的事）",
       "formation": "普通形 + っけ；N + だ／だった + っけ；丁寧形 + っけ（でしたっけ）",
       "note": "用于向对方或自己确认记不清的事情，口语。也可带着怀念回想过去的事。",
+      "contrast": "っけ用于确认记不清的事“……来着”；名词要加だ、だった（何時だっけ）。",
       "promptZh": "会议是几点开始来着？",
       "answerJa": "会議は何時からだっけ。",
       "examples": [
@@ -5992,15 +10498,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "子供の頃、よくこの公園で遊んだっけ。",
           "zh": "小时候常在这个公园玩来着。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "だっけ",
+        "distractors": [
+          {
+            "text": "っけ",
+            "why": "名词接っけ要加だ：何時からだっけ"
+          },
+          {
+            "text": "だって",
+            "why": "だって是“听说”，意思不对"
+          },
+          {
+            "text": "だよ",
+            "why": "だよ是告诉对方，不是提问"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-030",
       "level": "N3",
+      "group": "n3-tendency",
       "pattern": "〜っぽい",
       "meaningZh": "有……的感觉；容易……；带……色",
       "formation": "N / い形去い / Vます形去ます + っぽい",
       "note": "口语。表示带有某种性质或倾向，如「子供っぽい（孩子气）」「忘れっぽい（健忘）」「白っぽい（发白）」，常带负面评价。",
+      "contrast": "っぽい＝有……的倾向、感觉（多为负面，口语）；らしい＝具备……应有的典型特征（多为正面）。",
       "promptZh": "他的想法很孩子气。",
       "answerJa": "彼の考え方は子供っぽいです。",
       "examples": [
@@ -6016,15 +10542,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "白っぽい服を着た人が来ました。",
           "zh": "来了一个穿着发白衣服的人。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "子供っぽい",
+        "distractors": [
+          {
+            "text": "子供らしい",
+            "why": "子供らしい是“像孩子该有的样子”，不是贬义的“孩子气”"
+          },
+          {
+            "text": "子供がち",
+            "why": "がち接ます形或部分名词，表示容易出现的情况"
+          },
+          {
+            "text": "子供気味",
+            "why": "気味是“有点……的迹象”，不用于孩子气"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-031",
       "level": "N3",
+      "group": "n3-tendency",
       "pattern": "〜がち",
       "meaningZh": "容易……；常常……（不好的倾向）",
       "formation": "Vます形去ます / N + がち",
       "note": "表示容易出现某种（多为不好的）情况或倾向，如「遅れがち」「病気がち」「曇りがち」。",
+      "contrast": "がち＝容易经常出现（不好的）情况；気味＝稍微有那种感觉；っぽい＝有……的感觉。",
       "promptZh": "冬天容易运动不足。",
       "answerJa": "冬は運動不足になりがちです。",
       "examples": [
@@ -6040,15 +10586,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "忙しいと、食事が不規則になりがちです。",
           "zh": "一忙起来，饮食就容易不规律。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "病気がち",
+        "distractors": [
+          {
+            "text": "病気気味",
+            "why": "気味是“有点生病的迹象”，没有“经常”的意思"
+          },
+          {
+            "text": "病気だらけ",
+            "why": "だらけ是“满是（脏东西、错误）”，意思不对"
+          },
+          {
+            "text": "病気向き",
+            "why": "向き是“适合”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-032",
       "level": "N3",
+      "group": "n3-tendency",
       "pattern": "〜気味",
       "meaningZh": "有点……；有……的迹象",
       "formation": "Vます形去ます / N + 気味",
       "note": "表示稍微有某种（多为不好的）感觉或倾向，如「風邪気味」「疲れ気味」「太り気味」。读作「ぎみ」。",
+      "contrast": "気味＝稍微有那种感觉（風邪気味）；がち＝容易经常出现。",
       "promptZh": "今天有点感冒。",
       "answerJa": "今日は少し風邪気味です。",
       "examples": [
@@ -6064,15 +10630,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この時計は少し遅れ気味です。",
           "zh": "这块表有点慢。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "風邪気味",
+        "distractors": [
+          {
+            "text": "風邪がち",
+            "why": "風邪がち是“经常感冒”，和“今天有点”不搭"
+          },
+          {
+            "text": "風邪だらけ",
+            "why": "だらけ是“满是”，意思不对"
+          },
+          {
+            "text": "風邪向き",
+            "why": "向き是“适合”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-033",
       "level": "N3",
+      "group": "n3-koto",
       "pattern": "〜ことはない",
       "meaningZh": "不必……；用不着……",
       "formation": "V辞書形 + ことはない",
       "note": "表示没有必要那样做，常用于劝告或安慰对方。",
+      "contrast": "ことはない＝没必要（劝慰对方）；なくてもいい意思相近，更口语。",
       "promptZh": "不必担心。",
       "answerJa": "心配することはありません。",
       "examples": [
@@ -6088,15 +10674,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "わざわざ来ることはありませんよ。",
           "zh": "不必特意过来。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ことはありません",
+        "distractors": [
+          {
+            "text": "ことがあります",
+            "why": "ことがある是“有时会担心”，意思不对"
+          },
+          {
+            "text": "ことにしています",
+            "why": "ことにしている是“坚持……的习惯”"
+          },
+          {
+            "text": "ことです",
+            "why": "ことだ是忠告“要担心”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-034",
       "level": "N3",
+      "group": "n3-limit",
       "pattern": "〜しかない",
       "meaningZh": "只好……；只能……",
       "formation": "V辞書形 + しかない",
       "note": "表示没有其他办法，只能这样做。",
+      "contrast": "辞书形＋しかない＝只好（没有别的办法）；Nしか〜ない＝只有……。",
       "promptZh": "电车停了，只好走回去。",
       "answerJa": "電車が止まったので、歩いて帰るしかありません。",
       "examples": [
@@ -6112,15 +10718,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "バスがないなら、タクシーで行くしかない。",
           "zh": "没有公交车的话，只能坐出租车去。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "帰るしか",
+        "distractors": [
+          {
+            "text": "帰るだけ",
+            "why": "帰るだけありません不成立"
+          },
+          {
+            "text": "帰ってしか",
+            "why": "しかない前接辞书形"
+          },
+          {
+            "text": "帰ったしか",
+            "why": "しかない前接辞书形"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-035",
       "level": "N3",
+      "group": "n3-compare",
       "pattern": "〜ほど（程度）",
       "meaningZh": "……得（简直）……",
       "formation": "V辞書形 / Vない形 / い形 + ほど；な形語幹 + なほど；N + ほど",
       "note": "用具体的比喻说明程度之高。接数量词时表示大约（「三十人ほど」）。",
+      "contrast": "ほど用具体的例子说明程度之高（泣きたいほど）；くらい也可以，更口语。",
       "promptZh": "疼得简直想哭。",
       "answerJa": "泣きたいほど痛かったです。",
       "examples": [
@@ -6136,15 +10762,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "歩けないほど足が痛いです。",
           "zh": "脚疼得走不了路。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "歩けないほど",
+        "distractors": [
+          {
+            "text": "歩けないのに",
+            "why": "のに是转折，意思不对"
+          },
+          {
+            "text": "歩けないより",
+            "why": "より是比较，意思不对"
+          },
+          {
+            "text": "歩けないで",
+            "why": "ないで是“不……而……”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-036",
       "level": "N3",
+      "group": "n3-compare",
       "pattern": "〜ほど〜ない",
       "meaningZh": "没有……那么……",
       "formation": "N / V辞書形 + ほど + 否定形",
       "note": "表示比较，前项为基准，后项不及前项的程度。",
+      "contrast": "AはBほど〜ない＝A没有B那么……；AはBより〜＝A比B更……。",
       "promptZh": "今年夏天没有去年那么热。",
       "answerJa": "今年の夏は去年ほど暑くないです。",
       "examples": [
@@ -6160,15 +10806,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "私は兄ほど背が高くありません。",
           "zh": "我没有哥哥那么高。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ほど",
+        "distractors": [
+          {
+            "text": "まで",
+            "why": "去年まで是“到去年为止”，意思不对"
+          },
+          {
+            "text": "だけ",
+            "why": "去年だけ是“只有去年”，意思不对"
+          },
+          {
+            "text": "も",
+            "why": "去年も是“去年也”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-037",
       "level": "N3",
+      "group": "n3-compare",
       "pattern": "〜ほど〜はない",
       "meaningZh": "没有比……更……的",
       "formation": "N + ほど／くらい + 形容詞 / V + N + はない",
       "note": "表示前项是程度最高的，“……是最……的”。也说「〜くらい〜はない」。",
+      "contrast": "Nほど〜はない＝没有比N更……的（最高级）；Nほど〜ない＝没有N那么……。",
       "promptZh": "没有比富士山更美的山。",
       "answerJa": "富士山ほど美しい山はありません。",
       "examples": [
@@ -6184,15 +10850,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "冬の朝ほど起きるのがつらい時はない。",
           "zh": "没有比冬天早上起床更痛苦的时候了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "ほど",
+        "distractors": [
+          {
+            "text": "しか",
+            "why": "しか表示“只有”，意思不对"
+          },
+          {
+            "text": "まで",
+            "why": "家族まで是“连家人”，意思不对"
+          },
+          {
+            "text": "だけ",
+            "why": "家族だけ是“只有家人”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-038",
       "level": "N3",
+      "group": "n3-compare",
       "pattern": "〜ば〜ほど",
       "meaningZh": "越……越……",
       "formation": "Vば + V辞書形 + ほど；い形ければ + い形 + ほど；な形語幹なら + な形語幹な + ほど",
       "note": "表示随着前项程度增加，后项程度也随之变化。な形容词也可说「便利であればあるほど」。",
+      "contrast": "VばVほど＝越……越……；な形容词说便利なら便利なほど。",
       "promptZh": "越练习越熟练。",
       "answerJa": "練習すればするほど、上手になります。",
       "examples": [
@@ -6208,15 +10894,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "部屋は広ければ広いほどいいです。",
           "zh": "房间越宽敞越好。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "考えれば考えるほど",
+        "distractors": [
+          {
+            "text": "考えたら考えるほど",
+            "why": "“越……越……”的固定形式是VばVほど"
+          },
+          {
+            "text": "考えても考えるほど",
+            "why": "“越……越……”的固定形式是VばVほど"
+          },
+          {
+            "text": "考えれば考えたほど",
+            "why": "ほど前接辞书形：考えるほど"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-039",
       "level": "N3",
+      "group": "n3-limit",
       "pattern": "〜くらい / 〜ぐらい（最低限度）",
       "meaningZh": "至少……；（这点）……",
       "formation": "N / V辞書形 + くらい／ぐらい",
       "note": "举出程度很低、很容易做到的事，表示“至少这点应该做到”，常带轻视或不满。",
+      "contrast": "くらい（最低限度）＝至少这点（很容易的事）；さえ＝连……都（极端的例子）。",
       "promptZh": "至少自己的房间要自己打扫。",
       "answerJa": "自分の部屋ぐらい、自分で掃除しなさい。",
       "examples": [
@@ -6232,15 +10938,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "あいさつくらいはしてください。",
           "zh": "至少要打个招呼。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ぐらい",
+        "distractors": [
+          {
+            "text": "ほど",
+            "why": "ほど表示程度，这里是“至少这点”"
+          },
+          {
+            "text": "ばかり",
+            "why": "ばかり是“光……”，意思不对"
+          },
+          {
+            "text": "まで",
+            "why": "まで是“连自己的房间都”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-040",
       "level": "N3",
+      "group": "n3-limit",
       "pattern": "〜さえ",
       "meaningZh": "连……都……；甚至……",
       "formation": "N + さえ；N + でさえ；Vます形去ます + さえする",
       "note": "举出极端的例子，暗示其他就更不用说了。与「も」「まで」相近。",
+      "contrast": "さえ＝连……都（举出极端的例子）；さえ〜ば＝只要……就。",
       "promptZh": "忙得连喝水的时间都没有。",
       "answerJa": "忙しくて、水を飲む時間さえありません。",
       "examples": [
@@ -6256,15 +10982,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "疲れて、立つことさえできません。",
           "zh": "累得连站都站不起来。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "でさえ",
+        "distractors": [
+          {
+            "text": "だけ",
+            "why": "先生だけ是“只有老师”，意思不对"
+          },
+          {
+            "text": "しか",
+            "why": "先生しか読めませんでした是“只有老师会读”，意思相反"
+          },
+          {
+            "text": "ばかり",
+            "why": "ばかり是“净是”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-041",
       "level": "N3",
+      "group": "n3-limit",
       "pattern": "〜さえ〜ば",
       "meaningZh": "只要……就……",
       "formation": "N + さえ + Vば／い形ければ／な形・Nなら；Vます形去ます + さえすれば；Vて形 + さえいれば",
       "note": "表示只要满足这一个条件，就会有后项的结果。",
+      "contrast": "さえ〜ば强调唯一的条件“只要……就”；ば只是单纯的条件。",
       "promptZh": "只要有时间，就想去旅行。",
       "answerJa": "時間さえあれば、旅行に行きたいです。",
       "examples": [
@@ -6280,15 +11026,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "天気さえよければ、富士山が見えます。",
           "zh": "只要天气好，就能看见富士山。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "さえあれば",
+        "distractors": [
+          {
+            "text": "さえあっても",
+            "why": "さえ要和ば搭配表示“只要”"
+          },
+          {
+            "text": "しかあれば",
+            "why": "しか后面必须接否定"
+          },
+          {
+            "text": "さえあるのに",
+            "why": "のに是转折，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-042",
       "level": "N3",
+      "group": "n3-limit",
       "pattern": "〜こそ",
       "meaningZh": "正是……；才是……",
       "formation": "N + こそ；Vて形 + こそ",
       "note": "强调前项，排除其他，如「今度こそ」「こちらこそ」。表示原因的「〜からこそ」另见 n3-grammar-102。",
+      "contrast": "こそ强调“正是、才是”；からこそ＝正因为……才……。",
       "promptZh": "这次一定要赢。",
       "answerJa": "今度こそ勝ちたいです。",
       "examples": [
@@ -6304,15 +11070,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "毎日続けることこそ大切です。",
           "zh": "每天坚持才是最重要的。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "こそ",
+        "distractors": [
+          {
+            "text": "さえ",
+            "why": "今度さえ是“连这次都”，意思不对"
+          },
+          {
+            "text": "しか",
+            "why": "しか后面必须接否定"
+          },
+          {
+            "text": "まで",
+            "why": "今度まで是“到这次为止”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-043",
       "level": "N3",
+      "group": "n3-limit",
       "pattern": "〜なんか / 〜なんて",
       "meaningZh": "……之类的（轻视、谦虚或意外）",
       "formation": "N + なんか／なんて；普通形 + なんて",
       "note": "口语。「なんか」用于举例、轻视或谦虚；「なんて」还可表示惊讶，如「〜なんて信じられない」。",
+      "contrast": "なんか：举例、轻视或自谦；なんて还可以表示惊讶（〜なんて信じられない）。",
       "promptZh": "我这样的还差得远呢。",
       "answerJa": "私なんか、まだまだです。",
       "examples": [
@@ -6328,15 +11114,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼が結婚するなんて、驚きました。",
           "zh": "他居然要结婚了，真让人吃惊。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "なんて",
+        "distractors": [
+          {
+            "text": "なんか",
+            "why": "表示“居然……”的惊讶要用なんて"
+          },
+          {
+            "text": "のに",
+            "why": "のに是转折，意思不对"
+          },
+          {
+            "text": "しか",
+            "why": "しか后面必须接否定"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-044",
       "level": "N3",
+      "group": "n3-te",
       "pattern": "〜ずに",
       "meaningZh": "不……（而）……；没……就……",
       "formation": "Vない形去ない + ずに（する→せずに）",
       "note": "与「〜ないで」意思相同，较书面。「する」变为「せずに」。",
+      "contrast": "ずに＝ないで（书面）；する→せずに。",
       "promptZh": "没吃早饭就去了学校。",
       "answerJa": "朝ご飯を食べずに、学校へ行きました。",
       "examples": [
@@ -6352,15 +11158,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "何も言わずに帰ってしまいました。",
           "zh": "什么也没说就回去了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "使わずに",
+        "distractors": [
+          {
+            "text": "使いずに",
+            "why": "ずに接ない形去ない：使わずに"
+          },
+          {
+            "text": "使わないずに",
+            "why": "ずに接ない形去ない，不留ない"
+          },
+          {
+            "text": "使わなくて",
+            "why": "“不……而做……”的伴随状态用ずに、ないで，不用なくて"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-045",
       "level": "N3",
+      "group": "n3-koto",
       "pattern": "〜ないことはない",
       "meaningZh": "也不是不……；并非不……",
       "formation": "Vない形 / い形去い + くない / な形語幹・N + でない + ことはない",
       "note": "双重否定，表示有一定的可能性，但语气不太积极。",
+      "contrast": "ないことはない＝也不是不……（有可能，但不积极）；ことはない＝不必。",
       "promptZh": "努力的话，也不是做不到。",
       "answerJa": "頑張れば、できないことはないです。",
       "examples": [
@@ -6376,15 +11202,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼の気持ちも分からないことはありません。",
           "zh": "他的心情我也不是不理解。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "食べられないことはありません",
+        "distractors": [
+          {
+            "text": "食べられることはありません",
+            "why": "要用双重否定ないことはない；这句意思相反"
+          },
+          {
+            "text": "食べられないことがあります",
+            "why": "ことがある是“有时不能吃”，意思不对"
+          },
+          {
+            "text": "食べられないことです",
+            "why": "ことだ是忠告，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-046",
       "level": "N3",
+      "group": "n3-substitute",
       "pattern": "〜かわりに",
       "meaningZh": "代替……；作为交换，……",
       "formation": "V普通形 + かわりに；N + のかわりに",
       "note": "表示代替别人或别的东西；也表示交换条件或补偿（“……但相应地……”）。",
+      "contrast": "かわりに＝代替，或作为交换（日常）；に代わって＝代替、取代（较正式）；わりに＝按……来说（意外）。",
       "promptZh": "我代替父亲出席了会议。",
       "answerJa": "父のかわりに、私が会議に出ました。",
       "examples": [
@@ -6400,15 +11246,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この部屋は狭いかわりに、家賃が安いです。",
           "zh": "这个房间虽然窄，但相应地房租便宜。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "狭いかわりに",
+        "distractors": [
+          {
+            "text": "狭いのに",
+            "why": "のに是“明明窄却便宜”，逻辑不对"
+          },
+          {
+            "text": "狭いなかわりに",
+            "why": "い形容词直接接かわりに，不加な"
+          },
+          {
+            "text": "狭いばかりか",
+            "why": "ばかりか用于同方向的递进，窄和便宜一坏一好"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-047",
       "level": "N3",
+      "group": "n3-substitute",
       "pattern": "〜に代わって",
       "meaningZh": "代替……；取代……",
       "formation": "N + に代わって；N + に代わる + N",
       "note": "较正式，表示由别人代为做某事，或新事物取代旧事物。",
+      "contrast": "に代わって＝代替、取代（较正式）；かわりに也可以，更口语。",
       "promptZh": "部长代替社长致了辞。",
       "answerJa": "社長に代わって、部長があいさつしました。",
       "examples": [
@@ -6424,15 +11290,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "病気の母に代わって、姉が料理を作りました。",
           "zh": "姐姐代替生病的妈妈做了饭。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "に代わって",
+        "distractors": [
+          {
+            "text": "に対して",
+            "why": "社長に対して是“向社长致辞”，意思不对"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          },
+          {
+            "text": "によって",
+            "why": "によって是“由于、通过”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-048",
       "level": "N3",
+      "group": "n3-frequency",
       "pattern": "〜たびに",
       "meaningZh": "每当……就……；每次……都……",
       "formation": "V辞書形 / N + の + たびに",
       "note": "表示每次做前项时，必定伴随后项。",
+      "contrast": "たびに＝每当（每次必定）；ごとに＝每隔一定单位反复。",
       "promptZh": "每次看这张照片，都会想起小时候。",
       "answerJa": "この写真を見るたびに、子供の頃を思い出します。",
       "examples": [
@@ -6448,15 +11334,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "会うたびに、彼は背が高くなっています。",
           "zh": "每次见面，他都又长高了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "見るたびに",
+        "distractors": [
+          {
+            "text": "見たたびに",
+            "why": "たびに前接辞书形：見るたびに"
+          },
+          {
+            "text": "見るついでに",
+            "why": "ついでに是“顺便”，意思不对"
+          },
+          {
+            "text": "見るたびで",
+            "why": "要说たびに，不说たびで"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-049",
       "level": "N3",
+      "group": "n3-frequency",
       "pattern": "〜ついでに",
       "meaningZh": "顺便……",
       "formation": "V普通形 / N + の + ついでに",
       "note": "表示利用做某事的机会，顺便做另一件事。",
+      "contrast": "ついでに＝利用做A的机会顺便做B；ながら＝同时做两件事。",
       "promptZh": "买东西时顺便去了趟邮局。",
       "answerJa": "買い物のついでに、郵便局に寄りました。",
       "examples": [
@@ -6472,15 +11378,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "掃除するついでに、窓も拭きました。",
           "zh": "打扫时顺便把窗户也擦了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "のついでに",
+        "distractors": [
+          {
+            "text": "なついでに",
+            "why": "名词接ついで用の：買い物のついでに"
+          },
+          {
+            "text": "のたびに",
+            "why": "のたびに是“每次购物都”，意思不对"
+          },
+          {
+            "text": "の最中に",
+            "why": "最中に是“正在……的时候（被打断）”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-050",
       "level": "N3",
+      "group": "n3-frequency",
       "pattern": "〜ごとに",
       "meaningZh": "每……；每隔……",
       "formation": "N（数量・单位）+ ごとに；V辞書形 + ごとに",
       "note": "表示每一个单位都同样发生，或按一定间隔反复。注意「一日ごと」（每天）与「一日おき」（隔一天）不同。",
+      "contrast": "ごとに＝每（一日ごと＝每天）；おきに（N4）＝每隔（一日おき＝隔一天）。",
       "promptZh": "公交车每十五分钟来一班。",
       "answerJa": "バスは十五分ごとに来ます。",
       "examples": [
@@ -6496,15 +11422,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "一問ごとに、答えを確認します。",
           "zh": "每做一道题就核对一下答案。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ごとに",
+        "distractors": [
+          {
+            "text": "ずつ",
+            "why": "ずつ表示平均分配，十五分ずつ来ます不成立"
+          },
+          {
+            "text": "ばかり",
+            "why": "十五分ばかり是“大约十五分钟”"
+          },
+          {
+            "text": "たびに",
+            "why": "たびに接动词或Nの，不接时间长度"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-051",
       "level": "N3",
+      "group": "n3-frequency",
       "pattern": "〜から〜にかけて",
       "meaningZh": "从……到……（一带／期间）",
       "formation": "N（时间・地点）+ から + N + にかけて",
       "note": "表示大致的时间或空间范围，比「から〜まで」界限模糊。",
+      "contrast": "から〜にかけて范围较模糊（大致的期间或一带）；から〜まで界限明确。",
       "promptZh": "从今晚到明天早上，可能会下雪。",
       "answerJa": "今夜から明日の朝にかけて、雪が降るでしょう。",
       "examples": [
@@ -6520,15 +11466,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "顔から首にかけて、赤くなっています。",
           "zh": "从脸到脖子都红了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "にかけて",
+        "distractors": [
+          {
+            "text": "までに",
+            "why": "までに表示期限，不表示期间"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          },
+          {
+            "text": "にとって",
+            "why": "にとって是“对……来说”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-052",
       "level": "N3",
+      "group": "n3-wo",
       "pattern": "〜を中心に",
       "meaningZh": "以……为中心；以……为主",
       "formation": "N + を中心に（して）；N + を中心とした + N",
       "note": "表示以某事物为中心或重点。",
+      "contrast": "を中心に＝以……为中心、重点；をはじめ＝以……为首（还有其他的）。",
       "promptZh": "城镇以车站为中心向外扩展。",
       "answerJa": "駅を中心に、町が広がっています。",
       "examples": [
@@ -6544,15 +11510,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "今日は文法を中心に勉強します。",
           "zh": "今天以语法为重点学习。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "を中心に",
+        "distractors": [
+          {
+            "text": "をはじめ",
+            "why": "をはじめ用来举出代表，后面要列出其他的"
+          },
+          {
+            "text": "をこめて",
+            "why": "をこめて是“倾注（感情）”，意思不对"
+          },
+          {
+            "text": "を通して",
+            "why": "を通して是“通过语法”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-053",
       "level": "N3",
+      "group": "n3-wo",
       "pattern": "〜をはじめ",
       "meaningZh": "以……为首；以……为代表",
       "formation": "N + をはじめ（として）；N + をはじめとする + N",
       "note": "举出最有代表性的例子，表示还有其他同类事物。",
+      "contrast": "をはじめ＝以……为首（举出代表，还有其他）；を中心に＝以……为重点。",
       "promptZh": "以社长为首，全体员工都出席了会议。",
       "answerJa": "社長をはじめ、社員全員が会議に出ました。",
       "examples": [
@@ -6568,15 +11554,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "寿司をはじめ、日本料理はどれもおいしいです。",
           "zh": "以寿司为代表，日本菜都很好吃。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "をはじめ",
+        "distractors": [
+          {
+            "text": "をもとに",
+            "why": "をもとに是“以……为依据”，意思不对"
+          },
+          {
+            "text": "をこめて",
+            "why": "をこめて是“倾注（感情）”，意思不对"
+          },
+          {
+            "text": "に代わって",
+            "why": "に代わって是“代替社长”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-054",
       "level": "N3",
+      "group": "n3-wo",
       "pattern": "〜を通して / 〜を通じて",
       "meaningZh": "通过……；在整个……期间",
       "formation": "N + を通して／を通じて",
       "note": "表示手段、媒介（通过某人或某事），也可表示在整个期间内（「一年を通して」）。",
+      "contrast": "を通して＝通过（媒介），或在整个期间（一年を通して）；によって偏手段、原因（较书面）。",
       "promptZh": "通过朋友认识了她。",
       "answerJa": "友達を通して、彼女と知り合いました。",
       "examples": [
@@ -6592,15 +11598,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "インターネットを通じて、世界中の人と話せます。",
           "zh": "通过互联网，可以和世界各地的人交谈。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "を通して",
+        "distractors": [
+          {
+            "text": "をはじめ",
+            "why": "をはじめ是“以……为首”，意思不对"
+          },
+          {
+            "text": "を中心に",
+            "why": "を中心に是“以……为中心”，意思不对"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-055",
       "level": "N3",
+      "group": "n3-wo",
       "pattern": "〜をこめて",
       "meaningZh": "满怀……；倾注……",
       "formation": "N + をこめて",
       "note": "表示倾注感情或心意，如「心をこめて」「愛をこめて」。汉字写作「込めて」。",
+      "contrast": "をこめて＝倾注感情（心、愛、感謝）；をもとに＝以……为素材。",
       "promptZh": "满怀心意地写了信。",
       "answerJa": "心をこめて手紙を書きました。",
       "examples": [
@@ -6616,15 +11642,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "母は愛をこめて、セーターを編みました。",
           "zh": "妈妈满怀爱意地织了毛衣。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "をこめて",
+        "distractors": [
+          {
+            "text": "をもとに",
+            "why": "をもとに是“以……为依据”，意思不对"
+          },
+          {
+            "text": "を通して",
+            "why": "を通して是“通过”，意思不对"
+          },
+          {
+            "text": "をはじめ",
+            "why": "をはじめ是“以……为首”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-056",
       "level": "N3",
+      "group": "n3-wo",
       "pattern": "〜をもとに",
       "meaningZh": "以……为基础；以……为依据",
       "formation": "N + をもとに（して）",
       "note": "表示以某事物为素材、依据来做后项。",
+      "contrast": "をもとに＝以……为素材、依据；を中心に＝以……为重点。",
       "promptZh": "以真实故事为基础拍了电影。",
       "answerJa": "本当の話をもとに、映画が作られました。",
       "examples": [
@@ -6640,15 +11686,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "自分の経験をもとにして、小説を書きました。",
           "zh": "以自己的经历为基础写了小说。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "をもとに",
+        "distractors": [
+          {
+            "text": "をこめて",
+            "why": "をこめて是“倾注（感情）”，意思不对"
+          },
+          {
+            "text": "をはじめ",
+            "why": "をはじめ是“以……为首”，意思不对"
+          },
+          {
+            "text": "に代わって",
+            "why": "に代わって是“代替”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-057",
       "level": "N3",
+      "group": "n3-compare",
       "pattern": "〜に比べて",
       "meaningZh": "与……相比",
       "formation": "N + に比べて；V普通形 + のに比べて",
       "note": "表示比较的对象，多用于书面。",
+      "contrast": "に比べて＝与……相比（较书面）；より＝比……（口语最常用）。",
       "promptZh": "与去年相比，今年雨水多。",
       "answerJa": "去年に比べて、今年は雨が多いです。",
       "examples": [
@@ -6664,15 +11730,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "兄に比べて、弟はよく勉強します。",
           "zh": "与哥哥相比，弟弟很用功。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "に比べて",
+        "distractors": [
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          },
+          {
+            "text": "にとって",
+            "why": "にとって是“对……来说”，意思不对"
+          },
+          {
+            "text": "によって",
+            "why": "によって是“由于、通过”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-058",
       "level": "N3",
+      "group": "n3-addition",
       "pattern": "〜に加えて",
       "meaningZh": "加上……；除……之外还……",
       "formation": "N + に加えて",
       "note": "较书面，表示在原有事物上再追加。",
+      "contrast": "に加えて＝在……之上再加上（书面）；だけでなく＝不仅……也（日常）。",
       "promptZh": "除了下雨，风也变大了。",
       "answerJa": "雨に加えて、風も強くなりました。",
       "examples": [
@@ -6688,15 +11774,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "仕事に加えて、家事もしなければなりません。",
           "zh": "除了工作，还得做家务。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "に加えて",
+        "distractors": [
+          {
+            "text": "に比べて",
+            "why": "に比べて是“与……相比”，意思不对"
+          },
+          {
+            "text": "に代わって",
+            "why": "に代わって是“代替”，意思不对"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-059",
       "level": "N3",
+      "group": "n3-substitute",
       "pattern": "〜とおり（に） / 〜どおり（に）",
       "meaningZh": "按照……；正如……",
       "formation": "V辞書形 / Vた形 + とおり（に）；N + のとおり（に）；N + どおり（に）",
       "note": "表示与前项相同的方式或内容。名词后可直接接「どおり」，如「予定どおり」。",
+      "contrast": "Nのとおり＝Nどおり（予定どおり）；动词说言ったとおりに。",
       "promptZh": "照老师说的试着做了。",
       "answerJa": "先生の言ったとおりに、やってみました。",
       "examples": [
@@ -6712,15 +11818,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "計画どおりに、仕事が終わりました。",
           "zh": "工作按计划完成了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "のとおりに",
+        "distractors": [
+          {
+            "text": "などおりに",
+            "why": "名词接とおり用の，或直接接どおり"
+          },
+          {
+            "text": "のどおりに",
+            "why": "どおり直接接名词，不加の：説明書どおり"
+          },
+          {
+            "text": "のかわりに",
+            "why": "かわりに是“代替”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-060",
       "level": "N3",
+      "group": "n3-compound",
       "pattern": "〜っぱなし",
       "meaningZh": "（一直）……着不管；一直……",
       "formation": "Vます形去ます + っぱなし",
       "note": "表示该做的事没做，放任某状态持续（常带不满），也表示同一状态一直持续（「立ちっぱなし」）。",
+      "contrast": "っぱなし＝该收拾的没收拾，放任状态持续（带不满）；たまま只描述保持的状态。",
       "promptZh": "开着电视就睡着了。",
       "answerJa": "テレビをつけっぱなしで寝てしまいました。",
       "examples": [
@@ -6736,15 +11862,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "今日は一日中立ちっぱなしで疲れました。",
           "zh": "今天一整天一直站着，累了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "つけっぱなし",
+        "distractors": [
+          {
+            "text": "つけかけ",
+            "why": "かけ是“做到一半”，意思不对"
+          },
+          {
+            "text": "つけ直し",
+            "why": "直す是“重新做”，意思不对"
+          },
+          {
+            "text": "つけたて",
+            "why": "たて是“刚做好”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-061",
       "level": "N3",
+      "group": "n3-compound",
       "pattern": "〜きる / 〜きれない",
       "meaningZh": "……完；彻底……；（不能）……完",
       "formation": "Vます形去ます + きる／きれない",
       "note": "表示动作彻底完成或达到极限。「〜きれない」表示无法完全做完。",
+      "contrast": "きる＝彻底做完；きれない＝做不完；かける＝做到一半。",
       "promptZh": "马拉松跑完了全程。",
       "answerJa": "マラソンを最後まで走りきりました。",
       "examples": [
@@ -6760,15 +11906,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "疲れきって、何もしたくないです。",
           "zh": "累坏了，什么都不想做。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "食べきれません",
+        "distractors": [
+          {
+            "text": "食べかけません",
+            "why": "かける是“做到一半”，没有这种否定的用法"
+          },
+          {
+            "text": "食べ直せません",
+            "why": "直す是“重新做”，意思不对"
+          },
+          {
+            "text": "食べきるません",
+            "why": "ません接ます形去ます；“吃不完”是食べきれない"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-062",
       "level": "N3",
+      "group": "n3-compound",
       "pattern": "〜かける / 〜かけの",
       "meaningZh": "……到一半；刚要……",
       "formation": "Vます形去ます + かける；Vます形去ます + かけの + N",
       "note": "表示动作开始了但还没完成，或刚要做就停下。",
+      "contrast": "かける＝做到一半、刚要做；修饰名词用かけの＋N（読みかけの本）。",
       "promptZh": "桌子上有一本读到一半的书。",
       "answerJa": "読みかけの本が机の上にあります。",
       "examples": [
@@ -6784,15 +11950,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "冷蔵庫に食べかけのケーキがあります。",
           "zh": "冰箱里有吃了一半的蛋糕。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "読みかけの",
+        "distractors": [
+          {
+            "text": "読みすぎの",
+            "why": "すぎる是“过度”，意思不对"
+          },
+          {
+            "text": "読みたての",
+            "why": "たて是“刚做好”，不用于读书"
+          },
+          {
+            "text": "読み直しの",
+            "why": "直す是“重新读”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-063",
       "level": "N3",
+      "group": "n3-compound",
       "pattern": "〜直す",
       "meaningZh": "重新……；再……一次（改正）",
       "formation": "Vます形去ます + 直す",
       "note": "表示为了改好而重新做一次，如「書き直す」「やり直す」「考え直す」。",
+      "contrast": "直す＝为了改好而重新做一次；合う＝互相做。",
       "promptZh": "写错了，所以重写了一遍。",
       "answerJa": "間違えたので、もう一度書き直しました。",
       "examples": [
@@ -6808,15 +11994,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "失敗しても、またやり直せばいいです。",
           "zh": "即使失败，再重来就好。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "書き直しました",
+        "distractors": [
+          {
+            "text": "書き合いました",
+            "why": "合う是“互相做”，意思不对"
+          },
+          {
+            "text": "書き込みました",
+            "why": "書き込む是“写进去、填写”，不是“重写”"
+          },
+          {
+            "text": "書ききりました",
+            "why": "きる是“写完”，不是“重写”"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-064",
       "level": "N3",
+      "group": "n3-compound",
       "pattern": "〜合う",
       "meaningZh": "互相……",
       "formation": "Vます形去ます + 合う",
       "note": "表示两人或多人互相做同一动作，如「話し合う」「助け合う」「教え合う」。",
+      "contrast": "合う接ます形去ます，表示“互相”（話し合う、助け合う）。",
       "promptZh": "大家互相提出了意见。",
       "answerJa": "みんなで意見を出し合いました。",
       "examples": [
@@ -6832,15 +12038,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "家族で話し合って決めました。",
           "zh": "家人一起商量后决定了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "助け合いましょう",
+        "distractors": [
+          {
+            "text": "助け直しましょう",
+            "why": "直す是“重新做”，意思不对"
+          },
+          {
+            "text": "助け込みましょう",
+            "why": "助け込む不成立"
+          },
+          {
+            "text": "助けきりましょう",
+            "why": "きる是“彻底做完”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-065",
       "level": "N3",
+      "group": "n3-compound",
       "pattern": "〜込む",
       "meaningZh": "……进去；深入地……",
       "formation": "Vます形去ます + 込む",
       "note": "表示进入内部（「飛び込む」「書き込む」），或某动作、状态程度深（「考え込む」「話し込む」）。",
+      "contrast": "込む＝进入内部（飛び込む），或深入地（考え込む）；出す＝向外，或突然开始。",
       "promptZh": "孩子跳进了泳池。",
       "answerJa": "子供がプールに飛び込みました。",
       "examples": [
@@ -6856,15 +12082,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼は何か考え込んでいます。",
           "zh": "他陷入了沉思。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "飛び込みました",
+        "distractors": [
+          {
+            "text": "飛び合いました",
+            "why": "合う是“互相”，意思不对"
+          },
+          {
+            "text": "飛び直しました",
+            "why": "直す是“重新做”，意思不对"
+          },
+          {
+            "text": "飛び出しました",
+            "why": "飛び出す是“跳出来、冲出去”，方向相反"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-066",
       "level": "N3",
+      "group": "n3-suffix",
       "pattern": "〜たて",
       "meaningZh": "刚……（的）",
       "formation": "Vます形去ます + たて",
       "note": "表示刚刚做好、很新鲜的状态，如「焼きたて」「できたて」「とれたて」。只能接部分动词。",
+      "contrast": "たて＝刚做好、很新鲜（焼きたて），只接部分动词；たばかり几乎可接所有动词。",
       "promptZh": "刚烤好的面包很好吃。",
       "answerJa": "焼きたてのパンはおいしいです。",
       "examples": [
@@ -6880,15 +12126,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本に来たての頃は、何も分かりませんでした。",
           "zh": "刚来日本的时候，什么都不懂。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "焼きたて",
+        "distractors": [
+          {
+            "text": "焼いたて",
+            "why": "たて接ます形去ます：焼きたて"
+          },
+          {
+            "text": "焼くたて",
+            "why": "たて接ます形去ます：焼きたて"
+          },
+          {
+            "text": "焼きかけ",
+            "why": "焼きかけ是“烤到一半”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-067",
       "level": "N3",
+      "group": "n3-tendency",
       "pattern": "〜だらけ",
       "meaningZh": "满是……；全是……（不好的东西）",
       "formation": "N + だらけ",
       "note": "表示某处布满了（多为不好的）东西，如「泥だらけ」「間違いだらけ」。",
+      "contrast": "だらけ＝到处都是（不好的东西）；がち＝容易出现某种情况。",
       "promptZh": "孩子们玩得满身是泥。",
       "answerJa": "子供たちは泥だらけになって遊んでいます。",
       "examples": [
@@ -6904,15 +12170,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "部屋がごみだらけで、驚きました。",
           "zh": "房间里满是垃圾，吓了一跳。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "間違いだらけ",
+        "distractors": [
+          {
+            "text": "間違いがち",
+            "why": "がち是“容易出错”，作文本身不会“容易”"
+          },
+          {
+            "text": "間違い気味",
+            "why": "気味是“有点……的迹象”，意思不对"
+          },
+          {
+            "text": "間違い向き",
+            "why": "向き是“适合”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-068",
       "level": "N3",
+      "group": "n3-suffix",
       "pattern": "〜向き",
       "meaningZh": "适合……的",
       "formation": "N + 向き（だ／の／に）",
       "note": "表示某物的性质恰好适合某对象，不一定是专门为其制作的。",
+      "contrast": "向き＝（性质上）适合；向け＝专门为……而做。",
       "promptZh": "这本书适合初学者。",
       "answerJa": "この本は初心者向きです。",
       "examples": [
@@ -6928,15 +12214,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "辛くないので、子供向きの料理です。",
           "zh": "不辣，是适合孩子吃的菜。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "初心者向き",
+        "distractors": [
+          {
+            "text": "初心者がち",
+            "why": "がち表示容易出现的情况，意思不对"
+          },
+          {
+            "text": "初心者っぽい",
+            "why": "っぽい是“像初学者”，意思不对"
+          },
+          {
+            "text": "初心者だらけ",
+            "why": "だらけ是“满是初学者”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-069",
       "level": "N3",
+      "group": "n3-suffix",
       "pattern": "〜向け",
       "meaningZh": "面向……的；专为……（设计）的",
       "formation": "N + 向け（だ／の／に）",
       "note": "表示专门以某对象为目标而制作或设计。",
+      "contrast": "向け＝专门以……为对象而做；向き＝（性质上）适合。",
       "promptZh": "这是面向儿童的节目。",
       "answerJa": "これは子供向けの番組です。",
       "examples": [
@@ -6952,15 +12258,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この車は家族向けに作られました。",
           "zh": "这辆车是专为家庭设计的。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "向けに",
+        "distractors": [
+          {
+            "text": "だらけに",
+            "why": "だらけ是“满是”，意思不对"
+          },
+          {
+            "text": "っぽく",
+            "why": "っぽく是“像……似的”，意思不对"
+          },
+          {
+            "text": "がちに",
+            "why": "がち表示容易出现的情况，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-070",
       "level": "N3",
+      "group": "n3-suffix",
       "pattern": "〜的",
       "meaningZh": "……性的；在……方面",
       "formation": "汉语名词 + 的（作な形容詞使用）",
       "note": "接在汉语名词后构成な形容词，表示具有某种性质或从某方面来看，如「経済的」「積極的」「個人的に」。",
+      "contrast": "汉语名词＋的＝な形容词（積極的な人）；作状语用的に（個人的に）。",
       "promptZh": "她是很积极的人。",
       "answerJa": "彼女はとても積極的な人です。",
       "examples": [
@@ -6976,15 +12302,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "個人的には、この案に賛成です。",
           "zh": "就个人而言，我赞成这个方案。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "積極的な",
+        "distractors": [
+          {
+            "text": "積極的の",
+            "why": "的构成な形容词，修饰名词用な"
+          },
+          {
+            "text": "積極的に",
+            "why": "修饰名词（人）要用的な"
+          },
+          {
+            "text": "積極な",
+            "why": "積極不是な形容词，要加的：積極的な"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-071",
       "level": "N3",
+      "group": "n3-instruction",
       "pattern": "〜べきだ / 〜べきではない",
       "meaningZh": "应该……；不应该……",
       "formation": "V辞書形 + べきだ（する→するべき／すべき）",
       "note": "表示从道理、常识来看应该或不应该做，语气较强，对上级慎用。「〜べきだった」表示后悔。",
+      "contrast": "べきだ＝从道理上应该（语气强）；ほうがいい＝建议；はずだ＝推测。",
       "promptZh": "应该遵守约定。",
       "answerJa": "約束は守るべきです。",
       "examples": [
@@ -7000,15 +12346,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "もっと早く相談するべきでした。",
           "zh": "应该早点商量的。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "守るべき",
+        "distractors": [
+          {
+            "text": "守るはず",
+            "why": "はず是推测“应该会遵守”，不是义务"
+          },
+          {
+            "text": "守りべき",
+            "why": "べき接辞书形：守るべき"
+          },
+          {
+            "text": "守ったべき",
+            "why": "べき接辞书形：守るべき"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-072",
       "level": "N3",
+      "group": "n3-intent",
       "pattern": "〜ようとする",
       "meaningZh": "想要……；正要……",
       "formation": "V意向形 + とする",
       "note": "表示努力尝试做某事，或某事即将发生。「〜ようとしない」表示“不肯……”。",
+      "contrast": "ようとする＝想要、正要做（尝试）；ようと思う＝心里的打算。",
       "promptZh": "正要睡觉的时候，电话响了。",
       "answerJa": "寝ようとしたとき、電話が鳴りました。",
       "examples": [
@@ -7024,15 +12390,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "何度も思い出そうとしましたが、だめでした。",
           "zh": "好几次想要回想起来，但还是不行。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "寝ようとした",
+        "distractors": [
+          {
+            "text": "寝た",
+            "why": "寝たとき是“睡的时候”，不是“正要睡”"
+          },
+          {
+            "text": "寝ている",
+            "why": "寝ているとき是“正在睡的时候”"
+          },
+          {
+            "text": "寝るようにした",
+            "why": "ようにする是“尽量……”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-073",
       "level": "N3",
+      "group": "n3-intent",
       "pattern": "〜たつもり",
       "meaningZh": "自以为……；就当作……",
       "formation": "Vた形 + つもり；N + のつもり",
       "note": "表示自己认为做了，但实际可能并非如此；也表示假装、当作（「旅行したつもりで」）。",
+      "contrast": "たつもり＝自以为做了（实际可能没有）；辞书形＋つもり＝打算。",
       "promptZh": "我以为锁了门，可门是开着的。",
       "answerJa": "鍵をかけたつもりでしたが、開いていました。",
       "examples": [
@@ -7048,15 +12434,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "旅行に行ったつもりで、そのお金を貯金しました。",
           "zh": "就当作去旅行了，把那笔钱存了起来。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "かけたつもり",
+        "distractors": [
+          {
+            "text": "かけるつもり",
+            "why": "かけるつもり是“打算锁”，不是“以为锁了”"
+          },
+          {
+            "text": "かけたばかり",
+            "why": "たばかり是“刚刚锁了”，意思不对"
+          },
+          {
+            "text": "かけたところ",
+            "why": "たところ是“刚锁完”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-074",
       "level": "N3",
+      "group": "n3-koto",
       "pattern": "〜ことだ（忠告）",
       "meaningZh": "最好……；就要……（忠告）",
       "formation": "V辞書形 / Vない形 + ことだ",
       "note": "表示说话人给对方的建议、忠告，多用于上对下。",
+      "contrast": "ことだ＝说话人给的忠告（上对下）；べきだ＝从道理上应该；ことはない＝不必。",
       "promptZh": "想变熟练的话，最好每天练习。",
       "answerJa": "上手になりたければ、毎日練習することです。",
       "examples": [
@@ -7072,15 +12478,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "人の話は最後まで聞くことです。",
           "zh": "别人的话要听到最后。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "寝ることだ",
+        "distractors": [
+          {
+            "text": "寝ることはない",
+            "why": "ことはない是“不必睡”，意思相反"
+          },
+          {
+            "text": "寝たことだ",
+            "why": "忠告的ことだ接辞书形"
+          },
+          {
+            "text": "寝ることがある",
+            "why": "ことがある是“有时会睡”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-075",
       "level": "N3",
+      "group": "n3-wake",
       "pattern": "〜ものだ（本来）",
       "meaningZh": "（本来）就是……；（按常理）应该……",
       "formation": "V辞書形 / い形 + ものだ；な形語幹 + なものだ",
       "note": "表示一般常识或事物本来的性质，也用于劝诫“按常理应该……”。否定为「〜ものではない」。",
+      "contrast": "ものだ＝事物本来的性质、常理；たものだ＝怀念过去常做的事。",
       "promptZh": "人谁都会犯错。",
       "answerJa": "人は誰でも間違えるものです。",
       "examples": [
@@ -7096,15 +12522,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "人の物を勝手に使うものではありません。",
           "zh": "不应该擅自用别人的东西。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "間違えるもの",
+        "distractors": [
+          {
+            "text": "間違えたもの",
+            "why": "た形＋ものだ是怀念过去常做的事"
+          },
+          {
+            "text": "間違えるわけ",
+            "why": "わけだ是“怪不得”，意思不对"
+          },
+          {
+            "text": "間違えるはず",
+            "why": "はずだ是按道理的推断，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-076",
       "level": "N3",
+      "group": "n3-wake",
       "pattern": "〜たものだ",
       "meaningZh": "以前常常……（怀念）",
       "formation": "Vた形 + ものだ",
       "note": "带着怀念的心情回忆过去经常做的事。",
+      "contrast": "た形＋ものだ＝怀念过去常做的事；辞书形＋ものだ＝本来就是这样。",
       "promptZh": "小时候常在这条河里游泳。",
       "answerJa": "子供の頃は、よくこの川で泳いだものです。",
       "examples": [
@@ -7120,15 +12566,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "昔はこの道を、毎日自転車で通ったものです。",
           "zh": "以前每天都骑自行车走这条路。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "泳いだもの",
+        "distractors": [
+          {
+            "text": "泳ぐもの",
+            "why": "辞书形＋ものだ是“本来就……”，不是回忆"
+          },
+          {
+            "text": "泳いだこと",
+            "why": "泳いだことです不成立"
+          },
+          {
+            "text": "泳いだはず",
+            "why": "はずだ是推断“应该游过”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-077",
       "level": "N3",
+      "group": "n3-colloquial",
       "pattern": "〜もの / 〜もん（理由）",
       "meaningZh": "因为……嘛（辩解）",
       "formation": "普通形 + もの／もん（常与「だって」搭配）",
       "note": "口语，用于申辩或撒娇地说明理由，语气孩子气，多用于亲近关系。",
+      "contrast": "もん是撒娇式的辩解理由（だって〜もん）；から是中性的理由。",
       "promptZh": "因为我不知道嘛。",
       "answerJa": "だって、知らなかったんだもん。",
       "examples": [
@@ -7144,15 +12610,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "しかたがないよ。子供だもの。",
           "zh": "没办法啊，毕竟是孩子嘛。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "寒いもん",
+        "distractors": [
+          {
+            "text": "寒いだもん",
+            "why": "い形容词直接接もん，不加だ"
+          },
+          {
+            "text": "寒いのに",
+            "why": "のに是转折，意思不对"
+          },
+          {
+            "text": "寒いっけ",
+            "why": "っけ是确认记不清的事，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-078",
       "level": "N3",
+      "group": "n3-te",
       "pattern": "〜てしかたがない / 〜てしょうがない",
       "meaningZh": "……得不得了",
       "formation": "Vて形 / い形去い + くて / な形語幹 + で + しかたがない",
       "note": "表示某种感情或感觉强烈得无法抑制，多用于说话人自己的感受。口语中常说「しょうがない」。",
+      "contrast": "てしかたがない＝……得不得了（控制不住）；てたまらない＝……得受不了，意思相近。",
       "promptZh": "非常在意考试的结果。",
       "answerJa": "試験の結果が気になってしかたがありません。",
       "examples": [
@@ -7168,15 +12654,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "一人で寂しくてしょうがない。",
           "zh": "一个人寂寞得不得了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "暑くて",
+        "distractors": [
+          {
+            "text": "暑いで",
+            "why": "い形容词的て形是去い＋くて：暑くて"
+          },
+          {
+            "text": "暑くても",
+            "why": "暑くてもしかたがない是“即使热也没办法”，意思不对"
+          },
+          {
+            "text": "暑いのに",
+            "why": "のに是转折，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-079",
       "level": "N3",
+      "group": "n3-te",
       "pattern": "〜てたまらない",
       "meaningZh": "……得受不了",
       "formation": "Vて形 / い形去い + くて / な形語幹 + で + たまらない",
       "note": "表示感情、感觉强烈到难以忍受，多用于说话人自己的感受。",
+      "contrast": "てたまらない＝……得受不了；てしかたがない意思相近，更强调控制不住。",
       "promptZh": "牙疼得受不了。",
       "answerJa": "歯が痛くてたまりません。",
       "examples": [
@@ -7192,15 +12698,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "合格できて、うれしくてたまりません。",
           "zh": "考上了，高兴得不得了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "痛くて",
+        "distractors": [
+          {
+            "text": "痛いで",
+            "why": "い形容词的て形是去い＋くて：痛くて"
+          },
+          {
+            "text": "痛くても",
+            "why": "痛くても是“即使疼”，意思不对"
+          },
+          {
+            "text": "痛かったら",
+            "why": "痛かったら是“如果疼”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-080",
       "level": "N3",
+      "group": "n3-honorific",
       "pattern": "〜させていただく / 〜させてもらう",
       "meaningZh": "请允许我……；（承蒙允许）我来……",
       "formation": "V使役形て形 + いただく／もらう",
       "note": "谦让表达，表示得到对方许可后做某事，常用于正式场合，比「〜させてください」更谦逊。",
+      "contrast": "させていただく＝（得到许可后）我来做，很谦逊；させてください＝请求允许。",
       "promptZh": "今天请允许我早点回去。",
       "answerJa": "今日は早めに帰らせていただきます。",
       "examples": [
@@ -7216,15 +12742,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "私から説明させていただきます。",
           "zh": "请允许我来说明。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "説明させていただきます",
+        "distractors": [
+          {
+            "text": "説明していただきます",
+            "why": "していただく是“请您说明”，主语不对"
+          },
+          {
+            "text": "説明させてくださいます",
+            "why": "くださる是对方给予，不能用于自己"
+          },
+          {
+            "text": "説明なさいます",
+            "why": "なさる是尊敬语，不能用于自己"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-081",
       "level": "N3",
+      "group": "n3-te",
       "pattern": "〜てごらん",
       "meaningZh": "……看看吧（对晚辈）",
       "formation": "Vて形 + ごらん（なさい）",
       "note": "「〜てみなさい」的亲切说法，用于对孩子、晚辈，不用于长辈。",
+      "contrast": "てごらん＝てみなさい的亲切说法，只对晚辈、孩子用。",
       "promptZh": "尝尝这个吧。",
       "answerJa": "ちょっとこれを食べてごらん。",
       "examples": [
@@ -7240,15 +12786,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "分からなかったら、もう一度読んでごらんなさい。",
           "zh": "不明白的话，再读一遍看看。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "見てごらん",
+        "distractors": [
+          {
+            "text": "見るごらん",
+            "why": "ごらん接て形：見てごらん"
+          },
+          {
+            "text": "見たごらん",
+            "why": "ごらん接て形：見てごらん"
+          },
+          {
+            "text": "見てあげて",
+            "why": "見てあげて是“请帮别人看”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-082",
       "level": "N3",
+      "group": "n3-time",
       "pattern": "〜て以来",
       "meaningZh": "自从……以来",
       "formation": "Vて形 + 以来；N + 以来",
       "note": "表示从过去某时点起一直持续到现在的状态，不用于最近的短期事情。",
+      "contrast": "て以来＝自从……以后一直（持续到现在）；てから只表示先后。",
       "promptZh": "毕业以来，没再见过他。",
       "answerJa": "卒業して以来、彼に会っていません。",
       "examples": [
@@ -7264,15 +12830,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "子供が生まれて以来、毎日忙しいです。",
           "zh": "自从孩子出生以来，每天都很忙。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "来て以来",
+        "distractors": [
+          {
+            "text": "来た以来",
+            "why": "以来接て形：来て以来"
+          },
+          {
+            "text": "来る以来",
+            "why": "以来接て形：来て以来"
+          },
+          {
+            "text": "来たとたん",
+            "why": "たとたん是“刚一来就……”，不表示持续"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-083",
       "level": "N3",
+      "group": "n3-time",
       "pattern": "〜てからでないと",
       "meaningZh": "不先……就（不能）……",
       "formation": "Vて形 + からでないと／からでなければ + 否定・困难的表达",
       "note": "表示必须先做前项，否则后项无法实现。",
+      "contrast": "てからでないと＝不先做A就不能B（后项是否定或困难）；てから只表示先后。",
       "promptZh": "不先预约就进不去。",
       "answerJa": "予約してからでないと、入れません。",
       "examples": [
@@ -7288,15 +12874,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "手を洗ってからでないと、食べてはいけません。",
           "zh": "不先洗手就不能吃。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "予約してからでないと",
+        "distractors": [
+          {
+            "text": "予約してからでも",
+            "why": "てからでも是“即使先预约也”，意思不对"
+          },
+          {
+            "text": "予約したら",
+            "why": "予約したら入れません是“预约了就进不去”，意思相反"
+          },
+          {
+            "text": "予約してからなら",
+            "why": "てからなら是“如果先预约的话”，后面接“进不去”意思不通"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-084",
       "level": "N3",
+      "group": "n3-time",
       "pattern": "〜てはじめて",
       "meaningZh": "……之后才……",
       "formation": "Vて形 + はじめて",
       "note": "表示经历了前项之后，才第一次认识到或做到后项。",
+      "contrast": "不同于て以来（从那以后一直）。",
       "promptZh": "生了病才明白健康的重要。",
       "answerJa": "病気になってはじめて、健康の大切さが分かりました。",
       "examples": [
@@ -7312,15 +12918,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "日本に来てはじめて、雪を見ました。",
           "zh": "来了日本才第一次见到雪。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "なってはじめて",
+        "distractors": [
+          {
+            "text": "なったはじめて",
+            "why": "はじめて接て形：なってはじめて"
+          },
+          {
+            "text": "なるはじめて",
+            "why": "はじめて接て形：なってはじめて"
+          },
+          {
+            "text": "なってばかり",
+            "why": "てばかり是“光……”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-085",
       "level": "N3",
+      "group": "n3-condition",
       "pattern": "〜ばよかった",
       "meaningZh": "要是……就好了（后悔）",
       "formation": "Vば形 + よかった；Vなければ + よかった",
       "note": "表示对过去没做（或做了）的事感到后悔、遗憾。也说「〜たらよかった」。",
+      "contrast": "ばよかった＝要是……就好了（后悔没做）；てよかった（N4）＝幸好做了。",
       "promptZh": "要是早点起床就好了。",
       "answerJa": "もっと早く起きればよかったです。",
       "examples": [
@@ -7336,15 +12962,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "傘を持ってくればよかったなあ。",
           "zh": "要是带伞来就好了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "起きれば",
+        "distractors": [
+          {
+            "text": "起きて",
+            "why": "起きてよかった是“幸好起来了”，意思相反"
+          },
+          {
+            "text": "起きても",
+            "why": "起きてもよかった是“起来也可以”"
+          },
+          {
+            "text": "起きるば",
+            "why": "一段动词的ば形是去る＋れば：起きれば"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-086",
       "level": "N3",
+      "group": "n3-condition",
       "pattern": "〜としたら / 〜とすれば",
       "meaningZh": "如果……的话；假如……",
       "formation": "普通形 + としたら／とすれば",
       "note": "表示假定的条件，前项多是不确定的或与事实相反的情况。",
+      "contrast": "としたら：假设一个不确定或不现实的前提；たら是一般的条件。",
       "promptZh": "假如去留学，你觉得哪个国家好？",
       "answerJa": "留学するとしたら、どの国がいいと思いますか。",
       "examples": [
@@ -7360,15 +13006,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "もし一億円あったとしたら、何をしますか。",
           "zh": "假如有一亿日元，你会做什么？"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "あったとしたら",
+        "distractors": [
+          {
+            "text": "あっても",
+            "why": "あっても是“即使有”，意思不对"
+          },
+          {
+            "text": "あったのに",
+            "why": "のに是转折，意思不对"
+          },
+          {
+            "text": "あったので",
+            "why": "ので是理由，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-087",
       "level": "N3",
+      "group": "n3-concession",
       "pattern": "たとえ〜ても",
       "meaningZh": "即使……也……",
       "formation": "たとえ + Vて形／い形去い + くて／な形語幹・N + で + も",
       "note": "强调假定的让步条件，后项不受其影响。",
+      "contrast": "たとえ〜ても强调假定的让步“即使……也”；のに是已发生事实的转折。",
       "promptZh": "即使下雨，比赛也照常进行。",
       "answerJa": "たとえ雨が降っても、試合は行います。",
       "examples": [
@@ -7384,15 +13050,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "たとえ失敗しても、後悔はしません。",
           "zh": "即使失败，我也不后悔。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "高くても",
+        "distractors": [
+          {
+            "text": "高ければ",
+            "why": "たとえ要和ても搭配；高ければ是“如果贵”"
+          },
+          {
+            "text": "高いのに",
+            "why": "のに用于事实，不和たとえ搭配"
+          },
+          {
+            "text": "高いから",
+            "why": "から是理由，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-088",
       "level": "N3",
+      "group": "n3-concession",
       "pattern": "〜にしても",
       "meaningZh": "就算……；即使……也",
       "formation": "V/い形普通形 + にしても；な形語幹・N + にしても",
       "note": "承认前项，但表示后项仍然成立，常带不满或保留。",
+      "contrast": "にしても：承认前项，但后项仍成立（常带不满）；にしては：按某标准来看出乎意料。",
       "promptZh": "就算是开玩笑，也说得太过分了。",
       "answerJa": "冗談にしても、言いすぎです。",
       "examples": [
@@ -7408,15 +13094,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "高いにしても、一度は行ってみたいです。",
           "zh": "就算贵，也想去一次看看。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "にしても",
+        "distractors": [
+          {
+            "text": "にしては",
+            "why": "にしては是“就……而言（意外）”，意思不对"
+          },
+          {
+            "text": "として",
+            "why": "として是“作为”，意思不对"
+          },
+          {
+            "text": "にとって",
+            "why": "にとって是“对……来说”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-089",
       "level": "N3",
+      "group": "n3-guess",
       "pattern": "〜とは限らない",
       "meaningZh": "未必……；不一定……",
       "formation": "普通形 + とは限らない",
       "note": "表示一般认为如此，但也有例外。常与「必ずしも」「いつも」「誰でも」连用。",
+      "contrast": "とは限らない＝不一定（有例外）；わけではない＝并不是（部分否定）。",
       "promptZh": "贵的东西未必是好东西。",
       "answerJa": "高い物がいい物だとは限りません。",
       "examples": [
@@ -7432,15 +13138,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "天気予報がいつも正しいとは限らない。",
           "zh": "天气预报不一定总是准的。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "だとは限りません",
+        "distractors": [
+          {
+            "text": "に違いありません",
+            "why": "に違いない是“一定是”，意思相反"
+          },
+          {
+            "text": "だに決まっています",
+            "why": "だ后面不接に決まっている；而且意思是“肯定”"
+          },
+          {
+            "text": "だというわけです",
+            "why": "というわけだ是“也就是说”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-090",
       "level": "N3",
+      "group": "n3-toiu",
       "pattern": "〜というより",
       "meaningZh": "与其说……不如说……",
       "formation": "普通形 / N + というより",
       "note": "表示比起前项的说法，后项更恰当。常与「むしろ」搭配。",
+      "contrast": "AというよりB＝与其说A不如说B；AよりB＝比起A，B更……（比较）。",
       "promptZh": "今天与其说暖和，不如说热。",
       "answerJa": "今日は暖かいというより、暑いです。",
       "examples": [
@@ -7456,15 +13182,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この部屋は静かというより、寂しいです。",
           "zh": "这个房间与其说安静，不如说冷清。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "というより",
+        "distractors": [
+          {
+            "text": "より",
+            "why": "暖かいより、暑いです不成立；要用というより"
+          },
+          {
+            "text": "というと",
+            "why": "というと是“说到……”，意思不对"
+          },
+          {
+            "text": "というのは",
+            "why": "というのは用于下定义，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-091",
       "level": "N3",
+      "group": "n3-toiu",
       "pattern": "〜というと / 〜といえば",
       "meaningZh": "说到……；提起……",
       "formation": "N + というと／といえば",
       "note": "以某个话题为契机，引出联想到的代表性事物。",
+      "contrast": "といえば：由话题联想到代表性的事物；というのは：下定义。",
       "promptZh": "说到日本的食物，还是寿司。",
       "answerJa": "日本の食べ物といえば、やっぱり寿司です。",
       "examples": [
@@ -7480,15 +13226,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "夏といえば、花火大会ですね。",
           "zh": "说到夏天，就是烟花大会了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "といえば",
+        "distractors": [
+          {
+            "text": "というのは",
+            "why": "というのは是下定义“夏天是指……”，意思不对"
+          },
+          {
+            "text": "というより",
+            "why": "というより是“与其说……”，意思不对"
+          },
+          {
+            "text": "として",
+            "why": "として是“作为”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-092",
       "level": "N3",
+      "group": "n3-toiu",
       "pattern": "〜というのは",
       "meaningZh": "所谓……是指……",
       "formation": "N + というのは + 〜という意味だ／〜のことだ",
       "note": "用于下定义、解释词义。与N4「〜って」的说明用法相近，更正式。",
+      "contrast": "というのは用于下定义、解释词义（口语说って）；といえば用于联想。",
       "promptZh": "所谓「留守」，是指不在家。",
       "answerJa": "「留守」というのは、家にいないことです。",
       "examples": [
@@ -7504,15 +13270,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "「猫舌」というのは、熱い物が苦手な人のことです。",
           "zh": "「猫舌」是指怕吃烫东西的人。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "というのは",
+        "distractors": [
+          {
+            "text": "といえば",
+            "why": "といえば用于联想代表事物，不是下定义"
+          },
+          {
+            "text": "というより",
+            "why": "というより是“与其说……”，意思不对"
+          },
+          {
+            "text": "として",
+            "why": "として是“作为”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-093",
       "level": "N3",
+      "group": "n3-instruction",
       "pattern": "〜ますように",
       "meaningZh": "但愿……；祝愿……",
       "formation": "Vます形 + ように；Vません + ように",
       "note": "表示祈祷、愿望，常用于新年、神社参拜或祝福别人。",
+      "contrast": "ますように：祈愿“但愿……”；ように（指示）：提醒对方要……。",
       "promptZh": "但愿能考上。",
       "answerJa": "試験に合格できますように。",
       "examples": [
@@ -7528,15 +13314,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "みんなが元気で過ごせますように。",
           "zh": "祝愿大家都健健康康的。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "晴れますように",
+        "distractors": [
+          {
+            "text": "晴れましょう",
+            "why": "ましょう是“一起……吧”，不是祈愿"
+          },
+          {
+            "text": "晴れますか",
+            "why": "晴れますか是“会放晴吗？”"
+          },
+          {
+            "text": "晴れませんように",
+            "why": "这句是“但愿不放晴”，意思相反"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-094",
       "level": "N3",
+      "group": "n3-instruction",
       "pattern": "〜ように（指示）",
       "meaningZh": "要……；请……（提醒、指示）",
       "formation": "V辞書形 / Vない形 + ように",
       "note": "用于句末，表示委婉的指示、提醒或要求，多用于通知或上对下。",
+      "contrast": "句末的ように表示委婉的指示、提醒；ために不能放在句末表示指示。",
       "promptZh": "明天不要迟到。",
       "answerJa": "明日は遅れないように。",
       "examples": [
@@ -7552,15 +13358,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "教室では、携帯電話の電源を切るように。",
           "zh": "在教室里要关掉手机电源。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "遅れないように",
+        "distractors": [
+          {
+            "text": "遅れないために",
+            "why": "ために不能放在句末表示提醒"
+          },
+          {
+            "text": "遅れるように",
+            "why": "这句是“要迟到”，意思相反"
+          },
+          {
+            "text": "遅れないようで",
+            "why": "ようで不能这样结束句子"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-095",
       "level": "N3",
+      "group": "n3-koto",
       "pattern": "〜こと（规定）",
       "meaningZh": "须……；不要……（书面规定）",
       "formation": "V辞書形 / Vない形 + こと",
       "note": "用于句末，表示书面的规定、注意事项或指示，多见于告示、说明书。",
+      "contrast": "句末的こと用于书面规定、注意事项；ように用于口头的提醒。",
       "promptZh": "不要在走廊奔跑。",
       "answerJa": "廊下を走らないこと。",
       "examples": [
@@ -7576,15 +13402,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "使った物は元の場所に戻すこと。",
           "zh": "用过的东西要放回原处。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "走らないこと",
+        "distractors": [
+          {
+            "text": "走らないもの",
+            "why": "句末的もの不表示规定"
+          },
+          {
+            "text": "走ること",
+            "why": "走ること是“要奔跑”，意思相反"
+          },
+          {
+            "text": "走らないわけ",
+            "why": "わけ不能这样结束句子表示规定"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-096",
       "level": "N3",
+      "group": "n3-suffix",
       "pattern": "〜み",
       "meaningZh": "……感；……之处（形容词名词化）",
       "formation": "い形去い / な形語幹 + み",
       "note": "把部分形容词变成名词，表示感觉或性质，如「楽しみ」「悲しみ」「重み」「甘み」。与「〜さ」不同，只能接部分形容词。",
+      "contrast": "み表示感觉（楽しみ、甘み），只接部分形容词；さ（N4）表示程度，几乎都能接。",
       "promptZh": "很期待暑假。",
       "answerJa": "夏休みを楽しみにしています。",
       "examples": [
@@ -7600,15 +13446,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼の言葉には重みがあります。",
           "zh": "他的话很有分量。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "甘み",
+        "distractors": [
+          {
+            "text": "甘い",
+            "why": "形容词要名词化才能接が"
+          },
+          {
+            "text": "甘く",
+            "why": "く形是副词，不能接が"
+          },
+          {
+            "text": "甘そう",
+            "why": "甘そう是“看起来甜”，不能直接接が"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-097",
       "level": "N3",
+      "group": "n3-change",
       "pattern": "〜一方だ",
       "meaningZh": "越来越……；一直……下去",
       "formation": "V辞書形 + 一方だ",
       "note": "表示某种（多为不好的）变化一直朝一个方向发展。",
+      "contrast": "一方だ：一个劲儿地朝（多为不好的）方向变化；につれて：随着A的变化B也变化。",
       "promptZh": "物价一个劲儿地上涨。",
       "answerJa": "物価は上がる一方です。",
       "examples": [
@@ -7624,15 +13490,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この町の人口は減る一方だ。",
           "zh": "这个城镇的人口越来越少。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "上がる一方",
+        "distractors": [
+          {
+            "text": "上がった一方",
+            "why": "一方だ前接辞书形"
+          },
+          {
+            "text": "上がりがち",
+            "why": "がち是“容易……”，不是“一个劲儿地”"
+          },
+          {
+            "text": "上がるところ",
+            "why": "上がるところ是“正要上涨”"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-098",
       "level": "N3",
+      "group": "n3-time",
       "pattern": "〜ところだった",
       "meaningZh": "差点儿就……",
       "formation": "V辞書形 + ところだった",
       "note": "表示差一点发生不好的事，实际上没有发生。常与「もう少しで」搭配。",
+      "contrast": "辞书形＋ところだった＝差点儿就（实际没发生）；辞书形＋ところです（N4）＝正要。",
       "promptZh": "差点儿就撞上车了。",
       "answerJa": "もう少しで車にぶつかるところでした。",
       "examples": [
@@ -7648,15 +13534,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "大事な約束を忘れるところでした。",
           "zh": "差点儿忘了重要的约定。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "遅刻するところだった",
+        "distractors": [
+          {
+            "text": "遅刻したところだった",
+            "why": "“差点儿”用辞书形＋ところだった"
+          },
+          {
+            "text": "遅刻するところだ",
+            "why": "遅刻するところだ是“正要迟到”"
+          },
+          {
+            "text": "遅刻したばかりだった",
+            "why": "たばかり是“刚刚”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-099",
       "level": "N3",
+      "group": "n3-time",
       "pattern": "〜ところに / 〜ところへ / 〜ところを",
       "meaningZh": "正当……的时候（发生了……）",
       "formation": "V辞書形 / Vている / Vた形 + ところに／ところへ／ところを",
-      "note": "表示正处在某个时间点时发生了别的事。「ところに／へ」后项多为来访、打扰；「ところを」后项多为「見る／見つかる／助ける」等。",
+      "note": "ところに／へ后项多为来访、打扰；ところを后项多为見る、見つかる等。",
+      "contrast": "不同于ところだった（差点儿）。",
       "promptZh": "正要出门的时候，朋友来了。",
       "answerJa": "出かけようとしたところに、友達が来ました。",
       "examples": [
@@ -7672,15 +13578,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "いたずらしているところを、母に見られました。",
           "zh": "恶作剧的时候被妈妈看见了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "ところを",
+        "distractors": [
+          {
+            "text": "ところに",
+            "why": "“被看见”要用ところを（〜ところを見られる）"
+          },
+          {
+            "text": "ことを",
+            "why": "〜ことを見られる不成立"
+          },
+          {
+            "text": "ばかりを",
+            "why": "〜ばかりを見られる不成立"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-100",
       "level": "N3",
+      "group": "n3-addition",
       "pattern": "〜上（に）",
       "meaningZh": "不仅……而且……；再加上……",
       "formation": "V/い形普通形 + 上（に）；な形語幹 + な上（に）；N + の／である + 上（に）",
       "note": "表示在前项之上再追加同方向的事，前后都是好事或都是坏事。读作「うえに」。",
+      "contrast": "上に＝不仅……而且（前后同方向，都是好事或都是坏事）；のに是转折。",
       "promptZh": "这家店不仅便宜，而且好吃。",
       "answerJa": "この店は安い上に、おいしいです。",
       "examples": [
@@ -7696,15 +13622,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼は親切な上に、頭もいいです。",
           "zh": "他不仅热心，而且聪明。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "迷った上に",
+        "distractors": [
+          {
+            "text": "迷ったのに",
+            "why": "のに是转折“明明……却”，意思不对"
+          },
+          {
+            "text": "迷ったおかげで",
+            "why": "おかげで是“多亏”，意思不对"
+          },
+          {
+            "text": "迷うの上に",
+            "why": "动词直接接上に，不加の"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-101",
       "level": "N3",
+      "group": "n3-concession",
       "pattern": "〜からといって",
       "meaningZh": "虽说……但也（不一定）……",
       "formation": "普通形 + からといって + 否定",
       "note": "表示不能仅凭前项理由就得出后项的结论，后项多为否定。",
+      "contrast": "からといって〜ない：不能只因为A就B；から是一般的理由。",
       "promptZh": "虽说便宜，也不能买太多。",
       "answerJa": "安いからといって、買いすぎてはいけません。",
       "examples": [
@@ -7720,15 +13666,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "忙しいからといって、朝ご飯を抜かないでください。",
           "zh": "虽说忙，也请不要不吃早饭。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "からといって",
+        "distractors": [
+          {
+            "text": "から",
+            "why": "从“因为便宜”推不出“不能买太多”，要用からといって"
+          },
+          {
+            "text": "というのは",
+            "why": "というのは用于下定义，意思不对"
+          },
+          {
+            "text": "くせに",
+            "why": "くせに是责备“明明……却”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-102",
       "level": "N3",
+      "group": "n3-reason",
       "pattern": "〜からこそ",
       "meaningZh": "正因为……才……",
       "formation": "普通形 + からこそ",
       "note": "强调原因，表示“正是因为这个理由”，多用于积极的理由。",
+      "contrast": "からこそ强调“正因为……才……”（多为积极的理由）；からといって＝不能仅因……就……。",
       "promptZh": "正因为为你着想，才说得严厉。",
       "answerJa": "あなたのことを思うからこそ、厳しく言うのです。",
       "examples": [
@@ -7744,15 +13710,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "家族がいるからこそ、頑張れます。",
           "zh": "正因为有家人，才能努力下去。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "からこそ",
+        "distractors": [
+          {
+            "text": "からといって",
+            "why": "からといって后面接否定“也不能……”，意思不对"
+          },
+          {
+            "text": "のに",
+            "why": "のに是转折，意思不对"
+          },
+          {
+            "text": "けれども",
+            "why": "けれども是转折，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-103",
       "level": "N3",
+      "group": "n3-guess",
       "pattern": "〜おそれがある",
       "meaningZh": "有……的危险；恐怕会……",
       "formation": "V辞書形 / N + の + おそれがある",
       "note": "表示有发生不好的事情的可能性，多用于新闻、天气预报等书面语。",
+      "contrast": "おそれがある＝有发生坏事的可能（新闻用语）；かもしれない＝一般的“也许”。",
       "promptZh": "明天有下大雨的危险。",
       "answerJa": "明日は大雨のおそれがあります。",
       "examples": [
@@ -7768,15 +13754,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この薬は眠くなるおそれがあります。",
           "zh": "这种药可能会让人犯困。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "来るおそれ",
+        "distractors": [
+          {
+            "text": "来たおそれ",
+            "why": "おそれがある前接辞书形"
+          },
+          {
+            "text": "来るのおそれ",
+            "why": "动词直接接おそれ，不加の"
+          },
+          {
+            "text": "来るはず",
+            "why": "来るはずがあります不成立"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-104",
       "level": "N3",
+      "group": "n3-addition",
       "pattern": "〜はもちろん",
       "meaningZh": "……自不必说，……也……",
       "formation": "N + はもちろん",
       "note": "表示前项理所当然，后项也一样。常与「も」「まで」呼应。",
+      "contrast": "Aはもちろん、Bも＝A自不必说，B也；だけでなく语气较平。",
       "promptZh": "他英语自不必说，法语也会说。",
       "answerJa": "彼は英語はもちろん、フランス語も話せます。",
       "examples": [
@@ -7792,15 +13798,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この歌は子供はもちろん、大人にも人気です。",
           "zh": "这首歌不用说孩子，大人也很喜欢。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "はもちろん",
+        "distractors": [
+          {
+            "text": "ばかり",
+            "why": "週末ばかり是“净是周末”，意思不对"
+          },
+          {
+            "text": "しか",
+            "why": "しか后面必须接否定"
+          },
+          {
+            "text": "だけ",
+            "why": "週末だけ是“只有周末”，与后面的“平时也”矛盾"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-105",
       "level": "N3",
+      "group": "n3-addition",
       "pattern": "〜も〜ば〜も",
       "meaningZh": "既……又……；也……也……",
       "formation": "N + も + Vば／い形ければ／な形・Nなら + N + も",
       "note": "列举两个同方向的事项，表示“既……也……”。",
+      "contrast": "NもVば、Nも＝既……又……（并列同方向的事）。",
       "promptZh": "这个城镇既有海，又有山。",
       "answerJa": "この町は海もあれば、山もあります。",
       "examples": [
@@ -7816,15 +13842,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "人生には、いい時もあれば、悪い時もあります。",
           "zh": "人生有好的时候，也有坏的时候。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "あれば",
+        "distractors": [
+          {
+            "text": "あったら",
+            "why": "も〜ば〜も是固定说法，不用たら"
+          },
+          {
+            "text": "あるのに",
+            "why": "のに是转折，意思不对"
+          },
+          {
+            "text": "あっても",
+            "why": "あっても是“即使有”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-106",
       "level": "N3",
+      "group": "n3-honorific",
       "pattern": "お／ご〜する",
       "meaningZh": "我为您……（谦让语）",
       "formation": "お + 和语动词ます形去ます + する；ご + 汉语系サ变动词词干 + する",
       "note": "降低自己的动作以表示对对方的尊敬，常用于为对方做事的场合。更谦逊的说法是「お／ご〜いたす」。",
+      "contrast": "お〜する是谦让语（我为您做）；お〜になる是尊敬语（您做）。",
       "promptZh": "我来帮您拿行李。",
       "answerJa": "荷物をお持ちします。",
       "examples": [
@@ -7840,15 +13886,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "会場までご案内します。",
           "zh": "我带您去会场。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "お持ちします",
+        "distractors": [
+          {
+            "text": "お持ちになります",
+            "why": "お〜になる是尊敬语“您拿”，主语不对"
+          },
+          {
+            "text": "お持ってします",
+            "why": "お〜する接ます形去ます：お持ちする"
+          },
+          {
+            "text": "お持ちください",
+            "why": "お持ちください是“请您拿”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-107",
       "level": "N3",
+      "group": "n3-suffix",
       "pattern": "〜ぶり",
       "meaningZh": "时隔……；……的样子",
       "formation": "时间 + ぶり；N / Vます形去ます + ぶり",
       "note": "接时间表示隔了这么久才又发生（「三年ぶり」）；接名词或动词表示样子、情况（「仕事ぶり」「話しぶり」）。",
+      "contrast": "时间＋ぶり＝时隔（三年ぶり）；ごとに＝每隔一定时间反复。",
       "promptZh": "时隔三年回了国。",
       "answerJa": "三年ぶりに国へ帰りました。",
       "examples": [
@@ -7864,15 +13930,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼のまじめな仕事ぶりに驚きました。",
           "zh": "他认真的工作态度让我很吃惊。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "三年ぶりに",
+        "distractors": [
+          {
+            "text": "三年ごとに",
+            "why": "三年ごとに是“每三年”，意思不对"
+          },
+          {
+            "text": "三年おきに",
+            "why": "三年おきに是“每隔三年”，意思不对"
+          },
+          {
+            "text": "三年までに",
+            "why": "までに表示期限，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-108",
       "level": "N3",
+      "group": "n3-guess",
       "pattern": "〜ような気がする",
       "meaningZh": "总觉得……；好像……",
       "formation": "V/い形普通形 + ような気がする；N + のような気がする",
       "note": "表示说话人没有确切根据的感觉或预感。",
+      "contrast": "ような気がする＝没有根据的感觉；に違いない＝有根据的强烈推断。",
       "promptZh": "总觉得在哪里见过。",
       "answerJa": "どこかで会ったような気がします。",
       "examples": [
@@ -7888,15 +13974,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "何か忘れているような気がします。",
           "zh": "总觉得忘了什么。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "ような気がします",
+        "distractors": [
+          {
+            "text": "に違いありません",
+            "why": "に違いない是有根据的“一定”，不是模糊的感觉"
+          },
+          {
+            "text": "そうな気がします",
+            "why": "样态そう不接た形；表示感觉用ような気がする"
+          },
+          {
+            "text": "ように気がします",
+            "why": "修饰名词（気）要用ような"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-109",
       "level": "N3",
+      "group": "n3-colloquial",
       "pattern": "〜たって / 〜だって",
       "meaningZh": "即使……也……（口语）",
       "formation": "Vた形 + って（Vだ→だって）；い形去い + くたって；な形語幹・N + だって",
       "note": "「〜ても」的口语说法。",
+      "contrast": "たって＝ても的口语（急いだって＝急いでも）。",
       "promptZh": "现在就算赶，也来不及了。",
       "answerJa": "今から急いだって、間に合わないよ。",
       "examples": [
@@ -7912,15 +14018,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "いくら呼んだって、返事がありません。",
           "zh": "不管怎么喊，都没有回应。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "急いだって",
+        "distractors": [
+          {
+            "text": "急いだら",
+            "why": "急いだら是“如果赶的话就赶不上”，逻辑不对"
+          },
+          {
+            "text": "急いだから",
+            "why": "から是理由，意思不对"
+          },
+          {
+            "text": "急いだっけ",
+            "why": "っけ是确认记不清的事，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-110",
       "level": "N3",
+      "group": "n3-colloquial",
       "pattern": "〜とく / 〜どく",
       "meaningZh": "先……好（「〜ておく」的口语）",
       "formation": "Vて形去て + とく（Vで→どく）",
       "note": "「〜ておく」的口语缩约形，如「買っとく」「読んどく」「やっとく」。",
+      "contrast": "とく＝ておく的缩约（買っとく）；でおく缩约成どく（読んどく）。",
       "promptZh": "把啤酒放进冰箱里吧。",
       "answerJa": "ビールを冷蔵庫に入れといて。",
       "examples": [
@@ -7936,15 +14062,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "この本、明日までに読んどいてね。",
           "zh": "明天之前把这本书读一下哦。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "読んどいて",
+        "distractors": [
+          {
+            "text": "読んといて",
+            "why": "読んでおく缩约成読んどく，用ど"
+          },
+          {
+            "text": "読みといて",
+            "why": "缩约形由て形来：読んで→読んどく"
+          },
+          {
+            "text": "読むとって",
+            "why": "没有这种形式"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-111",
       "level": "N3",
+      "group": "n3-ni",
       "pattern": "〜に向かって",
       "meaningZh": "朝着……；对着……",
       "formation": "N + に向かって",
       "note": "表示动作的方向、对象，或朝着某目标努力。",
+      "contrast": "に向かって＝朝着（方向、目标）；に対して＝针对（态度、动作的对象）。",
       "promptZh": "正朝着梦想努力。",
       "answerJa": "夢に向かって頑張っています。",
       "examples": [
@@ -7960,15 +14106,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "子供が海に向かって大きな声で叫びました。",
           "zh": "孩子对着大海大声喊叫。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "に向かって",
+        "distractors": [
+          {
+            "text": "に対して",
+            "why": "に対して表示态度的对象，不表示移动的方向"
+          },
+          {
+            "text": "にとって",
+            "why": "にとって是“对……来说”，意思不对"
+          },
+          {
+            "text": "について",
+            "why": "について是“关于”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-112",
       "level": "N3",
+      "group": "n3-te",
       "pattern": "〜てもかまわない",
       "meaningZh": "……也没关系；可以……",
       "formation": "Vて形 / い形去い + くて / な形語幹・N + で + もかまわない",
       "note": "表示许可或让步，比「〜てもいい」稍正式。",
+      "contrast": "てもかまわない≈てもいい（可以），稍正式；なくてもかまわない＝不……也没关系。",
       "promptZh": "这个房间可以自由使用。",
       "answerJa": "この部屋は自由に使ってもかまいません。",
       "examples": [
@@ -7984,15 +14150,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "狭くてもかまわないので、駅に近い部屋がいいです。",
           "zh": "窄一点也没关系，想要离车站近的房间。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "狭くても",
+        "distractors": [
+          {
+            "text": "狭くて",
+            "why": "要用ても：狭くてもかまわない"
+          },
+          {
+            "text": "狭いでも",
+            "why": "い形容词要用く形：狭くても"
+          },
+          {
+            "text": "狭ければ",
+            "why": "狭ければかまわない意思不通"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-113",
       "level": "N3",
+      "group": "n3-reason",
       "pattern": "〜んだから / 〜のだから",
       "meaningZh": "既然……（就）……",
       "formation": "普通形 + んだから／のだから（な形語幹・N + なんだから）",
       "note": "强调双方都知道的理由，后项多为说话人的主张、建议或责备。",
+      "contrast": "んだから强调双方都知道的理由，后项多为主张、建议或责备；から是一般的理由。",
       "promptZh": "既然约好了，就请遵守。",
       "answerJa": "約束したんだから、守ってください。",
       "examples": [
@@ -8008,15 +14194,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "せっかく来たんだから、ゆっくりしていってください。",
           "zh": "难得来一趟，多待一会儿再走吧。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "じゃないんだから",
+        "distractors": [
+          {
+            "text": "じゃないんだけど",
+            "why": "けど是转折，意思不对"
+          },
+          {
+            "text": "じゃないのに",
+            "why": "のに是“明明不是……却”，意思不对"
+          },
+          {
+            "text": "じゃないだから",
+            "why": "要用んだから：じゃないんだから"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-114",
       "level": "N3",
+      "group": "n3-guess",
       "pattern": "まるで〜ようだ / まるで〜みたいだ",
       "meaningZh": "简直像……一样",
       "formation": "まるで + 普通形 / Nの + ようだ；まるで + 普通形 / N + みたいだ",
       "note": "用比喻强调相似的程度，常与「ようだ」「みたいだ」搭配。",
+      "contrast": "まるで强调比喻（简直像），常配ようだ、みたいだ；不配传闻的そうだ。",
       "promptZh": "简直像在做梦一样。",
       "answerJa": "まるで夢を見ているようです。",
       "examples": [
@@ -8032,15 +14238,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "彼女の日本語は、まるで日本人みたいです。",
           "zh": "她的日语简直像日本人一样。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "見ているよう",
+        "distractors": [
+          {
+            "text": "見ているそう",
+            "why": "見ているそうです是传闻“听说在做梦”，不和まるで搭配"
+          },
+          {
+            "text": "見ているらしい",
+            "why": "らしい是推测或传闻，不和まるで搭配"
+          },
+          {
+            "text": "見ているのよう",
+            "why": "动词直接接ようだ，不加の"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-115",
       "level": "N3",
+      "group": "n3-guess",
       "pattern": "〜そうもない / 〜そうにない",
       "meaningZh": "看样子不会……；不太可能……",
       "formation": "Vます形去ます + そうもない／そうにない",
       "note": "样态「そうだ」的否定，表示从情况来看不太可能发生。",
+      "contrast": "Vそうにない／そうもない＝看样子不会……；い形容词的否定说なさそう（高くなさそう）。",
       "promptZh": "雨看样子停不了啊。",
       "answerJa": "雨はやみそうにないですね。",
       "examples": [
@@ -8056,15 +14282,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "一人では運べそうもないので、手伝ってください。",
           "zh": "一个人好像搬不动，请帮帮忙。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 0,
+        "blank": "やみそうにない",
+        "distractors": [
+          {
+            "text": "やむそうにない",
+            "why": "样态そう接ます形去ます：やみそう"
+          },
+          {
+            "text": "やみそうだない",
+            "why": "否定要说そうにない或そうもない"
+          },
+          {
+            "text": "やまないそう",
+            "why": "やまないそうです是传闻“听说不会停”"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-116",
       "level": "N3",
+      "group": "n3-condition",
       "pattern": "〜たら〜た（发现）",
       "meaningZh": "……一看，（发现）……",
       "formation": "Vた形 + ら + 过去形",
       "note": "表示做了前项之后发现了意外的情况，后项为过去形，不是说话人有意志的行为。「〜と〜た」也有类似用法。",
+      "contrast": "たら〜た表示做了A之后发现B（意外，不是自己的意志）；也可用と〜た。",
       "promptZh": "一回到家，发现包裹到了。",
       "answerJa": "家に帰ったら、荷物が届いていました。",
       "examples": [
@@ -8080,15 +14326,35 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "駅に着いたら、電車はもう出ていました。",
           "zh": "到了车站，电车已经开走了。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 1,
+        "blank": "開けたら",
+        "distractors": [
+          {
+            "text": "開ければ",
+            "why": "ば不用于表示过去的发现"
+          },
+          {
+            "text": "開けても",
+            "why": "開けても是“即使打开”，意思不对"
+          },
+          {
+            "text": "開けるなら",
+            "why": "なら是“如果要打开”，意思不对"
+          }
+        ]
+      }
     },
     {
       "id": "n3-grammar-117",
       "level": "N3",
+      "group": "n3-toiu",
       "pattern": "〜ということだ（传闻）",
       "meaningZh": "听说……；据说……",
       "formation": "普通形 + ということだ",
       "note": "用于转述听到或读到的信息，比「そうだ」更书面、客观。",
+      "contrast": "ということだ：转述听到的信息（较书面）；そうだ：一般的传闻。",
       "promptZh": "听说田中下个月要辞职。",
       "answerJa": "田中さんは来月、会社を辞めるということです。",
       "examples": [
@@ -8104,7 +14370,25 @@ window.AYAYA_GRAMMAR_DATA = {
           "ja": "試験の結果は来週発表されるということだ。",
           "zh": "据说考试结果下周公布。"
         }
-      ]
+      ],
+      "drill": {
+        "example": 2,
+        "blank": "発表されるということだ",
+        "distractors": [
+          {
+            "text": "発表されるわけだ",
+            "why": "わけだ是“怪不得”，不是传闻"
+          },
+          {
+            "text": "発表されることだ",
+            "why": "ことだ是忠告，不是传闻"
+          },
+          {
+            "text": "発表されたところだ",
+            "why": "たところだ是“刚刚”，时间不对"
+          }
+        ]
+      }
     }
   ]
 };

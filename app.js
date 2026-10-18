@@ -103,6 +103,55 @@ function getFamilyCards(deck) {
   return cardFamilyCache.get(family);
 }
 
+// A grammar level can be narrowed to one group (条件, 推测…) picked on the module
+// page; the choice applies to all four of that level's decks. Only what is shown
+// is filtered: the round still spans the whole deck, so finishing a group never
+// counts as finishing the round. The choice is a per-browser convenience.
+const GRAMMAR_GROUP_STATE_KEY = "ayaya-jp-grammar-group-v1";
+const grammarGroupList = Array.isArray(cardData?.grammarGroups) ? cardData.grammarGroups : [];
+let grammarGroupFilters = loadGrammarGroupFilters();
+
+function grammarFamilyLevel(family) {
+  return /^grammar-(n[345])$/u.exec(family)?.[1].toUpperCase() || "";
+}
+
+function loadGrammarGroupFilters() {
+  let saved = {};
+  try {
+    saved = JSON.parse(localStorage.getItem(GRAMMAR_GROUP_STATE_KEY) || "{}") || {};
+  } catch {
+    saved = {};
+  }
+  return Object.fromEntries(
+    Object.entries(saved).filter(([family, groupId]) =>
+      grammarGroupList.some(
+        (group) => group.id === groupId && group.level === grammarFamilyLevel(family),
+      ),
+    ),
+  );
+}
+
+function saveGrammarGroupFilters() {
+  try {
+    localStorage.setItem(GRAMMAR_GROUP_STATE_KEY, JSON.stringify(grammarGroupFilters));
+  } catch {
+    // The filter still applies until the page closes.
+  }
+}
+
+function grammarGroupFor(deck = activeDeck) {
+  return grammarGroupFilters[cardFamilyForDeck(deck)] || "";
+}
+
+function grammarGroupLabel(groupId) {
+  return grammarGroupList.find((group) => group.id === groupId)?.label || "";
+}
+
+function inActiveGroup(card, deck = activeDeck) {
+  const group = grammarGroupFor(deck);
+  return !group || card.grammarGroup === group;
+}
+
 const elements = {
   answerMain: document.querySelector("#answerMain"),
   answerMeta: document.querySelector("#answerMeta"),
@@ -1221,7 +1270,9 @@ function buildQueue() {
   sessionCompleted[activeDeck] = completedIds;
   sessionQueues[activeDeck] = nextQueue;
   sessionQueueOrderVersions[activeDeck] = nextQueueOrderVersion;
-  reviewQueue = sessionQueues[activeDeck].map((id) => cardById.get(id)).filter(Boolean);
+  reviewQueue = sessionQueues[activeDeck]
+    .map((id) => cardById.get(id))
+    .filter((card) => card && inActiveGroup(card));
   if (shouldSave) {
     saveRoundState();
   }
@@ -1258,7 +1309,7 @@ function remainingCount(deck) {
             ? []
             : deckCards.filter((card) => getState(card.id).reviews > 0).map((card) => card.id),
         );
-  return deckCards.filter((card) => !completedIds.has(card.id)).length;
+  return deckCards.filter((card) => !completedIds.has(card.id) && inActiveGroup(card, deck)).length;
 }
 
 function poolTabs() {
@@ -1333,7 +1384,7 @@ function focusPrimaryStudyAction(options = {}) {
 }
 
 function render() {
-  const deckCards = getDeckCards();
+  const deckCards = getDeckCards().filter((card) => inActiveGroup(card));
   const dueCount = reviewQueue.length;
   const completedIds = sessionCompleted[activeDeck] || new Set();
   const deckIds = new Set(deckCards.map((card) => card.id));
@@ -1384,11 +1435,20 @@ function render() {
     currentCard.isVocab &&
     !currentCard.showsReadingOnFront &&
     ["vocab-ja-zh", "vocab-n4-ja-zh", "vocab-n3-ja-zh"].includes(currentCard.deck);
-  const showsCardSubtle = Boolean(currentCard.subtle) && !hidesPromptReading;
-  const cardTag = cardTagFor(
-    currentCard,
-    `${elements.moduleTitle.textContent} ${showsCardSubtle ? currentCard.subtle : ""}`,
-  );
+  // 中→日 grammar cards keep their pattern hidden until the answer: on the front
+  // it would give the answer away, so the group tag is the only hint.
+  const hidesPattern =
+    isGrammarSentenceCard(currentCard) && currentCard.promptLang === "zh-CN" && !isRevealed;
+  const showsCardSubtle = Boolean(currentCard.subtle) && !hidesPromptReading && !hidesPattern;
+  // Once a sentence card is revealed its pattern names the point, so the group
+  // tag steps aside to keep the answer on one screen.
+  const cardTag =
+    isGrammarSentenceCard(currentCard) && isRevealed
+      ? ""
+      : cardTagFor(
+          currentCard,
+          `${elements.moduleTitle.textContent} ${showsCardSubtle ? currentCard.subtle : ""}`,
+        );
   elements.cardType.textContent = cardTag;
   elements.cardType.hidden = !cardTag;
   // Grammar sentence cards lead with their pattern in large type and show the
@@ -1481,6 +1541,8 @@ function isGrammarSentenceCard(card) {
 }
 
 function cardTagFor(card, shownText) {
+  // Grammar cards always name their group (条件, 敬语…).
+  if (typeof card.tag === "string") return card.tag;
   const tag = String(card.type || "")
     .replace(/^N[3-5]\s+/u, "")
     .replace(/\s*(?:日文|中文)\s*→\s*(?:中文|日文)$/u, "")
@@ -1656,7 +1718,7 @@ function renderChoiceOptions() {
     const text = document.createElement("span");
     text.className = "choice-text";
     text.textContent = choice.text;
-    text.lang = "zh-CN";
+    text.lang = currentCard.choiceLang || "zh-CN";
 
     button.append(marker, text);
     elements.choiceList.append(button);
@@ -1719,7 +1781,22 @@ function renderEmpty(deckCards) {
     restoreUndoButtonHome();
   }
   elements.studyAnyWay.hidden = deckCards.length === 0;
+  elements.studyAnyWay.textContent = "重新开始";
+  if (extraElements.emptyTitle) extraElements.emptyTitle.textContent = "当前模块完成";
+  if (extraElements.groupShowAll) extraElements.groupShowAll.hidden = true;
   const kind = poolKindOf(activeDeck);
+  const group = grammarGroupFor();
+  // A finished group whose deck still has cards elsewhere restarts only itself.
+  const othersLeft = group && kind === "main" ? (sessionQueues[activeDeck] || []).length : 0;
+  if (othersLeft) {
+    if (extraElements.emptyTitle) extraElements.emptyTitle.textContent = "这一组完成";
+    if (extraElements.groupShowAll) extraElements.groupShowAll.hidden = false;
+    elements.studyAnyWay.textContent = "重练这一组";
+    elements.roundStatusText.textContent = deckCards.length
+      ? `「${grammarGroupLabel(group)}」这一轮已经练完，其他组还剩 ${othersLeft} 张。`
+      : `「${grammarGroupLabel(group)}」的卡都在模糊或不认识板块，其他组还剩 ${othersLeft} 张。`;
+    return;
+  }
   if (kind !== "main") {
     const name = POOL_NAMES[kind];
     elements.roundStatusText.textContent = deckCards.length
@@ -1728,8 +1805,8 @@ function renderEmpty(deckCards) {
     return;
   }
 
-  const fuzzyCount = getDeckCards(poolOf(activeDeck, "fuzzy")).length;
-  const unknownCount = getDeckCards(poolOf(activeDeck, "unknown")).length;
+  const fuzzyCount = getDeckCards(poolOf(activeDeck, "fuzzy")).filter((card) => inActiveGroup(card)).length;
+  const unknownCount = getDeckCards(poolOf(activeDeck, "unknown")).filter((card) => inActiveGroup(card)).length;
   const elsewhere = [
     fuzzyCount ? "模糊" : "",
     unknownCount ? "不认识" : "",
@@ -2545,8 +2622,90 @@ function restartDeckRound() {
   focusPrimaryStudyAction();
 }
 
+// Restarts only the active grammar group's cards: they leave the round's
+// completed set (and are marked reopened, as Undo does) and go back to the front
+// of the queue, so the rest of the deck's round is untouched.
+function restartGroupRound() {
+  const groupCards = getDeckCards().filter((card) => inActiveGroup(card));
+  if (!groupCards.length) {
+    render();
+    return;
+  }
+  clearLastReview();
+  if (!(sessionCompleted[activeDeck] instanceof Set)) sessionCompleted[activeDeck] = new Set();
+  if (!sessionCompletionEvents[activeDeck]) sessionCompletionEvents[activeDeck] = {};
+  if (!(sessionReopenedCards[activeDeck] instanceof Set)) sessionReopenedCards[activeDeck] = new Set();
+  groupCards.forEach((card) => {
+    sessionCompleted[activeDeck].delete(card.id);
+    delete sessionCompletionEvents[activeDeck][card.id];
+    sessionReopenedCards[activeDeck].add(card.id);
+  });
+  const queue = sessionQueues[activeDeck] || [];
+  const queued = new Set(queue);
+  sessionQueues[activeDeck] = [
+    ...shuffleCards(groupCards.filter((card) => !queued.has(card.id))),
+    ...queue,
+  ];
+  saveRoundState();
+  nextCard();
+  focusPrimaryStudyAction();
+}
+
+function restartFromEmptyState() {
+  if (grammarGroupFor() && !isReviewPool(activeDeck) && (sessionQueues[activeDeck] || []).length) {
+    restartGroupRound();
+  } else {
+    restartDeckRound();
+  }
+}
+
+function setGrammarGroup(family, groupId) {
+  if (groupId) grammarGroupFilters[family] = groupId;
+  else delete grammarGroupFilters[family];
+  saveGrammarGroupFilters();
+  renderGrammarGroupSelects();
+  if (cardFamilyForDeck(activeDeck) === family) {
+    clearLastReview();
+    nextCard();
+  }
+}
+
+// Each level's grammar group picker sits on its module-page heading; options
+// list the group sizes so a short group reads as a quick session.
+function renderGrammarGroupSelects() {
+  const entries = window.AYAYA_GRAMMAR_DATA?.entries || [];
+  extraElements.groupSelects.forEach((select) => {
+    const family = select.dataset.family;
+    const level = grammarFamilyLevel(family);
+    const options = [
+      ["", `全部语法（${entries.filter((entry) => entry.level === level).length}）`],
+      ...grammarGroupList
+        .filter((group) => group.level === level)
+        .map((group) => [
+          group.id,
+          `${group.label}（${entries.filter((entry) => entry.group === group.id).length}）`,
+        ]),
+    ];
+    if (select.options?.length !== options.length) {
+      select.replaceChildren(
+        ...options.map(([value, label]) => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = label;
+          return option;
+        }),
+      );
+    }
+    select.value = grammarGroupFilters[family] || "";
+    select.classList.toggle("is-filtered", Boolean(select.value));
+  });
+}
+
 // Optional module-page extras; a page without them still runs.
 const extraElements = {
+  emptyTitle: document.querySelector("#emptyTitle"),
+  groupSelects: [...document.querySelectorAll(".group-select")],
+  groupShowAll: document.querySelector("#groupShowAll"),
   exportProgress: document.querySelector("#exportProgress"),
   importProgress: document.querySelector("#importProgress"),
   importProgressFile: document.querySelector("#importProgressFile"),
@@ -2874,7 +3033,20 @@ function bindInteractions() {
   });
 
   elements.studyAnyWay.addEventListener("click", () => {
-    runSafely(restartDeckRound);
+    runSafely(restartFromEmptyState);
+  });
+
+  extraElements.groupShowAll?.addEventListener("click", () => {
+    runSafely(() => {
+      setGrammarGroup(cardFamilyForDeck(activeDeck), "");
+      focusPrimaryStudyAction();
+    });
+  });
+
+  extraElements.groupSelects.forEach((select) => {
+    select.addEventListener("change", () =>
+      runSafely(() => setGrammarGroup(select.dataset.family, select.value)),
+    );
   });
 
   elements.deckMenuButton.addEventListener("click", (event) => {
@@ -2905,6 +3077,7 @@ function initializeApp() {
   elements.roundStatusText.setAttribute("aria-live", "polite");
   elements.roundStatusText.setAttribute("aria-atomic", "true");
   bindInteractions();
+  renderGrammarGroupSelects();
   bindProgressBackup();
   showSilentModeHint();
   loadRoundState();
