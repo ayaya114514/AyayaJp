@@ -4160,14 +4160,14 @@ const grammarGroups = Array.isArray(window.AYAYA_GRAMMAR_DATA?.groups)
   : [];
 const grammarGroupLabels = new Map(grammarGroups.map((group) => [group.id, group.label]));
 
-// 说明 rows shared by a grammar point's cards; 辨析 says how the point differs
-// from the ones it is most often confused with.
+// 说明 rows of a grammar point's sentence cards. Its 辨析 (how it differs from
+// the points it is most often confused with) is shown on the pattern-focused
+// 文型 and 选择题 cards, whose answers are short enough to keep it on one screen.
 function grammarMeta(entry) {
   return [
     `接续：${entry.formation}`,
     `意思：${entry.meaningZh}`,
     entry.note ? `提示：${entry.note}` : "",
-    entry.contrast ? `辨析：${entry.contrast}` : "",
   ].filter(Boolean).join("　");
 }
 
