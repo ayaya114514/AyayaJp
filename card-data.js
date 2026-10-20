@@ -3321,7 +3321,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "22934:7649ed15497bdd9c";
+const reviewedPronunciationSourceSignature = "22994:ac8e10cbc4d5006c";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -4173,16 +4173,19 @@ function grammarMeta(entry) {
 
 const grammarBlank = "（　　）";
 
-// The 选择题 deck is a fill-in drill: one reviewed example with the pattern
-// blanked out and its Chinese translation as the cue. The three wrong options
-// are reviewed one by one (a confusable pattern, a wrong conjugation or a form
-// that changes the meaning) and each says why it does not fit; validation
-// checks that the blank stands for exactly one place in the sentence.
-function makeGrammarChoiceCard(entry, examples) {
+// The 选择题 deck is a fill-in drill: each reviewed example with the pattern
+// blanked out and its Chinese translation as the cue, one card per example so a
+// point is practised in several sentences. The three wrong options are reviewed
+// one by one (a confusable pattern, a wrong conjugation or a form that changes
+// the meaning) and each says why it does not fit; validation checks that the
+// blank stands for exactly one place in the sentence. The first drill keeps the
+// ids it had when every point had a single drill, so its progress carries over.
+function makeGrammarChoiceCard(entry, examples, drill, drillIndex) {
   const levelKey = entry.level.toLowerCase();
-  const drill = entry.drill;
   const example = examples[drill.example];
-  const correctChoiceId = `${entry.id}-correct`;
+  const suffix = drillIndex === 0 ? "" : `-${drillIndex + 1}`;
+  const choicePrefix = drillIndex === 0 ? entry.id : `${entry.id}-${drillIndex + 1}`;
+  const correctChoiceId = `${choicePrefix}-correct`;
   const choices = [
     {
       id: correctChoiceId,
@@ -4191,7 +4194,7 @@ function makeGrammarChoiceCard(entry, examples) {
       reason: `正确。${entry.pattern}：${entry.meaningZh}。`,
     },
     ...drill.distractors.map((distractor, index) => ({
-      id: `${entry.id}-drill-${index + 1}`,
+      id: `${choicePrefix}-drill-${index + 1}`,
       isCorrect: false,
       text: distractor.text,
       reason: `错误。${distractor.why}。`,
@@ -4199,7 +4202,7 @@ function makeGrammarChoiceCard(entry, examples) {
   ];
 
   return {
-    id: `grammar-${entry.id}-choice`,
+    id: `grammar-${entry.id}-choice${suffix}`,
     deck: `grammar-${levelKey}-choice`,
     isGrammar: true,
     isChoice: true,
@@ -4217,6 +4220,9 @@ function makeGrammarChoiceCard(entry, examples) {
     answerLang: "ja",
     // The correct option's explanation already names the pattern and meaning.
     meta: entry.contrast ? `辨析：${entry.contrast}` : "",
+    // 提示 before answering: the pattern and its formation; the learner still
+    // has to fit them to this sentence.
+    hint: { pattern: entry.pattern, formation: entry.formation },
     sentenceAnswer: example.ja,
     speech: example.speech,
     frontSpeech: "",
@@ -4306,10 +4312,9 @@ function makeGrammarCards(level) {
         grammarLevel: entry.level,
         ...groupFields,
         type: `${entry.level} 文型 → 含义/接续`,
+        // The pattern alone: an example on the front gives the meaning away.
         prompt: entry.pattern,
         promptLang: "ja",
-        subtle: firstExample.ja,
-        subtleLang: "ja",
         answer: entry.meaningZh,
         answerLang: "zh-CN",
         meta: [
@@ -4322,7 +4327,8 @@ function makeGrammarCards(level) {
         frontSpeech: "",
         examples,
       },
-      makeGrammarChoiceCard(entry, examples),
+      ...entry.drills.map((drill, drillIndex) =>
+        makeGrammarChoiceCard(entry, examples, drill, drillIndex)),
     ];
   });
 }

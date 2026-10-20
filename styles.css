@@ -785,6 +785,12 @@ h2 {
   min-height: 0;
 }
 
+/* Room for the corner speaker (2px + 32px) when the band holds one short
+   line, such as a revealed 文型 card. */
+.card.speaker-corner {
+  min-height: 34px;
+}
+
 /* Speaker glyph drawn with a mask so the buttons carry no text content. */
 .speaker-button {
   flex: 0 0 auto;
@@ -1573,4 +1579,24 @@ h2 {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
+/* The grammar pattern inside each example sentence. */
+.example-ja mark.example-focus {
+  background: none;
+  color: var(--gold);
+}
+
+/* 提示 sits above the options until opened, then lists the pattern and its
+   formation in the 说明 style. */
+.choice-hint {
+  display: grid;
+  justify-items: start;
+}
+
+.choice-hint-body {
+  width: 100%;
+  padding: 6px 10px;
+  border-left: 3px solid var(--gold);
+  background: var(--control-soft);
 }

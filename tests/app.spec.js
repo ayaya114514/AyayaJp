@@ -465,25 +465,34 @@ test("every revealed card fits one screen without scrolling", async ({ page }, t
       const band = document.querySelector("#flashcard");
       const root = document.scrollingElement;
       const failures = [];
-      for (const card of families.flatMap((deck) => getFamilyCards(deck))) {
-        activeDeck = card.deck;
-        currentCard = card;
-        currentChoiceOptions = card.isChoice ? buildChoiceOptions(card) : [];
-        selectedChoiceId = null;
-        isRevealed = false;
-        render();
-        if (card.isChoice) {
-          selectedChoiceId = currentChoiceOptions.find((option) => !option.isCorrect).id;
-        }
-        isRevealed = true;
-        render();
+      const measure = (label) => {
         const overflow = Math.max(
           panel.scrollHeight - panel.clientHeight,
           band.scrollHeight - band.clientHeight,
           root.scrollHeight - innerHeight,
           root.scrollWidth - innerWidth,
         );
-        if (overflow > 1) failures.push(`${card.id} +${overflow}px`);
+        if (overflow > 1) failures.push(`${label} +${overflow}px`);
+      };
+      for (const card of families.flatMap((deck) => getFamilyCards(deck))) {
+        activeDeck = card.deck;
+        currentCard = card;
+        currentChoiceOptions = card.isChoice ? buildChoiceOptions(card) : [];
+        selectedChoiceId = null;
+        choiceHintShown = false;
+        isRevealed = false;
+        render();
+        if (card.isChoice) {
+          // The open 提示 sits above the four options before answering.
+          choiceHintShown = true;
+          render();
+          measure(`${card.id} (提示)`);
+          choiceHintShown = false;
+          selectedChoiceId = currentChoiceOptions.find((option) => !option.isCorrect).id;
+        }
+        isRevealed = true;
+        render();
+        measure(card.id);
       }
       return failures;
     });
