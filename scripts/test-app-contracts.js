@@ -2636,6 +2636,122 @@ function testFillInOptionsAreJapanese() {
   assert(texts.every((text) => text.lang === "ja"), "fill-in options were not marked Japanese");
 }
 
+function hintFixtureCard(id) {
+  return baseCard({
+    choiceLang: "ja",
+    choices: [
+      { id: `${id}-right`, isCorrect: true, reason: "正确。", text: "行きたい" },
+      { id: `${id}-wrong`, isCorrect: false, reason: "错误。", text: "行くたい" },
+    ],
+    correctChoiceId: `${id}-right`,
+    deck: "grammar-n5-choice",
+    grammarLevel: "N5",
+    hint: { formation: "Vます形去ます + たい", pattern: "〜たい" },
+    id,
+    isChoice: true,
+    isGrammar: true,
+    prompt: "日本へ（　　）です",
+  });
+}
+
+function pickChoice(harness, choiceId) {
+  const options = harness.element("choiceList").children;
+  options.find((option) => option.dataset.choiceId === choiceId).dispatch("click");
+}
+
+// 提示 opens the pattern and formation before answering; a right answer given
+// with it open counts as 模糊, a right answer without it stays 认识.
+function testFillInHintCountsAsFuzzy() {
+  const hinted = hintFixtureCard("grammar-hinted");
+  const harness = createHarness({
+    grammarCards: [hinted],
+    tabDecks: ["hiragana", "grammar-n5-choice"],
+  });
+  harness.tabs[1].dispatch("click");
+  assert(harness.element("choiceHint").hidden === false, "fill-in card hid its 提示 button");
+  assert(harness.element("choiceHintBody").hidden === true, "提示 opened before it was asked for");
+  dispatchDocumentKey(harness, "h");
+  assert(harness.element("choiceHintBody").hidden === false, "h did not open the 提示");
+  assert(harness.element("choiceHintToggle").hidden === true, "the opened 提示 kept its button");
+  const rows = harness.element("choiceHintBody").children.map((row) => row.children.map((cell) => cell.textContent));
+  assert(
+    JSON.stringify(rows) === JSON.stringify([["文型", "〜たい"], ["接续", "Vます形去ます + たい"]]),
+    `提示 did not list the pattern and formation: ${JSON.stringify(rows)}`,
+  );
+  pickChoice(harness, "grammar-hinted-right");
+  assert(harness.element("choiceHint").hidden === true, "提示 stayed after answering");
+  const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
+  assert(saved[hinted.id]?.lastRating === "unsure", "a hinted right answer was not 模糊");
+  assert(harness.element("fuzzyCount").textContent === 1, "a hinted right answer did not enter 模糊");
+
+  const plain = hintFixtureCard("grammar-plain");
+  const plainHarness = createHarness({
+    grammarCards: [plain],
+    tabDecks: ["hiragana", "grammar-n5-choice"],
+  });
+  plainHarness.tabs[1].dispatch("click");
+  pickChoice(plainHarness, "grammar-plain-right");
+  const plainSaved = JSON.parse(plainHarness.storage.get("ayaya-jp-srs-v1"));
+  assert(plainSaved[plain.id]?.lastRating === "correct", "an unhinted right answer was not 认识");
+}
+
+function markedText(node) {
+  if (typeof node === "string") return node;
+  if (node.tagName === "RT") return "";
+  return node.children.map(markedText).join("");
+}
+
+// 例句 mark the reviewed pattern spans; a word with a reading that a span only
+// partly covers is marked whole.
+function testExampleFocusIsMarked() {
+  const card = baseCard({
+    deck: "grammar-n5-pattern-zh",
+    examples: [
+      {
+        focus: ["てはいけません"],
+        ja: "ここで吸ってはいけません",
+        ruby: [["ここで", null], ["吸", "す"], ["ってはいけません", null]],
+        zh: "不可以在这里吸烟",
+      },
+      {
+        focus: ["より", "のほうが"],
+        ja: "バスより電車のほうが速いです",
+        ruby: [["バスより", null], ["電車", "でんしゃ"], ["のほうが", null], ["速", "はや"], ["いです", null]],
+        zh: "比起公交，电车更快",
+      },
+      {
+        focus: ["朝走"],
+        ja: "毎朝走ります",
+        ruby: [["毎朝", "まいあさ"], ["走", "はし"], ["ります", null]],
+        zh: "每天早上跑步",
+      },
+    ],
+    grammarLevel: "N5",
+    id: "grammar-focus",
+    isGrammar: true,
+    prompt: "〜てはいけません",
+    tag: "禁止",
+  });
+  const harness = createHarness({
+    grammarCards: [card],
+    tabDecks: ["hiragana", "grammar-n5-pattern-zh"],
+  });
+  harness.tabs[1].dispatch("click");
+  harness.element("cardReveal").dispatch("click");
+  const sentences = harness.element("examplesList").children.map((item) => item.children[0].children[0]);
+  const marks = sentences.map((sentence) =>
+    sentence.children.filter((node) => node.tagName === "MARK").map(markedText),
+  );
+  assert(
+    JSON.stringify(marks) === JSON.stringify([["てはいけません"], ["より", "のほうが"], ["毎朝走"]]),
+    `example focus spans were not marked: ${JSON.stringify(marks)}`,
+  );
+  assert(
+    sentences.every((sentence, index) => markedText(sentence) === card.examples[index].ja),
+    "marking changed the example text",
+  );
+}
+
 function testRetiredGrammarProgressMovesToVocab() {
   const vocabDeck = "vocab-ja-zh";
   const retiredId = "grammar-n5-grammar-050-ja";
@@ -2728,6 +2844,8 @@ const tests = [
   ["中→日 grammar hides its pattern until reveal", testChineseGrammarFrontHidesPatternUntilReveal],
   ["fill-in options are marked Japanese", testFillInOptionsAreJapanese],
   ["retired grammar progress moves to vocab", testRetiredGrammarProgressMovesToVocab],
+  ["a fill-in answered with 提示 counts as 模糊", testFillInHintCountsAsFuzzy],
+  ["example sentences mark their pattern", testExampleFocusIsMarked],
 ];
 
 const failures = [];

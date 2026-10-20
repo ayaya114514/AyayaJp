@@ -164,6 +164,9 @@ const elements = {
   cardSubtle: document.querySelector("#cardSubtle"),
   choiceBlock: document.querySelector("#choiceBlock"),
   choiceFeedback: document.querySelector("#choiceFeedback"),
+  choiceHint: document.querySelector("#choiceHint"),
+  choiceHintBody: document.querySelector("#choiceHintBody"),
+  choiceHintToggle: document.querySelector("#choiceHintToggle"),
   choiceList: document.querySelector("#choiceList"),
   choiceNext: document.querySelector("#choiceNext"),
   currentCount: document.querySelector("#currentCount"),
@@ -217,6 +220,8 @@ let isRevealed = false;
 let reviewQueue = [];
 let currentChoiceOptions = [];
 let selectedChoiceId = null;
+// A fill-in answered after opening its 提示 counts as 模糊, not 认识.
+let choiceHintShown = false;
 let speechGeneration = 0;
 let speechStartTimer = null;
 let speechBlockedUntil = 0;
@@ -1285,6 +1290,7 @@ function nextCard() {
   currentCard = reviewQueue[0] || null;
   currentChoiceOptions = currentCard?.isChoice ? buildChoiceOptions(currentCard) : [];
   selectedChoiceId = null;
+  choiceHintShown = false;
   isRevealed = false;
   render();
 }
@@ -1596,27 +1602,72 @@ function renderMeta(meta) {
   elements.metaBlock.hidden = rows.length === 0;
 }
 
-function appendRuby(parent, text, reading) {
+function rubyElement(text, reading) {
   const ruby = document.createElement("ruby");
   ruby.append(document.createTextNode(text));
   const rt = document.createElement("rt");
   rt.textContent = reading;
   ruby.append(rt);
-  parent.append(ruby);
+  return ruby;
+}
+
+// [start, end) character ranges of an example's reviewed focus spans (the
+// grammar pattern in it), found in order.
+function focusRanges(text, focus) {
+  const ranges = [];
+  let from = 0;
+  for (const span of Array.isArray(focus) ? focus : []) {
+    const at = typeof span === "string" && span ? text.indexOf(span, from) : -1;
+    if (at < 0) return [];
+    ranges.push([at, at + span.length]);
+    from = at + span.length;
+  }
+  return ranges;
 }
 
 // card-data.js segments each example with the same context-guarded readings
 // used for romaji; text that no reviewed reading covers stays unannotated.
-function renderFurigana(parent, text, rubySegments) {
+// Focus ranges are drawn as <mark>; a word with a reading that a range only
+// partly covers is marked whole, so its reading stays over it.
+function renderFurigana(parent, text, rubySegments, focus = []) {
   parent.replaceChildren();
-  const segments = Array.isArray(rubySegments) ? rubySegments : [];
-  if (segments.map(([surface]) => surface).join("") !== text) {
-    parent.textContent = text;
-    return;
-  }
+  const given = Array.isArray(rubySegments) ? rubySegments : [];
+  const segments = given.map(([surface]) => surface).join("") === text ? given : [[text, null]];
+  const ranges = focusRanges(text, focus);
+  const inFocus = (start, end) => ranges.some(([from, to]) => start < to && from < end);
+  const pieces = [];
+  let offset = 0;
   segments.forEach(([surface, reading]) => {
-    if (reading) appendRuby(parent, surface, reading);
-    else parent.append(document.createTextNode(surface));
+    const start = offset;
+    offset += surface.length;
+    if (reading) {
+      pieces.push([rubyElement(surface, reading), inFocus(start, offset)]);
+      return;
+    }
+    // Plain text is split at range edges so only the pattern is marked.
+    const edges = new Set([start, offset]);
+    ranges.forEach(([from, to]) => [from, to].forEach((edge) => {
+      if (edge > start && edge < offset) edges.add(edge);
+    }));
+    const cuts = [...edges].sort((left, right) => left - right);
+    for (let index = 0; index < cuts.length - 1; index += 1) {
+      const piece = surface.slice(cuts[index] - start, cuts[index + 1] - start);
+      pieces.push([document.createTextNode(piece), inFocus(cuts[index], cuts[index + 1])]);
+    }
+  });
+  let mark = null;
+  pieces.forEach(([node, marked]) => {
+    if (!marked) {
+      mark = null;
+      parent.append(node);
+      return;
+    }
+    if (!mark) {
+      mark = document.createElement("mark");
+      mark.className = "example-focus";
+      parent.append(mark);
+    }
+    mark.append(node);
   });
 }
 
@@ -1633,7 +1684,7 @@ function renderExamples(examples) {
     const ja = document.createElement("p");
     ja.className = "example-ja";
     ja.lang = "ja";
-    renderFurigana(ja, example.ja, example.ruby);
+    renderFurigana(ja, example.ja, example.ruby, example.focus);
 
     const romaji = document.createElement("p");
     romaji.className = "example-romaji";
@@ -1668,6 +1719,7 @@ function renderChoiceCard(card) {
   elements.choiceBlock.hidden = false;
   elements.feedbackRow.hidden = true;
   elements.choiceNext.hidden = !isRevealed;
+  renderChoiceHint(card);
   renderChoiceOptions();
 
   if (!isRevealed) {
@@ -1690,6 +1742,35 @@ function renderChoiceCard(card) {
   if (hasExample) {
     renderExamples(card.examples);
   }
+}
+
+// Before answering, 提示 opens the pattern and its formation (the Chinese cue
+// already gives the meaning); answered, the 说明 below says the rest.
+function renderChoiceHint(card) {
+  const hint = card.hint;
+  elements.choiceHint.hidden = !hint || isRevealed;
+  elements.choiceHintToggle.hidden = choiceHintShown;
+  elements.choiceHintBody.hidden = !choiceHintShown;
+  if (!hint || isRevealed || !choiceHintShown) {
+    elements.choiceHintBody.replaceChildren();
+    return;
+  }
+  const rows = [
+    ["文型", card.hint.pattern],
+    ["接续", card.hint.formation],
+  ].map(([key, value]) => {
+    const row = document.createElement("div");
+    row.className = "meta-row";
+    const label = document.createElement("span");
+    label.className = "meta-key";
+    label.textContent = key;
+    const text = document.createElement("span");
+    text.className = "meta-value";
+    text.textContent = value;
+    row.append(label, text);
+    return row;
+  });
+  elements.choiceHintBody.replaceChildren(...rows);
 }
 
 function renderChoiceOptions() {
@@ -1753,6 +1834,8 @@ function clearAnswer() {
   elements.answerMain.removeAttribute("lang");
   renderMeta("");
   elements.choiceBlock.hidden = true;
+  elements.choiceHint.hidden = true;
+  elements.choiceHintBody.replaceChildren();
   elements.choiceFeedback.hidden = true;
   elements.choiceFeedback.replaceChildren();
   elements.choiceList.replaceChildren();
@@ -1987,6 +2070,13 @@ function rateCurrentCard(rating) {
   focusPrimaryStudyAction({ preferUndo: true });
 }
 
+function showChoiceHint() {
+  if (!currentCard?.isChoice || !currentCard.hint || isRevealed || choiceHintShown) return;
+  choiceHintShown = true;
+  render();
+  elements.choiceList.querySelector(".choice-option:not(:disabled)")?.focus({ preventScroll: true });
+}
+
 function selectChoice(choiceId) {
   if (!currentCard?.isChoice || isRevealed || selectedChoiceId) return;
 
@@ -1996,11 +2086,13 @@ function selectChoice(choiceId) {
   const correctIndex = currentChoiceOptions.findIndex((item) => item.isCorrect);
   selectedChoiceId = choice.id;
   isRevealed = true;
-  const rating = choice.isCorrect ? "correct" : "wrong";
+  // Right only with the 提示 open is not yet known: it goes to 模糊.
+  const rating = !choice.isCorrect ? "wrong" : choiceHintShown ? "unsure" : "correct";
   applyRating(rating, {
     choiceId: choice.id,
     correctChoiceIndex: correctIndex,
     correctChoiceId: currentCard.correctChoiceId,
+    ...(choiceHintShown ? { hinted: true } : {}),
   });
   getState(currentCard.id).lastChoiceCorrectIndex = correctIndex;
   completeCurrentCard({ advance: false });
@@ -2092,6 +2184,7 @@ function undoLastReview() {
   currentCard = concurrentReviewExists ? reviewQueue[0] || null : card;
   currentChoiceOptions = currentCard?.isChoice ? buildChoiceOptions(currentCard) : [];
   selectedChoiceId = null;
+  choiceHintShown = false;
   isRevealed = Boolean(currentCard && !currentCard.isChoice && !concurrentReviewExists);
   lastReview = null;
   render();
@@ -2940,6 +3033,7 @@ function handleStoreStorageChange(event) {
     currentCard = reviewQueue[0] || null;
     currentChoiceOptions = currentCard?.isChoice ? buildChoiceOptions(currentCard) : [];
     selectedChoiceId = null;
+    choiceHintShown = false;
     isRevealed = false;
   }
   render();
@@ -2960,6 +3054,11 @@ function handleStudyShortcut(event) {
   if (event.target.closest?.("input, textarea, select, [contenteditable='true']")) return;
 
   if (currentCard.isChoice) {
+    if (!isRevealed && event.key === "h" && currentCard.hint && !choiceHintShown) {
+      event.preventDefault();
+      showChoiceHint();
+      return;
+    }
     if (isRevealed || !/^[1-4]$/.test(event.key)) return;
     const choice = currentChoiceOptions[Number(event.key) - 1];
     if (!choice) return;
@@ -2982,6 +3081,11 @@ function bindInteractions() {
   );
   window.addEventListener("storage", (event) => runSafely(() => handleStoreStorageChange(event)));
   document.addEventListener("keydown", (event) => runSafely(() => handleStudyShortcut(event)));
+
+  elements.choiceHintToggle.addEventListener("click", (event) => {
+    event.stopPropagation();
+    runSafely(showChoiceHint);
+  });
 
   elements.feedbackButtons.forEach((button) => {
     button.addEventListener("click", (event) => {

@@ -1193,25 +1193,51 @@ function validateGrammarSource(grammarData, expectedCount) {
     ["contrast", "formation", "meaningZh", "note"].forEach((field) => {
       check(!String(entry[field] || "").includes("　"), `grammar entry ${entry.id}.${field} must not contain a full-width space`);
     });
-    const drill = entry.drill;
-    const drillText = stripSentencePeriods(entry.examples?.[drill?.example]?.ja || "");
+    // Every example is a fill-in drill, so a point is practised in each of its
+    // sentences rather than in one memorised answer.
+    const drills = Array.isArray(entry.drills) ? entry.drills : [];
+    const examples = Array.isArray(entry.examples) ? entry.examples : [];
     check(
-      Number.isInteger(drill?.example) && drillText && typeof drill.blank === "string" &&
-        drill.blank && drillText.split(drill.blank).length === 2,
-      `grammar entry ${entry.id} drill blank must occur exactly once in one of its examples`,
+      drills.length === examples.length &&
+        new Set(drills.map((drill) => drill?.example)).size === examples.length &&
+        drills.every((drill) => Number.isInteger(drill?.example) && examples[drill.example]),
+      `grammar entry ${entry.id} needs exactly one drill per example`,
     );
-    const distractors = Array.isArray(drill?.distractors) ? drill.distractors : [];
-    check(distractors.length === 3, `grammar entry ${entry.id} drill needs three distractors`);
-    const optionTexts = [drill?.blank, ...distractors.map((distractor) => distractor?.text)];
-    check(
-      new Set(optionTexts).size === 4 && optionTexts.every((text) => typeof text === "string" && text),
-      `grammar entry ${entry.id} drill options must be four different texts`,
-    );
-    distractors.forEach((distractor) => {
+    drills.forEach((drill) => {
+      const label = `grammar entry ${entry.id} drill ${drill?.example}`;
+      const drillText = stripSentencePeriods(examples[drill?.example]?.ja || "");
       check(
-        typeof distractor?.why === "string" && distractor.why.trim() && !/[。．]$/u.test(distractor.why),
-        `grammar entry ${entry.id} drill distractor ${distractor?.text} needs a reason without a closing period`,
+        drillText && typeof drill?.blank === "string" && drill.blank &&
+          drillText.split(drill.blank).length === 2,
+        `${label} blank must occur exactly once in its example`,
       );
+      const distractors = Array.isArray(drill?.distractors) ? drill.distractors : [];
+      check(distractors.length === 3, `${label} needs three distractors`);
+      const optionTexts = [drill?.blank, ...distractors.map((distractor) => distractor?.text)];
+      check(
+        new Set(optionTexts).size === 4 && optionTexts.every((text) => typeof text === "string" && text),
+        `${label} options must be four different texts`,
+      );
+      distractors.forEach((distractor) => {
+        check(
+          typeof distractor?.why === "string" && distractor.why.trim() && !/[。．]$/u.test(distractor.why),
+          `${label} distractor ${distractor?.text} needs a reason without a closing period`,
+        );
+      });
+    });
+    // 例句 highlight the reviewed pattern span(s) of each sentence, in order.
+    examples.forEach((example, exampleIndex) => {
+      const text = stripSentencePeriods(example?.ja || "");
+      const focus = Array.isArray(example?.focus) ? example.focus : [];
+      let from = 0;
+      const inOrder = focus.length > 0 && focus.every((span) => {
+        if (typeof span !== "string" || !span) return false;
+        const at = text.indexOf(span, from);
+        if (at < 0) return false;
+        from = at + span.length;
+        return true;
+      });
+      check(inOrder, `grammar entry ${entry.id} example ${exampleIndex} needs focus spans found in order`);
     });
     check(
       new RegExp(`^${String(entry.level).toLowerCase()}-grammar-\\d{3}$`, "u").test(entry.id),
@@ -1301,8 +1327,10 @@ function validateGrammarSource(grammarData, expectedCount) {
       );
     });
   };
-  requireFragments("n5-grammar-009", "formation", ["原因 + で"]);
-  requireFragments("n5-grammar-010", "formation", ["肯定非过去 + なの", "过去・否定普通形 + の"]);
+  // 〜で and 〜の were split into one card per use (场所/手段/原因, 连接/代替名词).
+  requireFragments("n5-grammar-091", "meaningZh", ["原因"]);
+  requireFragments("n5-grammar-010", "formation", ["N + の + N"]);
+  requireFragments("n5-grammar-092", "formation", ["な形 + な + の"]);
   requireFragments("n5-grammar-012", "formation", ["語幹 + なだけ", "过去/否定普通形 + だけ"]);
   requireFragments("n5-grammar-015", "formation", ["な形/N肯定非过去", "过去/否定普通形 + か"]);
   requireFragments("n5-grammar-033", "formation", ["いい → よすぎる", "ない → なさすぎる"]);
@@ -1341,7 +1369,7 @@ function validateGrammarSource(grammarData, expectedCount) {
   requireFragments("n4-grammar-064", "formation", ["なのは", "过去・否定普通形 + のは"]);
   requireFragments("n4-grammar-065", "pattern", ["お／ご〜ください"]);
   requireFragments("n4-grammar-066", "pattern", ["お／ご〜になる"]);
-  requireFragments("n4-grammar-070", "note", ["按い形容词活用", "子供らしく"]);
+  requireFragments("n4-grammar-140", "note", ["按い形容词活用", "子供らしく"]);
   requireFragments("n4-grammar-073", "formation", ["词尾为「す」的动词不缩约", "来る→来させられる"]);
   requireFragments("n4-grammar-088", "formation", ["いい→よかったら", "ではなかったら"]);
   requireFragments("n4-grammar-091", "formation", ["いい→よくて", "ではなくて"]);
@@ -1764,10 +1792,13 @@ function validateDeckCoverage(cards, tabDecks, data) {
   };
   ["N5", "N4", "N3"].forEach((level) => {
     const levelKey = level.toLowerCase();
-    const count = data.grammar.entries.filter((entry) => entry.level === level).length;
-    ["zh-ja", "ja-zh", "pattern-zh", "choice"].forEach((suffix) => {
-      expectedDeckCounts[`grammar-${levelKey}-${suffix}`] = count;
+    const entries = data.grammar.entries.filter((entry) => entry.level === level);
+    ["zh-ja", "ja-zh", "pattern-zh"].forEach((suffix) => {
+      expectedDeckCounts[`grammar-${levelKey}-${suffix}`] = entries.length;
     });
+    // One fill-in card per drilled example.
+    expectedDeckCounts[`grammar-${levelKey}-choice`] =
+      entries.reduce((sum, entry) => sum + entry.drills.length, 0);
   });
   Object.entries(expectedDeckCounts).forEach(([deck, expected]) => {
     check(
@@ -1847,12 +1878,11 @@ function validateLevelSpecificBuilders(runtime) {
     );
     const lazyGrammarCards = runtime.grammarCardsByLevel[level];
     const expectedGrammarCards = runtime.grammarCards.filter((card) => grammarDecks.has(card.deck));
-    const sourceGrammarCount = runtime.data.grammar.entries.filter(
-      (entry) => entry.level === level,
-    ).length;
+    const sourceGrammar = runtime.data.grammar.entries.filter((entry) => entry.level === level);
+    const expectedLazyCount = sourceGrammar.reduce((sum, entry) => sum + 3 + entry.drills.length, 0);
     check(
-      lazyGrammarCards.length === sourceGrammarCount * 4,
-      `${level} lazy grammar builder expected ${sourceGrammarCount * 4} cards, received ${lazyGrammarCards.length}`,
+      lazyGrammarCards.length === expectedLazyCount,
+      `${level} lazy grammar builder expected ${expectedLazyCount} cards, received ${lazyGrammarCards.length}`,
     );
     check(
       lazyGrammarCards.every(
@@ -2489,10 +2519,20 @@ function validateRetiredGrammarEntries(runtime) {
 // each wrong option carries its own reviewed reason.
 function validateGrammarChoices(grammarCards, grammarData) {
   const grammarById = new Map(grammarData.entries.map((entry) => [entry.id, entry]));
-  const choiceCards = grammarCards.filter((card) => card.isChoice);
+  // An example under the pattern gives its meaning away, so 文型 fronts show
+  // the pattern alone.
+  const patternCardsWithExample = grammarCards.filter(
+    (card) => card.deck.endsWith("-pattern-zh") && card.subtle,
+  );
   check(
-    choiceCards.length === grammarData.entries.length,
-    `every grammar entry needs one fill-in card: ${choiceCards.length}/${grammarData.entries.length}`,
+    patternCardsWithExample.length === 0,
+    `文型 cards must not show an example on the front: ${sample(patternCardsWithExample.map((card) => card.id), 5)}`,
+  );
+  const choiceCards = grammarCards.filter((card) => card.isChoice);
+  const drillCount = grammarData.entries.reduce((sum, entry) => sum + (entry.drills?.length || 0), 0);
+  check(
+    choiceCards.length === drillCount,
+    `every grammar drill needs one fill-in card: ${choiceCards.length}/${drillCount}`,
   );
   choiceCards.forEach((card) => {
     check(Array.isArray(card.choices) && card.choices.length === 4, `${card.id} needs four choices`);
@@ -2518,14 +2558,17 @@ function validateGrammarChoices(grammarCards, grammarData) {
       check(typeof choice.reason === "string" && choice.reason, `${card.id} has a choice without reason`);
     });
     if (!owner) return;
-    const example = stripSentencePeriods(owner.examples?.[owner.drill?.example]?.ja || "");
+    const drillIndex = Number(/-choice-(\d+)$/u.exec(card.id)?.[1] || 1) - 1;
+    const drill = owner.drills?.[drillIndex];
+    check(Boolean(drill), `${card.id} does not match a drill of ${owner.id}`);
+    const example = stripSentencePeriods(owner.examples?.[drill?.example]?.ja || "");
     check(
       card.prompt.split("（　　）").length === 2 &&
         card.prompt.replace("（　　）", correct[0]?.text || "") === example,
       `${card.id} prompt must be its example with one blank the correct option fills`,
     );
     check(card.answer === example, `${card.id} answer must be the completed example`);
-    check(card.subtle === stripSentencePeriods(owner.examples?.[owner.drill?.example]?.zh || ""),
+    check(card.subtle === stripSentencePeriods(owner.examples?.[drill?.example]?.zh || ""),
       `${card.id} must show its example's Chinese translation as the cue`);
   });
 }
