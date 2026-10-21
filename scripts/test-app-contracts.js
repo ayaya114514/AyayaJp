@@ -2775,6 +2775,44 @@ function testRetiredGrammarProgressMovesToVocab() {
   assert(!Object.hasOwn(saved, retiredId), "retired grammar state remained after the move");
 }
 
+// N4 〜の中で was retired into N5 〜の中で〜が一番 (retiredGrammarIds): a drill's
+// progress follows to the same drill of the N5 point and leaves the N4 queue.
+function testRetiredGrammarProgressMovesToOtherLevel() {
+  const n4Deck = "grammar-n4-choice";
+  const n5Deck = "grammar-n5-choice";
+  const retiredId = "grammar-n4-grammar-061-choice-2";
+  const n5Card = baseCard({
+    deck: n5Deck,
+    grammarKey: "n5-grammar-056",
+    grammarLevel: "N5",
+    id: "grammar-n5-grammar-056-choice-2",
+    isGrammar: true,
+    legacyIds: [retiredId],
+  });
+  const harness = createHarness({
+    grammarCards: [n5Card],
+    initialStore: JSON.stringify({
+      [retiredId]: { lastRatedAt: 70, lastRating: "wrong", reviews: 4 },
+      __rounds: {
+        activeDeck: "hiragana",
+        decks: { [n4Deck]: { completed: [], queue: [retiredId], rounds: 1 } },
+      },
+    }),
+    kanaCards: [],
+    tabDecks: ["hiragana", n4Deck, n5Deck],
+    vocabCards: [],
+  });
+  harness.tabs.find((tab) => tab.dataset.deck === n5Deck).dispatch("click");
+  const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
+  assert(saved[n5Card.id]?.reviews === 4, "retired N4 grammar progress did not reach the N5 card");
+  assert(saved[n5Card.id]?.lastRating === "wrong", "retired N4 grammar progress lost its rating");
+  assert(!Object.hasOwn(saved, retiredId), "retired N4 grammar state remained after the move");
+  assert(
+    JSON.stringify(saved.__rounds.decks[n4Deck].queue) === JSON.stringify([]),
+    "the N5 target remained in the N4 queue",
+  );
+}
+
 function testShuffleDoesNotUseRandomSort() {
   assert(
     !/\.sort\(\s*\(\s*\)\s*=>\s*Math\.random\(\)\s*-\s*0\.5\s*\)/u.test(read("app.js")),
@@ -2844,6 +2882,7 @@ const tests = [
   ["中→日 grammar hides its pattern until reveal", testChineseGrammarFrontHidesPatternUntilReveal],
   ["fill-in options are marked Japanese", testFillInOptionsAreJapanese],
   ["retired grammar progress moves to vocab", testRetiredGrammarProgressMovesToVocab],
+  ["retired grammar progress moves to another level", testRetiredGrammarProgressMovesToOtherLevel],
   ["a fill-in answered with 提示 counts as 模糊", testFillInHintCountsAsFuzzy],
   ["example sentences mark their pattern", testExampleFocusIsMarked],
 ];

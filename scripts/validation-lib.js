@@ -19,6 +19,7 @@ const sourceFingerprintFiles = [
   "ayaya-n4-codex-vocab.js",
   "ayaya-n4-codex-vocab.json",
   "card-data.js",
+  "kana-cards.js",
   "grammar-data.js",
   "index.html",
   "n5-codex-vocab.js",
@@ -121,6 +122,7 @@ function loadCardData({ grammar, n3, n4, n5, pitchAccent, romajiSpacing, example
     AYAYA_ROMAJI_SPACING: romajiSpacing,
     AYAYA_EXAMPLE_READINGS: exampleReadings,
   };
+  runBrowserScript("kana-cards.js", windowObject);
   return runBrowserScript("card-data.js", windowObject).AYAYA_JP_CARD_DATA;
 }
 

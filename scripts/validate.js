@@ -36,7 +36,12 @@ const {
 
 const validationErrors = [];
 const allowedLanguageTags = new Set(["en", "ja", "zh-CN"]);
-const expectedDependencyScripts = [
+// The first screen needs only the kana cards and the app; the study data is
+// listed, in dependency order, in #studyDataScripts and loaded by app.js after
+// the first card shows (card-data.js last: it reads everything before it).
+const expectedEagerScripts = ["kana-cards.js", "app.js"];
+const expectedStudyDataScripts = [
+  "audio-manifest.js",
   "n5-codex-vocab.js",
   "ayaya-n4-codex-vocab.js",
   "ayaya-n3-codex-vocab.js",
@@ -44,10 +49,11 @@ const expectedDependencyScripts = [
   "pitch-accent-data.js",
   "romaji-word-spacing.js",
   "example-readings.js",
-  "audio-manifest.js",
   "card-data.js",
-  "app.js",
 ];
+// Document order: the template sits in <head> (so the preload hint can read it),
+// before the deferred scripts at the end of <body>.
+const expectedDependencyScripts = [...expectedStudyDataScripts, ...expectedEagerScripts];
 // Every example carries reviewed furigana and romaji; an example that cannot be
 // annotated safely needs a reviewed entry in example-readings.js (or a rewrite).
 const minimumReviewedRomajiCoverage = 1;
@@ -353,14 +359,32 @@ function checkHtmlAndDomContracts(html, appSource) {
   scriptTags.forEach((tag) => {
     check(!Object.hasOwn(tag.attributes, "async"), `${tagLabel(tag)} must not use async`);
   });
+  const studyDataBlock = /<template id="studyDataScripts">([\s\S]*?)<\/template>/u.exec(html)?.[1];
+  check(Boolean(studyDataBlock), "HTML must list the study data in <template id=\"studyDataScripts\">");
+  const studyDataSources = [...(studyDataBlock || "").matchAll(/<script\b[^>]*\bsrc="([^"]+)"[^>]*>/gu)].map(
+    (match) => normalizedScriptSource(match[1]),
+  );
+  check(
+    JSON.stringify(studyDataSources) === JSON.stringify(expectedStudyDataScripts),
+    `#studyDataScripts must list exactly, in order: ${expectedStudyDataScripts.join(" -> ")}; received ${studyDataSources.join(" -> ")}`,
+  );
+  check(
+    !/\b(?:defer|async)\b/u.test(studyDataBlock || ""),
+    "#studyDataScripts entries are injected in order by app.js and must not use defer or async",
+  );
   scriptTags
     .filter((tag) => tag.attributes.src)
+    .filter((tag) => expectedEagerScripts.includes(normalizedScriptSource(tag.attributes.src)))
     .forEach((tag) => {
       check(
         Object.hasOwn(tag.attributes, "defer"),
         `${tagLabel(tag)} must use defer so dependency order is preserved without blocking parsing`,
       );
     });
+  check(
+    /querySelector\(\s*["']#studyDataScripts["']\s*\)/u.test(appSource) && /script\.async = false/u.test(appSource),
+    "app.js must load #studyDataScripts in order (async = false)",
+  );
 
   const queriedIds = [...appSource.matchAll(/querySelector\(\s*["']#([^"']+)["']\s*\)/gu)].map(
     (match) => match[1],
@@ -2514,6 +2538,48 @@ function validateRetiredGrammarEntries(runtime) {
   });
 }
 
+// A grammar point retired into a near-identical point at another level
+// (retiredGrammarIds) must not come back as a live entry, belongs to a single
+// target, and every card of the target carries the matching card's ID.
+function validateRetiredGrammarMerges(runtime) {
+  const entries = runtime.data.grammar.entries;
+  const liveIds = new Set(entries.map((entry) => entry.id));
+  const vocabRetired = new Set((runtime.data.grammar?.retiredEntries || []).map((entry) => entry.id));
+  const seen = new Set();
+  entries.forEach((entry) => {
+    if (!Object.hasOwn(entry, "retiredGrammarIds")) return;
+    const retiredIds = entry.retiredGrammarIds;
+    check(
+      Array.isArray(retiredIds) && retiredIds.length > 0,
+      `${entry.id} retiredGrammarIds must be a non-empty array`,
+    );
+    (Array.isArray(retiredIds) ? retiredIds : []).forEach((retiredId) => {
+      check(/^n[345]-grammar-\d{3}$/u.test(retiredId), `retired grammar id ${retiredId} is malformed`);
+      check(!liveIds.has(retiredId), `retired grammar id ${retiredId} is still a grammar entry`);
+      check(!vocabRetired.has(retiredId), `${retiredId} is retired both into vocab and into ${entry.id}`);
+      check(!seen.has(retiredId), `${retiredId} is retired into more than one grammar entry`);
+      seen.add(retiredId);
+      const cards = runtime.grammarCards.filter((card) => card.grammarKey === entry.id);
+      const expected = new Map([
+        [`grammar-${entry.id}-zh`, `grammar-${retiredId}-zh`],
+        [`grammar-${entry.id}-ja`, `grammar-${retiredId}-ja`],
+        [`grammar-${entry.id}-pattern`, `grammar-${retiredId}-pattern`],
+        ...entry.drills.map((drill, index) => {
+          const suffix = index === 0 ? "" : `-${index + 1}`;
+          return [`grammar-${entry.id}-choice${suffix}`, `grammar-${retiredId}-choice${suffix}`];
+        }),
+      ]);
+      expected.forEach((alias, cardId) => {
+        const card = cards.find((candidate) => candidate.id === cardId);
+        check(
+          Boolean(card) && Array.isArray(card.legacyIds) && card.legacyIds.includes(alias),
+          `${cardId} must carry retired grammar alias ${alias}`,
+        );
+      });
+    });
+  });
+}
+
 // 选择题 cards are fill-in drills built from a reviewed example: the prompt is
 // that sentence with exactly one blank, the correct option restores it, and
 // each wrong option carries its own reviewed reason.
@@ -2792,7 +2858,7 @@ function validateExampleSpeech(cards, kanaToRomaji) {
   const readingLabels = new Map([
     ["vocab-entry-n5-488-ja", "读音：なん（也读 なに）"],
     ["vocab-entry-n5-619-ja", "读音：まいねん（也读 まいとし）"],
-    ["vocab-entry-n5-269-ja", "读音：～ころ（也读 ～ごろ）"],
+    ["vocab-entry-n5-269-ja", "读音：～ごろ"],
     ["vocab-entry-n5-358-ja", "读音：そう"],
     ["vocab-entry-n5-590-ja", "读音：～ふん・～ぷん"],
   ]);
@@ -3023,6 +3089,7 @@ function main() {
     validatePreferredReadingRegressions(runtime);
     validateGrammarChoices(runtime.grammarCards, runtime.data.grammar);
     validateRetiredGrammarEntries(runtime);
+    validateRetiredGrammarMerges(runtime);
     validateExampleFurigana(cards, runtime.cardData.reviewedWordSplitsAt);
     validateExampleSpeech(cards, runtime.cardData.kanaToRomaji);
     capture("audio clip check failed", () => validateAudioClips(runtime, html));
