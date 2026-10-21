@@ -19,6 +19,7 @@ const runtimeAssets = [
   "example-readings.js",
   "audio-manifest.js",
   "card-data.js",
+  "kana-cards.js",
   "app.js",
 ];
 
@@ -32,28 +33,28 @@ const staticAssets = [
   "icons/apple-touch-icon.png",
 ];
 
-function contentVersion() {
-  const hash = crypto.createHash("sha256");
-  runtimeAssets.forEach((relativePath) => {
-    hash.update(relativePath);
-    hash.update("\0");
-    hash.update(fs.readFileSync(path.join(rootDir, relativePath)));
-    hash.update("\0");
-  });
-  return hash.digest("hex").slice(0, 16);
+// Each asset is versioned by its own content, so a deploy that changes only
+// app.js does not make returning visitors download the multi-megabyte data
+// files again (a commit-wide version invalidated every file on every push).
+function contentVersion(relativePath) {
+  return crypto
+    .createHash("sha256")
+    .update(fs.readFileSync(path.join(rootDir, relativePath)))
+    .digest("hex")
+    .slice(0, 16);
 }
 
-function versionHtml(html, version) {
+function versionHtml(html, versions) {
   runtimeAssets.forEach((relativePath) => {
     const escapedPath = relativePath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const assetPattern = new RegExp(`(href|src)=(['"])\\./${escapedPath}(?:\\?v=[^'"]*)?\\2`, "gu");
-    html = html.replace(assetPattern, `$1=$2./${relativePath}?v=${version}$2`);
+    html = html.replace(assetPattern, `$1=$2./${relativePath}?v=${versions.get(relativePath)}$2`);
   });
   return html;
 }
 
 function main() {
-  const version = process.env.GITHUB_SHA?.slice(0, 16) || contentVersion();
+  const versions = new Map(runtimeAssets.map((relativePath) => [relativePath, contentVersion(relativePath)]));
   fs.rmSync(outputDir, { force: true, recursive: true });
   fs.mkdirSync(outputDir, { recursive: true });
 
@@ -76,18 +77,20 @@ function main() {
   }
 
   const sourceHtml = fs.readFileSync(path.join(rootDir, "index.html"), "utf8");
-  fs.writeFileSync(path.join(outputDir, "index.html"), versionHtml(sourceHtml, version));
+  fs.writeFileSync(path.join(outputDir, "index.html"), versionHtml(sourceHtml, versions));
   fs.writeFileSync(path.join(outputDir, ".nojekyll"), "");
 
   const builtHtml = fs.readFileSync(path.join(outputDir, "index.html"), "utf8");
   runtimeAssets.forEach((relativePath) => {
-    const expected = `./${relativePath}?v=${version}`;
+    const expected = `./${relativePath}?v=${versions.get(relativePath)}`;
     if (!builtHtml.includes(expected)) {
       throw new Error(`Could not attach the deployment version to ${relativePath}`);
     }
   });
 
-  console.log(`Built GitHub Pages artifact with asset version ${version} and ${clipKeys.length} audio clips`);
+  console.log(
+    `Built GitHub Pages artifact with ${versions.size} content-versioned assets and ${clipKeys.length} audio clips`,
+  );
 }
 
 main();

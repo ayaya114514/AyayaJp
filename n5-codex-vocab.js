@@ -5222,8 +5222,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "有外国朋友。"
         },
         {
-          "ja": "外国語を勉強します。",
-          "zh": "学习外语。"
+          "ja": "外国で働きたいです。",
+          "zh": "想在外国工作。"
         }
       ],
       "note_zh": ""
@@ -9631,18 +9631,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
     {
       "id": "n5-269",
       "jlpt": "N5",
-      "headword": "～ころ",
+      "headword": "～ごろ",
       "source_form": "～ころ; ～ごろ",
       "variants": [
-        "～ころ",
         "～ごろ"
       ],
-      "reading": "～ころ",
+      "reading": "～ごろ",
       "reading_variants": [
-        "～ころ",
         "～ごろ"
       ],
-      "romaji": "~koro",
+      "romaji": "~goro",
       "part_of_speech": "suffix/pattern",
       "meaning_zh": "……左右（时间）",
       "kanji_readings": [],
@@ -9656,8 +9654,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "中午左右打电话。"
         },
         {
-          "ja": "子供のころ、よく泳ぎました。",
-          "zh": "小时候经常游泳。"
+          "ja": "毎晩十一時ごろ寝ます。",
+          "zh": "每天晚上十一点左右睡觉。"
         }
       ],
       "note_zh": ""
@@ -11938,16 +11936,16 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "romaji": "~sugi",
       "part_of_speech": "suffix/pattern",
-      "meaning_zh": "过于……；超过……",
+      "meaning_zh": "过度；……多、……过后（时间）",
       "kanji_readings": [],
       "examples": [
         {
-          "ja": "食べすぎました。",
-          "zh": "吃太多了。"
+          "ja": "食べすぎに気をつけましょう。",
+          "zh": "注意别吃太多。"
         },
         {
-          "ja": "この服は大きすぎます。",
-          "zh": "这件衣服太大了。"
+          "ja": "もう十時すぎです。",
+          "zh": "已经十点多了。"
         },
         {
           "ja": "三時すぎに来ます。",
@@ -12795,8 +12793,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zh": "星期天洗衣服。"
         },
         {
-          "ja": "洗濯物を干します。",
-          "zh": "晾洗好的衣服。"
+          "ja": "雨なので、今日は洗濯をしません。",
+          "zh": "因为下雨，今天不洗衣服。"
         }
       ],
       "note_zh": ""
@@ -15750,8 +15748,8 @@ window.AYAYA_N5_CODEX_VOCAB = {
       ],
       "examples": [
         {
-          "ja": "すみません、電話番号を教えてください。",
-          "zh": "不好意思，请告诉我电话号码。"
+          "ja": "今、電話してもいいですか。",
+          "zh": "现在可以打电话吗？"
         },
         {
           "ja": "田中さんから電話がありました。",

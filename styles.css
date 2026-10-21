@@ -238,12 +238,6 @@ h2 {
 }
 
 /* Progress backup sits in the header's otherwise empty right side. */
-.deck-tools {
-  display: flex;
-  gap: 16px;
-  margin-left: auto;
-}
-
 .text-button {
   min-height: 32px;
   padding: 0;
@@ -747,6 +741,10 @@ h2 {
   cursor: default;
 }
 
+.card-type:empty {
+  display: none;
+}
+
 .card-type {
   padding: 2px 8px;
   border: 1px solid var(--line);
@@ -946,6 +944,29 @@ h2 {
   border: 1px solid var(--line);
   background: var(--control-soft);
   color: var(--muted);
+}
+
+/* Until app.js has run the page is aria-busy and its controls do nothing yet:
+   they are dimmed and ignore taps instead of looking ready. */
+.study-area[aria-busy="true"] button {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* A deck whose data is still downloading waits in the empty state; its note
+   fades in only if the wait lasts, so a fast load never flashes it. */
+.empty-state.is-loading {
+  animation: loading-note-appear 0.2s ease-out 0.6s both;
+}
+
+@keyframes loading-note-appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .load-error-banner,

@@ -524,7 +524,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "あんしん"
       ],
       "romaji": "anshin",
-      "part_of_speech": "suru-verb/noun/na-adjective",
+      "part_of_speech": "suru-verb/na-adjective/noun",
       "meaning_zh": "安心；放心",
       "kanji_readings": [
         {
@@ -1064,7 +1064,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "いちど"
       ],
       "romaji": "ichido",
-      "part_of_speech": "adverb/noun",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "一次；一回",
       "kanji_readings": [
         {
@@ -1101,7 +1101,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "いっしょうけんめい"
       ],
       "romaji": "isshoukenmei",
-      "part_of_speech": "adverb/na-adjective",
+      "part_of_speech": "na-adjective/adverb",
       "meaning_zh": "拼命地；努力地",
       "kanji_readings": [
         {
@@ -1139,7 +1139,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "いっぱい"
       ],
       "romaji": "ippai",
-      "part_of_speech": "adverb/noun/na-adjective",
+      "part_of_speech": "na-adjective/noun/adverb",
       "meaning_zh": "满满；很多；一杯",
       "kanji_readings": [
         {
@@ -4766,7 +4766,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "かのじょ"
       ],
       "romaji": "kanojo",
-      "part_of_speech": "pronoun/noun",
+      "part_of_speech": "noun/pronoun",
       "meaning_zh": "她；女朋友",
       "kanji_readings": [
         {
@@ -5020,7 +5020,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "かれ"
       ],
       "romaji": "kare",
-      "part_of_speech": "pronoun/noun",
+      "part_of_speech": "noun/pronoun",
       "meaning_zh": "他；男朋友",
       "kanji_readings": [
         {
@@ -8625,7 +8625,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "このあいだ"
       ],
       "romaji": "kono aida",
-      "part_of_speech": "adverb/noun",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "前几天；最近",
       "kanji_readings": [
         {
@@ -8662,7 +8662,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "このごろ"
       ],
       "romaji": "konogoro",
-      "part_of_speech": "adverb/noun",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "近来；这阵子（指持续的状况）",
       "kanji_readings": [],
       "examples": [
@@ -9608,7 +9608,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "さっき"
       ],
       "romaji": "sakki",
-      "part_of_speech": "adverb/noun",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "刚才",
       "kanji_readings": [],
       "examples": [
@@ -10301,7 +10301,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "しつれい"
       ],
       "romaji": "shitsurei",
-      "part_of_speech": "suru-verb/noun/na-adjective",
+      "part_of_speech": "suru-verb/na-adjective/noun",
       "meaning_zh": "失礼；告辞；打扰",
       "kanji_readings": [
         {
@@ -10375,7 +10375,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "しばらく"
       ],
       "romaji": "shibaraku",
-      "part_of_speech": "adverb/noun",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "一会儿；暂时；好久",
       "kanji_readings": [],
       "examples": [
@@ -13429,8 +13429,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "明年大学毕业。"
         },
         {
-          "ja": "卒業式で写真を撮りました。",
-          "zh": "在毕业典礼拍了照片。"
+          "ja": "卒業したら、日本で働きたいです。",
+          "zh": "毕业后想在日本工作。"
         },
         {
           "ja": "高校を卒業してから働き始めました。",
@@ -13825,7 +13825,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "たいてい"
       ],
       "romaji": "taitei",
-      "part_of_speech": "adverb/noun",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "通常；大多",
       "kanji_readings": [
         {
@@ -14306,7 +14306,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "たのしみ"
       ],
       "romaji": "tanoshimi",
-      "part_of_speech": "noun/na-adjective",
+      "part_of_speech": "na-adjective/noun",
       "meaning_zh": "期待；乐趣",
       "kanji_readings": [
         {
@@ -14412,7 +14412,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "たりない"
       ],
       "romaji": "tarinai",
-      "part_of_speech": "expression/i-adjective",
+      "part_of_speech": "i-adjective/expression",
       "meaning_zh": "不足；不够",
       "kanji_readings": [
         {
@@ -14597,7 +14597,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "だいたい"
       ],
       "romaji": "daitai",
-      "part_of_speech": "adverb/noun",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "大体；大致；基本上",
       "kanji_readings": [
         {
@@ -17514,7 +17514,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "なるほど"
       ],
       "romaji": "naruhodo",
-      "part_of_speech": "expression/adverb",
+      "part_of_speech": "adverb/expression",
       "meaning_zh": "原来如此；的确",
       "kanji_readings": [],
       "examples": [
@@ -17820,8 +17820,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "四月进入大学。"
         },
         {
-          "ja": "入学式で新しい友達ができました。",
-          "zh": "入学典礼上交到了新朋友。"
+          "ja": "入学の手続きをしました。",
+          "zh": "办了入学手续。"
         },
         {
           "ja": "妹は今年小学校に入学しました。",
@@ -18877,7 +18877,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "はっきり"
       ],
       "romaji": "hakkiri",
-      "part_of_speech": "adverb/suru-verb",
+      "part_of_speech": "suru-verb/adverb",
       "meaning_zh": "清楚地；明确地",
       "kanji_readings": [],
       "examples": [
@@ -21221,7 +21221,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "ほとんど"
       ],
       "romaji": "hotondo",
-      "part_of_speech": "adverb/noun",
+      "part_of_speech": "noun/adverb",
       "meaning_zh": "几乎；大部分",
       "kanji_readings": [],
       "examples": [
@@ -21254,7 +21254,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "hodo",
       "part_of_speech": "particle/noun",
-      "meaning_zh": "程度；大约；越……越……",
+      "meaning_zh": "大约；左右（接数量）",
       "kanji_readings": [],
       "examples": [
         {
@@ -21262,12 +21262,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "到车站大约要十分钟。"
         },
         {
-          "ja": "今日は昨日ほど寒くありません。",
-          "zh": "今天没有昨天那么冷。"
+          "ja": "一週間ほど休みました。",
+          "zh": "休息了一周左右。"
         },
         {
-          "ja": "勉強するほど面白くなります。",
-          "zh": "越学越有意思。"
+          "ja": "千円ほどのお土産を買いました。",
+          "zh": "买了一千日元左右的特产。"
         }
       ],
       "note_zh": ""
@@ -21285,7 +21285,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "ほどほど"
       ],
       "romaji": "hodohodo",
-      "part_of_speech": "adverb/na-adjective",
+      "part_of_speech": "na-adjective/adverb",
       "meaning_zh": "适度；不过分",
       "kanji_readings": [],
       "examples": [
@@ -25530,7 +25530,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "ソフト"
       ],
       "romaji": "sofuto",
-      "part_of_speech": "noun/na-adjective",
+      "part_of_speech": "na-adjective/noun",
       "meaning_zh": "软件；软的",
       "kanji_readings": [],
       "examples": [
@@ -25882,7 +25882,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "プレゼント"
       ],
       "romaji": "purezento",
-      "part_of_speech": "noun/suru-verb",
+      "part_of_speech": "suru-verb/noun",
       "meaning_zh": "礼物（最常用）；赠送",
       "kanji_readings": [],
       "examples": [

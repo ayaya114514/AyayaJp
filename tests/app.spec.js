@@ -1,6 +1,5 @@
 "use strict";
 
-const fs = require("fs");
 const { test, expect } = require("@playwright/test");
 
 const STORAGE_KEY = "ayaya-jp-srs-v1";
@@ -64,7 +63,8 @@ async function openWithStore(page, state, options = {}) {
       fixedRandom: options.fixedRandom,
     },
   );
-  await page.goto("/");
+  // A held study-data script also holds the load event; such tests wait for the DOM.
+  await page.goto("/", options.waitUntil ? { waitUntil: options.waitUntil } : undefined);
   await waitForApp(page);
 }
 
@@ -257,20 +257,8 @@ test("words written alike show their reading on the 日→中 front", async ({ p
   await expect(page.locator("#cardSubtle")).toHaveText("读音：とお");
 });
 
-test("progress exports to a file and imports back after confirmation", async ({ page }) => {
-  // Seed only the first load: the import reloads the page, and openWithStore's
-  // init script would reset storage on every navigation.
-  await page.addInitScript(
-    ({ storageKey, storedState }) => {
-      if (sessionStorage.getItem("seeded")) return;
-      sessionStorage.setItem("seeded", "1");
-      localStorage.clear();
-      localStorage.setItem(storageKey, JSON.stringify(storedState));
-    },
-    { storageKey: STORAGE_KEY, storedState: isolatedHiraganaFixture(["hiragana-0", "hiragana-1"]) },
-  );
-  await page.goto("/");
-  await waitForApp(page);
+test("the module page footer stays on screen after rating", async ({ page }) => {
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0", "hiragana-1"]));
   await page.locator("#cardReveal").click({ force: true });
   await expectAnswerRevealed(page);
   await page.locator('[data-rating="clear"]').click();
@@ -282,46 +270,6 @@ test("progress exports to a file and imports back after confirmation", async ({ 
   const viewport = page.viewportSize();
   expect(footerBox.y + footerBox.height).toBeLessThanOrEqual(viewport.height + 1);
   expect(footerBox.x + footerBox.width).toBeLessThanOrEqual(viewport.width + 1);
-
-  const downloadPromise = page.waitForEvent("download");
-  await page.locator("#exportProgress").click();
-  const download = await downloadPromise;
-  expect(download.suggestedFilename()).toMatch(/^AyayaJp-progress-\d{4}-\d{2}-\d{2}\.json$/u);
-  const exported = JSON.parse(fs.readFileSync(await download.path(), "utf8"));
-  expect(exported.app).toBe("AyayaJp");
-  const ratedId = Object.keys(exported.progress).find((key) => !key.startsWith("__"));
-  expect(exported.progress[ratedId].lastRating).toBe("clear");
-
-  // Wipe this browser's progress, then restore it from the file.
-  await page.evaluate((key) => localStorage.setItem(key, "{}"), STORAGE_KEY);
-  page.once("dialog", (dialog) => dialog.accept());
-  await Promise.all([
-    page.waitForEvent("load"),
-    page.locator("#importProgressFile").setInputFiles({
-      name: "progress.json",
-      mimeType: "application/json",
-      buffer: Buffer.from(JSON.stringify(exported)),
-    }),
-  ]);
-  const restored = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)), STORAGE_KEY);
-  expect(restored[ratedId].lastRating).toBe("clear");
-  expect(restored.__meta.revision).toBeGreaterThan(exported.progress.__meta?.revision || 0);
-});
-
-test("a file that is not an AyayaJp export is rejected without touching progress", async ({ page }) => {
-  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
-  const before = await page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY);
-  await page.locator("#deckMenuButton").click();
-  const dialogPromise = page.waitForEvent("dialog");
-  await page.locator("#importProgressFile").setInputFiles({
-    name: "other.json",
-    mimeType: "application/json",
-    buffer: Buffer.from(JSON.stringify({ hello: "world" })),
-  });
-  const dialog = await dialogPromise;
-  expect(dialog.message()).toContain("不是 AyayaJp");
-  await dialog.dismiss();
-  expect(await page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY)).toBe(before);
 });
 
 test("legacy fixed kana order reshuffles once and remains stable on reload", async ({
@@ -1062,4 +1010,89 @@ test("returning to the page re-measures a stale viewport height", async ({ page 
     .toBe(0);
   const studyBottom = await page.evaluate(() => document.querySelector("#studyCard").getBoundingClientRect().bottom);
   expect(studyBottom).toBeLessThanOrEqual(await page.evaluate(() => window.innerHeight));
+});
+
+// The study data (vocab, grammar, readings, card-data.js) loads after the first
+// card; holding one of those files keeps all of it pending, since they run in
+// order.
+async function holdStudyData(page) {
+  let release;
+  const held = new Promise((resolve) => {
+    release = resolve;
+  });
+  await page.route(/\/n5-codex-vocab\.js(\?|$)/u, async (route) => {
+    await held;
+    await route.continue();
+  });
+  return release;
+}
+
+test("kana cards show before the study data arrives", async ({ page }) => {
+  const release = await holdStudyData(page);
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]), { waitUntil: "domcontentloaded" });
+  await expect(page.locator("#cardPrompt")).toHaveText("あ");
+  await expect(page.locator("#cardType")).toBeHidden();
+  await page.locator("#cardReveal").click();
+  await expectAnswerRevealed(page);
+
+  release();
+  await page.locator("#deckMenuButton").click();
+  await page.locator('.tab-button[data-deck="vocab-ja-zh"]').click();
+  await expect(page.locator("#cardPrompt")).not.toHaveText("");
+  await expect(page.locator("#emptyState")).toBeHidden();
+});
+
+test("a deck waiting for the study data keeps its stored round", async ({ page }) => {
+  const release = await holdStudyData(page);
+  const queue = ["vocab-entry-n5-001-ja", "vocab-entry-n5-002-ja"];
+  await openWithStore(page, progressFixture({ deck: "vocab-ja-zh", queue }), {
+    waitUntil: "domcontentloaded",
+  });
+
+  await expect(page.locator("#emptyState")).toBeVisible();
+  await expect(page.locator("#emptyTitle")).toHaveText("正在加载…");
+  await expect(page.locator("#studyAnyWay")).toBeHidden();
+  const storedQueue = () =>
+    page.evaluate(
+      (storageKey) => JSON.parse(localStorage.getItem(storageKey)).__rounds.decks["vocab-ja-zh"].queue,
+      STORAGE_KEY,
+    );
+  expect(await storedQueue()).toEqual(queue);
+
+  release();
+  await expect(page.locator("#cardPrompt")).toHaveText("ああ");
+  await expect(page.locator("#emptyState")).toBeHidden();
+  expect((await storedQueue()).slice(0, 2)).toEqual(queue);
+});
+
+test("a hidden tab merges another tab's ratings once it is shown again", async ({ page, context }) => {
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0", "hiragana-1"]));
+  const hiddenTab = await context.newPage();
+  await hiddenTab.addInitScript(() => {
+    let state = "visible";
+    Object.defineProperty(Document.prototype, "visibilityState", {
+      configurable: true,
+      get: () => state,
+    });
+    window.setTestVisibility = (next) => {
+      state = next;
+      document.dispatchEvent(new Event("visibilitychange"));
+    };
+  });
+  await hiddenTab.goto("/");
+  await waitForApp(hiddenTab);
+  await expect(hiddenTab.locator("#dueCount")).toHaveText("2");
+  await hiddenTab.evaluate(() => window.setTestVisibility("hidden"));
+
+  await page.locator("#cardReveal").click();
+  await page.locator('.feedback[data-rating="clear"]').click();
+  await expect(page.locator("#dueCount")).toHaveText("1");
+
+  // Hidden, it only notes the write.
+  await hiddenTab.waitForTimeout(300);
+  await expect(hiddenTab.locator("#dueCount")).toHaveText("2");
+
+  await hiddenTab.evaluate(() => window.setTestVisibility("visible"));
+  await expect(hiddenTab.locator("#dueCount")).toHaveText("1");
+  await hiddenTab.close();
 });

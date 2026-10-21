@@ -20,29 +20,61 @@ const LEGACY_MISTAKE_DECKS = {
   "grammar-n4-mistakes": "grammar-n4-zh-ja-unknown",
 };
 
-const cardData = window.AYAYA_JP_CARD_DATA;
-const isCardDataMissing = !cardData;
-const isN5VocabDataMissing =
-  !Array.isArray(window.AYAYA_N5_CODEX_VOCAB?.entries) ||
-  window.AYAYA_N5_CODEX_VOCAB.entries.length === 0;
-const isN4VocabDataMissing =
-  !Array.isArray(window.AYAYA_N4_CODEX_VOCAB?.entries) ||
-  window.AYAYA_N4_CODEX_VOCAB.entries.length === 0;
-const isN3VocabDataMissing =
-  !Array.isArray(window.AYAYA_N3_CODEX_VOCAB?.entries) ||
-  window.AYAYA_N3_CODEX_VOCAB.entries.length === 0;
-const isGrammarDataMissing =
-  !Array.isArray(window.AYAYA_GRAMMAR_DATA?.entries) ||
-  window.AYAYA_GRAMMAR_DATA.entries.length === 0;
+// Kana cards come from kana-cards.js, loaded with this file, so the first card
+// shows at once. The study data (audio clips, vocabulary, grammar, readings and
+// card-data.js) is most of the download: it loads afterwards from the
+// #studyDataScripts template, and decks that need it wait until it is in. A
+// page without the template (the contract-test harness) already has its data.
+let cardData = window.AYAYA_JP_CARD_DATA || null;
+const studyDataTemplate = document.querySelector("#studyDataScripts");
+let studyDataState = cardData || !studyDataTemplate?.content ? "ready" : "loading";
+
+function kanaCardsApi() {
+  return cardData?.makeKanaCards ? cardData : window.AYAYA_KANA_CARDS || null;
+}
+
+function hasEntries(data) {
+  return Array.isArray(data?.entries) && data.entries.length > 0;
+}
+
+function familyDataSource(family) {
+  if (family === "vocab-n5") return window.AYAYA_N5_CODEX_VOCAB;
+  if (family === "vocab-n4") return window.AYAYA_N4_CODEX_VOCAB;
+  if (family === "vocab-n3") return window.AYAYA_N3_CODEX_VOCAB;
+  if (family?.startsWith("grammar-")) return window.AYAYA_GRAMMAR_DATA;
+  return null;
+}
+
+// Still downloading: the deck waits instead of reading as empty or broken.
+function isFamilyDataPending(family) {
+  return Boolean(family) && family !== "kana" && studyDataState === "loading";
+}
+
+function isFamilyDataMissing(family) {
+  if (family === "kana") return !kanaCardsApi();
+  if (isFamilyDataPending(family)) return false;
+  if (!family) return studyDataState !== "loading" && !cardData;
+  return !cardData || !hasEntries(familyDataSource(family));
+}
+
 const cardFamilyCache = new Map();
-// Pre-rendered VOICEVOX clips (audio-manifest.js); texts without one use speechSynthesis.
-const audioClips =
-  typeof window.AYAYA_AUDIO?.keys === "string" && typeof window.AYAYA_AUDIO.directory === "string"
-    ? {
-        directory: window.AYAYA_AUDIO.directory,
-        keys: new Set(window.AYAYA_AUDIO.keys.split(" ").filter(Boolean)),
-      }
-    : null;
+// Pre-rendered VOICEVOX clips (audio-manifest.js, the first study-data file);
+// texts without one, or spoken before it arrives, use speechSynthesis.
+let audioClips = null;
+
+function availableAudioClips() {
+  if (
+    !audioClips &&
+    typeof window.AYAYA_AUDIO?.keys === "string" &&
+    typeof window.AYAYA_AUDIO.directory === "string"
+  ) {
+    audioClips = {
+      directory: window.AYAYA_AUDIO.directory,
+      keys: new Set(window.AYAYA_AUDIO.keys.split(" ").filter(Boolean)),
+    };
+  }
+  return audioClips;
+}
 
 // Every tab deck has a main pool (the tab's own id), a 模糊 pool and a 不认识
 // pool (id + suffix). The two review pools only hold cards rated into them.
@@ -81,8 +113,8 @@ function cardFamilyForDeck(deck) {
 }
 
 function buildCardFamily(family) {
+  if (family === "kana") return kanaCardsApi()?.makeKanaCards() || [];
   if (!cardData) return [];
-  if (family === "kana") return cardData.makeKanaCards();
   if (family === "vocab-n5") return cardData.makeVocabCards("N5");
   if (family === "vocab-n4") return cardData.makeVocabCards("N4");
   if (family === "vocab-n3") return cardData.makeVocabCards("N3");
@@ -94,7 +126,7 @@ function buildCardFamily(family) {
 
 function getFamilyCards(deck) {
   const family = cardFamilyForDeck(deck);
-  if (!family) return [];
+  if (!family || isFamilyDataPending(family)) return [];
   if (!cardFamilyCache.has(family)) {
     const familyCards = buildCardFamily(family);
     cardFamilyCache.set(family, familyCards);
@@ -108,7 +140,7 @@ function getFamilyCards(deck) {
 // is filtered: the round still spans the whole deck, so finishing a group never
 // counts as finishing the round. The choice is a per-browser convenience.
 const GRAMMAR_GROUP_STATE_KEY = "ayaya-jp-grammar-group-v1";
-const grammarGroupList = Array.isArray(cardData?.grammarGroups) ? cardData.grammarGroups : [];
+let grammarGroupList = Array.isArray(cardData?.grammarGroups) ? cardData.grammarGroups : [];
 let grammarGroupFilters = loadGrammarGroupFilters();
 
 function grammarFamilyLevel(family) {
@@ -123,10 +155,14 @@ function loadGrammarGroupFilters() {
     saved = {};
   }
   return Object.fromEntries(
-    Object.entries(saved).filter(([family, groupId]) =>
-      grammarGroupList.some(
-        (group) => group.id === groupId && group.level === grammarFamilyLevel(family),
-      ),
+    Object.entries(isStoreObject(saved) ? saved : {}).filter(([family, groupId]) =>
+      // Groups arrive with the study data; until then saved choices are kept
+      // as they are and checked once the groups are known.
+      studyDataState === "loading"
+        ? Boolean(grammarFamilyLevel(family)) && typeof groupId === "string"
+        : grammarGroupList.some(
+            (group) => group.id === groupId && group.level === grammarFamilyLevel(family),
+          ),
     ),
   );
 }
@@ -261,10 +297,30 @@ function loadStore() {
   }
 }
 
+// A copy with JSON semantics (undefined and functions dropped, non-finite
+// numbers as null) without a stringify/parse round trip; the store is plain
+// JSON data, and merges copy thousands of card states per write.
+function jsonCopy(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) =>
+      item === undefined || typeof item === "function" ? null : jsonCopy(item),
+    );
+  }
+  if (value && typeof value === "object") {
+    const copy = {};
+    Object.keys(value).forEach((key) => {
+      const item = value[key];
+      if (item !== undefined && typeof item !== "function") copy[key] = jsonCopy(item);
+    });
+    return copy;
+  }
+  return typeof value === "number" && !Number.isFinite(value) ? null : value;
+}
+
 function cloneStore(value) {
   if (value === undefined) return undefined;
   try {
-    return JSON.parse(JSON.stringify(value || {}));
+    return jsonCopy(value || {});
   } catch {
     return {};
   }
@@ -284,18 +340,38 @@ function isCardState(value) {
   );
 }
 
+function isJsonAbsent(value) {
+  return value === undefined || typeof value === "function";
+}
+
+function jsonScalar(value) {
+  return typeof value === "number" && !Number.isFinite(value) ? null : value;
+}
+
+// Equal once both are serialized with sorted keys, compared in place: merges
+// run this for every card state on every write.
 function valuesEqual(left, right) {
-  const normalize = (value) => {
-    if (Array.isArray(value)) return value.map(normalize);
-    if (!isStoreObject(value)) return value;
-    return Object.keys(value)
-      .sort()
-      .reduce((result, key) => {
-        result[key] = normalize(value[key]);
-        return result;
-      }, {});
-  };
-  return JSON.stringify(normalize(left)) === JSON.stringify(normalize(right));
+  if (left === right) return true;
+  if (Array.isArray(left) || Array.isArray(right)) {
+    if (!Array.isArray(left) || !Array.isArray(right) || left.length !== right.length) {
+      return false;
+    }
+    return left.every((item, index) => {
+      const other = right[index];
+      return valuesEqual(isJsonAbsent(item) ? null : item, isJsonAbsent(other) ? null : other);
+    });
+  }
+  if (isStoreObject(left) && isStoreObject(right)) {
+    const leftKeys = Object.keys(left).filter((key) => !isJsonAbsent(left[key]));
+    const rightCount = Object.keys(right).filter((key) => !isJsonAbsent(right[key])).length;
+    return (
+      leftKeys.length === rightCount &&
+      leftKeys.every((key) => !isJsonAbsent(right[key]) && valuesEqual(left[key], right[key]))
+    );
+  }
+  if (isStoreObject(left) || isStoreObject(right)) return false;
+  if (isJsonAbsent(left) || isJsonAbsent(right)) return isJsonAbsent(left) && isJsonAbsent(right);
+  return jsonScalar(left) === jsonScalar(right);
 }
 
 function storeRevision(value) {
@@ -321,19 +397,32 @@ function isClearlyStaleStore(value) {
 }
 
 function storesSemanticallyEqual(left, right) {
-  const leftContent = cloneStore(left) || {};
-  const rightContent = cloneStore(right) || {};
-  delete leftContent[STORE_META_KEY];
-  delete rightContent[STORE_META_KEY];
-  return valuesEqual(leftContent, rightContent);
+  const withoutMeta = (value) => {
+    const content = { ...(isStoreObject(value) ? value : {}) };
+    delete content[STORE_META_KEY];
+    return content;
+  };
+  return valuesEqual(withoutMeta(left), withoutMeta(right));
+}
+
+// The last stored text and its parsed store: when storage still holds what this
+// tab wrote or last read, it is not parsed again. Callers never mutate the
+// returned store; it may be shared with lastSyncedStore.
+let persistedStoreCache = { raw: null, value: null };
+
+function rememberPersistedStore(raw, value) {
+  persistedStoreCache = { raw, value };
 }
 
 function readPersistedStoreForMerge() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return {};
+    if (raw === persistedStoreCache.raw) return persistedStoreCache.value;
     const parsed = JSON.parse(raw);
-    return isStoreObject(parsed) ? compactStoreForPersistence(parsed) : {};
+    const value = isStoreObject(parsed) ? compactStoreForPersistence(parsed) : {};
+    rememberPersistedStore(raw, value);
+    return value;
   } catch {
     return cloneStore(lastSyncedStore);
   }
@@ -836,7 +925,8 @@ function mergeStoreVersions(baseStore, localStore, remoteStore) {
 }
 
 function saveStore() {
-  const mergeBase = cloneStore(lastSyncedStore);
+  // lastSyncedStore is replaced, never mutated, so it serves as the base as is.
+  const mergeBase = lastSyncedStore;
   let candidate = compactStoreForPersistence(store);
 
   try {
@@ -863,12 +953,17 @@ function saveStore() {
         writeToken,
       };
 
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(candidate));
-      const readBack = readPersistedStoreForMerge();
+      const serialized = JSON.stringify(candidate);
+      localStorage.setItem(STORAGE_KEY, serialized);
+      // Storage still holding exactly this text means no other tab wrote in
+      // between; only a different text needs parsing to check the token.
+      const wroteThis = localStorage.getItem(STORAGE_KEY) === serialized;
+      const readBack = wroteThis ? candidate : readPersistedStoreForMerge();
       recordStoreRevision(readBack);
-      if (readBack[STORE_META_KEY]?.writeToken === writeToken) {
+      if (wroteThis || readBack[STORE_META_KEY]?.writeToken === writeToken) {
         store = candidate;
-        lastSyncedStore = cloneStore(candidate);
+        lastSyncedStore = JSON.parse(serialized);
+        rememberPersistedStore(serialized, lastSyncedStore);
         storeNeedsCompaction = false;
         recordStoreRevision(candidate);
         syncSessionRoundState({ preserveActiveDeck: true });
@@ -918,29 +1013,12 @@ function isVocabDeck(deck) {
   return deck.startsWith("vocab-");
 }
 
-function isGrammarDeck(deck) {
-  return deck.startsWith("grammar-");
-}
-
-function isN4VocabDeck(deck) {
-  return cardFamilyForDeck(deck) === "vocab-n4";
-}
-
-function isN5VocabDeck(deck) {
-  return cardFamilyForDeck(deck) === "vocab-n5";
-}
-
-function isN3VocabDeck(deck) {
-  return cardFamilyForDeck(deck) === "vocab-n3";
-}
-
 function isDeckDataMissing(deck) {
-  if (isCardDataMissing) return true;
-  if (isN3VocabDeck(deck)) return isN3VocabDataMissing;
-  if (isN4VocabDeck(deck)) return isN4VocabDataMissing;
-  if (isN5VocabDeck(deck)) return isN5VocabDataMissing;
-  if (isGrammarDeck(deck)) return isGrammarDataMissing;
-  return false;
+  return isFamilyDataMissing(cardFamilyForDeck(deck));
+}
+
+function isDeckDataPending(deck = activeDeck) {
+  return isFamilyDataPending(cardFamilyForDeck(deck));
 }
 
 function getRoundCount(deck) {
@@ -960,20 +1038,26 @@ function renderDeckRoundCounts() {
 
 function renderLoadStatus() {
   const messages = [];
-  if (isCardDataMissing) {
-    messages.push("卡片脚本加载失败，请确认 card-data.js 已正确加载。");
+  if (!kanaCardsApi()) {
+    messages.push("假名脚本加载失败，请确认 kana-cards.js 已正确加载。");
   }
-  if (!isCardDataMissing && isN5VocabDataMissing) {
-    messages.push("N5 词库加载失败，请确认 n5-codex-vocab.js 已正确加载。假名模块仍可使用。");
-  }
-  if (!isCardDataMissing && isN4VocabDataMissing) {
-    messages.push("N4 词库加载失败，请确认 ayaya-n4-codex-vocab.js 已正确加载。其他模块仍可使用。");
-  }
-  if (!isCardDataMissing && isN3VocabDataMissing) {
-    messages.push("N3 词库加载失败，请确认 ayaya-n3-codex-vocab.js 已正确加载。其他模块仍可使用。");
-  }
-  if (!isCardDataMissing && isGrammarDataMissing) {
-    messages.push("语法数据加载失败，请确认 grammar-data.js 已正确加载。其他模块仍可使用。");
+  // While the study data downloads nothing is missing yet.
+  if (studyDataState !== "loading") {
+    if (!cardData) {
+      messages.push("卡片脚本加载失败，请确认 card-data.js 已正确加载。假名模块仍可使用。");
+    }
+    if (cardData && isFamilyDataMissing("vocab-n5")) {
+      messages.push("N5 词库加载失败，请确认 n5-codex-vocab.js 已正确加载。假名模块仍可使用。");
+    }
+    if (cardData && isFamilyDataMissing("vocab-n4")) {
+      messages.push("N4 词库加载失败，请确认 ayaya-n4-codex-vocab.js 已正确加载。其他模块仍可使用。");
+    }
+    if (cardData && isFamilyDataMissing("vocab-n3")) {
+      messages.push("N3 词库加载失败，请确认 ayaya-n3-codex-vocab.js 已正确加载。其他模块仍可使用。");
+    }
+    if (cardData && isFamilyDataMissing("grammar-n5")) {
+      messages.push("语法数据加载失败，请确认 grammar-data.js 已正确加载。其他模块仍可使用。");
+    }
   }
   if (persistenceError) {
     messages.push(persistenceError);
@@ -1034,7 +1118,24 @@ function loadRoundState() {
   syncSessionRoundState();
 }
 
+// index.html preloads the study data for a visitor whose last deck needs it;
+// this tiny key says so without reading the progress store on the first screen.
+const START_FAMILY_HINT_KEY = "ayaya-jp-start-family-v1";
+let lastStartFamilyHint = null;
+
+function rememberStartFamily() {
+  const hint = cardFamilyForDeck(activeDeck) === "kana" ? "kana" : "study";
+  if (hint === lastStartFamilyHint) return;
+  lastStartFamilyHint = hint;
+  try {
+    localStorage.setItem(START_FAMILY_HINT_KEY, hint);
+  } catch {
+    // Only the next visit's preload depends on it.
+  }
+}
+
 function saveRoundState() {
+  rememberStartFamily();
   const decks = {};
   const deckNames = new Set([
     ...Object.keys(sessionQueues),
@@ -1094,11 +1195,14 @@ function migrateLegacyCardState(familyCards) {
   if (!aliasMap.size) return;
 
   let changed = false;
-  const targetIds = new Set(aliasMap.values());
-  targetIds.forEach((targetId) => {
-    const legacyIds = [...aliasMap.entries()]
-      .filter(([, mappedId]) => mappedId === targetId)
-      .map(([legacyId]) => legacyId);
+  // Grouped in one pass: scanning the whole alias map once per target was
+  // quadratic and froze the first opening of a vocab level for ~0.2 s.
+  const legacyIdsByTarget = new Map();
+  aliasMap.forEach((targetId, legacyId) => {
+    if (!legacyIdsByTarget.has(targetId)) legacyIdsByTarget.set(targetId, []);
+    legacyIdsByTarget.get(targetId).push(legacyId);
+  });
+  legacyIdsByTarget.forEach((legacyIds, targetId) => {
     const states = [store[targetId], ...legacyIds.map((legacyId) => store[legacyId])];
     const merged = mergeCardStates(states);
     if (merged && legacyIds.some((legacyId) => store[legacyId])) {
@@ -1180,9 +1284,22 @@ function getState(cardId) {
   return store[cardId];
 }
 
+// Read without compacting a copy: decks filter thousands of cards per render.
+function cardRatingOf(cardId) {
+  const value = store[cardId];
+  if (isStoreObject(value) && VALID_RATINGS.has(value.lastRating)) return value.lastRating;
+  return compactCardState(value)?.lastRating || null;
+}
+
+function cardReviewsOf(cardId) {
+  const value = store[cardId];
+  if (isStoreObject(value) && Number.isInteger(value.reviews)) return Math.max(0, value.reviews);
+  return compactCardState(value)?.reviews || 0;
+}
+
 // A card's latest rating decides its pool, so every rating moves it immediately.
 function cardPoolKind(card) {
-  const rating = compactCardState(store[card.id])?.lastRating;
+  const rating = cardRatingOf(card.id);
   if (FUZZY_RATINGS.has(rating)) return "fuzzy";
   if (UNKNOWN_RATINGS.has(rating)) return "unknown";
   return "main";
@@ -1234,6 +1351,12 @@ function buildChoiceOptions(card) {
 }
 
 function buildQueue() {
+  // A deck whose data is still downloading has no cards yet; rebuilding its
+  // queue now would save it as empty and drop the stored round.
+  if (isDeckDataPending()) {
+    reviewQueue = [];
+    return;
+  }
   ensureSessionRoundEpoch(activeDeck);
   const deckCards = getDeckCards();
   const deckIds = new Set(deckCards.map((card) => card.id));
@@ -1248,7 +1371,7 @@ function buildQueue() {
     : new Set(
         isReviewPool(activeDeck)
           ? []
-          : deckCards.filter((card) => getState(card.id).reviews > 0).map((card) => card.id),
+          : deckCards.filter((card) => cardReviewsOf(card.id) > 0).map((card) => card.id),
       );
   const queuedIds = hadQueue
     ? sessionQueues[activeDeck]
@@ -1313,7 +1436,7 @@ function remainingCount(deck) {
       : new Set(
           isReviewPool(deck)
             ? []
-            : deckCards.filter((card) => getState(card.id).reviews > 0).map((card) => card.id),
+            : deckCards.filter((card) => cardReviewsOf(card.id) > 0).map((card) => card.id),
         );
   return deckCards.filter((card) => !completedIds.has(card.id) && inActiveGroup(card, deck)).length;
 }
@@ -1867,6 +1990,14 @@ function renderEmpty(deckCards) {
   elements.studyAnyWay.textContent = "重新开始";
   if (extraElements.emptyTitle) extraElements.emptyTitle.textContent = "当前模块完成";
   if (extraElements.groupShowAll) extraElements.groupShowAll.hidden = true;
+  const isLoading = isDeckDataPending();
+  elements.emptyState.classList.toggle("is-loading", isLoading);
+  if (isLoading) {
+    elements.studyAnyWay.hidden = true;
+    if (extraElements.emptyTitle) extraElements.emptyTitle.textContent = "正在加载…";
+    elements.roundStatusText.textContent = "词库和语法数据下载完成后自动开始。";
+    return;
+  }
   const kind = poolKindOf(activeDeck);
   const group = grammarGroupFor();
   // A finished group whose deck still has cards elsewhere restarts only itself.
@@ -2433,9 +2564,10 @@ function clipTextFor(text, card = currentCard) {
 }
 
 function audioClipUrl(text) {
-  if (!audioClips || typeof Audio !== "function") return null;
+  const clips = availableAudioClips();
+  if (!clips || typeof Audio !== "function") return null;
   const key = audioClipKey(text);
-  return audioClips.keys.has(key) ? `./${audioClips.directory}${key}.mp3` : null;
+  return clips.keys.has(key) ? `./${clips.directory}${key}.mp3` : null;
 }
 
 // Clips of the card on screen are fetched as soon as it renders, so the reveal
@@ -2771,7 +2903,8 @@ function renderGrammarGroupSelects() {
     const family = select.dataset.family;
     const level = grammarFamilyLevel(family);
     const options = [
-      ["", `全部语法（${entries.filter((entry) => entry.level === level).length}）`],
+      // Counted once the grammar data is in; "（0）" would read as an empty level.
+      ["", entries.length ? `全部语法（${entries.filter((entry) => entry.level === level).length}）` : "全部语法"],
       ...grammarGroupList
         .filter((group) => group.level === level)
         .map((group) => [
@@ -2794,87 +2927,58 @@ function renderGrammarGroupSelects() {
   });
 }
 
+// Loads the study data listed in #studyDataScripts in order, after the first
+// card is up; a deck waiting on it starts once everything has arrived.
+function loadStudyData() {
+  if (studyDataState !== "loading") return;
+  const sources = [...(studyDataTemplate.content?.querySelectorAll("script[src]") || [])].map(
+    (script) => script.getAttribute("src"),
+  );
+  let remaining = sources.length;
+  if (!remaining) {
+    finishStudyDataLoad();
+    return;
+  }
+  const settle = () => {
+    remaining -= 1;
+    if (remaining === 0) runSafely(finishStudyDataLoad);
+  };
+  sources.forEach((source) => {
+    const script = document.createElement("script");
+    script.src = source;
+    // Dynamically added scripts run in insertion order only when not async;
+    // card-data.js comes last and reads everything before it.
+    script.async = false;
+    script.addEventListener("load", settle, { once: true });
+    script.addEventListener("error", settle, { once: true });
+    document.head.append(script);
+  });
+}
+
+function finishStudyDataLoad() {
+  cardData = window.AYAYA_JP_CARD_DATA || null;
+  studyDataState = cardData ? "ready" : "failed";
+  grammarGroupList = Array.isArray(cardData?.grammarGroups) ? cardData.grammarGroups : [];
+  grammarGroupFilters = loadGrammarGroupFilters();
+  renderGrammarGroupSelects();
+  renderLoadStatus();
+  if (cardFamilyForDeck(activeDeck) === "kana") {
+    render();
+    return;
+  }
+  const hadFocusInStudy =
+    document.activeElement?.closest?.("#emptyState") === elements.emptyState;
+  nextCard();
+  if (hadFocusInStudy) focusPrimaryStudyAction();
+}
+
 // Optional module-page extras; a page without them still runs.
 const extraElements = {
   emptyTitle: document.querySelector("#emptyTitle"),
   groupSelects: [...document.querySelectorAll(".group-select")],
   groupShowAll: document.querySelector("#groupShowAll"),
-  exportProgress: document.querySelector("#exportProgress"),
-  importProgress: document.querySelector("#importProgress"),
-  importProgressFile: document.querySelector("#importProgressFile"),
   silentModeHint: document.querySelector("#silentModeHint"),
 };
-const PROGRESS_FILE_APP = "AyayaJp";
-
-// Progress lives only in this browser's localStorage, which Safari clears for
-// sites unvisited for a while; a file export moves it to another browser or
-// restores it after such a loss.
-function exportProgress() {
-  const payload = {
-    app: PROGRESS_FILE_APP,
-    format: 1,
-    exportedAt: new Date().toISOString(),
-    progress: compactStoreForPersistence(store),
-  };
-  const url = URL.createObjectURL(new Blob([JSON.stringify(payload)], { type: "application/json" }));
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `AyayaJp-progress-${payload.exportedAt.slice(0, 10)}.json`;
-  document.body.append(link);
-  link.click();
-  link.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-// An imported file replaces this browser's progress. It is written with a
-// revision above every known one so open tabs adopt it, then the page reloads.
-function importProgressText(text) {
-  let payload;
-  try {
-    payload = JSON.parse(text);
-  } catch {
-    payload = null;
-  }
-  if (payload?.app !== PROGRESS_FILE_APP || !isStoreObject(payload.progress)) {
-    window.alert("这不是 AyayaJp 导出的进度文件。");
-    return false;
-  }
-  if (!window.confirm("导入会替换这个浏览器里现在的学习进度，确定吗？")) return false;
-  const imported = compactStoreForPersistence(payload.progress);
-  const revision = Math.max(storeRevision(store), storeRevision(imported), storeRevision(readPersistedStoreForMerge())) + 1;
-  imported[STORE_META_KEY] = {
-    schemaVersion: STORE_SCHEMA_VERSION,
-    savedAt: Date.now(),
-    writerId: `import-${storeWriterId}`,
-    revision,
-    writeToken: `import-${storeWriterId}:${revision}`,
-  };
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(imported));
-  } catch (error) {
-    window.alert(`浏览器无法保存导入的进度（${error.name || "storage error"}）。`);
-    return false;
-  }
-  window.location.reload();
-  return true;
-}
-
-function bindProgressBackup() {
-  const { exportProgress: exportButton, importProgress: importButton, importProgressFile: fileInput } =
-    extraElements;
-  exportButton?.addEventListener("click", () => runSafely(exportProgress));
-  if (!importButton || !fileInput) return;
-  importButton.addEventListener("click", () => fileInput.click());
-  fileInput.addEventListener("change", () => {
-    const [file] = fileInput.files || [];
-    fileInput.value = "";
-    if (!file) return;
-    file.text().then(
-      (text) => runSafely(() => importProgressText(text)),
-      () => window.alert("无法读取这个文件。"),
-    );
-  });
-}
 
 // Asked once the learner rates a card, so a browser that prompts for it
 // (Firefox) does so only for someone actually studying here.
@@ -2962,8 +3066,26 @@ function canPreserveUndoAfterStorage(snapshot, previousSyncedStore, remoteStore,
   return valuesEqual(previousDeckRound, remoteDeckRound);
 }
 
+// A hidden tab only notes the latest write from another tab and merges it when
+// it is shown again: each write is merged against the last synced store, so the
+// skipped intermediate versions are contained in the latest one. Merging a
+// full store on every rating made every background tab busy for ~0.2 s.
+let pendingStorageEvent = null;
+
+function handlePendingStorageChange() {
+  if (!pendingStorageEvent || document.visibilityState === "hidden") return;
+  const event = pendingStorageEvent;
+  pendingStorageEvent = null;
+  handleStoreStorageChange(event);
+}
+
 function handleStoreStorageChange(event) {
   if (event.key !== STORAGE_KEY) return;
+  if (document.visibilityState === "hidden") {
+    pendingStorageEvent = { key: event.key, newValue: event.newValue };
+    return;
+  }
+  pendingStorageEvent = null;
 
   let remoteStore;
   try {
@@ -2987,7 +3109,10 @@ function handleStoreStorageChange(event) {
   const focusWasInStudyCard =
     document.activeElement?.closest?.("#studyCard") === elements.studyCard;
   store = mergeStoreVersions(lastSyncedStore, store, remoteStore);
-  lastSyncedStore = cloneStore(remoteStore);
+  // Read-only from here on, so it doubles as the merge base and the cached
+  // parse of what storage now holds.
+  lastSyncedStore = remoteStore;
+  if (event.newValue !== null) rememberPersistedStore(event.newValue, remoteStore);
   recordStoreRevision(remoteStore);
   const needsReconciliation = !storesSemanticallyEqual(store, remoteStore);
   if (needsReconciliation) {
@@ -3080,6 +3205,7 @@ function bindInteractions() {
     runSafely(() => handleSidebarHistoryChange(event)),
   );
   window.addEventListener("storage", (event) => runSafely(() => handleStoreStorageChange(event)));
+  document.addEventListener("visibilitychange", () => runSafely(handlePendingStorageChange));
   document.addEventListener("keydown", (event) => runSafely(() => handleStudyShortcut(event)));
 
   elements.choiceHintToggle.addEventListener("click", (event) => {
@@ -3182,18 +3308,19 @@ function initializeApp() {
   elements.roundStatusText.setAttribute("aria-atomic", "true");
   bindInteractions();
   renderGrammarGroupSelects();
-  bindProgressBackup();
   showSilentModeHint();
   loadRoundState();
   if (isDeckDataMissing(activeDeck)) {
     activeDeck = "hiragana";
   }
+  rememberStartFamily();
   clearRetiredSidebarState();
   setSidebarOpen(isSidebarHistoryEntry(), { restoreFocus: false, syncHistory: false });
   renderLoadStatus();
   nextCard();
   if (storeNeedsCompaction) saveStore();
   finishLoadingStatus();
+  loadStudyData();
 }
 
 runSafely(initializeApp);
