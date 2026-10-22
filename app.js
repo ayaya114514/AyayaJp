@@ -3324,3 +3324,17 @@ function initializeApp() {
 }
 
 runSafely(initializeApp);
+
+// sw.js keeps an offline copy and makes repeat visits instant. Only on https
+// (and localhost): the plain-http test server keeps every request visible.
+if (
+  typeof navigator !== "undefined" &&
+  "serviceWorker" in navigator &&
+  (location.protocol === "https:" || location.hostname === "localhost")
+) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {
+      // Without it the app works exactly as before, only not offline.
+    });
+  });
+}

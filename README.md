@@ -45,6 +45,10 @@ npx playwright install chromium webkit
 
 GitHub Pages 只会在 contracts 和 browser regressions 全部通过后部署。部署 artifact 会为每个 CSS/JS 加入基于该文件内容 hash 的版本参数：改过的文件换新 URL，避免 CDN cache 混用新旧资源；没改的文件保持原 URL，回访时不必重新下载几 MB 的词库数据。
 
+部署 artifact 里的词库、语法和读音表（`n5/n4/n3` 词汇、`grammar-data.js`、`pitch-accent-data.js`、`romaji-word-spacing.js`、`example-readings.js`）会把开头的数据 literal 改写成 `JSON.parse('<minified JSON>')`，体积更小、解析更快；源文件保持原样。`build:pages` 会核对改写前后定义的全部 `window` 数据完全相同，否则构建失败。`npm run test:site` 先构建再对 `_site/` 跑同一套浏览器测试。
+
+`sw.js`（service worker，只在 https 和 localhost 注册）让学过的内容可以离线打开、回访不必逐个重新验证资源：页面 network first（内容修正能立即生效，离线或 3 秒无响应时用缓存）；带 `?v=` 的 CSS/JS 按内容 hash cache first；读音音频先用缓存、后台更新（原地重新生成的音频下一次播放时生效）。要整体清空缓存时改 `sw.js` 的 `CACHE_VERSION`。
+
 `validation-report.json` 是 committed baseline manifest，只记录受检 source fingerprint、预期计数和必须执行的 contracts；它不是“检查已经通过”的结果报告。只有在有意修改受检 source 或计数后才更新它：
 
 ```bash
@@ -144,6 +148,7 @@ Safari 会清除一段时间没有访问的网站的 localStorage（WebKit 的 7
 - `grammar-data.js`：N5/N4/N3 语法练习数据。
 - `pitch-accent-data.js`：由 `scripts/build-pitch-accents.js` 从 Kanjium 生成的词汇音调数据（CC BY-SA 4.0）。
 - `app.js`：学习状态、渲染、交互和语音播放逻辑。
+- `sw.js`：离线缓存与回访加速的 service worker（见“检查”一节）。
 - `audio-manifest.js` / `audio/`：由 `scripts/build-audio.js` 生成的 VOICEVOX 读音音频索引、音频文件和生成报告。
 - `scripts/validate.js`：本地 zero-dependency source/runtime/DOM validation。
 - `scripts/test-app-contracts.js`：zero-dependency app regression tests。
