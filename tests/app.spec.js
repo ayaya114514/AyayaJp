@@ -123,7 +123,7 @@ test("raw and initialized page never exposes a ready or loading banner", async (
 });
 
 test("a failed main script exposes the fatal fallback instead of a blank app", async ({ page }) => {
-  await page.route("**/app.js", (route) => route.abort());
+  await page.route(/\/app\.js(\?|$)/u, (route) => route.abort());
   await page.goto("/");
 
   await expect(page.locator(".study-area")).toHaveAttribute("aria-busy", "false");
@@ -1095,4 +1095,29 @@ test("a hidden tab merges another tab's ratings once it is shown again", async (
   await hiddenTab.evaluate(() => window.setTestVisibility("visible"));
   await expect(hiddenTab.locator("#dueCount")).toHaveText("1");
   await hiddenTab.close();
+});
+
+test("the service worker keeps the app usable offline", async ({ page, context, baseURL, browserName }) => {
+  // The worker only registers on https or localhost; the other tests use 127.0.0.1.
+  const origin = baseURL.replace("127.0.0.1", "localhost");
+  await page.goto(`${origin}/`);
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.reload();
+  await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
+  await expect(page.locator("#cardPrompt")).not.toHaveText("");
+  await expect(page.locator("#loadErrorBanner")).toBeHidden();
+
+  // Playwright's WebKit offline emulation fails the navigation itself ("internal
+  // error") before a service worker can answer, so the offline reload is only
+  // checked in Chromium; WebKit still checks that the worker takes control.
+  if (browserName === "webkit") return;
+  await context.setOffline(true);
+  try {
+    await page.reload();
+    await expect(page.locator("#cardPrompt")).not.toHaveText("");
+    await expect(page.locator("#fatalErrorBanner")).toBeHidden();
+    await expect(page.locator("#loadErrorBanner")).toBeHidden();
+  } finally {
+    await context.setOffline(false);
+  }
 });

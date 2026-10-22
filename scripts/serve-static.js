@@ -4,7 +4,8 @@ const fs = require("fs");
 const http = require("http");
 const path = require("path");
 
-const rootDir = path.resolve(__dirname, "..");
+// STATIC_DIR=_site serves the built Pages artifact instead of the sources.
+const rootDir = path.resolve(__dirname, "..", process.env.STATIC_DIR || ".");
 const port = Number.parseInt(process.env.PORT || "4173", 10);
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
