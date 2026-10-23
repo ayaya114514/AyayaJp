@@ -34,7 +34,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "On 2026-10-10 every entry was re-audited again: headword romaji now follows the particle and n' rules with the same word division as the examples, category labels were corrected, pure grammar patterns were migrated to grammar cards, and unnatural examples were rewritten.",
       "2026-10-17: 12 basic greetings and words that the community Waller list files under N3 (ありがとう, いただきます, いらっしゃい, おめでとう, ごめんなさい, こんにちは, すみません, よろしく, 男の人, 日本, 曜日, お昼) are taught here, since N5 learners meet them first."
     ],
-    "entry_count": 725
+    "entry_count": 743
   },
   "entries": [
     {
@@ -26126,6 +26126,664 @@ window.AYAYA_N5_CODEX_VOCAB = {
         }
       ],
       "note_zh": ""
+    },
+    {
+      "id": "n5-731",
+      "jlpt": "N5",
+      "headword": "思い",
+      "source_form": "思い",
+      "variants": [
+        "思い"
+      ],
+      "reading": "おもい",
+      "reading_variants": [
+        "おもい"
+      ],
+      "romaji": "omoi",
+      "part_of_speech": "noun",
+      "meaning_zh": "思念；（心中的）想法；感受",
+      "kanji_readings": [
+        {
+          "form": "思い",
+          "reading": "おもい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "家族への思いを手紙に書きました。",
+          "zh": "把对家人的思念写进了信里。"
+        },
+        {
+          "ja": "自分の思いを言葉で伝えるのは難しいです。",
+          "zh": "用语言表达自己的心情很难。"
+        },
+        {
+          "ja": "旅行では、とても楽しい思いをしました。",
+          "zh": "旅行时过得非常开心。"
+        }
+      ],
+      "note_zh": "与「重い（重的）」同音。常用「〜への思い」「楽しい思いをする」。"
+    },
+    {
+      "id": "n5-732",
+      "jlpt": "N5",
+      "headword": "返る",
+      "source_form": "返る",
+      "variants": [
+        "返る"
+      ],
+      "reading": "かえる",
+      "reading_variants": [
+        "かえる"
+      ],
+      "romaji": "kaeru",
+      "part_of_speech": "verb",
+      "meaning_zh": "（东西、回应）回来；还回；恢复（原状）",
+      "kanji_readings": [
+        {
+          "form": "返る",
+          "reading": "かえる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "貸したお金が返ってきました。",
+          "zh": "借出去的钱还回来了。"
+        },
+        {
+          "ja": "質問したら、すぐに答えが返ってきました。",
+          "zh": "一提问，马上就得到了回答。"
+        },
+        {
+          "ja": "大きな音で我に返りました。",
+          "zh": "被很大的声音惊得回过神来。"
+        }
+      ],
+      "note_zh": "与「帰る（回家）」「変える」「代える」同音。常用「〜が返ってくる」「我に返る（回过神来）」；人回家用「帰る」。"
+    },
+    {
+      "id": "n5-733",
+      "jlpt": "N5",
+      "headword": "核",
+      "source_form": "核",
+      "variants": [
+        "核"
+      ],
+      "reading": "かく",
+      "reading_variants": [
+        "かく"
+      ],
+      "romaji": "kaku",
+      "part_of_speech": "noun",
+      "meaning_zh": "核（细胞核、地核等）；核武器",
+      "kanji_readings": [
+        {
+          "form": "核",
+          "reading": "かく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "細胞の中には核があります。",
+          "zh": "细胞里有细胞核。"
+        },
+        {
+          "ja": "地球の核はとても熱いです。",
+          "zh": "地核非常热。"
+        },
+        {
+          "ja": "核のない世界を目指しています。",
+          "zh": "以没有核武器的世界为目标。"
+        }
+      ],
+      "note_zh": "与「書く（写）」同音。"
+    },
+    {
+      "id": "n5-734",
+      "jlpt": "N5",
+      "headword": "かく",
+      "source_form": "かく",
+      "variants": [
+        "かく",
+        "掻く"
+      ],
+      "reading": "かく",
+      "reading_variants": [
+        "かく"
+      ],
+      "romaji": "kaku",
+      "part_of_speech": "verb",
+      "meaning_zh": "挠；抓（痒）；出（汗）",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "背中がかゆいので、かきました。",
+          "zh": "背上痒，就挠了挠。"
+        },
+        {
+          "ja": "夏は寝ている間に汗をかきます。",
+          "zh": "夏天睡觉时会出汗。"
+        },
+        {
+          "ja": "頭をかきながら謝りました。",
+          "zh": "一边挠头一边道歉。"
+        }
+      ],
+      "note_zh": "多写作假名，汉字为「掻く」。与「書く（写）」同音。「汗をかく」是出汗。"
+    },
+    {
+      "id": "n5-735",
+      "jlpt": "N5",
+      "headword": "過程",
+      "source_form": "過程",
+      "variants": [
+        "過程"
+      ],
+      "reading": "かてい",
+      "reading_variants": [
+        "かてい"
+      ],
+      "romaji": "katei",
+      "part_of_speech": "noun",
+      "meaning_zh": "过程",
+      "kanji_readings": [
+        {
+          "form": "過程",
+          "reading": "かてい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "結果より過程が大切です。",
+          "zh": "过程比结果更重要。"
+        },
+        {
+          "ja": "パンができるまでの過程を見学しました。",
+          "zh": "参观了面包制作的过程。"
+        },
+        {
+          "ja": "勉強の過程で、たくさん失敗しました。",
+          "zh": "在学习的过程中失败了很多次。"
+        }
+      ],
+      "note_zh": "与「家庭」同音。"
+    },
+    {
+      "id": "n5-736",
+      "jlpt": "N5",
+      "headword": "区",
+      "source_form": "区",
+      "variants": [
+        "区"
+      ],
+      "reading": "く",
+      "reading_variants": [
+        "く"
+      ],
+      "romaji": "ku",
+      "part_of_speech": "noun",
+      "meaning_zh": "区（行政区划）",
+      "kanji_readings": [
+        {
+          "form": "区",
+          "reading": "く"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "この区には公園が多いです。",
+          "zh": "这个区公园很多。"
+        },
+        {
+          "ja": "区の図書館で本を借りました。",
+          "zh": "在区图书馆借了书。"
+        },
+        {
+          "ja": "区のホームページでごみの出し方を調べました。",
+          "zh": "在区里的网站上查了扔垃圾的方法。"
+        }
+      ],
+      "note_zh": "与「九（く）」同音。东京等大城市分成若干个「区」。"
+    },
+    {
+      "id": "n5-737",
+      "jlpt": "N5",
+      "headword": "個々",
+      "source_form": "個々",
+      "variants": [
+        "個々"
+      ],
+      "reading": "ここ",
+      "reading_variants": [
+        "ここ"
+      ],
+      "romaji": "koko",
+      "part_of_speech": "noun",
+      "meaning_zh": "各个；个别；逐一",
+      "kanji_readings": [
+        {
+          "form": "個々",
+          "reading": "ここ"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "個々の問題について話し合いました。",
+          "zh": "就各个问题进行了讨论。"
+        },
+        {
+          "ja": "質問には個々にお答えします。",
+          "zh": "对于提问将逐一回答。"
+        },
+        {
+          "ja": "個々の力は小さいですが、みんなで協力すれば大きくなります。",
+          "zh": "每个人的力量虽小，但大家合作就会变大。"
+        }
+      ],
+      "note_zh": "与「ここ（这里）」同音。常用「個々の〜」「個々に」。"
+    },
+    {
+      "id": "n5-738",
+      "jlpt": "N5",
+      "headword": "策",
+      "source_form": "策",
+      "variants": [
+        "策"
+      ],
+      "reading": "さく",
+      "reading_variants": [
+        "さく"
+      ],
+      "romaji": "saku",
+      "part_of_speech": "noun",
+      "meaning_zh": "对策；策略；（解决问题的）办法",
+      "kanji_readings": [
+        {
+          "form": "策",
+          "reading": "さく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "何かいい策はありませんか。",
+          "zh": "有没有什么好办法？"
+        },
+        {
+          "ja": "問題を解決する策を考えました。",
+          "zh": "想了解决问题的对策。"
+        },
+        {
+          "ja": "それはとてもいい策だと思います。",
+          "zh": "我觉得那是个很好的办法。"
+        }
+      ],
+      "note_zh": "与「咲く（开花）」同音。"
+    },
+    {
+      "id": "n5-739",
+      "jlpt": "N5",
+      "headword": "死",
+      "source_form": "死",
+      "variants": [
+        "死"
+      ],
+      "reading": "し",
+      "reading_variants": [
+        "し"
+      ],
+      "romaji": "shi",
+      "part_of_speech": "noun",
+      "meaning_zh": "死（名词）",
+      "kanji_readings": [
+        {
+          "form": "死",
+          "reading": "し"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "祖父の死はとても悲しかったです。",
+          "zh": "祖父的去世让人非常悲伤。"
+        },
+        {
+          "ja": "人はだれでも死を恐れます。",
+          "zh": "人谁都害怕死亡。"
+        },
+        {
+          "ja": "この本は生と死について書かれています。",
+          "zh": "这本书写的是生与死。"
+        }
+      ],
+      "note_zh": "与「四」「市」「詩」同音。"
+    },
+    {
+      "id": "n5-740",
+      "jlpt": "N5",
+      "headword": "汁",
+      "source_form": "汁",
+      "variants": [
+        "汁"
+      ],
+      "reading": "しる",
+      "reading_variants": [
+        "しる"
+      ],
+      "romaji": "shiru",
+      "part_of_speech": "noun",
+      "meaning_zh": "汁；汤汁",
+      "kanji_readings": [
+        {
+          "form": "汁",
+          "reading": "しる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "果物の汁で服が汚れました。",
+          "zh": "衣服被果汁弄脏了。"
+        },
+        {
+          "ja": "うどんの汁を全部飲みました。",
+          "zh": "把乌冬面的汤全喝了。"
+        },
+        {
+          "ja": "魚にレモンの汁をかけて食べます。",
+          "zh": "在鱼上挤柠檬汁吃。"
+        }
+      ],
+      "note_zh": "与「知る（知道）」同音。"
+    },
+    {
+      "id": "n5-741",
+      "jlpt": "N5",
+      "headword": "つく",
+      "source_form": "つく",
+      "variants": [
+        "つく",
+        "点く"
+      ],
+      "reading": "つく",
+      "reading_variants": [
+        "つく"
+      ],
+      "romaji": "tsuku",
+      "part_of_speech": "verb",
+      "meaning_zh": "（灯、电器）开着；（火）点着（自动词）",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "部屋の電気がついています。",
+          "zh": "房间的灯开着。"
+        },
+        {
+          "ja": "このライターは火がつきません。",
+          "zh": "这个打火机打不着火。"
+        },
+        {
+          "ja": "テレビがつかないので、修理に出しました。",
+          "zh": "电视打不开，所以拿去修了。"
+        }
+      ],
+      "note_zh": "多写作假名，汉字为「点く」。他动词是「つける」。与「着く」「付く」「就く」同音。"
+    },
+    {
+      "id": "n5-742",
+      "jlpt": "N5",
+      "headword": "努める",
+      "source_form": "努める",
+      "variants": [
+        "努める"
+      ],
+      "reading": "つとめる",
+      "reading_variants": [
+        "つとめる"
+      ],
+      "romaji": "tsutomeru",
+      "part_of_speech": "verb",
+      "meaning_zh": "尽力；努力（动词，常用「〜に努める」）",
+      "kanji_readings": [
+        {
+          "form": "努める",
+          "reading": "つとめる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "健康のために、早く寝るように努めています。",
+          "zh": "为了健康，尽量早睡。"
+        },
+        {
+          "ja": "会社は問題の解決に努めています。",
+          "zh": "公司正在努力解决问题。"
+        },
+        {
+          "ja": "サービスの向上に努めます。",
+          "zh": "努力提高服务水平。"
+        }
+      ],
+      "note_zh": "与「勤める（任职）」「務める（担任）」同音。"
+    },
+    {
+      "id": "n5-743",
+      "jlpt": "N5",
+      "headword": "務める",
+      "source_form": "務める",
+      "variants": [
+        "務める"
+      ],
+      "reading": "つとめる",
+      "reading_variants": [
+        "つとめる"
+      ],
+      "romaji": "tsutomeru",
+      "part_of_speech": "verb",
+      "meaning_zh": "担任（职务、角色）",
+      "kanji_readings": [
+        {
+          "form": "務める",
+          "reading": "つとめる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "今日の会議は田中さんが司会を務めます。",
+          "zh": "今天的会议由田中先生担任主持。"
+        },
+        {
+          "ja": "父は会社で部長を務めています。",
+          "zh": "父亲在公司担任部长。"
+        },
+        {
+          "ja": "劇で主役を務めることになりました。",
+          "zh": "我要在剧里担任主角了。"
+        }
+      ],
+      "note_zh": "与「勤める（任职）」「努める（努力）」同音。"
+    },
+    {
+      "id": "n5-744",
+      "jlpt": "N5",
+      "headword": "番",
+      "source_form": "番",
+      "variants": [
+        "番"
+      ],
+      "reading": "ばん",
+      "reading_variants": [
+        "ばん"
+      ],
+      "romaji": "ban",
+      "part_of_speech": "noun",
+      "meaning_zh": "轮到（某人）；看守",
+      "kanji_readings": [
+        {
+          "form": "番",
+          "reading": "ばん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "次は私の番です。",
+          "zh": "下一个轮到我了。"
+        },
+        {
+          "ja": "ほら、あなたの番ですよ。",
+          "zh": "你看，轮到你了。"
+        },
+        {
+          "ja": "少しの間、荷物の番をしてください。",
+          "zh": "请帮我看一会儿行李。"
+        }
+      ],
+      "note_zh": "与「晩（晚上）」同音。表示“第……号”的后缀见「～番」。"
+    },
+    {
+      "id": "n5-745",
+      "jlpt": "N5",
+      "headword": "拭く",
+      "source_form": "拭く",
+      "variants": [
+        "拭く"
+      ],
+      "reading": "ふく",
+      "reading_variants": [
+        "ふく"
+      ],
+      "romaji": "fuku",
+      "part_of_speech": "verb",
+      "meaning_zh": "擦；擦拭",
+      "kanji_readings": [
+        {
+          "form": "拭く",
+          "reading": "ふく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "タオルで手を拭きます。",
+          "zh": "用毛巾擦手。"
+        },
+        {
+          "ja": "食事の後で、テーブルを拭いてください。",
+          "zh": "吃完饭后，请擦一下桌子。"
+        },
+        {
+          "ja": "汗を拭きながら歩きました。",
+          "zh": "一边擦汗一边走。"
+        }
+      ],
+      "note_zh": "与「吹く」「服」同音。"
+    },
+    {
+      "id": "n5-746",
+      "jlpt": "N5",
+      "headword": "防止",
+      "source_form": "防止",
+      "variants": [
+        "防止"
+      ],
+      "reading": "ぼうし",
+      "reading_variants": [
+        "ぼうし"
+      ],
+      "romaji": "boushi",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "防止（名词・する动词，较书面）",
+      "kanji_readings": [
+        {
+          "form": "防止",
+          "reading": "ぼうし"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "事故を防止するために、ルールを守りましょう。",
+          "zh": "为了防止事故，请遵守规则吧。"
+        },
+        {
+          "ja": "寝る前に火を消して、火事を防止します。",
+          "zh": "睡前把火关掉，防止火灾。"
+        },
+        {
+          "ja": "町の人が協力して、犯罪を防止しています。",
+          "zh": "镇上的人齐心协力防止犯罪。"
+        }
+      ],
+      "note_zh": "与「帽子」同音。"
+    },
+    {
+      "id": "n5-747",
+      "jlpt": "N5",
+      "headword": "優しい",
+      "source_form": "優しい",
+      "variants": [
+        "優しい"
+      ],
+      "reading": "やさしい",
+      "reading_variants": [
+        "やさしい"
+      ],
+      "romaji": "yasashii",
+      "part_of_speech": "i-adjective",
+      "meaning_zh": "温柔的；亲切的；温和的",
+      "kanji_readings": [
+        {
+          "form": "優しい",
+          "reading": "やさしい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "田中さんはとても優しい人です。",
+          "zh": "田中先生是个很温柔的人。"
+        },
+        {
+          "ja": "母はいつも優しく話してくれます。",
+          "zh": "妈妈总是温柔地跟我说话。"
+        },
+        {
+          "ja": "このせっけんは肌に優しいです。",
+          "zh": "这款肥皂对皮肤很温和。"
+        }
+      ],
+      "note_zh": "与「易しい（简单的）」同音。"
+    },
+    {
+      "id": "n5-748",
+      "jlpt": "N5",
+      "headword": "液",
+      "source_form": "液",
+      "variants": [
+        "液"
+      ],
+      "reading": "えき",
+      "reading_variants": [
+        "えき"
+      ],
+      "romaji": "eki",
+      "part_of_speech": "noun",
+      "meaning_zh": "液体；液",
+      "kanji_readings": [
+        {
+          "form": "液",
+          "reading": "えき"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "瓶から液が漏れています。",
+          "zh": "液体从瓶子里漏出来了。"
+        },
+        {
+          "ja": "この液は水で薄めて使います。",
+          "zh": "这种液体要用水稀释后使用。"
+        },
+        {
+          "ja": "液が目に入らないように気をつけてください。",
+          "zh": "请注意不要让液体进入眼睛。"
+        }
+      ],
+      "note_zh": "与「駅（车站）」同音。"
     }
   ]
 };

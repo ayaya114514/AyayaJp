@@ -17,6 +17,7 @@ const runtimeAssets = [
   "ayaya-n3-codex-vocab.js",
   "grammar-data.js",
   "pitch-accent-data.js",
+  "homophone-data.js",
   "romaji-word-spacing.js",
   "example-readings.js",
   "audio-manifest.js",
@@ -46,6 +47,7 @@ const compactDataAssets = new Set([
   "ayaya-n3-codex-vocab.js",
   "grammar-data.js",
   "pitch-accent-data.js",
+  "homophone-data.js",
   "romaji-word-spacing.js",
   "example-readings.js",
 ]);

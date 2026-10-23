@@ -47,6 +47,7 @@ const expectedStudyDataScripts = [
   "ayaya-n3-codex-vocab.js",
   "grammar-data.js",
   "pitch-accent-data.js",
+  "homophone-data.js",
   "romaji-word-spacing.js",
   "example-readings.js",
   "card-data.js",
@@ -1702,6 +1703,80 @@ function validatePromptDisambiguation(cards) {
   }
 }
 
+// Homophone groups cover every set of vocab words that share a reading (one word
+// split by sense, and affixes, aside) exactly once, in reviewed frequency order;
+// each gloss is a segment of the word's own reviewed meaning, so the list adds
+// no unreviewed translation.
+function validateHomophoneData(homophones, n5Json, n4Json, n3Json, vocabCards) {
+  const groups = homophones?.groups;
+  if (!Array.isArray(groups)) {
+    addError("homophone-data.js does not expose AYAYA_HOMOPHONES.groups");
+    return;
+  }
+  const entries = [...n5Json.entries, ...n4Json.entries, ...n3Json.entries];
+  const vocabById = new Map(entries.map((entry) => [entry.id, entry]));
+  const glossesOf = (entry) =>
+    String(entry.meaning_zh || "")
+      .split("；")
+      .flatMap((segment) => [segment, segment.replace(/（[^）]*）/gu, "")])
+      .filter(Boolean);
+  const grouped = new Map();
+  groups.forEach((group) => {
+    const [reading, members] = Array.isArray(group) ? group : [];
+    if (typeof reading !== "string" || !Array.isArray(members) || members.length < 2) {
+      addError(`homophone group ${JSON.stringify(group)?.slice(0, 60)} needs a reading and two or more words`);
+      return;
+    }
+    const headwords = new Set();
+    members.forEach(([id, gloss]) => {
+      const entry = vocabById.get(id);
+      if (!entry) {
+        addError(`homophone ${reading} lists unknown vocab ${id}`);
+        return;
+      }
+      check(entry.reading === reading, `homophone ${reading} lists ${id} ${entry.headword}, read ${entry.reading}`);
+      check(!/[～〜]/u.test(entry.headword), `homophone ${reading} lists the affix ${entry.headword}`);
+      check(!grouped.has(id), `vocab ${id} is in two homophone groups`);
+      check(!headwords.has(entry.headword), `homophone ${reading} lists ${entry.headword} twice`);
+      check(
+        typeof gloss === "string" && glossesOf(entry).includes(gloss),
+        `homophone gloss ${JSON.stringify(gloss)} for ${id} ${entry.headword} is not part of its meaning ${entry.meaning_zh}`,
+      );
+      headwords.add(entry.headword);
+      grouped.set(id, reading);
+    });
+  });
+  const byReading = new Map();
+  entries
+    .filter((entry) => !/[～〜]/u.test(entry.headword))
+    .forEach((entry) => {
+      if (!byReading.has(entry.reading)) byReading.set(entry.reading, []);
+      byReading.get(entry.reading).push(entry);
+    });
+  byReading.forEach((list, reading) => {
+    if (list.length < 2 || new Set(list.map((entry) => entry.headword)).size < list.length) return;
+    list.forEach((entry) => {
+      check(grouped.get(entry.id) === reading, `homophone ${reading}: ${entry.id} ${entry.headword} is not in its group`);
+    });
+  });
+  const kami = groups.find(([reading]) => reading === "かみ");
+  check(
+    JSON.stringify(kami?.[1]?.map(([id]) => vocabById.get(id)?.headword)) === JSON.stringify(["神", "髪", "紙"]),
+    `homophone regression: かみ should read 神, 髪, 紙 by frequency, received ${JSON.stringify(kami?.[1])}`,
+  );
+  const paperCard = vocabCards.find((card) => card.id === "vocab-entry-n5-175-ja");
+  check(
+    paperCard?.homophoneKey === "かみ" &&
+      JSON.stringify(paperCard.homophones) ===
+        JSON.stringify([
+          { word: "神", gloss: "神", accent: "①" },
+          { word: "髪", gloss: "头发", accent: "②" },
+          { word: "紙", gloss: "纸", accent: "②", isCurrent: true },
+        ]),
+    `vocab card 紙 does not list its homophones with accents: ${JSON.stringify(paperCard?.homophones)}`,
+  );
+}
+
 // Pitch accents come from reviewed Kanjium data; anything that cannot be tied to
 // a vocab entry or exceeds the reading's morae must fail validation, and the
 // manually rejected senses must stay unannotated.
@@ -3097,6 +3172,15 @@ function main() {
       validateRomajiWordSpacing(cards, loadScriptGlobal("romaji-word-spacing.js", "AYAYA_ROMAJI_SPACING")),
     );
     if (n5Json && n4Json && n3Json) {
+      capture("homophone check failed", () =>
+        validateHomophoneData(
+          loadScriptGlobal("homophone-data.js", "AYAYA_HOMOPHONES"),
+          n5Json,
+          n4Json,
+          n3Json,
+          runtime.vocabCards,
+        ),
+      );
       capture("pitch accent check failed", () =>
         validatePitchAccentData(
           loadScriptGlobal("pitch-accent-data.js", "AYAYA_PITCH_ACCENT"),

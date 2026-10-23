@@ -238,7 +238,13 @@ test("Japanese-to-Chinese vocab hides reading until the answer is revealed", asy
   await page.locator("#cardReveal").click();
   await expectAnswerRevealed(page);
   await expect(page.locator("#answerMain")).toHaveText("见面；遇见");
-  await expect(page.locator("#answerMeta .meta-row")).toHaveText(["读音あう ①", "罗马音au"]);
+  await expect(page.locator("#answerMeta .meta-row")).toHaveText([
+    "读音あう ①",
+    "罗马音au",
+    "同音1会う①见面2合う①合适",
+  ]);
+  // 会う is the more frequent あう, so it comes first and is the card's own word.
+  await expect(page.locator("#answerMeta .homophone.is-current .homophone-word")).toHaveText("会う");
   await expect(page.locator("#cardSubtle")).toBeHidden();
 });
 
@@ -270,6 +276,65 @@ test("the module page footer stays on screen after rating", async ({ page }) => 
   const viewport = page.viewportSize();
   expect(footerBox.y + footerBox.height).toBeLessThanOrEqual(viewport.height + 1);
   expect(footerBox.x + footerBox.width).toBeLessThanOrEqual(viewport.width + 1);
+});
+
+test("a vocab block page lists its blocks and studies only the picked block", async ({ page }) => {
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
+  await page.locator("#deckMenuButton").click();
+  await page.locator('[data-deck="vocab-n3-ja-zh"]').click();
+  const grid = page.locator("#blockGrid");
+  await expect(grid).toBeVisible();
+  await expect(page.locator(".deck-tabs")).toBeHidden();
+  await expect(page.locator("#deckSidebarTitle")).toHaveText("N3 词汇 · 日→中");
+  // N3 has 1526 words: 61 blocks of 25 or 26, after 全部.
+  await expect(grid.locator(".block-tile")).toHaveCount(62);
+  await expect(grid.locator('.block-tile[data-block=""] .block-status')).toHaveText("剩 1526");
+
+  // The page scrolls inside the module page, never sideways.
+  const overflow = await page.evaluate(() => {
+    const element = document.querySelector("#blockGrid");
+    return {
+      page: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      grid: element.scrollWidth - element.clientWidth,
+    };
+  });
+  expect(overflow.page).toBeLessThanOrEqual(0);
+  expect(overflow.grid).toBeLessThanOrEqual(0);
+  const lastTile = grid.locator(".block-tile").last();
+  await lastTile.scrollIntoViewIfNeeded();
+  await expect(lastTile).toBeInViewport();
+
+  await grid.locator('.block-tile[data-block="3"]').click();
+  await expect(page.locator("#deckSidebar")).not.toHaveClass(/\bis-open\b/);
+  const left = Number(await page.locator("#currentCount").textContent());
+  expect(left).toBeGreaterThanOrEqual(25);
+  expect(left).toBeLessThanOrEqual(26);
+  await page.locator("#cardReveal").click();
+  await page.locator('.feedback[data-rating="unsure"]').click();
+  await expect(page.locator("#fuzzyCount")).toHaveText("1");
+
+  // 模块 from a block reopens that deck's block page, not the module grid.
+  await page.locator("#deckMenuButton").click();
+  await expect(grid).toBeVisible();
+  await expect(page.locator(".deck-tabs")).toBeHidden();
+  await expect(page.locator("#deckSidebarTitle")).toHaveText("N3 词汇 · 日→中");
+  const tile = grid.locator('.block-tile[data-block="3"]');
+  await expect(tile).toBeFocused();
+  await expect(tile).toHaveAttribute("aria-pressed", "true");
+  await expect(tile.locator(".block-status")).toHaveText(`剩 ${left - 1}`);
+  await expect(tile).toHaveAttribute("data-state", "fuzzy");
+  await expect(tile).toHaveAttribute("aria-label", /模糊 1 张/u);
+  // The 模糊 card fills its share of the tile in amber, after no 认识 yet.
+  await expect(tile).toHaveCSS("border-top-color", "rgb(227, 184, 79)");
+  const fill = await tile.evaluate((element) => [
+    element.style.getPropertyValue("--fill-known"),
+    element.style.getPropertyValue("--fill-fuzzy"),
+  ]);
+  expect(fill[0]).toBe("0%");
+  expect(Number.parseFloat(fill[1])).toBeCloseTo(100 / (left), 1);
+  await page.locator("#closeDeckMenu").click();
+  await expect(page.locator(".deck-tabs")).toBeVisible();
+  await expect(page.locator('[data-deck="vocab-n3-ja-zh"]')).toBeFocused();
 });
 
 test("legacy fixed kana order reshuffles once and remains stable on reload", async ({
@@ -491,6 +556,7 @@ test("reveal, rating, next card, and empty deck keep a useful focus target", asy
 
   await page.locator("#deckMenuButton").click();
   await page.locator('[data-deck="vocab-ja-zh"]').click();
+  await page.locator('.block-tile[data-block=""]').click();
   await page.locator("#poolToggle").click();
   await expect(page.locator("#emptyState")).toBeVisible();
   await expect(page.locator("#deckMenuButton")).toBeFocused();
@@ -1038,6 +1104,7 @@ test("kana cards show before the study data arrives", async ({ page }) => {
   release();
   await page.locator("#deckMenuButton").click();
   await page.locator('.tab-button[data-deck="vocab-ja-zh"]').click();
+  await page.locator('.block-tile[data-block=""]').click();
   await expect(page.locator("#cardPrompt")).not.toHaveText("");
   await expect(page.locator("#emptyState")).toBeHidden();
 });

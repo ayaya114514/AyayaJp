@@ -32,7 +32,7 @@
       "Dictionary forms, readings, coarse part-of-speech labels, senses, and all example rows were re-audited against JMdict and for Japanese/Chinese learning accuracy on 2026-08-30.",
       "On 2026-10-10 every entry was re-audited again: headword romaji now follows the particle and n' rules with the same word division as the examples, category labels were corrected, pure grammar patterns were migrated to grammar cards, and unnatural examples were rewritten."
     ],
-    "entry_count": 727
+    "entry_count": 745
   },
   "entries": [
     {
@@ -26431,6 +26431,668 @@
         }
       ],
       "note_zh": "序数后缀。"
+    },
+    {
+      "id": "n4-768",
+      "jlpt": "N4",
+      "headword": "意図",
+      "source_form": "意図",
+      "variants": [
+        "意図"
+      ],
+      "reading": "いと",
+      "reading_variants": [
+        "いと"
+      ],
+      "romaji": "ito",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "意图；用意",
+      "kanji_readings": [
+        {
+          "form": "意図",
+          "reading": "いと"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "筆者の意図を考えながら読みます。",
+          "zh": "一边思考作者的意图一边阅读。"
+        },
+        {
+          "ja": "そんな意図はありませんでした。",
+          "zh": "我没有那个意思。"
+        },
+        {
+          "ja": "質問の意図がよく分かりません。",
+          "zh": "不太明白提问的意图。"
+        }
+      ],
+      "note_zh": "与「糸（线）」同音。"
+    },
+    {
+      "id": "n4-769",
+      "jlpt": "N4",
+      "headword": "窺う",
+      "source_form": "窺う",
+      "variants": [
+        "窺う"
+      ],
+      "reading": "うかがう",
+      "reading_variants": [
+        "うかがう"
+      ],
+      "romaji": "ukagau",
+      "part_of_speech": "verb",
+      "meaning_zh": "窥视；观察（情况、脸色）；伺机",
+      "kanji_readings": [
+        {
+          "form": "窺う",
+          "reading": "うかがう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "ドアの外から部屋の中の様子を窺いました。",
+          "zh": "从门外窥探了屋里的情况。"
+        },
+        {
+          "ja": "彼は話すチャンスを窺っています。",
+          "zh": "他在寻找说话的机会。"
+        },
+        {
+          "ja": "相手の顔色を窺いながら話しました。",
+          "zh": "一边看对方的脸色一边说话。"
+        }
+      ],
+      "note_zh": "也常写作假名。与「うかがう（拜访、请教，自谦语）」同音。"
+    },
+    {
+      "id": "n4-770",
+      "jlpt": "N4",
+      "headword": "映る",
+      "source_form": "映る",
+      "variants": [
+        "映る"
+      ],
+      "reading": "うつる",
+      "reading_variants": [
+        "うつる"
+      ],
+      "romaji": "utsuru",
+      "part_of_speech": "verb",
+      "meaning_zh": "映照；映出；（画面）显示",
+      "kanji_readings": [
+        {
+          "form": "映る",
+          "reading": "うつる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "湖に山が映っています。",
+          "zh": "山倒映在湖里。"
+        },
+        {
+          "ja": "鏡に自分の顔が映りました。",
+          "zh": "镜子里映出了自己的脸。"
+        },
+        {
+          "ja": "このテレビは画面がきれいに映ります。",
+          "zh": "这台电视画面显示得很清楚。"
+        }
+      ],
+      "note_zh": "与「移る（搬迁）」「写る（拍进照片）」同音。"
+    },
+    {
+      "id": "n4-771",
+      "jlpt": "N4",
+      "headword": "写る",
+      "source_form": "写る",
+      "variants": [
+        "写る"
+      ],
+      "reading": "うつる",
+      "reading_variants": [
+        "うつる"
+      ],
+      "romaji": "utsuru",
+      "part_of_speech": "verb",
+      "meaning_zh": "拍进（照片）；（照片）拍出来",
+      "kanji_readings": [
+        {
+          "form": "写る",
+          "reading": "うつる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "この写真には私も写っています。",
+          "zh": "这张照片里也拍到了我。"
+        },
+        {
+          "ja": "暗くて、顔がよく写りませんでした。",
+          "zh": "太暗了，脸没拍清楚。"
+        },
+        {
+          "ja": "後ろに富士山が写っている写真です。",
+          "zh": "这是背景里拍到了富士山的照片。"
+        }
+      ],
+      "note_zh": "与「移る（搬迁）」「映る（映照）」同音。"
+    },
+    {
+      "id": "n4-772",
+      "jlpt": "N4",
+      "headword": "海上",
+      "source_form": "海上",
+      "variants": [
+        "海上"
+      ],
+      "reading": "かいじょう",
+      "reading_variants": [
+        "かいじょう"
+      ],
+      "romaji": "kaijou",
+      "part_of_speech": "noun",
+      "meaning_zh": "海上",
+      "kanji_readings": [
+        {
+          "form": "海上",
+          "reading": "かいじょう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "海上に小さな島が見えます。",
+          "zh": "海上能看见一个小岛。"
+        },
+        {
+          "ja": "台風のため、海上は波が高くなっています。",
+          "zh": "由于台风，海上浪很高。"
+        },
+        {
+          "ja": "船は海上で三日間待ちました。",
+          "zh": "船在海上等了三天。"
+        }
+      ],
+      "note_zh": "与「会場」同音。"
+    },
+    {
+      "id": "n4-773",
+      "jlpt": "N4",
+      "headword": "かつ",
+      "source_form": "かつ",
+      "variants": [
+        "かつ",
+        "且つ"
+      ],
+      "reading": "かつ",
+      "reading_variants": [
+        "かつ"
+      ],
+      "romaji": "katsu",
+      "part_of_speech": "conjunction",
+      "meaning_zh": "且；兼（连接两个形容词或名词，书面语）",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "この料理は安く、かつおいしいです。",
+          "zh": "这道菜便宜而且好吃。"
+        },
+        {
+          "ja": "彼は優しく、かつ厳しい先生です。",
+          "zh": "他是一位既温和又严格的老师。"
+        },
+        {
+          "ja": "必要かつ十分な説明をしてください。",
+          "zh": "请做必要且充分的说明。"
+        }
+      ],
+      "note_zh": "多写作假名，汉字为「且つ」。与「勝つ（赢）」同音。"
+    },
+    {
+      "id": "n4-774",
+      "jlpt": "N4",
+      "headword": "協会",
+      "source_form": "協会",
+      "variants": [
+        "協会"
+      ],
+      "reading": "きょうかい",
+      "reading_variants": [
+        "きょうかい"
+      ],
+      "romaji": "kyoukai",
+      "part_of_speech": "noun",
+      "meaning_zh": "协会",
+      "kanji_readings": [
+        {
+          "form": "協会",
+          "reading": "きょうかい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "この協会は子供の教育を支援しています。",
+          "zh": "这个协会支援儿童教育。"
+        },
+        {
+          "ja": "協会の会員になりました。",
+          "zh": "成为了协会的会员。"
+        },
+        {
+          "ja": "協会から大会の案内が届きました。",
+          "zh": "协会寄来了大会的通知。"
+        }
+      ],
+      "note_zh": "与「教会（教堂）」同音。"
+    },
+    {
+      "id": "n4-775",
+      "jlpt": "N4",
+      "headword": "公害",
+      "source_form": "公害",
+      "variants": [
+        "公害"
+      ],
+      "reading": "こうがい",
+      "reading_variants": [
+        "こうがい"
+      ],
+      "romaji": "kougai",
+      "part_of_speech": "noun",
+      "meaning_zh": "公害；环境污染",
+      "kanji_readings": [
+        {
+          "form": "公害",
+          "reading": "こうがい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "工場の煙が公害の原因になりました。",
+          "zh": "工厂的烟成了公害的原因。"
+        },
+        {
+          "ja": "昔、この町では公害が大きな問題でした。",
+          "zh": "以前，这个镇上公害是个大问题。"
+        },
+        {
+          "ja": "公害をなくすために、新しい法律ができました。",
+          "zh": "为了消除公害，制定了新法律。"
+        }
+      ],
+      "note_zh": "与「郊外」同音。"
+    },
+    {
+      "id": "n4-776",
+      "jlpt": "N4",
+      "headword": "向上",
+      "source_form": "向上",
+      "variants": [
+        "向上"
+      ],
+      "reading": "こうじょう",
+      "reading_variants": [
+        "こうじょう"
+      ],
+      "romaji": "koujou",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "提高；（水平、质量）上升",
+      "kanji_readings": [
+        {
+          "form": "向上",
+          "reading": "こうじょう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "毎日練習して、技術が向上しました。",
+          "zh": "每天练习，技术提高了。"
+        },
+        {
+          "ja": "生活の質の向上を目指しています。",
+          "zh": "以提高生活质量为目标。"
+        },
+        {
+          "ja": "日本語の力を向上させたいです。",
+          "zh": "想提高日语能力。"
+        }
+      ],
+      "note_zh": "与「工場」同音。"
+    },
+    {
+      "id": "n4-777",
+      "jlpt": "N4",
+      "headword": "自己",
+      "source_form": "自己",
+      "variants": [
+        "自己"
+      ],
+      "reading": "じこ",
+      "reading_variants": [
+        "じこ"
+      ],
+      "romaji": "jiko",
+      "part_of_speech": "noun",
+      "meaning_zh": "自我；自己（较书面，多用于复合词）",
+      "kanji_readings": [
+        {
+          "form": "自己",
+          "reading": "じこ"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "自己を知ることは大切です。",
+          "zh": "了解自己很重要。"
+        },
+        {
+          "ja": "彼は自己の利益ばかり考えています。",
+          "zh": "他只考虑自己的利益。"
+        },
+        {
+          "ja": "自己の責任で判断してください。",
+          "zh": "请自己负责做判断。"
+        }
+      ],
+      "note_zh": "与「事故」同音。"
+    },
+    {
+      "id": "n4-778",
+      "jlpt": "N4",
+      "headword": "自信",
+      "source_form": "自信",
+      "variants": [
+        "自信"
+      ],
+      "reading": "じしん",
+      "reading_variants": [
+        "じしん"
+      ],
+      "romaji": "jishin",
+      "part_of_speech": "noun",
+      "meaning_zh": "自信；信心",
+      "kanji_readings": [
+        {
+          "form": "自信",
+          "reading": "じしん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "試験に合格する自信があります。",
+          "zh": "我有信心考试合格。"
+        },
+        {
+          "ja": "失敗して、自信をなくしました。",
+          "zh": "失败后失去了自信。"
+        },
+        {
+          "ja": "もっと自分に自信を持ってください。",
+          "zh": "请对自己更有信心。"
+        }
+      ],
+      "note_zh": "与「地震」「自身」同音。"
+    },
+    {
+      "id": "n4-779",
+      "jlpt": "N4",
+      "headword": "時点",
+      "source_form": "時点",
+      "variants": [
+        "時点"
+      ],
+      "reading": "じてん",
+      "reading_variants": [
+        "じてん"
+      ],
+      "romaji": "jiten",
+      "part_of_speech": "noun",
+      "meaning_zh": "时间点；（某个）时候",
+      "kanji_readings": [
+        {
+          "form": "時点",
+          "reading": "じてん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "今の時点では、まだ何も決まっていません。",
+          "zh": "目前还什么都没定下来。"
+        },
+        {
+          "ja": "十月一日の時点で、会員は百人です。",
+          "zh": "截至十月一日，会员有一百人。"
+        },
+        {
+          "ja": "その時点で、もう電車は出ていました。",
+          "zh": "那个时候电车已经开走了。"
+        }
+      ],
+      "note_zh": "与「辞典」同音。"
+    },
+    {
+      "id": "n4-780",
+      "jlpt": "N4",
+      "headword": "児童",
+      "source_form": "児童",
+      "variants": [
+        "児童"
+      ],
+      "reading": "じどう",
+      "reading_variants": [
+        "じどう"
+      ],
+      "romaji": "jidou",
+      "part_of_speech": "noun",
+      "meaning_zh": "儿童（多指小学生）",
+      "kanji_readings": [
+        {
+          "form": "児童",
+          "reading": "じどう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "この小学校には三百人の児童がいます。",
+          "zh": "这所小学有三百名学生。"
+        },
+        {
+          "ja": "児童の安全を守るのは大人の役目です。",
+          "zh": "保护儿童的安全是大人的责任。"
+        },
+        {
+          "ja": "この図書館には児童向けの本が多いです。",
+          "zh": "这个图书馆面向儿童的书很多。"
+        }
+      ],
+      "note_zh": "与「自動」同音。"
+    },
+    {
+      "id": "n4-781",
+      "jlpt": "N4",
+      "headword": "天",
+      "source_form": "天",
+      "variants": [
+        "天"
+      ],
+      "reading": "てん",
+      "reading_variants": [
+        "てん"
+      ],
+      "romaji": "ten",
+      "part_of_speech": "noun",
+      "meaning_zh": "天；上天；天空（较书面）",
+      "kanji_readings": [
+        {
+          "form": "天",
+          "reading": "てん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "木が天に向かって伸びています。",
+          "zh": "树木朝着天空生长。"
+        },
+        {
+          "ja": "彼は天にも昇る気持ちでした。",
+          "zh": "他高兴得像要飞上天。"
+        },
+        {
+          "ja": "最後は天に任せるしかありません。",
+          "zh": "最后只能听天由命了。"
+        }
+      ],
+      "note_zh": "与「点」同音。"
+    },
+    {
+      "id": "n4-782",
+      "jlpt": "N4",
+      "headword": "煮る",
+      "source_form": "煮る",
+      "variants": [
+        "煮る"
+      ],
+      "reading": "にる",
+      "reading_variants": [
+        "にる"
+      ],
+      "romaji": "niru",
+      "part_of_speech": "verb",
+      "meaning_zh": "煮；炖",
+      "kanji_readings": [
+        {
+          "form": "煮る",
+          "reading": "にる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "野菜を弱火で煮ます。",
+          "zh": "用小火煮蔬菜。"
+        },
+        {
+          "ja": "母は魚を煮るのが上手です。",
+          "zh": "妈妈很会炖鱼。"
+        },
+        {
+          "ja": "豆を柔らかくなるまで煮てください。",
+          "zh": "请把豆子煮到软。"
+        }
+      ],
+      "note_zh": "与「似る（相似）」同音。"
+    },
+    {
+      "id": "n4-783",
+      "jlpt": "N4",
+      "headword": "幼児",
+      "source_form": "幼児",
+      "variants": [
+        "幼児"
+      ],
+      "reading": "ようじ",
+      "reading_variants": [
+        "ようじ"
+      ],
+      "romaji": "youji",
+      "part_of_speech": "noun",
+      "meaning_zh": "幼儿",
+      "kanji_readings": [
+        {
+          "form": "幼児",
+          "reading": "ようじ"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "この公園は幼児も安全に遊べます。",
+          "zh": "这个公园幼儿也能安全地玩。"
+        },
+        {
+          "ja": "幼児には少し難しい本です。",
+          "zh": "这本书对幼儿来说有点难。"
+        },
+        {
+          "ja": "電車の中で幼児が泣いていました。",
+          "zh": "电车里有个幼儿在哭。"
+        }
+      ],
+      "note_zh": "与「用事（要办的事）」同音。"
+    },
+    {
+      "id": "n4-784",
+      "jlpt": "N4",
+      "headword": "分かれる",
+      "source_form": "分かれる",
+      "variants": [
+        "分かれる"
+      ],
+      "reading": "わかれる",
+      "reading_variants": [
+        "わかれる"
+      ],
+      "romaji": "wakareru",
+      "part_of_speech": "verb",
+      "meaning_zh": "分成（几部分）；分岔；（意见）分歧",
+      "kanji_readings": [
+        {
+          "form": "分かれる",
+          "reading": "わかれる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "道が二つに分かれています。",
+          "zh": "路分成了两条。"
+        },
+        {
+          "ja": "クラスは三つのグループに分かれました。",
+          "zh": "班级分成了三个小组。"
+        },
+        {
+          "ja": "この問題については意見が分かれています。",
+          "zh": "关于这个问题意见有分歧。"
+        }
+      ],
+      "note_zh": "与「別れる（分别、分手）」同音。"
+    },
+    {
+      "id": "n4-785",
+      "jlpt": "N4",
+      "headword": "枠",
+      "source_form": "枠",
+      "variants": [
+        "枠"
+      ],
+      "reading": "わく",
+      "reading_variants": [
+        "わく"
+      ],
+      "romaji": "waku",
+      "part_of_speech": "noun",
+      "meaning_zh": "框；框架；（限定的）框框",
+      "kanji_readings": [
+        {
+          "form": "枠",
+          "reading": "わく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "窓の枠を白く塗りました。",
+          "zh": "把窗框涂成了白色。"
+        },
+        {
+          "ja": "答えは枠の中に書いてください。",
+          "zh": "答案请写在框里。"
+        },
+        {
+          "ja": "古い考え方の枠にとらわれないでください。",
+          "zh": "请不要被旧思维的框框束缚。"
+        }
+      ],
+      "note_zh": "与「沸く」同音。"
     }
   ]
 }

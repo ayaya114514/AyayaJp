@@ -298,57 +298,6 @@ h2 {
   content: "";
 }
 
-/* The level's grammar group picker ends the heading rule; 16px text keeps iOS
-   Safari from zooming in when it opens, and the negative margin lets it keep a
-   touch-sized box without making the heading row taller than the badge. */
-.deck-level-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.deck-level-head .deck-level-title {
-  flex: 1;
-  min-width: 0;
-}
-
-.group-select {
-  min-width: 0;
-  max-width: 60%;
-  min-height: 34px;
-  margin-block: -5px;
-  padding: 0 30px 0 10px;
-  border: 1px solid rgba(var(--level-rgb), 0.35);
-  border-radius: 6px;
-  background: var(--select-chevron) right 10px center / 12px no-repeat var(--control-bg);
-  color: var(--muted);
-  font: inherit;
-  font-size: 1rem;
-  font-weight: 800;
-  text-overflow: ellipsis;
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-}
-
-.group-select.is-filtered {
-  border-color: rgba(var(--level-rgb), 0.85);
-  background-color: rgba(var(--level-rgb), 0.16);
-  color: var(--ink);
-}
-
-.group-select:focus-visible {
-  outline: 3px solid var(--blue-strong);
-  outline-offset: 2px;
-}
-
-@media (hover: hover) {
-  .group-select:hover {
-    border-color: var(--blue-strong);
-    color: var(--ink);
-  }
-}
-
 .deck-level-group .tab-button {
   --cell-border: rgba(var(--level-rgb), 0.3);
   --cell-bg: linear-gradient(rgba(var(--level-rgb), 0.06), rgba(var(--level-rgb), 0.06)), var(--control-bg);
@@ -457,6 +406,126 @@ h2 {
 
 .deck-round-count[hidden] {
   display: none;
+}
+
+/* A vocab or grammar cell opens its 小块 in the module grid's place: 全部 across
+   the top, then the blocks, each with what is left of its 当前 round and its
+   模糊 / 不认识 counts in the bottom bar's colours and icons. */
+.deck-tabs[hidden],
+.block-grid[hidden] {
+  display: none;
+}
+
+.block-grid {
+  --level-rgb: 130, 174, 225;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  align-content: start;
+  gap: 8px;
+  width: 100%;
+  max-width: calc(860px + 2 * clamp(12px, 3vw, 24px));
+  margin-inline: auto;
+  padding: 12px clamp(12px, 3vw, 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.block-grid[data-level="n4"] {
+  --level-rgb: 224, 183, 90;
+}
+
+.block-grid[data-level="n3"] {
+  --level-rgb: 132, 196, 150;
+}
+
+.block-grid.is-grammar {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.block-tile {
+  --fill-known: 0%;
+  --fill-fuzzy: 0%;
+  --fill-unknown: 0%;
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 64px;
+  align-content: center;
+  justify-items: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border: 2px solid rgba(var(--level-rgb), 0.28);
+  border-radius: 8px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(46, 150, 116, 0.62) 0 var(--fill-known),
+      rgba(196, 150, 46, 0.62) var(--fill-known) var(--fill-fuzzy),
+      rgba(196, 88, 62, 0.66) var(--fill-fuzzy) var(--fill-unknown),
+      transparent var(--fill-unknown)
+    ),
+    var(--control-bg);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+
+.block-tile.is-all {
+  grid-column: 1 / -1;
+  min-height: 56px;
+}
+
+.block-tile[data-state="done"] {
+  border-color: #4fc39b;
+}
+
+.block-tile[data-state="fuzzy"] {
+  border-color: #e3b84f;
+}
+
+.block-tile[data-state="unknown"] {
+  border-color: #ee7a5c;
+}
+
+/* The block being studied gets a ring outside its border, which keeps the
+   border's progress colour. */
+.block-tile.active {
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--blue-strong);
+}
+
+@media (hover: hover) {
+  .block-tile:hover {
+    filter: brightness(1.15);
+  }
+}
+
+.block-tile:focus-visible {
+  outline: 3px solid var(--blue-strong);
+  outline-offset: 3px;
+}
+
+.block-name {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.block-status {
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.block-tile .deck-round-count {
+  color: var(--ink);
 }
 
 .tab-button.active {
@@ -1067,6 +1136,44 @@ h2 {
   grid-column: 1 / -1;
 }
 
+/* 同音: numbered by frequency, each word with its accent and gloss; the card's
+   own word is set off in gold, the colour examples use for the point taught. */
+.homophone-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 14px;
+}
+
+.homophone {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.homophone-index {
+  color: var(--muted);
+  font-size: 0.78em;
+  font-weight: 800;
+}
+
+.homophone-word {
+  font-weight: 800;
+}
+
+.homophone-accent {
+  color: var(--blue-strong);
+}
+
+.homophone-gloss {
+  color: var(--muted);
+}
+
+.homophone.is-current .homophone-word,
+.homophone.is-current .homophone-index {
+  color: var(--gold);
+}
+
 .choice-block {
   display: grid;
   gap: 8px;
@@ -1447,6 +1554,7 @@ h2 {
   }
 
   .deck-tabs,
+  .block-grid,
   .deck-footer {
     padding-inline: max(12px, env(safe-area-inset-left)) max(12px, env(safe-area-inset-right));
   }

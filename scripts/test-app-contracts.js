@@ -381,6 +381,9 @@ function createHarness({
     getItem(key) {
       return storage.has(key) ? storage.get(key) : null;
     },
+    removeItem(key) {
+      storage.delete(key);
+    },
     setItem(key, value) {
       if (storageWriteError) throw storageWriteError;
       storage.set(key, value);
@@ -505,6 +508,16 @@ function createHarness({
       window.dispatchEvent(type, event);
     },
     localStorage,
+    // A vocab or grammar cell opens its block page; pick one of its blocks
+    // ("" is 全部). Kana cells start studying at once.
+    openTab(index, block = "") {
+      document.tabs[index].dispatch("click");
+      const blockGrid = document.querySelector("#blockGrid");
+      if (blockGrid.hidden || !blockGrid.children.length) return;
+      const tile = blockGrid.children.find((item) => item.dataset.block === block);
+      if (!tile) throw new Error(`block ${JSON.stringify(block)} is not on the block page`);
+      tile.dispatch("click");
+    },
     speechSynthesis,
     spoken,
     storage,
@@ -770,7 +783,7 @@ function testDirectUpgradeCrossLevelAliasDropsFromOldDeckQueue() {
     vocabCards: [card],
   });
 
-  harness.tabs.find((tab) => tab.dataset.deck === n5Deck).dispatch("click");
+  harness.openTab(harness.tabs.findIndex((tab) => tab.dataset.deck === n5Deck));
   const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
   assert(saved[card.id]?.reviews === 5, "cross-level migration lost retained progress");
   assert(
@@ -816,7 +829,7 @@ function testRetiredVocabProgressMovesToGrammarFamily() {
     vocabCards: [],
   });
 
-  harness.tabs.find((tab) => tab.dataset.deck === grammarDeck).dispatch("click");
+  harness.openTab(harness.tabs.findIndex((tab) => tab.dataset.deck === grammarDeck));
   const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
   assert(saved[grammarCard.id]?.reviews === 7, "vocabulary-to-grammar migration lost review count");
   assert(
@@ -929,7 +942,7 @@ function testRatingsMoveCardsBetweenPools() {
   const clear = harness.document.feedback.find((button) => button.dataset.rating === "clear");
   const toggle = harness.element("poolToggle");
 
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   const unknownPrompt = harness.element("cardPrompt").textContent;
   harness.element("cardReveal").dispatch("click");
   forgot.dispatch("click");
@@ -1110,7 +1123,7 @@ function testWrongChoiceEntersUnknownPool() {
   });
   const toggle = harness.element("poolToggle");
 
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   const options = harness.element("choiceList").children;
   const wrongIndex = options.findIndex((option) => option.dataset.choiceId === "wrong");
   assert(wrongIndex >= 0, "fixture wrong option is missing");
@@ -1242,7 +1255,7 @@ function testContextChangesClearStaleUndo() {
   switched.document.feedback[0].dispatch("click");
   assert(!switched.element("undoRating").disabled, "rating did not enable Undo");
 
-  switched.tabs[1].dispatch("click");
+  switched.openTab(1);
   assert(
     switched.element("cardPrompt").textContent === "カタカナ",
     "deck switch did not show the selected deck",
@@ -1522,7 +1535,7 @@ function testChoiceAndEmptyDeckFocusLifecycle() {
     tabDecks: ["hiragana", "grammar-n5-choice", "vocab-mistakes"],
   });
 
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   const firstChoice = harness.element("choiceList").children[0];
   assert(firstChoice && harness.document.activeElement === firstChoice, "choice deck did not focus an option");
   firstChoice.dispatch("click");
@@ -1531,7 +1544,7 @@ function testChoiceAndEmptyDeckFocusLifecycle() {
     "selected choice left focus on a replaced, disabled option",
   );
 
-  harness.tabs[2].dispatch("click");
+  harness.openTab(2);
   assert(harness.element("studyCard").hidden === true, "empty deck kept the study card visible");
   assert(
     harness.document.activeElement === harness.element("deckMenuButton"),
@@ -1553,7 +1566,7 @@ function testStaleTabsMergeIndependentProgressAndRounds() {
 
   firstTab.element("cardReveal").dispatch("click");
   firstTab.document.feedback[0].dispatch("click");
-  staleTab.tabs[1].dispatch("click");
+  staleTab.openTab(1);
   staleTab.element("cardReveal").dispatch("click");
   staleTab.document.feedback[1].dispatch("click");
 
@@ -1633,10 +1646,10 @@ function testStorageWritePreservesCompletedChoiceExplanation() {
   const viewer = createHarness(options);
   const writer = createHarness(options);
 
-  viewer.tabs[2].dispatch("click");
+  viewer.openTab(2);
   viewer.element("choiceList").children[0].dispatch("click");
   const explanation = viewer.element("answerMain").textContent;
-  writer.tabs[1].dispatch("click");
+  writer.openTab(1);
   writer.element("cardReveal").dispatch("click");
   writer.document.feedback[0].dispatch("click");
   viewer.emitWindow("storage", {
@@ -1714,7 +1727,7 @@ function testUnrelatedStorageWriteKeepsUndoAvailable() {
   const writer = createHarness(options);
   viewer.element("cardReveal").dispatch("click");
   viewer.document.feedback[0].dispatch("click");
-  writer.tabs[1].dispatch("click");
+  writer.openTab(1);
 
   viewer.emitWindow("storage", {
     key: "ayaya-jp-srs-v1",
@@ -1758,6 +1771,87 @@ function testConcurrentRatingUndoKeepsRemoteReviewConsistent() {
   assert(firstTab.element("studyCard").hidden === true, "concurrent Undo showed an inconsistent card");
 }
 
+// Undo must reach a tab that has already merged the review, and that tab must
+// not write the review back, for a card's first rating and for a later one; a
+// stale write that still carries the review must not restore it either.
+function undoSyncHarnesses(initialStore) {
+  const card = baseCard({ deck: "hiragana", id: "undo-shared", prompt: "shared" });
+  const other = baseCard({ deck: "katakana", id: "undo-other", prompt: "other" });
+  const sharedStorage = new Map();
+  if (initialStore) sharedStorage.set("ayaya-jp-srs-v1", JSON.stringify(initialStore));
+  const options = { kanaCards: [card, other], sharedStorage, tabDecks: ["hiragana", "katakana"] };
+  const rater = createHarness(options);
+  const observer = createHarness(options);
+  const saved = () => JSON.parse(sharedStorage.get("ayaya-jp-srs-v1"));
+  const deliver = (tab, newValue = sharedStorage.get("ayaya-jp-srs-v1")) =>
+    tab.emitWindow("storage", { key: "ayaya-jp-srs-v1", newValue });
+  const rate = (tab, rating) => {
+    tab.element("cardReveal").dispatch("click");
+    tab.document.feedback.find((button) => button.dataset.rating === rating).dispatch("click");
+  };
+  return { card, deliver, observer, rate, rater, saved, sharedStorage };
+}
+
+function testUndoOfFirstRatingReachesOtherTabs() {
+  const { card, deliver, observer, rate, rater, saved, sharedStorage } = undoSyncHarnesses();
+  rate(rater, "forgot");
+  deliver(observer);
+  const ratedPayload = sharedStorage.get("ayaya-jp-srs-v1");
+  rater.element("undoRating").dispatch("click");
+  deliver(observer);
+  assert(
+    !saved()[card.id]?.reviews && !saved()[card.id]?.lastRating,
+    "another tab wrote an undone first rating back",
+  );
+
+  observer.openTab(1);
+  rate(observer, "clear");
+  assert(
+    !saved()[card.id]?.reviews && !saved()[card.id]?.lastRating,
+    "another tab's next save restored an undone first rating",
+  );
+  assert(saved()["undo-other"]?.reviews === 1, "the other tab's own rating was not saved");
+
+  const stale = JSON.parse(ratedPayload);
+  stale.__meta = { ...stale.__meta, revision: saved().__meta.revision + 1, writerId: "stale-writer", writeToken: "stale" };
+  sharedStorage.set("ayaya-jp-srs-v1", JSON.stringify(stale));
+  deliver(rater);
+  assert(
+    !saved()[card.id]?.reviews && !saved()[card.id]?.lastRating,
+    "a stale write restored an undone first rating",
+  );
+}
+
+function testUndoOfLaterRatingReachesOtherTabs() {
+  const earlier = { at: 1000, eventId: "earlier-review", rating: "unsure" };
+  const { card, deliver, observer, rate, rater, saved } = undoSyncHarnesses({
+    "undo-shared": {
+      lastChoiceCorrectIndex: null,
+      lastEvent: earlier,
+      lastRatedAt: earlier.at,
+      lastRating: earlier.rating,
+      reviews: 1,
+    },
+  });
+  rater.element("fuzzyPoolTab").dispatch("click");
+  assert(rater.element("cardPrompt").textContent === card.prompt, "the 模糊 card is not up");
+  rate(rater, "clear");
+  deliver(observer);
+  assert(saved()[card.id].reviews === 2, "the later rating was not saved");
+  rater.element("undoRating").dispatch("click");
+  deliver(observer);
+  observer.openTab(1);
+  rate(observer, "clear");
+
+  const state = saved()[card.id];
+  assert(
+    state.reviews === 1 &&
+      state.lastRating === earlier.rating &&
+      state.lastEvent?.eventId === earlier.eventId,
+    "another tab wrote an undone later rating back",
+  );
+}
+
 function testOutOfOrderStorageEventCannotRollbackNewerWriterRevision() {
   const hiragana = baseCard({ deck: "hiragana", id: "ordered-hiragana" });
   const katakana = baseCard({ deck: "katakana", id: "ordered-katakana" });
@@ -1772,7 +1866,7 @@ function testOutOfOrderStorageEventCannotRollbackNewerWriterRevision() {
   writer.element("cardReveal").dispatch("click");
   writer.document.feedback[0].dispatch("click");
   const olderPayload = sharedStorage.get("ayaya-jp-srs-v1");
-  writer.tabs[1].dispatch("click");
+  writer.openTab(1);
   writer.element("cardReveal").dispatch("click");
   writer.document.feedback[0].dispatch("click");
   const newerPayload = sharedStorage.get("ayaya-jp-srs-v1");
@@ -2140,6 +2234,83 @@ function testConcurrentQueueMergePreservesCanonicalRandomOrder() {
   );
 }
 
+// A save while storage still holds the store this tab last synced passes that
+// store as both base and remote, and the merge skips comparing card states; the
+// result must match a full merge against an equal copy of it.
+function testUnchangedRemoteMergeMatchesFullMerge() {
+  const harness = createHarness({ kanaCards: [baseCard({ id: "card-a" })] });
+  const { cloneStore, mergeStoreVersions, valuesEqual } = harness.context;
+  const state = (rating, at) => ({
+    lastChoiceCorrectIndex: null,
+    lastEvent: { at, eventId: `event-${at}`, rating },
+    lastRatedAt: at,
+    lastRating: rating,
+    reviews: 1,
+  });
+  const round = (deck, fields = {}) => ({
+    completed: [],
+    completionEvents: {},
+    queue: [],
+    queueOrderVersion: 1,
+    reopened: [],
+    roundCompletionEvents: [],
+    roundGeneration: 0,
+    roundId: `round:${deck}:0`,
+    rounds: 0,
+    ...fields,
+  });
+  const base = {
+    "card-kept": state("clear", 1),
+    "card-changed": state("forgot", 2),
+    "card-dropped": state("unsure", 3),
+    __meta: { revision: 4, schemaVersion: 2, writerId: "writer", writeToken: "writer:4:1" },
+    __rounds: {
+      activeDeck: "hiragana",
+      decks: {
+        hiragana: round("hiragana", {
+          completed: ["card-kept"],
+          completionEvents: { "card-kept": ["event-1"] },
+          queue: ["card-changed"],
+        }),
+        katakana: round("katakana", {
+          completed: ["card-kept"],
+          completionEvents: { "card-kept": ["event-1"] },
+        }),
+        "hiragana-fuzzy": round("hiragana-fuzzy", { queue: ["card-dropped"], roundGeneration: 2 }),
+        "vocab-ja-zh@2": round("vocab-ja-zh@2", { queue: ["card-kept"] }),
+      },
+    },
+  };
+  const local = cloneStore(base);
+  local["card-changed"] = state("clear", 5);
+  delete local["card-dropped"];
+  local["card-new"] = state("unsure", 6);
+  local.__rounds.activeDeck = "vocab-ja-zh@3";
+  // Finished the round (both rounds hold completion events), reopened a card
+  // by Undo, restored an older round epoch, and opened a new block.
+  local.__rounds.decks.hiragana = round("hiragana", {
+    completed: ["card-kept", "card-changed"],
+    completionEvents: { "card-kept": ["event-1"], "card-changed": ["event-5"] },
+    roundCompletionEvents: ["event-1", "event-5"],
+    rounds: 1,
+  });
+  local.__rounds.decks.katakana = round("katakana", { queue: ["card-kept"], reopened: ["card-kept"] });
+  local.__rounds.decks["hiragana-fuzzy"].roundGeneration = 1;
+  local.__rounds.decks["vocab-ja-zh@3"] = round("vocab-ja-zh@3", { queue: ["card-new"] });
+
+  const shortcut = mergeStoreVersions(base, cloneStore(local), base);
+  const full = mergeStoreVersions(base, cloneStore(local), cloneStore(base));
+  assert(valuesEqual(shortcut, full), "an unchanged remote store merges differently from a full merge");
+  assert(
+    shortcut["card-changed"].lastRating === "clear" &&
+      !("card-dropped" in shortcut) &&
+      shortcut["card-new"] &&
+      shortcut.__rounds.decks.hiragana.rounds === 1 &&
+      shortcut.__rounds.decks["vocab-ja-zh@3"],
+    "an unchanged remote store dropped this tab's changes",
+  );
+}
+
 function testConcurrentUndosReopenCardsInCanonicalOrder() {
   const cards = ["a", "b", "c"].map((id) => baseCard({ id: `card-${id}` }));
   const harness = createHarness({ kanaCards: cards, random: () => 0 });
@@ -2209,7 +2380,7 @@ function testJapaneseToChineseVocabHidesReadingUntilReveal() {
       tabDecks: ["hiragana", deck],
       vocabCards: [card],
     });
-    harness.tabs[1].dispatch("click");
+    harness.openTab(1);
 
     assert(harness.element("cardPrompt").textContent === "会う", `${deck} lost its word prompt`);
     assert(
@@ -2258,7 +2429,7 @@ function testChinesePromptDoesNotSpeakHiddenAnswer() {
     tabDecks: ["hiragana", "vocab-zh-ja"],
     vocabCards: [hiddenAnswer],
   });
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   const speaker = harness.element("speakWord");
   assert(speaker.hidden && speaker.disabled, "speaker exposes a Chinese-prompt answer before reveal");
   const before = harness.spoken.length;
@@ -2290,7 +2461,7 @@ function testStaleSpeechCallbackCannotUseNextCard() {
   const harness = createHarness({ kanaCards: [first, second], tabDecks: ["hiragana", "katakana"] });
   harness.element("cardReveal").dispatch("click");
   const oldUtterance = harness.spoken.at(-1);
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   const countAfterTransition = harness.spoken.length;
   oldUtterance.emitEnd();
   assert(
@@ -2505,7 +2676,7 @@ function testChoiceAnswerMarksRelevantMobileDetails() {
     tabDecks: ["hiragana", "grammar-n5-choice"],
   });
 
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   const wrongChoice = harness
     .element("choiceList")
     .children.find((choice) => choice.dataset.choiceId !== "correct");
@@ -2526,7 +2697,7 @@ function testChoiceAnswerMarksRelevantMobileDetails() {
   assert(!harness.element("exampleBlock").hidden, "answered choice removed its desktop examples");
 }
 
-function grammarGroupFixture() {
+function grammarBlockFixture(options = {}) {
   const deck = "grammar-n5-ja-zh";
   const card = (id, group, tag) =>
     baseCard({
@@ -2538,7 +2709,6 @@ function grammarGroupFixture() {
       prompt: `prompt ${id}`,
       tag,
     });
-  const storage = new Map([["ayaya-jp-grammar-group-v1", JSON.stringify({ "grammar-n5": "n5-a" })]]);
   const harness = createHarness({
     grammarCards: [card("grammar-a", "n5-a", "甲"), card("grammar-b", "n5-b", "乙")],
     grammarGroups: [
@@ -2546,42 +2716,244 @@ function grammarGroupFixture() {
       { id: "n5-b", label: "乙", level: "N5" },
     ],
     random: () => 0.99,
-    sharedStorage: storage,
     tabDecks: ["hiragana", deck],
+    ...options,
   });
-  harness.tabs[1].dispatch("click");
   return { deck, harness };
 }
 
-function testGrammarGroupNarrowsDeckButNotRound() {
-  const { deck, harness } = grammarGroupFixture();
-  assert(harness.element("cardPrompt").textContent === "prompt grammar-a", "group filter showed another group");
-  assert(harness.element("cardType").textContent === "甲", "grammar card did not show its group tag");
-  assert(harness.element("currentCount").textContent === 1, "group filter did not narrow the 当前 count");
+function savedRounds(harness) {
+  return JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds;
+}
 
-  harness.element("cardReveal").dispatch("click");
-  harness.document.feedback[0].dispatch("click");
-  assert(harness.element("studyCard").hidden === true, "finished group did not show its empty state");
-  assert(harness.element("emptyTitle").textContent === "这一组完成", "finished group used the module title");
-  assert(harness.element("studyAnyWay").textContent === "重练这一组", "finished group offered a full restart");
-  assert(harness.element("groupShowAll").hidden === false, "finished group hid the way back to all groups");
-  let round = JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds.decks[deck];
-  assert(round.rounds === 0, "finishing one group counted as finishing the round");
-  assert(JSON.stringify(round.queue) === JSON.stringify(["grammar-b"]), "other groups left the round queue");
-
-  harness.element("studyAnyWay").dispatch("click");
-  assert(harness.element("cardPrompt").textContent === "prompt grammar-a", "group restart did not reopen the group");
-  round = JSON.parse(harness.storage.get("ayaya-jp-srs-v1")).__rounds.decks[deck];
-  assert(!round.completed.includes("grammar-a"), "group restart kept the group card completed");
-  assert(round.queue.includes("grammar-b"), "group restart dropped another group's card");
-
-  harness.element("cardReveal").dispatch("click");
-  harness.document.feedback[0].dispatch("click");
-  harness.element("groupShowAll").dispatch("click");
-  assert(harness.element("cardPrompt").textContent === "prompt grammar-b", "showing all groups did not continue the round");
+function testGrammarBlocksAreIndependentDecks() {
+  const { deck, harness } = grammarBlockFixture();
+  harness.tabs[1].dispatch("click");
+  const blockGrid = harness.element("blockGrid");
+  assert(blockGrid.hidden === false, "a grammar cell did not open its block page");
   assert(
-    harness.storage.get("ayaya-jp-grammar-group-v1") === "{}",
-    "showing all groups did not clear the saved filter",
+    JSON.stringify(blockGrid.children.map((tile) => tile.dataset.block)) === JSON.stringify(["", "n5-a", "n5-b"]),
+    "the block page did not list 全部 and the level's groups in order",
+  );
+  assert(blockGrid.children[1].children[0].textContent === "甲", "a grammar block did not show its group name");
+  blockGrid.children[1].dispatch("click");
+  const blockDeck = `${deck}@n5-a`;
+  assert(blockGrid.hidden === true, "picking a block left the block page open");
+  assert(harness.element("cardPrompt").textContent === "prompt grammar-a", "a block showed another group's card");
+  assert(harness.element("currentCount").textContent === 1, "a block's 当前 count included other blocks");
+
+  harness.element("cardReveal").dispatch("click");
+  harness.document.feedback[2].dispatch("click");
+  assert(harness.element("emptyTitle").textContent === "这一块完成", "a finished block used the module title");
+  assert(harness.element("unknownCount").textContent === 1, "a block's 不认识 count missed its card");
+  assert(harness.element("blockNext").hidden === false, "a finished block hid the way to the next block");
+  let rounds = savedRounds(harness);
+  assert(rounds.activeDeck === blockDeck, "the block was not saved as the active deck");
+  assert(rounds.decks[blockDeck].rounds === 1, "finishing a block did not count as its own round");
+  assert(!rounds.decks[deck], "studying a block wrote the 全部 deck's round");
+
+  assert(harness.element("studyAnyWay").hidden === true, "a block with every card elsewhere offered a restart");
+  harness.element("poolToggle").dispatch("click");
+  assert(harness.element("cardPrompt").textContent === "prompt grammar-a", "the block's 不认识 pool showed another block");
+  harness.element("cardReveal").dispatch("click");
+  harness.document.feedback[0].dispatch("click");
+  harness.element("currentPoolTab").dispatch("click");
+  assert(harness.element("studyAnyWay").textContent === "重练这一块", "a finished block offered a full restart");
+  harness.element("studyAnyWay").dispatch("click");
+  assert(harness.element("cardPrompt").textContent === "prompt grammar-a", "restarting a block did not reopen it");
+  rounds = savedRounds(harness);
+  assert(JSON.stringify(rounds.decks[blockDeck].queue) === JSON.stringify(["grammar-a"]), "a block restart queued other cards");
+
+  harness.element("cardReveal").dispatch("click");
+  harness.document.feedback[0].dispatch("click");
+  harness.element("blockNext").dispatch("click");
+  assert(harness.element("cardPrompt").textContent === "prompt grammar-b", "下一块 did not open the next block");
+  assert(savedRounds(harness).activeDeck === `${deck}@n5-b`, "下一块 did not save the next block");
+  rounds = savedRounds(harness);
+  assert(rounds.decks[blockDeck].rounds === 2, "moving on changed the finished block's rounds");
+}
+
+function testBlockPageBackReturnsToModules() {
+  const { harness } = grammarBlockFixture();
+  harness.element("deckMenuButton").dispatch("click");
+  harness.tabs[1].dispatch("click");
+  assert(harness.element("deckSidebarTitle").textContent.includes("n5-a") === false, "block page title used an id");
+  assert(harness.element("closeDeckMenu").getAttribute("aria-label") === "返回模块", "block page back did not say where it goes");
+  harness.element("closeDeckMenu").dispatch("click");
+  assert(harness.element("blockGrid").hidden === true, "back left the block page open");
+  assert(harness.document.querySelector(".deck-tabs").hidden === false, "back did not show the module grid");
+  assert(harness.element("deckSidebar").classList.contains("is-open"), "back from a block page closed the module page");
+  assert(harness.element("deckSidebarTitle").textContent === "学习模块", "back did not restore the module page title");
+}
+
+function testModulesFromABlockOpenItsBlockPage() {
+  const { harness } = grammarBlockFixture();
+  harness.openTab(1, "n5-b");
+  harness.element("deckMenuButton").dispatch("click");
+  const blockGrid = harness.element("blockGrid");
+  assert(blockGrid.hidden === false, "模块 from a block opened the module grid instead of its block page");
+  assert(harness.document.querySelector(".deck-tabs").hidden === true, "the module grid showed over the block page");
+  const active = blockGrid.children.find((tile) => tile.classList.contains("active"));
+  assert(active?.dataset.block === "n5-b", "the block page did not mark the block being studied");
+  assert(harness.document.activeElement === active, "the block page did not focus the block being studied");
+  harness.element("closeDeckMenu").dispatch("click");
+  assert(harness.document.querySelector(".deck-tabs").hidden === false, "back from the block page skipped the module grid");
+
+  harness.element("deckMenuButton").dispatch("click");
+  harness.openTab(0);
+  harness.element("deckMenuButton").dispatch("click");
+  assert(harness.document.querySelector(".deck-tabs").hidden === false, "模块 from kana did not open the module grid");
+}
+
+function testHomophonesListOnTheAnswer() {
+  const homophones = [
+    { word: "神", gloss: "神", accent: "①" },
+    { word: "髪", gloss: "头发", accent: "②" },
+    { word: "紙", gloss: "纸", accent: "②", isCurrent: true },
+  ];
+  const harness = createHarness({
+    kanaCards: [baseCard({ homophoneKey: "かみ", homophones, isVocab: true, meta: "读音：かみ ②" })],
+  });
+  harness.element("cardReveal").dispatch("click");
+  const rows = harness.element("answerMeta").children;
+  const row = rows.find((item) => item.classList.contains("homophone-row"));
+  assert(row, "a card with homophones did not list them");
+  assert(row.children[0].textContent === "同音", "the homophone row lost its label");
+  const items = row.children[1].children;
+  assert(
+    JSON.stringify(items.map((item) => item.children.map((part) => part.textContent))) ===
+      JSON.stringify([["1", "神", "①", "神"], ["2", "髪", "②", "头发"], ["3", "紙", "②", "纸"]]),
+    "homophones were not numbered with their accents and glosses",
+  );
+  assert(items[2].classList.contains("is-current"), "the card's own word was not marked");
+  assert(!items[0].classList.contains("is-current"), "another homophone was marked as the card");
+  assert(items[1].children[1].lang === "ja", "homophone words were not marked Japanese");
+}
+
+function testHomophonesAreNeverAskedBackToBack() {
+  const deck = "vocab-zh-ja";
+  const card = (id, key) => baseCard({ deck, id, isVocab: true, sourceId: id, ...(key ? { homophoneKey: key } : {}) });
+  const vocabCards = [
+    card("kami-1", "かみ"), card("kami-2", "かみ"), card("kami-3", "かみ"),
+    card("hashi-1", "はし"), card("hashi-2", "はし"),
+    card("a"), card("b"), card("c"), card("d"),
+  ];
+  for (let seed = 0; seed < 40; seed += 1) {
+    let state = seed * 7919 + 1;
+    const random = () => {
+      state = (state * 48271) % 2147483647;
+      return state / 2147483647;
+    };
+    const harness = createHarness({ random, tabDecks: ["hiragana", deck], vocabCards });
+    harness.openTab(1);
+    const queue = savedRounds(harness).decks[deck].queue;
+    const keyOf = new Map(vocabCards.map((item) => [item.id, item.homophoneKey]));
+    queue.slice(1).forEach((id, index) => {
+      const key = keyOf.get(id);
+      assert(!key || key !== keyOf.get(queue[index]), `homophones were queued back to back: ${queue.join(",")}`);
+    });
+  }
+}
+
+function testBlockStartsFromItsShareOfTheWholeRound() {
+  const deck = "grammar-n5-ja-zh";
+  const { harness } = grammarBlockFixture({
+    initialStore: JSON.stringify({
+      __rounds: {
+        activeDeck: "hiragana",
+        decks: { [deck]: { queue: ["grammar-b"], completed: ["grammar-a"], queueOrderVersion: 1, rounds: 0 } },
+      },
+    }),
+  });
+  harness.tabs[1].dispatch("click");
+  const tiles = harness.element("blockGrid").children;
+  assert(tiles[1].dataset.state === "done", "a block did not carry over the 全部 round it had finished");
+  assert(tiles[2].dataset.state === undefined, "an unfinished block read as done");
+  assert(tiles[1].children[2].textContent === "✓ 完成", "a finished block did not say so");
+  assert(tiles[2].children[2].textContent === "剩 1", "an unfinished block did not show what is left");
+}
+
+function testRetiredGrammarGroupBecomesItsBlock() {
+  const deck = "grammar-n5-ja-zh";
+  const storage = new Map([
+    ["ayaya-jp-grammar-group-v1", JSON.stringify({ "grammar-n5": "n5-b" })],
+    ["ayaya-jp-srs-v1", JSON.stringify({ __rounds: { activeDeck: deck, decks: {} } })],
+  ]);
+  const { harness } = grammarBlockFixture({ sharedStorage: storage });
+  assert(harness.element("cardPrompt").textContent === "prompt grammar-b", "the old group choice did not open its block");
+  assert(!storage.has("ayaya-jp-grammar-group-v1"), "the retired group choice was kept");
+}
+
+function testVocabBlocksShuffleWordsIntoFixedEvenBlocks() {
+  const sources = Array.from({ length: 80 }, (_, index) => `n5-${String(index + 1).padStart(3, "0")}`);
+  const vocabCards = sources.flatMap((sourceId) =>
+    ["ja-zh", "zh-ja"].map((direction) =>
+      baseCard({
+        deck: `vocab-${direction}`,
+        id: `vocab-entry-${sourceId}-${direction === "ja-zh" ? "ja" : "zh"}`,
+        isVocab: true,
+        prompt: sourceId,
+        sourceId,
+      }),
+    ),
+  );
+  const blocksOf = (tabIndex) => {
+    const harness = createHarness({ tabDecks: ["hiragana", "vocab-ja-zh", "vocab-zh-ja"], vocabCards });
+    const membership = new Map();
+    harness.tabs[tabIndex].dispatch("click");
+    const blockIds = harness.element("blockGrid").children.map((tile) => tile.dataset.block).filter(Boolean);
+    blockIds.forEach((block) => {
+      harness.openTab(tabIndex, block);
+      const queue = savedRounds(harness).decks[`${harness.tabs[tabIndex].dataset.deck}@${block}`].queue;
+      membership.set(block, queue.map((id) => id.replace(/^vocab-entry-|-(?:ja|zh)$/gu, "")).sort());
+    });
+    return membership;
+  };
+  const jaZh = blocksOf(1);
+  assert(JSON.stringify([...jaZh.keys()]) === JSON.stringify(["1", "2", "3"]), "80 words did not make three blocks");
+  const sizes = [...jaZh.values()].map((words) => words.length);
+  assert(sizes.every((size) => size >= 26 && size <= 27), `vocab blocks were uneven: ${sizes}`);
+  assert(
+    JSON.stringify([...jaZh.values()].flat().sort()) === JSON.stringify(sources),
+    "vocab blocks did not cover every word exactly once",
+  );
+  assert(
+    JSON.stringify(jaZh.get("1")) !== JSON.stringify(sources.slice(0, sizes[0])),
+    "vocab blocks followed the word list order instead of a shuffled one",
+  );
+  assert(JSON.stringify([...blocksOf(2)]) === JSON.stringify([...jaZh]), "中→日 blocks held other words than 日→中");
+  assert(JSON.stringify([...blocksOf(1)]) === JSON.stringify([...jaZh]), "vocab blocks changed between visits");
+  return { blocksOf, jaZh, sources, vocabCards };
+}
+
+function testWordsAddedLaterJoinNewBlocks() {
+  const sources = Array.from({ length: 80 }, (_, index) => `n5-${String(index + 1).padStart(3, "0")}`);
+  // Past the last shipped source number, so a new generation.
+  const added = Array.from({ length: 30 }, (_, index) => `n5-${String(index + 901).padStart(3, "0")}`);
+  const cardsFor = (ids) =>
+    ids.map((sourceId) =>
+      baseCard({ deck: "vocab-ja-zh", id: `vocab-entry-${sourceId}-ja`, isVocab: true, prompt: sourceId, sourceId }),
+    );
+  const membershipOf = (vocabCards) => {
+    const harness = createHarness({ tabDecks: ["hiragana", "vocab-ja-zh"], vocabCards });
+    harness.tabs[1].dispatch("click");
+    const blockIds = harness.element("blockGrid").children.map((tile) => tile.dataset.block).filter(Boolean);
+    return new Map(
+      blockIds.map((block) => {
+        harness.openTab(1, block);
+        return [block, [...savedRounds(harness).decks[`vocab-ja-zh@${block}`].queue].sort()];
+      }),
+    );
+  };
+  const before = membershipOf(cardsFor(sources));
+  const after = membershipOf(cardsFor([...sources, ...added]));
+  assert(JSON.stringify([...after.keys()]) === JSON.stringify(["1", "2", "3", "4"]), "added words did not get a block of their own");
+  ["1", "2", "3"].forEach((block) => {
+    assert(JSON.stringify(after.get(block)) === JSON.stringify(before.get(block)), `adding words reshuffled block ${block}`);
+  });
+  assert(
+    JSON.stringify(after.get("4")) === JSON.stringify(added.map((id) => `vocab-entry-${id}-ja`).sort()),
+    "the new block did not hold exactly the added words",
   );
 }
 
@@ -2601,7 +2973,7 @@ function testChineseGrammarFrontHidesPatternUntilReveal() {
     grammarCards: [card],
     tabDecks: ["hiragana", "grammar-n5-zh-ja"],
   });
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   assert(harness.element("cardPattern").hidden === true, "中→日 front gave the pattern away");
   assert(harness.element("cardSubtle").hidden === true, "中→日 front showed the pattern as a subtitle");
   assert(harness.element("cardType").textContent === "愿望", "中→日 front lost its group hint");
@@ -2631,7 +3003,7 @@ function testFillInOptionsAreJapanese() {
     grammarCards: [card],
     tabDecks: ["hiragana", "grammar-n5-choice"],
   });
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   const texts = harness.element("choiceList").children.map((option) => option.children[1]);
   assert(texts.every((text) => text.lang === "ja"), "fill-in options were not marked Japanese");
 }
@@ -2667,7 +3039,7 @@ function testFillInHintCountsAsFuzzy() {
     grammarCards: [hinted],
     tabDecks: ["hiragana", "grammar-n5-choice"],
   });
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   assert(harness.element("choiceHint").hidden === false, "fill-in card hid its 提示 button");
   assert(harness.element("choiceHintBody").hidden === true, "提示 opened before it was asked for");
   dispatchDocumentKey(harness, "h");
@@ -2689,7 +3061,7 @@ function testFillInHintCountsAsFuzzy() {
     grammarCards: [plain],
     tabDecks: ["hiragana", "grammar-n5-choice"],
   });
-  plainHarness.tabs[1].dispatch("click");
+  plainHarness.openTab(1);
   pickChoice(plainHarness, "grammar-plain-right");
   const plainSaved = JSON.parse(plainHarness.storage.get("ayaya-jp-srs-v1"));
   assert(plainSaved[plain.id]?.lastRating === "correct", "an unhinted right answer was not 认识");
@@ -2736,7 +3108,7 @@ function testExampleFocusIsMarked() {
     grammarCards: [card],
     tabDecks: ["hiragana", "grammar-n5-pattern-zh"],
   });
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   harness.element("cardReveal").dispatch("click");
   const sentences = harness.element("examplesList").children.map((item) => item.children[0].children[0]);
   const marks = sentences.map((sentence) =>
@@ -2769,7 +3141,7 @@ function testRetiredGrammarProgressMovesToVocab() {
     tabDecks: ["hiragana", vocabDeck],
     vocabCards: [vocabCard],
   });
-  harness.tabs[1].dispatch("click");
+  harness.openTab(1);
   const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
   assert(saved[vocabCard.id]?.reviews === 3, "retired grammar progress did not move to its vocab card");
   assert(!Object.hasOwn(saved, retiredId), "retired grammar state remained after the move");
@@ -2802,7 +3174,7 @@ function testRetiredGrammarProgressMovesToOtherLevel() {
     tabDecks: ["hiragana", n4Deck, n5Deck],
     vocabCards: [],
   });
-  harness.tabs.find((tab) => tab.dataset.deck === n5Deck).dispatch("click");
+  harness.openTab(harness.tabs.findIndex((tab) => tab.dataset.deck === n5Deck));
   const saved = JSON.parse(harness.storage.get("ayaya-jp-srs-v1"));
   assert(saved[n5Card.id]?.reviews === 4, "retired N4 grammar progress did not reach the N5 card");
   assert(saved[n5Card.id]?.lastRating === "wrong", "retired N4 grammar progress lost its rating");
@@ -2863,6 +3235,9 @@ const tests = [
   ["fresh rounds start in random order", testFreshRoundStartsInRandomOrder],
   ["legacy fixed queues migrate only once", testLegacyQueueOrderMigratesOnlyOnce],
   ["concurrent queue merge preserves random order", testConcurrentQueueMergePreservesCanonicalRandomOrder],
+  ["unchanged remote store merges like a full merge", testUnchangedRemoteMergeMatchesFullMerge],
+  ["Undo of a first rating reaches other tabs", testUndoOfFirstRatingReachesOtherTabs],
+  ["Undo of a later rating reaches other tabs", testUndoOfLaterRatingReachesOtherTabs],
   ["concurrent Undo reopens cards canonically", testConcurrentUndosReopenCardsInCanonicalOrder],
   ["Japanese-to-Chinese vocab hides reading until reveal", testJapaneseToChineseVocabHidesReadingUntilReveal],
   ["Chinese prompts do not speak hidden answers", testChinesePromptDoesNotSpeakHiddenAnswer],
@@ -2878,7 +3253,15 @@ const tests = [
   ["reviewed prosody notation round-trips through the build report", testProsodyNotationRoundTrips],
   ["choice answers mark relevant mobile details", testChoiceAnswerMarksRelevantMobileDetails],
   ["shuffle avoids random sort", testShuffleDoesNotUseRandomSort],
-  ["grammar groups narrow a deck but not its round", testGrammarGroupNarrowsDeckButNotRound],
+  ["grammar blocks are independent decks", testGrammarBlocksAreIndependentDecks],
+  ["block page back returns to the modules", testBlockPageBackReturnsToModules],
+  ["模块 from a block opens its block page", testModulesFromABlockOpenItsBlockPage],
+  ["homophones list on the answer", testHomophonesListOnTheAnswer],
+  ["homophones are never asked back to back", testHomophonesAreNeverAskedBackToBack],
+  ["a block starts from its share of the 全部 round", testBlockStartsFromItsShareOfTheWholeRound],
+  ["a retired grammar group choice becomes its block", testRetiredGrammarGroupBecomesItsBlock],
+  ["vocab blocks shuffle words into fixed even blocks", testVocabBlocksShuffleWordsIntoFixedEvenBlocks],
+  ["words added later join new blocks", testWordsAddedLaterJoinNewBlocks],
   ["中→日 grammar hides its pattern until reveal", testChineseGrammarFrontHidesPatternUntilReveal],
   ["fill-in options are marked Japanese", testFillInOptionsAreJapanese],
   ["retired grammar progress moves to vocab", testRetiredGrammarProgressMovesToVocab],
