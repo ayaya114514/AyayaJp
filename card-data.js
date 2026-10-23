@@ -58,20 +58,22 @@ const retiredGrammarIdsByVocab = new Map();
 });
 // Reviewed Kanjium pitch accents keyed by vocab source ID; entries without a
 // reliable value stay unannotated.
+// The label is the accent nucleus position ("2", or "1/2" for two accepted
+// accents); the page sets it as a superscript on the word or kana, since
+// circled digits number the homophones.
 const pitchAccentEntries = window.AYAYA_PITCH_ACCENT?.entries || {};
-const circledDigits = ["⓪", "①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩"];
 
 function pitchAccentLabel(sourceId) {
   const positions = pitchAccentEntries[sourceId];
   if (!Array.isArray(positions) || !positions.length) return "";
-  if (!positions.every((position) => Number.isInteger(position) && circledDigits[position])) {
+  if (!positions.every((position) => Number.isInteger(position) && position >= 0 && position <= 10)) {
     return "";
   }
-  return positions.map((position) => circledDigits[position]).join("/");
+  return positions.join("/");
 }
 
 // Homophone groups (homophone-data.js), most frequent word first: every word in
-// a group lists the whole group, each with its gloss and accent, on its 说明.
+// a group lists the whole group, each with its gloss and accent, as its answer.
 const vocabWordsById = new Map(allVocabWords.map((word) => [word[0], word]));
 const homophoneGroupById = new Map();
 (window.AYAYA_HOMOPHONES?.groups || []).forEach(([reading, members]) => {
@@ -87,16 +89,15 @@ const homophoneGroupById = new Map();
   group.forEach(({ sourceId }) => homophoneGroupById.set(sourceId, { reading, group }));
 });
 
-function homophonesFor(sourceId) {
+// The card's own word keeps its full meaning; the others show their gloss.
+function homophonesFor(sourceId, meaning) {
   const entry = homophoneGroupById.get(sourceId);
   if (!entry) return {};
   return {
     homophoneKey: entry.reading,
     homophones: entry.group.map(({ sourceId: id, word, gloss, accent }) => ({
       word,
-      gloss,
-      accent,
-      ...(id === sourceId ? { isCurrent: true } : {}),
+      ...(id === sourceId ? { gloss: meaning, accent, isCurrent: true } : { gloss, accent }),
     })),
   };
 }
@@ -3189,15 +3190,20 @@ function makeVocabDeckCards({
     const sentencePrompt = stripSentencePeriods(firstExample?.zh || "");
     const sentenceAnswer = stripSentencePeriods(firstExample?.ja || "");
     const speechReading = vocabSpeechKana(sourceEntry?.speech_reading || reading, romaji);
-    const readingLabel = `${reading}${otherReadingsLabel(sourceEntry, reading)}`;
-    const meaningMeta = "";
-    const speechMeta = sourceEntry?.speech_reading && sourceEntry.speech_reading !== reading
-      ? `　语音示范：${sourceEntry.speech_reading}`
+    // The kana sit under the word like a dictionary's phonetics (the accent as a
+    // superscript between them and the note); vocab cards have no 说明 section.
+    const speechNote = sourceEntry?.speech_reading && sourceEntry.speech_reading !== reading
+      ? `（语音示范：${sourceEntry.speech_reading}）`
       : "";
+    const readingNote = `${otherReadingsLabel(sourceEntry, reading)}${speechNote}`;
     const pitchAccent = pitchAccentLabel(sourceId);
     const speechClip = clipTexts.get(sourceId) ? { speechClip: clipTexts.get(sourceId) } : {};
-    const homophoneFields = homophonesFor(sourceId);
-    const readingMeta = `读音：${reading}${pitchAccent ? ` ${pitchAccent}` : ""}${otherReadingsLabel(sourceEntry, reading)}${romaji ? `　罗马音：${romaji}` : ""}${speechMeta}${meaningMeta}`;
+    const homophoneFields = homophonesFor(sourceId, shortMeaning);
+    const readingFields = {
+      reading,
+      ...(pitchAccent ? { pitchAccent } : {}),
+      ...(readingNote ? { readingNote } : {}),
+    };
     // Keep stable IDs in a namespace that can never collide with the old
     // array-index IDs (for example, old `vocab-n4-100-ja`).
     const cardBaseId = `vocab-entry-${sourceId}`;
@@ -3241,12 +3247,11 @@ function makeVocabDeckCards({
         type: `${typePrefix} ${categoryLabel} 日文 → 中文`,
         prompt: word,
         promptLang: "ja",
-        subtle: `读音：${readingLabel}`,
-        subtleLang: "zh-CN",
         ...(promptCounts.get(word) > 1 ? { showsReadingOnFront: true } : {}),
         answer: shortMeaning,
         answerLang: "zh-CN",
-        meta: readingMeta,
+        meta: "",
+        ...readingFields,
         ...homophoneFields,
         speech: speechReading,
         ...speechClip,
@@ -3269,7 +3274,8 @@ function makeVocabDeckCards({
         subtleLang: "zh-CN",
         answer: word,
         answerLang: "ja",
-        meta: readingMeta,
+        meta: "",
+        ...readingFields,
         ...homophoneFields,
         sentenceAnswer,
         speech: speechReading,

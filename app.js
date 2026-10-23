@@ -1745,15 +1745,18 @@ function render() {
   );
   elements.cardPrompt.textContent = currentCard.prompt;
   elements.cardPrompt.lang = currentCard.promptLang || "";
-  const hidesPromptReading =
-    currentCard.isVocab &&
-    !currentCard.showsReadingOnFront &&
-    ["vocab-ja-zh", "vocab-n4-ja-zh", "vocab-n3-ja-zh"].includes(currentCard.deck);
+  // A vocab card's kana go under the word once it is revealed, in place of the
+  // 中→日 sentence cue; 日→中 words written alike (十 とお / じゅう) show them on
+  // the front so it is clear which word is asked.
+  const showsReading =
+    Boolean(currentCard.isVocab) &&
+    Boolean(currentCard.reading) &&
+    (isRevealed || Boolean(currentCard.showsReadingOnFront));
   // 中→日 grammar cards keep their pattern hidden until the answer: on the front
   // it would give the answer away, so the group tag is the only hint.
   const hidesPattern =
     isGrammarSentenceCard(currentCard) && currentCard.promptLang === "zh-CN" && !isRevealed;
-  const showsCardSubtle = Boolean(currentCard.subtle) && !hidesPromptReading && !hidesPattern;
+  const showsCardSubtle = Boolean(currentCard.subtle) && !showsReading && !hidesPattern;
   // Once a grammar card is revealed its pattern names the point, so the group
   // tag steps aside to keep the answer on one screen.
   const cardTag =
@@ -1768,13 +1771,19 @@ function render() {
   // Grammar sentence cards lead with their pattern in large type and show the
   // sentence as a smaller line under it; other cards keep the subtitle below.
   const showsPattern = showsCardSubtle && isGrammarSentenceCard(currentCard);
-  const showsBelow = showsCardSubtle && !showsPattern;
+  const showsBelow = (showsCardSubtle && !showsPattern) || showsReading;
   elements.flashcard.classList.toggle("is-pattern-first", showsPattern);
   elements.cardPattern.textContent = showsPattern ? currentCard.subtle : "";
   elements.cardPattern.lang = showsPattern ? currentCard.subtleLang || "" : "";
   elements.cardPattern.hidden = !showsPattern;
-  elements.cardSubtle.textContent = showsBelow ? currentCard.subtle : "";
-  elements.cardSubtle.lang = showsBelow ? currentCard.subtleLang || "" : "";
+  if (showsReading) {
+    elements.cardSubtle.replaceChildren(...readingLine(currentCard));
+    elements.cardSubtle.lang = "ja";
+  } else {
+    elements.cardSubtle.textContent = showsBelow ? currentCard.subtle : "";
+    elements.cardSubtle.lang = showsBelow ? currentCard.subtleLang || "" : "";
+  }
+  elements.cardSubtle.classList.toggle("is-reading", showsReading);
   elements.cardSubtle.hidden = !showsBelow;
   elements.cardReveal.disabled = Boolean(currentCard.isChoice || isRevealed);
   elements.cardReveal.setAttribute(
@@ -1799,8 +1808,10 @@ function render() {
   const canUseSpeech = supportsSpeech() || Boolean(canSpeak && audioClipUrl(clipTextFor(speakerText)));
   elements.speakWord.hidden = !canSpeak;
   // With no subtitle beside it the speaker moves to the band's top-right
-  // corner, opposite the undo "<", instead of taking a row of its own.
+  // corner, opposite the undo "<", instead of taking a row of its own; under a
+  // vocab word it stays in that corner too so the kana sit centred.
   elements.flashcard.classList.toggle("speaker-corner", !showsBelow);
+  elements.flashcard.classList.toggle("reading-centered", showsReading);
   elements.speakWord.disabled = !canSpeak || !canUseSpeech;
   elements.speakWord.setAttribute("aria-label", isRevealed ? "重播答案读音" : "播放题面读音");
   elements.speakWord.title = elements.speakWord.getAttribute("aria-label");
@@ -1826,9 +1837,14 @@ function render() {
   }
 
   elements.feedbackRow.hidden = false;
-  elements.answerMain.textContent = answerRepeatedInMeta(currentCard) ? "" : currentCard.answer;
-  elements.answerMain.lang = currentCard.answerLang || "";
-  renderMeta(currentCard.meta, currentCard.homophones);
+  if (Array.isArray(currentCard.homophones) && currentCard.homophones.length > 1) {
+    elements.answerMain.replaceChildren(...homophoneAnswer(currentCard.homophones));
+    elements.answerMain.lang = "zh-CN";
+  } else {
+    elements.answerMain.textContent = answerRepeatedInMeta(currentCard) ? "" : currentCard.answer;
+    elements.answerMain.lang = currentCard.answerLang || "";
+  }
+  renderMeta(currentCard.meta);
   const hasExample = Boolean(currentCard.examples?.length);
   elements.exampleBlock.hidden = !hasExample;
   if (hasExample) {
@@ -1896,45 +1912,54 @@ function answerRepeatedInMeta(card) {
   return parts.length > 0 && parts.every((part) => values.has(part));
 }
 
-// 同音: the words sharing this card's reading, most frequent first, each with
-// its gloss and accent; the card's own word is marked.
-function homophoneRow(homophones) {
-  const row = document.createElement("div");
-  row.className = "meta-row homophone-row";
-  const label = document.createElement("span");
-  label.className = "meta-key";
-  label.textContent = "同音";
-  const list = document.createElement("span");
-  list.className = "meta-value homophone-list";
-  homophones.forEach(({ word, gloss, accent, isCurrent }, index) => {
+function pitchAccentMark(accent) {
+  const mark = document.createElement("sup");
+  mark.className = "pitch-accent";
+  mark.textContent = accent;
+  return mark;
+}
+
+// Homophones replace the answer line: the words sharing this card's reading,
+// numbered ①②③ most frequent first, each word (with its accent as a
+// superscript) above its gloss; the card's own word carries its full meaning
+// and is marked.
+function homophoneAnswer(homophones) {
+  return homophones.map(({ word, gloss, accent, isCurrent }, index) => {
     const item = document.createElement("span");
     item.className = "homophone";
     if (isCurrent) item.classList.add("is-current");
     const number = document.createElement("span");
     number.className = "homophone-index";
-    number.textContent = `${index + 1}`;
+    number.textContent = String.fromCodePoint(0x2460 + index);
     const headword = document.createElement("span");
     headword.className = "homophone-word";
     headword.lang = "ja";
     headword.textContent = word;
-    item.append(number, headword);
-    if (accent) {
-      const pitch = document.createElement("span");
-      pitch.className = "homophone-accent";
-      pitch.textContent = accent;
-      item.append(pitch);
-    }
+    if (accent) headword.append(pitchAccentMark(accent));
     const meaning = document.createElement("span");
     meaning.className = "homophone-gloss";
     meaning.textContent = gloss;
-    item.append(meaning);
-    list.append(item);
+    item.append(number, headword, meaning);
+    return item;
   });
-  row.append(label, list);
-  return row;
 }
 
-function renderMeta(meta, homophones = null) {
+// The kana under a vocab word: the accent as a superscript right after them,
+// then any （也读 …） note.
+function readingLine(card) {
+  const parts = [card.reading];
+  if (card.pitchAccent) parts.push(pitchAccentMark(card.pitchAccent));
+  if (card.readingNote) {
+    const note = document.createElement("span");
+    note.className = "reading-note";
+    note.lang = "zh-CN";
+    note.textContent = card.readingNote;
+    parts.push(note);
+  }
+  return parts;
+}
+
+function renderMeta(meta) {
   const rows = metaRows(meta).map(([key, value]) => {
     const row = document.createElement("div");
     row.className = "meta-row";
@@ -1950,7 +1975,6 @@ function renderMeta(meta, homophones = null) {
     row.append(text);
     return row;
   });
-  if (Array.isArray(homophones) && homophones.length > 1) rows.push(homophoneRow(homophones));
   elements.answerMeta.replaceChildren(...rows);
   elements.metaBlock.hidden = rows.length === 0;
 }
