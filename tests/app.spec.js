@@ -237,15 +237,15 @@ test("Japanese-to-Chinese vocab hides reading until the answer is revealed", asy
 
   await page.locator("#cardReveal").click();
   await expectAnswerRevealed(page);
-  await expect(page.locator("#answerMain")).toHaveText("见面；遇见");
-  await expect(page.locator("#answerMeta .meta-row")).toHaveText([
-    "读音あう ①",
-    "罗马音au",
-    "同音1会う①见面2合う①合适",
-  ]);
-  // 会う is the more frequent あう, so it comes first and is the card's own word.
-  await expect(page.locator("#answerMeta .homophone.is-current .homophone-word")).toHaveText("会う");
-  await expect(page.locator("#cardSubtle")).toBeHidden();
+  // The answer line lists the homophones ①② by frequency, each word with its
+  // accent above its meaning; 会う is the more frequent あう and the card's own
+  // word, so it comes first with its full meaning.
+  await expect(page.locator("#answerMain .homophone")).toHaveText(["①会う1见面；遇见", "②合う1合适"]);
+  await expect(page.locator("#answerMain .homophone.is-current .homophone-word")).toHaveText("会う1");
+  await expect(page.locator("#answerMain .homophone-word .pitch-accent")).toHaveText(["1", "1"]);
+  await expect(page.locator("#cardSubtle")).toBeVisible();
+  await expect(page.locator("#cardSubtle")).toHaveText("あう1");
+  await expect(page.locator("#metaBlock")).toBeHidden();
 });
 
 test("words written alike show their reading on the 日→中 front", async ({ page }) => {
@@ -260,7 +260,7 @@ test("words written alike show their reading on the 日→中 front", async ({ p
   // 十 is also read じゅう (another card), so the front must say which one is asked.
   await expect(page.locator("#cardPrompt")).toHaveText("十");
   await expect(page.locator("#cardSubtle")).toBeVisible();
-  await expect(page.locator("#cardSubtle")).toHaveText("读音：とお");
+  await expect(page.locator("#cardSubtle")).toHaveText("とお1");
 });
 
 test("the module page footer stays on screen after rating", async ({ page }) => {
@@ -1053,10 +1053,14 @@ test("revealed vocab shows its reviewed pitch accent", async ({ page }) => {
     progressFixture({ deck: "vocab-ja-zh", queue: ["vocab-entry-n5-037-ja"] }),
   );
   await expect(page.locator("#cardPrompt")).toHaveText("雨");
-  await expect(page.locator("#answerMeta")).not.toContainText("①");
+  await expect(page.locator("#cardSubtle")).toBeHidden();
 
+  // The kana sit under the word like phonetics, with the accent as a superscript.
   await page.locator("#cardReveal").click();
-  await expect(page.locator("#answerMeta .meta-row").first()).toHaveText("读音あめ ①");
+  await expect(page.locator("#cardSubtle")).toBeVisible();
+  await expect(page.locator("#cardSubtle")).toHaveText("あめ1");
+  await expect(page.locator("#cardSubtle sup.pitch-accent")).toHaveText("1");
+  await expect(page.locator("#metaBlock")).toBeHidden();
 });
 
 test("returning to the page re-measures a stale viewport height", async ({ page }) => {

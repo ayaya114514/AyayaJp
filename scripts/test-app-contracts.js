@@ -2370,10 +2370,10 @@ function testJapaneseToChineseVocabHidesReadingUntilReveal() {
       deck,
       id: `${deck}-fixture`,
       isVocab: true,
-      meta: "读音：あう　罗马音：au",
+      meta: "",
+      pitchAccent: "1",
       prompt: "会う",
-      subtle: "读音：あう",
-      subtleLang: "zh-CN",
+      reading: "あう",
       type: `${deck.includes("n4") ? "N4" : deck.includes("n3") ? "N3" : "N5"} 搭配 日文 → 中文`,
     });
     const harness = createHarness({
@@ -2404,12 +2404,16 @@ function testJapaneseToChineseVocabHidesReadingUntilReveal() {
       harness.element("answerMain").textContent === "见面；遇见",
       `${deck} did not reveal the Chinese meaning`,
     );
+    const reading = harness.element("cardSubtle");
     assert(
-      JSON.stringify(metaRowTexts(harness.element("answerMeta"))) ===
-        JSON.stringify([["读音", "あう"], ["罗马音", "au"]]),
-      `${deck} did not restore the reading after reveal`,
+      !reading.hidden &&
+        reading.lang === "ja" &&
+        reading.children[0] === "あう" &&
+        reading.children[1].tagName === "SUP" &&
+        reading.children[1].textContent === "1",
+      `${deck} did not set the kana and accent under the word after reveal`,
     );
-    assert(harness.element("cardSubtle").hidden, `${deck} front reading reappeared after reveal`);
+    assert(harness.element("metaBlock").hidden, `${deck} still showed a 说明 section`);
   });
 }
 
@@ -2807,23 +2811,26 @@ function testModulesFromABlockOpenItsBlockPage() {
 
 function testHomophonesListOnTheAnswer() {
   const homophones = [
-    { word: "神", gloss: "神", accent: "①" },
-    { word: "髪", gloss: "头发", accent: "②" },
-    { word: "紙", gloss: "纸", accent: "②", isCurrent: true },
+    { word: "神", gloss: "神", accent: "1" },
+    { word: "髪", gloss: "头发", accent: "2" },
+    { word: "紙", gloss: "纸", accent: "2", isCurrent: true },
   ];
   const harness = createHarness({
-    kanaCards: [baseCard({ homophoneKey: "かみ", homophones, isVocab: true, meta: "读音：かみ ②" })],
+    kanaCards: [
+      baseCard({ homophoneKey: "かみ", homophones, isVocab: true, pitchAccent: "2", reading: "かみ" }),
+    ],
   });
   harness.element("cardReveal").dispatch("click");
-  const rows = harness.element("answerMeta").children;
-  const row = rows.find((item) => item.classList.contains("homophone-row"));
-  assert(row, "a card with homophones did not list them");
-  assert(row.children[0].textContent === "同音", "the homophone row lost its label");
-  const items = row.children[1].children;
+  const items = harness.element("answerMain").children;
   assert(
     JSON.stringify(items.map((item) => item.children.map((part) => part.textContent))) ===
-      JSON.stringify([["1", "神", "①", "神"], ["2", "髪", "②", "头发"], ["3", "紙", "②", "纸"]]),
-    "homophones were not numbered with their accents and glosses",
+      JSON.stringify([["①", "神", "神"], ["②", "髪", "头发"], ["③", "紙", "纸"]]),
+    "homophones did not replace the answer, numbered ①②③ by frequency with their glosses",
+  );
+  assert(
+    JSON.stringify(items.map((item) => item.children[1].children.map((mark) => `${mark.tagName}:${mark.textContent}`))) ===
+      JSON.stringify([["SUP:1"], ["SUP:2"], ["SUP:2"]]),
+    "homophone accents were not superscripts on the words",
   );
   assert(items[2].classList.contains("is-current"), "the card's own word was not marked");
   assert(!items[0].classList.contains("is-current"), "another homophone was marked as the card");

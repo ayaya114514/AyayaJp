@@ -852,6 +852,12 @@ h2 {
   min-height: 0;
 }
 
+.card.reading-centered .prompt-speak {
+  position: absolute;
+  top: 2px;
+  right: -4px;
+}
+
 /* Room for the corner speaker (2px + 32px) when the band holds one short
    line, such as a revealed 文型 card. */
 .card.speaker-corner {
@@ -955,6 +961,15 @@ h2 {
   line-height: 1.35;
 }
 
+/* A vocab word's kana, set like a dictionary's phonetics under the word. */
+.card-subtle.is-reading {
+  font-size: 1.05rem;
+}
+
+.reading-note {
+  font-size: 0.86em;
+}
+
 .answer-panel,
 .empty-state {
   padding: clamp(8px, 2.2vw, 14px);
@@ -967,6 +982,9 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  /* Square on top, where the answer's band meets the word band. */
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
   padding: 10px clamp(12px, 3vw, 24px);
   /* The answer row is content-sized and only shrinks when the card is full, so
      stretching keeps a long answer inside its row (scrolling there) instead of
@@ -1045,9 +1063,16 @@ h2 {
   color: var(--error-ink);
 }
 
+/* The answer shares the word band's background: the spread shadows paint it
+   out to the panel's edges (which clip it) and up over the panel's top
+   padding, with a full-width rule under it. */
 .answer-main {
-  padding: 0 2px 8px;
-  border-bottom: 1px solid var(--line);
+  padding: 2px 2px 12px;
+  background: var(--band-bg);
+  box-shadow:
+    0 0 0 100vmax var(--band-bg),
+    0 1px 0 100vmax var(--line);
+  clip-path: inset(-10px -100vmax -1px);
   font-size: clamp(1.2rem, 5.2vw, 1.6rem);
   font-weight: 900;
   line-height: 1.2;
@@ -1062,6 +1087,8 @@ h2 {
    正确项 labels; the 回答正确／回答错误 line stays for screen readers only. */
 .study-card.is-choice .answer-main {
   position: absolute;
+  background: none;
+  box-shadow: none;
   width: 1px;
   height: 1px;
   padding: 0;
@@ -1136,37 +1163,49 @@ h2 {
   grid-column: 1 / -1;
 }
 
-/* 同音: numbered by frequency, each word with its accent and gloss; the card's
-   own word is set off in gold, the colour examples use for the point taught. */
-.homophone-list {
+/* Pitch accent: the nucleus position as a superscript on the word or reading. */
+.pitch-accent {
+  margin-left: 1px;
+  color: var(--blue-strong);
+  font-size: 0.62em;
+  font-weight: 800;
+  line-height: 0;
+}
+
+/* 同音 takes the answer line: ①②③ by frequency, each word above its meaning;
+   the card's own word is set off in gold, the colour examples use for the
+   point taught. */
+.answer-main:has(.homophone) {
   display: flex;
   flex-wrap: wrap;
-  gap: 2px 14px;
+  gap: 8px 22px;
 }
 
 .homophone {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 3px;
   align-items: baseline;
-  gap: 4px;
-  white-space: nowrap;
+  max-width: 100%;
+}
+
+.homophone-index,
+.homophone-word {
+  font-size: 0.8em;
 }
 
 .homophone-index {
   color: var(--muted);
-  font-size: 0.78em;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .homophone-word {
   font-weight: 800;
-}
-
-.homophone-accent {
-  color: var(--blue-strong);
+  white-space: nowrap;
 }
 
 .homophone-gloss {
-  color: var(--muted);
+  grid-column: 2;
 }
 
 .homophone.is-current .homophone-word,

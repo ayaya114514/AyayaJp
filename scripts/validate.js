@@ -1687,7 +1687,10 @@ function validatePromptDisambiguation(cards) {
     `${card.deck}\u0000${compactText(card.prompt)}`,
   );
   const ambiguous = collisions.filter((group) => {
-    const subtles = group.map((card) => compactText(card.subtle));
+    // Vocab words written alike show their kana on the 日→中 front instead.
+    const subtles = group.map((card) =>
+      compactText(card.showsReadingOnFront ? `${card.reading}${card.readingNote || ""}` : card.subtle),
+    );
     return subtles.some((subtle) => !subtle) || new Set(subtles).size !== subtles.length;
   });
   if (ambiguous.length) {
@@ -1769,9 +1772,9 @@ function validateHomophoneData(homophones, n5Json, n4Json, n3Json, vocabCards) {
     paperCard?.homophoneKey === "かみ" &&
       JSON.stringify(paperCard.homophones) ===
         JSON.stringify([
-          { word: "神", gloss: "神", accent: "①" },
-          { word: "髪", gloss: "头发", accent: "②" },
-          { word: "紙", gloss: "纸", accent: "②", isCurrent: true },
+          { word: "神", gloss: "神", accent: "1" },
+          { word: "髪", gloss: "头发", accent: "2" },
+          { word: "紙", gloss: paperCard?.answer, accent: "2", isCurrent: true },
         ]),
     `vocab card 紙 does not list its homophones with accents: ${JSON.stringify(paperCard?.homophones)}`,
   );
@@ -1826,12 +1829,12 @@ function validatePitchAccentData(pitchAccent, n5Json, n4Json, n3Json, vocabCards
   });
   const rainCard = vocabCards.find((card) => card.id === "vocab-entry-n5-037-ja");
   check(
-    rainCard?.meta?.startsWith("读音：あめ ①"),
-    `vocab meta does not show the reviewed pitch accent: ${rainCard?.meta}`,
+    rainCard?.pitchAccent === "1" && rainCard.reading === "あめ",
+    `vocab card does not carry the reviewed pitch accent: ${rainCard?.reading} ${rainCard?.pitchAccent}`,
   );
   const unannotatedCard = vocabCards.find((card) => card.id === "vocab-entry-n5-001-ja");
   check(
-    unannotatedCard && !/[⓪①-⑩]/u.test(unannotatedCard.meta),
+    unannotatedCard && !Object.hasOwn(unannotatedCard, "pitchAccent"),
     "a vocab entry without reviewed pitch data shows an accent",
   );
 }
@@ -2931,15 +2934,16 @@ function validateExampleSpeech(cards, kanaToRomaji) {
   // Cards list every standard reading so an example read the other way (何を → なに)
   // never contradicts the card; phrase forms such as そう → そうです are not readings.
   const readingLabels = new Map([
-    ["vocab-entry-n5-488-ja", "读音：なん（也读 なに）"],
-    ["vocab-entry-n5-619-ja", "读音：まいねん（也读 まいとし）"],
-    ["vocab-entry-n5-269-ja", "读音：～ごろ"],
-    ["vocab-entry-n5-358-ja", "读音：そう"],
-    ["vocab-entry-n5-590-ja", "读音：～ふん・～ぷん"],
+    ["vocab-entry-n5-488-ja", "なん（也读 なに）"],
+    ["vocab-entry-n5-619-ja", "まいねん（也读 まいとし）"],
+    ["vocab-entry-n5-269-ja", "～ごろ"],
+    ["vocab-entry-n5-358-ja", "そう"],
+    ["vocab-entry-n5-590-ja", "～ふん・～ぷん（语音示范：ふん）"],
   ]);
   readingLabels.forEach((expected, id) => {
-    const subtle = cards.find((card) => card.id === id)?.subtle;
-    check(subtle === expected, `reading label for ${id} expected ${expected}, received ${subtle || "(missing)"}`);
+    const card = cards.find((item) => item.id === id);
+    const label = card ? `${card.reading}${card.readingNote || ""}` : "";
+    check(label === expected, `reading label for ${id} expected ${expected}, received ${label || "(missing)"}`);
   });
   wordSpeech.forEach((expected, id) => {
     const speech = cards.find((card) => card.id === id)?.speech;
