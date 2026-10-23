@@ -6,6 +6,10 @@ const { defineConfig, devices } = require("@playwright/test");
 // reusing whatever answers there could test a different app.
 const port = 4318;
 
+// Chromium can mute the whole browser; WebKit pages are muted by the init
+// script in tests/fixtures.js, which also covers Chromium.
+const mutedChromium = { launchOptions: { args: ["--mute-audio"] } };
+
 module.exports = defineConfig({
   testDir: "./tests",
   timeout: 30_000,
@@ -21,12 +25,13 @@ module.exports = defineConfig({
   projects: [
     {
       name: "desktop-chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: { ...devices["Desktop Chrome"], ...mutedChromium },
     },
     {
       name: "mobile-chromium",
       use: {
         ...devices["Desktop Chrome"],
+        ...mutedChromium,
         viewport: { width: 320, height: 640 },
       },
     },

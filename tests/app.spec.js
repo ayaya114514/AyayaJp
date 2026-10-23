@@ -1,6 +1,6 @@
 "use strict";
 
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./fixtures");
 
 const STORAGE_KEY = "ayaya-jp-srs-v1";
 const HIRAGANA_IDS = Array.from({ length: 46 }, (_, index) => `hiragana-${index}`);
