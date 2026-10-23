@@ -70,6 +70,37 @@ function pitchAccentLabel(sourceId) {
   return positions.map((position) => circledDigits[position]).join("/");
 }
 
+// Homophone groups (homophone-data.js), most frequent word first: every word in
+// a group lists the whole group, each with its gloss and accent, on its 说明.
+const vocabWordsById = new Map(allVocabWords.map((word) => [word[0], word]));
+const homophoneGroupById = new Map();
+(window.AYAYA_HOMOPHONES?.groups || []).forEach(([reading, members]) => {
+  const group = members
+    .filter(([sourceId]) => vocabWordsById.get(sourceId)?.[2] === reading)
+    .map(([sourceId, gloss]) => ({
+      sourceId,
+      word: vocabWordsById.get(sourceId)[1],
+      gloss,
+      accent: pitchAccentLabel(sourceId),
+    }));
+  if (group.length < 2) return;
+  group.forEach(({ sourceId }) => homophoneGroupById.set(sourceId, { reading, group }));
+});
+
+function homophonesFor(sourceId) {
+  const entry = homophoneGroupById.get(sourceId);
+  if (!entry) return {};
+  return {
+    homophoneKey: entry.reading,
+    homophones: entry.group.map(({ sourceId: id, word, gloss, accent }) => ({
+      word,
+      gloss,
+      accent,
+      ...(id === sourceId ? { isCurrent: true } : {}),
+    })),
+  };
+}
+
 
 const furiganaEntries = [
   [
@@ -2114,6 +2145,7 @@ const entryScopedReadingIds = new Set([
   "n3-1449", // 楽 らく
   "n3-1460", // 量 りょう
   "n3-1497", // 運 うん
+  "n3-1507", // 曲 きょく (曲がる is まが)
 ]);
 const allVocabReadingEntries = allVocabEntries
   .filter((entry) => !entryScopedReadingIds.has(entry.id))
@@ -2457,7 +2489,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "22985:e62a21370b14aa22";
+const reviewedPronunciationSourceSignature = "23538:c59d0c90680b41d6";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3164,6 +3196,7 @@ function makeVocabDeckCards({
       : "";
     const pitchAccent = pitchAccentLabel(sourceId);
     const speechClip = clipTexts.get(sourceId) ? { speechClip: clipTexts.get(sourceId) } : {};
+    const homophoneFields = homophonesFor(sourceId);
     const readingMeta = `读音：${reading}${pitchAccent ? ` ${pitchAccent}` : ""}${otherReadingsLabel(sourceEntry, reading)}${romaji ? `　罗马音：${romaji}` : ""}${speechMeta}${meaningMeta}`;
     // Keep stable IDs in a namespace that can never collide with the old
     // array-index IDs (for example, old `vocab-n4-100-ja`).
@@ -3214,6 +3247,7 @@ function makeVocabDeckCards({
         answer: shortMeaning,
         answerLang: "zh-CN",
         meta: readingMeta,
+        ...homophoneFields,
         speech: speechReading,
         ...speechClip,
         frontSpeech: speechReading,
@@ -3236,6 +3270,7 @@ function makeVocabDeckCards({
         answer: word,
         answerLang: "ja",
         meta: readingMeta,
+        ...homophoneFields,
         sentenceAnswer,
         speech: speechReading,
         ...speechClip,

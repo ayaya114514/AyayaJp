@@ -32,7 +32,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "Words already in the N5/N4 files are excluded; spellings, readings and parts of speech were checked against JMdict (jmdict-simplified 3.6.2, 2026-10-12).",
       "12 basic greetings and words on the Waller N3 list (ありがとう, こんにちは, すみません, 日本, 曜日 and others) are taught in the N5 file instead."
     ],
-    "entry_count": 1487
+    "entry_count": 1526
   },
   "entries": [
     {
@@ -54365,6 +54365,1449 @@ window.AYAYA_N3_CODEX_VOCAB = {
         }
       ],
       "note_zh": "与「はく（穿）」同音。"
+    },
+    {
+      "id": "n3-1500",
+      "jlpt": "N3",
+      "headword": "依然",
+      "source_form": "依然",
+      "variants": [
+        "依然"
+      ],
+      "reading": "いぜん",
+      "reading_variants": [
+        "いぜん"
+      ],
+      "romaji": "izen",
+      "part_of_speech": "adverb",
+      "meaning_zh": "依然；仍然",
+      "kanji_readings": [
+        {
+          "form": "依然",
+          "reading": "いぜん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "状況は依然として厳しいです。",
+          "zh": "情况依然严峻。"
+        },
+        {
+          "ja": "犯人は依然見つかっていません。",
+          "zh": "犯人仍然没有找到。"
+        },
+        {
+          "ja": "雨は依然として降り続いています。",
+          "zh": "雨依然下个不停。"
+        }
+      ],
+      "note_zh": "多用「依然として」。与「以前」同音。"
+    },
+    {
+      "id": "n3-1501",
+      "jlpt": "N3",
+      "headword": "衛生",
+      "source_form": "衛生",
+      "variants": [
+        "衛生"
+      ],
+      "reading": "えいせい",
+      "reading_variants": [
+        "えいせい"
+      ],
+      "romaji": "eisei",
+      "part_of_speech": "noun",
+      "meaning_zh": "卫生",
+      "kanji_readings": [
+        {
+          "form": "衛生",
+          "reading": "えいせい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "台所の衛生に気をつけています。",
+          "zh": "注意厨房的卫生。"
+        },
+        {
+          "ja": "食べ物を扱う店は衛生が大切です。",
+          "zh": "经营食品的店卫生很重要。"
+        },
+        {
+          "ja": "手を洗うのは衛生のためです。",
+          "zh": "洗手是为了卫生。"
+        }
+      ],
+      "note_zh": "与「衛星（卫星）」同音。"
+    },
+    {
+      "id": "n3-1502",
+      "jlpt": "N3",
+      "headword": "負う",
+      "source_form": "負う",
+      "variants": [
+        "負う"
+      ],
+      "reading": "おう",
+      "reading_variants": [
+        "おう"
+      ],
+      "romaji": "ou",
+      "part_of_speech": "verb",
+      "meaning_zh": "背负；承担（责任、义务）；受（伤）",
+      "kanji_readings": [
+        {
+          "form": "負う",
+          "reading": "おう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "事故の責任は会社が負います。",
+          "zh": "事故的责任由公司承担。"
+        },
+        {
+          "ja": "彼は試合で大きなけがを負いました。",
+          "zh": "他在比赛中受了重伤。"
+        },
+        {
+          "ja": "親は子供を育てる義務を負っています。",
+          "zh": "父母负有养育孩子的义务。"
+        }
+      ],
+      "note_zh": "与「王」「追う」同音。"
+    },
+    {
+      "id": "n3-1503",
+      "jlpt": "N3",
+      "headword": "官僚",
+      "source_form": "官僚",
+      "variants": [
+        "官僚"
+      ],
+      "reading": "かんりょう",
+      "reading_variants": [
+        "かんりょう"
+      ],
+      "romaji": "kanryou",
+      "part_of_speech": "noun",
+      "meaning_zh": "官僚；政府官员",
+      "kanji_readings": [
+        {
+          "form": "官僚",
+          "reading": "かんりょう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "父は昔、国の官僚でした。",
+          "zh": "父亲以前是国家的官员。"
+        },
+        {
+          "ja": "政策は官僚が作ることが多いです。",
+          "zh": "政策多由官员制定。"
+        },
+        {
+          "ja": "官僚の仕事はとても忙しいそうです。",
+          "zh": "听说官员的工作非常忙。"
+        }
+      ],
+      "note_zh": "与「完了」同音。"
+    },
+    {
+      "id": "n3-1504",
+      "jlpt": "N3",
+      "headword": "期限",
+      "source_form": "期限",
+      "variants": [
+        "期限"
+      ],
+      "reading": "きげん",
+      "reading_variants": [
+        "きげん"
+      ],
+      "romaji": "kigen",
+      "part_of_speech": "noun",
+      "meaning_zh": "期限；截止日期",
+      "kanji_readings": [
+        {
+          "form": "期限",
+          "reading": "きげん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "レポートの期限は金曜日です。",
+          "zh": "报告的期限是星期五。"
+        },
+        {
+          "ja": "このパンは期限が切れています。",
+          "zh": "这个面包过期了。"
+        },
+        {
+          "ja": "期限までに申し込んでください。",
+          "zh": "请在期限之前申请。"
+        }
+      ],
+      "note_zh": "与「機嫌（心情）」同音。"
+    },
+    {
+      "id": "n3-1505",
+      "jlpt": "N3",
+      "headword": "機構",
+      "source_form": "機構",
+      "variants": [
+        "機構"
+      ],
+      "reading": "きこう",
+      "reading_variants": [
+        "きこう"
+      ],
+      "romaji": "kikou",
+      "part_of_speech": "noun",
+      "meaning_zh": "（组织的）结构；机制；机构（多用于名称）",
+      "kanji_readings": [
+        {
+          "form": "機構",
+          "reading": "きこう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "会社の機構を改革しました。",
+          "zh": "改革了公司的组织结构。"
+        },
+        {
+          "ja": "体の複雑な機構を研究しています。",
+          "zh": "研究身体复杂的机制。"
+        },
+        {
+          "ja": "国際的な機構に加盟しました。",
+          "zh": "加入了国际机构。"
+        }
+      ],
+      "note_zh": "与「気候」同音。"
+    },
+    {
+      "id": "n3-1506",
+      "jlpt": "N3",
+      "headword": "協議",
+      "source_form": "協議",
+      "variants": [
+        "協議"
+      ],
+      "reading": "きょうぎ",
+      "reading_variants": [
+        "きょうぎ"
+      ],
+      "romaji": "kyougi",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "（正式）协商；磋商",
+      "kanji_readings": [
+        {
+          "form": "協議",
+          "reading": "きょうぎ"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "両国の代表が協議しました。",
+          "zh": "两国代表进行了协商。"
+        },
+        {
+          "ja": "この問題は来週の会議で協議します。",
+          "zh": "这个问题在下周的会议上商议。"
+        },
+        {
+          "ja": "協議の結果、計画を変更することになりました。",
+          "zh": "协商的结果是决定变更计划。"
+        }
+      ],
+      "note_zh": "与「競技（比赛）」同音。"
+    },
+    {
+      "id": "n3-1507",
+      "jlpt": "N3",
+      "headword": "曲",
+      "source_form": "曲",
+      "variants": [
+        "曲"
+      ],
+      "reading": "きょく",
+      "reading_variants": [
+        "きょく"
+      ],
+      "romaji": "kyoku",
+      "part_of_speech": "noun",
+      "meaning_zh": "（音乐的）曲子；乐曲",
+      "kanji_readings": [
+        {
+          "form": "曲",
+          "reading": "きょく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "この曲が一番好きです。",
+          "zh": "最喜欢这首曲子。"
+        },
+        {
+          "ja": "ピアノで新しい曲を練習しています。",
+          "zh": "在用钢琴练习新曲子。"
+        },
+        {
+          "ja": "彼女が作った曲はとても人気があります。",
+          "zh": "她写的歌很受欢迎。"
+        }
+      ],
+      "note_zh": "与「局」同音。"
+    },
+    {
+      "id": "n3-1508",
+      "jlpt": "N3",
+      "headword": "菌",
+      "source_form": "菌",
+      "variants": [
+        "菌"
+      ],
+      "reading": "きん",
+      "reading_variants": [
+        "きん"
+      ],
+      "romaji": "kin",
+      "part_of_speech": "noun",
+      "meaning_zh": "菌；细菌",
+      "kanji_readings": [
+        {
+          "form": "菌",
+          "reading": "きん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "手には目に見えない菌がいます。",
+          "zh": "手上有肉眼看不见的细菌。"
+        },
+        {
+          "ja": "夏は食べ物に菌が増えやすいです。",
+          "zh": "夏天食物容易滋生细菌。"
+        },
+        {
+          "ja": "熱いお湯で菌を殺します。",
+          "zh": "用热水杀菌。"
+        }
+      ],
+      "note_zh": "与「金」同音。"
+    },
+    {
+      "id": "n3-1509",
+      "jlpt": "N3",
+      "headword": "血管",
+      "source_form": "血管",
+      "variants": [
+        "血管"
+      ],
+      "reading": "けっかん",
+      "reading_variants": [
+        "けっかん"
+      ],
+      "romaji": "kekkan",
+      "part_of_speech": "noun",
+      "meaning_zh": "血管",
+      "kanji_readings": [
+        {
+          "form": "血管",
+          "reading": "けっかん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "運動は血管を若く保ちます。",
+          "zh": "运动能让血管保持年轻。"
+        },
+        {
+          "ja": "寒いと血管が細くなります。",
+          "zh": "一冷血管就会变细。"
+        },
+        {
+          "ja": "注射の前に、看護師が血管を探しました。",
+          "zh": "打针前护士找了血管。"
+        }
+      ],
+      "note_zh": "与「欠陥（缺陷）」同音。"
+    },
+    {
+      "id": "n3-1510",
+      "jlpt": "N3",
+      "headword": "件",
+      "source_form": "件",
+      "variants": [
+        "件"
+      ],
+      "reading": "けん",
+      "reading_variants": [
+        "けん"
+      ],
+      "romaji": "ken",
+      "part_of_speech": "noun",
+      "meaning_zh": "（已提到的）那件事；事项",
+      "kanji_readings": [
+        {
+          "form": "件",
+          "reading": "けん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "昨日の件について話したいです。",
+          "zh": "想谈谈昨天那件事。"
+        },
+        {
+          "ja": "その件はもう解決しました。",
+          "zh": "那件事已经解决了。"
+        },
+        {
+          "ja": "例の件、どうなりましたか。",
+          "zh": "那件事怎么样了？"
+        }
+      ],
+      "note_zh": "与「県」「券」「剣」同音。"
+    },
+    {
+      "id": "n3-1511",
+      "jlpt": "N3",
+      "headword": "剣",
+      "source_form": "剣",
+      "variants": [
+        "剣"
+      ],
+      "reading": "けん",
+      "reading_variants": [
+        "けん"
+      ],
+      "romaji": "ken",
+      "part_of_speech": "noun",
+      "meaning_zh": "剑",
+      "kanji_readings": [
+        {
+          "form": "剣",
+          "reading": "けん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "昔の武士は剣を持っていました。",
+          "zh": "以前的武士带着剑。"
+        },
+        {
+          "ja": "博物館で古い剣を見ました。",
+          "zh": "在博物馆看了古剑。"
+        },
+        {
+          "ja": "彼は子供のころから剣の練習をしています。",
+          "zh": "他从小就练剑。"
+        }
+      ],
+      "note_zh": "与「県」「券」「件」同音。"
+    },
+    {
+      "id": "n3-1512",
+      "jlpt": "N3",
+      "headword": "減少",
+      "source_form": "減少",
+      "variants": [
+        "減少"
+      ],
+      "reading": "げんしょう",
+      "reading_variants": [
+        "げんしょう"
+      ],
+      "romaji": "genshou",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "减少（名词・する动词，较书面）",
+      "kanji_readings": [
+        {
+          "form": "減少",
+          "reading": "げんしょう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "この町の人口は減少しています。",
+          "zh": "这个镇的人口在减少。"
+        },
+        {
+          "ja": "事故の数が大きく減少しました。",
+          "zh": "事故数量大幅减少了。"
+        },
+        {
+          "ja": "子供の数の減少が問題になっています。",
+          "zh": "儿童数量的减少成了问题。"
+        }
+      ],
+      "note_zh": "与「現象」同音。"
+    },
+    {
+      "id": "n3-1513",
+      "jlpt": "N3",
+      "headword": "公正",
+      "source_form": "公正",
+      "variants": [
+        "公正"
+      ],
+      "reading": "こうせい",
+      "reading_variants": [
+        "こうせい"
+      ],
+      "romaji": "kousei",
+      "part_of_speech": "na-adjective/noun",
+      "meaning_zh": "公正；合乎正义（不偏袒）",
+      "kanji_readings": [
+        {
+          "form": "公正",
+          "reading": "こうせい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "試合は公正に行われました。",
+          "zh": "比赛公正地进行了。"
+        },
+        {
+          "ja": "公正な判断をお願いします。",
+          "zh": "请做出公正的判断。"
+        },
+        {
+          "ja": "先生はすべての学生を公正に評価します。",
+          "zh": "老师公正地评价所有学生。"
+        }
+      ],
+      "note_zh": "与「構成」同音。"
+    },
+    {
+      "id": "n3-1514",
+      "jlpt": "N3",
+      "headword": "自体",
+      "source_form": "自体",
+      "variants": [
+        "自体"
+      ],
+      "reading": "じたい",
+      "reading_variants": [
+        "じたい"
+      ],
+      "romaji": "jitai",
+      "part_of_speech": "noun",
+      "meaning_zh": "（……）本身",
+      "kanji_readings": [
+        {
+          "form": "自体",
+          "reading": "じたい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "計画自体は悪くありません。",
+          "zh": "计划本身并不坏。"
+        },
+        {
+          "ja": "この料理は材料自体がおいしいです。",
+          "zh": "这道菜材料本身就好吃。"
+        },
+        {
+          "ja": "問題があること自体を知りませんでした。",
+          "zh": "连有问题这件事本身都不知道。"
+        }
+      ],
+      "note_zh": "多接在名词后，如「計画自体」。与「事態（局势）」同音。"
+    },
+    {
+      "id": "n3-1515",
+      "jlpt": "N3",
+      "headword": "視点",
+      "source_form": "視点",
+      "variants": [
+        "視点"
+      ],
+      "reading": "してん",
+      "reading_variants": [
+        "してん"
+      ],
+      "romaji": "shiten",
+      "part_of_speech": "noun",
+      "meaning_zh": "视角；观点",
+      "kanji_readings": [
+        {
+          "form": "視点",
+          "reading": "してん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "子供の視点で考えてみましょう。",
+          "zh": "试着从孩子的角度考虑吧。"
+        },
+        {
+          "ja": "新しい視点から問題を見ます。",
+          "zh": "从新的角度看问题。"
+        },
+        {
+          "ja": "彼の意見は視点が面白いです。",
+          "zh": "他的意见视角很有意思。"
+        }
+      ],
+      "note_zh": "与「支店（分店）」同音。"
+    },
+    {
+      "id": "n3-1516",
+      "jlpt": "N3",
+      "headword": "脂肪",
+      "source_form": "脂肪",
+      "variants": [
+        "脂肪"
+      ],
+      "reading": "しぼう",
+      "reading_variants": [
+        "しぼう"
+      ],
+      "romaji": "shibou",
+      "part_of_speech": "noun",
+      "meaning_zh": "脂肪",
+      "kanji_readings": [
+        {
+          "form": "脂肪",
+          "reading": "しぼう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "この肉は脂肪が少ないです。",
+          "zh": "这块肉脂肪少。"
+        },
+        {
+          "ja": "運動して、おなかの脂肪を減らしたいです。",
+          "zh": "想运动减掉肚子上的脂肪。"
+        },
+        {
+          "ja": "脂肪の多い食べ物は控えています。",
+          "zh": "我控制着少吃脂肪多的食物。"
+        }
+      ],
+      "note_zh": "与「死亡」同音。"
+    },
+    {
+      "id": "n3-1517",
+      "jlpt": "N3",
+      "headword": "生涯",
+      "source_form": "生涯",
+      "variants": [
+        "生涯"
+      ],
+      "reading": "しょうがい",
+      "reading_variants": [
+        "しょうがい"
+      ],
+      "romaji": "shougai",
+      "part_of_speech": "noun",
+      "meaning_zh": "生涯；终生（较书面）",
+      "kanji_readings": [
+        {
+          "form": "生涯",
+          "reading": "しょうがい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "祖父は生涯この町で暮らしました。",
+          "zh": "祖父一辈子都住在这个镇上。"
+        },
+        {
+          "ja": "その日のことは生涯忘れません。",
+          "zh": "那天的事一辈子都不会忘。"
+        },
+        {
+          "ja": "彼は生涯をかけて研究を続けました。",
+          "zh": "他倾注一生继续研究。"
+        }
+      ],
+      "note_zh": "与「障害」同音。"
+    },
+    {
+      "id": "n3-1518",
+      "jlpt": "N3",
+      "headword": "進行",
+      "source_form": "進行",
+      "variants": [
+        "進行"
+      ],
+      "reading": "しんこう",
+      "reading_variants": [
+        "しんこう"
+      ],
+      "romaji": "shinkou",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "进展；推进；（病情）发展",
+      "kanji_readings": [
+        {
+          "form": "進行",
+          "reading": "しんこう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "会議は予定どおりに進行しています。",
+          "zh": "会议正按计划进行。"
+        },
+        {
+          "ja": "工事の進行が少し遅れています。",
+          "zh": "工程的进展有点慢。"
+        },
+        {
+          "ja": "病気の進行を止める薬です。",
+          "zh": "这是阻止病情发展的药。"
+        }
+      ],
+      "note_zh": "与「信仰」同音。"
+    },
+    {
+      "id": "n3-1519",
+      "jlpt": "N3",
+      "headword": "申告",
+      "source_form": "申告",
+      "variants": [
+        "申告"
+      ],
+      "reading": "しんこく",
+      "reading_variants": [
+        "しんこく"
+      ],
+      "romaji": "shinkoku",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "申报",
+      "kanji_readings": [
+        {
+          "form": "申告",
+          "reading": "しんこく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "毎年三月に税金を申告します。",
+          "zh": "每年三月申报税款。"
+        },
+        {
+          "ja": "空港で荷物の中身を申告しました。",
+          "zh": "在机场申报了行李里的物品。"
+        },
+        {
+          "ja": "収入を正しく申告してください。",
+          "zh": "请如实申报收入。"
+        }
+      ],
+      "note_zh": "与「深刻」同音。"
+    },
+    {
+      "id": "n3-1520",
+      "jlpt": "N3",
+      "headword": "酢",
+      "source_form": "酢",
+      "variants": [
+        "酢"
+      ],
+      "reading": "す",
+      "reading_variants": [
+        "す"
+      ],
+      "romaji": "su",
+      "part_of_speech": "noun",
+      "meaning_zh": "醋",
+      "kanji_readings": [
+        {
+          "form": "酢",
+          "reading": "す"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "サラダに酢をかけます。",
+          "zh": "给沙拉浇上醋。"
+        },
+        {
+          "ja": "寿司のご飯には酢を入れます。",
+          "zh": "寿司的米饭里要放醋。"
+        },
+        {
+          "ja": "この料理は酢が少し多いです。",
+          "zh": "这道菜醋放得有点多。"
+        }
+      ],
+      "note_zh": "与「巣」同音。"
+    },
+    {
+      "id": "n3-1521",
+      "jlpt": "N3",
+      "headword": "全身",
+      "source_form": "全身",
+      "variants": [
+        "全身"
+      ],
+      "reading": "ぜんしん",
+      "reading_variants": [
+        "ぜんしん"
+      ],
+      "romaji": "zenshin",
+      "part_of_speech": "noun",
+      "meaning_zh": "全身",
+      "kanji_readings": [
+        {
+          "form": "全身",
+          "reading": "ぜんしん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "雨で全身がぬれました。",
+          "zh": "被雨淋得全身湿透。"
+        },
+        {
+          "ja": "運動のあと、全身が痛いです。",
+          "zh": "运动后全身酸痛。"
+        },
+        {
+          "ja": "鏡で全身を見ました。",
+          "zh": "在镜子里看了全身。"
+        }
+      ],
+      "note_zh": "与「前進」同音。"
+    },
+    {
+      "id": "n3-1522",
+      "jlpt": "N3",
+      "headword": "像",
+      "source_form": "像",
+      "variants": [
+        "像"
+      ],
+      "reading": "ぞう",
+      "reading_variants": [
+        "ぞう"
+      ],
+      "romaji": "zou",
+      "part_of_speech": "noun",
+      "meaning_zh": "雕像；（人或物的）像；形象",
+      "kanji_readings": [
+        {
+          "form": "像",
+          "reading": "ぞう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "駅の前に有名な犬の像があります。",
+          "zh": "车站前有一座有名的狗的雕像。"
+        },
+        {
+          "ja": "公園に大きな像が立っています。",
+          "zh": "公园里立着一座大雕像。"
+        },
+        {
+          "ja": "お寺で古い仏の像を見ました。",
+          "zh": "在寺庙看了古老的佛像。"
+        }
+      ],
+      "note_zh": "与「象（大象）」同音。"
+    },
+    {
+      "id": "n3-1523",
+      "jlpt": "N3",
+      "headword": "捜査",
+      "source_form": "捜査",
+      "variants": [
+        "捜査"
+      ],
+      "reading": "そうさ",
+      "reading_variants": [
+        "そうさ"
+      ],
+      "romaji": "sousa",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "搜查；侦查",
+      "kanji_readings": [
+        {
+          "form": "捜査",
+          "reading": "そうさ"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "警察が事件を捜査しています。",
+          "zh": "警察正在侦查案件。"
+        },
+        {
+          "ja": "捜査の結果、犯人が分かりました。",
+          "zh": "侦查的结果，查明了犯人。"
+        },
+        {
+          "ja": "捜査はまだ続いています。",
+          "zh": "侦查仍在继续。"
+        }
+      ],
+      "note_zh": "与「操作」同音。"
+    },
+    {
+      "id": "n3-1524",
+      "jlpt": "N3",
+      "headword": "創造",
+      "source_form": "創造",
+      "variants": [
+        "創造"
+      ],
+      "reading": "そうぞう",
+      "reading_variants": [
+        "そうぞう"
+      ],
+      "romaji": "souzou",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "创造",
+      "kanji_readings": [
+        {
+          "form": "創造",
+          "reading": "そうぞう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "新しい文化を創造します。",
+          "zh": "创造新的文化。"
+        },
+        {
+          "ja": "子供には創造する力があります。",
+          "zh": "孩子有创造的能力。"
+        },
+        {
+          "ja": "彼は新しい物を創造することが好きです。",
+          "zh": "他喜欢创造新东西。"
+        }
+      ],
+      "note_zh": "与「想像」同音。"
+    },
+    {
+      "id": "n3-1525",
+      "jlpt": "N3",
+      "headword": "対照",
+      "source_form": "対照",
+      "variants": [
+        "対照"
+      ],
+      "reading": "たいしょう",
+      "reading_variants": [
+        "たいしょう"
+      ],
+      "romaji": "taishou",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "对照；对比",
+      "kanji_readings": [
+        {
+          "form": "対照",
+          "reading": "たいしょう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "原文と訳文を対照しながら読みます。",
+          "zh": "一边对照原文和译文一边读。"
+        },
+        {
+          "ja": "白い壁と黒い床が美しい対照をなしています。",
+          "zh": "白墙和黑地板形成美丽的对比。"
+        },
+        {
+          "ja": "二つの資料を対照して、違いを調べました。",
+          "zh": "对照两份资料，查了不同之处。"
+        }
+      ],
+      "note_zh": "与「対象（对象）」同音。"
+    },
+    {
+      "id": "n3-1526",
+      "jlpt": "N3",
+      "headword": "次ぐ",
+      "source_form": "次ぐ",
+      "variants": [
+        "次ぐ"
+      ],
+      "reading": "つぐ",
+      "reading_variants": [
+        "つぐ"
+      ],
+      "romaji": "tsugu",
+      "part_of_speech": "verb",
+      "meaning_zh": "次于；仅次于；接着",
+      "kanji_readings": [
+        {
+          "form": "次ぐ",
+          "reading": "つぐ"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "大阪は東京に次ぐ大きな都市です。",
+          "zh": "大阪是仅次于东京的大城市。"
+        },
+        {
+          "ja": "彼の成績は田中さんに次いで二番目でした。",
+          "zh": "他的成绩仅次于田中，是第二名。"
+        },
+        {
+          "ja": "地震に次いで、大雨が降りました。",
+          "zh": "继地震之后又下了大雨。"
+        }
+      ],
+      "note_zh": "与「注ぐ（倒）」同音。"
+    },
+    {
+      "id": "n3-1527",
+      "jlpt": "N3",
+      "headword": "問う",
+      "source_form": "問う",
+      "variants": [
+        "問う"
+      ],
+      "reading": "とう",
+      "reading_variants": [
+        "とう"
+      ],
+      "romaji": "tou",
+      "part_of_speech": "verb",
+      "meaning_zh": "追问；追究（责任）；询问（较书面）",
+      "kanji_readings": [
+        {
+          "form": "問う",
+          "reading": "とう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "国民に意見を問いました。",
+          "zh": "征询了国民的意见。"
+        },
+        {
+          "ja": "事故の責任を問われました。",
+          "zh": "被追究了事故的责任。"
+        },
+        {
+          "ja": "自分にとって何が大切かを問い続けています。",
+          "zh": "我一直在问自己什么对自己最重要。"
+        }
+      ],
+      "note_zh": "较书面。与「党」「塔」同音。"
+    },
+    {
+      "id": "n3-1528",
+      "jlpt": "N3",
+      "headword": "説く",
+      "source_form": "説く",
+      "variants": [
+        "説く"
+      ],
+      "reading": "とく",
+      "reading_variants": [
+        "とく"
+      ],
+      "romaji": "toku",
+      "part_of_speech": "verb",
+      "meaning_zh": "讲解（道理）；宣扬；劝说",
+      "kanji_readings": [
+        {
+          "form": "説く",
+          "reading": "とく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "先生は勉強の大切さを説きました。",
+          "zh": "老师讲述了学习的重要性。"
+        },
+        {
+          "ja": "彼は平和の大切さを世界に説いています。",
+          "zh": "他向世界宣扬和平的重要性。"
+        },
+        {
+          "ja": "お坊さんが仏の教えを説きました。",
+          "zh": "和尚讲解了佛的教诲。"
+        }
+      ],
+      "note_zh": "与「解く」「得」同音。"
+    },
+    {
+      "id": "n3-1529",
+      "jlpt": "N3",
+      "headword": "得",
+      "source_form": "得",
+      "variants": [
+        "得"
+      ],
+      "reading": "とく",
+      "reading_variants": [
+        "とく"
+      ],
+      "romaji": "toku",
+      "part_of_speech": "na-adjective/noun",
+      "meaning_zh": "好处；划算",
+      "kanji_readings": [
+        {
+          "form": "得",
+          "reading": "とく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "まとめて買ったほうが得です。",
+          "zh": "一起买更划算。"
+        },
+        {
+          "ja": "早く予約すると得をします。",
+          "zh": "早预约会占便宜。"
+        },
+        {
+          "ja": "それはだれにとっても得になる話です。",
+          "zh": "那对谁都是有好处的事。"
+        }
+      ],
+      "note_zh": "常用「得をする」「得だ」。与「解く」「説く」同音。"
+    },
+    {
+      "id": "n3-1530",
+      "jlpt": "N3",
+      "headword": "覗く",
+      "source_form": "覗く",
+      "variants": [
+        "覗く"
+      ],
+      "reading": "のぞく",
+      "reading_variants": [
+        "のぞく"
+      ],
+      "romaji": "nozoku",
+      "part_of_speech": "verb",
+      "meaning_zh": "偷看；往里看；顺便看看",
+      "kanji_readings": [
+        {
+          "form": "覗く",
+          "reading": "のぞく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "窓から部屋の中を覗きました。",
+          "zh": "从窗户往屋里看了看。"
+        },
+        {
+          "ja": "帰りに本屋を覗いてみます。",
+          "zh": "回家路上去书店看看。"
+        },
+        {
+          "ja": "人の手紙を覗いてはいけません。",
+          "zh": "不能偷看别人的信。"
+        }
+      ],
+      "note_zh": "也常写作假名。与「除く（除去）」同音。"
+    },
+    {
+      "id": "n3-1531",
+      "jlpt": "N3",
+      "headword": "図る",
+      "source_form": "図る",
+      "variants": [
+        "図る"
+      ],
+      "reading": "はかる",
+      "reading_variants": [
+        "はかる"
+      ],
+      "romaji": "hakaru",
+      "part_of_speech": "verb",
+      "meaning_zh": "谋求；力图；策划",
+      "kanji_readings": [
+        {
+          "form": "図る",
+          "reading": "はかる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "会社は経営の改善を図っています。",
+          "zh": "公司在谋求改善经营。"
+        },
+        {
+          "ja": "安全を図るため、ルールを変えました。",
+          "zh": "为了确保安全，修改了规则。"
+        },
+        {
+          "ja": "彼は仕事の効率化を図っています。",
+          "zh": "他在力图提高工作效率。"
+        }
+      ],
+      "note_zh": "与「計る（测量）」同音。"
+    },
+    {
+      "id": "n3-1532",
+      "jlpt": "N3",
+      "headword": "票",
+      "source_form": "票",
+      "variants": [
+        "票"
+      ],
+      "reading": "ひょう",
+      "reading_variants": [
+        "ひょう"
+      ],
+      "romaji": "hyou",
+      "part_of_speech": "noun",
+      "meaning_zh": "（选）票",
+      "kanji_readings": [
+        {
+          "form": "票",
+          "reading": "ひょう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "選挙で彼に票を入れました。",
+          "zh": "选举时把票投给了他。"
+        },
+        {
+          "ja": "彼女は多くの票を集めて当選しました。",
+          "zh": "她获得了很多选票当选了。"
+        },
+        {
+          "ja": "票を数えるのに時間がかかりました。",
+          "zh": "数票花了很多时间。"
+        }
+      ],
+      "note_zh": "与「表」同音。"
+    },
+    {
+      "id": "n3-1533",
+      "jlpt": "N3",
+      "headword": "部隊",
+      "source_form": "部隊",
+      "variants": [
+        "部隊"
+      ],
+      "reading": "ぶたい",
+      "reading_variants": [
+        "ぶたい"
+      ],
+      "romaji": "butai",
+      "part_of_speech": "noun",
+      "meaning_zh": "部队",
+      "kanji_readings": [
+        {
+          "form": "部隊",
+          "reading": "ぶたい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "部隊は山の向こうに移動しました。",
+          "zh": "部队转移到了山的那边。"
+        },
+        {
+          "ja": "救助の部隊が現場に着きました。",
+          "zh": "救援部队到达了现场。"
+        },
+        {
+          "ja": "兄は自衛隊の部隊に所属しています。",
+          "zh": "哥哥隶属于自卫队的部队。"
+        }
+      ],
+      "note_zh": "与「舞台」同音。"
+    },
+    {
+      "id": "n3-1534",
+      "jlpt": "N3",
+      "headword": "兵",
+      "source_form": "兵",
+      "variants": [
+        "兵"
+      ],
+      "reading": "へい",
+      "reading_variants": [
+        "へい"
+      ],
+      "romaji": "hei",
+      "part_of_speech": "noun",
+      "meaning_zh": "士兵；兵",
+      "kanji_readings": [
+        {
+          "form": "兵",
+          "reading": "へい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "城の前に多くの兵が集まりました。",
+          "zh": "城前聚集了很多士兵。"
+        },
+        {
+          "ja": "戦争で多くの兵が亡くなりました。",
+          "zh": "战争中很多士兵牺牲了。"
+        },
+        {
+          "ja": "兵を集めて戦いに備えました。",
+          "zh": "召集士兵准备战斗。"
+        }
+      ],
+      "note_zh": "与「塀（围墙）」同音。"
+    },
+    {
+      "id": "n3-1535",
+      "jlpt": "N3",
+      "headword": "経る",
+      "source_form": "経る",
+      "variants": [
+        "経る"
+      ],
+      "reading": "へる",
+      "reading_variants": [
+        "へる"
+      ],
+      "romaji": "heru",
+      "part_of_speech": "verb",
+      "meaning_zh": "历经；经由（多用「〜を経て」）",
+      "kanji_readings": [
+        {
+          "form": "経る",
+          "reading": "へる"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "長い年月を経て、町は大きく変わりました。",
+          "zh": "经过漫长岁月，镇子发生了很大变化。"
+        },
+        {
+          "ja": "東京を経て大阪に行きます。",
+          "zh": "经由东京去大阪。"
+        },
+        {
+          "ja": "多くの失敗を経て、成功しました。",
+          "zh": "经历多次失败后成功了。"
+        }
+      ],
+      "note_zh": "多用「〜を経て」。与「減る（减少）」同音。"
+    },
+    {
+      "id": "n3-1536",
+      "jlpt": "N3",
+      "headword": "補償",
+      "source_form": "補償",
+      "variants": [
+        "補償"
+      ],
+      "reading": "ほしょう",
+      "reading_variants": [
+        "ほしょう"
+      ],
+      "romaji": "hoshou",
+      "part_of_speech": "suru-verb/noun",
+      "meaning_zh": "补偿；赔偿",
+      "kanji_readings": [
+        {
+          "form": "補償",
+          "reading": "ほしょう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "会社は被害者に補償しました。",
+          "zh": "公司向受害者进行了赔偿。"
+        },
+        {
+          "ja": "事故の補償を求めています。",
+          "zh": "正在要求事故赔偿。"
+        },
+        {
+          "ja": "壊れた車の補償を受けました。",
+          "zh": "得到了损坏的车的赔偿。"
+        }
+      ],
+      "note_zh": "与「保証（保证）」同音。"
+    },
+    {
+      "id": "n3-1537",
+      "jlpt": "N3",
+      "headword": "巻く",
+      "source_form": "巻く",
+      "variants": [
+        "巻く"
+      ],
+      "reading": "まく",
+      "reading_variants": [
+        "まく"
+      ],
+      "romaji": "maku",
+      "part_of_speech": "verb",
+      "meaning_zh": "卷；缠；围",
+      "kanji_readings": [
+        {
+          "form": "巻く",
+          "reading": "まく"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "首にマフラーを巻きます。",
+          "zh": "在脖子上围围巾。"
+        },
+        {
+          "ja": "けがをした指に包帯を巻きました。",
+          "zh": "在受伤的手指上缠了绷带。"
+        },
+        {
+          "ja": "ポスターを丸く巻いて持って帰りました。",
+          "zh": "把海报卷成卷带回家了。"
+        }
+      ],
+      "note_zh": "与「幕」同音。"
+    },
+    {
+      "id": "n3-1538",
+      "jlpt": "N3",
+      "headword": "容器",
+      "source_form": "容器",
+      "variants": [
+        "容器"
+      ],
+      "reading": "ようき",
+      "reading_variants": [
+        "ようき"
+      ],
+      "romaji": "youki",
+      "part_of_speech": "noun",
+      "meaning_zh": "容器",
+      "kanji_readings": [
+        {
+          "form": "容器",
+          "reading": "ようき"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "残った料理を容器に入れて冷蔵庫にしまいました。",
+          "zh": "把剩菜装进容器放进了冰箱。"
+        },
+        {
+          "ja": "この容器は電子レンジで使えます。",
+          "zh": "这个容器可以用微波炉加热。"
+        },
+        {
+          "ja": "プラスチックの容器はリサイクルします。",
+          "zh": "塑料容器要回收。"
+        }
+      ],
+      "note_zh": "与「陽気（开朗）」同音。"
     }
   ]
 };

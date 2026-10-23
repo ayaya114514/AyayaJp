@@ -18,20 +18,21 @@
     "n5-codex-vocab.js",
     "n5-codex-vocab.json",
     "pitch-accent-data.js",
+    "homophone-data.js",
     "romaji-word-spacing.js",
     "example-readings.js",
     "styles.css"
   ],
-  "source_fingerprint": "sha256:d896f55f52b2ad81907dc2e998b7ddddb41f65566b63f0f498e8df204224f48e",
+  "source_fingerprint": "sha256:259c8eb6ceacdcc7b1d87038173e2f8518265c391e6a4cd5fb785bf29fe9b3b7",
   "expected_counts": {
-    "n5_entries": 725,
-    "n4_entries": 727,
-    "n3_entries": 1487,
+    "n5_entries": 743,
+    "n4_entries": 745,
+    "n3_entries": 1526,
     "grammar_entries": 333,
     "kana_cards": 241,
-    "vocab_cards": 5878,
+    "vocab_cards": 6028,
     "grammar_cards": 1998,
-    "total_cards_from_api": 8117
+    "total_cards_from_api": 8267
   },
   "required_contracts": [
     "source-js-json-sync",

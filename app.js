@@ -101,7 +101,7 @@ function otherPoolsOf(deck) {
 }
 
 function cardFamilyForDeck(deck) {
-  deck = baseDeckOf(deck);
+  deck = baseDeckOf(deck).split(BLOCK_SEPARATOR)[0];
   if (["hiragana", "katakana", "romaji", "special"].includes(deck)) return "kana";
   if (["vocab-ja-zh", "vocab-zh-ja"].includes(deck)) return "vocab-n5";
   if (["vocab-n4-ja-zh", "vocab-n4-zh-ja"].includes(deck)) return "vocab-n4";
@@ -135,57 +135,144 @@ function getFamilyCards(deck) {
   return cardFamilyCache.get(family);
 }
 
-// A grammar level can be narrowed to one group (条件, 推测…) picked on the module
-// page; the choice applies to all four of that level's decks. Only what is shown
-// is filtered: the round still spans the whole deck, so finishing a group never
-// counts as finishing the round. The choice is a per-browser convenience.
-const GRAMMAR_GROUP_STATE_KEY = "ayaya-jp-grammar-group-v1";
-let grammarGroupList = Array.isArray(cardData?.grammarGroups) ? cardData.grammarGroups : [];
-let grammarGroupFilters = loadGrammarGroupFilters();
+// Vocab and grammar decks are split into 小块 picked on the module page. A block
+// is a deck of its own (`vocab-ja-zh@3`, `grammar-n5-choice@n5-case`) with its own
+// round, restart and 模糊 / 不认识 pools, so finishing or restarting one block
+// never touches another; the tab's own deck is the 全部 block. Vocabulary blocks
+// hold about 25 words each, dealt in a fixed shuffled order that both directions
+// share (第3块 asks the same words either way); grammar blocks are the level's
+// groups (条件, 推测…), which keep confusable patterns together.
+const BLOCK_SEPARATOR = "@";
+const VOCAB_BLOCK_SIZE = 25;
+// Before blocks, a grammar level was narrowed to one group from a picker.
+const RETIRED_GRAMMAR_GROUP_STATE_KEY = "ayaya-jp-grammar-group-v1";
+const vocabBlockCache = new Map();
 
-function grammarFamilyLevel(family) {
-  return /^grammar-(n[345])$/u.exec(family)?.[1].toUpperCase() || "";
+function tabDeckOf(deck) {
+  return baseDeckOf(deck).split(BLOCK_SEPARATOR)[0];
 }
 
-function loadGrammarGroupFilters() {
-  let saved = {};
-  try {
-    saved = JSON.parse(localStorage.getItem(GRAMMAR_GROUP_STATE_KEY) || "{}") || {};
-  } catch {
-    saved = {};
+function blockOf(deck) {
+  const base = baseDeckOf(deck);
+  const index = base.indexOf(BLOCK_SEPARATOR);
+  return index < 0 ? "" : base.slice(index + 1);
+}
+
+function blockDeckOf(tabDeck, block) {
+  return block ? `${tabDeck}${BLOCK_SEPARATOR}${block}` : tabDeck;
+}
+
+function hasBlocks(deck) {
+  const family = cardFamilyForDeck(deck);
+  return Boolean(family) && family !== "kana";
+}
+
+// Stored block decks are kept while the study data downloads, so a block is
+// checked by its shape: a number for vocab, its level's group id for grammar.
+function isBlockIdFor(deck, block) {
+  const family = cardFamilyForDeck(deck) || "";
+  if (family.startsWith("vocab-")) return /^[1-9]\d{0,2}$/u.test(block);
+  if (family.startsWith("grammar-")) {
+    return /^n[345]-[a-z]+$/u.test(block) && block.startsWith(family.slice("grammar-".length));
   }
-  return Object.fromEntries(
-    Object.entries(isStoreObject(saved) ? saved : {}).filter(([family, groupId]) =>
-      // Groups arrive with the study data; until then saved choices are kept
-      // as they are and checked once the groups are known.
-      studyDataState === "loading"
-        ? Boolean(grammarFamilyLevel(family)) && typeof groupId === "string"
-        : grammarGroupList.some(
-            (group) => group.id === groupId && group.level === grammarFamilyLevel(family),
-          ),
-    ),
+  return false;
+}
+
+// FNV-1a with a murmur3 finish, so neighbouring source ids land far apart.
+function stableHash(text) {
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < text.length; index += 1) {
+    hash = Math.imul(hash ^ text.charCodeAt(index), 0x01000193);
+  }
+  hash = Math.imul(hash ^ (hash >>> 16), 0x85ebca6b);
+  hash = Math.imul(hash ^ (hash >>> 13), 0xc2b2ae35);
+  return (hash ^ (hash >>> 16)) >>> 0;
+}
+
+function vocabSourceOf(card) {
+  return card.sourceId || card.id;
+}
+
+// Words added later must not reshuffle the blocks people are working through,
+// so each level's words are dealt in generations: the source numbers up to each
+// listed one form a generation of their own, and its blocks follow those of the
+// generation before. Words past the last listed number form the newest
+// generation; list its last number once it ships, before adding more words.
+const VOCAB_BLOCK_GENERATIONS = {
+  "vocab-n5": [748],
+  "vocab-n4": [785],
+  "vocab-n3": [1538],
+};
+
+function vocabGenerationOf(family, sourceId) {
+  const number = Number.parseInt(String(sourceId).split("-").at(-1), 10);
+  const limits = VOCAB_BLOCK_GENERATIONS[family] || [];
+  const index = limits.findIndex((limit) => !(number > limit));
+  return index < 0 ? limits.length : index;
+}
+
+// Source id → block number for a vocab level; within a generation blocks differ
+// in size by at most one.
+function vocabBlockMap(deck) {
+  const family = cardFamilyForDeck(deck);
+  if (vocabBlockCache.has(family)) return vocabBlockCache.get(family);
+  const blocks = new Map();
+  const familyCards = getFamilyCards(deck);
+  if (!familyCards.length) return blocks;
+  const generations = new Map();
+  [...new Set(familyCards.map(vocabSourceOf))].forEach((sourceId) => {
+    const generation = vocabGenerationOf(family, sourceId);
+    if (!generations.has(generation)) generations.set(generation, []);
+    generations.get(generation).push(sourceId);
+  });
+  let offset = 0;
+  [...generations.keys()].sort((left, right) => left - right).forEach((generation) => {
+    const sourceIds = generations.get(generation)
+      .map((sourceId) => [stableHash(sourceId), sourceId])
+      .sort(([leftHash, left], [rightHash, right]) =>
+        leftHash - rightHash || (left < right ? -1 : left > right ? 1 : 0),
+      )
+      .map(([, sourceId]) => sourceId);
+    const count = Math.max(1, Math.floor(sourceIds.length / VOCAB_BLOCK_SIZE));
+    sourceIds.forEach((sourceId, index) => {
+      blocks.set(sourceId, String(offset + Math.floor((index * count) / sourceIds.length) + 1));
+    });
+    offset += count;
+  });
+  vocabBlockCache.set(family, blocks);
+  return blocks;
+}
+
+function cardBlockOf(card) {
+  if (card.isGrammar) return card.grammarGroup || "";
+  return vocabBlockMap(card.deck).get(vocabSourceOf(card)) || "";
+}
+
+function grammarGroupsFor(deck) {
+  const level = (cardFamilyForDeck(deck) || "").slice("grammar-".length).toUpperCase();
+  return (Array.isArray(cardData?.grammarGroups) ? cardData.grammarGroups : []).filter(
+    (group) => group.level === level,
   );
 }
 
-function saveGrammarGroupFilters() {
-  try {
-    localStorage.setItem(GRAMMAR_GROUP_STATE_KEY, JSON.stringify(grammarGroupFilters));
-  } catch {
-    // The filter still applies until the page closes.
+// The deck's blocks in module-page order; none until the study data is in.
+function deckBlocks(deck) {
+  const family = cardFamilyForDeck(deck) || "";
+  if (family.startsWith("grammar-")) {
+    return grammarGroupsFor(deck).map((group) => ({ id: group.id, label: group.label }));
   }
+  if (!family.startsWith("vocab-")) return [];
+  const count = new Set(vocabBlockMap(deck).values()).size;
+  return Array.from({ length: count }, (_, index) => ({
+    id: String(index + 1),
+    label: String(index + 1),
+  }));
 }
 
-function grammarGroupFor(deck = activeDeck) {
-  return grammarGroupFilters[cardFamilyForDeck(deck)] || "";
-}
-
-function grammarGroupLabel(groupId) {
-  return grammarGroupList.find((group) => group.id === groupId)?.label || "";
-}
-
-function inActiveGroup(card, deck = activeDeck) {
-  const group = grammarGroupFor(deck);
-  return !group || card.grammarGroup === group;
+function blockLabelOf(deck) {
+  const block = blockOf(deck);
+  if (!block) return "";
+  return grammarGroupsFor(deck).find((group) => group.id === block)?.label || `第${block}块`;
 }
 
 const elements = {
@@ -495,7 +582,15 @@ function compactCardState(value) {
           ? 1
           : 0,
   };
-  return compacted.reviews > 0 || compacted.lastRating || compacted.lastEvent ? compacted : null;
+  if (typeof value.undoneEventId === "string" && value.undoneEventId) {
+    compacted.undoneEventId = value.undoneEventId;
+  }
+  return compacted.reviews > 0 ||
+    compacted.lastRating ||
+    compacted.lastEvent ||
+    compacted.undoneEventId
+    ? compacted
+    : null;
 }
 
 function compactStoreForPersistence(value) {
@@ -512,8 +607,22 @@ function compactStoreForPersistence(value) {
   return compacted;
 }
 
+// Undo keeps the review it retracted as undoneEventId, so a tab that has already
+// merged that review drops it instead of writing it back: a state whose latest
+// review the other state undid never counts as the latest.
+function undoesLatestReview(state, otherState) {
+  return Boolean(
+    otherState?.undoneEventId && state?.lastEvent?.eventId === otherState.undoneEventId,
+  );
+}
+
 function latestCardState(localState, remoteState) {
-  const candidates = [compactCardState(localState), compactCardState(remoteState)].filter(Boolean);
+  const local = compactCardState(localState);
+  const remote = compactCardState(remoteState);
+  const candidates = [
+    undoesLatestReview(local, remote) ? null : local,
+    undoesLatestReview(remote, local) ? null : remote,
+  ].filter(Boolean);
   if (!candidates.length) return defaultState();
   return candidates.sort(
     (left, right) =>
@@ -529,11 +638,18 @@ function mergeConcurrentCardState(baseState, localState, remoteState) {
   const base = compactCardState(baseState) || defaultState();
   const local = compactCardState(localState) || defaultState();
   const remote = compactCardState(remoteState) || defaultState();
-  const localDelta = reviewCount(local) - reviewCount(base);
-  const remoteDelta = reviewCount(remote) - reviewCount(base);
   const localEventKey = ratingEventKey(local.lastEvent);
   const remoteEventKey = ratingEventKey(remote.lastEvent);
   const baseEventKey = ratingEventKey(base.lastEvent);
+  // A review added since the base that the other side has undone is not counted.
+  const localDelta =
+    reviewCount(local) -
+    reviewCount(base) -
+    (undoesLatestReview(local, remote) && localEventKey !== baseEventKey ? 1 : 0);
+  const remoteDelta =
+    reviewCount(remote) -
+    reviewCount(base) -
+    (undoesLatestReview(remote, local) && remoteEventKey !== baseEventKey ? 1 : 0);
   const duplicatedNewEvent =
     localEventKey &&
     localEventKey === remoteEventKey &&
@@ -548,9 +664,11 @@ function mergeConcurrentCardState(baseState, localState, remoteState) {
     reviewCount(local) === reviewCount(base) &&
     (localEventKey === baseEventKey || remoteEventKey === baseEventKey);
   const latest = latestCardState(local, remote);
+  const undoneEventId = latest.undoneEventId || local.undoneEventId || remote.undoneEventId;
 
   return {
     ...latest,
+    ...(undoneEventId ? { undoneEventId } : {}),
     reviews: Math.max(
       0,
       reviewCount(base) +
@@ -833,8 +951,18 @@ function mergeRoundStates(baseRoundState, localRoundState, remoteRoundState, car
     const baseDeck = base.decks?.[deck];
     const localDeck = local.decks?.[deck];
     const remoteDeck = remote.decks?.[deck];
-    const localChanged = !valuesEqual(localDeck, baseDeck);
+    // Saves run this for every stored deck, so the local round is deep-compared
+    // only when the outcome depends on it: a remote round that is the base's own
+    // object (no other tab wrote it) is unchanged, and differs from the local
+    // one exactly when the local one changed.
+    let localChangedResult;
+    const localChanged = () => {
+      if (localChangedResult === undefined) localChangedResult = !valuesEqual(localDeck, baseDeck);
+      return localChangedResult;
+    };
     const remoteChanged = !valuesEqual(remoteDeck, baseDeck);
+    const localDiffersFromRemote = () =>
+      remoteDeck === baseDeck ? localChanged() : !valuesEqual(localDeck, remoteDeck);
     const bothHaveCompletionOperations =
       Object.keys(localDeck?.completionEvents || {}).length > 0 &&
       Object.keys(remoteDeck?.completionEvents || {}).length > 0;
@@ -850,8 +978,8 @@ function mergeRoundStates(baseRoundState, localRoundState, remoteRoundState, car
     if (
       isStoreObject(localDeck) &&
       isStoreObject(remoteDeck) &&
-      !valuesEqual(localDeck, remoteDeck) &&
-      ((localChanged && remoteChanged) || bothHaveCompletionOperations)
+      ((remoteChanged && localChanged()) || bothHaveCompletionOperations) &&
+      localDiffersFromRemote()
     ) {
       decks[deck] = mergeConcurrentDeckRound(
         deck,
@@ -860,9 +988,7 @@ function mergeRoundStates(baseRoundState, localRoundState, remoteRoundState, car
         remoteDeck,
         cardStates,
       );
-    } else if (localChanged) {
-      decks[deck] = normalizeDeckRound(localDeck, cardStates, deck);
-    } else if (remoteChanged) {
+    } else if (remoteChanged && !localChanged()) {
       decks[deck] = normalizeDeckRound(remoteDeck, cardStates, deck);
     } else {
       decks[deck] = normalizeDeckRound(localDeck, cardStates, deck);
@@ -883,11 +1009,25 @@ function mergeStoreVersions(baseStore, localStore, remoteStore) {
   const local = isStoreObject(localStore) ? localStore : {};
   const remote = isStoreObject(remoteStore) ? remoteStore : {};
   const merged = {};
-  const keys = new Set([...Object.keys(base), ...Object.keys(local), ...Object.keys(remote)]);
+  // A write while storage still holds what this tab last synced passes that
+  // store as both base and remote: nothing changed remotely, every branch below
+  // takes the local value, and comparing thousands of card states is skipped.
+  // The values are taken as they are: every caller replaces the local store
+  // with the result (saveStore's copy is its own and is compacted right after).
+  const remoteIsBase = remote === base;
+  const keys = new Set(
+    remoteIsBase
+      ? Object.keys(local)
+      : [...Object.keys(base), ...Object.keys(local), ...Object.keys(remote)],
+  );
 
   keys.delete(STORE_META_KEY);
   keys.delete(ROUND_STATE_KEY);
   keys.forEach((key) => {
+    if (remoteIsBase) {
+      if (local[key] !== undefined) merged[key] = local[key];
+      return;
+    }
     const localChanged = !valuesEqual(local[key], base[key]);
     const remoteChanged = !valuesEqual(remote[key], base[key]);
     let value;
@@ -1000,13 +1140,23 @@ function arraysEqual(left, right) {
   return left.length === right.length && left.every((item, index) => item === right[index]);
 }
 
-function knownDecks() {
-  return new Set(
-    [...elements.tabs]
-      .map((tab) => tab.dataset.deck)
-      .filter(Boolean)
-      .flatMap((deck) => POOL_KINDS.map((kind) => poolOf(deck, kind))),
-  );
+// The tabs never change; their decks are read once, since every save checks
+// each stored deck.
+let tabDeckSet = null;
+
+function isTabDeck(deck) {
+  if (!tabDeckSet) tabDeckSet = new Set([...elements.tabs].map((tab) => tab.dataset.deck));
+  return tabDeckSet.has(deck);
+}
+
+// A tab's deck, one of its blocks, or a pool of either.
+function isKnownDeck(deck) {
+  if (typeof deck !== "string") return false;
+  const tabDeck = tabDeckOf(deck);
+  if (!isTabDeck(tabDeck)) return false;
+  const block = blockOf(deck);
+  if (block && !isBlockIdFor(tabDeck, block)) return false;
+  return poolOf(blockDeckOf(tabDeck, block), poolKindOf(deck)) === deck;
 }
 
 function isVocabDeck(deck) {
@@ -1089,15 +1239,14 @@ function syncSessionRoundState(options = {}) {
   clearRecord(sessionQueueOrderVersions);
   if (!roundState || typeof roundState !== "object") return;
 
-  const deckNames = knownDecks();
   const storedActiveDeck =
     LEGACY_MISTAKE_DECKS[roundState.activeDeck] || roundState.activeDeck;
-  if (!preserveActiveDeck && deckNames.has(storedActiveDeck)) {
+  if (!preserveActiveDeck && isKnownDeck(storedActiveDeck)) {
     activeDeck = storedActiveDeck;
   }
 
   Object.entries(roundState.decks || {}).forEach(([deck, state]) => {
-    if (!deckNames.has(deck) || !state || typeof state !== "object") return;
+    if (!isKnownDeck(deck) || !state || typeof state !== "object") return;
     sessionQueues[deck] = Array.isArray(state.queue) ? [...state.queue] : [];
     sessionCompleted[deck] = new Set(Array.isArray(state.completed) ? state.completed : []);
     sessionCompletionEvents[deck] = isStoreObject(state.completionEvents)
@@ -1306,9 +1455,30 @@ function cardPoolKind(card) {
 }
 
 function getDeckCards(deck = activeDeck) {
-  const baseDeck = baseDeckOf(deck);
+  const tabDeck = tabDeckOf(deck);
+  const block = blockOf(deck);
   const kind = poolKindOf(deck);
-  return getFamilyCards(deck).filter((card) => card.deck === baseDeck && cardPoolKind(card) === kind);
+  return getFamilyCards(deck).filter(
+    (card) =>
+      card.deck === tabDeck &&
+      (!block || cardBlockOf(card) === block) &&
+      cardPoolKind(card) === kind,
+  );
+}
+
+// The round a pool starts with the first time it opens: reviewed main-pool cards
+// count as done, and a block carries over its share of the 全部 deck's round.
+function initialCompletedIds(deck, deckCards) {
+  const parentDeck = poolOf(tabDeckOf(deck), poolKindOf(deck));
+  if (parentDeck !== deck && sessionCompleted[parentDeck] instanceof Set) {
+    const parentCompleted = sessionCompleted[parentDeck];
+    return new Set(deckCards.filter((card) => parentCompleted.has(card.id)).map((card) => card.id));
+  }
+  return new Set(
+    isReviewPool(deck)
+      ? []
+      : deckCards.filter((card) => cardReviewsOf(card.id) > 0).map((card) => card.id),
+  );
 }
 
 function shuffleList(items) {
@@ -1327,9 +1497,34 @@ function avoidSameOrder(order, previousOrder) {
   return order;
 }
 
+// Homophones (紙・髪・神) are asked apart: a card never directly follows one
+// sharing its reading when another card can take its place.
+function spreadHomophones(order, keyById) {
+  const spread = [...order];
+  const keyAt = (index) => keyById.get(spread[index]);
+  const clashes = (index, key) =>
+    Boolean(key) && (keyAt(index - 1) === key || keyAt(index + 1) === key);
+  for (let index = 1; index < spread.length; index += 1) {
+    const key = keyAt(index);
+    if (!key || keyAt(index - 1) !== key) continue;
+    for (let other = 0; other < spread.length; other += 1) {
+      const otherKey = keyAt(other);
+      if (otherKey === key || Math.abs(other - index) < 2) continue;
+      [spread[index], spread[other]] = [spread[other], spread[index]];
+      if (!clashes(index, otherKey) && !clashes(other, key)) break;
+      [spread[index], spread[other]] = [spread[other], spread[index]];
+    }
+  }
+  return spread;
+}
+
 function shuffleCards(deckCards, previousOrder = []) {
+  const keyById = new Map(
+    deckCards.filter((card) => card.homophoneKey).map((card) => [card.id, card.homophoneKey]),
+  );
   const shuffledIds = shuffleList(deckCards).map((card) => card.id);
-  return avoidSameOrder(shuffledIds, previousOrder);
+  const ids = keyById.size ? spreadHomophones(shuffledIds, keyById) : shuffledIds;
+  return avoidSameOrder(ids, previousOrder);
 }
 
 function buildChoiceOptions(card) {
@@ -1368,11 +1563,7 @@ function buildQueue() {
     hadQueue && previousQueueOrderVersion < ROUND_QUEUE_ORDER_VERSION;
   const completedIds = hadCompleted
     ? sessionCompleted[activeDeck]
-    : new Set(
-        isReviewPool(activeDeck)
-          ? []
-          : deckCards.filter((card) => cardReviewsOf(card.id) > 0).map((card) => card.id),
-      );
+    : initialCompletedIds(activeDeck, deckCards);
   const queuedIds = hadQueue
     ? sessionQueues[activeDeck]
     : shuffleCards(deckCards.filter((card) => !completedIds.has(card.id)));
@@ -1398,9 +1589,7 @@ function buildQueue() {
   sessionCompleted[activeDeck] = completedIds;
   sessionQueues[activeDeck] = nextQueue;
   sessionQueueOrderVersions[activeDeck] = nextQueueOrderVersion;
-  reviewQueue = sessionQueues[activeDeck]
-    .map((id) => cardById.get(id))
-    .filter((card) => card && inActiveGroup(card));
+  reviewQueue = sessionQueues[activeDeck].map((id) => cardById.get(id)).filter(Boolean);
   if (shouldSave) {
     saveRoundState();
   }
@@ -1426,19 +1615,15 @@ function restoreUndoButtonHome() {
 
 // Cards left in a pool's current round. The active pool's queue is already
 // built; the other pool counts its cards not yet completed this round (a pool
-// never opened yet treats reviewed main-pool cards as done, like buildQueue).
-function remainingCount(deck) {
+// never opened yet starts as buildQueue would start it).
+function remainingCount(deck, deckCards = null) {
   if (deck === activeDeck) return reviewQueue.length;
-  const deckCards = getDeckCards(deck);
+  const cards = deckCards || getDeckCards(deck);
   const completedIds =
     sessionCompleted[deck] instanceof Set
       ? sessionCompleted[deck]
-      : new Set(
-          isReviewPool(deck)
-            ? []
-            : deckCards.filter((card) => cardReviewsOf(card.id) > 0).map((card) => card.id),
-        );
-  return deckCards.filter((card) => !completedIds.has(card.id) && inActiveGroup(card, deck)).length;
+      : initialCompletedIds(deck, cards);
+  return cards.filter((card) => !completedIds.has(card.id)).length;
 }
 
 function poolTabs() {
@@ -1513,7 +1698,7 @@ function focusPrimaryStudyAction(options = {}) {
 }
 
 function render() {
-  const deckCards = getDeckCards().filter((card) => inActiveGroup(card));
+  const deckCards = getDeckCards();
   const dueCount = reviewQueue.length;
   const completedIds = sessionCompleted[activeDeck] || new Set();
   const deckIds = new Set(deckCards.map((card) => card.id));
@@ -1525,7 +1710,7 @@ function render() {
   renderPoolToggle();
 
   elements.tabs.forEach((tab) => {
-    const isActive = tab.dataset.deck === baseDeckOf(activeDeck);
+    const isActive = tab.dataset.deck === tabDeckOf(activeDeck);
     tab.classList.toggle("active", isActive);
     tab.setAttribute("aria-pressed", String(isActive));
   });
@@ -1643,7 +1828,7 @@ function render() {
   elements.feedbackRow.hidden = false;
   elements.answerMain.textContent = answerRepeatedInMeta(currentCard) ? "" : currentCard.answer;
   elements.answerMain.lang = currentCard.answerLang || "";
-  renderMeta(currentCard.meta);
+  renderMeta(currentCard.meta, currentCard.homophones);
   const hasExample = Boolean(currentCard.examples?.length);
   elements.exampleBlock.hidden = !hasExample;
   if (hasExample) {
@@ -1651,15 +1836,21 @@ function render() {
   }
 }
 
-// "N5 词汇 · 日→中" from the module page's level, row and cell labels; read out
-// with the progress counts and used to drop card tags that repeat the module name.
+// "N5 词汇 · 日→中 · 第3块" from the module page's level, row and cell labels and
+// the block; read out with the progress counts and used to drop card tags that
+// repeat the module name.
 function moduleTitleFor(deck) {
-  const tab = [...elements.tabs].find((item) => item.dataset.deck === baseDeckOf(deck));
+  const tab = [...elements.tabs].find((item) => item.dataset.deck === tabDeckOf(deck));
   const level = tab?.closest(".deck-level-group")?.querySelector(".deck-level")?.textContent?.trim();
   const rowTitle = tab?.closest(".deck-row")?.querySelector(".deck-row-title")?.textContent?.trim();
   const row = [level, rowTitle].filter(Boolean).join(" ");
   const label = tab?.querySelector(".deck-label")?.textContent?.trim();
-  return [row, label, isReviewPool(deck) ? POOL_NAMES[poolKindOf(deck)] : ""].filter(Boolean).join(" · ");
+  return [
+    row,
+    label,
+    blockLabelOf(deck),
+    isReviewPool(deck) ? POOL_NAMES[poolKindOf(deck)] : "",
+  ].filter(Boolean).join(" · ");
 }
 
 // The card's learning category (搭配, 表达, 拗音...) without the level and
@@ -1705,7 +1896,45 @@ function answerRepeatedInMeta(card) {
   return parts.length > 0 && parts.every((part) => values.has(part));
 }
 
-function renderMeta(meta) {
+// 同音: the words sharing this card's reading, most frequent first, each with
+// its gloss and accent; the card's own word is marked.
+function homophoneRow(homophones) {
+  const row = document.createElement("div");
+  row.className = "meta-row homophone-row";
+  const label = document.createElement("span");
+  label.className = "meta-key";
+  label.textContent = "同音";
+  const list = document.createElement("span");
+  list.className = "meta-value homophone-list";
+  homophones.forEach(({ word, gloss, accent, isCurrent }, index) => {
+    const item = document.createElement("span");
+    item.className = "homophone";
+    if (isCurrent) item.classList.add("is-current");
+    const number = document.createElement("span");
+    number.className = "homophone-index";
+    number.textContent = `${index + 1}`;
+    const headword = document.createElement("span");
+    headword.className = "homophone-word";
+    headword.lang = "ja";
+    headword.textContent = word;
+    item.append(number, headword);
+    if (accent) {
+      const pitch = document.createElement("span");
+      pitch.className = "homophone-accent";
+      pitch.textContent = accent;
+      item.append(pitch);
+    }
+    const meaning = document.createElement("span");
+    meaning.className = "homophone-gloss";
+    meaning.textContent = gloss;
+    item.append(meaning);
+    list.append(item);
+  });
+  row.append(label, list);
+  return row;
+}
+
+function renderMeta(meta, homophones = null) {
   const rows = metaRows(meta).map(([key, value]) => {
     const row = document.createElement("div");
     row.className = "meta-row";
@@ -1721,6 +1950,7 @@ function renderMeta(meta) {
     row.append(text);
     return row;
   });
+  if (Array.isArray(homophones) && homophones.length > 1) rows.push(homophoneRow(homophones));
   elements.answerMeta.replaceChildren(...rows);
   elements.metaBlock.hidden = rows.length === 0;
 }
@@ -1989,7 +2219,7 @@ function renderEmpty(deckCards) {
   elements.studyAnyWay.hidden = deckCards.length === 0;
   elements.studyAnyWay.textContent = "重新开始";
   if (extraElements.emptyTitle) extraElements.emptyTitle.textContent = "当前模块完成";
-  if (extraElements.groupShowAll) extraElements.groupShowAll.hidden = true;
+  if (extraElements.blockNext) extraElements.blockNext.hidden = true;
   const isLoading = isDeckDataPending();
   elements.emptyState.classList.toggle("is-loading", isLoading);
   if (isLoading) {
@@ -1999,17 +2229,11 @@ function renderEmpty(deckCards) {
     return;
   }
   const kind = poolKindOf(activeDeck);
-  const group = grammarGroupFor();
-  // A finished group whose deck still has cards elsewhere restarts only itself.
-  const othersLeft = group && kind === "main" ? (sessionQueues[activeDeck] || []).length : 0;
-  if (othersLeft) {
-    if (extraElements.emptyTitle) extraElements.emptyTitle.textContent = "这一组完成";
-    if (extraElements.groupShowAll) extraElements.groupShowAll.hidden = false;
-    elements.studyAnyWay.textContent = "重练这一组";
-    elements.roundStatusText.textContent = deckCards.length
-      ? `「${grammarGroupLabel(group)}」这一轮已经练完，其他组还剩 ${othersLeft} 张。`
-      : `「${grammarGroupLabel(group)}」的卡都在模糊或不认识板块，其他组还剩 ${othersLeft} 张。`;
-    return;
+  // A finished block restarts only itself and leads on to the next block.
+  if (blockOf(activeDeck)) {
+    if (extraElements.emptyTitle) extraElements.emptyTitle.textContent = "这一块完成";
+    elements.studyAnyWay.textContent = "重练这一块";
+    if (extraElements.blockNext) extraElements.blockNext.hidden = kind !== "main" || !nextBlockDeck();
   }
   if (kind !== "main") {
     const name = POOL_NAMES[kind];
@@ -2019,8 +2243,8 @@ function renderEmpty(deckCards) {
     return;
   }
 
-  const fuzzyCount = getDeckCards(poolOf(activeDeck, "fuzzy")).filter((card) => inActiveGroup(card)).length;
-  const unknownCount = getDeckCards(poolOf(activeDeck, "unknown")).filter((card) => inActiveGroup(card)).length;
+  const fuzzyCount = getDeckCards(poolOf(activeDeck, "fuzzy")).length;
+  const unknownCount = getDeckCards(poolOf(activeDeck, "unknown")).length;
   const elsewhere = [
     fuzzyCount ? "模糊" : "",
     unknownCount ? "不认识" : "",
@@ -2260,7 +2484,10 @@ function removeAppliedReview(snapshot, persistedState, concurrentReviewExists) {
   }
 
   if (!concurrentReviewExists) {
-    store[snapshot.cardId] = cloneStore(snapshot.previousState);
+    store[snapshot.cardId] = {
+      ...cloneStore(snapshot.previousState),
+      undoneEventId: snapshot.appliedEventId,
+    };
     return;
   }
 
@@ -2276,6 +2503,7 @@ function removeAppliedReview(snapshot, persistedState, concurrentReviewExists) {
     lastRatedAt: ownEventIsLatest ? previous.lastRatedAt : persisted.lastRatedAt,
     lastRating: ownEventIsLatest ? previous.lastRating : persisted.lastRating,
     reviews: Math.max(0, persisted.reviews - 1),
+    undoneEventId: snapshot.appliedEventId,
   };
 }
 
@@ -2397,11 +2625,17 @@ function setSidebarOpen(isOpen, options = {}) {
   elements.studyCard.inert = isOpen;
   elements.emptyState.inert = isOpen;
   elements.studyArea.classList.toggle("is-picking", isOpen);
+  if (isOpen !== wasOpen) closeBlockPage({ restoreFocus: false });
+  // Studying a vocab or grammar deck, 模块 opens that deck's block page; its
+  // "<" leads on to the whole module grid.
+  if (isOpen && !wasOpen && hasBlocks(activeDeck) && extraElements.blockGrid) {
+    openBlockPage(tabDeckOf(activeDeck), { focus: false });
+  }
 
   if (isOpen) {
     window.requestAnimationFrame(() => {
       if (elements.deckSidebar.classList.contains("is-open") && !elements.deckSidebar.inert) {
-        elements.closeDeckMenu.focus();
+        (activeBlockTile() || elements.closeDeckMenu).focus({ preventScroll: true });
       }
     });
     return;
@@ -2424,7 +2658,8 @@ function handleSidebarKeydown(event) {
 
   if (event.key === "Escape") {
     event.preventDefault();
-    setSidebarOpen(false);
+    if (blockPageDeck) closeBlockPage();
+    else setSidebarOpen(false);
   }
 }
 
@@ -2847,84 +3082,160 @@ function restartDeckRound() {
   focusPrimaryStudyAction();
 }
 
-// Restarts only the active grammar group's cards: they leave the round's
-// completed set (and are marked reopened, as Undo does) and go back to the front
-// of the queue, so the rest of the deck's round is untouched.
-function restartGroupRound() {
-  const groupCards = getDeckCards().filter((card) => inActiveGroup(card));
-  if (!groupCards.length) {
-    render();
-    return;
-  }
-  clearLastReview();
-  if (!(sessionCompleted[activeDeck] instanceof Set)) sessionCompleted[activeDeck] = new Set();
-  if (!sessionCompletionEvents[activeDeck]) sessionCompletionEvents[activeDeck] = {};
-  if (!(sessionReopenedCards[activeDeck] instanceof Set)) sessionReopenedCards[activeDeck] = new Set();
-  groupCards.forEach((card) => {
-    sessionCompleted[activeDeck].delete(card.id);
-    delete sessionCompletionEvents[activeDeck][card.id];
-    sessionReopenedCards[activeDeck].add(card.id);
-  });
-  const queue = sessionQueues[activeDeck] || [];
-  const queued = new Set(queue);
-  sessionQueues[activeDeck] = [
-    ...shuffleCards(groupCards.filter((card) => !queued.has(card.id))),
-    ...queue,
-  ];
+// The block after the active one, in module-page order.
+function nextBlockDeck() {
+  const blocks = deckBlocks(activeDeck);
+  const index = blocks.findIndex((block) => block.id === blockOf(activeDeck));
+  const next = index >= 0 ? blocks[index + 1] : null;
+  return next ? blockDeckOf(tabDeckOf(activeDeck), next.id) : "";
+}
+
+function selectDeck(deck) {
+  if (deck !== activeDeck) clearLastReview();
+  activeDeck = deck;
   saveRoundState();
+  closeBlockPage({ restoreFocus: false });
+  setSidebarOpen(false, { restoreFocus: false });
   nextCard();
   focusPrimaryStudyAction();
 }
 
-function restartFromEmptyState() {
-  if (grammarGroupFor() && !isReviewPool(activeDeck) && (sessionQueues[activeDeck] || []).length) {
-    restartGroupRound();
-  } else {
-    restartDeckRound();
-  }
-}
+// The block page replaces the module grid once a vocab or grammar cell is
+// picked: 全部 first, then each block with the cards left in its 当前 round and
+// its 模糊 / 不认识 counts, so the next block to study is visible at a glance.
+let blockPageDeck = "";
 
-function setGrammarGroup(family, groupId) {
-  if (groupId) grammarGroupFilters[family] = groupId;
-  else delete grammarGroupFilters[family];
-  saveGrammarGroupFilters();
-  renderGrammarGroupSelects();
-  if (cardFamilyForDeck(activeDeck) === family) {
-    clearLastReview();
-    nextCard();
-  }
-}
-
-// Each level's grammar group picker sits on its module-page heading; options
-// list the group sizes so a short group reads as a quick session.
-function renderGrammarGroupSelects() {
-  const entries = window.AYAYA_GRAMMAR_DATA?.entries || [];
-  extraElements.groupSelects.forEach((select) => {
-    const family = select.dataset.family;
-    const level = grammarFamilyLevel(family);
-    const options = [
-      // Counted once the grammar data is in; "（0）" would read as an empty level.
-      ["", entries.length ? `全部语法（${entries.filter((entry) => entry.level === level).length}）` : "全部语法"],
-      ...grammarGroupList
-        .filter((group) => group.level === level)
-        .map((group) => [
-          group.id,
-          `${group.label}（${entries.filter((entry) => entry.group === group.id).length}）`,
-        ]),
-    ];
-    if (select.options?.length !== options.length) {
-      select.replaceChildren(
-        ...options.map(([value, label]) => {
-          const option = document.createElement("option");
-          option.value = value;
-          option.textContent = label;
-          return option;
-        }),
-      );
-    }
-    select.value = grammarGroupFilters[family] || "";
-    select.classList.toggle("is-filtered", Boolean(select.value));
+function blockPageCounts(tabDeck) {
+  const counts = new Map();
+  const add = (deck, kind, card) => {
+    if (!counts.has(deck)) counts.set(deck, { main: [], fuzzy: [], unknown: [] });
+    counts.get(deck)[kind].push(card);
+  };
+  getFamilyCards(tabDeck).forEach((card) => {
+    if (card.deck !== tabDeck) return;
+    const kind = cardPoolKind(card);
+    add(tabDeck, kind, card);
+    const block = cardBlockOf(card);
+    if (block) add(blockDeckOf(tabDeck, block), kind, card);
   });
+  return counts;
+}
+
+// The tile fills left to right with this round's 认识 cards (green), then the
+// block's 模糊 (amber) and 不认识 (red) cards; its border takes the most urgent
+// of those colours, so the page reads as a progress map at a glance.
+function blockTileState(isDone, fuzzy, unknown) {
+  if (unknown) return "unknown";
+  if (fuzzy) return "fuzzy";
+  return isDone ? "done" : "";
+}
+
+function renderBlockPage() {
+  if (!blockPageDeck || !extraElements.blockGrid) return;
+  const tabDeck = blockPageDeck;
+  const counts = blockPageCounts(tabDeck);
+  const isGrammar = cardFamilyForDeck(tabDeck).startsWith("grammar-");
+  const level = cardFamilyForDeck(tabDeck).slice(-2);
+  extraElements.blockGrid.dataset.level = level;
+  extraElements.blockGrid.classList.toggle("is-grammar", isGrammar);
+  const tiles = [{ id: "", label: "全部" }, ...deckBlocks(tabDeck)].map(({ id, label }) => {
+    const deck = blockDeckOf(tabDeck, id);
+    const pools = counts.get(deck) || { main: [], fuzzy: [], unknown: [] };
+    const left = remainingCount(deck, pools.main);
+    const total = pools.main.length + pools.fuzzy.length + pools.unknown.length;
+    const rounds = getRoundCount(deck);
+    const isDone = total > 0 && left === 0;
+    const tile = document.createElement("button");
+    tile.type = "button";
+    tile.className = "block-tile";
+    tile.dataset.block = id;
+    tile.classList.toggle("is-all", !id);
+    const known = pools.main.length - left;
+    const share = (count) => (total ? (count / total) * 100 : 0);
+    const state = blockTileState(isDone, pools.fuzzy.length, pools.unknown.length);
+    if (state) tile.dataset.state = state;
+    tile.style?.setProperty("--fill-known", `${share(known)}%`);
+    tile.style?.setProperty("--fill-fuzzy", `${share(known + pools.fuzzy.length)}%`);
+    tile.style?.setProperty("--fill-unknown", `${share(known + pools.fuzzy.length + pools.unknown.length)}%`);
+    const isActive = baseDeckOf(activeDeck) === deck;
+    tile.classList.toggle("active", isActive);
+    tile.setAttribute("aria-pressed", String(isActive));
+    tile.setAttribute(
+      "aria-label",
+      [
+        `${id ? (isGrammar ? label : `第${id}块`) : "全部"}，共 ${total} 张`,
+        isDone ? "这一轮已完成" : `当前剩 ${left} 张`,
+        pools.fuzzy.length ? `模糊 ${pools.fuzzy.length} 张` : "",
+        pools.unknown.length ? `不认识 ${pools.unknown.length} 张` : "",
+        rounds ? `已完成 ${rounds} 轮` : "",
+      ].filter(Boolean).join("，"),
+    );
+    const name = document.createElement("span");
+    name.className = "block-name";
+    name.textContent = label;
+    const roundBadge = document.createElement("span");
+    roundBadge.className = "deck-round-count";
+    roundBadge.textContent = `${rounds}轮`;
+    roundBadge.hidden = rounds === 0;
+    const status = document.createElement("span");
+    status.className = "block-status";
+    status.setAttribute("aria-hidden", "true");
+    status.textContent = isDone ? "✓ 完成" : `剩 ${left}`;
+    tile.append(name, roundBadge, status);
+    tile.addEventListener("click", () => runSafely(() => selectDeck(deck)));
+    return tile;
+  });
+  extraElements.blockGrid.replaceChildren(...tiles);
+}
+
+function activeBlockTile() {
+  if (!blockPageDeck) return null;
+  return [...extraElements.blockGrid.children].find((tile) => tile.classList.contains("active")) || null;
+}
+
+function openBlockPage(tabDeck, options = {}) {
+  blockPageDeck = tabDeck;
+  extraElements.deckTabs.hidden = true;
+  extraElements.blockGrid.hidden = false;
+  extraElements.deckSidebarTitle.textContent = moduleTitleFor(tabDeck);
+  elements.closeDeckMenu.setAttribute("aria-label", "返回模块");
+  elements.closeDeckMenu.title = "返回模块";
+  renderBlockPage();
+  extraElements.blockGrid.scrollTop = 0;
+  const activeTile = activeBlockTile();
+  activeTile?.scrollIntoView?.({ block: "nearest" });
+  if (options.focus !== false) focusSoon(activeTile || extraElements.blockGrid.children[0]);
+}
+
+function closeBlockPage(options = {}) {
+  if (!blockPageDeck) return;
+  const tabDeck = blockPageDeck;
+  blockPageDeck = "";
+  extraElements.deckTabs.hidden = false;
+  extraElements.blockGrid.hidden = true;
+  extraElements.blockGrid.replaceChildren();
+  extraElements.deckSidebarTitle.textContent = "学习模块";
+  elements.closeDeckMenu.setAttribute("aria-label", "返回学习");
+  elements.closeDeckMenu.title = "返回学习";
+  if (options.restoreFocus !== false) {
+    focusSoon([...elements.tabs].find((tab) => tab.dataset.deck === tabDeck));
+  }
+}
+
+// One old grammar group choice per level becomes the matching block, so a
+// learner who was studying a group stays in it.
+function migrateRetiredGrammarGroups() {
+  let saved = null;
+  try {
+    saved = JSON.parse(localStorage.getItem(RETIRED_GRAMMAR_GROUP_STATE_KEY) || "null");
+    localStorage.removeItem(RETIRED_GRAMMAR_GROUP_STATE_KEY);
+  } catch {
+    // Without it the learner starts from the 全部 block.
+  }
+  const group = isStoreObject(saved) ? saved[cardFamilyForDeck(activeDeck)] : null;
+  if (typeof group !== "string" || blockOf(activeDeck) || !hasBlocks(activeDeck)) return;
+  const migrated = poolOf(blockDeckOf(tabDeckOf(activeDeck), group), poolKindOf(activeDeck));
+  if (isKnownDeck(migrated)) activeDeck = migrated;
 }
 
 // Loads the study data listed in #studyDataScripts in order, after the first
@@ -2958,10 +3269,8 @@ function loadStudyData() {
 function finishStudyDataLoad() {
   cardData = window.AYAYA_JP_CARD_DATA || null;
   studyDataState = cardData ? "ready" : "failed";
-  grammarGroupList = Array.isArray(cardData?.grammarGroups) ? cardData.grammarGroups : [];
-  grammarGroupFilters = loadGrammarGroupFilters();
-  renderGrammarGroupSelects();
   renderLoadStatus();
+  renderBlockPage();
   if (cardFamilyForDeck(activeDeck) === "kana") {
     render();
     return;
@@ -2974,9 +3283,11 @@ function finishStudyDataLoad() {
 
 // Optional module-page extras; a page without them still runs.
 const extraElements = {
+  blockGrid: document.querySelector("#blockGrid"),
+  blockNext: document.querySelector("#blockNext"),
+  deckSidebarTitle: document.querySelector("#deckSidebarTitle"),
+  deckTabs: document.querySelector(".deck-tabs"),
   emptyTitle: document.querySelector("#emptyTitle"),
-  groupSelects: [...document.querySelectorAll(".group-select")],
-  groupShowAll: document.querySelector("#groupShowAll"),
   silentModeHint: document.querySelector("#silentModeHint"),
 };
 
@@ -3224,12 +3535,8 @@ function bindInteractions() {
     tab.addEventListener("click", () => {
       runSafely(() => {
         const nextDeck = tab.dataset.deck;
-        if (nextDeck !== activeDeck) clearLastReview();
-        activeDeck = nextDeck;
-        saveRoundState();
-        setSidebarOpen(false, { restoreFocus: false });
-        nextCard();
-        focusPrimaryStudyAction();
+        if (hasBlocks(nextDeck) && extraElements.blockGrid) openBlockPage(nextDeck);
+        else selectDeck(nextDeck);
       });
     });
   });
@@ -3263,20 +3570,14 @@ function bindInteractions() {
   });
 
   elements.studyAnyWay.addEventListener("click", () => {
-    runSafely(restartFromEmptyState);
+    runSafely(restartDeckRound);
   });
 
-  extraElements.groupShowAll?.addEventListener("click", () => {
+  extraElements.blockNext?.addEventListener("click", () => {
     runSafely(() => {
-      setGrammarGroup(cardFamilyForDeck(activeDeck), "");
-      focusPrimaryStudyAction();
+      const deck = nextBlockDeck();
+      if (deck) selectDeck(deck);
     });
-  });
-
-  extraElements.groupSelects.forEach((select) => {
-    select.addEventListener("change", () =>
-      runSafely(() => setGrammarGroup(select.dataset.family, select.value)),
-    );
   });
 
   elements.deckMenuButton.addEventListener("click", (event) => {
@@ -3285,7 +3586,10 @@ function bindInteractions() {
   });
 
   elements.closeDeckMenu.addEventListener("click", () => {
-    runSafely(() => setSidebarOpen(false));
+    runSafely(() => {
+      if (blockPageDeck) closeBlockPage();
+      else setSidebarOpen(false);
+    });
   });
 
   elements.deckSidebar.addEventListener("keydown", (event) =>
@@ -3307,9 +3611,9 @@ function initializeApp() {
   elements.roundStatusText.setAttribute("aria-live", "polite");
   elements.roundStatusText.setAttribute("aria-atomic", "true");
   bindInteractions();
-  renderGrammarGroupSelects();
   showSilentModeHint();
   loadRoundState();
+  migrateRetiredGrammarGroups();
   if (isDeckDataMissing(activeDeck)) {
     activeDeck = "hiragana";
   }
