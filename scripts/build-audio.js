@@ -36,7 +36,7 @@ const engineUrl = process.env.VOICEVOX_URL || "http://127.0.0.1:50021";
 // Changing the voice or any synthesis setting needs a new directory so cached
 // clips under the old URLs are never mixed with the new ones.
 const voice = {
-  directory: "audio/no7-announce-v4",
+  directory: "audio/no7-announce-v5",
   credit: "VOICEVOX:No.7",
   speaker: 30, // No.7 アナウンス
   speedScale: 0.9,
@@ -250,15 +250,18 @@ function voiceNuclei(accentPhrases) {
   return changed;
 }
 
-// The engine's predicted pitch does not reliably follow the accent it was
-// given: it often peaks one mora after the nucleus (雨 ア'メ comes out ア < メ,
-// like 飴) and drops word-final morae (足 アシ' comes out ア > シ, like 頭高).
-// Each accent phrase is reshaped into the Tokyo pattern it is labelled with:
-// a low first mora before a high second one, an unbroken high part up to the
-// nucleus (the phrase peak), and every later mora clearly below it.
-const accentDrop = 0.3; // natural-log pitch: about 5 semitones
-const initialRise = 0.2; // about 3.5 semitones
-const plateauSag = 0.1; // the high part may sag this much (about 1.7 semitones)
+// The engine's own contour is kept: reshaping every phrase into the textbook
+// pattern (5-semitone falls, forced phrase-initial rises) made each sentence a
+// mechanical staircase. Only two things that change which accent a listener
+// hears are repaired, by the smallest step that fixes them:
+// - the peak lands after the nucleus (秋 ア'キ comes out ア < キ, like あき'),
+//   so the nucleus takes that peak and everything after it falls below;
+// - a phrase that is not 頭高 starts clearly above its second mora (ください
+//   クダサ'イ comes out ク > ダ, like く'ださい), so the first mora is lowered.
+const accentDrop = 0.08; // natural-log pitch: about 1.4 semitones
+const lateFallTolerance = 0.02;
+const initialFallTolerance = 0.05;
+const initialRise = 0.03;
 
 // ン, ッ and the second half of a long vowel share the syllable's pitch.
 function isSpecialMora(moras, index) {
@@ -273,36 +276,19 @@ function shapeAccentPhrase(phrase) {
   if (moras.length < 2) return;
   const voiced = (index) => moras[index]?.pitch > 0;
   const nucleus = phrase.accent - 1;
-  const accented = phrase.accent < moras.length;
+  if (phrase.accent < moras.length && voiced(nucleus)) {
+    const after = moras.slice(nucleus + 1).filter((mora) => mora.pitch > 0);
+    if (after.length && after[0].pitch > moras[nucleus].pitch - lateFallTolerance) {
+      const peak = Math.max(moras[nucleus].pitch, after[0].pitch);
+      moras[nucleus].pitch = peak;
+      after.forEach((mora) => {
+        mora.pitch = Math.min(mora.pitch, peak - accentDrop);
+      });
+    }
+  }
   const highStart = phrase.accent === 1 || isSpecialMora(moras, 1) ? 0 : 1;
-  const highEnd = accented ? nucleus : moras.length - 1;
-  const peakDelay = accented ? moras.slice(nucleus + 1).filter((mora) => mora.pitch > 0).slice(0, 1) : [];
-  const pool = [...moras.slice(0, highEnd + 1), ...peakDelay].filter((mora) => mora.pitch > 0);
-  if (!pool.length) return;
-  const peak = Math.max(...pool.map((mora) => mora.pitch));
-  if (accented) {
-    if (voiced(nucleus)) moras[nucleus].pitch = peak;
-    for (let index = highStart; index < nucleus; index += 1) {
-      if (voiced(index)) moras[index].pitch = Math.min(peak, Math.max(moras[index].pitch, peak - plateauSag));
-    }
-  } else {
-    // A long 平板 phrase may decline gently, but never by a step that could
-    // be heard as a fall: half the sag per mora, the full sag overall.
-    let previous = peak;
-    for (let index = highStart; index <= highEnd; index += 1) {
-      if (!voiced(index)) continue;
-      moras[index].pitch = Math.max(moras[index].pitch, previous - plateauSag / 2, peak - plateauSag);
-      previous = moras[index].pitch;
-    }
-  }
-  if (highStart === 1 && voiced(0)) {
-    const firstHigh = moras.slice(1, highEnd + 1).find((mora) => mora.pitch > 0);
-    if (firstHigh) moras[0].pitch = Math.min(moras[0].pitch, firstHigh.pitch - initialRise);
-  }
-  if (accented) {
-    for (let index = nucleus + 1; index < moras.length; index += 1) {
-      if (voiced(index)) moras[index].pitch = Math.min(moras[index].pitch, peak - accentDrop);
-    }
+  if (highStart === 1 && voiced(0) && voiced(1) && moras[0].pitch > moras[1].pitch + initialFallTolerance) {
+    moras[0].pitch = moras[1].pitch - initialRise;
   }
 }
 
