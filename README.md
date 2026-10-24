@@ -116,12 +116,12 @@ Safari 会清除一段时间没有访问的网站的 localStorage（WebKit 的 7
 
 ### 读音音频（VOICEVOX）
 
-- `npm run build:audio` 调用本机 VOICEVOX engine（默认 `http://127.0.0.1:50021`，可用 `VOICEVOX_URL` 指定；engine 从 [voicevox_engine releases](https://github.com/VOICEVOX/voicevox_engine/releases) 下载），为 app 会朗读的每条文本（假名卡、词汇读音、全部例句）生成 `audio/no7-announce-v4/<key>.mp3`，并写出 `audio-manifest.js` 和 `audio/report.tsv`。文件名是文本的 hash，只渲染还没有音频（或音调标注改过）的文本；`--prune` 删除不再使用的音频。改声音或合成参数时要换一个新目录名，避免浏览器缓存混用新旧音频。
+- `npm run build:audio` 调用本机 VOICEVOX engine（默认 `http://127.0.0.1:50021`，可用 `VOICEVOX_URL` 指定；engine 从 [voicevox_engine releases](https://github.com/VOICEVOX/voicevox_engine/releases) 下载），为 app 会朗读的每条文本（假名卡、词汇读音、全部例句）生成 `audio/no7-announce-v5/<key>.mp3`，并写出 `audio-manifest.js` 和 `audio/report.tsv`。文件名是文本的 hash，只渲染还没有音频（或音调标注改过）的文本；`--prune` 删除不再使用的音频。改声音或合成参数时要换一个新目录名，避免浏览器缓存混用新旧音频。
 - 响度：为了边听音乐边学时也能听清，每条音频先削掉低频和 250 Hz 闷音、提升 3 kHz / 6 kHz 的清晰度，再压缩，然后把有声部分统一到约 -11.5 LUFS（句子），经 limiter 后以 48 kbps 编码；编码后解码峰值超过 -0.5 dBFS 的会自动降一点重新编码，避免播放时削波。
 - 读音 fail closed：engine 最终要念的每一拍（mora）必须和审核过的读音（与 furigana / 罗马音同源的 `speech`）完全一致，只把 ー / えい / おう 这类同音写法视为相同；对不上就不生成音频，该文本继续使用 speechSynthesis。例句优先用汉字原文合成（音调更自然），engine 读错的汉字换成审核读音的片假名后重试。「どういう／そういう／こういう」的「いう」按标准发音读作「ゆう」，这是脚本里逐条列出的审核例外。
 - 音调：有 Kanjium 音调的词汇按第一个音调合成；进阶发音的例词按脚本里逐条核对过 Kanjium 的音调表合成；其余文本先用 VOICEVOX 的判断。全部例句和无 Kanjium 音调的词汇都逐条人工审核过：VOICEVOX 判断错的（一段动词て形、ない形、く形、名词音调、复合词和「の」的切分、疑问句升调等）在 `audio-prosody.tsv` 里逐条写出东京音的音调短语（`/` 分短语，`'` 标在调核之后，`？` 为疑问升调，`、` 为停顿），生成时按它重组 engine 自己的音拍；音拍对不上就不生成，validation 失败。`audio/report.tsv` 列出每条文本的生成方式和实际音调（用了审核音调的标 `+prosody`），供审核。
 - 同音词：音频按文本 hash 命名，读音相同但单独念时音调不同的词（雨 ア'メ／飴 アメ、橋 ハシ／箸 ハ'シ、暑い／厚い、帰る／変える、切る／着る 等，以及没有 Kanjium 音调、只能靠 engine 判断的同音词）各自使用「假名｜词形」的音频文本（如 `あめ｜飴`），按自己的音调合成，不再共用一个音频；单念时听起来一样的（花 ② ／鼻 ⓪ 这类尾高与平板）和词缀卡（～回、～本）仍共用。规则在 `card-data.js` 的 `homophoneClipTexts()`，contract test 会检查。
-- engine 预测的音高并不总是符合它自己的音调标注：经常把峰值放在调核后一拍（`雨 ア'メ` 会念成 ア < メ，听起来像 `飴`），词尾也常掉下去（`足 アシ'` 会念成 ア > シ，像头高型）。生成脚本按每个音调短语的标注重塑音高：第二拍是普通音拍时第一拍低约 3.5 个半音，高的部分连续不塌，调核是到下降处为止的最高点，其后各拍至少低约 5 个半音；调核上被清化的元音（`デ'ス` 的 ス 等）改为浊化。
+- engine 预测的音高并不总是符合它自己的音调标注：经常把峰值放在调核后一拍（`雨 ア'メ` 会念成 ア < メ，听起来像 `飴`），词尾也常掉下去（`足 アシ'` 会念成 ア > シ，像头高型）。生成脚本保留 engine 自然的音高曲线，只修正会让人听错音调的两种情况，且只改到刚好够用：峰值落在调核之后时，调核取那个峰值，其后各拍低约 1.4 个半音；非头高型短语第一拍明显高于第二拍时，把第一拍压到第二拍之下。调核上被清化的元音（`デ'ス` 的 ス 等）改为浊化。之前把每个短语都重塑成教科书形状（起调低 3.5 个半音、调核后降 5 个半音），整句像台阶一样，听起来很机械。
 - validation 要求每条朗读文本都在 `audio/report.tsv` 里有对应当前文本的记录，`audio-prosody.tsv` 的每一条都对应一条朗读文本并且已按它生成，manifest 里的音频文件都存在，并且页面上显示 `音声：VOICEVOX:No.7` 署名。修改例句或读音后要重新运行 `npm run build:audio`，并审核新文本在 `audio/report.tsv` 里的音调，错的写进 `audio-prosody.tsv`。
 - 声音使用条款：VOICEVOX 及 No.7 允许署名后非商用免费使用（[No.7 利用規約](https://voiceseven.com/)）。
 - 音频随仓库一起提交，GitHub Pages 直接发布。每次换目录全量重新生成都会给 git 历史永久增加约 80 MB，所以只在声音或合成参数确实需要改变时才换目录；修改例句时 `npm run build:audio` 只生成缺少的音频。
