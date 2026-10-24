@@ -13,7 +13,7 @@
 // Texts listed in audio-prosody.tsv get their reviewed accent phrases instead
 // of the engine's; a notation whose morae no longer match is not rendered.
 
-const { execFileSync } = require("child_process");
+const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
@@ -415,16 +415,67 @@ const toneFilters = [
 const targetRmsDb = -10.5;
 const limiter = "alimiter=limit=0.84:attack=2:release=40:level=false"; // -1.5 dBFS, room for MP3 overshoot
 
+// An ffmpeg run takes well under a second, but about one in a few thousand
+// hangs for good reading its stdin. A run past the timeout is killed and
+// retried; runs are async so a hung one never stalls the other workers'
+// engine requests.
+const ffmpegTimeoutMs = 30000;
+const ffmpegAttempts = 3;
+
+function ffmpegOnce(args, input) {
+  return new Promise((resolve, reject) => {
+    const child = spawn("ffmpeg", args, { stdio: [input ? "pipe" : "ignore", "pipe", "pipe"] });
+    const stdout = [];
+    const stderr = [];
+    let timedOut = false;
+    const timer = setTimeout(() => {
+      timedOut = true;
+      child.kill("SIGKILL"); // a hung ffmpeg ignores SIGTERM
+    }, ffmpegTimeoutMs);
+    child.stdout.on("data", (chunk) => stdout.push(chunk));
+    child.stderr.on("data", (chunk) => stderr.push(chunk));
+    child.on("error", (error) => {
+      clearTimeout(timer);
+      reject(error);
+    });
+    child.on("close", (code, signal) => {
+      clearTimeout(timer);
+      if (code === 0) {
+        resolve(Buffer.concat(stdout));
+        return;
+      }
+      const reason = timedOut
+        ? `timed out after ${ffmpegTimeoutMs} ms`
+        : `exited with ${code ?? signal}: ${Buffer.concat(stderr).toString().trim().slice(0, 200)}`;
+      reject(Object.assign(new Error(`ffmpeg ${reason}`), { timedOut }));
+    });
+    if (input) {
+      child.stdin.on("error", () => {}); // EPIPE if ffmpeg exits early; close reports why
+      child.stdin.end(input);
+    }
+  });
+}
+
+async function ffmpeg(args, input) {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      return await ffmpegOnce(args, input);
+    } catch (error) {
+      if (!error.timedOut || attempt === ffmpegAttempts) throw error;
+      console.warn(`  ffmpeg hung, retrying (${attempt}/${ffmpegAttempts - 1}): ${args.at(-1)}`);
+    }
+  }
+}
+
 // Float32 mono PCM at sampleRate, so nothing is clipped before the limiter.
-function shapedSamples(wav) {
-  const pcm = execFileSync(
-    "ffmpeg",
+async function shapedSamples(wav) {
+  const pcm = await ffmpeg(
     [
       "-v", "error", "-f", "wav", "-i", "pipe:0",
       "-af", toneFilters,
       "-ac", "1", "-ar", String(sampleRate), "-f", "f32le", "pipe:1",
     ],
-    { input: wav, maxBuffer: 64 * 1024 * 1024 },
+    wav,
   );
   return { pcm, samples: new Float32Array(pcm.buffer, pcm.byteOffset, pcm.length / 4) };
 }
@@ -444,10 +495,8 @@ function voicedRmsDb(samples) {
   return 10 * Math.log10(voiced.reduce((sum, power) => sum + power, 0) / voiced.length);
 }
 
-function decodedPeak(file) {
-  const pcm = execFileSync("ffmpeg", ["-v", "error", "-i", file, "-f", "f32le", "pipe:1"], {
-    maxBuffer: 64 * 1024 * 1024,
-  });
+async function decodedPeak(file) {
+  const pcm = await ffmpeg(["-v", "error", "-i", file, "-f", "f32le", "pipe:1"]);
   const samples = new Float32Array(pcm.buffer, pcm.byteOffset, pcm.length / 4);
   return samples.reduce((peak, sample) => Math.max(peak, Math.abs(sample)), 0);
 }
@@ -456,13 +505,12 @@ function decodedPeak(file) {
 // clip on playback, so the clip is trimmed by the overshoot and re-encoded.
 const decodedPeakCeiling = 0.94;
 
-function encodeMp3(wav, destination) {
-  const { pcm, samples } = shapedSamples(wav);
+async function encodeMp3(wav, destination) {
+  const { pcm, samples } = await shapedSamples(wav);
   const gainDb = targetRmsDb - voicedRmsDb(samples);
   let trimDb = 0;
   for (let attempt = 0; attempt < 4; attempt += 1) {
-    execFileSync(
-      "ffmpeg",
+    await ffmpeg(
       [
         "-v", "error", "-y", "-f", "f32le", "-ar", String(sampleRate), "-ac", "1", "-i", "pipe:0",
         "-af", `volume=${gainDb.toFixed(2)}dB,${limiter},volume=${trimDb.toFixed(2)}dB`,
@@ -470,9 +518,9 @@ function encodeMp3(wav, destination) {
         "-map_metadata", "-1",
         destination,
       ],
-      { input: pcm },
+      pcm,
     );
-    const peak = decodedPeak(destination);
+    const peak = await decodedPeak(destination);
     if (peak <= decodedPeakCeiling) return;
     trimDb += 20 * Math.log10(decodedPeakCeiling / peak) - 0.2;
   }
@@ -560,7 +608,7 @@ async function main() {
             postPhonemeLength: voice.postPhonemeLength,
           });
           const wav = await engine("/synthesis", { speaker: voice.speaker }, plan.query);
-          encodeMp3(wav, item.file);
+          await encodeMp3(wav, item.file);
           const detail = describeQuery(plan.query) + (plan.input ? ` ← ${plan.input}` : "");
           rows.push({ key: item.key, status: "ok", method: plan.method, text: item.text, detail });
         }
