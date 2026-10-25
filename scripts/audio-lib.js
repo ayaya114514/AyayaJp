@@ -144,6 +144,28 @@ function normalizeMoras(moras) {
   return result;
 }
 
+// The engine's kana notation says ウ/イ as written (コウ = ko-u), so long vowels
+// are spelled as the repeated vowel. Unlike normalizeMoras, a vowel lengthened
+// once is not lengthened again (こううん = コオウン, けいい = ケエイ), and finalU
+// keeps a verb's dictionary-form う as its own mora (おもう = オモウ).
+function spellMoras(moras, { finalU = false } = {}) {
+  const result = [];
+  let lengthened = false;
+  moras.forEach((mora, index) => {
+    let value = [...mora].map((character) => sameSoundKana.get(character) || character).join("");
+    const previousVowel = result.length ? moraVowel(result[result.length - 1]) : "";
+    const keepsU = finalU && index === moras.length - 1;
+    const lengthens =
+      (value === "ー" && previousVowel) ||
+      (!lengthened && value === "イ" && previousVowel === "エ") ||
+      (!lengthened && !keepsU && value === "ウ" && previousVowel === "オ");
+    if (lengthens) value = previousVowel;
+    lengthened = Boolean(lengthens);
+    result.push(value);
+  });
+  return result;
+}
+
 // Reviewed reading → normalized morae, or null if it is not pure kana.
 function readingMoras(reading, latinReadings = {}) {
   let text = reading;
@@ -190,6 +212,7 @@ module.exports = {
   loadAudioManifest,
   loadAudioProsody,
   normalizeMoras,
+  spellMoras,
   readingMoras,
   spokenTextOf,
   toKatakana,

@@ -27,6 +27,7 @@ const {
   loadAudioManifest,
   loadAudioProsody,
   normalizeMoras,
+  spellMoras,
   readingMoras,
   spokenTextOf,
   toKatakana,
@@ -115,11 +116,10 @@ function sameMoras(left, right) {
 
 // AquesTalk-style kana with the accent nucleus marked; accent 0 (heiban) is
 // written as a mark after the last mora, which VOICEVOX treats the same.
-async function kanaNotationQuery(reading, accent) {
+async function kanaNotationQuery(reading, accent, { finalU = false } = {}) {
   const moras = katakanaMoras(toKatakana(reading));
   if (!moras) return null;
-  // The kana notation has no ー; normalizeMoras spells it as the repeated vowel.
-  const spelled = normalizeMoras(moras);
+  const spelled = spellMoras(moras, { finalU });
   const nucleus = accent === 0 ? spelled.length : accent;
   if (nucleus < 1 || nucleus > spelled.length) return null;
   const notation = `${spelled.slice(0, nucleus).join("")}'${spelled.slice(nucleus).join("")}`;
@@ -334,7 +334,7 @@ async function applyProsody(query, notation) {
   return describeQuery(query) === notation ? null : `prosody applied as ${describeQuery(query)}`;
 }
 
-async function planReading(clipText, sources, pitchAccents) {
+async function planReading(clipText, sources, pitchAccents, verbIds) {
   const text = spokenTextOf(clipText);
   const kanaSource = sources.find((source) => source.kind === "kana");
   const wordSource = sources.find((source) => source.kind === "word");
@@ -356,7 +356,9 @@ async function planReading(clipText, sources, pitchAccents) {
 
   const pitch = wordSource ? pitchAccents[wordSource.sourceId] : null;
   if (pitch && sources.every((source) => source.kind !== "sentence")) {
-    const result = await accept("pitch", kanaNotationQuery(pronunciation, pitch[0]));
+    // A verb's dictionary-form う is its own mora: おもう is オモウ, not オモー.
+    const finalU = verbIds.has(wordSource.sourceId);
+    const result = await accept("pitch", kanaNotationQuery(pronunciation, pitch[0], { finalU }));
     if (result?.query) return result;
   }
   if (kanaSource) {
@@ -393,8 +395,8 @@ async function planReading(clipText, sources, pitchAccents) {
   return { error: `reading mismatch expected ${expected.join("")} ${attempts.join(" ")}` };
 }
 
-async function planQuery(text, sources, pitchAccents, prosody) {
-  const plan = await planReading(text, sources, pitchAccents);
+async function planQuery(text, sources, pitchAccents, verbIds, prosody) {
+  const plan = await planReading(text, sources, pitchAccents, verbIds);
   if (plan.error || !prosody) return plan;
   const error = await applyProsody(plan.query, prosody);
   return error ? { error } : { ...plan, method: `${plan.method}+prosody` };
@@ -565,6 +567,12 @@ async function main() {
   const prune = process.argv.includes("--prune");
   const runtime = buildRuntime();
   const pitchAccents = runtime.data.pitchAccent?.entries || {};
+  const verbIds = new Set(
+    [runtime.data.n5, runtime.data.n4, runtime.data.n3]
+      .flatMap((data) => data?.entries || [])
+      .filter((entry) => (entry.part_of_speech || "").split("/").includes("verb"))
+      .map((entry) => entry.id),
+  );
   const texts = collectSpokenTexts(runtime);
   const prosodies = loadAudioProsody();
   const unused = [...prosodies.keys()].filter((text) => !texts.has(text));
@@ -597,7 +605,7 @@ async function main() {
     while (pending.length) {
       const item = pending.shift();
       try {
-        const plan = await planQuery(item.text, item.sources, pitchAccents, item.prosody);
+        const plan = await planQuery(item.text, item.sources, pitchAccents, verbIds, item.prosody);
         if (plan.error) {
           rows.push({ key: item.key, status: "skipped", method: "-", text: item.text, detail: plan.error });
         } else {

@@ -1687,10 +1687,17 @@ function validatePromptDisambiguation(cards) {
     `${card.deck}\u0000${compactText(card.prompt)}`,
   );
   const ambiguous = collisions.filter((group) => {
-    // Vocab words written alike show their kana on the 日→中 front instead.
-    const subtles = group.map((card) =>
-      compactText(card.showsReadingOnFront ? `${card.reading}${card.readingNote || ""}` : card.subtle),
+    // Vocab words written alike list every reading on their 日→中 answer, so
+    // either word counts as known.
+    const listsEachOther = group.every(
+      (card) =>
+        Array.isArray(card.homographs) &&
+        group.every((other) =>
+          card.homographs.some((item) => item.reading === other.reading && item.gloss === other.answer),
+        ),
     );
+    if (listsEachOther) return false;
+    const subtles = group.map((card) => compactText(card.subtle));
     return subtles.some((subtle) => !subtle) || new Set(subtles).size !== subtles.length;
   });
   if (ambiguous.length) {
@@ -1772,9 +1779,9 @@ function validateHomophoneData(homophones, n5Json, n4Json, n3Json, vocabCards) {
     paperCard?.homophoneKey === "かみ" &&
       JSON.stringify(paperCard.homophones) ===
         JSON.stringify([
-          { word: "神", gloss: "神", accent: "1" },
-          { word: "髪", gloss: "头发", accent: "2" },
-          { word: "紙", gloss: paperCard?.answer, accent: "2", isCurrent: true },
+          { word: "神", partOfSpeech: "名", gloss: "神", accent: "1" },
+          { word: "髪", partOfSpeech: "名", gloss: "头发", accent: "2" },
+          { word: "紙", partOfSpeech: "名", gloss: paperCard?.answer, accent: "2", isCurrent: true },
         ]),
     `vocab card 紙 does not list its homophones with accents: ${JSON.stringify(paperCard?.homophones)}`,
   );
@@ -1937,6 +1944,129 @@ function validateVocabCategoryLabels(runtime) {
         `${card.id} must display learning category ${expectedLabel}, received ${card.type}`,
       );
     });
+  });
+}
+
+// Every part_of_speech token must have a reviewed label: the card would
+// otherwise hide its 名 / 动 / 形动 before the meaning.
+const knownPartOfSpeechTokens = new Set([
+  "noun",
+  "pronoun",
+  "numeral",
+  "counter",
+  "verb",
+  "suru-verb",
+  "i-adjective",
+  "na-adjective",
+  "adverb",
+  "pre-noun",
+  "conjunction",
+  "interjection",
+  "particle",
+  "prefix",
+  "suffix",
+  "expression",
+  "demonstrative",
+  "interrogative",
+  "pattern",
+  "indefinite pronoun",
+]);
+
+// "expression" and the qualifiers name no part of speech: a pure expression
+// (ありがとう) shows only its 表达 tag.
+const unlabelledPartOfSpeechTokens = new Set(["expression", "demonstrative", "interrogative", "pattern"]);
+
+function validateVocabPartOfSpeechLabels(runtime) {
+  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries].forEach((entry) => {
+    const tokens = String(entry.part_of_speech || "").split("/").map((token) => token.trim());
+    const unknown = tokens.filter((token) => !knownPartOfSpeechTokens.has(token));
+    check(!unknown.length, `${entry.id} has unlabelled part_of_speech token(s): ${unknown.join(", ")}`);
+    const labelled = tokens.some((token) => !unlabelledPartOfSpeechTokens.has(token));
+    runtime.vocabCards
+      .filter((card) => card.sourceId === entry.id)
+      .forEach((card) => {
+        if (card.deck.endsWith("-ja-zh")) {
+          check(
+            labelled
+              ? /^[^\s·]+(?:·[^\s·]+)*$/u.test(card.partOfSpeech || "")
+              : !card.partOfSpeech,
+            `${card.id} must lead its meaning with a part of speech`,
+          );
+          check(!/表达/u.test(card.partOfSpeech || ""), `${card.id} repeats its 表达 tag as a part of speech`);
+        } else {
+          check(!card.partOfSpeech, `${card.id} must not show a part of speech on 中→日`);
+        }
+      });
+  });
+}
+
+// senses_zh groups the 日→中 meaning (answer_zh, else meaning_zh) into
+// reviewed senses (synonyms stay in one group); with sense_note_zh, a note on
+// the whole word, they must join back into it exactly, so grouping never
+// rewrites a meaning.
+function validateVocabSenses(runtime) {
+  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries].forEach((entry) => {
+    const card = runtime.vocabCards.find((item) => item.id === `vocab-entry-${entry.id}-ja`);
+    if (entry.senses_zh === undefined) {
+      check(entry.sense_note_zh === undefined, `${entry.id} has sense_note_zh without senses_zh`);
+      check(!card?.senses, `${entry.id} 日→中 card lists senses without reviewed senses_zh`);
+      return;
+    }
+    const senses = entry.senses_zh;
+    const note = entry.sense_note_zh ?? "";
+    const answerMeaning = entry.answer_zh ?? entry.meaning_zh;
+    check(
+      Array.isArray(senses) &&
+        senses.length >= 2 &&
+        senses.every((sense) => typeof sense === "string" && sense.trim() === sense && sense && !/^；|；$/u.test(sense)),
+      `${entry.id} senses_zh must list at least two non-empty senses`,
+    );
+    check(note === "" || /^（[^（）]+）$/u.test(note), `${entry.id} sense_note_zh must be one （…） note`);
+    check(
+      Array.isArray(senses) && `${senses.join("；")}${note}` === answerMeaning,
+      `${entry.id} senses_zh and sense_note_zh must join back into its 日→中 meaning`,
+    );
+    check(
+      JSON.stringify(card?.senses) === JSON.stringify(senses) && (card?.senseNote ?? "") === note,
+      `${entry.id} 日→中 card does not list its reviewed senses`,
+    );
+  });
+  runtime.vocabCards
+    .filter((card) => !card.deck.endsWith("-ja-zh"))
+    .forEach((card) => check(!card.senses && !card.homographs, `${card.id} lists senses or readings on 中→日`));
+}
+
+// answer_zh is meaning_zh for the 日→中 answer without the notes that only
+// restate the part of speech shown before it: outside （…） the text is the
+// same, and each note it keeps is part of a note of meaning_zh.
+function parenthesizedNotes(text) {
+  return [...String(text).matchAll(/（([^（）]*)）/gu)].map((match) => match[1]);
+}
+
+function validateVocabAnswerMeanings(runtime) {
+  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries].forEach((entry) => {
+    const card = runtime.vocabCards.find((item) => item.id === `vocab-entry-${entry.id}-ja`);
+    if (entry.answer_zh === undefined) {
+      check(card?.answer === entry.meaning_zh, `${entry.id} 日→中 answer must be its meaning_zh`);
+      return;
+    }
+    const answer = entry.answer_zh;
+    const outside = (text) => String(text).replace(/（[^（）]*）/gu, "");
+    check(
+      typeof answer === "string" && answer && answer !== entry.meaning_zh && outside(answer) === outside(entry.meaning_zh),
+      `${entry.id} answer_zh may only drop part-of-speech notes from meaning_zh`,
+    );
+    const sourceNotes = parenthesizedNotes(entry.meaning_zh);
+    let next = 0;
+    const kept = parenthesizedNotes(answer).every((note) => {
+      while (next < sourceNotes.length && !sourceNotes[next].includes(note)) next += 1;
+      next += 1;
+      return next <= sourceNotes.length && note;
+    });
+    check(kept, `${entry.id} answer_zh keeps a note that meaning_zh does not have`);
+    check(card?.answer === answer, `${entry.id} 日→中 answer must be its answer_zh`);
+    const promptCard = runtime.vocabCards.find((item) => item.id === `vocab-entry-${entry.id}-zh`);
+    check(promptCard?.prompt === entry.meaning_zh, `${entry.id} 中→日 prompt must keep the full meaning_zh`);
   });
 }
 
@@ -3157,6 +3287,9 @@ function main() {
     validateCardSchema(cards, tabDecks);
     validateDeckCoverage(cards, tabDecks, runtime.data);
     validateVocabCategoryLabels(runtime);
+    validateVocabPartOfSpeechLabels(runtime);
+    validateVocabSenses(runtime);
+    validateVocabAnswerMeanings(runtime);
     validateDisplayedRomaji(cards);
     validateRomajiCoverage(cards);
     capture("reviewed romaji corpus-lock check failed", () => validateRomajiCorpusLock(runtime));
