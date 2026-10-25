@@ -23,7 +23,7 @@
     "example-readings.js",
     "styles.css"
   ],
-  "source_fingerprint": "sha256:baca6d5dfbdf472f644782c1b42a90202772971ee17a74da8443c9217c1cd6ff",
+  "source_fingerprint": "sha256:2b367ffe7327307402b9d08e53b08b934dc625bea22ca6a36005e851f162c689",
   "expected_counts": {
     "n5_entries": 743,
     "n4_entries": 745,

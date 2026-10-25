@@ -1746,12 +1746,10 @@ function render() {
   elements.cardPrompt.textContent = currentCard.prompt;
   elements.cardPrompt.lang = currentCard.promptLang || "";
   // A vocab card's kana go under the word once it is revealed, in place of the
-  // 中→日 sentence cue; 日→中 words written alike (十 とお / じゅう) show them on
-  // the front so it is clear which word is asked.
+  // 中→日 sentence cue; 日→中 words written alike (十 とお / じゅう) keep them
+  // hidden too, and their answer lists every reading.
   const showsReading =
-    Boolean(currentCard.isVocab) &&
-    Boolean(currentCard.reading) &&
-    (isRevealed || Boolean(currentCard.showsReadingOnFront));
+    Boolean(currentCard.isVocab) && Boolean(currentCard.reading) && isRevealed;
   // 中→日 grammar cards keep their pattern hidden until the answer: on the front
   // it would give the answer away, so the group tag is the only hint.
   const hidesPattern =
@@ -1837,9 +1835,30 @@ function render() {
   }
 
   elements.feedbackRow.hidden = false;
-  if (Array.isArray(currentCard.homophones) && currentCard.homophones.length > 1) {
-    elements.answerMain.replaceChildren(...homophoneAnswer(currentCard.homophones));
+  // Vocab meanings and word lists are set compactly, like a word-list app's
+  // definitions, under the large word.
+  elements.answerMain.classList.toggle(
+    "is-word-list",
+    Boolean(currentCard.homographs?.length > 1 || currentCard.homophones?.length > 1),
+  );
+  elements.answerMain.classList.toggle(
+    "is-meaning",
+    Boolean(currentCard.isVocab && currentCard.answerLang === "zh-CN"),
+  );
+  if (Array.isArray(currentCard.homographs) && currentCard.homographs.length > 1) {
+    elements.answerMain.replaceChildren(...homographAnswer(currentCard.homographs));
     elements.answerMain.lang = "zh-CN";
+  } else if (Array.isArray(currentCard.homophones) && currentCard.homophones.length > 1) {
+    elements.answerMain.replaceChildren(
+      ...homophoneAnswer(currentCard.homophones, Boolean(currentCard.partOfSpeech)),
+    );
+    elements.answerMain.lang = "zh-CN";
+  } else if (currentCard.partOfSpeech) {
+    elements.answerMain.replaceChildren(
+      partOfSpeechMark(currentCard.partOfSpeech),
+      ...meaningParts(currentCard),
+    );
+    elements.answerMain.lang = currentCard.answerLang || "";
   } else {
     elements.answerMain.textContent = answerRepeatedInMeta(currentCard) ? "" : currentCard.answer;
     elements.answerMain.lang = currentCard.answerLang || "";
@@ -1919,12 +1938,68 @@ function pitchAccentMark(accent) {
   return mark;
 }
 
+// The part of speech (名, 动, 形动…) in small grey type before a meaning, as
+// word-list apps set "n." before a gloss.
+function partOfSpeechMark(label) {
+  const mark = document.createElement("span");
+  mark.className = "part-of-speech";
+  mark.textContent = label;
+  return mark;
+}
+
+// A meaning with several reviewed senses lists them 1. 2. 3., most common
+// first, with any note on the whole word after them; otherwise the meaning
+// stays one line.
+function meaningParts(card) {
+  if (!Array.isArray(card.senses) || card.senses.length < 2) return [card.answer];
+  const list = document.createElement("ol");
+  list.className = "meaning-senses";
+  list.append(
+    ...card.senses.map((sense) => {
+      const item = document.createElement("li");
+      item.textContent = sense;
+      return item;
+    }),
+  );
+  if (!card.senseNote) return [list];
+  const note = document.createElement("span");
+  note.className = "meaning-note";
+  note.textContent = card.senseNote;
+  return [list, note];
+}
+
+// 日→中 words written alike (空 そら / から) replace the answer line with one
+// row per reading: the kana with its accent, then the part of speech and
+// meaning; this card's own word comes first, in gold. They are not numbered:
+// ①②③ rank homophones by frequency, which these rows do not claim.
+function homographAnswer(homographs) {
+  return homographs.map(({ reading, gloss, accent, isCurrent, partOfSpeech }) => {
+    const item = document.createElement("span");
+    item.className = "homophone is-homograph";
+    if (isCurrent) item.classList.add("is-current");
+    const kana = document.createElement("span");
+    kana.className = "homophone-word";
+    kana.lang = "ja";
+    kana.textContent = reading;
+    if (accent) kana.append(pitchAccentMark(accent));
+    const meaning = document.createElement("span");
+    meaning.className = "homophone-gloss";
+    if (partOfSpeech) {
+      meaning.append(partOfSpeechMark(partOfSpeech), gloss);
+    } else {
+      meaning.textContent = gloss;
+    }
+    item.append(kana, meaning);
+    return item;
+  });
+}
+
 // Homophones replace the answer line: the words sharing this card's reading,
 // numbered ①②③ most frequent first, each word (with its accent as a
 // superscript) above its gloss; the card's own word carries its full meaning
-// and is marked.
-function homophoneAnswer(homophones) {
-  return homophones.map(({ word, gloss, accent, isCurrent }, index) => {
+// and is marked. On 日→中 cards each gloss leads with its part of speech.
+function homophoneAnswer(homophones, showsPartOfSpeech = false) {
+  return homophones.map(({ word, gloss, accent, isCurrent, partOfSpeech }, index) => {
     const item = document.createElement("span");
     item.className = "homophone";
     if (isCurrent) item.classList.add("is-current");
@@ -1938,7 +2013,11 @@ function homophoneAnswer(homophones) {
     if (accent) headword.append(pitchAccentMark(accent));
     const meaning = document.createElement("span");
     meaning.className = "homophone-gloss";
-    meaning.textContent = gloss;
+    if (showsPartOfSpeech && partOfSpeech) {
+      meaning.append(partOfSpeechMark(partOfSpeech), gloss);
+    } else {
+      meaning.textContent = gloss;
+    }
     item.append(number, headword, meaning);
     return item;
   });
@@ -2209,6 +2288,7 @@ function renderChoiceFeedback() {
 function clearAnswer() {
   elements.answerMain.textContent = "";
   elements.answerMain.removeAttribute("lang");
+  elements.answerMain.classList.remove("is-meaning", "is-word-list");
   renderMeta("");
   elements.choiceBlock.hidden = true;
   elements.choiceHint.hidden = true;

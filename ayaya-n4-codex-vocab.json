@@ -13,6 +13,9 @@
       "romaji": "词条主读音的学习用 Hepburn 式 ASCII 罗马字，用于检索和卡片显示。",
       "part_of_speech": "粗粒度词性，供 Codex 和应用生成卡片使用。",
       "meaning_zh": "学习用简体中文释义。",
+      "answer_zh": "可选：日→中卡答案用的释义，只去掉 meaning_zh 里重述词性的括注（如「（名词）」「（连体词，远称）」→「（远称）」）；中→日卡题面仍用 meaning_zh 区分近义词。",
+      "senses_zh": "可选：一词多义时按常用度分组的释义（同义词在同一组），依次用「；」连接后与 meaning_zh 完全一致；只用于日→中卡逐行显示。",
+      "sense_note_zh": "可选：适用于整个词的说明（如「（自动词）」），接在 senses_zh 之后与 meaning_zh 一致。",
       "kanji_readings": "含汉字词形的整词读音，用于生成 ruby/furigana。",
       "examples": "三个自然、短句优先的日语例句；zh 为简体中文翻译。",
       "note_zh": "必要时说明写法、用法或兼容注意。",
@@ -82,6 +85,10 @@
       "romaji": "aisatsu",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "寒暄；问候；致辞",
+      "senses_zh": [
+        "寒暄；问候",
+        "致辞"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -114,6 +121,11 @@
       "romaji": "aida",
       "part_of_speech": "noun",
       "meaning_zh": "之间；间隔；期间",
+      "senses_zh": [
+        "之间",
+        "间隔",
+        "期间"
+      ],
       "kanji_readings": [
         {
           "form": "間",
@@ -151,6 +163,10 @@
       "romaji": "au",
       "part_of_speech": "verb",
       "meaning_zh": "合适；相配；一致",
+      "senses_zh": [
+        "合适；相配",
+        "一致"
+      ],
       "kanji_readings": [
         {
           "form": "合う",
@@ -262,6 +278,10 @@
       "romaji": "asai",
       "part_of_speech": "i-adjective",
       "meaning_zh": "浅的；肤浅的",
+      "senses_zh": [
+        "浅的",
+        "肤浅的"
+      ],
       "kanji_readings": [
         {
           "form": "浅い",
@@ -593,7 +613,7 @@
         "あんな"
       ],
       "romaji": "anna",
-      "part_of_speech": "pre-noun/adverb",
+      "part_of_speech": "pre-noun",
       "meaning_zh": "那样的（远称）",
       "kanji_readings": [],
       "examples": [
@@ -627,6 +647,11 @@
       "romaji": "annai",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "引导；介绍；通知",
+      "senses_zh": [
+        "引导",
+        "介绍",
+        "通知"
+      ],
       "kanji_readings": [
         {
           "form": "案内",
@@ -918,6 +943,10 @@
       "romaji": "ijou",
       "part_of_speech": "noun",
       "meaning_zh": "以上；超过；到此为止",
+      "senses_zh": [
+        "以上；超过",
+        "到此为止"
+      ],
       "kanji_readings": [
         {
           "form": "以上",
@@ -1029,6 +1058,11 @@
       "romaji": "itadaku",
       "part_of_speech": "verb",
       "meaning_zh": "得到；吃；喝（自谦语）",
+      "senses_zh": [
+        "得到",
+        "吃；喝"
+      ],
+      "sense_note_zh": "（自谦语）",
       "kanji_readings": [],
       "examples": [
         {
@@ -1136,6 +1170,11 @@
       "romaji": "ippai",
       "part_of_speech": "na-adjective/noun/adverb",
       "meaning_zh": "满满；很多；一杯",
+      "senses_zh": [
+        "满满",
+        "很多",
+        "一杯"
+      ],
       "kanji_readings": [
         {
           "form": "一杯",
@@ -1284,6 +1323,10 @@
       "romaji": "inoru",
       "part_of_speech": "verb",
       "meaning_zh": "祈祷；祝愿",
+      "senses_zh": [
+        "祈祷",
+        "祝愿"
+      ],
       "kanji_readings": [
         {
           "form": "祈る",
@@ -1321,6 +1364,12 @@
       "romaji": "irassharu",
       "part_of_speech": "verb",
       "meaning_zh": "在；来；去（尊敬语，常用）",
+      "senses_zh": [
+        "在",
+        "来",
+        "去"
+      ],
+      "sense_note_zh": "（尊敬语，常用）",
       "kanji_readings": [],
       "examples": [
         {
@@ -1390,6 +1439,12 @@
       "romaji": "ukagau",
       "part_of_speech": "verb",
       "meaning_zh": "拜访；请教；听说（自谦语）",
+      "senses_zh": [
+        "拜访",
+        "请教",
+        "听说"
+      ],
+      "sense_note_zh": "（自谦语）",
       "kanji_readings": [],
       "examples": [
         {
@@ -1421,7 +1476,11 @@
       ],
       "romaji": "uketsuke",
       "part_of_speech": "noun",
-      "meaning_zh": "前台；受理；接待处",
+      "meaning_zh": "前台；接待处；受理",
+      "senses_zh": [
+        "前台；接待处",
+        "受理"
+      ],
       "kanji_readings": [
         {
           "form": "受付",
@@ -1459,6 +1518,11 @@
       "romaji": "ukeru",
       "part_of_speech": "verb",
       "meaning_zh": "接受；参加（考试等）；受到",
+      "senses_zh": [
+        "接受",
+        "参加（考试等）",
+        "受到"
+      ],
       "kanji_readings": [
         {
           "form": "受ける",
@@ -1496,6 +1560,10 @@
       "romaji": "ugoku",
       "part_of_speech": "verb",
       "meaning_zh": "动；移动；运转",
+      "senses_zh": [
+        "动；移动",
+        "运转"
+      ],
       "kanji_readings": [
         {
           "form": "動く",
@@ -1571,6 +1639,11 @@
       "romaji": "uchi",
       "part_of_speech": "noun",
       "meaning_zh": "内部；……之中；趁……期间",
+      "senses_zh": [
+        "内部",
+        "……之中",
+        "趁……期间"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -1677,6 +1750,11 @@
       "romaji": "utsusu",
       "part_of_speech": "verb",
       "meaning_zh": "抄写；拍照；映照",
+      "senses_zh": [
+        "抄写",
+        "拍照",
+        "映照"
+      ],
       "kanji_readings": [
         {
           "form": "写す",
@@ -1714,6 +1792,10 @@
       "romaji": "utsuru",
       "part_of_speech": "verb",
       "meaning_zh": "搬迁；转移；传染",
+      "senses_zh": [
+        "搬迁；转移",
+        "传染"
+      ],
       "kanji_readings": [
         {
           "form": "移る",
@@ -1751,6 +1833,10 @@
       "romaji": "ude",
       "part_of_speech": "noun",
       "meaning_zh": "胳膊；本领",
+      "senses_zh": [
+        "胳膊",
+        "本领"
+      ],
       "kanji_readings": [
         {
           "form": "腕",
@@ -1788,6 +1874,10 @@
       "romaji": "umai",
       "part_of_speech": "i-adjective",
       "meaning_zh": "好吃的；高明的",
+      "senses_zh": [
+        "好吃的",
+        "高明的"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -1819,7 +1909,11 @@
       ],
       "romaji": "ura",
       "part_of_speech": "noun",
-      "meaning_zh": "背面；里面；反面",
+      "meaning_zh": "背面；反面；后面；背后",
+      "senses_zh": [
+        "背面；反面",
+        "后面；背后"
+      ],
       "kanji_readings": [
         {
           "form": "裏",
@@ -1958,6 +2052,10 @@
       "romaji": "unten",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "驾驶；运转",
+      "senses_zh": [
+        "驾驶",
+        "运转"
+      ],
       "kanji_readings": [
         {
           "form": "運転",
@@ -2143,6 +2241,10 @@
       "romaji": "enryo",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "客气；顾虑；谢绝",
+      "senses_zh": [
+        "客气；顾虑",
+        "谢绝"
+      ],
       "kanji_readings": [
         {
           "form": "遠慮",
@@ -2180,6 +2282,12 @@
       "romaji": "oide ni naru",
       "part_of_speech": "verb",
       "meaning_zh": "在；来；去（尊敬语，更郑重）",
+      "senses_zh": [
+        "在",
+        "来",
+        "去"
+      ],
+      "sense_note_zh": "（尊敬语，更郑重）",
       "kanji_readings": [],
       "examples": [
         {
@@ -2212,6 +2320,10 @@
       "romaji": "oiwai",
       "part_of_speech": "noun",
       "meaning_zh": "祝贺；贺礼",
+      "senses_zh": [
+        "祝贺",
+        "贺礼"
+      ],
       "kanji_readings": [
         {
           "form": "お祝い",
@@ -2318,6 +2430,10 @@
       "romaji": "okashii",
       "part_of_speech": "i-adjective",
       "meaning_zh": "奇怪的；可笑的",
+      "senses_zh": [
+        "奇怪的",
+        "可笑的"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -2498,6 +2614,10 @@
       "romaji": "okureru",
       "part_of_speech": "verb",
       "meaning_zh": "迟到；晚；落后",
+      "senses_zh": [
+        "迟到；晚",
+        "落后"
+      ],
       "kanji_readings": [
         {
           "form": "遅れる",
@@ -2535,6 +2655,11 @@
       "romaji": "okosu",
       "part_of_speech": "verb",
       "meaning_zh": "叫醒；引起；扶起",
+      "senses_zh": [
+        "叫醒",
+        "引起",
+        "扶起"
+      ],
       "kanji_readings": [
         {
           "form": "起こす",
@@ -2548,7 +2673,7 @@
         },
         {
           "ja": "大きな音で子供を起こしてしまいました。",
-          "zh": "大声把孩子吵醒了。"
+          "zh": "很大的声响把孩子吵醒了。"
         },
         {
           "ja": "問題を起こさないでください。",
@@ -2609,6 +2734,10 @@
       "romaji": "okoru",
       "part_of_speech": "verb",
       "meaning_zh": "生气；发怒；训斥",
+      "senses_zh": [
+        "生气；发怒",
+        "训斥"
+      ],
       "kanji_readings": [
         {
           "form": "怒る",
@@ -2683,6 +2812,10 @@
       "romaji": "ojousan",
       "part_of_speech": "noun",
       "meaning_zh": "小姐；别人家的女儿",
+      "senses_zh": [
+        "小姐",
+        "别人家的女儿"
+      ],
       "kanji_readings": [
         {
           "form": "お嬢さん",
@@ -2720,6 +2853,10 @@
       "romaji": "otaku",
       "part_of_speech": "noun",
       "meaning_zh": "府上；您家；您",
+      "senses_zh": [
+        "府上；您家",
+        "您"
+      ],
       "kanji_readings": [
         {
           "form": "お宅",
@@ -2757,6 +2894,10 @@
       "romaji": "ochiru",
       "part_of_speech": "verb",
       "meaning_zh": "落下；掉；落榜",
+      "senses_zh": [
+        "落下；掉",
+        "落榜"
+      ],
       "kanji_readings": [
         {
           "form": "落ちる",
@@ -2975,6 +3116,11 @@
       "romaji": "otosu",
       "part_of_speech": "verb",
       "meaning_zh": "弄掉；丢失；降低",
+      "senses_zh": [
+        "弄掉",
+        "丢失",
+        "降低"
+      ],
       "kanji_readings": [
         {
           "form": "落とす",
@@ -3340,6 +3486,10 @@
       "romaji": "omote",
       "part_of_speech": "noun",
       "meaning_zh": "表面；正面；外面",
+      "senses_zh": [
+        "表面；正面",
+        "外面"
+      ],
       "kanji_readings": [
         {
           "form": "表",
@@ -3526,6 +3676,10 @@
       "romaji": "orei",
       "part_of_speech": "noun",
       "meaning_zh": "感谢；谢礼",
+      "senses_zh": [
+        "感谢",
+        "谢礼"
+      ],
       "kanji_readings": [
         {
           "form": "お礼",
@@ -3637,6 +3791,10 @@
       "romaji": "ka",
       "part_of_speech": "noun",
       "meaning_zh": "课；科；部门",
+      "senses_zh": [
+        "课",
+        "科；部门"
+      ],
       "kanji_readings": [
         {
           "form": "課",
@@ -3822,6 +3980,10 @@
       "romaji": "kaikei",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "会计；结账",
+      "senses_zh": [
+        "会计",
+        "结账"
+      ],
       "kanji_readings": [
         {
           "form": "会計",
@@ -3831,7 +3993,7 @@
       "examples": [
         {
           "ja": "レジで会計をお願いします。",
-          "zh": "在收银台结账。"
+          "zh": "请在收银台结账。"
         },
         {
           "ja": "会計はカードでできますか。",
@@ -4118,6 +4280,11 @@
       "romaji": "kakaru",
       "part_of_speech": "verb",
       "meaning_zh": "挂着；悬挂；（锁）锁着；（电话）打来",
+      "senses_zh": [
+        "挂着；悬挂",
+        "（锁）锁着",
+        "（电话）打来"
+      ],
       "kanji_readings": [
         {
           "form": "掛かる",
@@ -4229,6 +4396,11 @@
       "romaji": "kagen",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "程度；调整；身体状况",
+      "senses_zh": [
+        "程度",
+        "调整",
+        "身体状况"
+      ],
       "kanji_readings": [
         {
           "form": "加減",
@@ -4342,6 +4514,10 @@
       "romaji": "katai",
       "part_of_speech": "i-adjective",
       "meaning_zh": "硬的；坚固的；严肃的",
+      "senses_zh": [
+        "硬的；坚固的",
+        "严肃的"
+      ],
       "kanji_readings": [
         {
           "form": "固い",
@@ -4387,6 +4563,10 @@
       "romaji": "katachi",
       "part_of_speech": "noun",
       "meaning_zh": "形状；形式",
+      "senses_zh": [
+        "形状",
+        "形式"
+      ],
       "kanji_readings": [
         {
           "form": "形",
@@ -4763,6 +4943,10 @@
       "romaji": "kanojo",
       "part_of_speech": "noun/pronoun",
       "meaning_zh": "她；女朋友",
+      "senses_zh": [
+        "她",
+        "女朋友"
+      ],
       "kanji_readings": [
         {
           "form": "彼女",
@@ -4836,7 +5020,11 @@
       ],
       "romaji": "kamau",
       "part_of_speech": "verb",
-      "meaning_zh": "介意；照顾；理会",
+      "meaning_zh": "介意；理会；照顾",
+      "senses_zh": [
+        "介意；理会",
+        "照顾"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -5017,6 +5205,10 @@
       "romaji": "kare",
       "part_of_speech": "noun/pronoun",
       "meaning_zh": "他；男朋友",
+      "senses_zh": [
+        "他",
+        "男朋友"
+      ],
       "kanji_readings": [
         {
           "form": "彼",
@@ -5128,6 +5320,10 @@
       "romaji": "kawari",
       "part_of_speech": "noun",
       "meaning_zh": "代替；替换；作为交换",
+      "senses_zh": [
+        "代替；替换",
+        "作为交换"
+      ],
       "kanji_readings": [
         {
           "form": "代わり",
@@ -5393,6 +5589,11 @@
       "romaji": "ki",
       "part_of_speech": "noun",
       "meaning_zh": "心情；精神；意愿",
+      "senses_zh": [
+        "心情",
+        "精神",
+        "意愿"
+      ],
       "kanji_readings": [
         {
           "form": "気",
@@ -5758,6 +5959,10 @@
       "romaji": "kibishii",
       "part_of_speech": "i-adjective",
       "meaning_zh": "严格的；严厉的；严峻的",
+      "senses_zh": [
+        "严格的；严厉的",
+        "严峻的"
+      ],
       "kanji_readings": [
         {
           "form": "厳しい",
@@ -5795,6 +6000,10 @@
       "romaji": "kibun",
       "part_of_speech": "noun",
       "meaning_zh": "心情；身体状况",
+      "senses_zh": [
+        "心情",
+        "身体状况"
+      ],
       "kanji_readings": [
         {
           "form": "気分",
@@ -5832,6 +6041,10 @@
       "romaji": "kimari",
       "part_of_speech": "noun",
       "meaning_zh": "规定；惯例",
+      "senses_zh": [
+        "规定",
+        "惯例"
+      ],
       "kanji_readings": [
         {
           "form": "決まり",
@@ -6091,6 +6304,11 @@
       "romaji": "kyuu",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "突然；急；陡",
+      "senses_zh": [
+        "突然",
+        "急",
+        "陡"
+      ],
       "kanji_readings": [
         {
           "form": "急",
@@ -6164,7 +6382,7 @@
       ],
       "romaji": "kyuu ni",
       "part_of_speech": "adverb",
-      "meaning_zh": "突然；急忙地",
+      "meaning_zh": "突然；忽然",
       "kanji_readings": [
         {
           "form": "急に",
@@ -6498,6 +6716,10 @@
       "romaji": "kuuki",
       "part_of_speech": "noun",
       "meaning_zh": "空气；气氛",
+      "senses_zh": [
+        "空气",
+        "气氛"
+      ],
       "kanji_readings": [
         {
           "form": "空気",
@@ -6647,6 +6869,10 @@
       "romaji": "kubi",
       "part_of_speech": "noun",
       "meaning_zh": "脖子；头；解雇",
+      "senses_zh": [
+        "脖子；头",
+        "解雇"
+      ],
       "kanji_readings": [
         {
           "form": "首",
@@ -6864,6 +7090,10 @@
       "romaji": "kureru",
       "part_of_speech": "verb",
       "meaning_zh": "天黑；岁月结束",
+      "senses_zh": [
+        "天黑",
+        "岁月结束"
+      ],
       "kanji_readings": [
         {
           "form": "暮れる",
@@ -6938,6 +7168,11 @@
       "romaji": "guai",
       "part_of_speech": "noun",
       "meaning_zh": "情况；身体状况；方便程度",
+      "senses_zh": [
+        "情况",
+        "身体状况",
+        "方便程度"
+      ],
       "kanji_readings": [
         {
           "form": "具合",
@@ -6975,6 +7210,10 @@
       "romaji": "guai ga warui",
       "part_of_speech": "expression",
       "meaning_zh": "身体不舒服；情况不好",
+      "senses_zh": [
+        "身体不舒服",
+        "情况不好"
+      ],
       "kanji_readings": [
         {
           "form": "具合が悪い",
@@ -7123,6 +7362,10 @@
       "romaji": "keisatsu",
       "part_of_speech": "noun",
       "meaning_zh": "警察；警察署",
+      "senses_zh": [
+        "警察",
+        "警察署"
+      ],
       "kanji_readings": [
         {
           "form": "警察",
@@ -7234,6 +7477,10 @@
       "romaji": "kega",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "受伤；伤口",
+      "senses_zh": [
+        "受伤",
+        "伤口"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -7484,6 +7731,10 @@
       "romaji": "kenka",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "吵架；打架",
+      "senses_zh": [
+        "吵架",
+        "打架"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -7627,6 +7878,10 @@
       "romaji": "geshuku",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "寄宿；租住处",
+      "senses_zh": [
+        "寄宿",
+        "租住处"
+      ],
       "kanji_readings": [
         {
           "form": "下宿",
@@ -7739,6 +7994,10 @@
       "romaji": "ko",
       "part_of_speech": "noun",
       "meaning_zh": "孩子；小……",
+      "senses_zh": [
+        "孩子",
+        "小……"
+      ],
       "kanji_readings": [
         {
           "form": "子",
@@ -7844,7 +8103,7 @@
       ],
       "romaji": "kougi",
       "part_of_speech": "noun",
-      "meaning_zh": "讲课；讲义",
+      "meaning_zh": "讲课；讲座",
       "kanji_readings": [
         {
           "form": "講義",
@@ -8512,6 +8771,10 @@
       "romaji": "kotae",
       "part_of_speech": "noun",
       "meaning_zh": "回答；答案",
+      "senses_zh": [
+        "回答",
+        "答案"
+      ],
       "kanji_readings": [
         {
           "form": "答え",
@@ -8622,6 +8885,10 @@
       "romaji": "kono aida",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "前几天；最近",
+      "senses_zh": [
+        "前几天",
+        "最近"
+      ],
       "kanji_readings": [
         {
           "form": "この間",
@@ -8691,6 +8958,10 @@
       "romaji": "komakai",
       "part_of_speech": "i-adjective",
       "meaning_zh": "细小的；详细的",
+      "senses_zh": [
+        "细小的",
+        "详细的"
+      ],
       "kanji_readings": [
         {
           "form": "細かい",
@@ -8818,7 +9089,7 @@
         },
         {
           "ja": "これからもっと勉強します。",
-          "zh": "今后会更加学习。"
+          "zh": "今后要更努力学习。"
         },
         {
           "ja": "これから会議が始まります。",
@@ -8953,6 +9224,11 @@
       "romaji": "kondo",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "这次；下次；最近",
+      "senses_zh": [
+        "这次",
+        "下次",
+        "最近"
+      ],
       "kanji_readings": [
         {
           "form": "今度",
@@ -9065,6 +9341,10 @@
       "romaji": "goshujin",
       "part_of_speech": "noun",
       "meaning_zh": "您丈夫；主人",
+      "senses_zh": [
+        "您丈夫",
+        "主人"
+      ],
       "kanji_readings": [
         {
           "form": "ご主人",
@@ -9102,6 +9382,11 @@
       "romaji": "gozonji",
       "part_of_speech": "noun",
       "meaning_zh": "（您）知道；认识（尊敬语）",
+      "senses_zh": [
+        "（您）知道",
+        "认识"
+      ],
+      "sense_note_zh": "（尊敬语）",
       "kanji_readings": [
         {
           "form": "ご存じ",
@@ -9139,6 +9424,10 @@
       "romaji": "gochisou",
       "part_of_speech": "noun",
       "meaning_zh": "盛宴；款待",
+      "senses_zh": [
+        "盛宴",
+        "款待"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -9215,7 +9504,7 @@
         },
         {
           "ja": "社長が発表をごらんになります。",
-          "zh": "社长会看发表。"
+          "zh": "社长会来看我们的报告。"
         }
       ],
       "note_zh": "敬语。"
@@ -9456,7 +9745,12 @@
       ],
       "romaji": "sagaru",
       "part_of_speech": "verb",
-      "meaning_zh": "下降；后退；降低（自动词）",
+      "meaning_zh": "下降；降低；后退（自动词）",
+      "senses_zh": [
+        "下降；降低",
+        "后退"
+      ],
+      "sense_note_zh": "（自动词）",
       "kanji_readings": [
         {
           "form": "下がる",
@@ -9494,6 +9788,12 @@
       "romaji": "sageru",
       "part_of_speech": "verb",
       "meaning_zh": "降低；垂下；撤下（他动词）",
+      "senses_zh": [
+        "降低",
+        "垂下",
+        "撤下"
+      ],
+      "sense_note_zh": "（他动词）",
       "kanji_readings": [
         {
           "form": "下げる",
@@ -9638,6 +9938,10 @@
       "romaji": "sabishii",
       "part_of_speech": "i-adjective",
       "meaning_zh": "寂寞的；冷清的",
+      "senses_zh": [
+        "寂寞的",
+        "冷清的"
+      ],
       "kanji_readings": [
         {
           "form": "寂しい",
@@ -10229,6 +10533,11 @@
       "romaji": "shikkari",
       "part_of_speech": "adverb",
       "meaning_zh": "牢固地；认真地；可靠地",
+      "senses_zh": [
+        "牢固地",
+        "认真地",
+        "可靠地"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -10298,6 +10607,11 @@
       "romaji": "shitsurei",
       "part_of_speech": "suru-verb/na-adjective/noun",
       "meaning_zh": "失礼；告辞；打扰",
+      "senses_zh": [
+        "失礼",
+        "告辞",
+        "打扰"
+      ],
       "kanji_readings": [
         {
           "form": "失礼",
@@ -10372,6 +10686,10 @@
       "romaji": "shibaraku",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "一会儿；暂时；好久",
+      "senses_zh": [
+        "一会儿；暂时",
+        "好久"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -10921,7 +11239,11 @@
       ],
       "romaji": "shouchi",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "知道；同意；承知",
+      "meaning_zh": "知道；同意",
+      "senses_zh": [
+        "知道",
+        "同意"
+      ],
       "kanji_readings": [
         {
           "form": "承知",
@@ -10939,7 +11261,7 @@
         },
         {
           "ja": "ご希望は承知しました。",
-          "zh": "您的希望我明白了。"
+          "zh": "您的要求我明白了。"
         }
       ],
       "note_zh": "常与「する」构成动词。"
@@ -10996,6 +11318,10 @@
       "romaji": "shokuji",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "吃饭；用餐；饭食",
+      "senses_zh": [
+        "吃饭；用餐",
+        "饭食"
+      ],
       "kanji_readings": [
         {
           "form": "食事",
@@ -11032,7 +11358,7 @@
       ],
       "romaji": "shokuryouhin",
       "part_of_speech": "noun",
-      "meaning_zh": "食品；杂货食品",
+      "meaning_zh": "食品；食品杂货",
       "kanji_readings": [
         {
           "form": "食料品",
@@ -11255,6 +11581,10 @@
       "romaji": "shingou",
       "part_of_speech": "noun",
       "meaning_zh": "信号；红绿灯",
+      "senses_zh": [
+        "信号",
+        "红绿灯"
+      ],
       "kanji_readings": [
         {
           "form": "信号",
@@ -11661,7 +11991,7 @@
         "じゃま"
       ],
       "romaji": "jama",
-      "part_of_speech": "na-adjective/noun",
+      "part_of_speech": "suru-verb/na-adjective/noun",
       "meaning_zh": "妨碍；打扰",
       "kanji_readings": [
         {
@@ -11854,6 +12184,10 @@
       "romaji": "junban",
       "part_of_speech": "noun",
       "meaning_zh": "顺序；轮流",
+      "senses_zh": [
+        "顺序",
+        "轮流"
+      ],
       "kanji_readings": [
         {
           "form": "順番",
@@ -12150,7 +12484,8 @@
       ],
       "romaji": "suiei",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "游泳（名词；游泳运动）",
+      "meaning_zh": "游泳（名词，指游泳运动）",
+      "answer_zh": "游泳（指游泳运动）",
       "kanji_readings": [
         {
           "form": "水泳",
@@ -12187,7 +12522,7 @@
       ],
       "romaji": "suidou",
       "part_of_speech": "noun",
-      "meaning_zh": "自来水；水道",
+      "meaning_zh": "自来水；自来水管道",
       "kanji_readings": [
         {
           "form": "水道",
@@ -12294,6 +12629,10 @@
       "romaji": "sutto",
       "part_of_speech": "adverb",
       "meaning_zh": "笔直地；一下子；迅速地",
+      "senses_zh": [
+        "笔直地",
+        "一下子；迅速地"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -12404,7 +12743,7 @@
       "examples": [
         {
           "ja": "すばらしい発表でした。",
-          "zh": "是很精彩的发表。"
+          "zh": "是一场很精彩的报告。"
         },
         {
           "ja": "この景色はすばらしいです。",
@@ -12507,6 +12846,11 @@
       "romaji": "sumu",
       "part_of_speech": "verb",
       "meaning_zh": "结束；解决；足够",
+      "senses_zh": [
+        "结束",
+        "解决",
+        "足够"
+      ],
       "kanji_readings": [
         {
           "form": "済む",
@@ -13085,6 +13429,10 @@
       "romaji": "sen",
       "part_of_speech": "noun",
       "meaning_zh": "线；路线",
+      "senses_zh": [
+        "线",
+        "路线"
+      ],
       "kanji_readings": [
         {
           "form": "線",
@@ -13560,6 +13908,10 @@
       "romaji": "sorede",
       "part_of_speech": "conjunction",
       "meaning_zh": "所以；因此（叙述已发生的结果）；然后呢",
+      "senses_zh": [
+        "所以；因此（叙述已发生的结果）",
+        "然后呢"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -13822,6 +14174,10 @@
       "romaji": "taitei",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "通常；大多",
+      "senses_zh": [
+        "通常",
+        "大多"
+      ],
       "kanji_readings": [
         {
           "form": "大抵",
@@ -13896,6 +14252,10 @@
       "romaji": "taoreru",
       "part_of_speech": "verb",
       "meaning_zh": "倒下；倒塌；垮掉",
+      "senses_zh": [
+        "倒下；倒塌",
+        "垮掉"
+      ],
       "kanji_readings": [
         {
           "form": "倒れる",
@@ -13933,6 +14293,11 @@
       "romaji": "tashika",
       "part_of_speech": "na-adjective/adverb",
       "meaning_zh": "确实；大概；可靠",
+      "senses_zh": [
+        "确实",
+        "大概",
+        "可靠"
+      ],
       "kanji_readings": [
         {
           "form": "確か",
@@ -14118,6 +14483,10 @@
       "romaji": "tadashii",
       "part_of_speech": "i-adjective",
       "meaning_zh": "正确的；正当的",
+      "senses_zh": [
+        "正确的",
+        "正当的"
+      ],
       "kanji_readings": [
         {
           "form": "正しい",
@@ -14192,6 +14561,10 @@
       "romaji": "tateru",
       "part_of_speech": "verb",
       "meaning_zh": "立起；制定",
+      "senses_zh": [
+        "立起",
+        "制定"
+      ],
       "kanji_readings": [
         {
           "form": "立てる",
@@ -14303,6 +14676,10 @@
       "romaji": "tanoshimi",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "期待；乐趣",
+      "senses_zh": [
+        "期待",
+        "乐趣"
+      ],
       "kanji_readings": [
         {
           "form": "楽しみ",
@@ -14339,7 +14716,11 @@
       ],
       "romaji": "tanoshimu",
       "part_of_speech": "verb",
-      "meaning_zh": "享受；期待；玩得开心",
+      "meaning_zh": "享受；玩得开心；期待",
+      "senses_zh": [
+        "享受；玩得开心",
+        "期待"
+      ],
       "kanji_readings": [
         {
           "form": "楽しむ",
@@ -14557,6 +14938,10 @@
       "romaji": "daiji",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "重要；珍贵；严重",
+      "senses_zh": [
+        "重要；珍贵",
+        "严重"
+      ],
       "kanji_readings": [
         {
           "form": "大事",
@@ -14699,7 +15084,11 @@
       ],
       "romaji": "dame",
       "part_of_speech": "na-adjective",
-      "meaning_zh": "不行；没用；不可以",
+      "meaning_zh": "不行；不可以；没用",
+      "senses_zh": [
+        "不行；不可以",
+        "没用"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -14843,6 +15232,10 @@
       "romaji": "chikara",
       "part_of_speech": "noun",
       "meaning_zh": "力量；能力",
+      "senses_zh": [
+        "力量",
+        "能力"
+      ],
       "kanji_readings": [
         {
           "form": "力",
@@ -14944,6 +15337,10 @@
       "romaji": "chuui",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "注意；提醒；警告",
+      "senses_zh": [
+        "注意",
+        "提醒；警告"
+      ],
       "kanji_readings": [
         {
           "form": "注意",
@@ -15129,6 +15526,10 @@
       "romaji": "chuumon",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "点餐；订购；要求",
+      "senses_zh": [
+        "点餐；订购",
+        "要求"
+      ],
       "kanji_readings": [
         {
           "form": "注文",
@@ -15240,6 +15641,10 @@
       "romaji": "tsuki",
       "part_of_speech": "noun",
       "meaning_zh": "月亮；月",
+      "senses_zh": [
+        "月亮",
+        "月"
+      ],
       "kanji_readings": [
         {
           "form": "月",
@@ -15277,6 +15682,10 @@
       "romaji": "tsuku",
       "part_of_speech": "verb",
       "meaning_zh": "附着；沾上；带有",
+      "senses_zh": [
+        "附着；沾上",
+        "带有"
+      ],
       "kanji_readings": [
         {
           "form": "付く",
@@ -15314,6 +15723,10 @@
       "romaji": "tsukeru",
       "part_of_speech": "verb",
       "meaning_zh": "腌；浸泡",
+      "senses_zh": [
+        "腌",
+        "浸泡"
+      ],
       "kanji_readings": [
         {
           "form": "漬ける",
@@ -15351,6 +15764,11 @@
       "romaji": "tsugou",
       "part_of_speech": "noun",
       "meaning_zh": "情况；方便；安排",
+      "senses_zh": [
+        "情况",
+        "方便",
+        "安排"
+      ],
       "kanji_readings": [
         {
           "form": "都合",
@@ -15683,7 +16101,11 @@
       ],
       "romaji": "tsuru",
       "part_of_speech": "verb",
-      "meaning_zh": "钓鱼；吊起",
+      "meaning_zh": "钓鱼；引诱",
+      "senses_zh": [
+        "钓鱼",
+        "引诱"
+      ],
       "kanji_readings": [
         {
           "form": "釣る",
@@ -15795,6 +16217,10 @@
       "romaji": "teinei",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "礼貌；仔细",
+      "senses_zh": [
+        "礼貌",
+        "仔细"
+      ],
       "kanji_readings": [
         {
           "form": "丁寧",
@@ -15832,6 +16258,10 @@
       "romaji": "tekitou",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "适当；随便；敷衍",
+      "senses_zh": [
+        "适当",
+        "随便；敷衍"
+      ],
       "kanji_readings": [
         {
           "form": "適当",
@@ -16017,6 +16447,11 @@
       "romaji": "ten",
       "part_of_speech": "noun",
       "meaning_zh": "点；分数；方面",
+      "senses_zh": [
+        "点",
+        "分数",
+        "方面"
+      ],
       "kanji_readings": [
         {
           "form": "点",
@@ -16414,6 +16849,11 @@
       "romaji": "toori",
       "part_of_speech": "noun",
       "meaning_zh": "街道；按照；种类",
+      "senses_zh": [
+        "街道",
+        "按照",
+        "种类"
+      ],
       "kanji_readings": [
         {
           "form": "通り",
@@ -16562,6 +17002,10 @@
       "romaji": "tokoya",
       "part_of_speech": "noun",
       "meaning_zh": "理发店；理发师",
+      "senses_zh": [
+        "理发店",
+        "理发师"
+      ],
       "kanji_readings": [
         {
           "form": "床屋",
@@ -16748,6 +17192,10 @@
       "romaji": "todokeru",
       "part_of_speech": "verb",
       "meaning_zh": "送到；提交；报告",
+      "senses_zh": [
+        "送到",
+        "提交；报告"
+      ],
       "kanji_readings": [
         {
           "form": "届ける",
@@ -16785,6 +17233,10 @@
       "romaji": "tomaru",
       "part_of_speech": "verb",
       "meaning_zh": "住宿；停泊",
+      "senses_zh": [
+        "住宿",
+        "停泊"
+      ],
       "kanji_readings": [
         {
           "form": "泊まる",
@@ -17113,6 +17565,11 @@
       "romaji": "naosu",
       "part_of_speech": "verb",
       "meaning_zh": "修理；改正；恢复原状",
+      "senses_zh": [
+        "修理",
+        "改正",
+        "恢复原状"
+      ],
       "kanji_readings": [
         {
           "form": "直す",
@@ -17187,6 +17644,10 @@
       "romaji": "naoru",
       "part_of_speech": "verb",
       "meaning_zh": "修好；恢复；改正过来",
+      "senses_zh": [
+        "修好；恢复",
+        "改正过来"
+      ],
       "kanji_readings": [
         {
           "form": "直る",
@@ -17225,6 +17686,10 @@
       "romaji": "nakanaka",
       "part_of_speech": "adverb",
       "meaning_zh": "相当；怎么也不",
+      "senses_zh": [
+        "相当",
+        "怎么也不"
+      ],
       "kanji_readings": [
         {
           "form": "中々",
@@ -17336,6 +17801,10 @@
       "romaji": "nakunaru",
       "part_of_speech": "verb",
       "meaning_zh": "丢失；消失；用完",
+      "senses_zh": [
+        "丢失；消失",
+        "用完"
+      ],
       "kanji_readings": [
         {
           "form": "無くなる",
@@ -17692,6 +18161,10 @@
       "romaji": "nigeru",
       "part_of_speech": "verb",
       "meaning_zh": "逃跑；逃避",
+      "senses_zh": [
+        "逃跑",
+        "逃避"
+      ],
       "kanji_readings": [
         {
           "form": "逃げる",
@@ -18099,7 +18572,7 @@
       ],
       "romaji": "nureru",
       "part_of_speech": "verb",
-      "meaning_zh": "淋湿；弄湿",
+      "meaning_zh": "淋湿；变湿",
       "kanji_readings": [
         {
           "form": "濡れる",
@@ -18287,6 +18760,10 @@
       "romaji": "netsu",
       "part_of_speech": "noun",
       "meaning_zh": "热；发烧",
+      "senses_zh": [
+        "热",
+        "发烧"
+      ],
       "kanji_readings": [
         {
           "form": "熱",
@@ -18504,6 +18981,7 @@
       "romaji": "norikae",
       "part_of_speech": "noun",
       "meaning_zh": "换乘（名词）",
+      "answer_zh": "换乘",
       "kanji_readings": [
         {
           "form": "乗り換え",
@@ -18541,6 +19019,7 @@
       "romaji": "norikaeru",
       "part_of_speech": "verb",
       "meaning_zh": "换乘；改乘（动词）",
+      "answer_zh": "换乘；改乘",
       "kanji_readings": [
         {
           "form": "乗り換える",
@@ -18706,7 +19185,7 @@
         },
         {
           "ja": "先生の作品を拝見しました。",
-          "zh": "拜看了老师的作品。"
+          "zh": "有幸看到了老师的作品。"
         }
       ],
       "note_zh": "常与「する」构成动词。"
@@ -18906,6 +19385,10 @@
       "romaji": "happyou",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "发表；发布；做报告",
+      "senses_zh": [
+        "发表；发布",
+        "做报告"
+      ],
       "kanji_readings": [
         {
           "form": "発表",
@@ -19054,6 +19537,10 @@
       "romaji": "harau",
       "part_of_speech": "verb",
       "meaning_zh": "支付；付钱；拂去",
+      "senses_zh": [
+        "支付；付钱",
+        "拂去"
+      ],
       "kanji_readings": [
         {
           "form": "払う",
@@ -19091,6 +19578,10 @@
       "romaji": "hantai",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "反对；相反",
+      "senses_zh": [
+        "反对",
+        "相反"
+      ],
       "kanji_readings": [
         {
           "form": "反対",
@@ -19388,6 +19879,10 @@
       "romaji": "hi",
       "part_of_speech": "noun",
       "meaning_zh": "太阳；日子",
+      "senses_zh": [
+        "太阳",
+        "日子"
+      ],
       "kanji_readings": [
         {
           "form": "日",
@@ -19970,6 +20465,11 @@
       "romaji": "hiraku",
       "part_of_speech": "verb",
       "meaning_zh": "打开；开办；举办",
+      "senses_zh": [
+        "打开",
+        "开办",
+        "举办"
+      ],
       "kanji_readings": [
         {
           "form": "開く",
@@ -20224,6 +20724,10 @@
       "romaji": "fukai",
       "part_of_speech": "i-adjective",
       "meaning_zh": "深的；深刻的",
+      "senses_zh": [
+        "深的",
+        "深刻的"
+      ],
       "kanji_readings": [
         {
           "form": "深い",
@@ -20335,6 +20839,10 @@
       "romaji": "futsuu",
       "part_of_speech": "na-adjective/noun/adverb",
       "meaning_zh": "普通；一般；通常",
+      "senses_zh": [
+        "普通；一般",
+        "通常"
+      ],
       "kanji_readings": [
         {
           "form": "普通",
@@ -20644,7 +21152,7 @@
         },
         {
           "ja": "雪が降り出す前に帰りましょう。",
-          "zh": "趁下雪前回去吧。"
+          "zh": "趁还没下雪回去吧。"
         },
         {
           "ja": "外へ出たら雨が降り出しました。",
@@ -20959,6 +21467,11 @@
       "romaji": "betsu",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "另外；不同；分别",
+      "senses_zh": [
+        "另外",
+        "不同",
+        "分别"
+      ],
       "kanji_readings": [
         {
           "form": "別",
@@ -21218,6 +21731,10 @@
       "romaji": "hotondo",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "几乎；大部分",
+      "senses_zh": [
+        "几乎",
+        "大部分"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -21289,8 +21806,8 @@
           "zh": "酒请适量。"
         },
         {
-          "ja": "無理をしないで、ほどほどに休みましょう。",
-          "zh": "不要勉强，适度休息吧。"
+          "ja": "仕事はほどほどにして、早く寝ましょう。",
+          "zh": "工作适可而止，早点睡吧。"
         },
         {
           "ja": "勉強も遊びもほどほどが大切です。",
@@ -21462,6 +21979,10 @@
       "romaji": "mairu",
       "part_of_speech": "verb",
       "meaning_zh": "去；来（自谦语）；受不了",
+      "senses_zh": [
+        "去；来（自谦语）",
+        "受不了"
+      ],
       "kanji_readings": [
         {
           "form": "参る",
@@ -21540,6 +22061,10 @@
       "romaji": "majime",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "认真；老实",
+      "senses_zh": [
+        "认真",
+        "老实"
+      ],
       "kanji_readings": [
         {
           "form": "真面目",
@@ -21577,6 +22102,10 @@
       "romaji": "mazu",
       "part_of_speech": "adverb",
       "meaning_zh": "首先；暂且",
+      "senses_zh": [
+        "首先",
+        "暂且"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -21789,6 +22318,10 @@
       "romaji": "mawaru",
       "part_of_speech": "verb",
       "meaning_zh": "转；绕；巡回",
+      "senses_zh": [
+        "转；绕",
+        "巡回"
+      ],
       "kanji_readings": [
         {
           "form": "回る",
@@ -21905,6 +22438,10 @@
       "romaji": "mieru",
       "part_of_speech": "verb",
       "meaning_zh": "看得见；似乎",
+      "senses_zh": [
+        "看得见",
+        "似乎"
+      ],
       "kanji_readings": [
         {
           "form": "見える",
@@ -22090,6 +22627,10 @@
       "romaji": "mina",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "大家；全都",
+      "senses_zh": [
+        "大家",
+        "全都"
+      ],
       "kanji_readings": [
         {
           "form": "皆",
@@ -22164,6 +22705,10 @@
       "romaji": "mukau",
       "part_of_speech": "verb",
       "meaning_zh": "面向；前往",
+      "senses_zh": [
+        "面向",
+        "前往"
+      ],
       "kanji_readings": [
         {
           "form": "向かう",
@@ -22201,6 +22746,10 @@
       "romaji": "mukaeru",
       "part_of_speech": "verb",
       "meaning_zh": "迎接；迎来",
+      "senses_zh": [
+        "迎接",
+        "迎来"
+      ],
       "kanji_readings": [
         {
           "form": "迎える",
@@ -22423,6 +22972,11 @@
       "romaji": "muri",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "勉强；不可能；不合理",
+      "senses_zh": [
+        "勉强",
+        "不可能",
+        "不合理"
+      ],
       "kanji_readings": [
         {
           "form": "無理",
@@ -22645,6 +23199,11 @@
       "romaji": "mousu",
       "part_of_speech": "verb",
       "meaning_zh": "叫做；说（自谦语）",
+      "senses_zh": [
+        "叫做",
+        "说"
+      ],
+      "sense_note_zh": "（自谦语）",
       "kanji_readings": [
         {
           "form": "申す",
@@ -22927,6 +23486,11 @@
       "romaji": "yaku",
       "part_of_speech": "noun",
       "meaning_zh": "作用；角色；职务",
+      "senses_zh": [
+        "作用",
+        "角色",
+        "职务"
+      ],
       "kanji_readings": [
         {
           "form": "役",
@@ -23000,7 +23564,11 @@
       ],
       "romaji": "yakusoku",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "约定；约会；承诺",
+      "meaning_zh": "约定；承诺；约会",
+      "senses_zh": [
+        "约定；承诺",
+        "约会"
+      ],
       "kanji_readings": [
         {
           "form": "約束",
@@ -23075,6 +23643,11 @@
       "romaji": "yakeru",
       "part_of_speech": "verb",
       "meaning_zh": "烧焦；烤好；晒黑",
+      "senses_zh": [
+        "烧焦",
+        "烤好",
+        "晒黑"
+      ],
       "kanji_readings": [
         {
           "form": "焼ける",
@@ -23181,7 +23754,11 @@
       ],
       "romaji": "yahari",
       "part_of_speech": "adverb",
-      "meaning_zh": "果然；还是；不出所料",
+      "meaning_zh": "果然；不出所料；还是",
+      "senses_zh": [
+        "果然；不出所料",
+        "还是"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -23362,6 +23939,10 @@
       "romaji": "yu",
       "part_of_speech": "noun",
       "meaning_zh": "热水；洗澡水",
+      "senses_zh": [
+        "热水",
+        "洗澡水"
+      ],
       "kanji_readings": [
         {
           "form": "湯",
@@ -23547,6 +24128,10 @@
       "romaji": "yume",
       "part_of_speech": "noun",
       "meaning_zh": "梦；梦想",
+      "senses_zh": [
+        "梦",
+        "梦想"
+      ],
       "kanji_readings": [
         {
           "form": "夢",
@@ -23620,7 +24205,11 @@
       ],
       "romaji": "you",
       "part_of_speech": "noun",
-      "meaning_zh": "事情；用途；用事",
+      "meaning_zh": "事情；用途",
+      "senses_zh": [
+        "事情",
+        "用途"
+      ],
       "kanji_readings": [
         {
           "form": "用",
@@ -23954,6 +24543,10 @@
       "romaji": "yoru",
       "part_of_speech": "verb",
       "meaning_zh": "顺路去；靠近",
+      "senses_zh": [
+        "顺路去",
+        "靠近"
+      ],
       "kanji_readings": [
         {
           "form": "寄る",
@@ -24208,6 +24801,10 @@
       "romaji": "rusu",
       "part_of_speech": "noun",
       "meaning_zh": "不在家；看家",
+      "senses_zh": [
+        "不在家",
+        "看家"
+      ],
       "kanji_readings": [
         {
           "form": "留守",
@@ -24245,6 +24842,10 @@
       "romaji": "rusuban",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "看家；留守看家的人",
+      "senses_zh": [
+        "看家",
+        "留守看家的人"
+      ],
       "kanji_readings": [
         {
           "form": "留守番",
@@ -24430,6 +25031,10 @@
       "romaji": "wakareru",
       "part_of_speech": "verb",
       "meaning_zh": "分开；分别；分手",
+      "senses_zh": [
+        "分开；分别",
+        "分手"
+      ],
       "kanji_readings": [
         {
           "form": "別れる",
@@ -24467,6 +25072,10 @@
       "romaji": "waku",
       "part_of_speech": "verb",
       "meaning_zh": "（水）开；沸腾；（场面）热烈起来",
+      "senses_zh": [
+        "（水）开；沸腾",
+        "（场面）热烈起来"
+      ],
       "kanji_readings": [
         {
           "form": "沸く",
@@ -24504,6 +25113,11 @@
       "romaji": "wake",
       "part_of_speech": "noun",
       "meaning_zh": "理由；意思；情况",
+      "senses_zh": [
+        "理由",
+        "意思",
+        "情况"
+      ],
       "kanji_readings": [
         {
           "form": "訳",
@@ -24615,6 +25229,10 @@
       "romaji": "wariai",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "比例；比较；相当",
+      "senses_zh": [
+        "比例",
+        "比较；相当"
+      ],
       "kanji_readings": [
         {
           "form": "割合",
@@ -24886,6 +25504,10 @@
       "romaji": "amerika",
       "part_of_speech": "noun",
       "meaning_zh": "美国；美洲",
+      "senses_zh": [
+        "美国",
+        "美洲"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -24918,6 +25540,10 @@
       "romaji": "arukooru",
       "part_of_speech": "noun",
       "meaning_zh": "酒精；酒类",
+      "senses_zh": [
+        "酒精",
+        "酒类"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25399,6 +26025,10 @@
       "romaji": "saabisu",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "服务；赠品；优惠",
+      "senses_zh": [
+        "服务",
+        "赠品；优惠"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25527,6 +26157,10 @@
       "romaji": "sofuto",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "软件；软的",
+      "senses_zh": [
+        "软件",
+        "软的"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25559,6 +26193,10 @@
       "romaji": "taipu",
       "part_of_speech": "noun",
       "meaning_zh": "类型；打字",
+      "senses_zh": [
+        "类型",
+        "打字"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25623,6 +26261,10 @@
       "romaji": "tekisuto",
       "part_of_speech": "noun",
       "meaning_zh": "教材；文本",
+      "senses_zh": [
+        "教材",
+        "文本"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25751,6 +26393,10 @@
       "romaji": "paato",
       "part_of_speech": "noun",
       "meaning_zh": "兼职；部分",
+      "senses_zh": [
+        "兼职",
+        "部分"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25879,6 +26525,10 @@
       "romaji": "purezento",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "礼物（最常用）；赠送",
+      "senses_zh": [
+        "礼物（最常用）",
+        "赠送"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -26205,7 +26855,7 @@
         },
         {
           "ja": "区役所まで歩いて行きます。",
-          "zh": "走路去区役所。"
+          "zh": "走路去区政府。"
         }
       ],
       "note_zh": "接尾语。"
@@ -26336,6 +26986,10 @@
       "romaji": "~dai",
       "part_of_speech": "suffix",
       "meaning_zh": "……费；……代；……年代",
+      "senses_zh": [
+        "……费",
+        "……代；……年代"
+      ],
       "kanji_readings": [
         {
           "form": "～代",
@@ -26484,6 +27138,10 @@
       "romaji": "ukagau",
       "part_of_speech": "verb",
       "meaning_zh": "窥视；观察（情况、脸色）；伺机",
+      "senses_zh": [
+        "窥视；观察（情况、脸色）",
+        "伺机"
+      ],
       "kanji_readings": [
         {
           "form": "窺う",
@@ -26521,6 +27179,10 @@
       "romaji": "utsuru",
       "part_of_speech": "verb",
       "meaning_zh": "映照；映出；（画面）显示",
+      "senses_zh": [
+        "映照；映出",
+        "（画面）显示"
+      ],
       "kanji_readings": [
         {
           "form": "映る",
@@ -26923,7 +27585,12 @@
       ],
       "romaji": "ten",
       "part_of_speech": "noun",
-      "meaning_zh": "天；上天；天空（较书面）",
+      "meaning_zh": "天；天空；上天（较书面）",
+      "senses_zh": [
+        "天；天空",
+        "上天"
+      ],
+      "sense_note_zh": "（较书面）",
       "kanji_readings": [
         {
           "form": "天",
@@ -27035,6 +27702,10 @@
       "romaji": "wakareru",
       "part_of_speech": "verb",
       "meaning_zh": "分成（几部分）；分岔；（意见）分歧",
+      "senses_zh": [
+        "分成（几部分）；分岔",
+        "（意见）分歧"
+      ],
       "kanji_readings": [
         {
           "form": "分かれる",
@@ -27072,6 +27743,10 @@
       "romaji": "waku",
       "part_of_speech": "noun",
       "meaning_zh": "框；框架；（限定的）框框",
+      "senses_zh": [
+        "框；框架",
+        "（限定的）框框"
+      ],
       "kanji_readings": [
         {
           "form": "枠",

@@ -2837,6 +2837,106 @@ function testHomophonesListOnTheAnswer() {
   assert(items[1].children[1].lang === "ja", "homophone words were not marked Japanese");
 }
 
+function testPartOfSpeechLeadsTheMeaning() {
+  const harness = createHarness({
+    kanaCards: [
+      baseCard({ answer: "红色的", answerLang: "zh-CN", isVocab: true, partOfSpeech: "形", reading: "あかい" }),
+    ],
+  });
+  harness.element("cardReveal").dispatch("click");
+  const [mark, meaning] = harness.element("answerMain").children;
+  assert(
+    mark?.className === "part-of-speech" && mark.textContent === "形" && meaning === "红色的",
+    "the part of speech did not lead the meaning",
+  );
+
+  const homophones = [
+    { word: "神", gloss: "神", accent: "1", partOfSpeech: "名" },
+    { word: "噛み", gloss: "咬", accent: "", partOfSpeech: "" },
+    { word: "紙", gloss: "纸", accent: "2", partOfSpeech: "名", isCurrent: true },
+  ];
+  const glossesOf = (card) => {
+    const viewer = createHarness({ kanaCards: [card] });
+    viewer.element("cardReveal").dispatch("click");
+    return viewer.element("answerMain").children.map((item) =>
+      item.children[2].children.map((part) => (typeof part === "string" ? part : `[${part.textContent}]`)).join(""),
+    );
+  };
+  const homophoneCard = { homophoneKey: "かみ", homophones, isVocab: true, reading: "かみ" };
+  assert(
+    JSON.stringify(glossesOf(baseCard({ ...homophoneCard, partOfSpeech: "名" }))) ===
+      JSON.stringify(["[名]神", "", "[名]纸"]),
+    "日→中 homophone glosses did not lead with their part of speech",
+  );
+  assert(
+    JSON.stringify(glossesOf(baseCard(homophoneCard))) === JSON.stringify(["", "", ""]),
+    "中→日 homophone glosses showed a part of speech",
+  );
+}
+
+function testSensesListOnePerLine() {
+  const harness = createHarness({
+    kanaCards: [
+      baseCard({
+        answer: "开；开着；开始营业（自动词）",
+        answerLang: "zh-CN",
+        isVocab: true,
+        partOfSpeech: "动",
+        reading: "あく",
+        senseNote: "（自动词）",
+        senses: ["开；开着", "开始营业"],
+      }),
+    ],
+  });
+  harness.element("cardReveal").dispatch("click");
+  const answer = harness.element("answerMain");
+  const [mark, list, note] = answer.children;
+  assert(mark?.textContent === "动", "the part of speech did not lead the senses");
+  assert(
+    list?.tagName === "OL" &&
+      JSON.stringify(list.children.map((item) => item.textContent)) === JSON.stringify(["开；开着", "开始营业"]),
+    "the senses were not listed one per line",
+  );
+  assert(note?.className === "meaning-note" && note.textContent === "（自动词）", "the word's note left the senses");
+  assert(
+    answer.classList.contains("is-meaning") && !answer.classList.contains("is-word-list"),
+    "the meaning was not set compactly",
+  );
+}
+
+function testWordsWrittenAlikeListTheirReadings() {
+  const harness = createHarness({
+    kanaCards: [
+      baseCard({
+        answer: "天空",
+        answerLang: "zh-CN",
+        homographs: [
+          { reading: "そら", gloss: "天空", accent: "1", partOfSpeech: "名", isCurrent: true },
+          { reading: "から", gloss: "空；空的", accent: "2", partOfSpeech: "形动·名" },
+        ],
+        isVocab: true,
+        partOfSpeech: "名",
+        prompt: "空",
+        reading: "そら",
+      }),
+    ],
+  });
+  assert(harness.element("cardSubtle").hidden, "the front gave away the reading of a word written alike");
+  harness.element("cardReveal").dispatch("click");
+  const rows = harness.element("answerMain").children;
+  // The fake DOM keeps textContent apart from appended children.
+  const text = (node) =>
+    typeof node === "string" ? node : `${node.textContent || ""}${node.children.map(text).join("")}`;
+  assert(
+    JSON.stringify(rows.map((row) => row.children.map(text))) ===
+      JSON.stringify([["そら1", "名天空"], ["から2", "形动·名空；空的"]]),
+    "the answer did not list each reading with its part of speech and meaning",
+  );
+  assert(rows[0].classList.contains("is-current") && !rows[1].classList.contains("is-current"), "the card's own reading was not marked");
+  assert(rows[0].children[0].lang === "ja", "the readings were not marked Japanese");
+  assert(harness.element("answerMain").classList.contains("is-word-list"), "the readings were not set as a list");
+}
+
 function testHomophonesAreNeverAskedBackToBack() {
   const deck = "vocab-zh-ja";
   const card = (id, key) => baseCard({ deck, id, isVocab: true, sourceId: id, ...(key ? { homophoneKey: key } : {}) });
@@ -3264,6 +3364,9 @@ const tests = [
   ["block page back returns to the modules", testBlockPageBackReturnsToModules],
   ["模块 from a block opens its block page", testModulesFromABlockOpenItsBlockPage],
   ["homophones list on the answer", testHomophonesListOnTheAnswer],
+  ["日→中 meanings lead with their part of speech", testPartOfSpeechLeadsTheMeaning],
+  ["several senses list one per line", testSensesListOnePerLine],
+  ["words written alike list their readings", testWordsWrittenAlikeListTheirReadings],
   ["homophones are never asked back to back", testHomophonesAreNeverAskedBackToBack],
   ["a block starts from its share of the 全部 round", testBlockStartsFromItsShareOfTheWholeRound],
   ["a retired grammar group choice becomes its block", testRetiredGrammarGroupBecomesItsBlock],

@@ -921,6 +921,16 @@ h2 {
   color: var(--gold);
 }
 
+/* The kana sit right under a vocab word, as in a dictionary: with the
+   speaker moved to the corner the row needs no speaker-high minimum. */
+.card.is-vocab {
+  gap: 2px;
+}
+
+.card.reading-centered .card-phonetic {
+  min-height: 0;
+}
+
 .card.is-vocab .card-prompt {
   font-size: clamp(2rem, 8vw, 3.4rem);
   line-height: 1.04;
@@ -1088,6 +1098,53 @@ h2 {
   display: none;
 }
 
+/* Vocab meanings and word lists are set like a word-list app's definitions:
+   normal-size text in tight lines under the large word, not a second
+   headline. */
+.answer-main.is-meaning,
+.answer-main.is-word-list {
+  padding-bottom: 8px;
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+/* The part of speech takes the first column; the meaning, its numbered
+   senses and any note on the whole word share the second. */
+.answer-main.is-meaning:not(.is-word-list) {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+}
+
+/* 名 / 动 / 形动 before a 日→中 meaning: small grey type on the same line, the
+   way word-list apps set "n." before a gloss. */
+.part-of-speech {
+  margin-right: 0.5em;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.meaning-senses {
+  grid-column: 2;
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.meaning-senses li::marker {
+  color: var(--muted);
+  font-size: 0.85em;
+}
+
+.meaning-note {
+  grid-column: 2;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 /* A choice's result is already shown by the option colours and their 你的选择 /
    正确项 labels; the 回答正确／回答错误 line stays for screen readers only. */
 .study-card.is-choice .answer-main {
@@ -1177,26 +1234,23 @@ h2 {
   line-height: 0;
 }
 
-/* 同音 takes the answer line: ①②③ by frequency, each word above its meaning;
-   the card's own word is set off in gold, the colour examples use for the
-   point taught. */
-.answer-main:has(.homophone) {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 22px;
+/* 同音 takes the answer line: one row per word, ①②③ by frequency, then the
+   word and its meaning in aligned columns; words written alike (空 そら /
+   から) list their readings the same way, unnumbered. The card's own word is
+   set off in gold, the colour examples use for the point taught. */
+.answer-main.is-word-list {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 2px 10px;
+}
+
+.answer-main.is-word-list:has(.is-homograph) {
+  grid-template-columns: auto minmax(0, 1fr);
 }
 
 .homophone {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  column-gap: 3px;
-  align-items: baseline;
-  max-width: 100%;
-}
-
-.homophone-index,
-.homophone-word {
-  font-size: 0.8em;
+  display: contents;
 }
 
 .homophone-index {
@@ -1210,7 +1264,7 @@ h2 {
 }
 
 .homophone-gloss {
-  grid-column: 2;
+  min-width: 0;
 }
 
 .homophone.is-current .homophone-word,
@@ -1567,6 +1621,11 @@ h2 {
      air below. */
   .answer-main {
     font-size: 1.7rem;
+  }
+
+  .answer-main.is-meaning,
+  .answer-main.is-word-list {
+    font-size: 1.2rem;
   }
 
   .card-subtle.is-reading {

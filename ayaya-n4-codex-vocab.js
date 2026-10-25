@@ -18,6 +18,9 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "词条主读音的学习用 Hepburn 式 ASCII 罗马字，用于检索和卡片显示。",
       "part_of_speech": "粗粒度词性，供 Codex 和应用生成卡片使用。",
       "meaning_zh": "学习用简体中文释义。",
+      "answer_zh": "可选：日→中卡答案用的释义，只去掉 meaning_zh 里重述词性的括注（如「（名词）」「（连体词，远称）」→「（远称）」）；中→日卡题面仍用 meaning_zh 区分近义词。",
+      "senses_zh": "可选：一词多义时按常用度分组的释义（同义词在同一组），依次用「；」连接后与 meaning_zh 完全一致；只用于日→中卡逐行显示。",
+      "sense_note_zh": "可选：适用于整个词的说明（如「（自动词）」），接在 senses_zh 之后与 meaning_zh 一致。",
       "kanji_readings": "含汉字词形的整词读音，用于生成 ruby/furigana。",
       "examples": "三个自然、短句优先的日语例句；zh 为简体中文翻译。",
       "note_zh": "必要时说明写法、用法或兼容注意。",
@@ -87,6 +90,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "aisatsu",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "寒暄；问候；致辞",
+      "senses_zh": [
+        "寒暄；问候",
+        "致辞"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -119,6 +126,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "aida",
       "part_of_speech": "noun",
       "meaning_zh": "之间；间隔；期间",
+      "senses_zh": [
+        "之间",
+        "间隔",
+        "期间"
+      ],
       "kanji_readings": [
         {
           "form": "間",
@@ -156,6 +168,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "au",
       "part_of_speech": "verb",
       "meaning_zh": "合适；相配；一致",
+      "senses_zh": [
+        "合适；相配",
+        "一致"
+      ],
       "kanji_readings": [
         {
           "form": "合う",
@@ -267,6 +283,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "asai",
       "part_of_speech": "i-adjective",
       "meaning_zh": "浅的；肤浅的",
+      "senses_zh": [
+        "浅的",
+        "肤浅的"
+      ],
       "kanji_readings": [
         {
           "form": "浅い",
@@ -598,7 +618,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "あんな"
       ],
       "romaji": "anna",
-      "part_of_speech": "pre-noun/adverb",
+      "part_of_speech": "pre-noun",
       "meaning_zh": "那样的（远称）",
       "kanji_readings": [],
       "examples": [
@@ -632,6 +652,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "annai",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "引导；介绍；通知",
+      "senses_zh": [
+        "引导",
+        "介绍",
+        "通知"
+      ],
       "kanji_readings": [
         {
           "form": "案内",
@@ -923,6 +948,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ijou",
       "part_of_speech": "noun",
       "meaning_zh": "以上；超过；到此为止",
+      "senses_zh": [
+        "以上；超过",
+        "到此为止"
+      ],
       "kanji_readings": [
         {
           "form": "以上",
@@ -1034,6 +1063,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "itadaku",
       "part_of_speech": "verb",
       "meaning_zh": "得到；吃；喝（自谦语）",
+      "senses_zh": [
+        "得到",
+        "吃；喝"
+      ],
+      "sense_note_zh": "（自谦语）",
       "kanji_readings": [],
       "examples": [
         {
@@ -1141,6 +1175,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ippai",
       "part_of_speech": "na-adjective/noun/adverb",
       "meaning_zh": "满满；很多；一杯",
+      "senses_zh": [
+        "满满",
+        "很多",
+        "一杯"
+      ],
       "kanji_readings": [
         {
           "form": "一杯",
@@ -1289,6 +1328,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "inoru",
       "part_of_speech": "verb",
       "meaning_zh": "祈祷；祝愿",
+      "senses_zh": [
+        "祈祷",
+        "祝愿"
+      ],
       "kanji_readings": [
         {
           "form": "祈る",
@@ -1326,6 +1369,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "irassharu",
       "part_of_speech": "verb",
       "meaning_zh": "在；来；去（尊敬语，常用）",
+      "senses_zh": [
+        "在",
+        "来",
+        "去"
+      ],
+      "sense_note_zh": "（尊敬语，常用）",
       "kanji_readings": [],
       "examples": [
         {
@@ -1395,6 +1444,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ukagau",
       "part_of_speech": "verb",
       "meaning_zh": "拜访；请教；听说（自谦语）",
+      "senses_zh": [
+        "拜访",
+        "请教",
+        "听说"
+      ],
+      "sense_note_zh": "（自谦语）",
       "kanji_readings": [],
       "examples": [
         {
@@ -1426,7 +1481,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "uketsuke",
       "part_of_speech": "noun",
-      "meaning_zh": "前台；受理；接待处",
+      "meaning_zh": "前台；接待处；受理",
+      "senses_zh": [
+        "前台；接待处",
+        "受理"
+      ],
       "kanji_readings": [
         {
           "form": "受付",
@@ -1464,6 +1523,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ukeru",
       "part_of_speech": "verb",
       "meaning_zh": "接受；参加（考试等）；受到",
+      "senses_zh": [
+        "接受",
+        "参加（考试等）",
+        "受到"
+      ],
       "kanji_readings": [
         {
           "form": "受ける",
@@ -1501,6 +1565,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ugoku",
       "part_of_speech": "verb",
       "meaning_zh": "动；移动；运转",
+      "senses_zh": [
+        "动；移动",
+        "运转"
+      ],
       "kanji_readings": [
         {
           "form": "動く",
@@ -1576,6 +1644,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "uchi",
       "part_of_speech": "noun",
       "meaning_zh": "内部；……之中；趁……期间",
+      "senses_zh": [
+        "内部",
+        "……之中",
+        "趁……期间"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -1682,6 +1755,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "utsusu",
       "part_of_speech": "verb",
       "meaning_zh": "抄写；拍照；映照",
+      "senses_zh": [
+        "抄写",
+        "拍照",
+        "映照"
+      ],
       "kanji_readings": [
         {
           "form": "写す",
@@ -1719,6 +1797,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "utsuru",
       "part_of_speech": "verb",
       "meaning_zh": "搬迁；转移；传染",
+      "senses_zh": [
+        "搬迁；转移",
+        "传染"
+      ],
       "kanji_readings": [
         {
           "form": "移る",
@@ -1756,6 +1838,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ude",
       "part_of_speech": "noun",
       "meaning_zh": "胳膊；本领",
+      "senses_zh": [
+        "胳膊",
+        "本领"
+      ],
       "kanji_readings": [
         {
           "form": "腕",
@@ -1793,6 +1879,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "umai",
       "part_of_speech": "i-adjective",
       "meaning_zh": "好吃的；高明的",
+      "senses_zh": [
+        "好吃的",
+        "高明的"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -1824,7 +1914,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "ura",
       "part_of_speech": "noun",
-      "meaning_zh": "背面；里面；反面",
+      "meaning_zh": "背面；反面；后面；背后",
+      "senses_zh": [
+        "背面；反面",
+        "后面；背后"
+      ],
       "kanji_readings": [
         {
           "form": "裏",
@@ -1963,6 +2057,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "unten",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "驾驶；运转",
+      "senses_zh": [
+        "驾驶",
+        "运转"
+      ],
       "kanji_readings": [
         {
           "form": "運転",
@@ -2148,6 +2246,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "enryo",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "客气；顾虑；谢绝",
+      "senses_zh": [
+        "客气；顾虑",
+        "谢绝"
+      ],
       "kanji_readings": [
         {
           "form": "遠慮",
@@ -2185,6 +2287,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "oide ni naru",
       "part_of_speech": "verb",
       "meaning_zh": "在；来；去（尊敬语，更郑重）",
+      "senses_zh": [
+        "在",
+        "来",
+        "去"
+      ],
+      "sense_note_zh": "（尊敬语，更郑重）",
       "kanji_readings": [],
       "examples": [
         {
@@ -2217,6 +2325,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "oiwai",
       "part_of_speech": "noun",
       "meaning_zh": "祝贺；贺礼",
+      "senses_zh": [
+        "祝贺",
+        "贺礼"
+      ],
       "kanji_readings": [
         {
           "form": "お祝い",
@@ -2323,6 +2435,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "okashii",
       "part_of_speech": "i-adjective",
       "meaning_zh": "奇怪的；可笑的",
+      "senses_zh": [
+        "奇怪的",
+        "可笑的"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -2503,6 +2619,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "okureru",
       "part_of_speech": "verb",
       "meaning_zh": "迟到；晚；落后",
+      "senses_zh": [
+        "迟到；晚",
+        "落后"
+      ],
       "kanji_readings": [
         {
           "form": "遅れる",
@@ -2540,6 +2660,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "okosu",
       "part_of_speech": "verb",
       "meaning_zh": "叫醒；引起；扶起",
+      "senses_zh": [
+        "叫醒",
+        "引起",
+        "扶起"
+      ],
       "kanji_readings": [
         {
           "form": "起こす",
@@ -2553,7 +2678,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "大きな音で子供を起こしてしまいました。",
-          "zh": "大声把孩子吵醒了。"
+          "zh": "很大的声响把孩子吵醒了。"
         },
         {
           "ja": "問題を起こさないでください。",
@@ -2614,6 +2739,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "okoru",
       "part_of_speech": "verb",
       "meaning_zh": "生气；发怒；训斥",
+      "senses_zh": [
+        "生气；发怒",
+        "训斥"
+      ],
       "kanji_readings": [
         {
           "form": "怒る",
@@ -2688,6 +2817,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ojousan",
       "part_of_speech": "noun",
       "meaning_zh": "小姐；别人家的女儿",
+      "senses_zh": [
+        "小姐",
+        "别人家的女儿"
+      ],
       "kanji_readings": [
         {
           "form": "お嬢さん",
@@ -2725,6 +2858,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "otaku",
       "part_of_speech": "noun",
       "meaning_zh": "府上；您家；您",
+      "senses_zh": [
+        "府上；您家",
+        "您"
+      ],
       "kanji_readings": [
         {
           "form": "お宅",
@@ -2762,6 +2899,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ochiru",
       "part_of_speech": "verb",
       "meaning_zh": "落下；掉；落榜",
+      "senses_zh": [
+        "落下；掉",
+        "落榜"
+      ],
       "kanji_readings": [
         {
           "form": "落ちる",
@@ -2980,6 +3121,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "otosu",
       "part_of_speech": "verb",
       "meaning_zh": "弄掉；丢失；降低",
+      "senses_zh": [
+        "弄掉",
+        "丢失",
+        "降低"
+      ],
       "kanji_readings": [
         {
           "form": "落とす",
@@ -3345,6 +3491,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "omote",
       "part_of_speech": "noun",
       "meaning_zh": "表面；正面；外面",
+      "senses_zh": [
+        "表面；正面",
+        "外面"
+      ],
       "kanji_readings": [
         {
           "form": "表",
@@ -3531,6 +3681,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "orei",
       "part_of_speech": "noun",
       "meaning_zh": "感谢；谢礼",
+      "senses_zh": [
+        "感谢",
+        "谢礼"
+      ],
       "kanji_readings": [
         {
           "form": "お礼",
@@ -3642,6 +3796,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ka",
       "part_of_speech": "noun",
       "meaning_zh": "课；科；部门",
+      "senses_zh": [
+        "课",
+        "科；部门"
+      ],
       "kanji_readings": [
         {
           "form": "課",
@@ -3827,6 +3985,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kaikei",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "会计；结账",
+      "senses_zh": [
+        "会计",
+        "结账"
+      ],
       "kanji_readings": [
         {
           "form": "会計",
@@ -3836,7 +3998,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "レジで会計をお願いします。",
-          "zh": "在收银台结账。"
+          "zh": "请在收银台结账。"
         },
         {
           "ja": "会計はカードでできますか。",
@@ -4123,6 +4285,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kakaru",
       "part_of_speech": "verb",
       "meaning_zh": "挂着；悬挂；（锁）锁着；（电话）打来",
+      "senses_zh": [
+        "挂着；悬挂",
+        "（锁）锁着",
+        "（电话）打来"
+      ],
       "kanji_readings": [
         {
           "form": "掛かる",
@@ -4234,6 +4401,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kagen",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "程度；调整；身体状况",
+      "senses_zh": [
+        "程度",
+        "调整",
+        "身体状况"
+      ],
       "kanji_readings": [
         {
           "form": "加減",
@@ -4347,6 +4519,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "katai",
       "part_of_speech": "i-adjective",
       "meaning_zh": "硬的；坚固的；严肃的",
+      "senses_zh": [
+        "硬的；坚固的",
+        "严肃的"
+      ],
       "kanji_readings": [
         {
           "form": "固い",
@@ -4392,6 +4568,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "katachi",
       "part_of_speech": "noun",
       "meaning_zh": "形状；形式",
+      "senses_zh": [
+        "形状",
+        "形式"
+      ],
       "kanji_readings": [
         {
           "form": "形",
@@ -4768,6 +4948,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kanojo",
       "part_of_speech": "noun/pronoun",
       "meaning_zh": "她；女朋友",
+      "senses_zh": [
+        "她",
+        "女朋友"
+      ],
       "kanji_readings": [
         {
           "form": "彼女",
@@ -4841,7 +5025,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kamau",
       "part_of_speech": "verb",
-      "meaning_zh": "介意；照顾；理会",
+      "meaning_zh": "介意；理会；照顾",
+      "senses_zh": [
+        "介意；理会",
+        "照顾"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -5022,6 +5210,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kare",
       "part_of_speech": "noun/pronoun",
       "meaning_zh": "他；男朋友",
+      "senses_zh": [
+        "他",
+        "男朋友"
+      ],
       "kanji_readings": [
         {
           "form": "彼",
@@ -5133,6 +5325,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kawari",
       "part_of_speech": "noun",
       "meaning_zh": "代替；替换；作为交换",
+      "senses_zh": [
+        "代替；替换",
+        "作为交换"
+      ],
       "kanji_readings": [
         {
           "form": "代わり",
@@ -5398,6 +5594,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ki",
       "part_of_speech": "noun",
       "meaning_zh": "心情；精神；意愿",
+      "senses_zh": [
+        "心情",
+        "精神",
+        "意愿"
+      ],
       "kanji_readings": [
         {
           "form": "気",
@@ -5763,6 +5964,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kibishii",
       "part_of_speech": "i-adjective",
       "meaning_zh": "严格的；严厉的；严峻的",
+      "senses_zh": [
+        "严格的；严厉的",
+        "严峻的"
+      ],
       "kanji_readings": [
         {
           "form": "厳しい",
@@ -5800,6 +6005,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kibun",
       "part_of_speech": "noun",
       "meaning_zh": "心情；身体状况",
+      "senses_zh": [
+        "心情",
+        "身体状况"
+      ],
       "kanji_readings": [
         {
           "form": "気分",
@@ -5837,6 +6046,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kimari",
       "part_of_speech": "noun",
       "meaning_zh": "规定；惯例",
+      "senses_zh": [
+        "规定",
+        "惯例"
+      ],
       "kanji_readings": [
         {
           "form": "決まり",
@@ -6096,6 +6309,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kyuu",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "突然；急；陡",
+      "senses_zh": [
+        "突然",
+        "急",
+        "陡"
+      ],
       "kanji_readings": [
         {
           "form": "急",
@@ -6169,7 +6387,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kyuu ni",
       "part_of_speech": "adverb",
-      "meaning_zh": "突然；急忙地",
+      "meaning_zh": "突然；忽然",
       "kanji_readings": [
         {
           "form": "急に",
@@ -6503,6 +6721,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kuuki",
       "part_of_speech": "noun",
       "meaning_zh": "空气；气氛",
+      "senses_zh": [
+        "空气",
+        "气氛"
+      ],
       "kanji_readings": [
         {
           "form": "空気",
@@ -6652,6 +6874,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kubi",
       "part_of_speech": "noun",
       "meaning_zh": "脖子；头；解雇",
+      "senses_zh": [
+        "脖子；头",
+        "解雇"
+      ],
       "kanji_readings": [
         {
           "form": "首",
@@ -6869,6 +7095,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kureru",
       "part_of_speech": "verb",
       "meaning_zh": "天黑；岁月结束",
+      "senses_zh": [
+        "天黑",
+        "岁月结束"
+      ],
       "kanji_readings": [
         {
           "form": "暮れる",
@@ -6943,6 +7173,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "guai",
       "part_of_speech": "noun",
       "meaning_zh": "情况；身体状况；方便程度",
+      "senses_zh": [
+        "情况",
+        "身体状况",
+        "方便程度"
+      ],
       "kanji_readings": [
         {
           "form": "具合",
@@ -6980,6 +7215,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "guai ga warui",
       "part_of_speech": "expression",
       "meaning_zh": "身体不舒服；情况不好",
+      "senses_zh": [
+        "身体不舒服",
+        "情况不好"
+      ],
       "kanji_readings": [
         {
           "form": "具合が悪い",
@@ -7128,6 +7367,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "keisatsu",
       "part_of_speech": "noun",
       "meaning_zh": "警察；警察署",
+      "senses_zh": [
+        "警察",
+        "警察署"
+      ],
       "kanji_readings": [
         {
           "form": "警察",
@@ -7239,6 +7482,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kega",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "受伤；伤口",
+      "senses_zh": [
+        "受伤",
+        "伤口"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -7489,6 +7736,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kenka",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "吵架；打架",
+      "senses_zh": [
+        "吵架",
+        "打架"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -7632,6 +7883,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "geshuku",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "寄宿；租住处",
+      "senses_zh": [
+        "寄宿",
+        "租住处"
+      ],
       "kanji_readings": [
         {
           "form": "下宿",
@@ -7744,6 +7999,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ko",
       "part_of_speech": "noun",
       "meaning_zh": "孩子；小……",
+      "senses_zh": [
+        "孩子",
+        "小……"
+      ],
       "kanji_readings": [
         {
           "form": "子",
@@ -7849,7 +8108,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "kougi",
       "part_of_speech": "noun",
-      "meaning_zh": "讲课；讲义",
+      "meaning_zh": "讲课；讲座",
       "kanji_readings": [
         {
           "form": "講義",
@@ -8517,6 +8776,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kotae",
       "part_of_speech": "noun",
       "meaning_zh": "回答；答案",
+      "senses_zh": [
+        "回答",
+        "答案"
+      ],
       "kanji_readings": [
         {
           "form": "答え",
@@ -8627,6 +8890,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kono aida",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "前几天；最近",
+      "senses_zh": [
+        "前几天",
+        "最近"
+      ],
       "kanji_readings": [
         {
           "form": "この間",
@@ -8696,6 +8963,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "komakai",
       "part_of_speech": "i-adjective",
       "meaning_zh": "细小的；详细的",
+      "senses_zh": [
+        "细小的",
+        "详细的"
+      ],
       "kanji_readings": [
         {
           "form": "細かい",
@@ -8823,7 +9094,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "これからもっと勉強します。",
-          "zh": "今后会更加学习。"
+          "zh": "今后要更努力学习。"
         },
         {
           "ja": "これから会議が始まります。",
@@ -8958,6 +9229,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "kondo",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "这次；下次；最近",
+      "senses_zh": [
+        "这次",
+        "下次",
+        "最近"
+      ],
       "kanji_readings": [
         {
           "form": "今度",
@@ -9070,6 +9346,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "goshujin",
       "part_of_speech": "noun",
       "meaning_zh": "您丈夫；主人",
+      "senses_zh": [
+        "您丈夫",
+        "主人"
+      ],
       "kanji_readings": [
         {
           "form": "ご主人",
@@ -9107,6 +9387,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "gozonji",
       "part_of_speech": "noun",
       "meaning_zh": "（您）知道；认识（尊敬语）",
+      "senses_zh": [
+        "（您）知道",
+        "认识"
+      ],
+      "sense_note_zh": "（尊敬语）",
       "kanji_readings": [
         {
           "form": "ご存じ",
@@ -9144,6 +9429,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "gochisou",
       "part_of_speech": "noun",
       "meaning_zh": "盛宴；款待",
+      "senses_zh": [
+        "盛宴",
+        "款待"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -9220,7 +9509,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "社長が発表をごらんになります。",
-          "zh": "社长会看发表。"
+          "zh": "社长会来看我们的报告。"
         }
       ],
       "note_zh": "敬语。"
@@ -9461,7 +9750,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "sagaru",
       "part_of_speech": "verb",
-      "meaning_zh": "下降；后退；降低（自动词）",
+      "meaning_zh": "下降；降低；后退（自动词）",
+      "senses_zh": [
+        "下降；降低",
+        "后退"
+      ],
+      "sense_note_zh": "（自动词）",
       "kanji_readings": [
         {
           "form": "下がる",
@@ -9499,6 +9793,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "sageru",
       "part_of_speech": "verb",
       "meaning_zh": "降低；垂下；撤下（他动词）",
+      "senses_zh": [
+        "降低",
+        "垂下",
+        "撤下"
+      ],
+      "sense_note_zh": "（他动词）",
       "kanji_readings": [
         {
           "form": "下げる",
@@ -9643,6 +9943,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "sabishii",
       "part_of_speech": "i-adjective",
       "meaning_zh": "寂寞的；冷清的",
+      "senses_zh": [
+        "寂寞的",
+        "冷清的"
+      ],
       "kanji_readings": [
         {
           "form": "寂しい",
@@ -10234,6 +10538,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "shikkari",
       "part_of_speech": "adverb",
       "meaning_zh": "牢固地；认真地；可靠地",
+      "senses_zh": [
+        "牢固地",
+        "认真地",
+        "可靠地"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -10303,6 +10612,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "shitsurei",
       "part_of_speech": "suru-verb/na-adjective/noun",
       "meaning_zh": "失礼；告辞；打扰",
+      "senses_zh": [
+        "失礼",
+        "告辞",
+        "打扰"
+      ],
       "kanji_readings": [
         {
           "form": "失礼",
@@ -10377,6 +10691,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "shibaraku",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "一会儿；暂时；好久",
+      "senses_zh": [
+        "一会儿；暂时",
+        "好久"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -10926,7 +11244,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "shouchi",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "知道；同意；承知",
+      "meaning_zh": "知道；同意",
+      "senses_zh": [
+        "知道",
+        "同意"
+      ],
       "kanji_readings": [
         {
           "form": "承知",
@@ -10944,7 +11266,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "ご希望は承知しました。",
-          "zh": "您的希望我明白了。"
+          "zh": "您的要求我明白了。"
         }
       ],
       "note_zh": "常与「する」构成动词。"
@@ -11001,6 +11323,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "shokuji",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "吃饭；用餐；饭食",
+      "senses_zh": [
+        "吃饭；用餐",
+        "饭食"
+      ],
       "kanji_readings": [
         {
           "form": "食事",
@@ -11037,7 +11363,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "shokuryouhin",
       "part_of_speech": "noun",
-      "meaning_zh": "食品；杂货食品",
+      "meaning_zh": "食品；食品杂货",
       "kanji_readings": [
         {
           "form": "食料品",
@@ -11260,6 +11586,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "shingou",
       "part_of_speech": "noun",
       "meaning_zh": "信号；红绿灯",
+      "senses_zh": [
+        "信号",
+        "红绿灯"
+      ],
       "kanji_readings": [
         {
           "form": "信号",
@@ -11666,7 +11996,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         "じゃま"
       ],
       "romaji": "jama",
-      "part_of_speech": "na-adjective/noun",
+      "part_of_speech": "suru-verb/na-adjective/noun",
       "meaning_zh": "妨碍；打扰",
       "kanji_readings": [
         {
@@ -11859,6 +12189,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "junban",
       "part_of_speech": "noun",
       "meaning_zh": "顺序；轮流",
+      "senses_zh": [
+        "顺序",
+        "轮流"
+      ],
       "kanji_readings": [
         {
           "form": "順番",
@@ -12155,7 +12489,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "suiei",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "游泳（名词；游泳运动）",
+      "meaning_zh": "游泳（名词，指游泳运动）",
+      "answer_zh": "游泳（指游泳运动）",
       "kanji_readings": [
         {
           "form": "水泳",
@@ -12192,7 +12527,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "suidou",
       "part_of_speech": "noun",
-      "meaning_zh": "自来水；水道",
+      "meaning_zh": "自来水；自来水管道",
       "kanji_readings": [
         {
           "form": "水道",
@@ -12299,6 +12634,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "sutto",
       "part_of_speech": "adverb",
       "meaning_zh": "笔直地；一下子；迅速地",
+      "senses_zh": [
+        "笔直地",
+        "一下子；迅速地"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -12409,7 +12748,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "examples": [
         {
           "ja": "すばらしい発表でした。",
-          "zh": "是很精彩的发表。"
+          "zh": "是一场很精彩的报告。"
         },
         {
           "ja": "この景色はすばらしいです。",
@@ -12512,6 +12851,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "sumu",
       "part_of_speech": "verb",
       "meaning_zh": "结束；解决；足够",
+      "senses_zh": [
+        "结束",
+        "解决",
+        "足够"
+      ],
       "kanji_readings": [
         {
           "form": "済む",
@@ -13090,6 +13434,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "sen",
       "part_of_speech": "noun",
       "meaning_zh": "线；路线",
+      "senses_zh": [
+        "线",
+        "路线"
+      ],
       "kanji_readings": [
         {
           "form": "線",
@@ -13565,6 +13913,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "sorede",
       "part_of_speech": "conjunction",
       "meaning_zh": "所以；因此（叙述已发生的结果）；然后呢",
+      "senses_zh": [
+        "所以；因此（叙述已发生的结果）",
+        "然后呢"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -13827,6 +14179,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "taitei",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "通常；大多",
+      "senses_zh": [
+        "通常",
+        "大多"
+      ],
       "kanji_readings": [
         {
           "form": "大抵",
@@ -13901,6 +14257,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "taoreru",
       "part_of_speech": "verb",
       "meaning_zh": "倒下；倒塌；垮掉",
+      "senses_zh": [
+        "倒下；倒塌",
+        "垮掉"
+      ],
       "kanji_readings": [
         {
           "form": "倒れる",
@@ -13938,6 +14298,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tashika",
       "part_of_speech": "na-adjective/adverb",
       "meaning_zh": "确实；大概；可靠",
+      "senses_zh": [
+        "确实",
+        "大概",
+        "可靠"
+      ],
       "kanji_readings": [
         {
           "form": "確か",
@@ -14123,6 +14488,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tadashii",
       "part_of_speech": "i-adjective",
       "meaning_zh": "正确的；正当的",
+      "senses_zh": [
+        "正确的",
+        "正当的"
+      ],
       "kanji_readings": [
         {
           "form": "正しい",
@@ -14197,6 +14566,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tateru",
       "part_of_speech": "verb",
       "meaning_zh": "立起；制定",
+      "senses_zh": [
+        "立起",
+        "制定"
+      ],
       "kanji_readings": [
         {
           "form": "立てる",
@@ -14308,6 +14681,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tanoshimi",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "期待；乐趣",
+      "senses_zh": [
+        "期待",
+        "乐趣"
+      ],
       "kanji_readings": [
         {
           "form": "楽しみ",
@@ -14344,7 +14721,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "tanoshimu",
       "part_of_speech": "verb",
-      "meaning_zh": "享受；期待；玩得开心",
+      "meaning_zh": "享受；玩得开心；期待",
+      "senses_zh": [
+        "享受；玩得开心",
+        "期待"
+      ],
       "kanji_readings": [
         {
           "form": "楽しむ",
@@ -14562,6 +14943,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "daiji",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "重要；珍贵；严重",
+      "senses_zh": [
+        "重要；珍贵",
+        "严重"
+      ],
       "kanji_readings": [
         {
           "form": "大事",
@@ -14704,7 +15089,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "dame",
       "part_of_speech": "na-adjective",
-      "meaning_zh": "不行；没用；不可以",
+      "meaning_zh": "不行；不可以；没用",
+      "senses_zh": [
+        "不行；不可以",
+        "没用"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -14848,6 +15237,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "chikara",
       "part_of_speech": "noun",
       "meaning_zh": "力量；能力",
+      "senses_zh": [
+        "力量",
+        "能力"
+      ],
       "kanji_readings": [
         {
           "form": "力",
@@ -14949,6 +15342,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "chuui",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "注意；提醒；警告",
+      "senses_zh": [
+        "注意",
+        "提醒；警告"
+      ],
       "kanji_readings": [
         {
           "form": "注意",
@@ -15134,6 +15531,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "chuumon",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "点餐；订购；要求",
+      "senses_zh": [
+        "点餐；订购",
+        "要求"
+      ],
       "kanji_readings": [
         {
           "form": "注文",
@@ -15245,6 +15646,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tsuki",
       "part_of_speech": "noun",
       "meaning_zh": "月亮；月",
+      "senses_zh": [
+        "月亮",
+        "月"
+      ],
       "kanji_readings": [
         {
           "form": "月",
@@ -15282,6 +15687,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tsuku",
       "part_of_speech": "verb",
       "meaning_zh": "附着；沾上；带有",
+      "senses_zh": [
+        "附着；沾上",
+        "带有"
+      ],
       "kanji_readings": [
         {
           "form": "付く",
@@ -15319,6 +15728,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tsukeru",
       "part_of_speech": "verb",
       "meaning_zh": "腌；浸泡",
+      "senses_zh": [
+        "腌",
+        "浸泡"
+      ],
       "kanji_readings": [
         {
           "form": "漬ける",
@@ -15356,6 +15769,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tsugou",
       "part_of_speech": "noun",
       "meaning_zh": "情况；方便；安排",
+      "senses_zh": [
+        "情况",
+        "方便",
+        "安排"
+      ],
       "kanji_readings": [
         {
           "form": "都合",
@@ -15688,7 +16106,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "tsuru",
       "part_of_speech": "verb",
-      "meaning_zh": "钓鱼；吊起",
+      "meaning_zh": "钓鱼；引诱",
+      "senses_zh": [
+        "钓鱼",
+        "引诱"
+      ],
       "kanji_readings": [
         {
           "form": "釣る",
@@ -15800,6 +16222,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "teinei",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "礼貌；仔细",
+      "senses_zh": [
+        "礼貌",
+        "仔细"
+      ],
       "kanji_readings": [
         {
           "form": "丁寧",
@@ -15837,6 +16263,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tekitou",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "适当；随便；敷衍",
+      "senses_zh": [
+        "适当",
+        "随便；敷衍"
+      ],
       "kanji_readings": [
         {
           "form": "適当",
@@ -16022,6 +16452,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ten",
       "part_of_speech": "noun",
       "meaning_zh": "点；分数；方面",
+      "senses_zh": [
+        "点",
+        "分数",
+        "方面"
+      ],
       "kanji_readings": [
         {
           "form": "点",
@@ -16419,6 +16854,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "toori",
       "part_of_speech": "noun",
       "meaning_zh": "街道；按照；种类",
+      "senses_zh": [
+        "街道",
+        "按照",
+        "种类"
+      ],
       "kanji_readings": [
         {
           "form": "通り",
@@ -16567,6 +17007,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tokoya",
       "part_of_speech": "noun",
       "meaning_zh": "理发店；理发师",
+      "senses_zh": [
+        "理发店",
+        "理发师"
+      ],
       "kanji_readings": [
         {
           "form": "床屋",
@@ -16753,6 +17197,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "todokeru",
       "part_of_speech": "verb",
       "meaning_zh": "送到；提交；报告",
+      "senses_zh": [
+        "送到",
+        "提交；报告"
+      ],
       "kanji_readings": [
         {
           "form": "届ける",
@@ -16790,6 +17238,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tomaru",
       "part_of_speech": "verb",
       "meaning_zh": "住宿；停泊",
+      "senses_zh": [
+        "住宿",
+        "停泊"
+      ],
       "kanji_readings": [
         {
           "form": "泊まる",
@@ -17118,6 +17570,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "naosu",
       "part_of_speech": "verb",
       "meaning_zh": "修理；改正；恢复原状",
+      "senses_zh": [
+        "修理",
+        "改正",
+        "恢复原状"
+      ],
       "kanji_readings": [
         {
           "form": "直す",
@@ -17192,6 +17649,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "naoru",
       "part_of_speech": "verb",
       "meaning_zh": "修好；恢复；改正过来",
+      "senses_zh": [
+        "修好；恢复",
+        "改正过来"
+      ],
       "kanji_readings": [
         {
           "form": "直る",
@@ -17230,6 +17691,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "nakanaka",
       "part_of_speech": "adverb",
       "meaning_zh": "相当；怎么也不",
+      "senses_zh": [
+        "相当",
+        "怎么也不"
+      ],
       "kanji_readings": [
         {
           "form": "中々",
@@ -17341,6 +17806,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "nakunaru",
       "part_of_speech": "verb",
       "meaning_zh": "丢失；消失；用完",
+      "senses_zh": [
+        "丢失；消失",
+        "用完"
+      ],
       "kanji_readings": [
         {
           "form": "無くなる",
@@ -17697,6 +18166,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "nigeru",
       "part_of_speech": "verb",
       "meaning_zh": "逃跑；逃避",
+      "senses_zh": [
+        "逃跑",
+        "逃避"
+      ],
       "kanji_readings": [
         {
           "form": "逃げる",
@@ -18104,7 +18577,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "nureru",
       "part_of_speech": "verb",
-      "meaning_zh": "淋湿；弄湿",
+      "meaning_zh": "淋湿；变湿",
       "kanji_readings": [
         {
           "form": "濡れる",
@@ -18292,6 +18765,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "netsu",
       "part_of_speech": "noun",
       "meaning_zh": "热；发烧",
+      "senses_zh": [
+        "热",
+        "发烧"
+      ],
       "kanji_readings": [
         {
           "form": "熱",
@@ -18509,6 +18986,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "norikae",
       "part_of_speech": "noun",
       "meaning_zh": "换乘（名词）",
+      "answer_zh": "换乘",
       "kanji_readings": [
         {
           "form": "乗り換え",
@@ -18546,6 +19024,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "norikaeru",
       "part_of_speech": "verb",
       "meaning_zh": "换乘；改乘（动词）",
+      "answer_zh": "换乘；改乘",
       "kanji_readings": [
         {
           "form": "乗り換える",
@@ -18711,7 +19190,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "先生の作品を拝見しました。",
-          "zh": "拜看了老师的作品。"
+          "zh": "有幸看到了老师的作品。"
         }
       ],
       "note_zh": "常与「する」构成动词。"
@@ -18911,6 +19390,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "happyou",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "发表；发布；做报告",
+      "senses_zh": [
+        "发表；发布",
+        "做报告"
+      ],
       "kanji_readings": [
         {
           "form": "発表",
@@ -19059,6 +19542,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "harau",
       "part_of_speech": "verb",
       "meaning_zh": "支付；付钱；拂去",
+      "senses_zh": [
+        "支付；付钱",
+        "拂去"
+      ],
       "kanji_readings": [
         {
           "form": "払う",
@@ -19096,6 +19583,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "hantai",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "反对；相反",
+      "senses_zh": [
+        "反对",
+        "相反"
+      ],
       "kanji_readings": [
         {
           "form": "反対",
@@ -19393,6 +19884,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "hi",
       "part_of_speech": "noun",
       "meaning_zh": "太阳；日子",
+      "senses_zh": [
+        "太阳",
+        "日子"
+      ],
       "kanji_readings": [
         {
           "form": "日",
@@ -19975,6 +20470,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "hiraku",
       "part_of_speech": "verb",
       "meaning_zh": "打开；开办；举办",
+      "senses_zh": [
+        "打开",
+        "开办",
+        "举办"
+      ],
       "kanji_readings": [
         {
           "form": "開く",
@@ -20229,6 +20729,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "fukai",
       "part_of_speech": "i-adjective",
       "meaning_zh": "深的；深刻的",
+      "senses_zh": [
+        "深的",
+        "深刻的"
+      ],
       "kanji_readings": [
         {
           "form": "深い",
@@ -20340,6 +20844,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "futsuu",
       "part_of_speech": "na-adjective/noun/adverb",
       "meaning_zh": "普通；一般；通常",
+      "senses_zh": [
+        "普通；一般",
+        "通常"
+      ],
       "kanji_readings": [
         {
           "form": "普通",
@@ -20649,7 +21157,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "雪が降り出す前に帰りましょう。",
-          "zh": "趁下雪前回去吧。"
+          "zh": "趁还没下雪回去吧。"
         },
         {
           "ja": "外へ出たら雨が降り出しました。",
@@ -20964,6 +21472,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "betsu",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "另外；不同；分别",
+      "senses_zh": [
+        "另外",
+        "不同",
+        "分别"
+      ],
       "kanji_readings": [
         {
           "form": "別",
@@ -21223,6 +21736,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "hotondo",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "几乎；大部分",
+      "senses_zh": [
+        "几乎",
+        "大部分"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -21294,8 +21811,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zh": "酒请适量。"
         },
         {
-          "ja": "無理をしないで、ほどほどに休みましょう。",
-          "zh": "不要勉强，适度休息吧。"
+          "ja": "仕事はほどほどにして、早く寝ましょう。",
+          "zh": "工作适可而止，早点睡吧。"
         },
         {
           "ja": "勉強も遊びもほどほどが大切です。",
@@ -21467,6 +21984,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "mairu",
       "part_of_speech": "verb",
       "meaning_zh": "去；来（自谦语）；受不了",
+      "senses_zh": [
+        "去；来（自谦语）",
+        "受不了"
+      ],
       "kanji_readings": [
         {
           "form": "参る",
@@ -21545,6 +22066,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "majime",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "认真；老实",
+      "senses_zh": [
+        "认真",
+        "老实"
+      ],
       "kanji_readings": [
         {
           "form": "真面目",
@@ -21582,6 +22107,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "mazu",
       "part_of_speech": "adverb",
       "meaning_zh": "首先；暂且",
+      "senses_zh": [
+        "首先",
+        "暂且"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -21794,6 +22323,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "mawaru",
       "part_of_speech": "verb",
       "meaning_zh": "转；绕；巡回",
+      "senses_zh": [
+        "转；绕",
+        "巡回"
+      ],
       "kanji_readings": [
         {
           "form": "回る",
@@ -21910,6 +22443,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "mieru",
       "part_of_speech": "verb",
       "meaning_zh": "看得见；似乎",
+      "senses_zh": [
+        "看得见",
+        "似乎"
+      ],
       "kanji_readings": [
         {
           "form": "見える",
@@ -22095,6 +22632,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "mina",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "大家；全都",
+      "senses_zh": [
+        "大家",
+        "全都"
+      ],
       "kanji_readings": [
         {
           "form": "皆",
@@ -22169,6 +22710,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "mukau",
       "part_of_speech": "verb",
       "meaning_zh": "面向；前往",
+      "senses_zh": [
+        "面向",
+        "前往"
+      ],
       "kanji_readings": [
         {
           "form": "向かう",
@@ -22206,6 +22751,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "mukaeru",
       "part_of_speech": "verb",
       "meaning_zh": "迎接；迎来",
+      "senses_zh": [
+        "迎接",
+        "迎来"
+      ],
       "kanji_readings": [
         {
           "form": "迎える",
@@ -22428,6 +22977,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "muri",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "勉强；不可能；不合理",
+      "senses_zh": [
+        "勉强",
+        "不可能",
+        "不合理"
+      ],
       "kanji_readings": [
         {
           "form": "無理",
@@ -22650,6 +23204,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "mousu",
       "part_of_speech": "verb",
       "meaning_zh": "叫做；说（自谦语）",
+      "senses_zh": [
+        "叫做",
+        "说"
+      ],
+      "sense_note_zh": "（自谦语）",
       "kanji_readings": [
         {
           "form": "申す",
@@ -22932,6 +23491,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "yaku",
       "part_of_speech": "noun",
       "meaning_zh": "作用；角色；职务",
+      "senses_zh": [
+        "作用",
+        "角色",
+        "职务"
+      ],
       "kanji_readings": [
         {
           "form": "役",
@@ -23005,7 +23569,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "yakusoku",
       "part_of_speech": "suru-verb/noun",
-      "meaning_zh": "约定；约会；承诺",
+      "meaning_zh": "约定；承诺；约会",
+      "senses_zh": [
+        "约定；承诺",
+        "约会"
+      ],
       "kanji_readings": [
         {
           "form": "約束",
@@ -23080,6 +23648,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "yakeru",
       "part_of_speech": "verb",
       "meaning_zh": "烧焦；烤好；晒黑",
+      "senses_zh": [
+        "烧焦",
+        "烤好",
+        "晒黑"
+      ],
       "kanji_readings": [
         {
           "form": "焼ける",
@@ -23186,7 +23759,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "yahari",
       "part_of_speech": "adverb",
-      "meaning_zh": "果然；还是；不出所料",
+      "meaning_zh": "果然；不出所料；还是",
+      "senses_zh": [
+        "果然；不出所料",
+        "还是"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -23367,6 +23944,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "yu",
       "part_of_speech": "noun",
       "meaning_zh": "热水；洗澡水",
+      "senses_zh": [
+        "热水",
+        "洗澡水"
+      ],
       "kanji_readings": [
         {
           "form": "湯",
@@ -23552,6 +24133,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "yume",
       "part_of_speech": "noun",
       "meaning_zh": "梦；梦想",
+      "senses_zh": [
+        "梦",
+        "梦想"
+      ],
       "kanji_readings": [
         {
           "form": "夢",
@@ -23625,7 +24210,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "you",
       "part_of_speech": "noun",
-      "meaning_zh": "事情；用途；用事",
+      "meaning_zh": "事情；用途",
+      "senses_zh": [
+        "事情",
+        "用途"
+      ],
       "kanji_readings": [
         {
           "form": "用",
@@ -23959,6 +24548,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "yoru",
       "part_of_speech": "verb",
       "meaning_zh": "顺路去；靠近",
+      "senses_zh": [
+        "顺路去",
+        "靠近"
+      ],
       "kanji_readings": [
         {
           "form": "寄る",
@@ -24213,6 +24806,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "rusu",
       "part_of_speech": "noun",
       "meaning_zh": "不在家；看家",
+      "senses_zh": [
+        "不在家",
+        "看家"
+      ],
       "kanji_readings": [
         {
           "form": "留守",
@@ -24250,6 +24847,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "rusuban",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "看家；留守看家的人",
+      "senses_zh": [
+        "看家",
+        "留守看家的人"
+      ],
       "kanji_readings": [
         {
           "form": "留守番",
@@ -24435,6 +25036,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "wakareru",
       "part_of_speech": "verb",
       "meaning_zh": "分开；分别；分手",
+      "senses_zh": [
+        "分开；分别",
+        "分手"
+      ],
       "kanji_readings": [
         {
           "form": "別れる",
@@ -24472,6 +25077,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "waku",
       "part_of_speech": "verb",
       "meaning_zh": "（水）开；沸腾；（场面）热烈起来",
+      "senses_zh": [
+        "（水）开；沸腾",
+        "（场面）热烈起来"
+      ],
       "kanji_readings": [
         {
           "form": "沸く",
@@ -24509,6 +25118,11 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "wake",
       "part_of_speech": "noun",
       "meaning_zh": "理由；意思；情况",
+      "senses_zh": [
+        "理由",
+        "意思",
+        "情况"
+      ],
       "kanji_readings": [
         {
           "form": "訳",
@@ -24620,6 +25234,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "wariai",
       "part_of_speech": "noun/adverb",
       "meaning_zh": "比例；比较；相当",
+      "senses_zh": [
+        "比例",
+        "比较；相当"
+      ],
       "kanji_readings": [
         {
           "form": "割合",
@@ -24891,6 +25509,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "amerika",
       "part_of_speech": "noun",
       "meaning_zh": "美国；美洲",
+      "senses_zh": [
+        "美国",
+        "美洲"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -24923,6 +25545,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "arukooru",
       "part_of_speech": "noun",
       "meaning_zh": "酒精；酒类",
+      "senses_zh": [
+        "酒精",
+        "酒类"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25404,6 +26030,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "saabisu",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "服务；赠品；优惠",
+      "senses_zh": [
+        "服务",
+        "赠品；优惠"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25532,6 +26162,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "sofuto",
       "part_of_speech": "na-adjective/noun",
       "meaning_zh": "软件；软的",
+      "senses_zh": [
+        "软件",
+        "软的"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25564,6 +26198,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "taipu",
       "part_of_speech": "noun",
       "meaning_zh": "类型；打字",
+      "senses_zh": [
+        "类型",
+        "打字"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25628,6 +26266,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "tekisuto",
       "part_of_speech": "noun",
       "meaning_zh": "教材；文本",
+      "senses_zh": [
+        "教材",
+        "文本"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25756,6 +26398,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "paato",
       "part_of_speech": "noun",
       "meaning_zh": "兼职；部分",
+      "senses_zh": [
+        "兼职",
+        "部分"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -25884,6 +26530,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "purezento",
       "part_of_speech": "suru-verb/noun",
       "meaning_zh": "礼物（最常用）；赠送",
+      "senses_zh": [
+        "礼物（最常用）",
+        "赠送"
+      ],
       "kanji_readings": [],
       "examples": [
         {
@@ -26210,7 +26860,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
         },
         {
           "ja": "区役所まで歩いて行きます。",
-          "zh": "走路去区役所。"
+          "zh": "走路去区政府。"
         }
       ],
       "note_zh": "接尾语。"
@@ -26341,6 +26991,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "~dai",
       "part_of_speech": "suffix",
       "meaning_zh": "……费；……代；……年代",
+      "senses_zh": [
+        "……费",
+        "……代；……年代"
+      ],
       "kanji_readings": [
         {
           "form": "～代",
@@ -26489,6 +27143,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "ukagau",
       "part_of_speech": "verb",
       "meaning_zh": "窥视；观察（情况、脸色）；伺机",
+      "senses_zh": [
+        "窥视；观察（情况、脸色）",
+        "伺机"
+      ],
       "kanji_readings": [
         {
           "form": "窺う",
@@ -26526,6 +27184,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "utsuru",
       "part_of_speech": "verb",
       "meaning_zh": "映照；映出；（画面）显示",
+      "senses_zh": [
+        "映照；映出",
+        "（画面）显示"
+      ],
       "kanji_readings": [
         {
           "form": "映る",
@@ -26928,7 +27590,12 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "romaji": "ten",
       "part_of_speech": "noun",
-      "meaning_zh": "天；上天；天空（较书面）",
+      "meaning_zh": "天；天空；上天（较书面）",
+      "senses_zh": [
+        "天；天空",
+        "上天"
+      ],
+      "sense_note_zh": "（较书面）",
       "kanji_readings": [
         {
           "form": "天",
@@ -27040,6 +27707,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "wakareru",
       "part_of_speech": "verb",
       "meaning_zh": "分成（几部分）；分岔；（意见）分歧",
+      "senses_zh": [
+        "分成（几部分）；分岔",
+        "（意见）分歧"
+      ],
       "kanji_readings": [
         {
           "form": "分かれる",
@@ -27077,6 +27748,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "romaji": "waku",
       "part_of_speech": "noun",
       "meaning_zh": "框；框架；（限定的）框框",
+      "senses_zh": [
+        "框；框架",
+        "（限定的）框框"
+      ],
       "kanji_readings": [
         {
           "form": "枠",

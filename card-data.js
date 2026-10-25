@@ -72,6 +72,44 @@ function pitchAccentLabel(sourceId) {
   return positions.join("/");
 }
 
+// The part of speech set before a word's meaning (名 / 动 / 形动…), read from
+// the entry's coarse part_of_speech ("suru-verb/noun" → "名·サ变"). Qualifiers
+// such as demonstrative add nothing to the label, and "expression" is not a
+// part of speech: the card's 表达 tag already says it, so a pure expression
+// has no label. An unknown token hides the whole label rather than show part
+// of it (validate.js rejects unknown tokens).
+const partOfSpeechLabels = [
+  ["noun", "名"],
+  ["pronoun", "代"],
+  ["numeral", "数"],
+  ["counter", "量"],
+  ["verb", "动"],
+  ["i-adjective", "形"],
+  ["na-adjective", "形动"],
+  ["adverb", "副"],
+  ["suru-verb", "サ变"],
+  ["pre-noun", "连体"],
+  ["conjunction", "接续"],
+  ["interjection", "感叹"],
+  ["particle", "助"],
+  ["prefix", "前缀"],
+  ["suffix", "后缀"],
+];
+const partOfSpeechQualifiers = new Set(["demonstrative", "interrogative", "pattern", "expression"]);
+
+function partOfSpeechLabel(entry) {
+  const tokens = String(entry?.part_of_speech || "")
+    .split("/")
+    .map((token) => token.trim().replace(/^indefinite\s+/u, ""))
+    .filter((token) => token && !partOfSpeechQualifiers.has(token));
+  const order = partOfSpeechLabels.map(([token]) => token);
+  if (!tokens.length || tokens.some((token) => !order.includes(token))) return "";
+  return [...new Set(tokens)]
+    .sort((left, right) => order.indexOf(left) - order.indexOf(right))
+    .map((token) => partOfSpeechLabels[order.indexOf(token)][1])
+    .join("·");
+}
+
 // Homophone groups (homophone-data.js), most frequent word first: every word in
 // a group lists the whole group, each with its gloss and accent, as its answer.
 const vocabWordsById = new Map(allVocabWords.map((word) => [word[0], word]));
@@ -84,6 +122,7 @@ const homophoneGroupById = new Map();
       word: vocabWordsById.get(sourceId)[1],
       gloss,
       accent: pitchAccentLabel(sourceId),
+      partOfSpeech: partOfSpeechLabel(vocabWordsById.get(sourceId)[8]),
     }));
   if (group.length < 2) return;
   group.forEach(({ sourceId }) => homophoneGroupById.set(sourceId, { reading, group }));
@@ -95,8 +134,9 @@ function homophonesFor(sourceId, meaning) {
   if (!entry) return {};
   return {
     homophoneKey: entry.reading,
-    homophones: entry.group.map(({ sourceId: id, word, gloss, accent }) => ({
+    homophones: entry.group.map(({ sourceId: id, word, gloss, accent, partOfSpeech }) => ({
       word,
+      ...(partOfSpeech ? { partOfSpeech } : {}),
       ...(id === sourceId ? { gloss: meaning, accent, isCurrent: true } : { gloss, accent }),
     })),
   };
@@ -2490,7 +2530,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "23538:c59d0c90680b41d6";
+const reviewedPronunciationSourceSignature = "23544:f325eba7ccd1a902";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3144,11 +3184,38 @@ function makeVocabDeckCards({
   words,
 }) {
   // Words written the same way (十 じゅう／とお, 一日 いちにち／ついたち) cannot be
-  // told apart from the kanji alone, so their 日→中 cards show the reading up front.
-  // Count across all levels: 空（そら, N5）and 空（から, N4）must both show
-  // their reading even though they sit in different decks.
-  const promptCounts = new Map();
-  allVocabWords.forEach(([, word]) => promptCounts.set(word, (promptCounts.get(word) || 0) + 1));
+  // told apart from the kanji alone, so their 日→中 answers list every reading
+  // with its meaning, this card's own first; the front keeps the kana hidden.
+  // Group across all levels: 空（そら, N5）and 空（から, N4）list each other
+  // even though they sit in different decks.
+  const wordsBySpelling = new Map();
+  allVocabWords.forEach((vocabWord) => {
+    const spelling = vocabWord[1];
+    if (!wordsBySpelling.has(spelling)) wordsBySpelling.set(spelling, []);
+    wordsBySpelling.get(spelling).push(vocabWord);
+  });
+  const homographsFor = (sourceId, word) => {
+    const group = wordsBySpelling.get(word) || [];
+    if (group.length < 2) return {};
+    const homographs = group.map(([id, , kana, , meaning, , , , entry]) => {
+      const gloss = entry?.answer_zh || meaning;
+      const accent = pitchAccentLabel(id);
+      const partOfSpeech = partOfSpeechLabel(entry);
+      return {
+        reading: kana,
+        gloss,
+        ...(accent ? { accent } : {}),
+        ...(partOfSpeech ? { partOfSpeech } : {}),
+        ...(id === sourceId ? { isCurrent: true } : {}),
+      };
+    });
+    return {
+      homographs: [
+        ...homographs.filter((item) => item.isCurrent),
+        ...homographs.filter((item) => !item.isCurrent),
+      ],
+    };
+  };
   const clipTexts = homophoneClipTexts();
   return words.flatMap(([
     sourceId,
@@ -3162,7 +3229,16 @@ function makeVocabDeckCards({
     sourceEntry,
   ], index) => {
     const shortMeaning = meaning;
+    // 日→中 answers drop notes that only restate the part of speech shown
+    // before them (仕事 工作；职业（名词）→ 工作；职业); 中→日 prompts keep them
+    // to tell 仕事 from 働く.
+    const answerMeaning = sourceEntry?.answer_zh || meaning;
     const categoryLabel = vocabCategoryLabel(sourceEntry);
+    const partOfSpeech = partOfSpeechLabel(sourceEntry);
+    // Reviewed sense groups of the 日→中 meaning, most common first; a note on
+    // the whole word (（自动词）) stays apart from the last sense. validate.js
+    // checks that senses and note join back into that meaning unchanged.
+    const senses = Array.isArray(sourceEntry?.senses_zh) ? sourceEntry.senses_zh : [];
     // Furigana, romaji and speech for the examples are worked out the first time
     // a card shows them: building them for a whole level up front froze the
     // first opening of a vocab deck for over half a second on phones. Both
@@ -3198,7 +3274,7 @@ function makeVocabDeckCards({
     const readingNote = `${otherReadingsLabel(sourceEntry, reading)}${speechNote}`;
     const pitchAccent = pitchAccentLabel(sourceId);
     const speechClip = clipTexts.get(sourceId) ? { speechClip: clipTexts.get(sourceId) } : {};
-    const homophoneFields = homophonesFor(sourceId, shortMeaning);
+    const homophoneFields = homophonesFor(sourceId, answerMeaning);
     const readingFields = {
       reading,
       ...(pitchAccent ? { pitchAccent } : {}),
@@ -3247,9 +3323,14 @@ function makeVocabDeckCards({
         type: `${typePrefix} ${categoryLabel} 日文 → 中文`,
         prompt: word,
         promptLang: "ja",
-        ...(promptCounts.get(word) > 1 ? { showsReadingOnFront: true } : {}),
-        answer: shortMeaning,
+        answer: answerMeaning,
         answerLang: "zh-CN",
+        // Only 日→中 answers lead their meaning with the part of speech and
+        // list a meaning with several senses one per line.
+        ...(partOfSpeech ? { partOfSpeech } : {}),
+        ...(senses.length > 1 ? { senses } : {}),
+        ...(senses.length > 1 && sourceEntry?.sense_note_zh ? { senseNote: sourceEntry.sense_note_zh } : {}),
+        ...homographsFor(sourceId, word),
         meta: "",
         ...readingFields,
         ...homophoneFields,
@@ -3303,7 +3384,11 @@ function homophoneClipTexts() {
     const speech = vocabSpeechKana(sourceEntry?.speech_reading || reading, romaji);
     if (!groups.has(speech)) groups.set(speech, []);
     const accent = pitchAccentEntries[sourceId]?.[0];
-    const shape = Number.isInteger(accent) ? (accent === moraCount(speech) ? 0 : accent) : `?${word}`;
+    const accentShape = Number.isInteger(accent) ? (accent === moraCount(speech) ? 0 : accent) : `?${word}`;
+    // A verb's final う is its own mora (酔う ヨウ), unlike a long vowel (用 ヨー).
+    const verbU =
+      (sourceEntry?.part_of_speech || "").split("/").includes("verb") && /[おこそとのほもよろごぞどぼぽょ]う$/u.test(speech);
+    const shape = `${accentShape}${verbU ? "u" : ""}`;
     groups.get(speech).push({ sourceId, word, shape });
   });
   const clipTexts = new Map();

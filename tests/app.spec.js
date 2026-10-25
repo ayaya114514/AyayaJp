@@ -240,7 +240,8 @@ test("Japanese-to-Chinese vocab hides reading until the answer is revealed", asy
   // The answer line lists the homophones ①② by frequency, each word with its
   // accent above its meaning; 会う is the more frequent あう and the card's own
   // word, so it comes first with its full meaning.
-  await expect(page.locator("#answerMain .homophone")).toHaveText(["①会う1见面；遇见", "②合う1合适"]);
+  await expect(page.locator("#answerMain .homophone")).toHaveText(["①会う1动见面；遇见", "②合う1动合适"]);
+  await expect(page.locator("#answerMain .homophone-gloss .part-of-speech")).toHaveText(["动", "动"]);
   await expect(page.locator("#answerMain .homophone.is-current .homophone-word")).toHaveText("会う1");
   await expect(page.locator("#answerMain .homophone-word .pitch-accent")).toHaveText(["1", "1"]);
   await expect(page.locator("#cardSubtle")).toBeVisible();
@@ -248,7 +249,7 @@ test("Japanese-to-Chinese vocab hides reading until the answer is revealed", asy
   await expect(page.locator("#metaBlock")).toBeHidden();
 });
 
-test("words written alike show their reading on the 日→中 front", async ({ page }) => {
+test("words written alike list every reading on the 日→中 answer", async ({ page }) => {
   await openWithStore(
     page,
     progressFixture({
@@ -257,10 +258,60 @@ test("words written alike show their reading on the 日→中 front", async ({ p
     }),
   );
 
-  // 十 is also read じゅう (another card), so the front must say which one is asked.
+  // 十 is also read じゅう (another card): the front keeps the kana hidden and
+  // the answer lists both readings, this card's first.
   await expect(page.locator("#cardPrompt")).toHaveText("十");
-  await expect(page.locator("#cardSubtle")).toBeVisible();
+  await expect(page.locator("#cardSubtle")).toBeHidden();
+  await page.locator("#cardReveal").click();
+  await expectAnswerRevealed(page);
   await expect(page.locator("#cardSubtle")).toHaveText("とお1");
+  const rows = page.locator("#answerMain .homophone.is-homograph");
+  await expect(rows).toHaveCount(2);
+  await expect(rows.nth(0)).toHaveClass(/is-current/);
+  await expect(rows.nth(0).locator(".homophone-word")).toHaveText("とお1");
+  await expect(rows.nth(1).locator(".homophone-word")).toContainText("じゅう");
+  // Each reading sits on its own row, its meaning beside it.
+  const [first, second] = await Promise.all([
+    boundingBox(rows.nth(0).locator(".homophone-gloss")),
+    boundingBox(rows.nth(1).locator(".homophone-gloss")),
+  ]);
+  expect(second.y).toBeGreaterThanOrEqual(first.y + first.height - 1);
+  expect(Math.abs(second.x - first.x)).toBeLessThanOrEqual(1);
+});
+
+test("日→中 meanings lead with their part of speech", async ({ page }) => {
+  await openWithStore(
+    page,
+    progressFixture({
+      deck: "vocab-ja-zh",
+      queue: ["vocab-entry-n5-006-ja"],
+    }),
+  );
+  await page.locator("#cardReveal").click();
+  await expectAnswerRevealed(page);
+  await expect(page.locator("#answerMain")).toHaveText("形红色的");
+  await expect(page.locator("#answerMain .part-of-speech")).toHaveText("形");
+  // Small grey type on the meaning's own line.
+  const [markBox, answerBox] = await Promise.all([
+    boundingBox(page.locator("#answerMain .part-of-speech")),
+    boundingBox(page.locator("#answerMain")),
+  ]);
+  expect(markBox.y).toBeGreaterThanOrEqual(answerBox.y);
+  expect(markBox.y + markBox.height).toBeLessThanOrEqual(answerBox.y + answerBox.height);
+});
+
+test("中→日 vocab answers show no part of speech", async ({ page }) => {
+  await openWithStore(
+    page,
+    progressFixture({
+      deck: "vocab-zh-ja",
+      queue: ["vocab-entry-n5-006-zh"],
+    }),
+  );
+  await expect(page.locator("#cardPrompt")).toHaveText("红色的");
+  await page.locator("#cardReveal").click();
+  await expectAnswerRevealed(page);
+  await expect(page.locator(".part-of-speech")).toHaveCount(0);
 });
 
 test("the module page footer stays on screen after rating", async ({ page }) => {
