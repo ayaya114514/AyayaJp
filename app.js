@@ -2068,15 +2068,23 @@ function rubyElement(text, reading) {
 }
 
 // [start, end) character ranges of an example's reviewed focus spans (the
-// grammar pattern in it), found in order.
+// grammar pattern, or the vocab word, in it), found in order. A span given as
+// { after, text } is looked for only past `after` (動物園で|動物).
 function focusRanges(text, focus) {
   const ranges = [];
   let from = 0;
   for (const span of Array.isArray(focus) ? focus : []) {
-    const at = typeof span === "string" && span ? text.indexOf(span, from) : -1;
+    const anchored = span && typeof span === "object";
+    const piece = anchored ? span.text : span;
+    if (anchored) {
+      const after = typeof span.after === "string" && span.after ? text.indexOf(span.after, from) : -1;
+      if (after < 0) return [];
+      from = after + span.after.length;
+    }
+    const at = typeof piece === "string" && piece ? text.indexOf(piece, from) : -1;
     if (at < 0) return [];
-    ranges.push([at, at + span.length]);
-    from = at + span.length;
+    ranges.push([at, at + piece.length]);
+    from = at + piece.length;
   }
   return ranges;
 }
@@ -2127,6 +2135,22 @@ function renderFurigana(parent, text, rubySegments, focus = []) {
   });
 }
 
+// The translation's counterpart of the focus word is dotted-underlined;
+// without reviewed spans the translation stays plain.
+function renderMarkedText(parent, text, focus) {
+  parent.replaceChildren();
+  let offset = 0;
+  focusRanges(text, focus).forEach(([from, to]) => {
+    parent.append(document.createTextNode(text.slice(offset, from)));
+    const mark = document.createElement("mark");
+    mark.className = "example-zh-focus";
+    mark.append(document.createTextNode(text.slice(from, to)));
+    parent.append(mark);
+    offset = to;
+  });
+  parent.append(document.createTextNode(text.slice(offset)));
+}
+
 function renderExamples(examples) {
   elements.examplesList.replaceChildren();
 
@@ -2150,7 +2174,7 @@ function renderExamples(examples) {
 
     const zh = document.createElement("p");
     zh.className = "example-zh";
-    zh.textContent = example.zh;
+    renderMarkedText(zh, example.zh, example.zhFocus);
     zh.lang = "zh-CN";
 
     const button = document.createElement("button");

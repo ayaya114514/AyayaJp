@@ -663,6 +663,17 @@ function validateVocabSource(label, data, expectedCount) {
         !/[／/]/u.test(example.zh || ""),
         `${label} entry ${entry.id || index} example ${exampleIndex + 1} must use one unambiguous Chinese translation`,
       );
+      // 例句 highlight where the word itself sits in the sentence.
+      check(
+        focusSpansInOrder(stripSentencePeriods(example.ja || ""), example.focus),
+        `${label} entry ${entry.id || index} example ${exampleIndex + 1} needs focus spans found in order`,
+      );
+      // The translation's counterpart is optional: left out when none is clean.
+      check(
+        !Object.hasOwn(example, "zhFocus") ||
+          focusSpansInOrder(stripSentencePeriods(example.zh || ""), example.zhFocus),
+        `${label} entry ${entry.id || index} example ${exampleIndex + 1} needs zhFocus spans found in order`,
+      );
     });
     const duplicateExamples = duplicateGroups(entry.examples, (example) =>
       example && typeof example === "object"
@@ -1165,6 +1176,28 @@ function stripSentencePeriods(text = "") {
   return String(text).trim().replace(/[。．.]+$/gu, "");
 }
 
+// Mirrors app.js focusRanges: non-empty spans found in order, each either a
+// string or { after, text } where text is looked for only past after.
+function focusSpansInOrder(text, focus) {
+  if (!Array.isArray(focus) || focus.length === 0) return false;
+  let from = 0;
+  return focus.every((span) => {
+    const anchored = span && typeof span === "object" && !Array.isArray(span);
+    const piece = anchored ? span.text : span;
+    if (anchored) {
+      if (typeof span.after !== "string" || !span.after) return false;
+      const after = text.indexOf(span.after, from);
+      if (after < 0) return false;
+      from = after + span.after.length;
+    }
+    if (typeof piece !== "string" || !piece) return false;
+    const at = text.indexOf(piece, from);
+    if (at < 0) return false;
+    from = at + piece.length;
+    return true;
+  });
+}
+
 function validateGrammarSource(grammarData, expectedCount) {
   check(grammarData && Array.isArray(grammarData.entries), "grammar-data.js must expose entries");
   if (!Array.isArray(grammarData?.entries)) return;
@@ -1253,16 +1286,15 @@ function validateGrammarSource(grammarData, expectedCount) {
     // 例句 highlight the reviewed pattern span(s) of each sentence, in order.
     examples.forEach((example, exampleIndex) => {
       const text = stripSentencePeriods(example?.ja || "");
-      const focus = Array.isArray(example?.focus) ? example.focus : [];
-      let from = 0;
-      const inOrder = focus.length > 0 && focus.every((span) => {
-        if (typeof span !== "string" || !span) return false;
-        const at = text.indexOf(span, from);
-        if (at < 0) return false;
-        from = at + span.length;
-        return true;
-      });
-      check(inOrder, `grammar entry ${entry.id} example ${exampleIndex} needs focus spans found in order`);
+      check(
+        focusSpansInOrder(text, example?.focus),
+        `grammar entry ${entry.id} example ${exampleIndex} needs focus spans found in order`,
+      );
+      check(
+        !Object.hasOwn(example || {}, "zhFocus") ||
+          focusSpansInOrder(stripSentencePeriods(example.zh || ""), example.zhFocus),
+        `grammar entry ${entry.id} example ${exampleIndex} needs zhFocus spans found in order`,
+      );
     });
     check(
       new RegExp(`^${String(entry.level).toLowerCase()}-grammar-\\d{3}$`, "u").test(entry.id),
