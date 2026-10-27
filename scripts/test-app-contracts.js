@@ -3181,7 +3181,8 @@ function markedText(node) {
 }
 
 // 例句 mark the reviewed pattern spans; a word with a reading that a span only
-// partly covers is marked whole.
+// partly covers is marked whole, and an { after, text } span skips an earlier
+// look-alike.
 function testExampleFocusIsMarked() {
   const card = baseCard({
     deck: "grammar-n5-pattern-zh",
@@ -3204,6 +3205,13 @@ function testExampleFocusIsMarked() {
         ruby: [["毎朝", "まいあさ"], ["走", "はし"], ["ります", null]],
         zh: "每天早上跑步",
       },
+      {
+        focus: [{ after: "動物園で", text: "動物" }],
+        ja: "動物園で動物を見ます",
+        ruby: [["動物園", "どうぶつえん"], ["で", null], ["動物", "どうぶつ"], ["を", null], ["見", "み"], ["ます", null]],
+        zh: "在动物园看动物",
+        zhFocus: [{ after: "在动物园看", text: "动物" }],
+      },
     ],
     grammarLevel: "N5",
     id: "grammar-focus",
@@ -3222,9 +3230,20 @@ function testExampleFocusIsMarked() {
     sentence.children.filter((node) => node.tagName === "MARK").map(markedText),
   );
   assert(
-    JSON.stringify(marks) === JSON.stringify([["てはいけません"], ["より", "のほうが"], ["毎朝走"]]),
+    JSON.stringify(marks) === JSON.stringify([["てはいけません"], ["より", "のほうが"], ["毎朝走"], ["動物"]]),
     `example focus spans were not marked: ${JSON.stringify(marks)}`,
   );
+  assert(sentences[3].children[0].tagName !== "MARK", "an anchored focus span marked the look-alike before it");
+  // The translation underlines its counterpart; without zhFocus it stays plain.
+  const translations = harness.element("examplesList").children.map((item) => item.children[0].children[2]);
+  const zhMarks = translations.map((zh) =>
+    zh.children.filter((node) => node.tagName === "MARK").map(markedText),
+  );
+  assert(
+    JSON.stringify(zhMarks) === JSON.stringify([[], [], [], ["动物"]]),
+    `translation focus spans were not marked: ${JSON.stringify(zhMarks)}`,
+  );
+  assert(markedText(translations[3]) === "在动物园看动物", "marking changed the translation text");
   assert(
     sentences.every((sentence, index) => markedText(sentence) === card.examples[index].ja),
     "marking changed the example text",
