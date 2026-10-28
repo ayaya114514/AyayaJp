@@ -3190,6 +3190,8 @@ function testExampleFocusIsMarked() {
       {
         focus: ["てはいけません"],
         ja: "ここで吸ってはいけません",
+        romaji: "koko de sutte wa ikemasen",
+        romajiFocus: [[11, 25]],
         ruby: [["ここで", null], ["吸", "す"], ["ってはいけません", null]],
         zh: "不可以在这里吸烟",
       },
@@ -3244,6 +3246,13 @@ function testExampleFocusIsMarked() {
     `translation focus spans were not marked: ${JSON.stringify(zhMarks)}`,
   );
   assert(markedText(translations[3]) === "在动物园看动物", "marking changed the translation text");
+  // The romaji marks the romaji of the focus span.
+  const romaji = harness.element("examplesList").children[0].children[0].children[1];
+  assert(
+    JSON.stringify(romaji.children.filter((node) => node.tagName === "MARK").map(markedText)) ===
+      JSON.stringify(["te wa ikemasen"]) && markedText(romaji) === "koko de sutte wa ikemasen",
+    `romaji focus was not marked: ${markedText(romaji)}`,
+  );
   assert(
     sentences.every((sentence, index) => markedText(sentence) === card.examples[index].ja),
     "marking changed the example text",

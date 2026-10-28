@@ -2135,15 +2135,16 @@ function renderFurigana(parent, text, rubySegments, focus = []) {
   });
 }
 
-// The translation's counterpart of the focus word is dotted-underlined;
-// without reviewed spans the translation stays plain.
-function renderMarkedText(parent, text, focus) {
+// The translation's counterpart of the focus word is dotted-underlined and its
+// romaji (card-data.js romajiFocus ranges) is marked like the word; without
+// reviewed spans the line stays plain.
+function renderMarkedText(parent, text, ranges, className) {
   parent.replaceChildren();
   let offset = 0;
-  focusRanges(text, focus).forEach(([from, to]) => {
+  (Array.isArray(ranges) ? ranges : []).forEach(([from, to]) => {
     parent.append(document.createTextNode(text.slice(offset, from)));
     const mark = document.createElement("mark");
-    mark.className = "example-zh-focus";
+    mark.className = className;
     mark.append(document.createTextNode(text.slice(from, to)));
     parent.append(mark);
     offset = to;
@@ -2168,13 +2169,13 @@ function renderExamples(examples) {
 
     const romaji = document.createElement("p");
     romaji.className = "example-romaji";
-    romaji.textContent = example.romaji || "";
+    renderMarkedText(romaji, example.romaji || "", example.romajiFocus, "example-romaji-focus");
     romaji.lang = "en";
     romaji.hidden = !example.romaji;
 
     const zh = document.createElement("p");
     zh.className = "example-zh";
-    renderMarkedText(zh, example.zh, example.zhFocus);
+    renderMarkedText(zh, example.zh, focusRanges(example.zh, example.zhFocus), "example-zh-focus");
     zh.lang = "zh-CN";
 
     const button = document.createElement("button");

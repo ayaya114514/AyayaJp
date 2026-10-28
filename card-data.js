@@ -2326,6 +2326,11 @@ const particleRomajiMarkers = new Map([
   ["\ue004", " "],
   ["\ue005", "-"],
 ]);
+// Edges of an example's focus span, carried through romaji conversion so the
+// romaji of the word can be marked; kanaToRomaji passes them through untouched.
+const focusOpenMarker = "";
+const focusCloseMarker = "";
+const isFocusMarker = (character) => character === focusOpenMarker || character === focusCloseMarker;
 const particleKanaMarkers = new Map([
   ["は", "\ue000"],
   ["へ", "\ue001"],
@@ -2621,6 +2626,7 @@ function markReviewedPronunciations(text) {
 }
 
 function romajiAt(kanaText, index) {
+  while (isFocusMarker(kanaText[index])) index += 1;
   const markerRomaji = particleRomajiMarkers.get(kanaText[index]);
   if (markerRomaji) return markerRomaji;
   return kanaRomajiRows.find(([surface]) => kanaText.startsWith(surface, index))?.[1] || "";
@@ -2631,9 +2637,24 @@ function kanaToRomaji(text) {
   let result = "";
   let index = 0;
   let shouldDoubleNextConsonant = false;
+  // A focus edge right after っ goes after the doubled consonant, which is
+  // the っ's own sound: 減っ|ていく → het|te iku.
+  let pendingMarkers = "";
 
   while (index < kanaText.length) {
     const char = kanaText[index];
+
+    if (isFocusMarker(char)) {
+      if (shouldDoubleNextConsonant) pendingMarkers += char;
+      else result += char;
+      index += 1;
+      continue;
+    }
+
+    if (char !== "っ" && !kanaRomajiRows.some(([surface]) => kanaText.startsWith(surface, index))) {
+      result += pendingMarkers;
+      pendingMarkers = "";
+    }
 
     if (char === "っ") {
       shouldDoubleNextConsonant = true;
@@ -2670,8 +2691,9 @@ function kanaToRomaji(text) {
           : "";
       // Hepburn writes っ before ch as t: こっち → kotchi, not kocchi.
       const geminate = romaji.startsWith("ch") ? "t" : firstConsonant(romaji);
-      result += `${shouldDoubleNextConsonant ? geminate : ""}${romaji}${moraSeparator}`;
+      result += `${shouldDoubleNextConsonant ? geminate : ""}${pendingMarkers}${romaji}${moraSeparator}`;
       shouldDoubleNextConsonant = false;
+      pendingMarkers = "";
       index += match[0].length;
       continue;
     }
@@ -2681,7 +2703,7 @@ function kanaToRomaji(text) {
     index += 1;
   }
 
-  return result.trim();
+  return `${result}${pendingMarkers}`.trim();
 }
 
 // Reviewed word division for sentence romaji. romaji-word-spacing.js lists every
@@ -2873,17 +2895,114 @@ function spacedReadingStream(tokens, sourceIndexes, boundaries, text = "") {
 }
 
 function finishSentenceRomaji(kana) {
-  return kanaToRomaji(kana)
+  return tidySentenceRomaji(kanaToRomaji(kana));
+}
+
+function tidySentenceRomaji(romaji) {
+  return romaji
     .replace(/\s+/g, " ")
     .replace(/\s+([,!?/:;.])/g, "$1")
     .replace(/ ?- ?/g, "-")
     .trim();
 }
 
-function sentenceRomaji(text, preferredReadings = []) {
+// Mirrors app.js focusRanges: [start, end) ranges of the reviewed focus spans,
+// each a string or { after, text } looked for only past after.
+function focusRanges(text, focus) {
+  const ranges = [];
+  let from = 0;
+  for (const span of Array.isArray(focus) ? focus : []) {
+    const anchored = span && typeof span === "object";
+    const piece = anchored ? span.text : span;
+    if (anchored) {
+      const after = typeof span.after === "string" && span.after ? text.indexOf(span.after, from) : -1;
+      if (after < 0) return [];
+      from = after + span.after.length;
+    }
+    const at = typeof piece === "string" && piece ? text.indexOf(piece, from) : -1;
+    if (at < 0) return [];
+    ranges.push([at, at + piece.length]);
+    from = at + piece.length;
+  }
+  return ranges;
+}
+
+// [start, end) ranges of the focus word in the sentence's romaji. Its edges ride
+// through the same reading stream as the word spaces; an edge inside a Kanji
+// reading that cannot be split is widened to the whole furigana word, as the
+// sentence marks it (何人来ますか|人 → nannin), else to the whole reading token.
+// The marks are dropped unless the romaji without them is the shown romaji.
+function romajiFocusRanges(text, tokens, sourceIndexes, boundaries, romaji, focus, rubySpans) {
+  // An edge on a character with no romaji (the 」 after 「ありがとう) moves on
+  // to the next one that has some.
+  const spoken = new Set(sourceIndexes);
+  const edge = (index) => {
+    while (index < text.length && !spoken.has(index)) index += 1;
+    return index;
+  };
+  const ranges = focusRanges(text, focus)
+    .map(([from, to]) => [edge(from), edge(Math.min(to, text.length))])
+    .filter(([from, to]) => from < to);
+  if (!ranges.length || !romaji) return [];
+  const tokenSpans = tokens
+    .filter((token) => token.reading !== null)
+    .map((token) => {
+      const indexes = sourceIndexes
+        .slice(token.start, token.start + token.surface.length)
+        .filter((index) => index >= 0);
+      return indexes.length ? [Math.min(...indexes), Math.max(...indexes) + 1] : null;
+    })
+    .filter(Boolean);
+  const widenedTo = (spans) => ranges.map(([from, to]) => {
+    spans.forEach(([start, end]) => {
+      if (start < from && from < end) from = start;
+      if (start < to && to < end) to = end;
+    });
+    return [from, to];
+  });
+  for (const candidate of [ranges, widenedTo(rubySpans), widenedTo(tokenSpans)]) {
+    const marked = markedRomaji(text, tokens, sourceIndexes, boundaries, candidate);
+    if (marked && marked.plain === romaji) return marked.ranges;
+  }
+  return [];
+}
+
+function markedRomaji(text, tokens, sourceIndexes, boundaries, ranges) {
+  const markers = new Map();
+  [...new Set([...(boundaries?.keys() || []), ...ranges.flat()])].forEach((index) => {
+    const closes = ranges.some(([, to]) => to === index) ? focusCloseMarker : "";
+    const opens = ranges.some(([from]) => from === index) ? focusOpenMarker : "";
+    if (index < text.length) markers.set(index, `${closes}${boundaries?.get(index) || ""}${opens}`);
+  });
+  const stream = spacedReadingStream(tokens, sourceIndexes, markers, text);
+  if (stream === null) return null;
+  const tail = ranges.some(([, to]) => to === text.length) ? focusCloseMarker : "";
+  // Spaces around a particle or word break stay outside the mark.
+  let romaji = kanaToRomaji(`${stream}${tail}`);
+  for (let previous = ""; previous !== romaji; ) {
+    previous = romaji;
+    romaji = romaji
+      .replace(/(\s+)/gu, "$1")
+      .replace(/(\s+)/gu, "$1");
+  }
+  romaji = tidySentenceRomaji(romaji);
+  let plain = "";
+  let start = -1;
+  const found = [];
+  for (const character of romaji) {
+    if (character === focusOpenMarker) start = plain.length;
+    else if (character === focusCloseMarker) {
+      if (start >= 0 && plain.length > start) found.push([start, plain.length]);
+      start = -1;
+    } else plain += character;
+  }
+  return found.length === ranges.length ? { plain, ranges: found } : null;
+}
+
+function sentenceRomaji(text, preferredReadings = [], focus = [], ruby = []) {
   const reviewedText = stripSentencePeriods(text);
   const marked = markReviewedPronunciationsWithSourceIndexes(reviewedText);
-  if (!marked) return { romaji: "", spacing: "unavailable" };
+  if (!marked) return { romaji: "", spacing: "unavailable", focus: [] };
   let normalized = "";
   const sourceIndexes = [];
   [...marked.marked].forEach((character, index) => {
@@ -2897,15 +3016,25 @@ function sentenceRomaji(text, preferredReadings = []) {
     ...exampleReadingsForText(reviewedText),
   ]);
   const unspaced = finishSentenceRomaji(tokens.map((token) => token.reading ?? token.surface).join(""));
+  let rubyOffset = 0;
+  const rubySpans = ruby.flatMap(([surface, reading]) => {
+    rubyOffset += surface.length;
+    return reading ? [[rubyOffset - surface.length, rubyOffset]] : [];
+  });
+  const result = (romaji, spacing, wordBoundaries = null) => ({
+    romaji,
+    spacing,
+    focus: romajiFocusRanges(reviewedText, tokens, sourceIndexes, wordBoundaries, romaji, focus, rubySpans),
+  });
   const boundaries = reviewedWordBoundaries(reviewedText);
-  if (!boundaries) return { romaji: unspaced, spacing: "unreviewed" };
+  if (!boundaries) return result(unspaced, "unreviewed");
   const spacedKana = spacedReadingStream(tokens, sourceIndexes, boundaries, reviewedText);
   const spaced = spacedKana === null ? null : finishSentenceRomaji(spacedKana);
   const letters = (value) => value.replace(/[\s'-]/g, "");
   if (spaced === null || letters(spaced) !== letters(unspaced)) {
-    return { romaji: unspaced, spacing: "rejected" };
+    return result(unspaced, "rejected");
   }
-  return { romaji: spaced, spacing: "reviewed" };
+  return result(spaced, "reviewed", boundaries);
 }
 
 const pronunciationMarkerPattern = /[-]/u;
@@ -3116,13 +3245,14 @@ function normalizeExamples(examples = [], preferredReadings = []) {
   return examples.map((example) => {
     const ja = stripSentencePeriods(example.ja || "");
     const zh = stripSentencePeriods(example.zh || "");
-    const generated = sentenceRomaji(ja, preferredReadings);
-    const hasSafeRomaji = isSafeRomaji(generated.romaji);
     const ruby = rubySegmentsForText(ja, preferredReadings);
+    const generated = sentenceRomaji(ja, preferredReadings, example.focus, ruby);
+    const hasSafeRomaji = isSafeRomaji(generated.romaji);
     return {
       ...example,
       ja,
       romaji: hasSafeRomaji ? generated.romaji : "",
+      romajiFocus: hasSafeRomaji ? generated.focus : [],
       romajiStatus: hasSafeRomaji ? "available" : "unavailable",
       romajiSpacing: hasSafeRomaji ? generated.spacing : "unavailable",
       furiganaEntries: preferredReadings,
