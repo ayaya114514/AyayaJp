@@ -2010,6 +2010,12 @@ h2 {
   color: var(--gold);
 }
 
+/* Its romaji is marked the same way. */
+.example-romaji mark.example-romaji-focus {
+  background: none;
+  color: var(--gold);
+}
+
 /* Its counterpart in the translation keeps the text colour and gets a
    dotted underline. */
 .example-zh mark.example-zh-focus {

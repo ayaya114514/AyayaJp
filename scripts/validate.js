@@ -1878,6 +1878,28 @@ function validatePitchAccentData(pitchAccent, n5Json, n4Json, n3Json, vocabCards
   );
 }
 
+// The romaji of every displayed example marks the romaji of each focus span:
+// one non-empty range per span, in order, without spaces at its edges.
+function validateRomajiFocus(cards) {
+  const unmarked = [...new Set(
+    allGeneratedExamples(cards)
+      .filter((example) => example.romajiStatus === "available" && Array.isArray(example.focus) && example.focus.length)
+      .filter((example) => {
+        const ranges = Array.isArray(example.romajiFocus) ? example.romajiFocus : [];
+        let previousEnd = 0;
+        return ranges.length !== example.focus.length || !ranges.every(([from, to]) => {
+          const ok =
+            Number.isInteger(from) && Number.isInteger(to) && previousEnd <= from && from < to &&
+            to <= example.romaji.length && !/^\s|\s$/u.test(example.romaji.slice(from, to));
+          previousEnd = to;
+          return ok;
+        });
+      })
+      .map((example) => example.ja),
+  )];
+  check(unmarked.length === 0, `${unmarked.length} examples do not mark the focus in their romaji: ${sample(unmarked, 8)}`);
+}
+
 // Every displayed example romaji must use a reviewed word division from
 // romaji-word-spacing.js, and that file must not keep entries for examples that
 // no longer display romaji.
@@ -3337,6 +3359,7 @@ function main() {
     validateExampleFurigana(cards, runtime.cardData.reviewedWordSplitsAt);
     validateExampleSpeech(cards, runtime.cardData.kanaToRomaji);
     capture("audio clip check failed", () => validateAudioClips(runtime, html));
+    capture("romaji focus check failed", () => validateRomajiFocus(cards));
     capture("romaji word spacing check failed", () =>
       validateRomajiWordSpacing(cards, loadScriptGlobal("romaji-word-spacing.js", "AYAYA_ROMAJI_SPACING")),
     );
