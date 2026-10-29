@@ -1850,7 +1850,7 @@ function validatePitchAccentData(pitchAccent, n5Json, n4Json, n3Json, vocabCards
       `pitch accent ${id} (${entry.headword}/${entry.reading}) is not a valid mora index list`,
     );
   });
-  ["n5-001", "n5-091", "n4-195", "n4-426", "n4-222"].forEach((id) => {
+  ["n5-001", "n5-091", "n4-195", "n4-426", "n4-222", "n5-381", "n5-572", "n5-036", "n4-033", "n4-604"].forEach((id) => {
     check(!(id in entries), `pitch accent ${id} was rejected in review but is annotated again`);
   });
   [
@@ -1860,6 +1860,11 @@ function validatePitchAccentData(pitchAccent, n5Json, n4Json, n3Json, vocabCards
     ["n5-038", [0]],
     ["n5-526", [2]],
     ["n5-527", [1]],
+    ["n4-212", [0]],
+    ["n5-172", [0]],
+    ["n5-237", [1]],
+    ["n5-358", [0]],
+    ["n4-467", [3]],
   ].forEach(([id, expected]) => {
     check(
       JSON.stringify(entries[id]) === JSON.stringify(expected),

@@ -1231,8 +1231,7 @@ noksjw347m	ok	surface	いりぐちのけいじをよくよんでください	イ
 1fk539rbuwj	ok	pitch	いりょう	イ'リョオ
 3e56ddt9ls	ok	surface	いりょうのしごとにきょうみがあります	イ'リョオノ/シゴトニ'/キョ'オミガ/アリマ'ス
 1v3i48xi0ka	ok	surface+prosody	いりょうひがたかくてこまっています	イリョ'オヒガ/タカ'クテ/コマ'ッテ/イマ'ス
-1k89u9pox3o	ok	kana	いる｜いる	イル'
-kjon3qkkyd	ok	pitch	いる｜要る	イル'
+273fs0nb6ve	ok	pitch	いる	イル'
 1ww8b6orp4o	ok	pitch	いれる	イレル'
 1xeeo2l393f	ok	pitch	いろ	イロ'
 wpf4dx6xxx	ok	kana	いろいろ	イロイロ'
@@ -1278,8 +1277,7 @@ ihb2hzrlhp	ok	pitch	いんよう	インヨオ'
 pbg28dyz	ok	kana-accent	ウォ	ウォ'
 96tqkki92z	ok	kana-accent	ヴォ	ヴォ'
 1q7skuoj1ts	ok	kana	うがい	ウガイ'
-23gzt7omqdc	ok	kana	うかがう｜うかがう	ウカガウ'
-zuloxexgs	ok	pitch	うかがう｜窺う	ウカガウ'
+25jvtsve7yk	ok	pitch	うかがう	ウカガウ'
 12lbqpw5q8l	ok	pitch	うけつけ	ウケツケ'
 22yn24hrnue	ok	surface	うけつけでなまえをかいてください	ウケツケデ'/ナマエオ'/カ'イテ/クダサ'イ
 xs8dz7u4mj	ok	surface+prosody	うけつけのおとこのひとにきいてください	ウケツケノ'/オトコノ'/ヒトニ'/キイテ'/クダサ'イ
@@ -2048,8 +2046,7 @@ k6d9uspwyr	ok	pitch	およぼす	オヨボ'ス
 1uwgwj9vkds	ok	pitch	おりる	オリ'ル
 1b8ql5kd4o4	ok	surface	オリンピックでわいろいろなきょうぎがあります	オリンピ'ックデワ/イロイロナ'/キョ'オギガ/アリマ'ス
 24v7xym06vv	ok	ruby-kana	オリンピックのまくがあきました	オリンピ'ックノ/マク'ガ/アキマ'シタ ← オリンピックの幕がアきました
-1tb7yc1sayc	ok	kana	おる｜おる	オ'ル
-wb9tmqwhey	ok	pitch	おる｜折る	オ'ル
+1ncggq35sri	ok	pitch	おる	オ'ル
 ihjwtwqtcw	ok	pitch	おれい	オレエ'
 1ssnu1zhx8r	ok	surface	おれいにちいさなおかしをわたしました	オレエニ'/チ'イサナ/オカ'シオ/ワタシマ'シタ
 29uyrfrx5a4	ok	pitch	おれる	オレ'ル
@@ -2282,8 +2279,7 @@ nv56t6x2el	ok	surface	かがみにかおがうつっています	カガミ'ニ/�
 12uwsvgt9ln	ok	surface	かがみにじぶんのかおがうつりました	カガミ'ニ/ジブンノ'/カオガ'/ウツリマ'シタ
 2ewe2ffpgur	ok	pitch	かがやく	カガヤ'ク
 13c70d42ycj	ok	pitch	かかり	カ'カリ
-10n7je9l07g	ok	kana	かかる｜かかる	カカ'ル
-682mihs0lx	ok	pitch	かかる｜掛かる	カカ'ル
+w5il8cahi	ok	pitch	かかる	カカ'ル
 14rtjdv2m4q	ok	pitch	かぎ	カギ'
 aqfcjzd9kt	ok	surface+prosody	かぎがどこにもありません	カギ'ガ/ド'コニモ/アリマセ'ン
 1f3k5j9t58u	ok	surface+prosody	かぎのたばをなくしてしまいました	カギノ'/タ'バオ/ナクシテ'/シマイマ'シタ
@@ -3814,8 +3810,7 @@ rjw1o9fmqs	ok	surface	くるまをえきまえのちゅうしゃじょうにと�
 7nuoytemdf	ok	surface	くるまをちゅうしゃじょうにとめました	クルマオ'/チュウシャジョオニ'/トメマ'シタ
 10kxmblv892	ok	pitch	くれ	クレ'
 yuawrdi49l	ok	surface	くれにくにえかえります	クレニ'/クニエ'/カエリマ'ス
-2faqt6p8ff0	ok	kana	くれる｜くれる	クレル'
-tlodp9rmok	ok	pitch	くれる｜暮れる	クレル'
+3ha0sdk7kz	ok	pitch	くれる	クレル'
 1s4hvnbs5s6	ok	pitch	くろ	ク'ロ
 1xkdj2lnfi1	ok	pitch	くろい	クロ'イ
 vxdnztx399	ok	surface	くろいインクのペンでかいてください	クロ'イ/インクノ'/ペ'ンデ/カ'イテ/クダサ'イ
@@ -6258,9 +6253,8 @@ sl3o1wfn72	ok	surface	しぜんにわらえるようになりました	シゼン
 odgtxvaz1x	ok	pitch	しそう	シソオ'
 1i4jxt736l0	ok	surface	しそうのじゆうわたいせつです	シソオノ'/ジユ'ウワ/タイセツデ'ス
 xvrw8vcgnc	ok	pitch	した	シタ'
+18525hoca84	ok	pitch	じたい	ジ'タイ
 12ya6n413eh	ok	pitch	じだい	ジダイ'
-xnhotwcs3b	ok	pitch	じたい｜事態	ジ'タイ
-8bo0tnensa	ok	surface	じたい｜自体	ジ'タイ
 1l68vs9rp1z	ok	surface	じだいがかわって、はたらきかたもかわりました	ジダイガ'/カワッテ'、/ハタラキ'カタモ/カワリマ'シタ
 kyvg94lppk	ok	surface	じたいがよくわからないので、せつめいしてください	ジ'タイガ/ヨ'ク/ワカラ'ナイノデ、/セツメエ'/シテ'/クダサ'イ
 2eqxo6xyaw	ok	surface	じだいとともに、ことばもかわっていきます	ジダイト'/トモニ'、/コトバ'モ/カワッテ'/イキマ'ス
@@ -7560,8 +7554,7 @@ t366575vcj	ok	surface	ぞうのはなわとてもながいです	ゾ'オノ/ハ�
 1coze10i4an	ok	surface	そうりょうわべつにかかります	ソ'オリョオワ/ベツニ'/カカリマ'ス
 1tjfwld93ue	ok	surface	ぞうわあたまがいいどうぶつです	ゾ'オワ/アタマ'ガ/イ'イ/ドオブツデ'ス
 1g8zp0yae2s	ok	pitch	そくど	ソ'クド
-15u5qf3fot	ok	kana	そこ｜そこ	ソコ'
-ex657wsn0j	ok	pitch	そこ｜底	ソコ'
+4c5bn5jopx	ok	pitch	そこ	ソコ'
 1grx1cuxy8i	ok	kana	そこで	ソコデ'
 jwdob7ucoj	ok	surface	そこで、みんなでそうだんすることにしました	ソコデ'、/ミンナ'デ/ソオダン'/スル'/コト'ニ/シマ'シタ
 1n1aqan351a	ok	surface	そこでまってください	ソコデ'/マ'ッテ/クダサ'イ
