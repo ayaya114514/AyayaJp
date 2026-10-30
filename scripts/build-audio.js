@@ -568,7 +568,7 @@ async function main() {
   const runtime = buildRuntime();
   const pitchAccents = runtime.data.pitchAccent?.entries || {};
   const verbIds = new Set(
-    [runtime.data.n5, runtime.data.n4, runtime.data.n3]
+    [runtime.data.n5, runtime.data.n4, runtime.data.n3, runtime.data.n2]
       .flatMap((data) => data?.entries || [])
       .filter((entry) => (entry.part_of_speech || "").split("/").includes("verb"))
       .map((entry) => entry.id),

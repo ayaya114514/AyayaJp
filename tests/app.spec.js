@@ -1,5 +1,7 @@
 "use strict";
 
+const fs = require("fs");
+const path = require("path");
 const { test, expect } = require("./fixtures");
 
 const STORAGE_KEY = "ayaya-jp-srs-v1";
@@ -386,6 +388,87 @@ test("a vocab block page lists its blocks and studies only the picked block", as
   await page.locator("#closeDeckMenu").click();
   await expect(page.locator(".deck-tabs")).toBeVisible();
   await expect(page.locator('[data-deck="vocab-n3-ja-zh"]')).toBeFocused();
+});
+
+// N2 ships its vocabulary in batches ahead of its grammar; a level's rows stay
+// off the module page until they have data, so nobody opens an empty deck.
+test("N2 stays off the module page until it has words", async ({ page }) => {
+  await page.route(/\/ayaya-n2-codex-vocab\.js(\?|$)/u, (route) =>
+    route.fulfill({
+      contentType: "text/javascript",
+      body: `window.AYAYA_N2_CODEX_VOCAB = ${JSON.stringify({ schema: {}, entries: [] })};`,
+    }),
+  );
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
+  await page.waitForFunction(() => Boolean(window.AYAYA_JP_CARD_DATA));
+  await page.locator("#deckMenuButton").click();
+  await expect(page.locator('.deck-level-group[data-level="n3"]')).toBeVisible();
+  await expect(page.locator('.deck-level-group[data-level="n2"]')).toBeHidden();
+  await expect(page.locator("#loadErrorBanner")).toBeHidden();
+});
+
+// Each level's badge heads a column beside its rows instead of a line of its
+// own, so every module fits a portrait phone screen, N2's nine rows included.
+test("the module page fits one portrait screen, with N2 too", async ({ page }, testInfo) => {
+  test.skip(/landscape/u.test(testInfo.project.name), "landscape phones scroll the module page");
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
+  await page.waitForFunction(() => Boolean(window.AYAYA_JP_CARD_DATA));
+  await page.locator("#deckMenuButton").click();
+  const overflow = () =>
+    page.locator(".deck-tabs").evaluate((element) => element.scrollHeight - element.clientHeight);
+  expect(await overflow()).toBeLessThanOrEqual(0);
+  // 进阶发音 is the longest label and must not be cut to 进阶….
+  const label = await page
+    .locator('[data-deck="special"] .deck-label')
+    .evaluate((element) => [element.scrollWidth, element.clientWidth]);
+  expect(label[0]).toBeLessThanOrEqual(label[1]);
+  // As if N2 had both its vocabulary and its grammar.
+  await page.evaluate(() => {
+    document.querySelectorAll('[data-level="n2"], [data-level="n2"] .deck-row').forEach((element) => {
+      element.hidden = false;
+    });
+  });
+  expect(await overflow()).toBeLessThanOrEqual(0);
+  await expectNoHorizontalOverflow(page);
+});
+
+test("N2 shows its vocabulary once it has words and keeps its grammar row for grammar", async ({ page }) => {
+  // Thirty N3 entries stand in for N2 words: their examples already have
+  // reviewed readings and audio.
+  const n3 = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "ayaya-n3-codex-vocab.json"), "utf8"));
+  const entries = n3.entries.slice(0, 30).map((entry, index) => ({
+    ...entry,
+    id: `n2-${String(index + 1).padStart(4, "0")}`,
+    jlpt: "N2",
+  }));
+  await page.route(/\/ayaya-n2-codex-vocab\.js(\?|$)/u, (route) =>
+    route.fulfill({
+      contentType: "text/javascript",
+      body: `window.AYAYA_N2_CODEX_VOCAB = ${JSON.stringify({ schema: {}, entries })};`,
+    }),
+  );
+  await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
+  await page.locator("#deckMenuButton").click();
+  const level = page.locator('.deck-level-group[data-level="n2"]');
+  await expect(level).toBeVisible();
+  await expect(level.locator('[data-row="vocab-n2"]')).toBeVisible();
+  await expect(level.locator('[data-row="grammar-n2"]')).toBeHidden();
+  await expect(level.locator('.deck-level[data-level="n2"]')).toHaveText("N2");
+  await expectNoHorizontalOverflow(page);
+
+  await level.locator('[data-deck="vocab-n2-ja-zh"]').click();
+  await expect(page.locator("#deckSidebarTitle")).toHaveText("N2 词汇 · 日→中");
+  const grid = page.locator("#blockGrid");
+  await expect(grid).toHaveAttribute("data-level", "n2");
+  await expect(grid.locator('.block-tile[data-block=""] .block-status')).toHaveText("剩 30");
+  await grid.locator('.block-tile[data-block=""]').click();
+  await expect(page.locator("#deckSidebar")).not.toHaveClass(/\bis-open\b/);
+  await expect(page.locator("#currentCount")).toHaveText("30");
+  const prompt = await page.locator("#cardPrompt").textContent();
+  expect(entries.map((entry) => entry.headword)).toContain(prompt);
+  await page.locator("#cardReveal").click();
+  await expectAnswerRevealed(page);
+  await expect(page.locator("#cardType")).not.toHaveText(/N2/u);
 });
 
 test("legacy fixed kana order reshuffles once and remains stable on reload", async ({

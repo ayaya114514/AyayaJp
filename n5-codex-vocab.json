@@ -32,7 +32,7 @@
       "On 2026-10-10 every entry was re-audited again: headword romaji now follows the particle and n' rules with the same word division as the examples, category labels were corrected, pure grammar patterns were migrated to grammar cards, and unnatural examples were rewritten.",
       "2026-10-17: 12 basic greetings and words that the community Waller list files under N3 (ありがとう, いただきます, いらっしゃい, おめでとう, ごめんなさい, こんにちは, すみません, よろしく, 男の人, 日本, 曜日, お昼) are taught here, since N5 learners meet them first."
     ],
-    "entry_count": 743
+    "entry_count": 755
   },
   "entries": [
     {
@@ -5172,7 +5172,8 @@
       ],
       "reading": "おととい",
       "reading_variants": [
-        "おととい"
+        "おととい",
+        "いっさくじつ"
       ],
       "romaji": "ototoi",
       "part_of_speech": "noun",
@@ -5203,7 +5204,7 @@
           "zhFocus": ["前天"]
         }
       ],
-      "note_zh": ""
+      "note_zh": "「いっさくじつ」是正式场合的读法。"
     },
     {
       "id": "n5-122",
@@ -5211,16 +5212,23 @@
       "headword": "おととし",
       "source_form": "おととし",
       "variants": [
-        "おととし"
+        "おととし",
+        "一昨年"
       ],
       "reading": "おととし",
       "reading_variants": [
-        "おととし"
+        "おととし",
+        "いっさくねん"
       ],
       "romaji": "ototoshi",
       "part_of_speech": "noun",
       "meaning_zh": "前年",
-      "kanji_readings": [],
+      "kanji_readings": [
+        {
+          "form": "一昨年",
+          "reading": "おととし"
+        }
+      ],
       "examples": [
         {
           "ja": "おととし、日本へ行きました。",
@@ -5241,7 +5249,7 @@
           "zhFocus": ["前年"]
         }
       ],
-      "note_zh": ""
+      "note_zh": "汉字写作「一昨年」；「いっさくねん」是正式场合的读法。"
     },
     {
       "id": "n5-123",
@@ -30828,7 +30836,7 @@
           "focus": ["よろしく"]
         }
       ],
-      "note_zh": "汉字为「宜しく」，一般写假名。"
+      "note_zh": "汉字为「宜しく」，一般写假名；初次见面常说「どうぞよろしく（お願いします）」。"
     },
     {
       "id": "n5-727",
@@ -31794,6 +31802,516 @@
         }
       ],
       "note_zh": "与「駅（车站）」同音。"
+    },
+    {
+      "id": "n5-749",
+      "jlpt": "N5",
+      "headword": "おじゃまします",
+      "source_form": "おじゃまします",
+      "variants": [
+        "おじゃまします",
+        "お邪魔します"
+      ],
+      "reading": "おじゃまします",
+      "reading_variants": [
+        "おじゃまします"
+      ],
+      "romaji": "ojamashimasu",
+      "part_of_speech": "expression",
+      "meaning_zh": "打扰了（进别人家时）",
+      "kanji_readings": [
+        {
+          "form": "お邪魔します",
+          "reading": "おじゃまします"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "こんにちは。おじゃまします。",
+          "zh": "你好，打扰了。",
+          "focus": ["おじゃまします"],
+          "zhFocus": ["打扰了"]
+        },
+        {
+          "ja": "では、おじゃまします。",
+          "zh": "那么，打扰了。",
+          "focus": ["おじゃまします"],
+          "zhFocus": ["打扰了"]
+        },
+        {
+          "ja": "友達の家に入るとき、「おじゃまします」と言います。",
+          "zh": "进朋友家的时候，要说“打扰了”。",
+          "focus": ["おじゃまします"],
+          "zhFocus": ["打扰了"]
+        }
+      ],
+      "note_zh": "进别人家或房间时说；离开时说「おじゃましました」。汉字为「お邪魔します」。"
+    },
+    {
+      "id": "n5-750",
+      "jlpt": "N5",
+      "headword": "おだいじに",
+      "source_form": "おだいじに",
+      "variants": [
+        "おだいじに",
+        "お大事に"
+      ],
+      "reading": "おだいじに",
+      "reading_variants": [
+        "おだいじに"
+      ],
+      "romaji": "odaijini",
+      "part_of_speech": "expression",
+      "meaning_zh": "请多保重（对生病或受伤的人）",
+      "kanji_readings": [
+        {
+          "form": "お大事に",
+          "reading": "おだいじに"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "かぜですか。おだいじに。",
+          "zh": "感冒了吗？请多保重。",
+          "focus": ["おだいじに"],
+          "zhFocus": ["请多保重"]
+        },
+        {
+          "ja": "医者は「おだいじに」と言いました。",
+          "zh": "医生说了声“请多保重”。",
+          "focus": ["おだいじに"],
+          "zhFocus": ["请多保重"]
+        },
+        {
+          "ja": "どうぞおだいじにしてください。",
+          "zh": "请多多保重身体。",
+          "focus": ["おだいじに"],
+          "zhFocus": ["保重"]
+        }
+      ],
+      "note_zh": "对生病或受伤的人说；汉字为「お大事に」。"
+    },
+    {
+      "id": "n5-751",
+      "jlpt": "N5",
+      "headword": "お願いします",
+      "source_form": "お願いします",
+      "variants": [
+        "お願いします",
+        "おねがいします"
+      ],
+      "reading": "おねがいします",
+      "reading_variants": [
+        "おねがいします"
+      ],
+      "romaji": "onegaishimasu",
+      "part_of_speech": "expression",
+      "meaning_zh": "请；拜托了",
+      "kanji_readings": [
+        {
+          "form": "お願いします",
+          "reading": "おねがいします"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "コーヒーを一つ、お願いします。",
+          "zh": "请给我一杯咖啡。",
+          "focus": ["お願いします"],
+          "zhFocus": ["请"]
+        },
+        {
+          "ja": "駅までお願いします。",
+          "zh": "请开到车站。",
+          "focus": ["お願いします"],
+          "zhFocus": ["请"]
+        },
+        {
+          "ja": "宿題を手伝ってください。お願いします。",
+          "zh": "请帮我做作业。拜托了。",
+          "focus": ["お願いします"],
+          "zhFocus": ["拜托了"]
+        }
+      ]
+    },
+    {
+      "id": "n5-752",
+      "jlpt": "N5",
+      "headword": "女の人",
+      "source_form": "女の人",
+      "variants": [
+        "女の人"
+      ],
+      "reading": "おんなのひと",
+      "reading_variants": [
+        "おんなのひと"
+      ],
+      "romaji": "onnanohito",
+      "part_of_speech": "noun",
+      "meaning_zh": "女人；女的",
+      "kanji_readings": [
+        {
+          "form": "女の人",
+          "reading": "おんなのひと"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "あの女の人は先生です。",
+          "zh": "那位女士是老师。",
+          "focus": ["女の人"],
+          "zhFocus": ["女士"]
+        },
+        {
+          "ja": "女の人が道を聞きました。",
+          "zh": "一位女士问了路。",
+          "focus": ["女の人"],
+          "zhFocus": ["女士"]
+        },
+        {
+          "ja": "女の人と男の人が話しています。",
+          "zh": "一个女人和一个男人在说话。",
+          "focus": ["女の人"],
+          "zhFocus": ["女人"]
+        }
+      ],
+      "note_zh": "比「女」礼貌；男性是「男の人」。"
+    },
+    {
+      "id": "n5-753",
+      "jlpt": "N5",
+      "headword": "こちらこそ",
+      "source_form": "こちらこそ",
+      "variants": [
+        "こちらこそ"
+      ],
+      "reading": "こちらこそ",
+      "reading_variants": [
+        "こちらこそ"
+      ],
+      "romaji": "kochirakoso",
+      "part_of_speech": "expression",
+      "meaning_zh": "我才应该（道谢、道歉等）；彼此彼此",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "「よろしくお願いします。」「こちらこそ、よろしくお願いします。」",
+          "zh": "“请多关照。”“彼此彼此，也请您多关照。”",
+          "focus": ["こちらこそ"],
+          "zhFocus": ["彼此彼此"]
+        },
+        {
+          "ja": "こちらこそ、ありがとうございました。",
+          "zh": "我才要谢谢您。",
+          "focus": ["こちらこそ"],
+          "zhFocus": ["我才要"]
+        },
+        {
+          "ja": "こちらこそ、すみませんでした。",
+          "zh": "我才应该道歉。",
+          "focus": ["こちらこそ"],
+          "zhFocus": ["我才应该"]
+        }
+      ]
+    },
+    {
+      "id": "n5-754",
+      "jlpt": "N5",
+      "headword": "ごめんください",
+      "source_form": "ごめんください",
+      "variants": [
+        "ごめんください"
+      ],
+      "reading": "ごめんください",
+      "reading_variants": [
+        "ごめんください"
+      ],
+      "romaji": "gomenkudasai",
+      "part_of_speech": "expression",
+      "meaning_zh": "有人在吗（拜访时在门口说）；打扰了",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "ごめんください。だれかいませんか。",
+          "zh": "打扰了，有人在吗？",
+          "focus": ["ごめんください"],
+          "zhFocus": ["打扰了"]
+        },
+        {
+          "ja": "ごめんください。田中です。",
+          "zh": "打扰了，我是田中。",
+          "focus": ["ごめんください"],
+          "zhFocus": ["打扰了"]
+        },
+        {
+          "ja": "ドアの前で「ごめんください」と言いました。",
+          "zh": "在门口说了声“有人在吗”。",
+          "focus": ["ごめんください"],
+          "zhFocus": ["有人在吗"]
+        }
+      ],
+      "note_zh": "拜访别人时在门口说；汉字为「御免ください」。"
+    },
+    {
+      "id": "n5-755",
+      "jlpt": "N5",
+      "headword": "はじめまして",
+      "source_form": "はじめまして",
+      "variants": [
+        "はじめまして",
+        "初めまして"
+      ],
+      "reading": "はじめまして",
+      "reading_variants": [
+        "はじめまして"
+      ],
+      "romaji": "hajimemashite",
+      "part_of_speech": "expression",
+      "meaning_zh": "初次见面",
+      "kanji_readings": [
+        {
+          "form": "初めまして",
+          "reading": "はじめまして"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "はじめまして。リンです。",
+          "zh": "初次见面，我是林。",
+          "focus": ["はじめまして"],
+          "zhFocus": ["初次见面"]
+        },
+        {
+          "ja": "はじめまして。どうぞよろしく。",
+          "zh": "初次见面，请多关照。",
+          "focus": ["はじめまして"],
+          "zhFocus": ["初次见面"]
+        },
+        {
+          "ja": "新しいクラスで「はじめまして」とあいさつしました。",
+          "zh": "在新班级用“初次见面”打了招呼。",
+          "focus": ["はじめまして"],
+          "zhFocus": ["初次见面"]
+        }
+      ],
+      "note_zh": "汉字为「初めまして」。"
+    },
+    {
+      "id": "n5-756",
+      "jlpt": "N5",
+      "headword": "おやすみ",
+      "source_form": "おやすみ",
+      "variants": [
+        "おやすみ",
+        "お休み"
+      ],
+      "reading": "おやすみ",
+      "reading_variants": [
+        "おやすみ"
+      ],
+      "romaji": "oyasumi",
+      "part_of_speech": "expression/noun",
+      "meaning_zh": "晚安；休息；休假",
+      "senses_zh": [
+        "晚安",
+        "休息；休假"
+      ],
+      "kanji_readings": [
+        {
+          "form": "お休み",
+          "reading": "おやすみ"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "おやすみ。また明日。",
+          "zh": "晚安，明天见。",
+          "focus": ["おやすみ"],
+          "zhFocus": ["晚安"]
+        },
+        {
+          "ja": "先生は今日、おやすみです。",
+          "zh": "老师今天休息。",
+          "focus": ["おやすみ"],
+          "zhFocus": ["休息"]
+        },
+        {
+          "ja": "明日は会社がおやすみです。",
+          "zh": "明天公司放假。",
+          "focus": ["おやすみ"],
+          "zhFocus": ["放假"]
+        }
+      ],
+      "note_zh": "道晚安时更礼貌的说法是「おやすみなさい」；汉字为「お休み」。"
+    },
+    {
+      "id": "n5-757",
+      "jlpt": "N5",
+      "headword": "おかえり",
+      "source_form": "おかえり",
+      "variants": [
+        "おかえり",
+        "お帰り"
+      ],
+      "reading": "おかえり",
+      "reading_variants": [
+        "おかえり"
+      ],
+      "romaji": "okaeri",
+      "part_of_speech": "expression",
+      "meaning_zh": "你回来了（迎接回家的人）",
+      "kanji_readings": [
+        {
+          "form": "お帰り",
+          "reading": "おかえり"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "おかえり。今日は早かったね。",
+          "zh": "你回来啦。今天挺早的嘛。",
+          "focus": ["おかえり"],
+          "zhFocus": ["你回来啦"]
+        },
+        {
+          "ja": "「ただいま。」「おかえりなさい。」",
+          "zh": "“我回来了。”“你回来了。”",
+          "focus": ["おかえり"],
+          "zhFocus": ["你回来了"]
+        },
+        {
+          "ja": "母は笑顔で「おかえり」と言いました。",
+          "zh": "妈妈笑着说“你回来了”。",
+          "focus": ["おかえり"],
+          "zhFocus": ["你回来了"]
+        }
+      ],
+      "note_zh": "更礼貌的说法是「おかえりなさい」；汉字为「お帰り」。"
+    },
+    {
+      "id": "n5-758",
+      "jlpt": "N5",
+      "headword": "おさきに",
+      "source_form": "おさきに",
+      "variants": [
+        "おさきに",
+        "お先に"
+      ],
+      "reading": "おさきに",
+      "reading_variants": [
+        "おさきに"
+      ],
+      "romaji": "osakini",
+      "part_of_speech": "expression",
+      "meaning_zh": "我先（走、做）了；您先请",
+      "kanji_readings": [
+        {
+          "form": "お先に",
+          "reading": "おさきに"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "おさきに失礼します。",
+          "zh": "我先告辞了。",
+          "focus": ["おさきに"],
+          "zhFocus": ["先"]
+        },
+        {
+          "ja": "どうぞ、おさきに。",
+          "zh": "您先请。",
+          "focus": ["おさきに"],
+          "zhFocus": ["您先"]
+        },
+        {
+          "ja": "今日はおさきに帰ります。",
+          "zh": "今天我先回去了。",
+          "focus": ["おさきに"],
+          "zhFocus": ["先"]
+        }
+      ],
+      "note_zh": "汉字为「お先に」。"
+    },
+    {
+      "id": "n5-759",
+      "jlpt": "N5",
+      "headword": "元気でね",
+      "source_form": "元気でね",
+      "variants": [
+        "元気でね"
+      ],
+      "reading": "げんきでね",
+      "reading_variants": [
+        "げんきでね"
+      ],
+      "romaji": "genki de ne",
+      "part_of_speech": "expression",
+      "meaning_zh": "保重哦（分别时）",
+      "kanji_readings": [
+        {
+          "form": "元気でね",
+          "reading": "げんきでね"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "じゃあ、元気でね。",
+          "zh": "那么，保重哦。",
+          "focus": ["元気でね"],
+          "zhFocus": ["保重哦"]
+        },
+        {
+          "ja": "国に帰っても、元気でね。",
+          "zh": "回国以后也要保重哦。",
+          "focus": ["元気でね"],
+          "zhFocus": ["保重哦"]
+        },
+        {
+          "ja": "「元気でね」と言って、友達と別れました。",
+          "zh": "说了声“保重哦”，和朋友分别了。",
+          "focus": ["元気でね"],
+          "zhFocus": ["保重哦"]
+        }
+      ],
+      "note_zh": "分别时对亲近的人说。"
+    },
+    {
+      "id": "n5-760",
+      "jlpt": "N5",
+      "headword": "バイバイ",
+      "source_form": "バイバイ",
+      "variants": [
+        "バイバイ"
+      ],
+      "reading": "バイバイ",
+      "reading_variants": [
+        "バイバイ"
+      ],
+      "romaji": "baibai",
+      "part_of_speech": "expression",
+      "meaning_zh": "拜拜；再见",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "バイバイ、また明日ね。",
+          "zh": "拜拜，明天见。",
+          "focus": ["バイバイ"],
+          "zhFocus": ["拜拜"]
+        },
+        {
+          "ja": "子供が手を振って、バイバイと言いました。",
+          "zh": "孩子挥着手说了声拜拜。",
+          "focus": ["バイバイ"],
+          "zhFocus": ["拜拜"]
+        },
+        {
+          "ja": "駅で友達にバイバイしました。",
+          "zh": "在车站和朋友说了拜拜。",
+          "focus": ["バイバイ"],
+          "zhFocus": ["拜拜"]
+        }
+      ],
+      "note_zh": "口语，多用于亲近的人或小孩之间。"
     }
   ]
 }

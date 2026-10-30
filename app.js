@@ -41,6 +41,7 @@ function familyDataSource(family) {
   if (family === "vocab-n5") return window.AYAYA_N5_CODEX_VOCAB;
   if (family === "vocab-n4") return window.AYAYA_N4_CODEX_VOCAB;
   if (family === "vocab-n3") return window.AYAYA_N3_CODEX_VOCAB;
+  if (family === "vocab-n2") return window.AYAYA_N2_CODEX_VOCAB;
   if (family?.startsWith("grammar-")) return window.AYAYA_GRAMMAR_DATA;
   return null;
 }
@@ -106,9 +107,11 @@ function cardFamilyForDeck(deck) {
   if (["vocab-ja-zh", "vocab-zh-ja"].includes(deck)) return "vocab-n5";
   if (["vocab-n4-ja-zh", "vocab-n4-zh-ja"].includes(deck)) return "vocab-n4";
   if (["vocab-n3-ja-zh", "vocab-n3-zh-ja"].includes(deck)) return "vocab-n3";
+  if (["vocab-n2-ja-zh", "vocab-n2-zh-ja"].includes(deck)) return "vocab-n2";
   if (deck.startsWith("grammar-n5-")) return "grammar-n5";
   if (deck.startsWith("grammar-n4-")) return "grammar-n4";
   if (deck.startsWith("grammar-n3-")) return "grammar-n3";
+  if (deck.startsWith("grammar-n2-")) return "grammar-n2";
   return null;
 }
 
@@ -118,9 +121,11 @@ function buildCardFamily(family) {
   if (family === "vocab-n5") return cardData.makeVocabCards("N5");
   if (family === "vocab-n4") return cardData.makeVocabCards("N4");
   if (family === "vocab-n3") return cardData.makeVocabCards("N3");
+  if (family === "vocab-n2") return cardData.makeVocabCards("N2");
   if (family === "grammar-n5") return cardData.makeGrammarCards("N5");
   if (family === "grammar-n4") return cardData.makeGrammarCards("N4");
   if (family === "grammar-n3") return cardData.makeGrammarCards("N3");
+  if (family === "grammar-n2") return cardData.makeGrammarCards("N2");
   return [];
 }
 
@@ -173,7 +178,7 @@ function isBlockIdFor(deck, block) {
   const family = cardFamilyForDeck(deck) || "";
   if (family.startsWith("vocab-")) return /^[1-9]\d{0,2}$/u.test(block);
   if (family.startsWith("grammar-")) {
-    return /^n[345]-[a-z]+$/u.test(block) && block.startsWith(family.slice("grammar-".length));
+    return /^n[2-5]-[a-z]+$/u.test(block) && block.startsWith(family.slice("grammar-".length));
   }
   return false;
 }
@@ -199,9 +204,10 @@ function vocabSourceOf(card) {
 // generation before. Words past the last listed number form the newest
 // generation; list its last number once it ships, before adding more words.
 const VOCAB_BLOCK_GENERATIONS = {
-  "vocab-n5": [748],
-  "vocab-n4": [785],
+  "vocab-n5": [748, 760],
+  "vocab-n4": [785, 792],
   "vocab-n3": [1538],
+  "vocab-n2": [235],
 };
 
 function vocabGenerationOf(family, sourceId) {
@@ -1205,6 +1211,9 @@ function renderLoadStatus() {
     if (cardData && isFamilyDataMissing("vocab-n3")) {
       messages.push("N3 词库加载失败，请确认 ayaya-n3-codex-vocab.js 已正确加载。其他模块仍可使用。");
     }
+    if (cardData && !Array.isArray(window.AYAYA_N2_CODEX_VOCAB?.entries)) {
+      messages.push("N2 词库加载失败，请确认 ayaya-n2-codex-vocab.js 已正确加载。其他模块仍可使用。");
+    }
     if (cardData && isFamilyDataMissing("grammar-n5")) {
       messages.push("语法数据加载失败，请确认 grammar-data.js 已正确加载。其他模块仍可使用。");
     }
@@ -1218,6 +1227,37 @@ function renderLoadStatus() {
 
   elements.tabs.forEach((tab) => {
     tab.disabled = isDeckDataMissing(tab.dataset.deck);
+  });
+  renderLevelRows();
+}
+
+// A level shows the rows it has data for: N2 vocabulary ships in batches ahead
+// of its grammar, and an empty row would only open an empty deck. Data that
+// failed to load is not "empty", so its row stays and its cells are disabled.
+function isFamilyUnreleased(family) {
+  if (studyDataState !== "ready") return false;
+  if (family?.startsWith("vocab-")) {
+    const entries = familyDataSource(family)?.entries;
+    return Array.isArray(entries) && entries.length === 0;
+  }
+  if (family?.startsWith("grammar-")) {
+    const entries = window.AYAYA_GRAMMAR_DATA?.entries;
+    const level = family.slice("grammar-".length).toUpperCase();
+    return Array.isArray(entries) && !entries.some((entry) => entry.level === level);
+  }
+  return false;
+}
+
+// Until the study data is in, each level keeps the visibility index.html gives
+// it (N2 starts hidden, so it never flashes up empty).
+function renderLevelRows() {
+  if (studyDataState !== "ready") return;
+  document.querySelectorAll(".deck-level-group").forEach((group) => {
+    const rows = [...group.querySelectorAll(".deck-row")];
+    rows.forEach((row) => {
+      row.hidden = isFamilyUnreleased(cardFamilyForDeck(row.querySelector(".tab-button")?.dataset.deck || ""));
+    });
+    group.hidden = rows.every((row) => row.hidden);
   });
 }
 
@@ -1738,9 +1778,11 @@ function render() {
       "vocab-zh-ja",
       "vocab-n4-zh-ja",
       "vocab-n3-zh-ja",
+      "vocab-n2-zh-ja",
       "grammar-n5-zh-ja",
       "grammar-n4-zh-ja",
       "grammar-n3-zh-ja",
+      "grammar-n2-zh-ja",
     ].includes(currentCard.deck),
   );
   elements.cardPrompt.textContent = currentCard.prompt;
@@ -1899,7 +1941,7 @@ function cardTagFor(card, shownText) {
   // Grammar cards always name their group (条件, 敬语…).
   if (typeof card.tag === "string") return card.tag;
   const tag = String(card.type || "")
-    .replace(/^N[3-5]\s+/u, "")
+    .replace(/^N[2-5]\s+/u, "")
     .replace(/\s*(?:日文|中文)\s*→\s*(?:中文|日文)$/u, "")
     .replace(/^语法(?=\S)/u, "")
     .trim();

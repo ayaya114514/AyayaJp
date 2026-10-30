@@ -48329,7 +48329,8 @@ window.AYAYA_N3_CODEX_VOCAB = {
       "headword": "伸ばす",
       "source_form": "伸ばす",
       "variants": [
-        "伸ばす"
+        "伸ばす",
+        "延ばす"
       ],
       "reading": "のばす",
       "reading_variants": [
@@ -48337,15 +48338,19 @@ window.AYAYA_N3_CODEX_VOCAB = {
       ],
       "romaji": "nobasu",
       "part_of_speech": "verb",
-      "meaning_zh": "伸长；伸展；延长；发展",
+      "meaning_zh": "伸长；伸展；延长；推迟；发展",
       "senses_zh": [
         "伸长；伸展",
-        "延长",
+        "延长；推迟",
         "发展"
       ],
       "kanji_readings": [
         {
           "form": "伸ばす",
+          "reading": "のばす"
+        },
+        {
+          "form": "延ばす",
           "reading": "のばす"
         }
       ],
@@ -48369,7 +48374,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zhFocus": ["提高"]
         }
       ],
-      "note_zh": "延长时间、日期时也写作「延ばす」。"
+      "note_zh": "延长时间、日期或推迟时多写作「延ばす」。"
     },
     {
       "id": "n3-1124",

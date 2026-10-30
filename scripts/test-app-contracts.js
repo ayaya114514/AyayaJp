@@ -416,13 +416,15 @@ function createHarness({
       },
       makeVocabCards(level) {
         if (level === "N5") {
-          return vocabCards.filter((card) => !card.deck.includes("n4") && !card.deck.includes("n3"));
+          return vocabCards.filter((card) => !/-n[234]-/u.test(card.deck));
         }
         if (level === "N4") return vocabCards.filter((card) => card.deck.includes("n4"));
         if (level === "N3") return vocabCards.filter((card) => card.deck.includes("n3"));
+        if (level === "N2") return vocabCards.filter((card) => card.deck.includes("n2"));
         return vocabCards;
       },
     },
+    AYAYA_N2_CODEX_VOCAB: { entries: [{}] },
     AYAYA_N3_CODEX_VOCAB: { entries: [{}] },
     AYAYA_N4_CODEX_VOCAB: { entries: [{}] },
     AYAYA_N5_CODEX_VOCAB: { entries: [{}] },
@@ -2363,7 +2365,7 @@ function testConcurrentUndosReopenCardsInCanonicalOrder() {
 }
 
 function testJapaneseToChineseVocabHidesReadingUntilReveal() {
-  ["vocab-ja-zh", "vocab-n4-ja-zh", "vocab-n3-ja-zh"].forEach((deck) => {
+  ["vocab-ja-zh", "vocab-n4-ja-zh", "vocab-n3-ja-zh", "vocab-n2-ja-zh"].forEach((deck) => {
     const card = baseCard({
       answer: "见面；遇见",
       answerLang: "zh-CN",
@@ -2374,7 +2376,7 @@ function testJapaneseToChineseVocabHidesReadingUntilReveal() {
       pitchAccent: "1",
       prompt: "会う",
       reading: "あう",
-      type: `${deck.includes("n4") ? "N4" : deck.includes("n3") ? "N3" : "N5"} 搭配 日文 → 中文`,
+      type: `${deck.match(/-(n[234])-/u)?.[1].toUpperCase() || "N5"} 搭配 日文 → 中文`,
     });
     const harness = createHarness({
       tabDecks: ["hiragana", deck],

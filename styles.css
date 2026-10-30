@@ -282,12 +282,33 @@ h2 {
   line-height: 1.3;
 }
 
-/* One block per level: the badge heads it, its rule and the cells' tint carry
-   the level colour so a cell says which level it opens without the row title. */
+/* One block per level: the badge heads a column beside its two rows with its
+   rule running down between them, so a level adds no line of its own; the rule
+   and the cells' tint carry the level colour so a cell says which level it
+   opens without the row title. */
+.deck-tabs {
+  --level-column: 2.7rem;
+}
+
 .deck-level-group {
   --level-rgb: 130, 174, 225;
   display: grid;
+  grid-template-columns: var(--level-column) minmax(0, 1fr);
   gap: 8px;
+}
+
+.deck-level-group > .deck-row {
+  grid-column: 2;
+}
+
+/* 基础 sits in the badge column like a level, its cells taking the width a
+   level gives its 词汇 / 语法 titles so 进阶发音 still fits. */
+.deck-row[data-row="base"] {
+  grid-template-columns: var(--level-column) minmax(0, 1fr);
+}
+
+.deck-row[data-row="base"] > .deck-row-title {
+  text-align: center;
 }
 
 .deck-level-group[data-level="n4"] {
@@ -298,17 +319,29 @@ h2 {
   --level-rgb: 132, 196, 150;
 }
 
+.deck-level-group[data-level="n2"] {
+  --level-rgb: 190, 156, 228;
+}
+
 .deck-level-title {
   display: flex;
+  flex-direction: column;
+  grid-row: span 2;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   margin: 0;
+  padding-top: 4px;
   line-height: 1.3;
+}
+
+/* A level showing only its vocabulary row (N2 before its grammar) spans one. */
+.deck-level-group:has(> .deck-row[hidden]) > .deck-level-title {
+  grid-row: auto;
 }
 
 .deck-level-title::after {
   flex: 1;
-  height: 1px;
+  width: 1px;
   background: rgba(var(--level-rgb), 0.35);
   content: "";
 }
@@ -339,6 +372,11 @@ h2 {
 .deck-level[data-level="n3"] {
   background: rgba(132, 196, 150, 0.18);
   color: #9fdcb0;
+}
+
+.deck-level[data-level="n2"] {
+  background: rgba(190, 156, 228, 0.18);
+  color: #d6bff2;
 }
 
 /* Every row shares the same four columns, so 日→中 and 中→日 sit in the same
@@ -380,6 +418,16 @@ h2 {
   min-height: clamp(44px, 8cqh, 64px);
   font-size: 1.05rem;
   font-size: min(1.05rem, 4cqw);
+}
+
+/* With N2 the page holds nine rows, so the cells and the space between levels
+   scale down a little to keep them on one portrait screen. */
+.deck-tabs:has(> .deck-level-group[data-level="n2"]:not([hidden])) {
+  gap: clamp(12px, 1.8cqh, 24px);
+}
+
+.deck-tabs:has(> .deck-level-group[data-level="n2"]:not([hidden])) .tab-button {
+  min-height: clamp(42px, 6.8cqh, 60px);
 }
 
 @media (max-width: 359px) {
@@ -452,6 +500,10 @@ h2 {
 
 .block-grid[data-level="n3"] {
   --level-rgb: 132, 196, 150;
+}
+
+.block-grid[data-level="n2"] {
+  --level-rgb: 190, 156, 228;
 }
 
 .block-grid.is-grammar {
