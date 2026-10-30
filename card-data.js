@@ -2396,6 +2396,7 @@ function reviewedSpanMap(groups) {
 // guessing is used.
 const reviewedLexicalKanaSpans = reviewedSpanMap([
   ["はさみ", [
+    "使ったはさみを消毒しました",
     "このはさみは紙を切るのに使います",
     "紙をはさみで切ります",
     "はさみで紙を切ります",
@@ -2557,7 +2558,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "27444:6a763a6f08f579ac";
+const reviewedPronunciationSourceSignature = "29727:0724c5aad5ab075b";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
