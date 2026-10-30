@@ -92,8 +92,8 @@ const allowedCrossLevelVocabOverlaps = new Set([
 // Exact headword/reading matches between N3 and a lower level, each reviewed
 // as a genuinely different sense (empty: N3 excludes every N5/N4 word).
 const allowedN3CrossLevelVocabOverlaps = new Set([]);
-// The same for N2 against N5/N4/N3 (empty: N2 excludes every lower-level word).
-const allowedN2CrossLevelVocabOverlaps = new Set([]);
+// The same for N2 against N5/N4/N3: なる “to bear fruit” beside N5 なる “to become”.
+const allowedN2CrossLevelVocabOverlaps = new Set(["n5-494/n2-0271"]);
 const allowedLearningCategories = new Set([
   "collocation",
   "compound",
