@@ -37,7 +37,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
       "On 2026-10-10 every entry was re-audited again: headword romaji now follows the particle and n' rules with the same word division as the examples, category labels were corrected, pure grammar patterns were migrated to grammar cards, and unnatural examples were rewritten.",
       "2026-10-17: 12 basic greetings and words that the community Waller list files under N3 (ありがとう, いただきます, いらっしゃい, おめでとう, ごめんなさい, こんにちは, すみません, よろしく, 男の人, 日本, 曜日, お昼) are taught here, since N5 learners meet them first."
     ],
-    "entry_count": 755
+    "entry_count": 761
   },
   "entries": [
     {
@@ -11999,7 +11999,7 @@ window.AYAYA_N5_CODEX_VOCAB = {
           "zhFocus": ["照"]
         }
       ],
-      "note_zh": "表示用手指指向时写作「指す」，不写作「差す」。"
+      "note_zh": "表示用手指指向时写作「指す」，不写作「差す」；光线照射也写作「射す」。"
     },
     {
       "id": "n5-282",
@@ -32317,6 +32317,264 @@ window.AYAYA_N5_CODEX_VOCAB = {
         }
       ],
       "note_zh": "口语，多用于亲近的人或小孩之间。"
+    },
+    {
+      "id": "n5-761",
+      "jlpt": "N5",
+      "headword": "おはよう",
+      "source_form": "おはよう",
+      "variants": [
+        "おはよう",
+        "お早う"
+      ],
+      "reading": "おはよう",
+      "reading_variants": [
+        "おはよう"
+      ],
+      "romaji": "ohayou",
+      "part_of_speech": "expression",
+      "meaning_zh": "早上好（对熟人）",
+      "kanji_readings": [
+        {
+          "form": "お早う",
+          "reading": "おはよう"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "おはよう。今日も暑いね。",
+          "zh": "早上好。今天也很热啊。",
+          "focus": ["おはよう"],
+          "zhFocus": ["早上好"]
+        },
+        {
+          "ja": "朝、母に「おはよう」と言いました。",
+          "zh": "早上对妈妈说了“早上好”。",
+          "focus": ["おはよう"],
+          "zhFocus": ["早上好"]
+        },
+        {
+          "ja": "学校で友達に会って、「おはよう」とあいさつしました。",
+          "zh": "在学校见到朋友，打招呼说“早上好”。",
+          "focus": ["おはよう"],
+          "zhFocus": ["早上好"]
+        }
+      ],
+      "note_zh": "对长辈或在正式场合说「おはようございます」；汉字为「お早う」，一般写假名。"
+    },
+    {
+      "id": "n5-762",
+      "jlpt": "N5",
+      "headword": "いってらっしゃい",
+      "source_form": "いってらっしゃい",
+      "variants": [
+        "いってらっしゃい",
+        "行ってらっしゃい"
+      ],
+      "reading": "いってらっしゃい",
+      "reading_variants": [
+        "いってらっしゃい"
+      ],
+      "romaji": "itterasshai",
+      "part_of_speech": "expression",
+      "meaning_zh": "（对出门的人说）慢走；路上小心",
+      "kanji_readings": [
+        {
+          "form": "行ってらっしゃい",
+          "reading": "いってらっしゃい"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "いってらっしゃい。気をつけてね。",
+          "zh": "慢走，路上小心哦。",
+          "focus": ["いってらっしゃい"],
+          "zhFocus": ["慢走"]
+        },
+        {
+          "ja": "母は毎朝「いってらっしゃい」と言ってくれます。",
+          "zh": "妈妈每天早上都会对我说“路上小心”。",
+          "focus": ["いってらっしゃい"],
+          "zhFocus": ["路上小心"]
+        },
+        {
+          "ja": "出かける父に「いってらっしゃい」と言いました。",
+          "zh": "对要出门的爸爸说了“慢走”。",
+          "focus": ["いってらっしゃい"],
+          "zhFocus": ["慢走"]
+        }
+      ],
+      "note_zh": "出门的人说「いってきます（我走了）」；汉字为「行ってらっしゃい」，一般写假名。"
+    },
+    {
+      "id": "n5-763",
+      "jlpt": "N5",
+      "headword": "こんばんは",
+      "source_form": "こんばんは",
+      "variants": [
+        "こんばんは",
+        "今晩は"
+      ],
+      "reading": "こんばんは",
+      "reading_variants": [
+        "こんばんは"
+      ],
+      "romaji": "konbanwa",
+      "part_of_speech": "expression",
+      "meaning_zh": "晚上好",
+      "kanji_readings": [
+        {
+          "form": "今晩は",
+          "reading": "こんばんは"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "こんばんは。寒いですね。",
+          "zh": "晚上好，好冷啊。",
+          "focus": ["こんばんは"],
+          "zhFocus": ["晚上好"]
+        },
+        {
+          "ja": "夜、隣の人に「こんばんは」とあいさつしました。",
+          "zh": "晚上跟邻居打招呼说“晚上好”。",
+          "focus": ["こんばんは"],
+          "zhFocus": ["晚上好"]
+        },
+        {
+          "ja": "こんばんは、田中です。",
+          "zh": "晚上好，我是田中。",
+          "focus": ["こんばんは"],
+          "zhFocus": ["晚上好"]
+        }
+      ],
+      "note_zh": "最后的「は」读作「わ」；汉字为「今晩は」，一般写假名。"
+    },
+    {
+      "id": "n5-764",
+      "jlpt": "N5",
+      "headword": "ごちそうさま",
+      "source_form": "ごちそうさま",
+      "variants": [
+        "ごちそうさま",
+        "ご馳走様"
+      ],
+      "reading": "ごちそうさま",
+      "reading_variants": [
+        "ごちそうさま"
+      ],
+      "romaji": "gochisousama",
+      "part_of_speech": "expression",
+      "meaning_zh": "（饭后）我吃饱了；多谢款待",
+      "kanji_readings": [
+        {
+          "form": "ご馳走様",
+          "reading": "ごちそうさま"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "ごちそうさま。とてもおいしかったです。",
+          "zh": "我吃饱了，非常好吃。",
+          "focus": ["ごちそうさま"],
+          "zhFocus": ["我吃饱了"]
+        },
+        {
+          "ja": "食べ終わったら、「ごちそうさま」と言います。",
+          "zh": "吃完饭要说“多谢款待”。",
+          "focus": ["ごちそうさま"],
+          "zhFocus": ["多谢款待"]
+        },
+        {
+          "ja": "ごちそうさまでした。また来ます。",
+          "zh": "多谢款待，我还会再来的。",
+          "focus": ["ごちそうさま"],
+          "zhFocus": ["多谢款待"]
+        }
+      ],
+      "note_zh": "更礼貌的说法是「ごちそうさまでした」；饭前说「いただきます」。汉字为「ご馳走様」，一般写假名。"
+    },
+    {
+      "id": "n5-765",
+      "jlpt": "N5",
+      "headword": "ごめん",
+      "source_form": "ごめん",
+      "variants": [
+        "ごめん",
+        "御免"
+      ],
+      "reading": "ごめん",
+      "reading_variants": [
+        "ごめん"
+      ],
+      "romaji": "gomen",
+      "part_of_speech": "expression",
+      "meaning_zh": "对不起（随便的说法）",
+      "kanji_readings": [
+        {
+          "form": "御免",
+          "reading": "ごめん"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "ごめん、遅れちゃった。",
+          "zh": "对不起，我来晚了。",
+          "focus": ["ごめん"],
+          "zhFocus": ["对不起"]
+        },
+        {
+          "ja": "昨日はごめん。言いすぎたよ。",
+          "zh": "昨天对不起，我说得太过分了。",
+          "focus": ["ごめん"],
+          "zhFocus": ["对不起"]
+        },
+        {
+          "ja": "弟に「ごめん」と謝りました。",
+          "zh": "对弟弟说了声“对不起”。",
+          "focus": ["ごめん"],
+          "zhFocus": ["对不起"]
+        }
+      ],
+      "note_zh": "比「ごめんなさい」随便，用于朋友、家人之间；汉字为「御免」，一般写假名。"
+    },
+    {
+      "id": "n5-766",
+      "jlpt": "N5",
+      "headword": "さようなら",
+      "source_form": "さようなら",
+      "variants": [
+        "さようなら"
+      ],
+      "reading": "さようなら",
+      "reading_variants": [
+        "さようなら"
+      ],
+      "romaji": "sayounara",
+      "part_of_speech": "expression",
+      "meaning_zh": "再见",
+      "kanji_readings": [],
+      "examples": [
+        {
+          "ja": "さようなら。また明日。",
+          "zh": "再见，明天见。",
+          "focus": ["さようなら"],
+          "zhFocus": ["再见"]
+        },
+        {
+          "ja": "先生に「さようなら」と言って、帰りました。",
+          "zh": "对老师说了“再见”就回家了。",
+          "focus": ["さようなら"],
+          "zhFocus": ["再见"]
+        },
+        {
+          "ja": "駅で友達にさようならを言いました。",
+          "zh": "在车站跟朋友道了别。",
+          "focus": ["さようなら"],
+          "zhFocus": ["道了别"]
+        }
+      ],
+      "note_zh": "也说「さよなら」；和朋友、家人之间日常分别多说「じゃあね」「またね」。"
     }
   ]
 };

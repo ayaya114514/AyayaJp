@@ -1314,6 +1314,12 @@ h2 {
   grid-template-columns: auto minmax(0, 1fr);
 }
 
+/* Five or more words (つく) would push a short landscape card past one
+   screen, so those lists sit in tighter lines. */
+.answer-main.is-word-list:has(> .homophone:nth-child(5)) {
+  line-height: 1.2;
+}
+
 .homophone {
   display: contents;
 }

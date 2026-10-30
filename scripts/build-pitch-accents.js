@@ -38,6 +38,9 @@ const reviewedKanjiForms = {
   "n5-368": "其れ",
   // ひと月 is listed under its 一月 spelling (ひとつき ②, distinct from いちがつ).
   "n5-566": "一月",
+  // 2026-10-31 greetings: ごちそうさま and さようなら are listed only under kanji spellings.
+  "n5-764": "御馳走様",
+  "n5-766": "左様なら",
   // Words the vocab writes in kana that Kanjium only lists under a kanji
   // spelling; each form was picked for the card's sense (かばん is 鞄, not 下番).
   // 背広 and 三 are listed only as 脊広 and ３.
@@ -199,6 +202,22 @@ const reviewedKanjiForms = {
   "n3-1436": "止す",
   "n3-1479": "我儘",
   "n3-1483": "態と",
+  "n2-0842": "彼此",
+  "n2-0847": "愈々",
+  "n2-0854": "饂飩",
+  "n2-0865": "御数",
+  "n2-0874": "お八つ",
+  "n2-0898": "歌留多",
+  "n2-0909": "嚔",
+  "n2-0911": "草臥れる",
+  "n2-0917": "諄い",
+  "n2-0923": "呉々も",
+  "n2-0943": "護謨",
+  "n2-0965": "吃逆",
+  "n2-0974": "じゃん拳",
+  "n2-1197": "若しかしたら",
+  "n2-1198": "若しかすると",
+  "n2-1199": "凭れる",
 };
 // Left unannotated on review: たくさん (n5-381) and ひらがな (n5-572) are ⓪ as
 // well as ③ and Kanjium lists only ③; 余り, だんだん, いっぱい and 大事 have

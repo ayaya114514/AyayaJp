@@ -204,10 +204,10 @@ function vocabSourceOf(card) {
 // generation before. Words past the last listed number form the newest
 // generation; list its last number once it ships, before adding more words.
 const VOCAB_BLOCK_GENERATIONS = {
-  "vocab-n5": [748, 760],
+  "vocab-n5": [748, 760, 766],
   "vocab-n4": [785, 792],
   "vocab-n3": [1538],
-  "vocab-n2": [235, 516, 828],
+  "vocab-n2": [235, 516, 828, 1239],
 };
 
 function vocabGenerationOf(family, sourceId) {
