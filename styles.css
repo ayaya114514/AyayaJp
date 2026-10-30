@@ -412,8 +412,11 @@ h2 {
 }
 
 /* Module page cells grow a little with the page height (short screens fall
-   back to scrolling) and the label shrinks on narrow pages so 进阶发音 fits. */
+   back to scrolling) and the label shrinks on narrow pages so 进阶发音 fits;
+   the centred label needs no side padding, which leaves 进阶发音 a few
+   pixels to spare at 320px for wider CJK fonts. */
 .deck-tabs .tab-button {
+  padding-inline: 0;
   min-height: 48px;
   min-height: clamp(44px, 8cqh, 64px);
   font-size: 1.05rem;

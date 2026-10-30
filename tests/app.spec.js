@@ -417,10 +417,17 @@ test("the module page fits one portrait screen, with N2 too", async ({ page }, t
   const overflow = () =>
     page.locator(".deck-tabs").evaluate((element) => element.scrollHeight - element.clientHeight);
   expect(await overflow()).toBeLessThanOrEqual(0);
-  // 进阶发音 is the longest label and must not be cut to 进阶….
-  const label = await page
-    .locator('[data-deck="special"] .deck-label')
-    .evaluate((element) => [element.scrollWidth, element.clientWidth]);
+  // 进阶发音 is the longest label and must not be cut to 进阶…. The label
+  // shrinks to its text, so its own scroll and client widths only differ by
+  // rounding; compare the text's real width with the room in its cell.
+  const label = await page.locator('[data-deck="special"] .deck-label').evaluate((element) => {
+    const range = document.createRange();
+    range.selectNodeContents(element);
+    const cell = getComputedStyle(element.parentElement);
+    const room =
+      element.parentElement.clientWidth - Number.parseFloat(cell.paddingLeft) - Number.parseFloat(cell.paddingRight);
+    return [range.getBoundingClientRect().width, room];
+  });
   expect(label[0]).toBeLessThanOrEqual(label[1]);
   // As if N2 had both its vocabulary and its grammar.
   await page.evaluate(() => {
