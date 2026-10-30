@@ -30691,7 +30691,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zhFocus": ["相信"]
         }
       ],
-      "note_zh": ""
+      "note_zh": "较书面的说法是「信ずる」。"
     },
     {
       "id": "n3-0714",
@@ -50318,7 +50318,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zhFocus": ["远"]
         }
       ],
-      "note_zh": ""
+      "note_zh": "表示（被拴住的动物等）挣脱束缚时也写作「放れる」。"
     },
     {
       "id": "n3-1169",
