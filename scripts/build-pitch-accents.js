@@ -15,7 +15,12 @@ const path = require("path");
 
 const rootDir = path.resolve(__dirname, "..");
 const outputPath = path.join(rootDir, "pitch-accent-data.js");
-const vocabSources = ["n5-codex-vocab.json", "ayaya-n4-codex-vocab.json", "ayaya-n3-codex-vocab.json"];
+const vocabSources = [
+  "n5-codex-vocab.json",
+  "ayaya-n4-codex-vocab.json",
+  "ayaya-n3-codex-vocab.json",
+  "ayaya-n2-codex-vocab.json",
+];
 
 // Manual review of every generated value against standard Tokyo accents.
 const reviewedExclusions = {

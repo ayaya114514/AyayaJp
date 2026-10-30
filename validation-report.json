@@ -7,6 +7,8 @@
   "preferred_node_major": 22,
   "source_fingerprint_files": [
     "app.js",
+    "ayaya-n2-codex-vocab.js",
+    "ayaya-n2-codex-vocab.json",
     "ayaya-n3-codex-vocab.js",
     "ayaya-n3-codex-vocab.json",
     "ayaya-n4-codex-vocab.js",
@@ -23,16 +25,17 @@
     "example-readings.js",
     "styles.css"
   ],
-  "source_fingerprint": "sha256:a55caf826703f0103fa8fefb0c0cffe9eae1327ca16e4001ef156ba1a9617ef1",
+  "source_fingerprint": "sha256:84db67224b67f7f40a1728e5dde5e5ffa4baa04107811b9833ddc3abeeee6419",
   "expected_counts": {
-    "n5_entries": 743,
-    "n4_entries": 745,
+    "n5_entries": 755,
+    "n4_entries": 752,
     "n3_entries": 1526,
+    "n2_entries": 235,
     "grammar_entries": 333,
     "kana_cards": 241,
-    "vocab_cards": 6028,
+    "vocab_cards": 6536,
     "grammar_cards": 1998,
-    "total_cards_from_api": 8267
+    "total_cards_from_api": 8775
   },
   "required_contracts": [
     "source-js-json-sync",

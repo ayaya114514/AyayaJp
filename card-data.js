@@ -1,8 +1,8 @@
 (() => {
 const sourceNotes = {
-  jlpt: "JLPT 官方不发布固定的词汇/汉字/语法项目清单；本项目的语法覆盖按官方等级说明、题型说明、样题/官方问题集说明，以及常见 N5/N4/N3 教学清单整理。",
+  jlpt: "JLPT 官方不发布固定的词汇/汉字/语法项目清单；本项目的语法覆盖按官方等级说明、题型说明、样题/官方问题集说明，以及常见 N5/N4/N3/N2 教学清单整理。",
   kana: "假名和发音规则按现代学习写法整理；进阶发音是代表性规则与外来音组合精选，不表示使用频率，也不是完整外来音表。单个假名「を」的键盘输入写作 wo；例句罗马字采用便于学习的 Hepburn 式 ASCII 写法：助词「は・へ・を」写作 wa・e・o，「ん」在同一词内的元音或 y 前写作 n'，长音保留假名拼写（如 ou、ei）或重复元音。",
-  vocabulary: "N5/N4/N3 标签是项目维护的教学分级，不是官方固定词表。卡片会区分词汇、量词、词缀、表达、复合词、派生形式、固定表达和搭配；纯语法 pattern 只在语法模块学习。规范词形、原始词形、变体和人工校订说明保存在随项目版本控制的数据文件中。",
+  vocabulary: "N5/N4/N3/N2 标签是项目维护的教学分级，不是官方固定词表。卡片会区分词汇、量词、词缀、表达、复合词、派生形式、固定表达和搭配；纯语法 pattern 只在语法模块学习。规范词形、原始词形、变体和人工校订说明保存在随项目版本控制的数据文件中。",
   examples: "词汇与表达例句是为本项目编写和校订的短学习句，不作为语料库引文；无法可靠生成纯拉丁字母罗马音时，界面会明确隐藏该行而不显示混合脚本结果。",
 };
 // Kana rows and the kana-module cards live in kana-cards.js, loaded first.
@@ -45,8 +45,20 @@ const n3Words = n3Entries.map((entry) => [
   entry.examples || [],
   entry,
 ]);
-const allVocabEntries = [...n5Entries, ...n4Entries, ...n3Entries];
-const allVocabWords = [...n5Words, ...n4Words, ...n3Words];
+const n2Entries = window.AYAYA_N2_CODEX_VOCAB?.entries || [];
+const n2Words = n2Entries.map((entry) => [
+  entry.id,
+  entry.headword,
+  entry.reading,
+  entry.romaji,
+  entry.meaning_zh,
+  entry.examples?.[0]?.ja || "",
+  entry.examples?.[0]?.zh || "",
+  entry.examples || [],
+  entry,
+]);
+const allVocabEntries = [...n5Entries, ...n4Entries, ...n3Entries, ...n2Entries];
+const allVocabWords = [...n5Words, ...n4Words, ...n3Words, ...n2Words];
 const grammarEntries = window.AYAYA_GRAMMAR_DATA?.entries || [];
 // Adverbs and conjunctions that were also grammar cards (もう, きっと, それに)
 // are taught by their vocab cards only; the old grammar card IDs become legacy
@@ -2379,7 +2391,7 @@ function reviewedSpanMap(groups) {
 }
 
 // These are the only lexical は occurrences in the reviewed static example
-// corpus (N5/N4/N3). Every other literal は/へ/を position in that exact corpus was
+// corpus (N5/N4/N3/N2). Every other literal は/へ/を position in that exact corpus was
 // reviewed as a grammatical particle. No runtime tokenization or conjugation
 // guessing is used.
 const reviewedLexicalKanaSpans = reviewedSpanMap([
@@ -2410,6 +2422,14 @@ const reviewedLexicalKanaSpans = reviewedSpanMap([
     "はい、お願いします",
     "はい、そうです",
     "はい、分かりました",
+    "はい、おまちどおさま。ラーメンです",
+    "はい、かしこまりました",
+    "「お元気ですか。」「はい、おかげさまで。」",
+  ]],
+  ["はじめまして", [
+    "はじめまして。リンです",
+    "はじめまして。どうぞよろしく",
+    "新しいクラスで「はじめまして」とあいさつしました",
   ]],
   ["おはよう", ["皆さん、おはようございます"]],
   ["はっきり", [
@@ -2535,7 +2555,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "23544:f325eba7ccd1a902";
+const reviewedPronunciationSourceSignature = "25390:9bb545d06f16e63d";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3211,12 +3231,16 @@ function sentenceSpeech(text, examples = []) {
 // Other standard readings of the same headword (何 なん／なに, 毎年 まいねん／まいとし),
 // so an example read with one of them never contradicts the card. Longer
 // phrase forms (そう → そうです) and readings already in the label are skipped.
+// A variant that only extends the reading (けっこん (する), そうです, ゆっくりと)
+// is not another reading; だいぶん for だいぶ is.
 function otherReadingsLabel(entry, reading) {
   const bare = (value) => String(value || "").replace(/[～〜]/gu, "");
+  const extendsReading = (variant) => {
+    const rest = bare(variant).slice(bare(reading).length);
+    return bare(variant).startsWith(bare(reading)) && (/^[\s(（]/u.test(rest) || ["と", "です"].includes(rest));
+  };
   const others = (Array.isArray(entry?.reading_variants) ? entry.reading_variants : []).filter(
-    (variant) =>
-      !bare(reading).includes(bare(variant)) &&
-      !(bare(variant).startsWith(bare(reading)) && bare(variant).length > bare(reading).length),
+    (variant) => !bare(reading).includes(bare(variant)) && !extendsReading(variant),
   );
   return others.length ? `（也读 ${others.join("／")}）` : "";
 }
@@ -3414,7 +3438,7 @@ function makeVocabDeckCards({
     // array-index IDs (for example, old `vocab-n4-100-ja`).
     const cardBaseId = `vocab-entry-${sourceId}`;
     const sourceNumber = Number.parseInt(String(sourceId).split("-").at(-1), 10);
-    // N3 cards were introduced with stable IDs, so they have no array-index aliases.
+    // N3 and N2 cards were introduced with stable IDs, so they have no array-index aliases.
     const legacyIndexes = !hasLegacyIndexIds
       ? []
       : Number.isInteger(sourceNumber) ? [sourceNumber - 1] : [index];
@@ -3557,10 +3581,21 @@ function makeVocabCards(level) {
       words: n3Words,
     });
 
+  const n2Cards = () =>
+    makeVocabDeckCards({
+      deckJaZh: "vocab-n2-ja-zh",
+      deckZhJa: "vocab-n2-zh-ja",
+      hasLegacyIndexIds: false,
+      idPrefix: "vocab-n2",
+      typePrefix: "N2",
+      words: n2Words,
+    });
+
   if (level === "N5") return n5Cards();
   if (level === "N4") return n4Cards();
   if (level === "N3") return n3Cards();
-  return [...n5Cards(), ...n4Cards(), ...n3Cards()];
+  if (level === "N2") return n2Cards();
+  return [...n5Cards(), ...n4Cards(), ...n3Cards(), ...n2Cards()];
 }
 
 // Groups bundle confusable patterns (ば・たら・と・なら, そうだ・ようだ・らしい)

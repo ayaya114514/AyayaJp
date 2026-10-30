@@ -45,6 +45,7 @@ const expectedStudyDataScripts = [
   "n5-codex-vocab.js",
   "ayaya-n4-codex-vocab.js",
   "ayaya-n3-codex-vocab.js",
+  "ayaya-n2-codex-vocab.js",
   "grammar-data.js",
   "pitch-accent-data.js",
   "homophone-data.js",
@@ -91,6 +92,8 @@ const allowedCrossLevelVocabOverlaps = new Set([
 // Exact headword/reading matches between N3 and a lower level, each reviewed
 // as a genuinely different sense (empty: N3 excludes every N5/N4 word).
 const allowedN3CrossLevelVocabOverlaps = new Set([]);
+// The same for N2 against N5/N4/N3 (empty: N2 excludes every lower-level word).
+const allowedN2CrossLevelVocabOverlaps = new Set([]);
 const allowedLearningCategories = new Set([
   "collocation",
   "compound",
@@ -910,16 +913,17 @@ function validateVocabSource(label, data, expectedCount) {
     check(!byId.has("n4-756"), "the malformed n4-756 ～月 entry must remain removed");
   }
 
-  if (label === "N3") {
+  if (label === "N3" || label === "N2") {
+    const idPattern = new RegExp(`^${label.toLowerCase()}-\\d{4}$`, "u");
     data.entries.forEach((entry) => {
-      check(/^n3-\d{4}$/u.test(entry.id), `N3 source id has unexpected format: ${entry.id}`);
-      check(entry.jlpt === "N3", `${entry.id} must be labelled jlpt N3`);
-      check(!Object.hasOwn(entry, "merged_source_ids"), `${entry.id} is new in N3 and has no merged sources`);
+      check(idPattern.test(entry.id), `${label} source id has unexpected format: ${entry.id}`);
+      check(entry.jlpt === label, `${entry.id} must be labelled jlpt ${label}`);
+      check(!Object.hasOwn(entry, "merged_source_ids"), `${entry.id} is new in ${label} and has no merged sources`);
     });
     const normalizedTemplateDuplicates = duplicateGroups(data.entries, entryTemplateSignature);
     if (normalizedTemplateDuplicates.length) {
       addError(
-        `N3 normalized three-example template signatures are reused across entries: ${sample(
+        `${label} normalized three-example template signatures are reused across entries: ${sample(
           normalizedTemplateDuplicates.map((group) =>
             group.map((entry) => entry.id).join("/"),
           ),
@@ -1078,8 +1082,13 @@ const grammarOnlyVocabHeadwords = new Set([
   "～たて", "～だらけ", "～向き", "～向け", "～的", "～べきだ", "～み", "～一方だ", "～おそれがある", "～ぶり",
 ]);
 
-function validateGrammarOnlyVocab(n5Data, n4Data, n3Data) {
-  [...(n5Data?.entries || []), ...(n4Data?.entries || []), ...(n3Data?.entries || [])].forEach((entry) => {
+function validateGrammarOnlyVocab(n5Data, n4Data, n3Data, n2Data) {
+  [
+    ...(n5Data?.entries || []),
+    ...(n4Data?.entries || []),
+    ...(n3Data?.entries || []),
+    ...(n2Data?.entries || []),
+  ].forEach((entry) => {
     [...new Set([entry.headword, ...(entry.variants || [])])].forEach((form) => {
       const normalized = String(form || "").replace(/[~〜]/gu, "～");
       check(
@@ -1090,10 +1099,10 @@ function validateGrammarOnlyVocab(n5Data, n4Data, n3Data) {
   });
 }
 
-function validateVocabLevelBoundaries(n5Data, n4Data, n3Data) {
+function validateVocabLevelBoundaries(n5Data, n4Data, n3Data, n2Data) {
   const signature = (entry) =>
     `${canonicalText(entry?.headword)}\u0000${canonicalText(entry?.reading)}`;
-  [["N5", n5Data], ["N4", n4Data], ["N3", n3Data]].forEach(([label, data]) => {
+  [["N5", n5Data], ["N4", n4Data], ["N3", n3Data], ["N2", n2Data]].forEach(([label, data]) => {
     const duplicates = duplicateGroups(data.entries, signature);
     if (duplicates.length) {
       addError(
@@ -1126,33 +1135,38 @@ function validateVocabLevelBoundaries(n5Data, n4Data, n3Data) {
     );
   });
 
-  // N3 is built from words the lower levels do not teach: an exact
-  // headword/reading match with N5 or N4 needs a reviewed distinct-sense pair.
-  const lowerBySignature = new Map(
-    [...n5Data.entries, ...n4Data.entries].map((entry) => [signature(entry), entry]),
-  );
-  const n3Overlaps = n3Data.entries.flatMap((n3Entry) => {
-    const lowerEntry = lowerBySignature.get(signature(n3Entry));
-    return lowerEntry ? [[lowerEntry, n3Entry]] : [];
-  });
-  const actualN3Pairs = new Set(n3Overlaps.map(([lowerEntry, n3Entry]) => `${lowerEntry.id}/${n3Entry.id}`));
-  allowedN3CrossLevelVocabOverlaps.forEach((pair) => {
-    check(actualN3Pairs.has(pair), `reviewed distinct-sense N3 cross-level pair is missing: ${pair}`);
-  });
-  n3Overlaps.forEach(([lowerEntry, n3Entry]) => {
-    const pair = `${lowerEntry.id}/${n3Entry.id}`;
-    check(
-      allowedN3CrossLevelVocabOverlaps.has(pair),
-      `unreviewed exact cross-level vocabulary overlap: ${pair} ${n3Entry.headword}`,
+  // N3 and N2 are built from words the lower levels do not teach: an exact
+  // headword/reading match with a lower level needs a reviewed distinct-sense pair.
+  [
+    ["N3", n3Data, [n5Data, n4Data], allowedN3CrossLevelVocabOverlaps],
+    ["N2", n2Data, [n5Data, n4Data, n3Data], allowedN2CrossLevelVocabOverlaps],
+  ].forEach(([label, levelData, lowerLevels, allowedPairs]) => {
+    const lowerBySignature = new Map(
+      lowerLevels.flatMap((lower) => lower.entries).map((entry) => [signature(entry), entry]),
     );
-    check(
-      canonicalText(lowerEntry.meaning_zh) !== canonicalText(n3Entry.meaning_zh) &&
-        lowerEntry.note_zh && n3Entry.note_zh,
-      `${pair} must document genuinely distinct meanings in both level notes`,
-    );
+    const levelOverlaps = levelData.entries.flatMap((entry) => {
+      const lowerEntry = lowerBySignature.get(signature(entry));
+      return lowerEntry ? [[lowerEntry, entry]] : [];
+    });
+    const actualPairs = new Set(levelOverlaps.map(([lowerEntry, entry]) => `${lowerEntry.id}/${entry.id}`));
+    allowedPairs.forEach((pair) => {
+      check(actualPairs.has(pair), `reviewed distinct-sense ${label} cross-level pair is missing: ${pair}`);
+    });
+    levelOverlaps.forEach(([lowerEntry, entry]) => {
+      const pair = `${lowerEntry.id}/${entry.id}`;
+      check(
+        allowedPairs.has(pair),
+        `unreviewed exact cross-level vocabulary overlap: ${pair} ${entry.headword}`,
+      );
+      check(
+        canonicalText(lowerEntry.meaning_zh) !== canonicalText(entry.meaning_zh) &&
+          lowerEntry.note_zh && entry.note_zh,
+        `${pair} must document genuinely distinct meanings in both level notes`,
+      );
+    });
   });
 
-  const allEntries = [...n5Data.entries, ...n4Data.entries, ...n3Data.entries];
+  const allEntries = [...n5Data.entries, ...n4Data.entries, ...n3Data.entries, ...n2Data.entries];
   const actualCategories = new Map(
     allEntries
       .filter((entry) => entry.learning_category)
@@ -1222,7 +1236,7 @@ function validateGrammarSource(grammarData, expectedCount) {
   check(groupsById.size === groups.length, "grammar group ids must be unique");
   groups.forEach((group) => {
     check(
-      /^n[345]-[a-z]+$/u.test(group.id) && group.id.startsWith(String(group.level).toLowerCase()),
+      /^n[2-5]-[a-z]+$/u.test(group.id) && group.id.startsWith(String(group.level).toLowerCase()),
       `grammar group ${group.id} id must start with its level`,
     );
     check(typeof group.label === "string" && group.label.trim(), `grammar group ${group.id} needs a label`);
@@ -1242,7 +1256,7 @@ function validateGrammarSource(grammarData, expectedCount) {
         `grammar entry ${entry.id || index} is missing ${field}`,
       );
     });
-    check(["N3", "N4", "N5"].includes(entry.level), `grammar entry ${entry.id} has invalid level`);
+    check(["N2", "N3", "N4", "N5"].includes(entry.level), `grammar entry ${entry.id} has invalid level`);
     check(
       groupsById.get(entry.group)?.level === entry.level,
       `grammar entry ${entry.id} must belong to a group of its own level`,
@@ -1534,9 +1548,11 @@ function validateCardSchema(cards, tabDecks) {
         "vocab-zh-ja",
         "vocab-n4-zh-ja",
         "vocab-n3-zh-ja",
+        "vocab-n2-zh-ja",
         "grammar-n5-zh-ja",
         "grammar-n4-zh-ja",
         "grammar-n3-zh-ja",
+        "grammar-n2-zh-ja",
       ].includes(card.deck)
     ) {
       check(!card.frontSpeech, `${card.id} must not expose its Japanese answer as frontSpeech`);
@@ -1666,6 +1682,7 @@ function validateRomajiCorpusLock(runtime) {
   const assertMutationFailsClosed = (label, mutate) => {
     const changedData = {
       grammar: cloneJson(runtime.data.grammar),
+      n2: cloneJson(runtime.data.n2),
       n3: cloneJson(runtime.data.n3),
       n4: cloneJson(runtime.data.n4),
       n5: cloneJson(runtime.data.n5),
@@ -1749,13 +1766,13 @@ function validatePromptDisambiguation(cards) {
 // split by sense, and affixes, aside) exactly once, in reviewed frequency order;
 // each gloss is a segment of the word's own reviewed meaning, so the list adds
 // no unreviewed translation.
-function validateHomophoneData(homophones, n5Json, n4Json, n3Json, vocabCards) {
+function validateHomophoneData(homophones, n5Json, n4Json, n3Json, n2Json, vocabCards) {
   const groups = homophones?.groups;
   if (!Array.isArray(groups)) {
     addError("homophone-data.js does not expose AYAYA_HOMOPHONES.groups");
     return;
   }
-  const entries = [...n5Json.entries, ...n4Json.entries, ...n3Json.entries];
+  const entries = [...n5Json.entries, ...n4Json.entries, ...n3Json.entries, ...n2Json.entries];
   const vocabById = new Map(entries.map((entry) => [entry.id, entry]));
   const glossesOf = (entry) =>
     String(entry.meaning_zh || "")
@@ -1822,7 +1839,7 @@ function validateHomophoneData(homophones, n5Json, n4Json, n3Json, vocabCards) {
 // Pitch accents come from reviewed Kanjium data; anything that cannot be tied to
 // a vocab entry or exceeds the reading's morae must fail validation, and the
 // manually rejected senses must stay unannotated.
-function validatePitchAccentData(pitchAccent, n5Json, n4Json, n3Json, vocabCards) {
+function validatePitchAccentData(pitchAccent, n5Json, n4Json, n3Json, n2Json, vocabCards) {
   const entries = pitchAccent?.entries;
   if (!entries || typeof entries !== "object") {
     addError("pitch-accent-data.js does not expose AYAYA_PITCH_ACCENT.entries");
@@ -1833,7 +1850,7 @@ function validatePitchAccentData(pitchAccent, n5Json, n4Json, n3Json, vocabCards
     "pitch accent data lost its Kanjium CC BY-SA 4.0 attribution",
   );
   const vocabById = new Map(
-    [...n5Json.entries, ...n4Json.entries, ...n3Json.entries].map((entry) => [entry.id, entry]),
+    [...n5Json.entries, ...n4Json.entries, ...n3Json.entries, ...n2Json.entries].map((entry) => [entry.id, entry]),
   );
   const smallKana = /[ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ]/u;
   Object.entries(entries).forEach(([id, positions]) => {
@@ -1946,7 +1963,16 @@ function validateDeckCoverage(cards, tabDecks, data) {
     counts[card.deck] = (counts[card.deck] || 0) + 1;
     return counts;
   }, {});
+  // N2 ships in batches, vocabulary before grammar: its decks may be empty
+  // until their data arrives (app.js hides those rows meanwhile).
+  const unreleasedDecks = new Set([
+    ...(data.n2.entries.length ? [] : ["vocab-n2-ja-zh", "vocab-n2-zh-ja"]),
+    ...(data.grammar.entries.some((entry) => entry.level === "N2")
+      ? []
+      : ["grammar-n2-pattern-zh", "grammar-n2-choice", "grammar-n2-ja-zh", "grammar-n2-zh-ja"]),
+  ]);
   tabDecks.forEach((deck) => {
+    if (unreleasedDecks.has(deck)) return;
     check(deckCounts[deck] > 0, `HTML deck ${deck} has no generated cards`);
   });
 
@@ -1957,8 +1983,10 @@ function validateDeckCoverage(cards, tabDecks, data) {
     "vocab-n4-zh-ja": data.n4.entries.length,
     "vocab-n3-ja-zh": data.n3.entries.length,
     "vocab-n3-zh-ja": data.n3.entries.length,
+    "vocab-n2-ja-zh": data.n2.entries.length,
+    "vocab-n2-zh-ja": data.n2.entries.length,
   };
-  ["N5", "N4", "N3"].forEach((level) => {
+  ["N5", "N4", "N3", "N2"].forEach((level) => {
     const levelKey = level.toLowerCase();
     const entries = data.grammar.entries.filter((entry) => entry.level === level);
     ["zh-ja", "ja-zh", "pattern-zh"].forEach((suffix) => {
@@ -1970,7 +1998,7 @@ function validateDeckCoverage(cards, tabDecks, data) {
   });
   Object.entries(expectedDeckCounts).forEach(([deck, expected]) => {
     check(
-      deckCounts[deck] === expected,
+      (deckCounts[deck] || 0) === expected,
       `${deck} count: expected ${expected}, received ${deckCounts[deck] || 0}`,
     );
   });
@@ -1993,7 +2021,7 @@ function expectedVocabCategoryLabel(entry) {
 }
 
 function validateVocabCategoryLabels(runtime) {
-  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries].forEach((entry) => {
+  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries, ...runtime.data.n2.entries].forEach((entry) => {
     const expectedLabel = expectedVocabCategoryLabel(entry);
     const cards = runtime.vocabCards.filter((card) => card.sourceId === entry.id);
     check(cards.length === 2, `${entry.id} must produce two category-labelled vocabulary cards`);
@@ -2036,7 +2064,7 @@ const knownPartOfSpeechTokens = new Set([
 const unlabelledPartOfSpeechTokens = new Set(["expression", "demonstrative", "interrogative", "pattern"]);
 
 function validateVocabPartOfSpeechLabels(runtime) {
-  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries].forEach((entry) => {
+  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries, ...runtime.data.n2.entries].forEach((entry) => {
     const tokens = String(entry.part_of_speech || "").split("/").map((token) => token.trim());
     const unknown = tokens.filter((token) => !knownPartOfSpeechTokens.has(token));
     check(!unknown.length, `${entry.id} has unlabelled part_of_speech token(s): ${unknown.join(", ")}`);
@@ -2064,7 +2092,7 @@ function validateVocabPartOfSpeechLabels(runtime) {
 // the whole word, they must join back into it exactly, so grouping never
 // rewrites a meaning.
 function validateVocabSenses(runtime) {
-  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries].forEach((entry) => {
+  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries, ...runtime.data.n2.entries].forEach((entry) => {
     const card = runtime.vocabCards.find((item) => item.id === `vocab-entry-${entry.id}-ja`);
     if (entry.senses_zh === undefined) {
       check(entry.sense_note_zh === undefined, `${entry.id} has sense_note_zh without senses_zh`);
@@ -2102,8 +2130,26 @@ function parenthesizedNotes(text) {
   return [...String(text).matchAll(/（([^（）]*)）/gu)].map((match) => match[1]);
 }
 
+// Alternate readings show as （也读 …）; a variant that only extends the
+// reading (けっこん (する), そうです) is not one.
+function validateAlternateReadingNotes(runtime) {
+  [
+    ["n4-417", "（也读 だいぶん）"],
+    ["n5-121", "（也读 いっさくじつ）"],
+    ["n5-238", ""],
+    ["n5-358", ""],
+    ["n5-682", ""],
+  ].forEach(([id, expected]) => {
+    const card = runtime.vocabCards.find((item) => item.id === `vocab-entry-${id}-ja`);
+    check(
+      (card?.readingNote || "") === expected,
+      `${id} reading note: expected ${JSON.stringify(expected)}, received ${JSON.stringify(card?.readingNote)}`,
+    );
+  });
+}
+
 function validateVocabAnswerMeanings(runtime) {
-  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries].forEach((entry) => {
+  [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries, ...runtime.data.n2.entries].forEach((entry) => {
     const card = runtime.vocabCards.find((item) => item.id === `vocab-entry-${entry.id}-ja`);
     if (entry.answer_zh === undefined) {
       check(card?.answer === entry.meaning_zh, `${entry.id} 日→中 answer must be its meaning_zh`);
@@ -2138,9 +2184,10 @@ function validateLevelSpecificBuilders(runtime) {
     N5: new Set(["vocab-ja-zh", "vocab-zh-ja"]),
     N4: new Set(["vocab-n4-ja-zh", "vocab-n4-zh-ja"]),
     N3: new Set(["vocab-n3-ja-zh", "vocab-n3-zh-ja"]),
+    N2: new Set(["vocab-n2-ja-zh", "vocab-n2-zh-ja"]),
   };
 
-  ["N5", "N4", "N3"].forEach((level) => {
+  ["N5", "N4", "N3", "N2"].forEach((level) => {
     const vocabDecks = vocabDecksByLevel[level];
     const lazyVocabCards = runtime.vocabCardsByLevel[level];
     const expectedVocabCards = runtime.vocabCards.filter((card) => vocabDecks.has(card.deck));
@@ -2254,14 +2301,23 @@ function validateStableVocabIds(runtime) {
       "vocab-n3-zh-ja",
       "N3",
     ),
+    N2: vocabIdMap(
+      runtime.data.n2.entries,
+      runtime.vocabCards,
+      "vocab-n2-ja-zh",
+      "vocab-n2-zh-ja",
+      "N2",
+    ),
   };
 
   const reordered = {
     grammar: cloneJson(runtime.data.grammar),
+    n2: cloneJson(runtime.data.n2),
     n3: cloneJson(runtime.data.n3),
     n4: cloneJson(runtime.data.n4),
     n5: cloneJson(runtime.data.n5),
   };
+  reordered.n2.entries.reverse();
   reordered.n3.entries.reverse();
   reordered.n4.entries.reverse();
   reordered.n5.entries.reverse();
@@ -2289,9 +2345,16 @@ function validateStableVocabIds(runtime) {
       "vocab-n3-zh-ja",
       "N3 reordered",
     ),
+    N2: vocabIdMap(
+      reordered.n2.entries,
+      reorderedCards,
+      "vocab-n2-ja-zh",
+      "vocab-n2-zh-ja",
+      "N2 reordered",
+    ),
   };
 
-  ["N5", "N4", "N3"].forEach((label) => {
+  ["N5", "N4", "N3", "N2"].forEach((label) => {
     const changed = [...originalMaps[label]].filter(
       ([sourceId, mapping]) =>
         JSON.stringify(mapping) !== JSON.stringify(reorderedMaps[label].get(sourceId)),
@@ -2311,7 +2374,12 @@ function validateStableVocabIds(runtime) {
 }
 
 function validateMergedVocabSources(runtime) {
-  const entries = [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries];
+  const entries = [
+    ...runtime.data.n5.entries,
+    ...runtime.data.n4.entries,
+    ...runtime.data.n3.entries,
+    ...runtime.data.n2.entries,
+  ];
   const activeIds = new Set(entries.map((entry) => entry.id));
   const actualTargets = new Map();
 
@@ -2377,7 +2445,7 @@ function expectedRetiredVocabAliases(sourceId, direction) {
 
 function validateRetiredVocabGrammarMigrations(runtime) {
   const activeVocabIds = new Set(
-    [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries].map(
+    [...runtime.data.n5.entries, ...runtime.data.n4.entries, ...runtime.data.n3.entries, ...runtime.data.n2.entries].map(
       (entry) => entry.id,
     ),
   );
@@ -2463,11 +2531,12 @@ function expectedCompatibilityExamples(entries) {
   );
 }
 
-function validateCompatibilityExampleIndexes(n5Window, n4Window, n3Window) {
+function validateCompatibilityExampleIndexes(n5Window, n4Window, n3Window, n2Window) {
   [
     ["N5", n5Window?.AYAYA_N5_CODEX_VOCAB, n5Window?.AYAYA_N5_TATOEBA_EXAMPLES],
     ["N4", n4Window?.AYAYA_N4_CODEX_VOCAB, n4Window?.AYAYA_N4_TATOEBA_EXAMPLES],
     ["N3", n3Window?.AYAYA_N3_CODEX_VOCAB, n3Window?.AYAYA_N3_TATOEBA_EXAMPLES],
+    ["N2", n2Window?.AYAYA_N2_CODEX_VOCAB, n2Window?.AYAYA_N2_TATOEBA_EXAMPLES],
   ].forEach(([label, data, actual]) => {
     check(actual && typeof actual === "object", `${label} compatibility example index is missing`);
     if (!data || !actual) return;
@@ -2490,12 +2559,12 @@ function validateProductionLegacyVocabIds(runtime) {
   const aliasRecords = [];
 
   runtime.vocabCards.forEach((card) => {
-    // N3 shipped with stable source-derived IDs, so it has no older IDs to alias.
-    const isN3 = String(card.sourceId || "").startsWith("n3-");
+    // N3 and N2 shipped with stable source-derived IDs, so they have no older IDs to alias.
+    const isStableLevel = /^n[23]-/u.test(String(card.sourceId || ""));
     check(
-      Array.isArray(card.legacyIds) && (isN3 ? card.legacyIds.length === 0 : card.legacyIds.length > 0),
-      isN3
-        ? `${card.id} is a new N3 card and must not expose legacy aliases`
+      Array.isArray(card.legacyIds) && (isStableLevel ? card.legacyIds.length === 0 : card.legacyIds.length > 0),
+      isStableLevel
+        ? `${card.id} is a new ${String(card.sourceId).slice(0, 2).toUpperCase()} card and must not expose legacy aliases`
         : `${card.id} must expose at least one production legacyIds alias`,
     );
     (Array.isArray(card.legacyIds) ? card.legacyIds : []).forEach((legacyId) => {
@@ -2821,7 +2890,7 @@ function validateRetiredGrammarMerges(runtime) {
       `${entry.id} retiredGrammarIds must be a non-empty array`,
     );
     (Array.isArray(retiredIds) ? retiredIds : []).forEach((retiredId) => {
-      check(/^n[345]-grammar-\d{3}$/u.test(retiredId), `retired grammar id ${retiredId} is malformed`);
+      check(/^n[2-5]-grammar-\d{3}$/u.test(retiredId), `retired grammar id ${retiredId} is malformed`);
       check(!liveIds.has(retiredId), `retired grammar id ${retiredId} is still a grammar entry`);
       check(!vocabRetired.has(retiredId), `${retiredId} is retired both into vocab and into ${entry.id}`);
       check(!seen.has(retiredId), `${retiredId} is retired into more than one grammar entry`);
@@ -3287,6 +3356,9 @@ function main() {
   const n3Json = capture("could not parse ayaya-n3-codex-vocab.json", () =>
     readJson("ayaya-n3-codex-vocab.json"),
   );
+  const n2Json = capture("could not parse ayaya-n2-codex-vocab.json", () =>
+    readJson("ayaya-n2-codex-vocab.json"),
+  );
   const n5Window = capture("could not load n5-codex-vocab.js", () =>
     runBrowserScript("n5-codex-vocab.js"),
   );
@@ -3296,9 +3368,13 @@ function main() {
   const n3Window = capture("could not load ayaya-n3-codex-vocab.js", () =>
     runBrowserScript("ayaya-n3-codex-vocab.js"),
   );
+  const n2Window = capture("could not load ayaya-n2-codex-vocab.js", () =>
+    runBrowserScript("ayaya-n2-codex-vocab.js"),
+  );
   const n5Js = n5Window?.AYAYA_N5_CODEX_VOCAB;
   const n4Js = n4Window?.AYAYA_N4_CODEX_VOCAB;
   const n3Js = n3Window?.AYAYA_N3_CODEX_VOCAB;
+  const n2Js = n2Window?.AYAYA_N2_CODEX_VOCAB;
   const grammarData = capture("could not load grammar-data.js", () =>
     loadScriptGlobal("grammar-data.js", "AYAYA_GRAMMAR_DATA"),
   );
@@ -3321,17 +3397,28 @@ function main() {
       "ayaya-n3-codex-vocab.js and ayaya-n3-codex-vocab.json are out of sync",
     );
   }
-  if (n5Json && n4Json && n3Json) validateVocabLevelBoundaries(n5Json, n4Json, n3Json);
+  if (n2Json && n2Js) {
+    check(
+      JSON.stringify(n2Json) === JSON.stringify(n2Js),
+      "ayaya-n2-codex-vocab.js and ayaya-n2-codex-vocab.json are out of sync",
+    );
+  }
+  const allLevelJson = n5Json && n4Json && n3Json && n2Json;
+  if (allLevelJson) validateVocabLevelBoundaries(n5Json, n4Json, n3Json, n2Json);
   if (n5Json) validateHeadwordRomaji("N5", n5Json);
   if (n4Json) validateHeadwordRomaji("N4", n4Json);
   if (n3Json) validateHeadwordRomaji("N3", n3Json);
-  if (n5Json && n4Json && n3Json) validateGrammarOnlyVocab(n5Json, n4Json, n3Json);
-  if (n5Window && n4Window && n3Window) validateCompatibilityExampleIndexes(n5Window, n4Window, n3Window);
+  if (n2Json) validateHeadwordRomaji("N2", n2Json);
+  if (allLevelJson) validateGrammarOnlyVocab(n5Json, n4Json, n3Json, n2Json);
+  if (n5Window && n4Window && n3Window && n2Window) {
+    validateCompatibilityExampleIndexes(n5Window, n4Window, n3Window, n2Window);
+  }
 
   if (report?.expected_counts) {
     if (n5Json) validateVocabSource("N5", n5Json, report.expected_counts.n5_entries);
     if (n4Json) validateVocabSource("N4", n4Json, report.expected_counts.n4_entries);
     if (n3Json) validateVocabSource("N3", n3Json, report.expected_counts.n3_entries);
+    if (n2Json) validateVocabSource("N2", n2Json, report.expected_counts.n2_entries);
     if (grammarData) validateGrammarSource(grammarData, report.expected_counts.grammar_entries);
   }
 
@@ -3349,6 +3436,7 @@ function main() {
     validateVocabPartOfSpeechLabels(runtime);
     validateVocabSenses(runtime);
     validateVocabAnswerMeanings(runtime);
+    validateAlternateReadingNotes(runtime);
     validateDisplayedRomaji(cards);
     validateRomajiCoverage(cards);
     capture("reviewed romaji corpus-lock check failed", () => validateRomajiCorpusLock(runtime));
@@ -3368,13 +3456,14 @@ function main() {
     capture("romaji word spacing check failed", () =>
       validateRomajiWordSpacing(cards, loadScriptGlobal("romaji-word-spacing.js", "AYAYA_ROMAJI_SPACING")),
     );
-    if (n5Json && n4Json && n3Json) {
+    if (allLevelJson) {
       capture("homophone check failed", () =>
         validateHomophoneData(
           loadScriptGlobal("homophone-data.js", "AYAYA_HOMOPHONES"),
           n5Json,
           n4Json,
           n3Json,
+          n2Json,
           runtime.vocabCards,
         ),
       );
@@ -3384,6 +3473,7 @@ function main() {
           n5Json,
           n4Json,
           n3Json,
+          n2Json,
           runtime.vocabCards,
         ),
       );

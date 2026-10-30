@@ -40,7 +40,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "Dictionary forms, readings, coarse part-of-speech labels, senses, and all example rows were re-audited against JMdict and for Japanese/Chinese learning accuracy on 2026-08-30.",
       "On 2026-10-10 every entry was re-audited again: headword romaji now follows the particle and n' rules with the same word division as the examples, category labels were corrected, pure grammar patterns were migrated to grammar cards, and unnatural examples were rewritten."
     ],
-    "entry_count": 745
+    "entry_count": 752
   },
   "entries": [
     {
@@ -11226,7 +11226,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "headword": "探す",
       "source_form": "探す",
       "variants": [
-        "探す"
+        "探す",
+        "捜す"
       ],
       "reading": "さがす",
       "reading_variants": [
@@ -11238,6 +11239,10 @@ window.AYAYA_N4_CODEX_VOCAB = {
       "kanji_readings": [
         {
           "form": "探す",
+          "reading": "さがす"
+        },
+        {
+          "form": "捜す",
           "reading": "さがす"
         }
       ],
@@ -11261,7 +11266,7 @@ window.AYAYA_N4_CODEX_VOCAB = {
           "zhFocus": ["找"]
         }
       ],
-      "note_zh": ""
+      "note_zh": "找丢失的东西或人时也写作「捜す」。"
     },
     {
       "id": "n4-270",
@@ -17393,7 +17398,8 @@ window.AYAYA_N4_CODEX_VOCAB = {
       ],
       "reading": "だいぶ",
       "reading_variants": [
-        "だいぶ"
+        "だいぶ",
+        "だいぶん"
       ],
       "romaji": "daibu",
       "part_of_speech": "adverb",
@@ -32216,6 +32222,324 @@ window.AYAYA_N4_CODEX_VOCAB = {
         }
       ],
       "note_zh": "与「沸く」同音。"
+    },
+    {
+      "id": "n4-786",
+      "jlpt": "N4",
+      "headword": "いってまいります",
+      "source_form": "いってまいります",
+      "variants": [
+        "いってまいります",
+        "行ってまいります",
+        "行って参ります"
+      ],
+      "reading": "いってまいります",
+      "reading_variants": [
+        "いってまいります"
+      ],
+      "romaji": "itte mairimasu",
+      "part_of_speech": "expression",
+      "meaning_zh": "我走了；我出门了（谦逊说法）",
+      "kanji_readings": [
+        {
+          "form": "行ってまいります",
+          "reading": "いってまいります"
+        },
+        {
+          "form": "行って参ります",
+          "reading": "いってまいります"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "では、いってまいります。",
+          "zh": "那么，我出发了。",
+          "focus": ["いってまいります"],
+          "zhFocus": ["我出发了"]
+        },
+        {
+          "ja": "「いってまいります」と言って、会社を出ました。",
+          "zh": "说了声“我走了”，离开了公司。",
+          "focus": ["いってまいります"],
+          "zhFocus": ["我走了"]
+        },
+        {
+          "ja": "部長、銀行へいってまいります。",
+          "zh": "部长，我去一趟银行。",
+          "focus": ["いってまいります"],
+          "zhFocus": ["去一趟"]
+        }
+      ],
+      "note_zh": "「いってきます」的谦逊说法。"
+    },
+    {
+      "id": "n4-787",
+      "jlpt": "N4",
+      "headword": "おかけください",
+      "source_form": "おかけください",
+      "variants": [
+        "おかけください",
+        "お掛けください"
+      ],
+      "reading": "おかけください",
+      "reading_variants": [
+        "おかけください"
+      ],
+      "romaji": "okakekudasai",
+      "part_of_speech": "expression",
+      "meaning_zh": "请坐",
+      "kanji_readings": [
+        {
+          "form": "お掛けください",
+          "reading": "おかけください"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "どうぞ、こちらにおかけください。",
+          "zh": "请坐这边。",
+          "focus": ["おかけください"],
+          "zhFocus": ["请坐"]
+        },
+        {
+          "ja": "名前を呼ぶまで、いすにおかけください。",
+          "zh": "叫到名字之前，请坐在椅子上。",
+          "focus": ["おかけください"],
+          "zhFocus": ["请坐"]
+        },
+        {
+          "ja": "どうぞおかけください。すぐに戻ります。",
+          "zh": "请坐，我马上回来。",
+          "focus": ["おかけください"],
+          "zhFocus": ["请坐"]
+        }
+      ],
+      "note_zh": "「座ってください」的礼貌说法；汉字为「お掛けください」。"
+    },
+    {
+      "id": "n4-788",
+      "jlpt": "N4",
+      "headword": "おかげさまで",
+      "source_form": "おかげさまで",
+      "variants": [
+        "おかげさまで",
+        "お陰様で"
+      ],
+      "reading": "おかげさまで",
+      "reading_variants": [
+        "おかげさまで"
+      ],
+      "romaji": "okagesamade",
+      "part_of_speech": "expression",
+      "meaning_zh": "托您的福",
+      "kanji_readings": [
+        {
+          "form": "お陰様で",
+          "reading": "おかげさまで"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "おかげさまで、元気になりました。",
+          "zh": "托您的福，身体好了。",
+          "focus": ["おかげさまで"],
+          "zhFocus": ["托您的福"]
+        },
+        {
+          "ja": "おかげさまで、試験に合格しました。",
+          "zh": "托您的福，考试通过了。",
+          "focus": ["おかげさまで"],
+          "zhFocus": ["托您的福"]
+        },
+        {
+          "ja": "「お元気ですか。」「はい、おかげさまで。」",
+          "zh": "“您好吗？”“嗯，托您的福。”",
+          "focus": ["おかげさまで"],
+          "zhFocus": ["托您的福"]
+        }
+      ],
+      "note_zh": "汉字为「お陰様で」。"
+    },
+    {
+      "id": "n4-789",
+      "jlpt": "N4",
+      "headword": "お待たせしました",
+      "source_form": "お待たせしました",
+      "variants": [
+        "お待たせしました",
+        "おまたせしました"
+      ],
+      "reading": "おまたせしました",
+      "reading_variants": [
+        "おまたせしました"
+      ],
+      "romaji": "omataseshimashita",
+      "part_of_speech": "expression",
+      "meaning_zh": "让您久等了",
+      "kanji_readings": [
+        {
+          "form": "お待たせしました",
+          "reading": "おまたせしました"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "お待たせしました。こちらがご注文のコーヒーです。",
+          "zh": "让您久等了，这是您点的咖啡。",
+          "focus": ["お待たせしました"],
+          "zhFocus": ["让您久等了"]
+        },
+        {
+          "ja": "お待たせしました。それでは、始めましょう。",
+          "zh": "让大家久等了，那我们开始吧。",
+          "focus": ["お待たせしました"],
+          "zhFocus": ["让大家久等了"]
+        },
+        {
+          "ja": "遅れてしまって、お待たせしました。",
+          "zh": "来晚了，让您久等了。",
+          "focus": ["お待たせしました"],
+          "zhFocus": ["让您久等了"]
+        }
+      ],
+      "note_zh": "比「おまちどおさま」正式。"
+    },
+    {
+      "id": "n4-790",
+      "jlpt": "N4",
+      "headword": "おまちどおさま",
+      "source_form": "おまちどおさま",
+      "variants": [
+        "おまちどおさま",
+        "お待ち遠様"
+      ],
+      "reading": "おまちどおさま",
+      "reading_variants": [
+        "おまちどおさま"
+      ],
+      "romaji": "omachidoosama",
+      "part_of_speech": "expression",
+      "meaning_zh": "让您久等了（较随便）",
+      "kanji_readings": [
+        {
+          "form": "お待ち遠様",
+          "reading": "おまちどおさま"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "はい、おまちどおさま。ラーメンです。",
+          "zh": "让您久等了，这是拉面。",
+          "focus": ["おまちどおさま"],
+          "zhFocus": ["让您久等了"]
+        },
+        {
+          "ja": "おまちどおさま。さあ、行きましょう。",
+          "zh": "久等了。好，我们走吧。",
+          "focus": ["おまちどおさま"],
+          "zhFocus": ["久等了"]
+        },
+        {
+          "ja": "店員が「おまちどおさま」と言って、料理を持ってきました。",
+          "zh": "店员说着“让您久等了”，端来了菜。",
+          "focus": ["おまちどおさま"],
+          "zhFocus": ["让您久等了"]
+        }
+      ],
+      "note_zh": "比「お待たせしました」随便，多用于饭馆等；汉字为「お待ち遠様」。"
+    },
+    {
+      "id": "n4-791",
+      "jlpt": "N4",
+      "headword": "かしこまりました",
+      "source_form": "かしこまりました",
+      "variants": [
+        "かしこまりました",
+        "畏まりました"
+      ],
+      "reading": "かしこまりました",
+      "reading_variants": [
+        "かしこまりました"
+      ],
+      "romaji": "kashikomarimashita",
+      "part_of_speech": "expression",
+      "meaning_zh": "明白了；好的（恭敬的应答）",
+      "kanji_readings": [
+        {
+          "form": "畏まりました",
+          "reading": "かしこまりました"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "「コーヒーを二つお願いします。」「かしこまりました。」",
+          "zh": "“请给我两杯咖啡。”“好的，明白了。”",
+          "focus": ["かしこまりました"],
+          "zhFocus": ["明白了"]
+        },
+        {
+          "ja": "かしこまりました。すぐにお持ちします。",
+          "zh": "好的，马上给您拿来。",
+          "focus": ["かしこまりました"],
+          "zhFocus": ["好的"]
+        },
+        {
+          "ja": "はい、かしこまりました。",
+          "zh": "是，明白了。",
+          "focus": ["かしこまりました"],
+          "zhFocus": ["明白了"]
+        }
+      ],
+      "note_zh": "「分かりました」的恭敬说法，多用于店员对客人。"
+    },
+    {
+      "id": "n4-792",
+      "jlpt": "N4",
+      "headword": "ご苦労様",
+      "source_form": "ご苦労様",
+      "variants": [
+        "ご苦労様",
+        "ごくろうさま",
+        "ご苦労さま"
+      ],
+      "reading": "ごくろうさま",
+      "reading_variants": [
+        "ごくろうさま"
+      ],
+      "romaji": "gokurousama",
+      "part_of_speech": "expression",
+      "meaning_zh": "辛苦了",
+      "kanji_readings": [
+        {
+          "form": "ご苦労様",
+          "reading": "ごくろうさま"
+        },
+        {
+          "form": "ご苦労さま",
+          "reading": "ごくろうさま"
+        }
+      ],
+      "examples": [
+        {
+          "ja": "遅くまでご苦労様でした。",
+          "zh": "这么晚了，辛苦了。",
+          "focus": ["ご苦労様"],
+          "zhFocus": ["辛苦了"]
+        },
+        {
+          "ja": "荷物を届けてくれた人に「ご苦労様です」と言いました。",
+          "zh": "对送东西来的人说了声“辛苦了”。",
+          "focus": ["ご苦労様"],
+          "zhFocus": ["辛苦了"]
+        },
+        {
+          "ja": "一日中、ご苦労様でした。",
+          "zh": "忙了一整天，辛苦了。",
+          "focus": ["ご苦労様"],
+          "zhFocus": ["辛苦了"]
+        }
+      ],
+      "note_zh": "多用于对同辈或下级；对上级一般说「お疲れ様です」。"
     }
   ]
 };
