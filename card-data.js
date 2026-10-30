@@ -2438,6 +2438,8 @@ const reviewedLexicalKanaSpans = reviewedSpanMap([
     "理由をはっきり説明しました",
     "自分の意思をはっきり伝えてください",
     "文句があるなら、はっきり言ってください",
+    "面接ではっきり話せませんでした",
+    "この地方は四季がはっきりしています",
   ]],
   ["やはり", [
     "やはり雨が降りました",
@@ -2555,7 +2557,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "25390:9bb545d06f16e63d";
+const reviewedPronunciationSourceSignature = "27444:6a763a6f08f579ac";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
