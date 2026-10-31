@@ -6606,7 +6606,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zhFocus": ["根据"]
         }
       ],
-      "note_zh": "常用「〜に応じる」「〜に応じて」。"
+      "note_zh": "常用「〜に応じる」「〜に応じて」；较书面的说法是「応ずる」。"
     },
     {
       "id": "n3-0154",
@@ -12088,7 +12088,7 @@ window.AYAYA_N3_CODEX_VOCAB = {
           "zhFocus": ["感受"]
         }
       ],
-      "note_zh": ""
+      "note_zh": "较书面的说法是「感ずる」。"
     },
     {
       "id": "n3-0283",
