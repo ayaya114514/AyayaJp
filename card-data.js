@@ -2507,6 +2507,11 @@ const reviewedLexicalKanaSpans = reviewedSpanMap([
     "田中さんはもう着いたはずです",
     "彼がそんなことを言うはずがありません",
   ]],
+  ["はきはき", [
+    "彼女ははきはきと答えました",
+    "はきはきした子供ですね",
+    "面接でははきはきと話してください",
+  ]],
 ]);
 
 // A space, rather than n', is required where moraic ん ends one word and the
@@ -2599,7 +2604,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "35337:e0bae9b2592edd63";
+const reviewedPronunciationSourceSignature = "35776:2b0618d635fe43eb";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>

@@ -207,7 +207,7 @@ const VOCAB_BLOCK_GENERATIONS = {
   "vocab-n5": [748, 760, 766],
   "vocab-n4": [785, 792],
   "vocab-n3": [1538],
-  "vocab-n2": [235, 516, 828, 1239, 1582],
+  "vocab-n2": [235, 516, 828, 1239, 1582, 1647],
 };
 
 function vocabGenerationOf(family, sourceId) {
