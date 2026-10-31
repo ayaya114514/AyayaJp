@@ -2507,6 +2507,7 @@ const reviewedLexicalKanaSpans = reviewedSpanMap([
     "田中さんはもう着いたはずです",
     "彼がそんなことを言うはずがありません",
     "計算の上では、来月には完成するはずです",
+    "うちの子に限って、うそをつくはずがない",
   ]],
   ["はきはき", [
     "彼女ははきはきと答えました",
@@ -2605,7 +2606,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "35953:f8afe92d5d8aeaad";
+const reviewedPronunciationSourceSignature = "36131:309883d66c71fc3e";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
