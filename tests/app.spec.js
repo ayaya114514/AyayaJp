@@ -239,13 +239,13 @@ test("Japanese-to-Chinese vocab hides reading until the answer is revealed", asy
 
   await page.locator("#cardReveal").click();
   await expectAnswerRevealed(page);
-  // The answer line lists the homophones ①② by frequency, each word with its
-  // accent above its meaning; 会う is the more frequent あう and the card's own
+  // The answer line lists the homophones ①②③ by frequency, each word with its
+  // accent above its meaning; 会う is the most frequent あう and the card's own
   // word, so it comes first with its full meaning.
-  await expect(page.locator("#answerMain .homophone")).toHaveText(["①会う1动见面；遇见", "②合う1动合适"]);
-  await expect(page.locator("#answerMain .homophone-gloss .part-of-speech")).toHaveText(["动", "动"]);
+  await expect(page.locator("#answerMain .homophone")).toHaveText(["①会う1动见面；遇见", "②合う1动合适", "③遭う1动遭遇"]);
+  await expect(page.locator("#answerMain .homophone-gloss .part-of-speech")).toHaveText(["动", "动", "动"]);
   await expect(page.locator("#answerMain .homophone.is-current .homophone-word")).toHaveText("会う1");
-  await expect(page.locator("#answerMain .homophone-word .pitch-accent")).toHaveText(["1", "1"]);
+  await expect(page.locator("#answerMain .homophone-word .pitch-accent")).toHaveText(["1", "1", "1"]);
   await expect(page.locator("#cardSubtle")).toBeVisible();
   await expect(page.locator("#cardSubtle")).toHaveText("あう1");
   await expect(page.locator("#metaBlock")).toBeHidden();
