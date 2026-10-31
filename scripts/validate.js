@@ -1080,6 +1080,11 @@ const grammarOnlyVocabHeadwords = new Set([
   "～かわりに", "～に代わって", "～たびに", "～ついでに", "～ごとに", "～にかけて", "～を中心に", "～をはじめ", "～を通して", "～を通じて", "～をこめて",
   "～をもとに", "～に比べて", "～に加えて", "～とおり", "～どおり", "～っぱなし", "～きる", "～きれない", "～かける", "～直す", "～合う", "～込む",
   "～たて", "～だらけ", "～向き", "～向け", "～的", "～べきだ", "～み", "～一方だ", "～おそれがある", "～ぶり",
+  // N2 grammar patterns
+  "～あげく", "～以上", "～一方", "～うえで", "～うえは", "～得る", "～限り", "～限りでは", "～がたい", "～かねる",
+  "～かねない", "～からして", "～からすると", "～きり", "～っきり", "～げ", "～ことなく", "～ざるを得ない", "～次第",
+  "～次第で", "～次第では", "～上", "～ずにはいられない", "～だけに", "～だけあって", "～っこない", "～つつ", "～つつある",
+  "～てならない",
 ]);
 
 function validateGrammarOnlyVocab(n5Data, n4Data, n3Data, n2Data) {
@@ -1314,6 +1319,13 @@ function validateGrammarSource(grammarData, expectedCount) {
       new RegExp(`^${String(entry.level).toLowerCase()}-grammar-\\d{3}$`, "u").test(entry.id),
       `grammar entry ${entry.id} id does not match its level ${entry.level}`,
     );
+    // N2 points carry their 出口仁 【Ｎ２文法】 episode (1–120); supplements have none.
+    if (Object.hasOwn(entry, "lecture")) {
+      check(
+        entry.level === "N2" && Number.isInteger(entry.lecture) && entry.lecture >= 1 && entry.lecture <= 120,
+        `grammar entry ${entry.id} lecture must be an N2 episode number 1–120`,
+      );
+    }
     if (Object.hasOwn(entry, "retiredVocabSourceIds")) {
       check(
         Array.isArray(entry.retiredVocabSourceIds) && entry.retiredVocabSourceIds.length > 0,

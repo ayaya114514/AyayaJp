@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const vm = require("vm");
 const { test, expect } = require("./fixtures");
 
 const STORAGE_KEY = "ayaya-jp-srs-v1";
@@ -390,13 +391,31 @@ test("a vocab block page lists its blocks and studies only the picked block", as
   await expect(page.locator('[data-deck="vocab-n3-ja-zh"]')).toBeFocused();
 });
 
-// N2 ships its vocabulary in batches ahead of its grammar; a level's rows stay
-// off the module page until they have data, so nobody opens an empty deck.
-test("N2 stays off the module page until it has words", async ({ page }) => {
+// grammar-data.js with every N2 point taken out, as before N2 grammar shipped.
+function grammarWithoutN2() {
+  const window = {};
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, "..", "grammar-data.js"), "utf8"), { window });
+  const data = window.AYAYA_GRAMMAR_DATA;
+  return {
+    ...data,
+    groups: data.groups.filter((group) => group.level !== "N2"),
+    entries: data.entries.filter((entry) => entry.level !== "N2"),
+  };
+}
+
+// N2 ships its vocabulary and grammar in batches; a level's rows stay off the
+// module page until they have data, so nobody opens an empty deck.
+test("N2 stays off the module page until it has words or grammar", async ({ page }) => {
   await page.route(/\/ayaya-n2-codex-vocab\.js(\?|$)/u, (route) =>
     route.fulfill({
       contentType: "text/javascript",
       body: `window.AYAYA_N2_CODEX_VOCAB = ${JSON.stringify({ schema: {}, entries: [] })};`,
+    }),
+  );
+  await page.route(/\/grammar-data\.js(\?|$)/u, (route) =>
+    route.fulfill({
+      contentType: "text/javascript",
+      body: `window.AYAYA_GRAMMAR_DATA = ${JSON.stringify(grammarWithoutN2())};`,
     }),
   );
   await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
@@ -439,7 +458,7 @@ test("the module page fits one portrait screen, with N2 too", async ({ page }, t
   await expectNoHorizontalOverflow(page);
 });
 
-test("N2 shows its vocabulary once it has words and keeps its grammar row for grammar", async ({ page }) => {
+test("N2 shows its vocabulary once it has words and its grammar row once it has grammar", async ({ page }) => {
   // Thirty N3 entries stand in for N2 words: their examples already have
   // reviewed readings and audio.
   const n3 = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "ayaya-n3-codex-vocab.json"), "utf8"));
@@ -459,7 +478,7 @@ test("N2 shows its vocabulary once it has words and keeps its grammar row for gr
   const level = page.locator('.deck-level-group[data-level="n2"]');
   await expect(level).toBeVisible();
   await expect(level.locator('[data-row="vocab-n2"]')).toBeVisible();
-  await expect(level.locator('[data-row="grammar-n2"]')).toBeHidden();
+  await expect(level.locator('[data-row="grammar-n2"]')).toBeVisible();
   await expect(level.locator('.deck-level[data-level="n2"]')).toHaveText("N2");
   await expectNoHorizontalOverflow(page);
 
@@ -1047,6 +1066,27 @@ test("iPhone 14 fills the viewport and keeps pointer focus rings hidden", async 
   await expect
     .poll(() => page.evaluate(() => document.documentElement.dataset.inputMode))
     .toBe("keyboard");
+});
+
+// N2 grammar follows 出口仁's 【Ｎ２文法】 series: blocks are episode ranges and
+// each card's 说明 names its episode.
+test("N2 grammar cards name their 出口仁 episode", async ({ page }) => {
+  await openWithStore(
+    page,
+    progressFixture({
+      deck: "grammar-n2-pattern-zh",
+      queue: ["grammar-n2-grammar-001-pattern"],
+    }),
+  );
+  await page.locator("#cardReveal").click({ force: true });
+  await expectAnswerRevealed(page);
+  const lecture = page.locator("#answerMeta .meta-row").filter({ hasText: "出口仁" });
+  await expect(lecture.locator(".meta-key")).toHaveText("课程");
+  await expect(lecture.locator(".meta-value")).toHaveText("出口仁 N2 第1集");
+  // The open deck's menu lists its blocks straight away.
+  await page.locator("#deckMenuButton").click();
+  await expect(page.locator('#blockGrid .block-tile[data-block="n2-epa"]')).toContainText("第1–10集");
+  await expectNoHorizontalOverflow(page);
 });
 
 test("说明 and 例句 stay inside the answer panel and only sit side by side when they fit", async ({

@@ -2506,6 +2506,7 @@ const reviewedLexicalKanaSpans = reviewedSpanMap([
     "今日は休みのはずです",
     "田中さんはもう着いたはずです",
     "彼がそんなことを言うはずがありません",
+    "計算の上では、来月には完成するはずです",
   ]],
   ["はきはき", [
     "彼女ははきはきと答えました",
@@ -2604,7 +2605,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "35776:2b0618d635fe43eb";
+const reviewedPronunciationSourceSignature = "35953:f8afe92d5d8aeaad";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>
@@ -3658,11 +3659,17 @@ const grammarGroupLabels = new Map(grammarGroups.map((group) => [group.id, group
 // 说明 rows of a grammar point's sentence cards. Its 辨析 (how it differs from
 // the points it is most often confused with) is shown on the pattern-focused
 // 文型 and 选择题 cards, whose answers are short enough to keep it on one screen.
+// N2 points follow 出口仁's 【Ｎ２文法】 series; lecture is its episode number.
+function lectureMeta(entry) {
+  return Number.isInteger(entry.lecture) ? `课程：出口仁 N2 第${entry.lecture}集` : "";
+}
+
 function grammarMeta(entry) {
   return [
     `接续：${entry.formation}`,
     `意思：${entry.meaningZh}`,
     entry.note ? `提示：${entry.note}` : "",
+    lectureMeta(entry),
   ].filter(Boolean).join("　");
 }
 
@@ -3721,7 +3728,7 @@ function makeGrammarChoiceCard(entry, examples, drill, drillIndex) {
     answer: example.ja,
     answerLang: "ja",
     // The correct option's explanation already names the pattern and meaning.
-    meta: entry.contrast ? `辨析：${entry.contrast}` : "",
+    meta: [entry.contrast ? `辨析：${entry.contrast}` : "", lectureMeta(entry)].filter(Boolean).join("　"),
     // 提示 before answering: the pattern and its formation; the learner still
     // has to fit them to this sentence.
     hint: { pattern: entry.pattern, formation: entry.formation },
@@ -3836,6 +3843,7 @@ function makeGrammarCards(level) {
           `接续：${entry.formation}`,
           entry.note ? `提示：${entry.note}` : "",
           entry.contrast ? `辨析：${entry.contrast}` : "",
+          lectureMeta(entry),
         ].filter(Boolean).join("　"),
         sentenceAnswer: firstExample.zh,
         speech: firstExample.speech || sentenceSpeech(firstExample.ja),
