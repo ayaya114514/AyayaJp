@@ -2606,7 +2606,7 @@ const reviewedPronunciationSourceParts = [
   ...kanaRows.map((row) => `kana:${row.join("\u0001")}`).sort(),
   ...loanwordKanaRomajiRows.map((row) => `loanword-kana:${row.join("\u0001")}`).sort(),
 ];
-const reviewedPronunciationSourceSignature = "36290:256ef904f63c9a01";
+const reviewedPronunciationSourceSignature = "36541:4746b6b5244a9307";
 
 function reviewedTableMatchesCorpus(map) {
   return [...map].every(([text, spans]) =>

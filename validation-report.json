@@ -25,17 +25,17 @@
     "example-readings.js",
     "styles.css"
   ],
-  "source_fingerprint": "sha256:1f86d779e52c5a86597818980b5925dc9dccbc30c4681b80ca28866ae9d2de42",
+  "source_fingerprint": "sha256:dae5609464412f937cc6b0ed5a34d52c2b7ecf2bedc640d8533f337407d672d5",
   "expected_counts": {
     "n5_entries": 761,
     "n4_entries": 752,
     "n3_entries": 1526,
     "n2_entries": 1647,
-    "grammar_entries": 433,
+    "grammar_entries": 487,
     "kana_cards": 241,
     "vocab_cards": 9372,
-    "grammar_cards": 2598,
-    "total_cards_from_api": 12211
+    "grammar_cards": 2922,
+    "total_cards_from_api": 12535
   },
   "required_contracts": [
     "source-js-json-sync",
