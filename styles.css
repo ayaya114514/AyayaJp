@@ -186,7 +186,7 @@ h2 {
   z-index: 2;
   container-type: size;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr);
   min-height: 0;
   border: 1px solid var(--card-border);
   border-bottom: 0;
@@ -213,6 +213,22 @@ h2 {
   font-weight: 900;
 }
 
+/* The module list or the block grid and the footer under it scroll as one
+   column, so the tiles run straight into the bottom bar instead of being cut
+   off above a fixed line of footer text. */
+.deck-scroll {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.deck-scroll > * {
+  flex: none;
+}
+
 /* Level groups sit further apart than the rows inside them, so the page reads
    as 基础 + three blocks instead of one even grid. */
 .deck-tabs {
@@ -222,9 +238,6 @@ h2 {
   gap: clamp(16px, 2.6cqh, 28px);
   padding: 12px clamp(12px, 3vw, 24px);
   padding-block: clamp(10px, 1.6cqh, 24px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* Wide pages keep the cells at a readable width instead of stretching them. */
@@ -242,14 +255,18 @@ h2 {
 }
 
 /* The iOS silent-switch note and the voice credit the VOICEVOX terms require
-   share the line under the modules. */
+   share the line after the modules or blocks; on a page shorter than the
+   screen it sits at the bottom. */
 .deck-footer {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 2px 12px;
-  padding: 0 clamp(12px, 3vw, 24px) 8px;
+  width: 100%;
+  max-width: calc(860px + 2 * clamp(12px, 3vw, 24px));
+  margin: auto auto 0;
+  padding: 0 clamp(12px, 3vw, 24px) 10px;
 }
 
 /* Progress backup sits in the header's otherwise empty right side. */
@@ -492,9 +509,6 @@ h2 {
   max-width: calc(860px + 2 * clamp(12px, 3vw, 24px));
   margin-inline: auto;
   padding: 12px clamp(12px, 3vw, 24px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
 }
 
 .block-grid[data-level="n4"] {
@@ -1765,6 +1779,11 @@ h2 {
     grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
     gap: 14px;
     padding: 20px clamp(16px, 3vw, 28px);
+  }
+
+  .block-grid:not([hidden]) + .deck-footer {
+    max-width: calc(860px + 2 * clamp(16px, 3vw, 28px));
+    padding-inline: clamp(16px, 3vw, 28px);
   }
 
   .block-grid.is-grammar {

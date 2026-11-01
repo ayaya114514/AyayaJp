@@ -3275,6 +3275,9 @@ function selectDeck(deck) {
 // picked: 全部 first, then each block with the cards left in its 当前 round and
 // its 模糊 / 不认识 counts, so the next block to study is visible at a glance.
 let blockPageDeck = "";
+// The module list shares its scroller with the block grid; reopening the list
+// puts it back where it was.
+let moduleListScrollTop = 0;
 
 function blockPageCounts(tabDeck) {
   const counts = new Map();
@@ -3372,7 +3375,8 @@ function openBlockPage(tabDeck, options = {}) {
   elements.closeDeckMenu.setAttribute("aria-label", "返回模块");
   elements.closeDeckMenu.title = "返回模块";
   renderBlockPage();
-  extraElements.blockGrid.scrollTop = 0;
+  moduleListScrollTop = extraElements.deckScroll.scrollTop;
+  extraElements.deckScroll.scrollTop = 0;
   const activeTile = activeBlockTile();
   activeTile?.scrollIntoView?.({ block: "nearest" });
   if (options.focus !== false) focusSoon(activeTile || extraElements.blockGrid.children[0]);
@@ -3385,6 +3389,7 @@ function closeBlockPage(options = {}) {
   extraElements.deckTabs.hidden = false;
   extraElements.blockGrid.hidden = true;
   extraElements.blockGrid.replaceChildren();
+  extraElements.deckScroll.scrollTop = moduleListScrollTop;
   extraElements.deckSidebarTitle.textContent = "学习模块";
   elements.closeDeckMenu.setAttribute("aria-label", "返回学习");
   elements.closeDeckMenu.title = "返回学习";
@@ -3455,6 +3460,7 @@ function finishStudyDataLoad() {
 // Optional module-page extras; a page without them still runs.
 const extraElements = {
   blockGrid: document.querySelector("#blockGrid"),
+  deckScroll: document.querySelector("#deckScroll"),
   blockNext: document.querySelector("#blockNext"),
   deckSidebarTitle: document.querySelector("#deckSidebarTitle"),
   deckTabs: document.querySelector(".deck-tabs"),
