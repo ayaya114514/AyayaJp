@@ -324,11 +324,15 @@ test("the module page footer stays on screen after rating", async ({ page }) => 
   await page.locator('[data-rating="clear"]').click();
 
   await page.locator("#deckMenuButton").click();
+  // The footer ends the module page's scroll column: scrolled to, it shows
+  // whole, above the bottom bar.
   const footer = page.locator(".deck-footer");
+  await footer.scrollIntoViewIfNeeded();
   await expect(footer).toBeVisible();
   const footerBox = await footer.boundingBox();
+  const barBox = await page.locator(".bottom-bar").boundingBox();
   const viewport = page.viewportSize();
-  expect(footerBox.y + footerBox.height).toBeLessThanOrEqual(viewport.height + 1);
+  expect(footerBox.y + footerBox.height).toBeLessThanOrEqual(barBox.y + 1);
   expect(footerBox.x + footerBox.width).toBeLessThanOrEqual(viewport.width + 1);
 });
 
@@ -357,6 +361,19 @@ test("a vocab block page lists its blocks and studies only the picked block", as
   const lastTile = grid.locator(".block-tile").last();
   await lastTile.scrollIntoViewIfNeeded();
   await expect(lastTile).toBeInViewport();
+
+  // The tiles scroll right up to the bottom bar; the footer line follows the
+  // last tile instead of sitting fixed between the tiles and the bar.
+  const layout = await page.evaluate(() => {
+    const scroller = document.querySelector("#deckScroll").getBoundingClientRect();
+    const bar = document.querySelector(".bottom-bar").getBoundingClientRect();
+    const tiles = document.querySelectorAll("#blockGrid .block-tile");
+    const last = tiles[tiles.length - 1].getBoundingClientRect();
+    const footer = document.querySelector(".deck-footer").getBoundingClientRect();
+    return { gap: bar.top - scroller.bottom, footerBelowLastTile: footer.top >= last.bottom };
+  });
+  expect(Math.abs(layout.gap)).toBeLessThanOrEqual(1);
+  expect(layout.footerBelowLastTile).toBe(true);
 
   await grid.locator('.block-tile[data-block="3"]').click();
   await expect(page.locator("#deckSidebar")).not.toHaveClass(/\bis-open\b/);
