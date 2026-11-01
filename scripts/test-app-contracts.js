@@ -2993,6 +2993,32 @@ function testRetiredGrammarGroupBecomesItsBlock() {
   assert(!storage.has("ayaya-jp-grammar-group-v1"), "the retired group choice was kept");
 }
 
+function testRemovedGrammarBlockFallsBackToItsLevel() {
+  const deck = "grammar-n5-ja-zh";
+  const removed = `${deck}@n5-old`;
+  const storage = new Map([
+    [
+      "ayaya-jp-srs-v1",
+      JSON.stringify({
+        __rounds: {
+          activeDeck: removed,
+          decks: { [removed]: { queue: ["grammar-a"], completed: [], rounds: 2 } },
+        },
+      }),
+    ],
+  ]);
+  const { harness } = grammarBlockFixture({ sharedStorage: storage });
+  assert(
+    ["prompt grammar-a", "prompt grammar-b"].includes(harness.element("cardPrompt").textContent),
+    "a removed grammar block did not reopen its level's 全部 deck",
+  );
+  harness.element("cardReveal").dispatch("click");
+  harness.document.feedback[0].dispatch("click");
+  const rounds = savedRounds(harness);
+  assert(rounds.activeDeck === deck, "the removed block stayed the active deck");
+  assert(!rounds.decks[removed], "the removed block's round was kept");
+}
+
 function testVocabBlocksShuffleWordsIntoFixedEvenBlocks() {
   const sources = Array.from({ length: 80 }, (_, index) => `n5-${String(index + 1).padStart(3, "0")}`);
   const vocabCards = sources.flatMap((sourceId) =>
@@ -3400,6 +3426,7 @@ const tests = [
   ["homophones are never asked back to back", testHomophonesAreNeverAskedBackToBack],
   ["a block starts from its share of the 全部 round", testBlockStartsFromItsShareOfTheWholeRound],
   ["a retired grammar group choice becomes its block", testRetiredGrammarGroupBecomesItsBlock],
+  ["a removed grammar block reopens its level", testRemovedGrammarBlockFallsBackToItsLevel],
   ["vocab blocks shuffle words into fixed even blocks", testVocabBlocksShuffleWordsIntoFixedEvenBlocks],
   ["words added later join new blocks", testWordsAddedLaterJoinNewBlocks],
   ["中→日 grammar hides its pattern until reveal", testChineseGrammarFrontHidesPatternUntilReveal],

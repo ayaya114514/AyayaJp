@@ -1272,6 +1272,26 @@ h2 {
   letter-spacing: 0.04em;
 }
 
+/* 说明 and, on grammar cards, the 出口仁 episode at the right of its line. */
+.answer-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.meta-lecture {
+  padding: 6px 12px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.meta-lecture[hidden] {
+  display: none;
+}
+
 .answer-meta {
   display: grid;
   gap: 4px;
@@ -1665,6 +1685,10 @@ h2 {
     font-size: 0.82rem;
   }
 
+  .meta-lecture {
+    font-size: 0.86rem;
+  }
+
   .answer-meta {
     font-size: 1.05rem;
   }
@@ -1722,6 +1746,10 @@ h2 {
 
   .answer-section-title {
     font-size: 0.82rem;
+  }
+
+  .meta-lecture {
+    font-size: 0.86rem;
   }
 
   .answer-meta {
@@ -1846,6 +1874,10 @@ h2 {
 
   .answer-section-title {
     padding: 10px 16px 2px;
+  }
+
+  .meta-lecture {
+    padding: 10px 16px 2px 0;
   }
 
   .answer-meta {
