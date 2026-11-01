@@ -3660,9 +3660,18 @@ const grammarGroupLabels = new Map(grammarGroups.map((group) => [group.id, group
 // 说明 rows of a grammar point's sentence cards. Its 辨析 (how it differs from
 // the points it is most often confused with) is shown on the pattern-focused
 // 文型 and 选择题 cards, whose answers are short enough to keep it on one screen.
-// N2 points follow 出口仁's 【Ｎ２文法】 series; lecture is its episode number.
+// Grammar follows 出口仁's 【Ｎ５文法】…【Ｎ２文法】 series: lectures lists the
+// episodes that teach the point ("N4-2"), its own level's first, so a point he
+// files at another level shows that series too (课程：出口仁 N5 第16・29集；N4 第2集).
 function lectureMeta(entry) {
-  return Number.isInteger(entry.lecture) ? `课程：出口仁 N2 第${entry.lecture}集` : "";
+  const byLevel = new Map();
+  (Array.isArray(entry.lectures) ? entry.lectures : []).forEach((lecture) => {
+    const [level, episode] = lecture.split("-");
+    if (!byLevel.has(level)) byLevel.set(level, []);
+    byLevel.get(level).push(episode);
+  });
+  const series = [...byLevel].map(([level, episodes]) => `${level} 第${episodes.join("・")}集`);
+  return series.length ? `课程：出口仁 ${series.join("；")}` : "";
 }
 
 function grammarMeta(entry) {

@@ -1097,12 +1097,36 @@ test("N2 grammar cards name their 出口仁 episode", async ({ page }) => {
   );
   await page.locator("#cardReveal").click({ force: true });
   await expectAnswerRevealed(page);
-  const lecture = page.locator("#answerMeta .meta-row").filter({ hasText: "出口仁" });
-  await expect(lecture.locator(".meta-key")).toHaveText("课程");
-  await expect(lecture.locator(".meta-value")).toHaveText("出口仁 N2 第1集");
+  // The episode sits on the 说明 title line instead of taking a row.
+  await expect(page.locator("#metaLecture")).toHaveText("出口仁 N2 第1集");
+  await expect(page.locator("#answerMeta .meta-row").filter({ hasText: "出口仁" })).toHaveCount(0);
   // The open deck's menu lists its blocks straight away.
   await page.locator("#deckMenuButton").click();
   await expect(page.locator('#blockGrid .block-tile[data-block="n2-epa"]')).toContainText("第1–10集");
+  await expectNoHorizontalOverflow(page);
+});
+
+// N5–N3 follow his N5–N3 series the same way; a point he teaches at another
+// level stays at ours, in a 补充 block, and names that series' episode.
+test("N5–N3 grammar cards name their episodes, other levels' series included", async ({ page }) => {
+  await openWithStore(
+    page,
+    progressFixture({
+      deck: "grammar-n5-pattern-zh",
+      queue: ["grammar-n5-grammar-013-pattern", "grammar-n5-grammar-066-pattern"],
+    }),
+  );
+  const lecture = page.locator("#metaLecture");
+  await page.locator("#cardReveal").click({ force: true });
+  await expectAnswerRevealed(page);
+  await expect(lecture).toHaveText("出口仁 N5 第16・29集");
+  await page.locator('[data-rating="clear"]').click();
+  await page.locator("#cardReveal").click({ force: true });
+  await expectAnswerRevealed(page);
+  await expect(lecture).toHaveText("出口仁 N4 第2集");
+  await page.locator("#deckMenuButton").click();
+  await expect(page.locator('#blockGrid .block-tile[data-block="n5-epb"]')).toContainText("第11–20集");
+  await expect(page.locator('#blockGrid .block-tile[data-block="n5-supc"]')).toContainText("补充·经验与打算");
   await expectNoHorizontalOverflow(page);
 });
 

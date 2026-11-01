@@ -2,324 +2,249 @@ window.AYAYA_GRAMMAR_DATA = {
   "sourceNote": "JLPT官方不发布固定语法/词汇清单；本数据按N5/N4常见学习范围整理，并结合官方考试题型说明、JLPT样题/官方问题集说明及常见教学清单校对。",
   "groups": [
     {
-      "id": "n5-topic",
+      "id": "n5-epa",
       "level": "N5",
-      "label": "は・が・も"
+      "label": "第1–10集"
     },
     {
-      "id": "n5-case",
+      "id": "n5-epb",
       "level": "N5",
-      "label": "を・に・へ・で"
+      "label": "第11–20集"
     },
     {
-      "id": "n5-link",
+      "id": "n5-epc",
       "level": "N5",
-      "label": "の・と・や・だけ"
+      "label": "第21–30集"
     },
     {
-      "id": "n5-predicate",
+      "id": "n5-epd",
       "level": "N5",
-      "label": "判断与存在"
+      "label": "第31–40集"
     },
     {
-      "id": "n5-adjective",
+      "id": "n5-epe",
       "level": "N5",
-      "label": "形容词与变化"
+      "label": "第41–50集"
     },
     {
-      "id": "n5-compare",
+      "id": "n5-epf",
       "level": "N5",
-      "label": "比较与程度"
+      "label": "第51–60集"
     },
     {
-      "id": "n5-aspect",
+      "id": "n5-epg",
       "level": "N5",
-      "label": "ている・た形"
+      "label": "第61–70集"
     },
     {
-      "id": "n5-sequence",
+      "id": "n5-eph",
       "level": "N5",
-      "label": "时间与顺序"
+      "label": "第71–90集"
     },
     {
-      "id": "n5-wish",
+      "id": "n5-epi",
       "level": "N5",
-      "label": "愿望与打算"
+      "label": "第91–100集"
     },
     {
-      "id": "n5-invite",
+      "id": "n5-epj",
       "level": "N5",
-      "label": "邀请与提议"
+      "label": "第101–110集"
     },
     {
-      "id": "n5-request",
+      "id": "n5-epk",
       "level": "N5",
-      "label": "请求・许可・禁止"
+      "label": "第111–119集"
     },
     {
-      "id": "n5-must",
+      "id": "n5-supa",
       "level": "N5",
-      "label": "义务与建议"
+      "label": "补充·许可与义务"
     },
     {
-      "id": "n5-reason",
+      "id": "n5-supb",
       "level": "N5",
-      "label": "原因与转折"
+      "label": "补充·比较与说明"
     },
     {
-      "id": "n5-guess",
+      "id": "n5-supc",
       "level": "N5",
-      "label": "推测与说明"
+      "label": "补充·经验与打算"
     },
     {
-      "id": "n5-question",
+      "id": "n5-supd",
       "level": "N5",
-      "label": "疑问与语气"
+      "label": "补充·询问与语气"
     },
     {
-      "id": "n5-nominal",
-      "level": "N5",
-      "label": "〜のが・〜方"
-    },
-    {
-      "id": "n5-honorific",
-      "level": "N5",
-      "label": "敬语"
-    },
-    {
-      "id": "n4-time",
+      "id": "n4-epa",
       "level": "N4",
-      "label": "时间"
+      "label": "第1–10集"
     },
     {
-      "id": "n4-condition",
+      "id": "n4-epb",
       "level": "N4",
-      "label": "条件"
+      "label": "第11–20集"
     },
     {
-      "id": "n4-concession",
+      "id": "n4-epc",
       "level": "N4",
-      "label": "转折与让步"
+      "label": "第21–30集"
     },
     {
-      "id": "n4-reason",
+      "id": "n4-epd",
       "level": "N4",
-      "label": "原因与目的"
+      "label": "第31–40集"
     },
     {
-      "id": "n4-guess",
+      "id": "n4-epe",
       "level": "N4",
-      "label": "推测"
+      "label": "第41–50集"
     },
     {
-      "id": "n4-appearance",
+      "id": "n4-epf",
       "level": "N4",
-      "label": "样子与比喻"
+      "label": "第51–60集"
     },
     {
-      "id": "n4-hearsay",
+      "id": "n4-epg",
       "level": "N4",
-      "label": "传闻与引用"
+      "label": "第61–70集"
     },
     {
-      "id": "n4-plan",
+      "id": "n4-eph",
       "level": "N4",
-      "label": "意志与计划"
+      "label": "第71–80集"
     },
     {
-      "id": "n4-koto",
+      "id": "n4-epi",
       "level": "N4",
-      "label": "こと・よう句型"
+      "label": "第81–90集"
     },
     {
-      "id": "n4-feeling",
+      "id": "n4-epj",
       "level": "N4",
-      "label": "他人的感情"
+      "label": "第91–100集"
     },
     {
-      "id": "n4-giving",
+      "id": "n4-epk",
       "level": "N4",
-      "label": "授受"
+      "label": "第101–110集"
     },
     {
-      "id": "n4-stage",
+      "id": "n4-epl",
       "level": "N4",
-      "label": "ところ・ばかり"
+      "label": "第111–120集"
     },
     {
-      "id": "n4-te",
+      "id": "n4-supa",
       "level": "N4",
-      "label": "て形补助动词"
+      "label": "补充·时间与顺序"
     },
     {
-      "id": "n4-compound",
+      "id": "n4-supb",
       "level": "N4",
-      "label": "复合动词"
+      "label": "补充·副词与程度"
     },
     {
-      "id": "n4-must",
+      "id": "n4-supc",
       "level": "N4",
-      "label": "必须与必要"
+      "label": "补充·感情与愿望"
     },
     {
-      "id": "n4-command",
+      "id": "n4-supd",
       "level": "N4",
-      "label": "命令与建议"
+      "label": "补充·传闻与语气"
     },
     {
-      "id": "n4-voice",
+      "id": "n4-supe",
       "level": "N4",
-      "label": "可能・被动・使役"
+      "label": "补充·助词与构词"
     },
     {
-      "id": "n4-honorific",
-      "level": "N4",
-      "label": "敬语"
-    },
-    {
-      "id": "n4-tone",
-      "level": "N4",
-      "label": "句末语气"
-    },
-    {
-      "id": "n4-particle",
-      "level": "N4",
-      "label": "助词表达"
-    },
-    {
-      "id": "n4-quantity",
-      "level": "N4",
-      "label": "数量与比较"
-    },
-    {
-      "id": "n4-nominal",
-      "level": "N4",
-      "label": "名词化"
-    },
-    {
-      "id": "n4-adverb",
-      "level": "N4",
-      "label": "副词呼应"
-    },
-    {
-      "id": "n3-time",
+      "id": "n3-epa",
       "level": "N3",
-      "label": "时间与先后"
+      "label": "第1–10集"
     },
     {
-      "id": "n3-frequency",
+      "id": "n3-epb",
       "level": "N3",
-      "label": "频率与范围"
+      "label": "第11–20集"
     },
     {
-      "id": "n3-change",
+      "id": "n3-epc",
       "level": "N3",
-      "label": "变化与同步"
+      "label": "第21–30集"
     },
     {
-      "id": "n3-addition",
+      "id": "n3-epd",
       "level": "N3",
-      "label": "不仅……而且"
+      "label": "第31–40集"
     },
     {
-      "id": "n3-reason",
+      "id": "n3-epe",
       "level": "N3",
-      "label": "原因"
+      "label": "第41–50集"
     },
     {
-      "id": "n3-concession",
+      "id": "n3-epf",
       "level": "N3",
-      "label": "转折与让步"
+      "label": "第51–60集"
     },
     {
-      "id": "n3-condition",
+      "id": "n3-epg",
       "level": "N3",
-      "label": "条件与假定"
+      "label": "第61–70集"
     },
     {
-      "id": "n3-compare",
+      "id": "n3-eph",
       "level": "N3",
-      "label": "程度与比较"
+      "label": "第71–80集"
     },
     {
-      "id": "n3-ni",
+      "id": "n3-epi",
       "level": "N3",
-      "label": "によって・にとって等"
+      "label": "第81–90集"
     },
     {
-      "id": "n3-wo",
+      "id": "n3-epj",
       "level": "N3",
-      "label": "を中心に・を通して等"
+      "label": "第91–100集"
     },
     {
-      "id": "n3-substitute",
+      "id": "n3-epk",
       "level": "N3",
-      "label": "代替与方式"
+      "label": "第101–110集"
     },
     {
-      "id": "n3-limit",
+      "id": "n3-epl",
       "level": "N3",
-      "label": "限定与强调"
+      "label": "第111–120集"
     },
     {
-      "id": "n3-koto",
+      "id": "n3-supa",
       "level": "N3",
-      "label": "こと句型"
+      "label": "补充·时间与变化"
     },
     {
-      "id": "n3-wake",
+      "id": "n3-supb",
       "level": "N3",
-      "label": "わけ・もの"
+      "label": "补充·转折与原因"
     },
     {
-      "id": "n3-instruction",
+      "id": "n3-supc",
       "level": "N3",
-      "label": "ように・べき"
+      "label": "补充·推测与比较"
     },
     {
-      "id": "n3-guess",
+      "id": "n3-supd",
       "level": "N3",
-      "label": "推测与断定"
+      "label": "补充·忠告与敬语"
     },
     {
-      "id": "n3-toiu",
+      "id": "n3-supe",
       "level": "N3",
-      "label": "という"
-    },
-    {
-      "id": "n3-intent",
-      "level": "N3",
-      "label": "意图"
-    },
-    {
-      "id": "n3-tendency",
-      "level": "N3",
-      "label": "倾向"
-    },
-    {
-      "id": "n3-suffix",
-      "level": "N3",
-      "label": "接尾词"
-    },
-    {
-      "id": "n3-compound",
-      "level": "N3",
-      "label": "复合动词"
-    },
-    {
-      "id": "n3-te",
-      "level": "N3",
-      "label": "て形表达"
-    },
-    {
-      "id": "n3-honorific",
-      "level": "N3",
-      "label": "敬语"
-    },
-    {
-      "id": "n3-colloquial",
-      "level": "N3",
-      "label": "口语缩约"
+      "label": "补充·助词与口语"
     },
     {
       "id": "n2-epa",
@@ -513,7 +438,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-001",
       "level": "N5",
-      "group": "n5-predicate",
+      "group": "n5-epa",
+      "lectures": ["N5-1"],
       "pattern": "〜です / 〜だ",
       "meaningZh": "是……；礼貌/普通判断",
       "formation": "N + です / N + だ；な形容詞語幹 + です / だ",
@@ -600,7 +526,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-002",
       "level": "N5",
-      "group": "n5-predicate",
+      "group": "n5-epa",
+      "lectures": ["N5-1", "N5-102"],
       "pattern": "〜じゃない / 〜ではない",
       "meaningZh": "不是……",
       "formation": "N / な形容詞語幹 + じゃない / ではない",
@@ -688,7 +615,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-003",
       "level": "N5",
-      "group": "n5-question",
+      "group": "n5-epa",
+      "lectures": ["N5-8"],
       "pattern": "〜か",
       "meaningZh": "疑问；是否……",
       "formation": "句子 + か",
@@ -775,7 +703,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-004",
       "level": "N5",
-      "group": "n5-topic",
+      "group": "n5-epd",
+      "lectures": ["N5-40", "N5-87"],
       "pattern": "〜が（主语）",
       "meaningZh": "标记主语（新信息、眼前的现象）",
       "formation": "N + が",
@@ -860,7 +789,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-085",
       "level": "N5",
-      "group": "n5-topic",
+      "group": "n5-supc",
       "pattern": "〜が（对象）",
       "meaningZh": "标记喜好、能力、愿望等的对象",
       "formation": "N + が + 好き／嫌い／上手／分かる／できる／ほしい 等",
@@ -945,7 +874,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-086",
       "level": "N5",
-      "group": "n5-reason",
+      "group": "n5-eph",
+      "lectures": ["N5-88"],
       "pattern": "〜が（转折）",
       "meaningZh": "……，但是……",
       "formation": "丁寧形 / 普通形 + が、〜",
@@ -1033,7 +963,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-005",
       "level": "N5",
-      "group": "n5-topic",
+      "group": "n5-epa",
+      "lectures": ["N5-5"],
       "pattern": "〜は",
       "meaningZh": "主题标记",
       "formation": "N + は",
@@ -1118,7 +1049,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-006",
       "level": "N5",
-      "group": "n5-case",
+      "group": "n5-epc",
+      "lectures": ["N5-21"],
       "pattern": "〜を（宾语）",
       "meaningZh": "标记动作的对象（宾语）",
       "formation": "N + を + 他动词",
@@ -1203,7 +1135,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-087",
       "level": "N5",
-      "group": "n5-case",
+      "group": "n5-epf",
+      "lectures": ["N5-55", "N5-56"],
       "pattern": "〜を（经过・离开的场所）",
       "meaningZh": "沿着……、在……（经过）；从……（离开）",
       "formation": "场所 + を + 歩く／渡る／散歩する／出る／降りる 等",
@@ -1290,7 +1223,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-007",
       "level": "N5",
-      "group": "n5-case",
+      "group": "n5-epb",
+      "lectures": ["N5-13"],
       "pattern": "〜に（时间）",
       "meaningZh": "在（几点、几号等具体时间）",
       "formation": "具体时间 + に",
@@ -1375,7 +1309,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-088",
       "level": "N5",
-      "group": "n5-case",
+      "group": "n5-epe",
+      "lectures": ["N5-41"],
       "pattern": "〜に（存在的地点）",
       "meaningZh": "在（某处有、在、住）",
       "formation": "场所 + に + ある／いる／住む 等",
@@ -1462,7 +1397,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-089",
       "level": "N5",
-      "group": "n5-case",
+      "group": "n5-epd",
+      "lectures": ["N5-32"],
       "pattern": "〜に（对象）",
       "meaningZh": "给……；向……（动作的对象）",
       "formation": "人 + に + 電話する／会う／聞く／書く 等",
@@ -1550,7 +1486,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-008",
       "level": "N5",
-      "group": "n5-case",
+      "group": "n5-epb",
+      "lectures": ["N5-14", "N5-118"],
       "pattern": "〜へ / 〜に",
       "meaningZh": "去往……；朝……",
       "formation": "地点 + へ / に + 行く/来る/帰る",
@@ -1635,7 +1572,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-009",
       "level": "N5",
-      "group": "n5-case",
+      "group": "n5-epc",
+      "lectures": ["N5-22"],
       "pattern": "〜で（动作的场所）",
       "meaningZh": "在……（做某事）",
       "formation": "场所 + で + 动作",
@@ -1723,7 +1661,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-090",
       "level": "N5",
-      "group": "n5-case",
+      "group": "n5-epb",
+      "lectures": ["N5-15", "N5-31"],
       "pattern": "〜で（手段・工具）",
       "meaningZh": "用……；坐……（手段、工具、语言）",
       "formation": "工具／交通工具／语言 + で",
@@ -1811,7 +1750,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-091",
       "level": "N5",
-      "group": "n5-reason",
+      "group": "n5-epe",
+      "lectures": ["N5-47"],
       "pattern": "〜で（原因）",
       "meaningZh": "因为……（原因）",
       "formation": "N（病気、雪、仕事 等）+ で",
@@ -1899,7 +1839,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-010",
       "level": "N5",
-      "group": "n5-link",
+      "group": "n5-epa",
+      "lectures": ["N5-7"],
       "pattern": "〜の（连接名词）",
       "meaningZh": "……的（连接两个名词）",
       "formation": "N + の + N",
@@ -1985,7 +1926,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-092",
       "level": "N5",
-      "group": "n5-link",
+      "group": "n5-epg",
+      "lectures": ["N5-61"],
       "pattern": "〜の（代替名词）",
       "meaningZh": "……的（东西）",
       "formation": "N + の；い形 + の；な形 + な + の",
@@ -2073,7 +2015,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-011",
       "level": "N5",
-      "group": "n5-topic",
+      "group": "n5-epa",
+      "lectures": ["N5-6"],
       "pattern": "〜も（也）",
       "meaningZh": "也；……和……都",
       "formation": "N + も；N + も + N + も",
@@ -2161,7 +2104,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-093",
       "level": "N5",
-      "group": "n5-topic",
+      "group": "n5-epg",
+      "lectures": ["N5-66"],
       "pattern": "何も／誰も／どこへも〜ない",
       "meaningZh": "什么也不……；谁也不……；哪儿也不……",
       "formation": "疑问词（何・誰・どこ 等）+ も + 否定",
@@ -2250,7 +2194,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n5-grammar-012",
       "retiredVocabSourceIds": ["n5-380"],
       "level": "N5",
-      "group": "n5-link",
+      "group": "n5-epf",
+      "lectures": ["N5-59"],
       "pattern": "〜だけ",
       "meaningZh": "只……；仅……",
       "formation": "N / 数量詞 + だけ；V/い形普通形 + だけ；な形肯定非过去：語幹 + なだけ；过去/否定普通形 + だけ",
@@ -2337,7 +2282,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-013",
       "level": "N5",
-      "group": "n5-link",
+      "group": "n5-epb",
+      "lectures": ["N5-16", "N5-29"],
       "pattern": "〜と（和・一起）",
       "meaningZh": "和……；跟……一起",
       "formation": "N + と + N；人 + と + 动词",
@@ -2425,7 +2371,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-094",
       "level": "N5",
-      "group": "n5-link",
+      "group": "n5-supd",
+      "lectures": ["N4-54"],
       "pattern": "〜と言う",
       "meaningZh": "说……（引用说话的内容）",
       "formation": "引用内容（普通形 / 「原话」）+ と言う",
@@ -2513,7 +2460,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-014",
       "level": "N5",
-      "group": "n5-link",
+      "group": "n5-epc",
+      "lectures": ["N5-30"],
       "pattern": "〜や",
       "meaningZh": "……和……等",
       "formation": "N + や + N など",
@@ -2601,7 +2549,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-015",
       "level": "N5",
-      "group": "n5-link",
+      "group": "n5-epj",
+      "lectures": ["N5-109"],
       "pattern": "〜か〜か",
       "meaningZh": "……还是……",
       "formation": "V/い形普通形 + か；な形/N肯定非过去：語幹/N + か；过去/否定普通形 + か（两项并列）",
@@ -2689,7 +2638,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-016",
       "level": "N5",
-      "group": "n5-predicate",
+      "group": "n5-epe",
+      "lectures": ["N5-42", "N5-43"],
       "pattern": "〜があります",
       "meaningZh": "有……；发生……",
       "formation": "N + があります",
@@ -2777,7 +2727,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-017",
       "level": "N5",
-      "group": "n5-predicate",
+      "group": "n5-epe",
+      "lectures": ["N5-42", "N5-43"],
       "pattern": "〜がいます",
       "meaningZh": "有……；在……",
       "formation": "N(人/动物) + がいます",
@@ -2865,7 +2816,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-018",
       "level": "N5",
-      "group": "n5-wish",
+      "group": "n5-epe",
+      "lectures": ["N5-45"],
       "pattern": "〜がほしい",
       "meaningZh": "想要……",
       "formation": "N + がほしい",
@@ -2953,7 +2905,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-019",
       "level": "N5",
-      "group": "n5-adjective",
+      "group": "n5-epa",
+      "lectures": ["N5-4", "N5-12"],
       "pattern": "い形容詞",
       "meaningZh": "い形容词谓语/修饰名词",
       "formation": "い形容詞 + です；い形容詞 + N",
@@ -3041,7 +2994,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-020",
       "level": "N5",
-      "group": "n5-adjective",
+      "group": "n5-epa",
+      "lectures": ["N5-3", "N5-11"],
       "pattern": "な形容詞",
       "meaningZh": "な形容词谓语/修饰名词",
       "formation": "な形容詞語幹 + です；な形容詞語幹 + な + N",
@@ -3129,7 +3083,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-021",
       "level": "N5",
-      "group": "n5-sequence",
+      "group": "n5-epi",
+      "lectures": ["N5-93", "N4-62"],
       "pattern": "〜ないで",
       "meaningZh": "不做……而……；别……",
       "formation": "Vない形 + で",
@@ -3217,7 +3172,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-022",
       "level": "N5",
-      "group": "n5-request",
+      "group": "n5-epi",
+      "lectures": ["N5-92"],
       "pattern": "〜ないでください",
       "meaningZh": "请不要……",
       "formation": "Vない形 + でください",
@@ -3305,7 +3261,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-023",
       "level": "N5",
-      "group": "n5-request",
+      "group": "n5-epi",
+      "lectures": ["N5-92"],
       "pattern": "〜てください",
       "meaningZh": "请……",
       "formation": "Vて形 + ください",
@@ -3393,7 +3350,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-024",
       "level": "N5",
-      "group": "n5-request",
+      "group": "n5-supa",
+      "lectures": ["N4-15"],
       "pattern": "〜てもいいです",
       "meaningZh": "可以……；也可以……",
       "formation": "Vて形 + もいいです",
@@ -3481,7 +3439,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-025",
       "level": "N5",
-      "group": "n5-request",
+      "group": "n5-supa",
+      "lectures": ["N4-16"],
       "pattern": "〜てはいけません",
       "meaningZh": "不可以……",
       "formation": "Vて形 + はいけません",
@@ -3569,7 +3528,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-026",
       "level": "N5",
-      "group": "n5-request",
+      "group": "n5-supa",
+      "lectures": ["N4-16", "N4-27"],
       "pattern": "〜ちゃいけない / 〜じゃいけない",
       "meaningZh": "不许……；不能……",
       "formation": "Vて形 + はいけない → ちゃ/じゃいけない",
@@ -3657,7 +3617,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-027",
       "level": "N5",
-      "group": "n5-wish",
+      "group": "n5-epe",
+      "lectures": ["N5-45"],
       "pattern": "〜たい",
       "meaningZh": "想做……",
       "formation": "Vます形去ます + たい",
@@ -3745,7 +3706,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-028",
       "level": "N5",
-      "group": "n5-aspect",
+      "group": "n5-supc",
+      "lectures": ["N4-11"],
       "pattern": "〜たことがある",
       "meaningZh": "曾经……过",
       "formation": "Vた形 + ことがある",
@@ -3833,7 +3795,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-029",
       "level": "N5",
-      "group": "n5-aspect",
+      "group": "n5-epj",
+      "lectures": ["N5-106", "N4-108"],
       "pattern": "〜たり〜たりする",
       "meaningZh": "列举动作：又……又……",
       "formation": "Vた形 + り、Vた形 + りする",
@@ -3920,7 +3883,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-030",
       "level": "N5",
-      "group": "n5-aspect",
+      "group": "n5-epj",
+      "lectures": ["N5-105"],
       "pattern": "〜ている（进行）",
       "meaningZh": "正在……（动作进行中）",
       "formation": "Vて形 + いる",
@@ -4008,7 +3972,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-095",
       "level": "N5",
-      "group": "n5-aspect",
+      "group": "n5-epj",
+      "lectures": ["N5-105", "N5-115"],
       "pattern": "〜ている（结果状态）",
       "meaningZh": "……着；已经……了（动作结果的持续）",
       "formation": "Vて形 + いる（開く、結婚する、かける、知る 等）",
@@ -4096,7 +4061,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-096",
       "level": "N5",
-      "group": "n5-aspect",
+      "group": "n5-supc",
       "pattern": "〜ている（习惯・反复）",
       "meaningZh": "（经常、一直）在……（习惯、职业）",
       "formation": "Vて形 + いる（常与毎朝、いつも、毎週 等连用）",
@@ -4181,7 +4146,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-031",
       "level": "N5",
-      "group": "n5-aspect",
+      "group": "n5-epk",
+      "lectures": ["N5-115"],
       "pattern": "〜てある",
       "meaningZh": "已经……着；事先……好了",
       "formation": "他動詞て形 + ある",
@@ -4269,7 +4235,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-032",
       "level": "N5",
-      "group": "n5-sequence",
+      "group": "n5-epg",
+      "lectures": ["N5-63"],
       "pattern": "〜てから",
       "meaningZh": "……之后",
       "formation": "Vて形 + から",
@@ -4357,7 +4324,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-033",
       "level": "N5",
-      "group": "n5-compare",
+      "group": "n5-supb",
+      "lectures": ["N4-13"],
       "pattern": "〜すぎる",
       "meaningZh": "过于……；太……",
       "formation": "Vます形去ます / い形去い / な形語幹 + すぎる；いい → よすぎる；ない → なさすぎる",
@@ -4445,7 +4413,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-034",
       "level": "N5",
-      "group": "n5-must",
+      "group": "n5-supa",
+      "lectures": ["N4-12"],
       "pattern": "〜ほうがいい",
       "meaningZh": "最好……",
       "formation": "Vた形 / Vない形 + ほうがいい",
@@ -4533,7 +4502,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-035",
       "level": "N5",
-      "group": "n5-must",
+      "group": "n5-supa",
+      "lectures": ["N4-17"],
       "pattern": "〜なくてもいい",
       "meaningZh": "不……也可以；不必……",
       "formation": "Vない形去い + くてもいい",
@@ -4621,7 +4591,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-036",
       "level": "N5",
-      "group": "n5-must",
+      "group": "n5-supa",
+      "lectures": ["N3-41"],
       "pattern": "〜ないといけない",
       "meaningZh": "必须……",
       "formation": "Vない形 + といけない",
@@ -4709,7 +4680,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-037",
       "level": "N5",
-      "group": "n5-must",
+      "group": "n5-supa",
+      "lectures": ["N4-27", "N3-41"],
       "pattern": "〜なくちゃ",
       "meaningZh": "必须……；得……",
       "formation": "Vない形去い + くちゃ",
@@ -4797,7 +4769,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-038",
       "level": "N5",
-      "group": "n5-must",
+      "group": "n5-supa",
       "pattern": "〜なくてはいけない",
       "meaningZh": "必须……",
       "formation": "Vない形去い + くてはいけない",
@@ -4885,7 +4857,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-039",
       "level": "N5",
-      "group": "n5-must",
+      "group": "n5-supa",
       "pattern": "〜なくてはならない",
       "meaningZh": "必须……；不得不……",
       "formation": "Vない形去い + くてはならない",
@@ -4973,7 +4945,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-040",
       "level": "N5",
-      "group": "n5-sequence",
+      "group": "n5-epg",
+      "lectures": ["N5-65"],
       "pattern": "〜前に",
       "meaningZh": "……之前",
       "formation": "V辞書形 / N + の + 前に",
@@ -5061,7 +5034,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-041",
       "level": "N5",
-      "group": "n5-link",
+      "group": "n5-epc",
+      "lectures": ["N5-24"],
       "pattern": "〜まで",
       "meaningZh": "到……为止（时间、地点的终点）",
       "formation": "时间/地点 + まで",
@@ -5149,7 +5123,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-042",
       "level": "N5",
-      "group": "n5-reason",
+      "group": "n5-epe",
+      "lectures": ["N5-46", "N5-112"],
       "pattern": "〜から（原因）",
       "meaningZh": "因为……（所以……）",
       "formation": "普通形 / 丁寧形 + から",
@@ -5237,7 +5212,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-097",
       "level": "N5",
-      "group": "n5-link",
+      "group": "n5-epc",
+      "lectures": ["N5-23", "N5-37"],
       "pattern": "〜から（起点）",
       "meaningZh": "从……（时间、地点、人的起点）",
       "formation": "时间/地点/人 + から",
@@ -5325,7 +5301,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-043",
       "level": "N5",
-      "group": "n5-reason",
+      "group": "n5-supb",
+      "lectures": ["N4-8"],
       "pattern": "〜ので",
       "meaningZh": "因为……；由于……",
       "formation": "V/い形普通形 + ので；な形/N肯定非过去：語幹/N + なので；过去/否定普通形 + ので",
@@ -5413,7 +5390,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-044",
       "level": "N5",
-      "group": "n5-reason",
+      "group": "n5-epi",
+      "lectures": ["N5-96"],
       "pattern": "〜けど",
       "meaningZh": "不过……；虽然……",
       "formation": "普通形 / 丁寧形 + けど",
@@ -5500,7 +5478,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-045",
       "level": "N5",
-      "group": "n5-reason",
+      "group": "n5-epi",
+      "lectures": ["N5-96"],
       "pattern": "〜けれども",
       "meaningZh": "但是……；虽然……",
       "formation": "普通形 / 丁寧形 + けれども",
@@ -5588,7 +5567,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-052",
       "level": "N5",
-      "group": "n5-aspect",
+      "group": "n5-epe",
+      "lectures": ["N5-50"],
       "pattern": "まだ〜ていません",
       "meaningZh": "还没……",
       "formation": "まだ + Vて形 + いません",
@@ -5677,7 +5657,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n5-grammar-056",
       "level": "N5",
       "retiredGrammarIds": ["n4-grammar-061"],
-      "group": "n5-compare",
+      "group": "n5-epi",
+      "lectures": ["N5-99", "N4-53"],
       "pattern": "〜の中で〜が一番",
       "meaningZh": "在……之中最……",
       "formation": "Nの中で + Nが + 一番 + 形容詞",
@@ -5765,7 +5746,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-057",
       "level": "N5",
-      "group": "n5-compare",
+      "group": "n5-supb",
+      "lectures": ["N4-50"],
       "pattern": "〜より〜ほうが",
       "meaningZh": "比起……，……更……",
       "formation": "N1より N2のほうが + 形容詞",
@@ -5853,7 +5835,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-058",
       "level": "N5",
-      "group": "n5-compare",
+      "group": "n5-supb",
+      "lectures": ["N4-4"],
       "pattern": "〜は〜より〜です",
       "meaningZh": "……比……更……",
       "formation": "N1は N2より + 形容詞です",
@@ -5941,7 +5924,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-060",
       "level": "N5",
-      "group": "n5-invite",
+      "group": "n5-epb",
+      "lectures": ["N5-17"],
       "pattern": "〜ませんか",
       "meaningZh": "要不要……；……好吗（邀请）",
       "formation": "Vます形去ます + ませんか",
@@ -6029,7 +6013,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-061",
       "level": "N5",
-      "group": "n5-invite",
+      "group": "n5-epb",
+      "lectures": ["N5-20"],
       "pattern": "〜ましょう",
       "meaningZh": "一起……吧；我来……吧",
       "formation": "Vます形去ます + ましょう",
@@ -6117,7 +6102,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-062",
       "level": "N5",
-      "group": "n5-invite",
+      "group": "n5-supd",
       "pattern": "〜ましょうか",
       "meaningZh": "我来……吧；要不要……",
       "formation": "Vます形去ます + ましょうか",
@@ -6205,7 +6190,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-063",
       "level": "N5",
-      "group": "n5-wish",
+      "group": "n5-epi",
+      "lectures": ["N5-97"],
       "pattern": "〜に行く / 〜に来る",
       "meaningZh": "去/来做……",
       "formation": "Vます形去ます / 动作性N（買い物、食事等）+ に + 行く/来る",
@@ -6293,7 +6279,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-064",
       "level": "N5",
-      "group": "n5-wish",
+      "group": "n5-epk",
+      "lectures": ["N5-119"],
       "pattern": "〜にする",
       "meaningZh": "决定要……；选……",
       "formation": "N + にする",
@@ -6381,7 +6368,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-065",
       "level": "N5",
-      "group": "n5-nominal",
+      "group": "n5-supc",
+      "lectures": ["N4-7"],
       "pattern": "〜方",
       "meaningZh": "……的方法",
       "formation": "Vます形去ます + 方",
@@ -6470,7 +6458,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n5-grammar-066",
       "retiredVocabSourceIds": ["n4-447"],
       "level": "N5",
-      "group": "n5-wish",
+      "group": "n5-supc",
+      "lectures": ["N4-2"],
       "pattern": "〜つもり",
       "meaningZh": "打算……",
       "formation": "V辞書形 / Vない形 + つもり",
@@ -6558,7 +6547,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-067",
       "level": "N5",
-      "group": "n5-adjective",
+      "group": "n5-epb",
+      "lectures": ["N5-18", "N5-119"],
       "pattern": "〜なる",
       "meaningZh": "变成……；成为……",
       "formation": "N + に / い形去い + く / な形語幹 + に + なる；いい → よくなる",
@@ -6646,7 +6636,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-068",
       "level": "N5",
-      "group": "n5-guess",
+      "group": "n5-supb",
+      "lectures": ["N4-49"],
       "pattern": "〜んです",
       "meaningZh": "说明；强调背景",
       "formation": "V/い形普通形 + んです；な形/N肯定非过去：語幹/N + なんです；过去/否定普通形 + んです",
@@ -6731,7 +6722,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-069",
       "level": "N5",
-      "group": "n5-guess",
+      "group": "n5-supb",
+      "lectures": ["N4-49"],
       "pattern": "〜のです",
       "meaningZh": "说明；强调背景",
       "formation": "V/い形普通形 + のです；な形/N肯定非过去：語幹/N + なのです；过去/否定普通形 + のです",
@@ -6818,7 +6810,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-070",
       "level": "N5",
-      "group": "n5-nominal",
+      "group": "n5-supc",
       "pattern": "〜のが好き",
       "meaningZh": "喜欢做……",
       "formation": "V辞書形 + のが好き",
@@ -6906,7 +6898,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-071",
       "level": "N5",
-      "group": "n5-nominal",
+      "group": "n5-supc",
       "pattern": "〜のが上手",
       "meaningZh": "擅长做……",
       "formation": "V辞書形 + のが上手",
@@ -6994,7 +6986,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-072",
       "level": "N5",
-      "group": "n5-nominal",
+      "group": "n5-supc",
       "pattern": "〜のが下手",
       "meaningZh": "不擅长做……",
       "formation": "V辞書形 + のが下手",
@@ -7082,7 +7074,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-073",
       "level": "N5",
-      "group": "n5-sequence",
+      "group": "n5-eph",
+      "lectures": ["N5-80"],
       "pattern": "〜とき",
       "meaningZh": "……的时候",
       "formation": "V/い形普通形 + とき；な形肯定非过去：語幹 + なとき；N肯定非过去：N + のとき；な形/N过去・否定普通形 + とき",
@@ -7170,7 +7163,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-074",
       "level": "N5",
-      "group": "n5-guess",
+      "group": "n5-epj",
+      "lectures": ["N5-103"],
       "pattern": "〜でしょう",
       "meaningZh": "大概……吧；是吧",
       "formation": "V/い形普通形 + でしょう；な形/N肯定非过去：語幹/N + でしょう；过去/否定普通形 + でしょう",
@@ -7258,7 +7252,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-075",
       "level": "N5",
-      "group": "n5-guess",
+      "group": "n5-supb",
+      "lectures": ["N4-93"],
       "pattern": "〜だろう",
       "meaningZh": "大概……吧",
       "formation": "V/い形普通形 + だろう；な形/N肯定非过去：語幹/N + だろう；过去/否定普通形 + だろう",
@@ -7346,7 +7341,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-076",
       "level": "N5",
-      "group": "n5-question",
+      "group": "n5-eph",
+      "lectures": ["N5-81"],
       "pattern": "〜ね",
       "meaningZh": "是吧；啊；请求共鸣",
       "formation": "句子 + ね",
@@ -7434,7 +7430,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-077",
       "level": "N5",
-      "group": "n5-question",
+      "group": "n5-eph",
+      "lectures": ["N5-82"],
       "pattern": "〜よ",
       "meaningZh": "哦；提醒/强调",
       "formation": "句子 + よ",
@@ -7522,7 +7519,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-078",
       "level": "N5",
-      "group": "n5-question",
+      "group": "n5-supd",
       "pattern": "〜なあ",
       "meaningZh": "啊；真……啊",
       "formation": "普通形 + なあ",
@@ -7610,7 +7607,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-081",
       "level": "N5",
-      "group": "n5-question",
+      "group": "n5-supd",
       "pattern": "どうやって",
       "meaningZh": "怎么；用什么方法",
       "formation": "どうやって + V",
@@ -7698,7 +7695,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-082",
       "level": "N5",
-      "group": "n5-question",
+      "group": "n5-supd",
       "pattern": "〜はどうですか",
       "meaningZh": "……怎么样？",
       "formation": "N + はどうですか",
@@ -7786,7 +7783,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-083",
       "level": "N5",
-      "group": "n5-request",
+      "group": "n5-epi",
+      "lectures": ["N5-91"],
       "pattern": "〜をください",
       "meaningZh": "请给我……",
       "formation": "N + をください",
@@ -7874,7 +7872,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n5-grammar-084",
       "level": "N5",
-      "group": "n5-honorific",
+      "group": "n5-eph",
+      "lectures": ["N5-85", "N4-83"],
       "pattern": "お〜 / ご〜",
       "meaningZh": "敬语前缀",
       "formation": "お + 多为和语词；ご + 多为汉语词",
@@ -7961,7 +7960,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-001",
       "level": "N4",
-      "group": "n4-time",
+      "group": "n4-supa",
+      "lectures": ["N3-107"],
       "pattern": "〜間",
       "meaningZh": "在……期间；……之间",
       "formation": "V/い形普通形 + 間；な形肯定非过去：語幹 + な間；N肯定非过去：N + の間；な形/N过去・否定普通形 + 間",
@@ -8049,7 +8049,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-002",
       "level": "N4",
-      "group": "n4-time",
+      "group": "n4-supa",
+      "lectures": ["N3-107"],
       "pattern": "〜間に",
       "meaningZh": "在……期间内；趁……时",
       "formation": "V/い形普通形 + 間に；な形肯定非过去：語幹 + な間に；N肯定非过去：N + の間に；な形/N过去・否定普通形 + 間に",
@@ -8137,7 +8138,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-003",
       "level": "N4",
-      "group": "n4-adverb",
+      "group": "n4-supb",
       "pattern": "あまり〜ない",
       "meaningZh": "不太……",
       "formation": "あまり + 否定形",
@@ -8225,7 +8226,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-004",
       "level": "N4",
-      "group": "n4-time",
+      "group": "n4-supa",
+      "lectures": ["N5-64"],
       "pattern": "〜後で",
       "meaningZh": "……之后",
       "formation": "Vた形 / Nの + 後で",
@@ -8313,7 +8315,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-005",
       "level": "N4",
-      "group": "n4-condition",
+      "group": "n4-eph",
+      "lectures": ["N4-72"],
       "pattern": "〜ば",
       "meaningZh": "如果……；只要……",
       "formation": "五段：う段→え段 + ば；一段：去る + れば；する→すれば；来る→来れば；い形：去い + ければ（いい→よければ）；な形/N：語幹/N + なら（ば）；否定：〜ない→〜なければ",
@@ -8401,7 +8404,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-006",
       "level": "N4",
-      "group": "n4-condition",
+      "group": "n4-epk",
+      "lectures": ["N4-104"],
       "pattern": "〜場合は",
       "meaningZh": "在……情况下",
       "formation": "V/い形普通形 + 場合は；な形肯定非过去：語幹 + な場合は；N肯定非过去：N + の場合は；な形/N过去・否定普通形 + 場合は",
@@ -8490,7 +8494,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-007",
       "retiredVocabSourceIds": ["n4-762"],
       "level": "N4",
-      "group": "n4-particle",
+      "group": "n4-epj",
+      "lectures": ["N4-91", "N4-103"],
       "pattern": "〜ばかり",
       "meaningZh": "净……；光……",
       "formation": "N + ばかり；Vて形 + ばかりいる",
@@ -8578,7 +8583,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-008",
       "level": "N4",
-      "group": "n4-particle",
+      "group": "n4-supe",
+      "lectures": ["N3-106"],
       "pattern": "〜だけで",
       "meaningZh": "仅凭……；只要……就……",
       "formation": "V辞書形 / N + だけで",
@@ -8667,7 +8673,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-009",
       "retiredVocabSourceIds": ["n4-754"],
       "level": "N4",
-      "group": "n4-compound",
+      "group": "n4-epc",
+      "lectures": ["N4-30"],
       "pattern": "〜出す",
       "meaningZh": "开始……；突然……起来",
       "formation": "Vます形去ます + 出す",
@@ -8755,7 +8762,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-010",
       "level": "N4",
-      "group": "n4-honorific",
+      "group": "n4-epi",
+      "lectures": ["N4-84"],
       "pattern": "〜でございます",
       "meaningZh": "是……；为……",
       "formation": "N / な形容詞語幹 + でございます",
@@ -8843,7 +8851,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-011",
       "level": "N4",
-      "group": "n4-particle",
+      "group": "n4-epj",
+      "lectures": ["N4-98"],
       "pattern": "〜でも",
       "meaningZh": "……之类；……也行",
       "formation": "N + でも",
@@ -8931,7 +8940,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-012",
       "level": "N4",
-      "group": "n4-guess",
+      "group": "n4-supd",
+      "lectures": ["N2-117"],
       "pattern": "〜のではないか / 〜んじゃないか",
       "meaningZh": "是不是……；恐怕……吧",
       "formation": "V/い形普通形 + のではないか；な形/N肯定非过去 + なのではないか；な形/N过去・否定普通形 + のではないか；口语中「のでは」常缩约为「んじゃ」",
@@ -9019,7 +9029,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-013",
       "level": "N4",
-      "group": "n4-tone",
+      "group": "n4-supd",
+      "lectures": ["N3-116"],
       "pattern": "〜じゃないか",
       "meaningZh": "不是……吗；这不是……吗",
       "formation": "V/い形普通形 + じゃないか；な形/N肯定非过去 + じゃないか；な形/N过去・否定普通形 + じゃないか",
@@ -9107,7 +9118,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-014",
       "level": "N4",
-      "group": "n4-must",
+      "group": "n4-supc",
       "pattern": "〜が必要",
       "meaningZh": "需要……",
       "formation": "N + が必要",
@@ -9195,7 +9206,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-015",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-epd",
+      "lectures": ["N4-33"],
       "pattern": "〜がする",
       "meaningZh": "有……感觉/味道/声音",
       "formation": "N(音/匂い/味/感じ) + がする",
@@ -9283,7 +9295,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-016",
       "level": "N4",
-      "group": "n4-feeling",
+      "group": "n4-supc",
       "pattern": "〜がり",
       "meaningZh": "有……倾向的人；容易……的人",
       "formation": "形容詞語幹 + がり",
@@ -9369,7 +9381,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-017",
       "retiredVocabSourceIds": ["n5-181"],
       "level": "N4",
-      "group": "n4-feeling",
+      "group": "n4-epf",
+      "lectures": ["N4-59"],
       "pattern": "〜がる / 〜がっている",
       "meaningZh": "显得……；想要……",
       "formation": "い形去い / な形語幹 / たい去い + がる",
@@ -9456,7 +9469,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-018",
       "level": "N4",
-      "group": "n4-honorific",
+      "group": "n4-epi",
+      "lectures": ["N4-84"],
       "pattern": "ございます",
       "meaningZh": "有；在（郑重语）",
       "formation": "あります → ございます",
@@ -9545,7 +9559,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-019",
       "retiredVocabSourceIds": ["n4-761"],
       "level": "N4",
-      "group": "n4-compound",
+      "group": "n4-epc",
+      "lectures": ["N4-29"],
       "pattern": "〜始める",
       "meaningZh": "开始……",
       "formation": "Vます形去ます + 始める",
@@ -9634,7 +9649,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-020",
       "retiredVocabSourceIds": ["n4-537"],
       "level": "N4",
-      "group": "n4-guess",
+      "group": "n4-epi",
+      "lectures": ["N4-89"],
       "pattern": "〜はずだ",
       "meaningZh": "应该……；按理说……",
       "formation": "V/い形普通形 + はず；な形肯定非过去：語幹 + なはず；N肯定非过去：N + のはず；过去/否定普通形 + はず",
@@ -9722,7 +9738,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-021",
       "level": "N4",
-      "group": "n4-guess",
+      "group": "n4-epi",
+      "lectures": ["N4-89"],
       "pattern": "〜はずがない",
       "meaningZh": "不可能……；不应该……",
       "formation": "V/い形普通形 + はずがない；な形肯定非过去：語幹 + なはずがない；N肯定非过去：N + のはずがない；过去/否定普通形 + はずがない",
@@ -9810,7 +9827,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-022",
       "level": "N4",
-      "group": "n4-must",
+      "group": "n4-supc",
       "pattern": "〜必要がある",
       "meaningZh": "有必要……；需要……",
       "formation": "V辞書形 + 必要がある",
@@ -9898,7 +9915,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-023",
       "level": "N4",
-      "group": "n4-plan",
+      "group": "n4-epg",
+      "lectures": ["N4-68"],
       "pattern": "意向形",
       "meaningZh": "意志形；……吧；打算……",
       "formation": "五段：う段→お段+う；一段：去る+よう；する→しよう；来る→来よう",
@@ -9985,7 +10003,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-024",
       "level": "N4",
-      "group": "n4-honorific",
+      "group": "n4-eph",
+      "lectures": ["N4-77", "N4-84"],
       "pattern": "いらっしゃる",
       "meaningZh": "在；来；去（尊敬语）",
       "formation": "いる/来る/行く → いらっしゃる",
@@ -10073,7 +10092,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-025",
       "level": "N4",
-      "group": "n4-honorific",
+      "group": "n4-eph",
+      "lectures": ["N4-78"],
       "pattern": "いたします",
       "meaningZh": "做（谦让语）",
       "formation": "する → いたす / いたします",
@@ -10159,7 +10179,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-026",
       "level": "N4",
-      "group": "n4-nominal",
+      "group": "n4-epg",
+      "lectures": ["N4-67"],
       "pattern": "〜かどうか",
       "meaningZh": "是否……",
       "formation": "V/い形普通形 + かどうか；な形/N肯定非过去：語幹/N + かどうか；过去/否定普通形 + かどうか",
@@ -10247,7 +10268,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-027",
       "level": "N4",
-      "group": "n4-tone",
+      "group": "n4-supd",
+      "lectures": ["N3-120"],
       "pattern": "〜かしら",
       "meaningZh": "……呢；不知道是否……",
       "formation": "V/い形普通形 + かしら；な形/N肯定非过去 + かしら（也可用「なのかしら」）；な形/N过去・否定普通形 + かしら",
@@ -10335,7 +10357,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-028",
       "level": "N4",
-      "group": "n4-tone",
+      "group": "n4-epk",
+      "lectures": ["N4-109"],
       "pattern": "〜かい",
       "meaningZh": "……吗？",
       "formation": "V/い形普通形 + かい；な形/N肯定非过去 + かい；な形/N过去・否定普通形 + かい",
@@ -10423,7 +10446,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-029",
       "level": "N4",
-      "group": "n4-guess",
+      "group": "n4-epa",
+      "lectures": ["N4-3"],
       "pattern": "〜かもしれない",
       "meaningZh": "也许……；可能……",
       "formation": "V/い形普通形 + かもしれない；な形/N肯定非过去：語幹/N + かもしれない；过去/否定普通形 + かもしれない",
@@ -10511,7 +10535,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-030",
       "level": "N4",
-      "group": "n4-tone",
+      "group": "n4-epl",
+      "lectures": ["N4-119"],
       "pattern": "〜かな",
       "meaningZh": "……呢；不知道……",
       "formation": "V/い形普通形 + かな；な形/N肯定非过去：語幹/N + かな；过去/否定普通形 + かな",
@@ -10598,7 +10623,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-031",
       "level": "N4",
-      "group": "n4-particle",
+      "group": "n4-supe",
       "pattern": "〜から作る / 〜で作る",
       "meaningZh": "由……制成；用……做",
       "formation": "材料/原料 + から/で + 作る",
@@ -10686,7 +10711,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-033",
       "level": "N4",
-      "group": "n4-time",
+      "group": "n4-supa",
+      "lectures": ["N5-104"],
       "pattern": "〜頃 / 〜ごろ",
       "meaningZh": "……左右；……时候",
       "formation": "时间点 + ごろ；V/い形普通形 + 頃；な形肯定非过去：語幹 + な頃；N肯定非过去：N + の頃；な形/N过去・否定普通形 + 頃",
@@ -10774,7 +10800,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-034",
       "level": "N4",
-      "group": "n4-nominal",
+      "group": "n4-epk",
+      "lectures": ["N4-102"],
       "pattern": "〜こと",
       "meaningZh": "把句子名词化；事情",
       "formation": "V/い形普通形 + こと；な形肯定非过去：語幹 + なこと；N肯定非过去：N + であること；な形/N过去・否定普通形 + こと",
@@ -10859,7 +10886,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-035",
       "level": "N4",
-      "group": "n4-koto",
+      "group": "n4-epe",
+      "lectures": ["N4-41"],
       "pattern": "〜ことがある",
       "meaningZh": "有时会……",
       "formation": "V辞書形 / Vない形 + ことがある",
@@ -10947,7 +10975,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-036",
       "level": "N4",
-      "group": "n4-voice",
+      "group": "n4-epa",
+      "lectures": ["N4-10"],
       "pattern": "〜ことができる",
       "meaningZh": "能够……；可以……",
       "formation": "V辞書形 + ことができる",
@@ -11035,7 +11064,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-037",
       "level": "N4",
-      "group": "n4-koto",
+      "group": "n4-epb",
+      "lectures": ["N4-19", "N3-22"],
       "pattern": "〜ことになる",
       "meaningZh": "决定……；结果是……",
       "formation": "V辞書形 / Vない形 + ことになる",
@@ -11123,7 +11153,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-038",
       "level": "N4",
-      "group": "n4-koto",
+      "group": "n4-epb",
+      "lectures": ["N4-20"],
       "pattern": "〜ことにする",
       "meaningZh": "决定……",
       "formation": "V辞書形 / Vない形 + ことにする",
@@ -11211,7 +11242,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-039",
       "level": "N4",
-      "group": "n4-koto",
+      "group": "n4-supe",
+      "lectures": ["N5-19"],
       "pattern": "〜くする / 〜にする",
       "meaningZh": "使……变得……",
       "formation": "い形去い + くする（いい→よくする）；な形/名詞 + にする",
@@ -11299,7 +11331,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-041",
       "level": "N4",
-      "group": "n4-time",
+      "group": "n4-epa",
+      "lectures": ["N4-1"],
       "pattern": "〜までに",
       "meaningZh": "在……之前；截至……",
       "formation": "时间 + までに",
@@ -11388,7 +11421,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-042",
       "retiredVocabSourceIds": ["n4-765"],
       "level": "N4",
-      "group": "n4-te",
+      "group": "n4-epg",
+      "lectures": ["N4-65"],
       "pattern": "〜まま",
       "meaningZh": "保持……状态；就那样……",
       "formation": "Vた形 / Vない形 + まま；い形 + まま；な形語幹 + なまま；N + のまま",
@@ -11476,7 +11510,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-044",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-epl",
+      "lectures": ["N4-116"],
       "pattern": "〜みたいだ",
       "meaningZh": "像……；似乎……",
       "formation": "V/い形普通形 + みたいだ；な形/N肯定非过去 + みたいだ；な形/N过去・否定普通形 + みたいだ",
@@ -11564,7 +11599,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-045",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-epl",
+      "lectures": ["N4-116"],
       "pattern": "〜みたいな",
       "meaningZh": "像……一样的……",
       "formation": "V/い形普通形 + みたいな + N；な形/N肯定非过去 + みたいな + N；な形/N过去・否定普通形 + みたいな + N",
@@ -11652,7 +11688,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-046",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-epl",
+      "lectures": ["N4-116"],
       "pattern": "〜みたいに",
       "meaningZh": "像……一样地",
       "formation": "V/い形普通形 + みたいに；な形/N肯定非过去 + みたいに；な形/N过去・否定普通形 + みたいに + V/形容詞",
@@ -11740,7 +11777,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-047",
       "level": "N4",
-      "group": "n4-quantity",
+      "group": "n4-epg",
+      "lectures": ["N4-61"],
       "pattern": "数量 + も",
       "meaningZh": "竟有……；多达……",
       "formation": "数量词 + も",
@@ -11828,7 +11866,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-048",
       "level": "N4",
-      "group": "n4-command",
+      "group": "n4-eph",
+      "lectures": ["N4-71"],
       "pattern": "〜な",
       "meaningZh": "不要……；禁止……",
       "formation": "V辞書形 + な",
@@ -11917,7 +11956,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-049",
       "retiredVocabSourceIds": ["n5-486", "n4-497"],
       "level": "N4",
-      "group": "n4-particle",
+      "group": "n4-supe",
       "pattern": "〜など",
       "meaningZh": "……等；……之类",
       "formation": "N + など",
@@ -12005,7 +12044,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-050",
       "level": "N4",
-      "group": "n4-time",
+      "group": "n4-supa",
+      "lectures": ["N5-94"],
       "pattern": "〜ながら",
       "meaningZh": "一边……一边……；虽然……",
       "formation": "Vます形去ます + ながら",
@@ -12093,7 +12133,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-051",
       "level": "N4",
-      "group": "n4-adverb",
+      "group": "n4-supb",
       "pattern": "なかなか〜ない",
       "meaningZh": "怎么也不……；不容易……",
       "formation": "なかなか + 否定形",
@@ -12181,7 +12221,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-052",
       "level": "N4",
-      "group": "n4-must",
+      "group": "n4-epb",
+      "lectures": ["N4-18"],
       "pattern": "〜なければいけない",
       "meaningZh": "必须……",
       "formation": "Vない形去い + ければいけない",
@@ -12269,7 +12310,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-053",
       "level": "N4",
-      "group": "n4-must",
+      "group": "n4-epb",
+      "lectures": ["N4-18"],
       "pattern": "〜なければならない",
       "meaningZh": "必须……",
       "formation": "Vない形去い + ければならない",
@@ -12357,7 +12399,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-054",
       "level": "N4",
-      "group": "n4-condition",
+      "group": "n4-epj",
+      "lectures": ["N4-95"],
       "pattern": "〜なら",
       "meaningZh": "如果是……；说到……",
       "formation": "V/い形普通形 + なら；な形/N肯定非过去：語幹/N + なら；过去/否定普通形 + なら",
@@ -12445,7 +12488,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-055",
       "level": "N4",
-      "group": "n4-command",
+      "group": "n4-epb",
+      "lectures": ["N4-14"],
       "pattern": "〜なさい",
       "meaningZh": "请做……；去做……",
       "formation": "Vます形去ます + なさい",
@@ -12530,7 +12574,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-056",
       "level": "N4",
-      "group": "n4-honorific",
+      "group": "n4-eph",
+      "lectures": ["N4-77"],
       "pattern": "なさる",
       "meaningZh": "做（尊敬语）",
       "formation": "する → なさる / なさいます",
@@ -12616,7 +12661,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-057",
       "level": "N4",
-      "group": "n4-nominal",
+      "group": "n4-supe",
       "pattern": "〜に気がつく",
       "meaningZh": "注意到……；意识到……",
       "formation": "N + に気がつく；V/い形普通形 + ことに気がつく；な形肯定非过去：語幹 + なことに気がつく；N肯定非过去：N + であることに気がつく；な形/N过去・否定普通形 + ことに気がつく",
@@ -12704,7 +12749,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-058",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-supe",
       "pattern": "〜に見える",
       "meaningZh": "看起来……",
       "formation": "N / な形語幹 + に見える；い形去い + く見える（いい→よく見える）",
@@ -12793,7 +12838,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-060",
       "retiredVocabSourceIds": ["n4-758"],
       "level": "N4",
-      "group": "n4-compound",
+      "group": "n4-epa",
+      "lectures": ["N4-6"],
       "pattern": "〜にくい",
       "meaningZh": "难以……；不好……",
       "formation": "Vます形去ます + にくい",
@@ -12881,7 +12927,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-062",
       "level": "N4",
-      "group": "n4-concession",
+      "group": "n4-epa",
+      "lectures": ["N4-9"],
       "pattern": "〜のに（逆接）",
       "meaningZh": "明明……却……；虽然……但是……",
       "formation": "V/い形普通形 + のに；な形/N肯定非过去：語幹/N + なのに；过去/否定普通形 + のに",
@@ -12969,7 +13016,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-063",
       "level": "N4",
-      "group": "n4-reason",
+      "group": "n4-supe",
       "pattern": "〜のに（用途）",
       "meaningZh": "为了……；用于……",
       "formation": "V辞書形 + のに",
@@ -13055,7 +13102,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-064",
       "level": "N4",
-      "group": "n4-reason",
+      "group": "n4-epj",
+      "lectures": ["N4-100"],
       "pattern": "〜のは〜だ",
       "meaningZh": "……的是……；之所以……是因为……",
       "formation": "V/い形普通形 + のは；な形/N肯定非过去 + なのは；な形/N过去・否定普通形 + のは + N/句子",
@@ -13143,7 +13191,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-065",
       "level": "N4",
-      "group": "n4-honorific",
+      "group": "n4-eph",
+      "lectures": ["N4-80"],
       "pattern": "お／ご〜ください",
       "meaningZh": "请……（尊敬表达）",
       "formation": "お + 和语动词ます形去ます + ください；ご + 汉语系サ变动词词干 + ください",
@@ -13231,7 +13280,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-066",
       "level": "N4",
-      "group": "n4-honorific",
+      "group": "n4-eph",
+      "lectures": ["N4-79"],
       "pattern": "お／ご〜になる",
       "meaningZh": "做……（尊敬语）",
       "formation": "お + 和语动词ます形去ます + になる；ご + 汉语系サ变动词词干 + になる",
@@ -13317,7 +13367,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-067",
       "retiredVocabSourceIds": ["n4-743"],
       "level": "N4",
-      "group": "n4-quantity",
+      "group": "n4-supb",
+      "lectures": ["N2-116"],
       "pattern": "〜おきに",
       "meaningZh": "每隔……；每……",
       "formation": "数量词 + おきに",
@@ -13406,7 +13457,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-068",
       "retiredVocabSourceIds": ["n4-744"],
       "level": "N4",
-      "group": "n4-compound",
+      "group": "n4-epd",
+      "lectures": ["N4-32"],
       "pattern": "〜終わる",
       "meaningZh": "……完",
       "formation": "Vます形去ます + 終わる",
@@ -13494,7 +13546,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-069",
       "level": "N4",
-      "group": "n4-voice",
+      "group": "n4-epg",
+      "lectures": ["N4-69"],
       "pattern": "可能形 / 〜られる",
       "meaningZh": "能……；会……",
       "formation": "一段：去る+られる；五段：う段→え段+る；する→できる；来る→来られる",
@@ -13582,7 +13635,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-070",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-epl",
+      "lectures": ["N4-113"],
       "pattern": "〜らしい（推测・传闻）",
       "meaningZh": "好像……；听说……",
       "formation": "V/い形普通形 + らしい；な形/N肯定非过去 + らしい；な形/N过去・否定普通形 + らしい",
@@ -13670,7 +13724,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-140",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-epl",
+      "lectures": ["N4-114"],
       "pattern": "N + らしい（典型）",
       "meaningZh": "像……样的；有……的特点",
       "formation": "N + らしい（按い形容词活用：らしく、らしさ）",
@@ -13758,7 +13813,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-071",
       "level": "N4",
-      "group": "n4-nominal",
+      "group": "n4-epf",
+      "lectures": ["N4-60"],
       "pattern": "〜さ",
       "meaningZh": "……度；……之处",
       "formation": "い形去い / な形語幹 + さ",
@@ -13846,7 +13902,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-073",
       "level": "N4",
-      "group": "n4-voice",
+      "group": "n4-eph",
+      "lectures": ["N4-75"],
       "pattern": "使役受身形 / 〜させられる",
       "meaningZh": "被迫……；被要求……",
       "formation": "五段：词尾变あ段（う→わ）+ せられる；口语可缩约为あ段（う→わ）+ される，但词尾为「す」的动词不缩约；一段：去る + させられる；する→させられる；来る→来させられる",
@@ -13934,7 +13991,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-074",
       "level": "N4",
-      "group": "n4-voice",
+      "group": "n4-eph",
+      "lectures": ["N4-74"],
       "pattern": "使役形 / 〜させる",
       "meaningZh": "让……；使……",
       "formation": "五段：未然形+せる；一段：去る+させる；する→させる；来る→来させる",
@@ -14022,7 +14080,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-075",
       "level": "N4",
-      "group": "n4-voice",
+      "group": "n4-epi",
+      "lectures": ["N4-88"],
       "pattern": "〜させてください",
       "meaningZh": "请让我……",
       "formation": "V使役て形 + ください",
@@ -14110,7 +14169,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-076",
       "level": "N4",
-      "group": "n4-adverb",
+      "group": "n4-supb",
       "pattern": "さすが",
       "meaningZh": "不愧是……；到底是……",
       "formation": "さすが + N；さすがに + 句子",
@@ -14198,7 +14257,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-077",
       "level": "N4",
-      "group": "n4-reason",
+      "group": "n4-epi",
+      "lectures": ["N4-90"],
       "pattern": "〜し",
       "meaningZh": "又……又……；而且……",
       "formation": "普通形 + し、普通形 + し",
@@ -14285,7 +14345,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-079",
       "level": "N4",
-      "group": "n4-concession",
+      "group": "n4-supb",
       "pattern": "それでも",
       "meaningZh": "即便如此；尽管那样",
       "formation": "句子。+ それでも + 句子",
@@ -14373,7 +14433,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-081",
       "level": "N4",
-      "group": "n4-hearsay",
+      "group": "n4-epl",
+      "lectures": ["N4-111"],
       "pattern": "〜そうだ（传闻）",
       "meaningZh": "听说……；据说……",
       "formation": "普通形 + そうだ",
@@ -14461,7 +14522,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-082",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-epl",
+      "lectures": ["N4-112"],
       "pattern": "〜そうだ（样态）",
       "meaningZh": "看起来……；快要……",
       "formation": "Vます形去ます / い形去い / な形語幹 + そうだ",
@@ -14549,7 +14611,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-083",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-epl",
+      "lectures": ["N4-112"],
       "pattern": "〜そうに / 〜そうな",
       "meaningZh": "看起来……地/的",
       "formation": "そうに + V；そうな + N",
@@ -14636,7 +14699,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-084",
       "level": "N4",
-      "group": "n4-stage",
+      "group": "n4-epj",
+      "lectures": ["N4-92"],
       "pattern": "〜たばかり",
       "meaningZh": "刚刚……",
       "formation": "Vた形 + ばかり",
@@ -14724,7 +14788,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-085",
       "level": "N4",
-      "group": "n4-stage",
+      "group": "n4-epe",
+      "lectures": ["N4-44"],
       "pattern": "〜たところ",
       "meaningZh": "刚刚……；刚做完……",
       "formation": "Vた形 + ところ",
@@ -14812,7 +14877,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-086",
       "level": "N4",
-      "group": "n4-voice",
+      "group": "n4-supe",
+      "lectures": ["N5-114"],
       "pattern": "自動詞 / 他動詞",
       "meaningZh": "自动词/他动词用法",
       "formation": "自動詞：NがV；他動詞：NをV",
@@ -14897,7 +14963,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-087",
       "level": "N4",
-      "group": "n4-feeling",
+      "group": "n4-supc",
       "pattern": "〜たがる",
       "meaningZh": "想要做……（第三人称）",
       "formation": "Vます形去ます + たがる",
@@ -14985,7 +15051,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-088",
       "level": "N4",
-      "group": "n4-condition",
+      "group": "n4-epj",
+      "lectures": ["N4-94"],
       "pattern": "〜たら（假定）",
       "meaningZh": "如果……（就……）",
       "formation": "Vた形 + ら；い形：去い + かったら（いい→よかったら）；な形/N：語幹/N + だったら；否定：Vない形去い + かったら、い形去い + くなかったら（よくなかったら）、な形/N + ではなかったら",
@@ -15073,7 +15140,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-138",
       "level": "N4",
-      "group": "n4-condition",
+      "group": "n4-epj",
+      "lectures": ["N4-94"],
       "pattern": "〜たら（……之后）",
       "meaningZh": "（做完）……之后",
       "formation": "Vた形 + ら",
@@ -15161,7 +15229,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-089",
       "level": "N4",
-      "group": "n4-command",
+      "group": "n4-supc",
       "pattern": "〜たらどう",
       "meaningZh": "……怎么样；为什么不……",
       "formation": "Vた形 + らどうですか",
@@ -15249,7 +15317,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-090",
       "level": "N4",
-      "group": "n4-command",
+      "group": "n4-epj",
+      "lectures": ["N4-97"],
       "pattern": "〜たらいいですか",
       "meaningZh": "该……才好？",
       "formation": "疑问词 + Vた形 + らいいですか",
@@ -15337,7 +15406,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-091",
       "level": "N4",
-      "group": "n4-reason",
+      "group": "n4-supa",
+      "lectures": ["N5-48", "N5-62"],
       "pattern": "〜て / 〜で",
       "meaningZh": "……而；因为……所以……",
       "formation": "Vて形；い形：去い + くて（いい→よくて）；な形/N：語幹/N + で；否定：Vない形去い + くて、い形去い + くなくて（よくなくて）、な形/N + ではなくて",
@@ -15424,7 +15494,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-092",
       "level": "N4",
-      "group": "n4-giving",
+      "group": "n4-epd",
+      "lectures": ["N4-34"],
       "pattern": "〜てあげる",
       "meaningZh": "为别人做……",
       "formation": "Vて形 + あげる",
@@ -15511,7 +15582,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-093",
       "level": "N4",
-      "group": "n4-feeling",
+      "group": "n4-supc",
       "pattern": "〜てほしい",
       "meaningZh": "希望别人做……",
       "formation": "Nに + Vて形 + ほしい",
@@ -15599,7 +15670,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-094",
       "level": "N4",
-      "group": "n4-te",
+      "group": "n4-epc",
+      "lectures": ["N4-22"],
       "pattern": "〜ていく",
       "meaningZh": "……去；持续……下去；逐渐……",
       "formation": "Vて形 + いく",
@@ -15686,7 +15758,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-095",
       "level": "N4",
-      "group": "n4-te",
+      "group": "n4-epc",
+      "lectures": ["N4-26"],
       "pattern": "〜ていた",
       "meaningZh": "过去正在……；曾经处于……状态",
       "formation": "Vて形 + いた",
@@ -15773,7 +15846,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-096",
       "level": "N4",
-      "group": "n4-giving",
+      "group": "n4-epd",
+      "lectures": ["N4-39"],
       "pattern": "〜ていただけませんか",
       "meaningZh": "能否请您……",
       "formation": "Vて形 + いただけませんか",
@@ -15861,7 +15935,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-097",
       "level": "N4",
-      "group": "n4-giving",
+      "group": "n4-epd",
+      "lectures": ["N4-36"],
       "pattern": "〜てくれる",
       "meaningZh": "别人为我/我方做……",
       "formation": "Vて形 + くれる",
@@ -15948,7 +16023,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-098",
       "level": "N4",
-      "group": "n4-te",
+      "group": "n4-epc",
+      "lectures": ["N4-21"],
       "pattern": "〜てくる",
       "meaningZh": "……来；逐渐……起来；做完再来",
       "formation": "Vて形 + くる",
@@ -16036,7 +16112,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-099",
       "level": "N4",
-      "group": "n4-te",
+      "group": "n4-epc",
+      "lectures": ["N4-23"],
       "pattern": "〜てみる",
       "meaningZh": "试着……",
       "formation": "Vて形 + みる",
@@ -16124,7 +16201,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-100",
       "level": "N4",
-      "group": "n4-giving",
+      "group": "n4-epd",
+      "lectures": ["N4-35"],
       "pattern": "〜てもらう",
       "meaningZh": "请/让别人为我做……",
       "formation": "Nに + Vて形 + もらう",
@@ -16212,7 +16290,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-101",
       "level": "N4",
-      "group": "n4-te",
+      "group": "n4-epc",
+      "lectures": ["N4-25"],
       "pattern": "〜ておく",
       "meaningZh": "事先……；保持……",
       "formation": "Vて形 + おく",
@@ -16301,7 +16380,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-102",
       "retiredVocabSourceIds": ["n4-757"],
       "level": "N4",
-      "group": "n4-te",
+      "group": "n4-epc",
+      "lectures": ["N4-24"],
       "pattern": "〜てしまう / 〜ちゃう・〜じゃう",
       "meaningZh": "……完；不小心……了",
       "formation": "Vて形 + しまう；〜てしまう → 〜ちゃう；〜でしまう → 〜じゃう",
@@ -16388,7 +16468,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-103",
       "level": "N4",
-      "group": "n4-reason",
+      "group": "n4-supc",
       "pattern": "〜てすみません",
       "meaningZh": "因为……对不起",
       "formation": "Vて形 + すみません",
@@ -16476,7 +16556,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-104",
       "level": "N4",
-      "group": "n4-giving",
+      "group": "n4-epd",
+      "lectures": ["N4-37"],
       "pattern": "〜てやる",
       "meaningZh": "给……做；为……做（随意/上对下）",
       "formation": "Vて形 + やる",
@@ -16563,7 +16644,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-105",
       "level": "N4",
-      "group": "n4-reason",
+      "group": "n4-supc",
       "pattern": "〜てよかった",
       "meaningZh": "幸好……；很高兴……",
       "formation": "Vて形 + よかった",
@@ -16651,7 +16732,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-106",
       "level": "N4",
-      "group": "n4-stage",
+      "group": "n4-epe",
+      "lectures": ["N4-44"],
       "pattern": "〜ているところ",
       "meaningZh": "正在……的时候",
       "formation": "Vて形 + いるところ",
@@ -16739,7 +16821,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-107",
       "level": "N4",
-      "group": "n4-concession",
+      "group": "n4-epk",
+      "lectures": ["N4-110"],
       "pattern": "〜ても",
       "meaningZh": "即使……也……",
       "formation": "Vて形 + も；い形：去い + くても（いい→よくても）；な形/N：語幹/N + でも；否定：Vない形去い + くても、い形去い + くなくても（よくなくても）、な形/N + ではなくても",
@@ -16827,7 +16910,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-108",
       "level": "N4",
-      "group": "n4-condition",
+      "group": "n4-epj",
+      "lectures": ["N4-96"],
       "pattern": "〜と",
       "meaningZh": "一……就……；如果……就……",
       "formation": "V/い形非过去普通形 + と；な形/N肯定非过去：語幹/N + だと；V/い形/な形/N否定非过去普通形 + と",
@@ -16915,7 +16999,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-109",
       "level": "N4",
-      "group": "n4-hearsay",
+      "group": "n4-supd",
       "pattern": "〜と言ってもいい",
       "meaningZh": "可以说是……",
       "formation": "普通形 + と言ってもいい",
@@ -17003,7 +17087,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-110",
       "level": "N4",
-      "group": "n4-hearsay",
+      "group": "n4-epk",
+      "lectures": ["N4-101", "N5-111"],
       "pattern": "〜という",
       "meaningZh": "叫作……；所谓……；说……",
       "formation": "N + という + N；句子 + という",
@@ -17090,7 +17175,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-111",
       "level": "N4",
-      "group": "n4-hearsay",
+      "group": "n4-supd",
+      "lectures": ["N3-39"],
       "pattern": "〜ということ",
       "meaningZh": "……这件事；也就是说……",
       "formation": "句子 + ということ",
@@ -17177,7 +17263,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-112",
       "level": "N4",
-      "group": "n4-hearsay",
+      "group": "n4-supd",
       "pattern": "〜と言われている",
       "meaningZh": "据说……；被认为……",
       "formation": "普通形 + と言われている",
@@ -17265,7 +17351,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-113",
       "level": "N4",
-      "group": "n4-hearsay",
+      "group": "n4-supd",
       "pattern": "〜と聞いた",
       "meaningZh": "听说……",
       "formation": "普通形 + と聞いた",
@@ -17353,7 +17439,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-114",
       "level": "N4",
-      "group": "n4-hearsay",
+      "group": "n4-epf",
+      "lectures": ["N4-56"],
       "pattern": "〜と思う",
       "meaningZh": "我想……；认为……",
       "formation": "普通形 + と思う",
@@ -17441,7 +17528,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-115",
       "level": "N4",
-      "group": "n4-particle",
+      "group": "n4-epj",
+      "lectures": ["N4-99"],
       "pattern": "〜とか〜とか",
       "meaningZh": "……啦……啦；比如……之类",
       "formation": "N / 普通形 + とか + N / 普通形 + とか",
@@ -17529,7 +17617,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-116",
       "level": "N4",
-      "group": "n4-stage",
+      "group": "n4-epe",
+      "lectures": ["N4-44"],
       "pattern": "〜ところ",
       "meaningZh": "正要……；正在……；刚刚……",
       "formation": "V辞書形 / Vている / Vた + ところ",
@@ -17617,7 +17706,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-117",
       "level": "N4",
-      "group": "n4-compound",
+      "group": "n4-epd",
+      "lectures": ["N4-31"],
       "pattern": "〜続ける",
       "meaningZh": "继续……",
       "formation": "Vます形去ます + 続ける",
@@ -17705,7 +17795,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-118",
       "level": "N4",
-      "group": "n4-hearsay",
+      "group": "n4-supd",
+      "lectures": ["N3-117", "N2-118"],
       "pattern": "〜って",
       "meaningZh": "叫作……；听说……；关于……",
       "formation": "N / 句子 + って",
@@ -17791,7 +17882,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-119",
       "level": "N4",
-      "group": "n4-voice",
+      "group": "n4-eph",
+      "lectures": ["N4-73"],
       "pattern": "受身形 / 〜られる",
       "meaningZh": "被……；受到……",
       "formation": "五段：う段→あ段 + れる（う→われる）；一段：去る + られる；する→される；来る→来られる",
@@ -17879,7 +17971,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-120",
       "level": "N4",
-      "group": "n4-concession",
+      "group": "n4-supb",
       "pattern": "〜は〜が、〜は",
       "meaningZh": "A是……，但B是……",
       "formation": "N1は〜が、N2は〜",
@@ -17968,7 +18060,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-121",
       "retiredVocabSourceIds": ["n4-767"],
       "level": "N4",
-      "group": "n4-compound",
+      "group": "n4-epa",
+      "lectures": ["N4-5"],
       "pattern": "〜やすい",
       "meaningZh": "容易……；好……；易于……",
       "formation": "Vます形去ます + やすい",
@@ -18056,7 +18149,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-123",
       "level": "N4",
-      "group": "n4-quantity",
+      "group": "n4-supb",
       "pattern": "V辞書形 + より",
       "meaningZh": "与其……（不如……）；比起做……",
       "formation": "V辞書形 + より、〜ほうが + 形容詞／〜たい",
@@ -18144,7 +18237,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-124",
       "level": "N4",
-      "group": "n4-plan",
+      "group": "n4-supa",
       "pattern": "〜予定だ",
       "meaningZh": "计划……；预定……",
       "formation": "V辞書形 / Vない形 / Nの + 予定だ",
@@ -18232,7 +18325,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-125",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-epl",
+      "lectures": ["N4-115"],
       "pattern": "〜ようだ",
       "meaningZh": "好像……；像……",
       "formation": "V/い形普通形 + ようだ；な形肯定非过去：語幹 + なようだ；N肯定非过去：N + のようだ；な形/N过去・否定普通形 + ようだ",
@@ -18320,7 +18414,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-126",
       "level": "N4",
-      "group": "n4-appearance",
+      "group": "n4-epl",
+      "lectures": ["N4-115"],
       "pattern": "〜ように / 〜ような（比喻）",
       "meaningZh": "像……一样地／像……一样的",
       "formation": "V/い形普通形；な形肯定非过去：語幹 + な；N肯定非过去：N + の；な形/N过去・否定普通形。上述形态 + ように + V/形容詞，或 + ような + N",
@@ -18408,7 +18503,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-139",
       "level": "N4",
-      "group": "n4-reason",
+      "group": "n4-epe",
+      "lectures": ["N4-45"],
       "pattern": "〜ように（目的）",
       "meaningZh": "为了能……；为了不……",
       "formation": "V辞書形（可能形、非意志动词）/ Vない形 + ように",
@@ -18496,7 +18592,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-127",
       "level": "N4",
-      "group": "n4-koto",
+      "group": "n4-epe",
+      "lectures": ["N4-46"],
       "pattern": "〜ようになる",
       "meaningZh": "变得会……；逐渐……",
       "formation": "V辞書形 / Vない形 + ようになる",
@@ -18584,7 +18681,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-128",
       "level": "N4",
-      "group": "n4-koto",
+      "group": "n4-epe",
+      "lectures": ["N4-47", "N4-48"],
       "pattern": "〜ようにする",
       "meaningZh": "尽量……；设法……",
       "formation": "V辞書形 / Vない形 + ようにする",
@@ -18672,7 +18770,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-129",
       "level": "N4",
-      "group": "n4-plan",
+      "group": "n4-epf",
+      "lectures": ["N4-57"],
       "pattern": "〜ようと思う",
       "meaningZh": "打算……；想要……",
       "formation": "V意向形 + と思う",
@@ -18760,7 +18859,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-131",
       "level": "N4",
-      "group": "n4-adverb",
+      "group": "n4-supb",
       "pattern": "全然〜ない",
       "meaningZh": "完全不……；一点也不……",
       "formation": "全然 + 否定形",
@@ -18848,7 +18947,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-132",
       "level": "N4",
-      "group": "n4-compound",
+      "group": "n4-supe",
       "pattern": "〜づらい",
       "meaningZh": "难以……；不好……",
       "formation": "Vます形去ます + づらい",
@@ -18937,7 +19036,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-133",
       "retiredVocabSourceIds": ["n4-752", "n4-410"],
       "level": "N4",
-      "group": "n4-reason",
+      "group": "n4-epe",
+      "lectures": ["N4-42"],
       "pattern": "〜ために（目的）",
       "meaningZh": "为了……",
       "formation": "V辞書形 / N + の + ために",
@@ -19025,7 +19125,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-134",
       "level": "N4",
-      "group": "n4-reason",
+      "group": "n4-epe",
+      "lectures": ["N4-43"],
       "pattern": "〜ため（原因・理由）",
       "meaningZh": "由于……；因为……",
       "formation": "V/い形普通形 + ため；な形語幹 + な + ため；N + の + ため",
@@ -19114,7 +19215,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-135",
       "retiredVocabSourceIds": ["n4-759"],
       "level": "N4",
-      "group": "n4-particle",
+      "group": "n4-supe",
+      "lectures": ["N3-58"],
       "pattern": "〜について",
       "meaningZh": "关于……；就……",
       "formation": "N + について；N + についての + N",
@@ -19203,7 +19305,8 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n4-grammar-136",
       "retiredVocabSourceIds": ["n4-760"],
       "level": "N4",
-      "group": "n4-hearsay",
+      "group": "n4-supd",
+      "lectures": ["N3-67"],
       "pattern": "〜によると",
       "meaningZh": "据……；根据……",
       "formation": "信息来源 + によると",
@@ -19291,7 +19394,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n4-grammar-137",
       "level": "N4",
-      "group": "n4-quantity",
+      "group": "n4-supb",
       "pattern": "数量 + ばかり",
       "meaningZh": "大约……；左右……",
       "formation": "数量词 + ばかり",
@@ -19379,7 +19482,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-001",
       "level": "N3",
-      "group": "n3-time",
+      "group": "n3-epa",
+      "lectures": ["N3-3"],
       "pattern": "〜うちに",
       "meaningZh": "趁……的时候；在……期间（不知不觉）",
       "formation": "V辞書形 / Vている / Vない形 + うちに；い形 + うちに；な形語幹 + なうちに；N + のうちに",
@@ -19467,7 +19571,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-002",
       "level": "N3",
-      "group": "n3-time",
+      "group": "n3-epb",
+      "lectures": ["N3-18"],
       "pattern": "〜最中に",
       "meaningZh": "正在……的时候（突然）",
       "formation": "Vている + 最中に；N + の最中に",
@@ -19555,7 +19660,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-003",
       "level": "N3",
-      "group": "n3-time",
+      "group": "n3-epc",
+      "lectures": ["N3-29"],
       "pattern": "〜たとたん（に）",
       "meaningZh": "刚一……就……",
       "formation": "Vた形 + とたん（に）",
@@ -19643,7 +19749,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-004",
       "level": "N3",
-      "group": "n3-change",
+      "group": "n3-supa",
+      "lectures": ["N2-47"],
       "pattern": "〜とともに",
       "meaningZh": "和……一起；随着……",
       "formation": "N + とともに；V辞書形 + とともに",
@@ -19731,7 +19838,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-005",
       "level": "N3",
-      "group": "n3-change",
+      "group": "n3-epf",
+      "lectures": ["N3-59"],
       "pattern": "〜につれて",
       "meaningZh": "随着……（逐渐）",
       "formation": "V辞書形 / N + につれて",
@@ -19819,7 +19927,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-006",
       "level": "N3",
-      "group": "n3-change",
+      "group": "n3-epf",
+      "lectures": ["N3-55"],
       "pattern": "〜にしたがって",
       "meaningZh": "随着……；按照……",
       "formation": "V辞書形 / N + にしたがって",
@@ -19907,7 +20016,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-007",
       "level": "N3",
-      "group": "n3-addition",
+      "group": "n3-eph",
+      "lectures": ["N3-72", "N2-76"],
       "pattern": "〜ばかりでなく / 〜ばかりか",
       "meaningZh": "不仅……而且……；不但……甚至……",
       "formation": "V/い形普通形 + ばかりでなく；な形語幹 + なばかりでなく；N + ばかりでなく（「ばかりか」接续相同）",
@@ -19995,7 +20105,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-008",
       "level": "N3",
-      "group": "n3-addition",
+      "group": "n3-eph",
+      "lectures": ["N3-72"],
       "pattern": "〜だけでなく",
       "meaningZh": "不只是……，……也……",
       "formation": "V/い形普通形 + だけでなく；な形語幹 + なだけでなく；N + だけでなく",
@@ -20083,7 +20194,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-009",
       "level": "N3",
-      "group": "n3-reason",
+      "group": "n3-epa",
+      "lectures": ["N3-4"],
       "pattern": "〜おかげで",
       "meaningZh": "多亏……；托……的福",
       "formation": "V/い形普通形 + おかげで；な形語幹 + なおかげで；N + のおかげで",
@@ -20171,7 +20283,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-010",
       "level": "N3",
-      "group": "n3-reason",
+      "group": "n3-epc",
+      "lectures": ["N3-26"],
       "pattern": "〜せいで / 〜せいか",
       "meaningZh": "都怪……；由于……（导致不好的结果）",
       "formation": "V/い形普通形 + せいで；な形語幹 + なせいで；N + のせいで（「せいか」接续相同）",
@@ -20259,7 +20372,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-011",
       "level": "N3",
-      "group": "n3-ni",
+      "group": "n3-epg",
+      "lectures": ["N3-65"],
       "pattern": "〜によって / 〜による",
       "meaningZh": "由于……；通过……；由……（被动句的动作者）",
       "formation": "N + によって；N + による + N",
@@ -20346,7 +20460,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-012",
       "level": "N3",
-      "group": "n3-ni",
+      "group": "n3-epg",
+      "lectures": ["N3-66"],
       "pattern": "〜によって違う",
       "meaningZh": "因……而不同",
       "formation": "N + によって + 違う／異なる／さまざまだ",
@@ -20434,7 +20549,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-013",
       "level": "N3",
-      "group": "n3-ni",
+      "group": "n3-epf",
+      "lectures": ["N3-56", "N3-62"],
       "pattern": "〜に対して",
       "meaningZh": "对……；对于……；与……相反",
       "formation": "N + に対して；N + に対する + N；V/い形普通形 + のに対して；な形語幹 + なのに対して",
@@ -20522,7 +20638,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-014",
       "level": "N3",
-      "group": "n3-ni",
+      "group": "n3-supe",
+      "lectures": ["N2-58"],
       "pattern": "〜に関して / 〜に関する",
       "meaningZh": "关于……；有关……",
       "formation": "N + に関して；N + に関する + N",
@@ -20610,7 +20727,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-015",
       "level": "N3",
-      "group": "n3-ni",
+      "group": "n3-epe",
+      "lectures": ["N3-47"],
       "pattern": "〜として",
       "meaningZh": "作为……；以……的身份",
       "formation": "N + として；N + としての + N",
@@ -20698,7 +20816,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-016",
       "level": "N3",
-      "group": "n3-ni",
+      "group": "n3-epf",
+      "lectures": ["N3-60"],
       "pattern": "〜にとって",
       "meaningZh": "对……来说",
       "formation": "N + にとって",
@@ -20786,7 +20905,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-017",
       "level": "N3",
-      "group": "n3-compare",
+      "group": "n3-supb",
+      "lectures": ["N2-63"],
       "pattern": "〜にしては",
       "meaningZh": "就……而言（却）；作为……来说算是……",
       "formation": "V普通形 / N + にしては",
@@ -20874,7 +20994,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-018",
       "level": "N3",
-      "group": "n3-compare",
+      "group": "n3-epi",
+      "lectures": ["N3-88"],
       "pattern": "〜わりに（は）",
       "meaningZh": "虽然……但（出乎意料）；按……来说",
       "formation": "V/い形普通形 + わりに；な形語幹 + なわりに；N + のわりに",
@@ -20962,7 +21083,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-019",
       "level": "N3",
-      "group": "n3-concession",
+      "group": "n3-supb",
+      "lectures": ["N2-20"],
       "pattern": "〜くせに",
       "meaningZh": "明明……却……（带责备）",
       "formation": "V/い形普通形 + くせに；な形語幹 + なくせに；N + のくせに",
@@ -21050,7 +21172,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-020",
       "level": "N3",
-      "group": "n3-instruction",
+      "group": "n3-supd",
+      "lectures": ["N4-55"],
       "pattern": "〜ように言う / 〜ように頼む",
       "meaningZh": "让（某人）……；叫（某人）……（转述指示）",
       "formation": "V辞書形 / Vない形 + ように + 言う／頼む／注意する",
@@ -21138,7 +21261,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-021",
       "level": "N3",
-      "group": "n3-koto",
+      "group": "n3-epc",
+      "lectures": ["N3-21"],
       "pattern": "〜ことにしている",
       "meaningZh": "（按自己的决定）坚持……；习惯于……",
       "formation": "V辞書形 / Vない形 + ことにしている",
@@ -21226,7 +21350,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-022",
       "level": "N3",
-      "group": "n3-koto",
+      "group": "n3-epb",
+      "lectures": ["N3-20"],
       "pattern": "〜ことになっている",
       "meaningZh": "按规定……；定好要……",
       "formation": "V辞書形 / Vない形 + ことになっている",
@@ -21314,7 +21439,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-023",
       "level": "N3",
-      "group": "n3-wake",
+      "group": "n3-epi",
+      "lectures": ["N3-84"],
       "pattern": "〜わけだ",
       "meaningZh": "怪不得……；当然……；也就是说……",
       "formation": "V/い形普通形 + わけだ；な形語幹 + なわけだ；N + な／である + わけだ",
@@ -21401,7 +21527,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-024",
       "level": "N3",
-      "group": "n3-wake",
+      "group": "n3-epi",
+      "lectures": ["N3-85"],
       "pattern": "〜わけではない",
       "meaningZh": "并不是……；并非……",
       "formation": "V/い形普通形 + わけではない；な形語幹 + なわけではない；N + な／である + わけではない",
@@ -21489,7 +21616,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-025",
       "level": "N3",
-      "group": "n3-wake",
+      "group": "n3-epi",
+      "lectures": ["N3-86"],
       "pattern": "〜わけにはいかない",
       "meaningZh": "不能……（因情理、道义）",
       "formation": "V辞書形 + わけにはいかない；Vない形 + わけにはいかない（不能不……）",
@@ -21577,7 +21705,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-026",
       "level": "N3",
-      "group": "n3-wake",
+      "group": "n3-epi",
+      "lectures": ["N3-83"],
       "pattern": "〜わけがない",
       "meaningZh": "不可能……；绝不会……",
       "formation": "V/い形普通形 + わけがない；な形語幹 + なわけがない；N + な／である + わけがない",
@@ -21665,7 +21794,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-027",
       "level": "N3",
-      "group": "n3-guess",
+      "group": "n3-epf",
+      "lectures": ["N3-57"],
       "pattern": "〜に違いない",
       "meaningZh": "一定……；肯定是……",
       "formation": "V/い形普通形 + に違いない；な形語幹 / N + に違いない",
@@ -21753,7 +21883,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-028",
       "level": "N3",
-      "group": "n3-guess",
+      "group": "n3-epf",
+      "lectures": ["N3-52"],
       "pattern": "〜に決まっている",
       "meaningZh": "肯定……；一定是……（主观断定）",
       "formation": "V/い形普通形 + に決まっている；な形語幹 / N + に決まっている",
@@ -21841,7 +21972,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-029",
       "level": "N3",
-      "group": "n3-colloquial",
+      "group": "n3-epd",
+      "lectures": ["N3-33"],
       "pattern": "〜っけ",
       "meaningZh": "是不是……来着？（确认记不清的事）",
       "formation": "普通形 + っけ；N + だ／だった + っけ；丁寧形 + っけ（でしたっけ）",
@@ -21929,7 +22061,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-030",
       "level": "N3",
-      "group": "n3-tendency",
+      "group": "n3-epd",
+      "lectures": ["N3-34"],
       "pattern": "〜っぽい",
       "meaningZh": "有……的感觉；容易……；带……色",
       "formation": "N / い形去い / Vます形去ます + っぽい",
@@ -22017,7 +22150,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-031",
       "level": "N3",
-      "group": "n3-tendency",
+      "group": "n3-epa",
+      "lectures": ["N3-7"],
       "pattern": "〜がち",
       "meaningZh": "容易……；常常……（不好的倾向）",
       "formation": "Vます形去ます / N + がち",
@@ -22105,7 +22239,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-032",
       "level": "N3",
-      "group": "n3-tendency",
+      "group": "n3-supc",
+      "lectures": ["N2-18"],
       "pattern": "〜気味",
       "meaningZh": "有点……；有……的迹象",
       "formation": "Vます形去ます / N + 気味",
@@ -22193,7 +22328,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-033",
       "level": "N3",
-      "group": "n3-koto",
+      "group": "n3-epb",
+      "lectures": ["N3-17"],
       "pattern": "〜ことはない",
       "meaningZh": "不必……；用不着……",
       "formation": "V辞書形 + ことはない",
@@ -22281,7 +22417,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-034",
       "level": "N3",
-      "group": "n3-limit",
+      "group": "n3-epc",
+      "lectures": ["N3-25", "N3-75"],
       "pattern": "〜しかない",
       "meaningZh": "只好……；只能……",
       "formation": "V辞書形 + しかない",
@@ -22369,7 +22506,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-035",
       "level": "N3",
-      "group": "n3-compare",
+      "group": "n3-eph",
+      "lectures": ["N3-76"],
       "pattern": "〜ほど（程度）",
       "meaningZh": "……得（简直）……",
       "formation": "V辞書形 / Vない形 / い形 + ほど；な形語幹 + なほど；N + ほど",
@@ -22457,7 +22595,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-036",
       "level": "N3",
-      "group": "n3-compare",
+      "group": "n3-supc",
+      "lectures": ["N4-51"],
       "pattern": "〜ほど〜ない",
       "meaningZh": "没有……那么……",
       "formation": "N / V辞書形 + ほど + 否定形",
@@ -22545,7 +22684,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-037",
       "level": "N3",
-      "group": "n3-compare",
+      "group": "n3-eph",
+      "lectures": ["N3-77"],
       "pattern": "〜ほど〜はない",
       "meaningZh": "没有比……更……的",
       "formation": "N + ほど／くらい + 形容詞 / V + N + はない",
@@ -22633,7 +22773,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-038",
       "level": "N3",
-      "group": "n3-compare",
+      "group": "n3-epg",
+      "lectures": ["N3-69"],
       "pattern": "〜ば〜ほど",
       "meaningZh": "越……越……",
       "formation": "Vば + V辞書形 + ほど；い形ければ + い形 + ほど；な形語幹なら + な形語幹な + ほど",
@@ -22721,7 +22862,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-039",
       "level": "N3",
-      "group": "n3-limit",
+      "group": "n3-eph",
+      "lectures": ["N3-78"],
       "pattern": "〜くらい / 〜ぐらい（最低限度）",
       "meaningZh": "至少……；（这点）……",
       "formation": "N / V辞書形 + くらい／ぐらい",
@@ -22808,7 +22950,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-040",
       "level": "N3",
-      "group": "n3-limit",
+      "group": "n3-epc",
+      "lectures": ["N3-23"],
       "pattern": "〜さえ",
       "meaningZh": "连……都……；甚至……",
       "formation": "N + さえ；N + でさえ；Vます形去ます + さえする",
@@ -22896,7 +23039,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-118",
       "level": "N3",
-      "group": "n3-limit",
+      "group": "n3-supe",
       "pattern": "〜まで（甚至）",
       "meaningZh": "连……都……；甚至……",
       "formation": "N + まで",
@@ -22984,7 +23127,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-041",
       "level": "N3",
-      "group": "n3-limit",
+      "group": "n3-epc",
+      "lectures": ["N3-24"],
       "pattern": "〜さえ〜ば",
       "meaningZh": "只要……就……",
       "formation": "N + さえ + Vば／い形ければ／な形・Nなら；Vます形去ます + さえすれば；Vて形 + さえいれば",
@@ -23072,7 +23216,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-042",
       "level": "N3",
-      "group": "n3-limit",
+      "group": "n3-epb",
+      "lectures": ["N3-14"],
       "pattern": "〜こそ",
       "meaningZh": "正是……；才是……",
       "formation": "N + こそ；Vて形 + こそ",
@@ -23160,7 +23305,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-043",
       "level": "N3",
-      "group": "n3-limit",
+      "group": "n3-epe",
+      "lectures": ["N3-48"],
       "pattern": "〜なんか / 〜なんて",
       "meaningZh": "……之类的（轻视、谦虚或意外）",
       "formation": "N + なんか／なんて；普通形 + なんて",
@@ -23248,7 +23394,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-044",
       "level": "N3",
-      "group": "n3-te",
+      "group": "n3-supe",
+      "lectures": ["N4-64"],
       "pattern": "〜ずに",
       "meaningZh": "不……（而）……；没……就……",
       "formation": "Vない形去ない + ずに（する→せずに）",
@@ -23336,7 +23483,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-045",
       "level": "N3",
-      "group": "n3-koto",
+      "group": "n3-supb",
+      "lectures": ["N2-49"],
       "pattern": "〜ないことはない",
       "meaningZh": "也不是不……；并非不……",
       "formation": "Vない形 / い形去い + くない / な形語幹・N + でない + ことはない",
@@ -23424,7 +23572,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-046",
       "level": "N3",
-      "group": "n3-substitute",
+      "group": "n3-epb",
+      "lectures": ["N3-11"],
       "pattern": "〜かわりに",
       "meaningZh": "代替……；作为交换，……",
       "formation": "V普通形 + かわりに；N + のかわりに",
@@ -23512,7 +23661,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-047",
       "level": "N3",
-      "group": "n3-substitute",
+      "group": "n3-epf",
+      "lectures": ["N3-51"],
       "pattern": "〜に代わって",
       "meaningZh": "代替……；取代……",
       "formation": "N + に代わって；N + に代わる + N",
@@ -23600,7 +23750,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-048",
       "level": "N3",
-      "group": "n3-frequency",
+      "group": "n3-epc",
+      "lectures": ["N3-30"],
       "pattern": "〜たびに",
       "meaningZh": "每当……就……；每次……都……",
       "formation": "V辞書形 / N + の + たびに",
@@ -23688,7 +23839,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-049",
       "level": "N3",
-      "group": "n3-frequency",
+      "group": "n3-epd",
+      "lectures": ["N3-32"],
       "pattern": "〜ついでに",
       "meaningZh": "顺便……",
       "formation": "V普通形 / N + の + ついでに",
@@ -23776,7 +23928,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-050",
       "level": "N3",
-      "group": "n3-frequency",
+      "group": "n3-supa",
+      "lectures": ["N2-116"],
       "pattern": "〜ごとに",
       "meaningZh": "每……；每隔……",
       "formation": "N（数量・单位）+ ごとに；V辞書形 + ごとに",
@@ -23864,7 +24017,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-051",
       "level": "N3",
-      "group": "n3-frequency",
+      "group": "n3-epa",
+      "lectures": ["N3-8"],
       "pattern": "〜から〜にかけて",
       "meaningZh": "从……到……（一带／期间）",
       "formation": "N（时间・地点）+ から + N + にかけて",
@@ -23952,7 +24106,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-052",
       "level": "N3",
-      "group": "n3-wo",
+      "group": "n3-epj",
+      "lectures": ["N3-92"],
       "pattern": "〜を中心に",
       "meaningZh": "以……为中心；以……为主",
       "formation": "N + を中心に（して）；N + を中心とした + N",
@@ -24040,7 +24195,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-053",
       "level": "N3",
-      "group": "n3-wo",
+      "group": "n3-supe",
+      "lectures": ["N2-93"],
       "pattern": "〜をはじめ",
       "meaningZh": "以……为首；以……为代表",
       "formation": "N + をはじめ（として）；N + をはじめとする + N",
@@ -24128,7 +24284,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-054",
       "level": "N3",
-      "group": "n3-wo",
+      "group": "n3-epj",
+      "lectures": ["N3-93"],
       "pattern": "〜を通して / 〜を通じて",
       "meaningZh": "通过……；在整个……期间",
       "formation": "N + を通して／を通じて",
@@ -24215,7 +24372,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-055",
       "level": "N3",
-      "group": "n3-wo",
+      "group": "n3-epj",
+      "lectures": ["N3-91"],
       "pattern": "〜をこめて",
       "meaningZh": "满怀……；倾注……",
       "formation": "N + をこめて",
@@ -24303,7 +24461,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-056",
       "level": "N3",
-      "group": "n3-wo",
+      "group": "n3-supe",
+      "lectures": ["N2-95"],
       "pattern": "〜をもとに",
       "meaningZh": "以……为基础；以……为依据",
       "formation": "N + をもとに（して）",
@@ -24391,7 +24550,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-057",
       "level": "N3",
-      "group": "n3-compare",
+      "group": "n3-epf",
+      "lectures": ["N3-53"],
       "pattern": "〜に比べて",
       "meaningZh": "与……相比",
       "formation": "N + に比べて；V普通形 + のに比べて",
@@ -24479,7 +24639,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-058",
       "level": "N3",
-      "group": "n3-addition",
+      "group": "n3-epf",
+      "lectures": ["N3-54"],
       "pattern": "〜に加えて",
       "meaningZh": "加上……；除……之外还……",
       "formation": "N + に加えて",
@@ -24567,7 +24728,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-059",
       "level": "N3",
-      "group": "n3-substitute",
+      "group": "n3-epe",
+      "lectures": ["N3-44"],
       "pattern": "〜とおり（に） / 〜どおり（に）",
       "meaningZh": "按照……；正如……",
       "formation": "V辞書形 / Vた形 + とおり（に）；N + のとおり（に）；N + どおり（に）",
@@ -24655,7 +24817,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-060",
       "level": "N3",
-      "group": "n3-compound",
+      "group": "n3-supa",
+      "lectures": ["N2-37"],
       "pattern": "〜っぱなし",
       "meaningZh": "（一直）……着不管；一直……",
       "formation": "Vます形去ます + っぱなし",
@@ -24743,7 +24906,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-061",
       "level": "N3",
-      "group": "n3-compound",
+      "group": "n3-epb",
+      "lectures": ["N3-12"],
       "pattern": "〜きる / 〜きれない",
       "meaningZh": "……完；彻底……；（不能）……完",
       "formation": "Vます形去ます + きる／きれない",
@@ -24831,7 +24995,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-062",
       "level": "N3",
-      "group": "n3-compound",
+      "group": "n3-epa",
+      "lectures": ["N3-6"],
       "pattern": "〜かける / 〜かけの",
       "meaningZh": "……到一半；刚要……",
       "formation": "Vます形去ます + かける；Vます形去ます + かけの + N",
@@ -24919,7 +25084,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-063",
       "level": "N3",
-      "group": "n3-compound",
+      "group": "n3-supa",
       "pattern": "〜直す",
       "meaningZh": "重新……；再……一次（改正）",
       "formation": "Vます形去ます + 直す",
@@ -25007,7 +25172,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-064",
       "level": "N3",
-      "group": "n3-compound",
+      "group": "n3-epk",
+      "lectures": ["N3-110"],
       "pattern": "〜合う",
       "meaningZh": "互相……",
       "formation": "Vます形去ます + 合う",
@@ -25095,7 +25261,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-065",
       "level": "N3",
-      "group": "n3-compound",
+      "group": "n3-epk",
+      "lectures": ["N3-109"],
       "pattern": "〜込む",
       "meaningZh": "……进去；深入地……",
       "formation": "Vます形去ます + 込む",
@@ -25183,7 +25350,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-066",
       "level": "N3",
-      "group": "n3-suffix",
+      "group": "n3-supa",
+      "lectures": ["N2-109"],
       "pattern": "〜たて",
       "meaningZh": "刚……（的）",
       "formation": "Vます形去ます + たて",
@@ -25271,7 +25439,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-067",
       "level": "N3",
-      "group": "n3-tendency",
+      "group": "n3-epd",
+      "lectures": ["N3-31"],
       "pattern": "〜だらけ",
       "meaningZh": "满是……；全是……（不好的东西）",
       "formation": "N + だらけ",
@@ -25359,7 +25528,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-068",
       "level": "N3",
-      "group": "n3-suffix",
+      "group": "n3-eph",
+      "lectures": ["N3-79"],
       "pattern": "〜向き",
       "meaningZh": "适合……的",
       "formation": "N + 向き（だ／の／に）",
@@ -25447,7 +25617,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-069",
       "level": "N3",
-      "group": "n3-suffix",
+      "group": "n3-eph",
+      "lectures": ["N3-79"],
       "pattern": "〜向け",
       "meaningZh": "面向……的；专为……（设计）的",
       "formation": "N + 向け（だ／の／に）",
@@ -25535,7 +25706,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-070",
       "level": "N3",
-      "group": "n3-suffix",
+      "group": "n3-supc",
       "pattern": "〜的",
       "meaningZh": "……性的；在……方面",
       "formation": "汉语名词 + 的（作な形容詞使用）",
@@ -25621,7 +25792,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-071",
       "level": "N3",
-      "group": "n3-instruction",
+      "group": "n3-eph",
+      "lectures": ["N3-74"],
       "pattern": "〜べきだ / 〜べきではない",
       "meaningZh": "应该……；不应该……",
       "formation": "V辞書形 + べきだ（する→するべき／すべき）",
@@ -25709,7 +25881,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-072",
       "level": "N3",
-      "group": "n3-intent",
+      "group": "n3-supe",
+      "lectures": ["N4-58"],
       "pattern": "〜ようとする",
       "meaningZh": "想要……；正要……",
       "formation": "V意向形 + とする",
@@ -25797,7 +25970,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-073",
       "level": "N3",
-      "group": "n3-intent",
+      "group": "n3-epk",
+      "lectures": ["N3-104"],
       "pattern": "〜たつもり",
       "meaningZh": "自以为……；就当作……",
       "formation": "Vた形 + つもり；N + のつもり",
@@ -25885,7 +26059,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-074",
       "level": "N3",
-      "group": "n3-koto",
+      "group": "n3-supd",
+      "lectures": ["N2-22"],
       "pattern": "〜ことだ（忠告）",
       "meaningZh": "最好……；就要……（忠告）",
       "formation": "V辞書形 / Vない形 + ことだ",
@@ -25973,7 +26148,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-075",
       "level": "N3",
-      "group": "n3-wake",
+      "group": "n3-supd",
+      "lectures": ["N2-83"],
       "pattern": "〜ものだ（本来）",
       "meaningZh": "（本来）就是……；（按常理）应该……",
       "formation": "V辞書形 / い形 + ものだ；な形語幹 + なものだ",
@@ -26060,7 +26236,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-076",
       "level": "N3",
-      "group": "n3-wake",
+      "group": "n3-supd",
       "pattern": "〜たものだ",
       "meaningZh": "以前常常……（怀念）",
       "formation": "Vた形 + ものだ",
@@ -26148,7 +26324,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-077",
       "level": "N3",
-      "group": "n3-colloquial",
+      "group": "n3-epi",
+      "lectures": ["N3-81"],
       "pattern": "〜もの / 〜もん（理由）",
       "meaningZh": "因为……嘛（辩解）",
       "formation": "普通形 + もの／もん（常与「だって」搭配）",
@@ -26236,7 +26413,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-078",
       "level": "N3",
-      "group": "n3-te",
+      "group": "n3-epd",
+      "lectures": ["N3-36"],
       "pattern": "〜てしかたがない / 〜てしょうがない",
       "meaningZh": "……得不得了",
       "formation": "Vて形 / い形去い + くて / な形語幹 + で + しかたがない",
@@ -26324,7 +26502,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-079",
       "level": "N3",
-      "group": "n3-te",
+      "group": "n3-epd",
+      "lectures": ["N3-37"],
       "pattern": "〜てたまらない",
       "meaningZh": "……得受不了",
       "formation": "Vて形 / い形去い + くて / な形語幹 + で + たまらない",
@@ -26412,7 +26591,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-080",
       "level": "N3",
-      "group": "n3-honorific",
+      "group": "n3-supd",
+      "lectures": ["N4-82"],
       "pattern": "〜させていただく / 〜させてもらう",
       "meaningZh": "请允许我……；（承蒙允许）我来……",
       "formation": "V使役形て形 + いただく／もらう",
@@ -26500,7 +26680,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-081",
       "level": "N3",
-      "group": "n3-te",
+      "group": "n3-supd",
       "pattern": "〜てごらん",
       "meaningZh": "……看看吧（对晚辈）",
       "formation": "Vて形 + ごらん（なさい）",
@@ -26587,7 +26767,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-082",
       "level": "N3",
-      "group": "n3-time",
+      "group": "n3-supa",
+      "lectures": ["N2-38"],
       "pattern": "〜て以来",
       "meaningZh": "自从……以来",
       "formation": "Vて形 + 以来；N + 以来",
@@ -26675,7 +26856,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-083",
       "level": "N3",
-      "group": "n3-time",
+      "group": "n3-epd",
+      "lectures": ["N3-35"],
       "pattern": "〜てからでないと",
       "meaningZh": "不先……就（不能）……",
       "formation": "Vて形 + からでないと／からでなければ + 否定・困难的表达",
@@ -26763,7 +26945,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-084",
       "level": "N3",
-      "group": "n3-time",
+      "group": "n3-epk",
+      "lectures": ["N3-108"],
       "pattern": "〜てはじめて",
       "meaningZh": "……之后才……",
       "formation": "Vて形 + はじめて",
@@ -26851,7 +27034,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-085",
       "level": "N3",
-      "group": "n3-condition",
+      "group": "n3-epj",
+      "lectures": ["N3-98"],
       "pattern": "〜ばよかった",
       "meaningZh": "要是……就好了（后悔）",
       "formation": "Vば形 + よかった；Vなければ + よかった",
@@ -26939,7 +27123,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-086",
       "level": "N3",
-      "group": "n3-condition",
+      "group": "n3-epe",
+      "lectures": ["N3-46"],
       "pattern": "〜としたら / 〜とすれば",
       "meaningZh": "如果……的话；假如……",
       "formation": "普通形 + としたら／とすれば",
@@ -27027,7 +27212,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-087",
       "level": "N3",
-      "group": "n3-concession",
+      "group": "n3-supb",
       "pattern": "たとえ〜ても",
       "meaningZh": "即使……也……",
       "formation": "たとえ + Vて形／い形去い + くて／な形語幹・N + で + も",
@@ -27115,7 +27300,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-088",
       "level": "N3",
-      "group": "n3-concession",
+      "group": "n3-supb",
       "pattern": "〜にしても",
       "meaningZh": "就算……；即使……也",
       "formation": "V/い形普通形 + にしても；な形語幹・N + にしても",
@@ -27203,7 +27388,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-089",
       "level": "N3",
-      "group": "n3-guess",
+      "group": "n3-supc",
       "pattern": "〜とは限らない",
       "meaningZh": "未必……；不一定……",
       "formation": "普通形 + とは限らない",
@@ -27291,7 +27476,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-090",
       "level": "N3",
-      "group": "n3-toiu",
+      "group": "n3-epd",
+      "lectures": ["N3-40"],
       "pattern": "〜というより",
       "meaningZh": "与其说……不如说……",
       "formation": "普通形 / N + というより",
@@ -27379,7 +27565,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-091",
       "level": "N3",
-      "group": "n3-toiu",
+      "group": "n3-supe",
+      "lectures": ["N2-40"],
       "pattern": "〜というと / 〜といえば",
       "meaningZh": "说到……；提起……",
       "formation": "N + というと／といえば",
@@ -27467,7 +27654,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-092",
       "level": "N3",
-      "group": "n3-toiu",
+      "group": "n3-epi",
+      "lectures": ["N3-87"],
       "pattern": "〜というのは",
       "meaningZh": "所谓……是指……",
       "formation": "N + というのは + 〜という意味だ／〜のことだ",
@@ -27555,7 +27743,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-093",
       "level": "N3",
-      "group": "n3-instruction",
+      "group": "n3-supd",
       "pattern": "〜ますように",
       "meaningZh": "但愿……；祝愿……",
       "formation": "Vます形 + ように；Vません + ように",
@@ -27643,7 +27831,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-094",
       "level": "N3",
-      "group": "n3-instruction",
+      "group": "n3-supd",
       "pattern": "〜ように（指示）",
       "meaningZh": "要……；请……（提醒、指示）",
       "formation": "V辞書形 / Vない形 + ように",
@@ -27731,7 +27919,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-095",
       "level": "N3",
-      "group": "n3-koto",
+      "group": "n3-supd",
+      "lectures": ["N2-103"],
       "pattern": "〜こと（规定）",
       "meaningZh": "须……；不要……（书面规定）",
       "formation": "V辞書形 / Vない形 + こと",
@@ -27819,7 +28008,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-096",
       "level": "N3",
-      "group": "n3-suffix",
+      "group": "n3-epg",
+      "lectures": ["N3-61"],
       "pattern": "〜み",
       "meaningZh": "……感；……之处（形容词名词化）",
       "formation": "い形去い / な形語幹 + み",
@@ -27907,7 +28097,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-097",
       "level": "N3",
-      "group": "n3-change",
+      "group": "n3-epa",
+      "lectures": ["N3-1"],
       "pattern": "〜一方だ",
       "meaningZh": "越来越……；一直……下去",
       "formation": "V辞書形 + 一方だ",
@@ -27995,7 +28186,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-098",
       "level": "N3",
-      "group": "n3-time",
+      "group": "n3-supa",
+      "lectures": ["N2-111"],
       "pattern": "〜ところだった",
       "meaningZh": "差点儿就……",
       "formation": "V辞書形 + ところだった",
@@ -28083,7 +28275,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-099",
       "level": "N3",
-      "group": "n3-time",
+      "group": "n3-epe",
+      "lectures": ["N3-45"],
       "pattern": "〜ところに / 〜ところへ / 〜ところを",
       "meaningZh": "正当……的时候（发生了……）",
       "formation": "V辞書形 / Vている / Vた形 + ところに／ところへ／ところを",
@@ -28171,7 +28364,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-100",
       "level": "N3",
-      "group": "n3-addition",
+      "group": "n3-epa",
+      "lectures": ["N3-2"],
       "pattern": "〜上（に）",
       "meaningZh": "不仅……而且……；再加上……",
       "formation": "V/い形普通形 + 上（に）；な形語幹 + な上（に）；N + の／である + 上（に）",
@@ -28259,7 +28453,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-101",
       "level": "N3",
-      "group": "n3-concession",
+      "group": "n3-supb",
+      "lectures": ["N2-17"],
       "pattern": "〜からといって",
       "meaningZh": "虽说……但也（不一定）……",
       "formation": "普通形 + からといって + 否定",
@@ -28347,7 +28542,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-102",
       "level": "N3",
-      "group": "n3-reason",
+      "group": "n3-supb",
       "pattern": "〜からこそ",
       "meaningZh": "正因为……才……",
       "formation": "普通形 + からこそ",
@@ -28435,7 +28630,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-103",
       "level": "N3",
-      "group": "n3-guess",
+      "group": "n3-epa",
+      "lectures": ["N3-5"],
       "pattern": "〜おそれがある",
       "meaningZh": "有……的危险；恐怕会……",
       "formation": "V辞書形 / N + の + おそれがある",
@@ -28523,7 +28719,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-104",
       "level": "N3",
-      "group": "n3-addition",
+      "group": "n3-eph",
+      "lectures": ["N3-71"],
       "pattern": "〜はもちろん",
       "meaningZh": "……自不必说，……也……",
       "formation": "N + はもちろん",
@@ -28611,7 +28808,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-105",
       "level": "N3",
-      "group": "n3-addition",
+      "group": "n3-eph",
+      "lectures": ["N3-80"],
       "pattern": "〜も〜ば〜も",
       "meaningZh": "既……又……；也……也……",
       "formation": "N + も + Vば／い形ければ／な形・Nなら + N + も",
@@ -28699,7 +28897,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-106",
       "level": "N3",
-      "group": "n3-honorific",
+      "group": "n3-supd",
+      "lectures": ["N4-81"],
       "pattern": "お／ご〜する",
       "meaningZh": "我为您……（谦让语）",
       "formation": "お + 和语动词ます形去ます + する；ご + 汉语系サ变动词词干 + する",
@@ -28787,7 +28986,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-107",
       "level": "N3",
-      "group": "n3-suffix",
+      "group": "n3-supc",
       "pattern": "〜ぶり",
       "meaningZh": "时隔……；……的样子",
       "formation": "时间 + ぶり；N / Vます形去ます + ぶり",
@@ -28875,7 +29074,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-108",
       "level": "N3",
-      "group": "n3-guess",
+      "group": "n3-supc",
       "pattern": "〜ような気がする",
       "meaningZh": "总觉得……；好像……",
       "formation": "V/い形普通形 + ような気がする；N + のような気がする",
@@ -28963,7 +29162,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-109",
       "level": "N3",
-      "group": "n3-colloquial",
+      "group": "n3-epl",
+      "lectures": ["N3-118"],
       "pattern": "〜たって / 〜だって",
       "meaningZh": "即使……也……（口语）",
       "formation": "Vた形 + って（Vだ→だって）；い形去い + くたって；な形語幹・N + だって",
@@ -29051,7 +29251,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-110",
       "level": "N3",
-      "group": "n3-colloquial",
+      "group": "n3-supe",
+      "lectures": ["N4-27"],
       "pattern": "〜とく / 〜どく",
       "meaningZh": "先……好（「〜ておく」的口语）",
       "formation": "Vて形去て + とく（Vで→どく）",
@@ -29138,7 +29339,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-111",
       "level": "N3",
-      "group": "n3-ni",
+      "group": "n3-supe",
       "pattern": "〜に向かって",
       "meaningZh": "朝着……；对着……",
       "formation": "N + に向かって",
@@ -29226,7 +29427,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-112",
       "level": "N3",
-      "group": "n3-te",
+      "group": "n3-supe",
+      "lectures": ["N4-15"],
       "pattern": "〜てもかまわない",
       "meaningZh": "……也没关系；可以……",
       "formation": "Vて形 / い形去い + くて / な形語幹・N + で + もかまわない",
@@ -29314,7 +29516,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-113",
       "level": "N3",
-      "group": "n3-reason",
+      "group": "n3-supb",
       "pattern": "〜んだから / 〜のだから",
       "meaningZh": "既然……（就）……",
       "formation": "普通形 + んだから／のだから（な形語幹・N + なんだから）",
@@ -29400,7 +29602,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-114",
       "level": "N3",
-      "group": "n3-guess",
+      "group": "n3-supc",
       "pattern": "まるで〜ようだ / まるで〜みたいだ",
       "meaningZh": "简直像……一样",
       "formation": "まるで + 普通形 / Nの + ようだ；まるで + 普通形 / N + みたいだ",
@@ -29488,7 +29690,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-115",
       "level": "N3",
-      "group": "n3-guess",
+      "group": "n3-supc",
       "pattern": "〜そうもない / 〜そうにない",
       "meaningZh": "看样子不会……；不太可能……",
       "formation": "Vます形去ます + そうもない／そうにない",
@@ -29576,7 +29778,7 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-116",
       "level": "N3",
-      "group": "n3-condition",
+      "group": "n3-supa",
       "pattern": "〜たら〜た（发现）",
       "meaningZh": "……一看，（发现）……",
       "formation": "Vた形 + ら + 过去形",
@@ -29663,7 +29865,8 @@ window.AYAYA_GRAMMAR_DATA = {
     {
       "id": "n3-grammar-117",
       "level": "N3",
-      "group": "n3-toiu",
+      "group": "n3-epd",
+      "lectures": ["N3-38"],
       "pattern": "〜ということだ（传闻）",
       "meaningZh": "听说……；据说……",
       "formation": "普通形 + ということだ",
@@ -29751,7 +29954,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-001",
       "level": "N2",
       "group": "n2-epa",
-      "lecture": 1,
+      "lectures": ["N2-1"],
       "pattern": "〜あげく（に）",
       "meaningZh": "……到最后；折腾了半天，结果……",
       "formation": "Vた形 + あげく（に）；N + の + あげく（に）",
@@ -29840,7 +30043,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-002",
       "level": "N2",
       "group": "n2-epa",
-      "lecture": 2,
+      "lectures": ["N2-2"],
       "pattern": "〜あまり（に）・あまりの〜に",
       "meaningZh": "因为过于……（而导致）",
       "formation": "V辞書形 / Vた形 + あまり（に）；な形語幹 + な + あまり；N + の + あまり；あまりの + N + に",
@@ -29929,7 +30132,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-003",
       "level": "N2",
       "group": "n2-epa",
-      "lecture": 3,
+      "lectures": ["N2-3"],
       "pattern": "〜以上（は）",
       "meaningZh": "既然……就……",
       "formation": "V普通形 + 以上（は）；な形語幹・N + である + 以上（は）",
@@ -30018,7 +30221,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-004",
       "level": "N2",
       "group": "n2-epa",
-      "lecture": 4,
+      "lectures": ["N2-4"],
       "pattern": "〜一方（で）",
       "meaningZh": "一方面……另一方面……；而……",
       "formation": "V/い形普通形 + 一方（で）；な形語幹 + な／である + 一方（で）；N + である + 一方（で）",
@@ -30107,7 +30310,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-005",
       "level": "N2",
       "group": "n2-epa",
-      "lecture": 5,
+      "lectures": ["N2-5"],
       "pattern": "〜うえで（之后）",
       "meaningZh": "在……之后（再）……",
       "formation": "Vた形 + うえで；N + の + うえで",
@@ -30196,7 +30399,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-006",
       "level": "N2",
       "group": "n2-epa",
-      "lecture": 6,
+      "lectures": ["N2-6"],
       "pattern": "〜うえで（目的・方面）",
       "meaningZh": "在……方面；在做……的过程中",
       "formation": "V辞書形 + うえで",
@@ -30285,7 +30488,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-007",
       "level": "N2",
       "group": "n2-epa",
-      "lecture": 7,
+      "lectures": ["N2-7"],
       "pattern": "〜うえは / 〜上は",
       "meaningZh": "既然……（就）……",
       "formation": "V辞書形 / Vた形 + うえは",
@@ -30374,7 +30577,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-008",
       "level": "N2",
       "group": "n2-epa",
-      "lecture": 8,
+      "lectures": ["N2-8"],
       "pattern": "〜（よ）うではないか",
       "meaningZh": "让我们……吧（号召）",
       "formation": "V意向形 + ではないか／ではありませんか／じゃないか",
@@ -30463,7 +30666,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-009",
       "level": "N2",
       "group": "n2-epa",
-      "lecture": 9,
+      "lectures": ["N2-9"],
       "pattern": "〜得る / 〜得ない",
       "meaningZh": "有可能……／不可能……",
       "formation": "Vます形去ます + 得る（える／うる）；否定：得ない（えない）",
@@ -30552,7 +30755,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-010",
       "level": "N2",
       "group": "n2-epa",
-      "lecture": 10,
+      "lectures": ["N2-10"],
       "pattern": "〜限り（は）/ 〜ない限り",
       "meaningZh": "只要……就……；只要不……（除非……否则）",
       "formation": "V辞書形 / Vている / Vない形 + 限り（は）；い形 + 限り；な形語幹 + な／である + 限り；N + である + 限り",
@@ -30641,7 +30844,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-011",
       "level": "N2",
       "group": "n2-epb",
-      "lecture": 11,
+      "lectures": ["N2-11"],
       "pattern": "〜限りでは",
       "meaningZh": "就……所（知、见）而言；据……",
       "formation": "V辞書形 / Vた形 / Vている + 限りでは；N + の + 限りでは",
@@ -30730,7 +30933,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-012",
       "level": "N2",
       "group": "n2-epb",
-      "lecture": 12,
+      "lectures": ["N2-12"],
       "pattern": "〜がたい",
       "meaningZh": "难以……；很难……",
       "formation": "Vます形去ます + がたい",
@@ -30819,7 +31022,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-013",
       "level": "N2",
       "group": "n2-epb",
-      "lecture": 13,
+      "lectures": ["N2-13"],
       "pattern": "〜かねる",
       "meaningZh": "难以……；不能……（委婉拒绝）",
       "formation": "Vます形去ます + かねる",
@@ -30908,7 +31111,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-014",
       "level": "N2",
       "group": "n2-epb",
-      "lecture": 14,
+      "lectures": ["N2-14"],
       "pattern": "〜かねない",
       "meaningZh": "很可能……；说不定会……（坏结果）",
       "formation": "Vます形去ます + かねない",
@@ -30997,7 +31200,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-015",
       "level": "N2",
       "group": "n2-epb",
-      "lecture": 15,
+      "lectures": ["N2-15"],
       "pattern": "〜からして（就连）",
       "meaningZh": "单从……来看就……；就连……都……",
       "formation": "N + からして",
@@ -31086,7 +31289,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-016",
       "level": "N2",
       "group": "n2-epb",
-      "lecture": 16,
+      "lectures": ["N2-16"],
       "pattern": "〜からすると / 〜からすれば / 〜からしたら",
       "meaningZh": "从……来看；从……的立场来说",
       "formation": "N + からすると／からすれば／からしたら",
@@ -31175,7 +31378,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-017",
       "level": "N2",
       "group": "n2-epb",
-      "lecture": 19,
+      "lectures": ["N2-19"],
       "pattern": "〜きり / 〜っきり",
       "meaningZh": "（自从）……之后就再没……；只有……",
       "formation": "Vた形 + きり（后面多接否定）；N + きり／っきり（只有）",
@@ -31264,7 +31467,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-018",
       "level": "N2",
       "group": "n2-epc",
-      "lecture": 21,
+      "lectures": ["N2-21"],
       "pattern": "〜げ",
       "meaningZh": "（看起来）……的样子",
       "formation": "い形去い + げ；な形語幹 + げ；Vたい去い + げ",
@@ -31353,7 +31556,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-019",
       "level": "N2",
       "group": "n2-epc",
-      "lecture": 23,
+      "lectures": ["N2-23"],
       "pattern": "〜ことだ（感慨）",
       "meaningZh": "真是……啊（感叹）",
       "formation": "い形 + ことだ；な形語幹 + な + ことだ",
@@ -31442,7 +31645,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-020",
       "level": "N2",
       "group": "n2-epc",
-      "lecture": 24,
+      "lectures": ["N2-24"],
       "pattern": "〜ことなく",
       "meaningZh": "不……（而）……；没有……",
       "formation": "V辞書形 + ことなく",
@@ -31531,7 +31734,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-021",
       "level": "N2",
       "group": "n2-epc",
-      "lecture": 25,
+      "lectures": ["N2-25"],
       "pattern": "〜ことに（は）",
       "meaningZh": "令人……的是",
       "formation": "Vた形 + ことに；い形 + ことに；な形語幹 + な + ことに",
@@ -31620,7 +31823,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-022",
       "level": "N2",
       "group": "n2-epc",
-      "lecture": 26,
+      "lectures": ["N2-26"],
       "pattern": "〜ざるを得ない",
       "meaningZh": "不得不……；只好……",
       "formation": "Vない形去ない + ざるを得ない（する → せざるを得ない）",
@@ -31709,7 +31912,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-023",
       "level": "N2",
       "group": "n2-epc",
-      "lecture": 27,
+      "lectures": ["N2-27"],
       "pattern": "〜次第（立即）",
       "meaningZh": "一……就立刻……",
       "formation": "Vます形去ます + 次第；动作性N + 次第",
@@ -31798,7 +32001,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-024",
       "level": "N2",
       "group": "n2-epc",
-      "lecture": 28,
+      "lectures": ["N2-28"],
       "pattern": "〜次第で / 〜次第だ",
       "meaningZh": "取决于……；要看……",
       "formation": "N + 次第で／次第だ",
@@ -31887,7 +32090,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-025",
       "level": "N2",
       "group": "n2-epc",
-      "lecture": 29,
+      "lectures": ["N2-29"],
       "pattern": "〜次第では",
       "meaningZh": "根据……（的情况），有时可能……",
       "formation": "N + 次第では",
@@ -31976,7 +32179,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-026",
       "level": "N2",
       "group": "n2-epc",
-      "lecture": 30,
+      "lectures": ["N2-30"],
       "pattern": "〜上（じょう）/ 〜の上で",
       "meaningZh": "在……上；从……方面来看",
       "formation": "N + 上（じょう）；N + の + 上で（は）",
@@ -32065,7 +32268,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-027",
       "level": "N2",
       "group": "n2-epd",
-      "lecture": 31,
+      "lectures": ["N2-31"],
       "pattern": "〜ずにはいられない / 〜ないではいられない",
       "meaningZh": "忍不住……；不由得……",
       "formation": "Vない形去ない + ずにはいられない（する → せずにはいられない）；Vない形 + ではいられない",
@@ -32154,7 +32357,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-028",
       "level": "N2",
       "group": "n2-epd",
-      "lecture": 32,
+      "lectures": ["N2-32"],
       "pattern": "〜だけに",
       "meaningZh": "正因为……（所以更加）……",
       "formation": "V/い形普通形 + だけに；な形語幹 + な + だけに；N + だけに",
@@ -32243,7 +32446,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-029",
       "level": "N2",
       "group": "n2-epd",
-      "lecture": 32,
+      "lectures": ["N2-32"],
       "pattern": "〜だけあって / 〜だけのことはある",
       "meaningZh": "不愧是……；到底是……",
       "formation": "V/い形普通形 + だけあって／だけのことはある；な形語幹 + な + だけあって；N + だけあって",
@@ -32332,7 +32535,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-030",
       "level": "N2",
       "group": "n2-epd",
-      "lecture": 33,
+      "lectures": ["N2-33"],
       "pattern": "〜っこない",
       "meaningZh": "绝不可能……；根本不会……",
       "formation": "Vます形去ます + っこない",
@@ -32421,7 +32624,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-031",
       "level": "N2",
       "group": "n2-epd",
-      "lecture": 34,
+      "lectures": ["N2-34"],
       "pattern": "〜つつ（同时）",
       "meaningZh": "一边……一边……（书面）",
       "formation": "Vます形去ます + つつ",
@@ -32510,7 +32713,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-032",
       "level": "N2",
       "group": "n2-epd",
-      "lecture": 35,
+      "lectures": ["N2-35"],
       "pattern": "〜つつ（も）（逆接）",
       "meaningZh": "虽然……却……；明知……却……",
       "formation": "Vます形去ます + つつ（も）",
@@ -32599,7 +32802,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-033",
       "level": "N2",
       "group": "n2-epd",
-      "lecture": 36,
+      "lectures": ["N2-36"],
       "pattern": "〜つつある",
       "meaningZh": "正在……；逐渐……",
       "formation": "Vます形去ます + つつある",
@@ -32688,7 +32891,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-034",
       "level": "N2",
       "group": "n2-epd",
-      "lecture": 39,
+      "lectures": ["N2-39"],
       "pattern": "〜てならない",
       "meaningZh": "……得不得了；非常……",
       "formation": "Vて形 + ならない；い形去い + くてならない；な形語幹 + でならない",
@@ -32777,7 +32980,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-035",
       "level": "N2",
       "group": "n2-epe",
-      "lecture": 41,
+      "lectures": ["N2-41"],
       "pattern": "〜ったら / 〜ってば",
       "meaningZh": "（带不满、无奈地提起）……这个人啊；（不耐烦地重申）我说……嘛",
       "formation": "N（人）+ ったら／ってば；句子 + ってば／ったら（放在句末）",
@@ -32866,7 +33069,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-036",
       "level": "N2",
       "group": "n2-epe",
-      "lecture": 42,
+      "lectures": ["N2-42"],
       "pattern": "〜というものだ",
       "meaningZh": "这才是……；这就叫……",
       "formation": "N / 普通形 + というものだ",
@@ -32955,7 +33158,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-037",
       "level": "N2",
       "group": "n2-epe",
-      "lecture": 43,
+      "lectures": ["N2-43"],
       "pattern": "〜というものではない",
       "meaningZh": "并不是……就（一定）……",
       "formation": "普通形 + というものではない／というものでもない（常说「〜ばいいというものではない」）",
@@ -33044,7 +33247,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-038",
       "level": "N2",
       "group": "n2-epe",
-      "lecture": 44,
+      "lectures": ["N2-44"],
       "pattern": "〜とか（传闻）",
       "meaningZh": "听说……（好像）",
       "formation": "普通形 + とか（だ／です）；常说「〜とか聞いた」",
@@ -33133,7 +33336,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-039",
       "level": "N2",
       "group": "n2-epe",
-      "lecture": 45,
+      "lectures": ["N2-45"],
       "pattern": "〜どころか",
       "meaningZh": "别说……，连……都；不但不……，反而……",
       "formation": "N / な形語幹 + どころか；V・い形普通形 + どころか",
@@ -33222,7 +33425,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-040",
       "level": "N2",
       "group": "n2-epe",
-      "lecture": 46,
+      "lectures": ["N2-46"],
       "pattern": "〜どころではない",
       "meaningZh": "哪里顾得上……；根本谈不上……",
       "formation": "N / V辞書形・Vている + どころではない（口语：どころじゃない）",
@@ -33311,7 +33514,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-041",
       "level": "N2",
       "group": "n2-epe",
-      "lecture": 48,
+      "lectures": ["N2-48"],
       "pattern": "〜ないことには",
       "meaningZh": "如果不……就（无法）……",
       "formation": "Vない形 + ことには；い形去い + くないことには；な形語幹・N + でないことには",
@@ -33400,7 +33603,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-042",
       "level": "N2",
       "group": "n2-epe",
-      "lecture": 50,
+      "lectures": ["N2-50"],
       "pattern": "〜ながら（も）（逆接）",
       "meaningZh": "虽然……但是……；尽管……却……",
       "formation": "Vます形去ます / Vている + ながら（も）；い形 + ながら（も）；な形語幹・N + ながら（も）",
@@ -33489,7 +33692,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-043",
       "level": "N2",
       "group": "n2-epf",
-      "lecture": 51,
+      "lectures": ["N2-51"],
       "pattern": "〜にあたって / 〜にあたり",
       "meaningZh": "在……之际（正式场合）",
       "formation": "V辞書形 / N + にあたって／にあたり",
@@ -33578,7 +33781,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-044",
       "level": "N2",
       "group": "n2-epf",
-      "lecture": 52,
+      "lectures": ["N2-52"],
       "pattern": "〜に応じて",
       "meaningZh": "根据……（相应地）；按照……",
       "formation": "N + に応じて；N + に応じた + N",
@@ -33667,7 +33870,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-045",
       "level": "N2",
       "group": "n2-epf",
-      "lecture": 53,
+      "lectures": ["N2-53"],
       "pattern": "〜にかかわらず / 〜にかかわりなく",
       "meaningZh": "不论……；不管……",
       "formation": "N + にかかわらず／にかかわりなく；V辞書形 + Vない形 + にかかわらず",
@@ -33756,7 +33959,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-046",
       "level": "N2",
       "group": "n2-epf",
-      "lecture": 54,
+      "lectures": ["N2-54"],
       "pattern": "〜にもかかわらず",
       "meaningZh": "尽管……（却）……",
       "formation": "V・い形普通形 + にもかかわらず；な形語幹・N（である）+ にもかかわらず",
@@ -33845,7 +34048,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-047",
       "level": "N2",
       "group": "n2-epf",
-      "lecture": 55,
+      "lectures": ["N2-55"],
       "pattern": "〜に限って",
       "meaningZh": "偏偏……；唯独……（不会）",
       "formation": "N + に限って",
@@ -33934,7 +34137,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-048",
       "level": "N2",
       "group": "n2-epf",
-      "lecture": 56,
+      "lectures": ["N2-56"],
       "pattern": "〜に限らず",
       "meaningZh": "不仅限于……；不只是……",
       "formation": "N + に限らず",
@@ -34023,7 +34226,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-049",
       "level": "N2",
       "group": "n2-epf",
-      "lecture": 57,
+      "lectures": ["N2-57"],
       "pattern": "〜に限り",
       "meaningZh": "仅限……；只限于……",
       "formation": "N + に限り",
@@ -34112,7 +34315,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-050",
       "level": "N2",
       "group": "n2-epf",
-      "lecture": 59,
+      "lectures": ["N2-59"],
       "pattern": "〜に相違ない",
       "meaningZh": "一定……；肯定是……（书面）",
       "formation": "V・い形普通形 + に相違ない；な形語幹・N + に相違ない",
@@ -34201,7 +34404,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-051",
       "level": "N2",
       "group": "n2-epf",
-      "lecture": 60,
+      "lectures": ["N2-60"],
       "pattern": "〜に際して / 〜際（に）",
       "meaningZh": "在……之际；在……的时候",
       "formation": "V辞書形 / N + に際して（は）／に際し；N + の + 際（に）",
@@ -34290,7 +34493,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-052",
       "level": "N2",
       "group": "n2-epg",
-      "lecture": 61,
+      "lectures": ["N2-61"],
       "pattern": "〜に先立って / 〜に先立ち",
       "meaningZh": "在……之前（预先）",
       "formation": "V辞書形 / N + に先立って／に先立ち；N + に先立つ + N",
@@ -34379,7 +34582,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-053",
       "level": "N2",
       "group": "n2-epg",
-      "lecture": 62,
+      "lectures": ["N2-62"],
       "pattern": "〜にしたら / 〜にすれば（立场）",
       "meaningZh": "对……来说；站在……的立场",
       "formation": "N（人、组织）+ にしたら／にすれば／にしてみれば",
@@ -34468,7 +34671,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-054",
       "level": "N2",
       "group": "n2-epg",
-      "lecture": 64,
+      "lectures": ["N2-64"],
       "pattern": "〜にしろ / 〜にせよ",
       "meaningZh": "即使……也……；无论是……还是……",
       "formation": "V・い形普通形 + にしろ／にせよ；な形語幹・N（である）+ にしろ／にせよ；〜にしろ〜にしろ",
@@ -34557,7 +34760,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-055",
       "level": "N2",
       "group": "n2-epg",
-      "lecture": 65,
+      "lectures": ["N2-65"],
       "pattern": "〜にすぎない",
       "meaningZh": "只不过是……而已",
       "formation": "N / V普通形 + にすぎない",
@@ -34646,7 +34849,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-056",
       "level": "N2",
       "group": "n2-epg",
-      "lecture": 66,
+      "lectures": ["N2-66"],
       "pattern": "〜に沿って",
       "meaningZh": "沿着……；按照……",
       "formation": "N + に沿って；N + に沿った + N",
@@ -34735,7 +34938,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-057",
       "level": "N2",
       "group": "n2-epg",
-      "lecture": 67,
+      "lectures": ["N2-67"],
       "pattern": "〜につけ / 〜につけて",
       "meaningZh": "每当……就（会想起、感到）……",
       "formation": "V辞書形 + につけ（て）；惯用：何かにつけて",
@@ -34824,7 +35027,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-058",
       "level": "N2",
       "group": "n2-epg",
-      "lecture": 68,
+      "lectures": ["N2-68"],
       "pattern": "〜に伴って / 〜に伴い",
       "meaningZh": "随着……；伴随……",
       "formation": "N / V辞書形 + に伴って／に伴い；N + に伴う + N",
@@ -34913,7 +35116,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-059",
       "level": "N2",
       "group": "n2-epg",
-      "lecture": 69,
+      "lectures": ["N2-69"],
       "pattern": "〜にほかならない",
       "meaningZh": "正是……；不是别的，就是……",
       "formation": "N + にほかならない；（理由）〜から + にほかならない",
@@ -35002,7 +35205,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-060",
       "level": "N2",
       "group": "n2-epg",
-      "lecture": 70,
+      "lectures": ["N2-70"],
       "pattern": "〜に基づいて",
       "meaningZh": "根据……；以……为基础",
       "formation": "N + に基づいて／に基づき；N + に基づく／に基づいた + N",
@@ -35091,7 +35294,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-061",
       "level": "N2",
       "group": "n2-eph",
-      "lecture": 71,
+      "lectures": ["N2-71"],
       "pattern": "〜はさておき",
       "meaningZh": "……先不说；暂且不谈……",
       "formation": "N + はさておき",
@@ -35180,7 +35383,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-062",
       "level": "N2",
       "group": "n2-eph",
-      "lecture": 72,
+      "lectures": ["N2-72"],
       "pattern": "〜はもとより",
       "meaningZh": "……自不必说；……就不用说了",
       "formation": "N + はもとより（、N + も）",
@@ -35269,7 +35472,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-063",
       "level": "N2",
       "group": "n2-eph",
-      "lecture": 73,
+      "lectures": ["N2-73"],
       "pattern": "〜抜きで / 〜抜きにして",
       "meaningZh": "去掉……；不算……；没有……（就不行）",
       "formation": "N + 抜きで／抜きに／抜きの + N；N + を抜きにして（は）／は抜きにして",
@@ -35358,7 +35561,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-064",
       "level": "N2",
       "group": "n2-eph",
-      "lecture": 74,
+      "lectures": ["N2-74"],
       "pattern": "〜末（に）",
       "meaningZh": "经过……最后……",
       "formation": "Vた形 + 末（に）；N + の + 末（に）",
@@ -35447,7 +35650,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-065",
       "level": "N2",
       "group": "n2-eph",
-      "lecture": 75,
+      "lectures": ["N2-75"],
       "pattern": "〜のみならず",
       "meaningZh": "不仅……（而且）……",
       "formation": "N / V・い形普通形 + のみならず；な形語幹・N + である + のみならず",
@@ -35536,7 +35739,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-066",
       "level": "N2",
       "group": "n2-eph",
-      "lecture": 77,
+      "lectures": ["N2-77"],
       "pattern": "〜ばかりに",
       "meaningZh": "就因为……（才落得不好的结果）",
       "formation": "V・い形普通形 + ばかりに；な形語幹 + な／である + ばかりに；N + である + ばかりに",
@@ -35625,7 +35828,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-067",
       "level": "N2",
       "group": "n2-eph",
-      "lecture": 78,
+      "lectures": ["N2-78"],
       "pattern": "〜くらいなら",
       "meaningZh": "与其……还不如……",
       "formation": "V辞書形 + くらいなら／ぐらいなら",
@@ -35714,7 +35917,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-068",
       "level": "N2",
       "group": "n2-eph",
-      "lecture": 79,
+      "lectures": ["N2-79"],
       "pattern": "〜まい",
       "meaningZh": "绝不……（决心）；大概不会……（推测）",
       "formation": "V辞書形 + まい（一段动词也可说 Vます形去ます + まい：食べまい；する → するまい／すまい）",
@@ -35803,7 +36006,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-069",
       "level": "N2",
       "group": "n2-eph",
-      "lecture": 80,
+      "lectures": ["N2-80"],
       "pattern": "〜（よ）うか〜まいか",
       "meaningZh": "要不要……（犹豫）",
       "formation": "V意向形 + か + V辞書形 + まいか（一段动词也可说 Vます形去ます + まいか）",
@@ -35892,7 +36095,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-070",
       "level": "N2",
       "group": "n2-epi",
-      "lecture": 81,
+      "lectures": ["N2-81"],
       "pattern": "〜もかまわず",
       "meaningZh": "不顾……；不在乎……",
       "formation": "N + もかまわず；V普通形 + の + もかまわず",
@@ -35981,7 +36184,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-071",
       "level": "N2",
       "group": "n2-epi",
-      "lecture": 82,
+      "lectures": ["N2-82"],
       "pattern": "〜ものがある",
       "meaningZh": "确实有……之处；让人感到……",
       "formation": "V辞書形 / い形 / な形な + ものがある",
@@ -36070,7 +36273,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-072",
       "level": "N2",
       "group": "n2-epi",
-      "lecture": 84,
+      "lectures": ["N2-84"],
       "pattern": "〜ものだ（感慨）",
       "meaningZh": "真是……啊（感慨）",
       "formation": "V普通形 / い形 / な形な + ものだ；常说「よく〜ものだ」「〜たものだ」",
@@ -36159,7 +36362,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-073",
       "level": "N2",
       "group": "n2-epi",
-      "lecture": 85,
+      "lectures": ["N2-85"],
       "pattern": "〜ものなら（愿望）",
       "meaningZh": "如果能……的话（就……）",
       "formation": "V可能形（辞書形）+ ものなら",
@@ -36248,7 +36451,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-074",
       "level": "N2",
       "group": "n2-epi",
-      "lecture": 86,
+      "lectures": ["N2-86"],
       "pattern": "〜ないものか",
       "meaningZh": "能不能想办法……呢；难道不能……吗",
       "formation": "V可能形ない + ものか／ものだろうか／ものでしょうか",
@@ -36337,7 +36540,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-075",
       "level": "N2",
       "group": "n2-epi",
-      "lecture": 87,
+      "lectures": ["N2-87"],
       "pattern": "〜（よ）うものなら",
       "meaningZh": "要是（敢）……的话（就糟了）",
       "formation": "V意向形 + ものなら",
@@ -36426,7 +36629,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-076",
       "level": "N2",
       "group": "n2-epi",
-      "lecture": 88,
+      "lectures": ["N2-88"],
       "pattern": "〜ものの",
       "meaningZh": "虽然……但是……",
       "formation": "V・い形普通形 + ものの；な形 + な／である + ものの；N + である + ものの",
@@ -36515,7 +36718,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-077",
       "level": "N2",
       "group": "n2-epi",
-      "lecture": 89,
+      "lectures": ["N2-89"],
       "pattern": "〜やら〜やら",
       "meaningZh": "又是……又是……",
       "formation": "N / V辞書形 / い形 + やら + N / V辞書形 / い形 + やら",
@@ -36604,7 +36807,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-078",
       "level": "N2",
       "group": "n2-epi",
-      "lecture": 90,
+      "lectures": ["N2-90"],
       "pattern": "〜ようがない",
       "meaningZh": "没办法……；无法……",
       "formation": "Vます形去ます + ようがない／ようもない（する → しようがない）",
@@ -36693,7 +36896,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-079",
       "level": "N2",
       "group": "n2-epj",
-      "lecture": 91,
+      "lectures": ["N2-91"],
       "pattern": "〜を契機に / 〜をきっかけに",
       "meaningZh": "以……为契机",
       "formation": "N + を契機に（して）／を契機として；N + をきっかけに（して）／をきっかけとして",
@@ -36782,7 +36985,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-080",
       "level": "N2",
       "group": "n2-epj",
-      "lecture": 92,
+      "lectures": ["N2-92"],
       "pattern": "〜を問わず",
       "meaningZh": "不论……；不分……",
       "formation": "N + を問わず（常接 男女・年齢・経験・昼夜・国籍，或「〜の有無」「〜かどうか」）",
@@ -36871,7 +37074,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-081",
       "level": "N2",
       "group": "n2-epj",
-      "lecture": 94,
+      "lectures": ["N2-94"],
       "pattern": "〜をめぐって",
       "meaningZh": "围绕……（争论、对立）",
       "formation": "N + をめぐって／をめぐり；修饰名词：N + をめぐる + N",
@@ -36960,7 +37163,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-082",
       "level": "N2",
       "group": "n2-epj",
-      "lecture": 96,
+      "lectures": ["N2-96"],
       "pattern": "〜か〜ないかのうちに",
       "meaningZh": "刚一……就……",
       "formation": "V辞書形 / Vた形 + か + Vない形 + かのうちに（同一个动词）",
@@ -37049,7 +37252,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-083",
       "level": "N2",
       "group": "n2-epj",
-      "lecture": 97,
+      "lectures": ["N2-97"],
       "pattern": "〜かと思うと / 〜かと思ったら",
       "meaningZh": "刚……就（马上）……",
       "formation": "Vた形 + かと思うと／かと思ったら",
@@ -37138,7 +37341,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-084",
       "level": "N2",
       "group": "n2-epj",
-      "lecture": 98,
+      "lectures": ["N2-98"],
       "pattern": "〜抜く",
       "meaningZh": "……到底；彻底……",
       "formation": "Vます形去ます + 抜く",
@@ -37227,7 +37430,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-085",
       "level": "N2",
       "group": "n2-epj",
-      "lecture": 99,
+      "lectures": ["N2-99"],
       "pattern": "〜てみせる",
       "meaningZh": "（做给别人看）一定要……；示范……",
       "formation": "Vて形 + みせる",
@@ -37316,7 +37519,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-086",
       "level": "N2",
       "group": "n2-epj",
-      "lecture": 100,
+      "lectures": ["N2-100"],
       "pattern": "〜ようなら / 〜ようだったら",
       "meaningZh": "如果（看情况）……的话",
       "formation": "V普通形 / い形 / な形な / Nの + ようなら／ようだったら",
@@ -37405,7 +37608,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-087",
       "level": "N2",
       "group": "n2-epk",
-      "lecture": 101,
+      "lectures": ["N2-101"],
       "pattern": "〜ようでは",
       "meaningZh": "像……这样的话（就不行）",
       "formation": "V普通形（多为ない形、ている形）+ ようでは",
@@ -37494,7 +37697,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-088",
       "level": "N2",
       "group": "n2-epk",
-      "lecture": 102,
+      "lectures": ["N2-102"],
       "pattern": "〜ないで済む / 〜ずに済む",
       "meaningZh": "不用……就解决了；免于……",
       "formation": "Vない形 + ないで済む；Vない形去ない + ずに済む（する → せずに済む）；也说 Vなくて済む",
@@ -37583,7 +37786,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-089",
       "level": "N2",
       "group": "n2-epk",
-      "lecture": 104,
+      "lectures": ["N2-104"],
       "pattern": "〜ことか",
       "meaningZh": "多么……啊",
       "formation": "どんなに／どれほど／何度 など + 普通形（な形な・Nな／である）+ ことか",
@@ -37672,7 +37875,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-090",
       "level": "N2",
       "group": "n2-epk",
-      "lecture": 105,
+      "lectures": ["N2-105"],
       "pattern": "〜ておきながら / 〜ておいて",
       "meaningZh": "明明……却……（责备）",
       "formation": "Vて形 + おきながら／おいて",
@@ -37761,7 +37964,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-091",
       "level": "N2",
       "group": "n2-epk",
-      "lecture": 106,
+      "lectures": ["N2-106"],
       "pattern": "〜てはいられない",
       "meaningZh": "不能再……下去了；哪能一直……",
       "formation": "Vて形 + はいられない（口语：〜ちゃいられない）",
@@ -37850,7 +38053,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-092",
       "level": "N2",
       "group": "n2-epk",
-      "lecture": 107,
+      "lectures": ["N2-107"],
       "pattern": "〜につき",
       "meaningZh": "由于……（告示、通知）",
       "formation": "N + につき",
@@ -37939,7 +38142,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-093",
       "level": "N2",
       "group": "n2-epk",
-      "lecture": 108,
+      "lectures": ["N2-108"],
       "pattern": "〜にて",
       "meaningZh": "在……；用……；到……为止（书面）",
       "formation": "N + にて",
@@ -38028,7 +38231,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-094",
       "level": "N2",
       "group": "n2-epk",
-      "lecture": 110,
+      "lectures": ["N2-110"],
       "pattern": "〜というか",
       "meaningZh": "说是……还是……；说……吧，不如说……",
       "formation": "N / 形容词 / 普通形 + というか（〜というか）",
@@ -38117,7 +38320,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-095",
       "level": "N2",
       "group": "n2-epl",
-      "lecture": 112,
+      "lectures": ["N2-112"],
       "pattern": "〜たる / 〜なる / 〜き / 〜し（古语形容）",
       "meaningZh": "（古语修饰名词）身为……的；……的",
       "formation": "N + たる + N（身为……的）；な形語幹 + なる + N；い形語幹 + き + N（古き・良き）；固定说法里的 し（若かりし頃）",
@@ -38206,7 +38409,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-096",
       "level": "N2",
       "group": "n2-epl",
-      "lecture": 113,
+      "lectures": ["N2-113"],
       "pattern": "〜折（に）",
       "meaningZh": "……的时候；趁……之际（郑重）",
       "formation": "V普通形 / い形 / Nの + 折（に／には／の）",
@@ -38295,7 +38498,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-097",
       "level": "N2",
       "group": "n2-epl",
-      "lecture": 114,
+      "lectures": ["N2-114"],
       "pattern": "〜ほうがまし / 〜よりまし",
       "meaningZh": "还不如……；比……强（两者都不好，选不那么坏的）",
       "formation": "V辞書形 / Vない形 + ほうがまし（だ）；N / V辞書形 + より（は）まし（だ）",
@@ -38384,7 +38587,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-098",
       "level": "N2",
       "group": "n2-epl",
-      "lecture": 115,
+      "lectures": ["N2-115"],
       "pattern": "〜を受けて",
       "meaningZh": "受……（影响）；根据……；在……之后（随即）",
       "formation": "N + を受けて；修饰名词：N + を受けた + N",
@@ -38473,7 +38676,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-099",
       "level": "N2",
       "group": "n2-epl",
-      "lecture": 119,
+      "lectures": ["N2-119"],
       "pattern": "〜って（焦躁・反问）",
       "meaningZh": "（反问）你说……？；（不耐烦）我都说了……！",
       "formation": "普通形 + って（放在句末；问句升调，强调时降调）",
@@ -38562,7 +38765,7 @@ window.AYAYA_GRAMMAR_DATA = {
       "id": "n2-grammar-100",
       "level": "N2",
       "group": "n2-epl",
-      "lecture": 120,
+      "lectures": ["N2-120"],
       "pattern": "〜はしない / 〜てはいない / 〜くはない",
       "meaningZh": "（并）不……（加「は」强调或限定否定）",
       "formation": "Vます形去ます + はしない；Vて形 + はいない；い形去い + くはない；な形・N + ではない",

@@ -174,11 +174,15 @@ function hasBlocks(deck) {
 
 // Stored block decks are kept while the study data downloads, so a block is
 // checked by its shape: a number for vocab, its level's group id for grammar.
+// Once the data is in, a grammar block must also still be one of the level's
+// groups (groups are re-cut when a level is re-organised).
 function isBlockIdFor(deck, block) {
   const family = cardFamilyForDeck(deck) || "";
   if (family.startsWith("vocab-")) return /^[1-9]\d{0,2}$/u.test(block);
   if (family.startsWith("grammar-")) {
-    return /^n[2-5]-[a-z]+$/u.test(block) && block.startsWith(family.slice("grammar-".length));
+    if (!/^n[2-5]-[a-z]+$/u.test(block) || !block.startsWith(family.slice("grammar-".length))) return false;
+    const groups = cardData?.grammarGroups;
+    return !Array.isArray(groups) || groups.some((group) => group.id === block);
   }
   return false;
 }
@@ -284,6 +288,7 @@ function blockLabelOf(deck) {
 const elements = {
   answerMain: document.querySelector("#answerMain"),
   answerMeta: document.querySelector("#answerMeta"),
+  metaLecture: document.querySelector("#metaLecture"),
   answerPanel: document.querySelector("#answerPanel"),
   appStatus: document.querySelector("#appStatus"),
   cardReveal: document.querySelector("#cardReveal"),
@@ -1283,6 +1288,10 @@ function syncSessionRoundState(options = {}) {
     LEGACY_MISTAKE_DECKS[roundState.activeDeck] || roundState.activeDeck;
   if (!preserveActiveDeck && isKnownDeck(storedActiveDeck)) {
     activeDeck = storedActiveDeck;
+  } else if (!preserveActiveDeck && typeof storedActiveDeck === "string") {
+    // A block that no longer exists reopens its level's 全部 deck.
+    const fallback = poolOf(tabDeckOf(storedActiveDeck), poolKindOf(storedActiveDeck));
+    if (isKnownDeck(fallback)) activeDeck = fallback;
   }
 
   Object.entries(roundState.decks || {}).forEach(([deck, state]) => {
@@ -2080,8 +2089,16 @@ function readingLine(card) {
   return parts;
 }
 
+// A grammar point's 课程 (the 出口仁 episode) sits on the 说明 title line, so
+// it costs no row of a card that must fit one screen.
 function renderMeta(meta) {
-  const rows = metaRows(meta).map(([key, value]) => {
+  const entries = metaRows(meta);
+  const lecture = entries.find(([key]) => key === "课程")?.[1] || "";
+  if (elements.metaLecture) {
+    elements.metaLecture.textContent = lecture;
+    elements.metaLecture.hidden = !lecture;
+  }
+  const rows = entries.filter(([key]) => !elements.metaLecture || key !== "课程").map(([key, value]) => {
     const row = document.createElement("div");
     row.className = "meta-row";
     if (key) {
@@ -3442,9 +3459,39 @@ function loadStudyData() {
   });
 }
 
+// Rounds of grammar blocks whose group no longer exists are dropped, and a
+// learner who was in one goes back to the level's 全部 deck.
+function dropRemovedBlockDecks() {
+  const sessionRecords = [
+    sessionQueues,
+    sessionCompleted,
+    sessionCompletionEvents,
+    sessionReopenedCards,
+    sessionRoundCompletionEvents,
+    sessionRoundGenerations,
+    sessionRoundIds,
+    sessionRoundCounts,
+    sessionQueueOrderVersions,
+  ];
+  let changed = false;
+  sessionRecords.forEach((record) => {
+    Object.keys(record).forEach((deck) => {
+      if (isKnownDeck(deck)) return;
+      delete record[deck];
+      changed = true;
+    });
+  });
+  if (!isKnownDeck(activeDeck) && isTabDeck(tabDeckOf(activeDeck))) {
+    activeDeck = poolOf(tabDeckOf(activeDeck), poolKindOf(activeDeck));
+    changed = true;
+  }
+  if (changed) saveRoundState();
+}
+
 function finishStudyDataLoad() {
   cardData = window.AYAYA_JP_CARD_DATA || null;
   studyDataState = cardData ? "ready" : "failed";
+  if (cardData) dropRemovedBlockDecks();
   renderLoadStatus();
   renderBlockPage();
   if (cardFamilyForDeck(activeDeck) === "kana") {

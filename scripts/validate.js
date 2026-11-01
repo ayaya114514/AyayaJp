@@ -1334,11 +1334,33 @@ function validateGrammarSource(grammarData, expectedCount) {
       new RegExp(`^${String(entry.level).toLowerCase()}-grammar-\\d{3}$`, "u").test(entry.id),
       `grammar entry ${entry.id} id does not match its level ${entry.level}`,
     );
-    // N2 points carry their 出口仁 【Ｎ２文法】 episode (1–120); supplements have none.
-    if (Object.hasOwn(entry, "lecture")) {
+    // Points carry the 出口仁 文法 episodes that teach them ("N4-2"): the series
+    // has N5 1–119 and N4/N3/N2 1–120. Own-level episodes come first, and a card
+    // in an episode group (第11–20集) has its first own-level episode inside it.
+    check(!Object.hasOwn(entry, "lecture"), `grammar entry ${entry.id} uses the old lecture field; use lectures`);
+    if (Object.hasOwn(entry, "lectures")) {
+      const lectures = Array.isArray(entry.lectures) ? entry.lectures : [];
+      const parsed = lectures.map((lecture) => /^(N[2-5])-([1-9]\d{0,2})$/u.exec(lecture));
       check(
-        entry.level === "N2" && Number.isInteger(entry.lecture) && entry.lecture >= 1 && entry.lecture <= 120,
-        `grammar entry ${entry.id} lecture must be an N2 episode number 1–120`,
+        lectures.length > 0 &&
+          parsed.every((match) => match && Number(match[2]) <= (match[1] === "N5" ? 119 : 120)) &&
+          new Set(lectures).size === lectures.length,
+        `grammar entry ${entry.id} lectures must be distinct "N5-1"…"N2-120" episodes`,
+      );
+      const levels = parsed.map((match) => match?.[1]);
+      const firstOther = levels.findIndex((level) => level !== entry.level);
+      check(
+        firstOther < 0 || levels.slice(firstOther).every((level) => level !== entry.level),
+        `grammar entry ${entry.id} lectures must list its own level's episodes first`,
+      );
+    }
+    const episodeGroup = /^第(\d+)–(\d+)集$/u.exec(groupsById.get(entry.group)?.label || "");
+    if (episodeGroup) {
+      const first = (entry.lectures || []).find((lecture) => lecture.startsWith(`${entry.level}-`));
+      const episode = Number(first?.split("-")[1]);
+      check(
+        episode >= Number(episodeGroup[1]) && episode <= Number(episodeGroup[2]),
+        `grammar entry ${entry.id} in ${entry.group} (${groupsById.get(entry.group).label}) needs its first ${entry.level} episode in that range`,
       );
     }
     if (Object.hasOwn(entry, "retiredVocabSourceIds")) {
