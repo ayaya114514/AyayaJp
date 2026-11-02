@@ -1557,6 +1557,33 @@ h2 {
   line-height: 1.36;
 }
 
+/* On a phone a revealed grammar card stacks the pattern, the answer, 说明 and
+   three examples, each with its furigana, romaji and translation; the examples
+   sit closer and a size smaller so the card still fits one screen. */
+@media (max-width: 560px) {
+  .study-card:has(.card.is-grammar) .example-item {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .study-card:has(.card.is-grammar) .example-item + .example-item {
+    margin-top: 0;
+  }
+
+  .study-card:has(.card.is-grammar) .example-ja {
+    font-size: 0.95rem;
+  }
+
+  .study-card:has(.card.is-grammar) .example-romaji {
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+
+  .study-card:has(.card.is-grammar) .example-zh {
+    font-size: 0.88rem;
+  }
+}
+
 .feedback-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1855,6 +1882,29 @@ h2 {
   .example-item + .example-item {
     margin-top: 0;
   }
+
+  /* A fill-in sets its sentence a size smaller, and a grammar card's
+     examples sit closer, so the longest N2 cards still fit. */
+  .card.is-choice .card-prompt {
+    font-size: 1.9rem;
+  }
+
+  .study-card:has(.card.is-grammar) .example-item {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .study-card:has(.card.is-grammar) .example-ja {
+    font-size: 1.12rem;
+  }
+
+  .study-card:has(.card.is-grammar) .example-romaji {
+    font-size: 0.8rem;
+  }
+
+  .study-card:has(.card.is-grammar) .example-zh {
+    font-size: 0.92rem;
+  }
 }
 
 /* Tall desktop windows give the card more height and the answer more air. */
@@ -1896,6 +1946,17 @@ h2 {
 
   .example-ja {
     margin-bottom: 4px;
+  }
+
+  /* Grammar cards carry three examples under a long pattern: less air
+     between them keeps the longest on one screen. */
+  .study-card:has(.card.is-grammar) .example-item {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .study-card:has(.card.is-grammar) .example-item + .example-item {
+    margin-top: 4px;
   }
 
   .feedback {
