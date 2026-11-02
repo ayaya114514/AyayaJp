@@ -687,7 +687,8 @@ test("every revealed card fits one screen without scrolling", async ({ page }, t
       }
       return failures;
     });
-    expect(overflowing, `${viewport.width}x${viewport.height}`).toEqual([]);
+    // Soft, so one run lists the overflowing cards at every size.
+    expect.soft(overflowing, `${viewport.width}x${viewport.height}`).toEqual([]);
   }
 });
 
