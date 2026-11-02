@@ -1557,6 +1557,33 @@ h2 {
   line-height: 1.36;
 }
 
+/* On a phone a revealed grammar card stacks the pattern, the answer, 说明 and
+   three examples, each with its furigana, romaji and translation; the examples
+   sit closer and a size smaller so the card still fits one screen. */
+@media (max-width: 560px) {
+  .study-card:has(.card.is-grammar) .example-item {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .study-card:has(.card.is-grammar) .example-item + .example-item {
+    margin-top: 0;
+  }
+
+  .study-card:has(.card.is-grammar) .example-ja {
+    font-size: 0.95rem;
+  }
+
+  .study-card:has(.card.is-grammar) .example-romaji {
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+
+  .study-card:has(.card.is-grammar) .example-zh {
+    font-size: 0.88rem;
+  }
+}
+
 .feedback-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

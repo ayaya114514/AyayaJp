@@ -629,7 +629,7 @@ test("speaker hover preserves its vertical position", async ({ page }, testInfo)
 // fails if the answer panel or the page would need scrolling.
 test("every revealed card fits one screen without scrolling", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium", "sizes are set explicitly below");
-  test.setTimeout(240_000);
+  test.setTimeout(600_000);
 
   // Phone, laptop, and 11-inch iPad Air in Safari (portrait, and landscape
   // with the tab bar showing).
@@ -650,6 +650,7 @@ test("every revealed card fits one screen without scrolling", async ({ page }, t
         "grammar-n5-zh-ja",
         "grammar-n4-zh-ja",
         "grammar-n3-zh-ja",
+        "grammar-n2-zh-ja",
       ];
       const panel = document.querySelector("#answerPanel");
       const band = document.querySelector("#flashcard");
