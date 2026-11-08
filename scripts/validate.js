@@ -3139,15 +3139,16 @@ function validateExampleFurigana(cards, reviewedWordSplitsAt = () => []) {
 // Every spoken text needs a VOICEVOX clip whose reading build-audio.js verified
 // (or a reported skip), so edited readings cannot keep playing a stale clip
 // unnoticed; texts without a clip fall back to speechSynthesis.
-function validateAudioClips(runtime, html) {
+function validateAudioClips(runtime) {
   const manifest = loadAudioManifest();
   if (!manifest) {
     addError("audio-manifest.js is missing; run npm run build:audio with a VOICEVOX engine");
     return;
   }
   check(
-    typeof manifest.credit === "string" && html.includes(`音声：${manifest.credit}`),
-    `index.html must show the VOICEVOX voice credit 音声：${manifest.credit}`,
+    typeof manifest.credit === "string" &&
+      fs.readFileSync(path.join(rootDir, "README.md"), "utf8").includes(`音声：${manifest.credit}`),
+    `README.md must retain the audio credit 音声：${manifest.credit}`,
   );
   const keys = new Set(manifest.keys.split(" ").filter(Boolean));
   const missingFiles = [...keys].filter(
@@ -3500,7 +3501,7 @@ function main() {
     validateRetiredGrammarMerges(runtime);
     validateExampleFurigana(cards, runtime.cardData.reviewedWordSplitsAt);
     validateExampleSpeech(cards, runtime.cardData.kanaToRomaji);
-    capture("audio clip check failed", () => validateAudioClips(runtime, html));
+    capture("audio clip check failed", () => validateAudioClips(runtime));
     capture("romaji focus check failed", () => validateRomajiFocus(cards));
     capture("romaji word spacing check failed", () =>
       validateRomajiWordSpacing(cards, loadScriptGlobal("romaji-word-spacing.js", "AYAYA_ROMAJI_SPACING")),
