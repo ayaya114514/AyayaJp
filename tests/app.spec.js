@@ -178,7 +178,6 @@ test("revealing a card plays its pre-rendered VOICEVOX clip instead of speechSyn
   expect(await page.evaluate(() => window.__clipBlobs)).toContain(plays[0]);
   expect(clipRequests).toHaveLength(preloadedCount);
   expect(await page.evaluate(() => window.__synthesisTexts)).toEqual([]);
-  await expect(page.locator("#deckSidebar .deck-credit")).toHaveText("音声：VOICEVOX:No.7");
 });
 
 test("whole study surface reveals while interactive controls do not leak clicks", async ({ page }) => {
@@ -317,23 +316,21 @@ test("中→日 vocab answers show no part of speech", async ({ page }) => {
   await expect(page.locator(".part-of-speech")).toHaveCount(0);
 });
 
-test("the module page footer stays on screen after rating", async ({ page }) => {
+test("the module page keeps navigation visible without footer notices after rating", async ({ page }) => {
   await openWithStore(page, isolatedHiraganaFixture(["hiragana-0", "hiragana-1"]));
   await page.locator("#cardReveal").click({ force: true });
   await expectAnswerRevealed(page);
   await page.locator('[data-rating="clear"]').click();
 
   await page.locator("#deckMenuButton").click();
-  // The footer ends the module page's scroll column: scrolled to, it shows
-  // whole, above the bottom bar.
-  const footer = page.locator(".deck-footer");
-  await footer.scrollIntoViewIfNeeded();
-  await expect(footer).toBeVisible();
-  const footerBox = await footer.boundingBox();
+  await expect(page.locator("#deckSidebar")).toBeVisible();
+  await expect(page.locator(".deck-footer, #silentModeHint, .deck-credit")).toHaveCount(0);
+  const scrollBox = await page.locator("#deckScroll").boundingBox();
   const barBox = await page.locator(".bottom-bar").boundingBox();
   const viewport = page.viewportSize();
-  expect(footerBox.y + footerBox.height).toBeLessThanOrEqual(barBox.y + 1);
-  expect(footerBox.x + footerBox.width).toBeLessThanOrEqual(viewport.width + 1);
+  expect(scrollBox.y + scrollBox.height).toBeLessThanOrEqual(barBox.y + 1);
+  expect(scrollBox.x + scrollBox.width).toBeLessThanOrEqual(viewport.width + 1);
+  await expect(page.locator("#deckMenuButton")).toBeInViewport();
 });
 
 test("a vocab block page lists its blocks and studies only the picked block", async ({ page }) => {
@@ -362,18 +359,16 @@ test("a vocab block page lists its blocks and studies only the picked block", as
   await lastTile.scrollIntoViewIfNeeded();
   await expect(lastTile).toBeInViewport();
 
-  // The tiles scroll right up to the bottom bar; the footer line follows the
-  // last tile instead of sitting fixed between the tiles and the bar.
+  // The tiles scroll right up to the bottom bar, with no footer taking space.
   const layout = await page.evaluate(() => {
     const scroller = document.querySelector("#deckScroll").getBoundingClientRect();
     const bar = document.querySelector(".bottom-bar").getBoundingClientRect();
     const tiles = document.querySelectorAll("#blockGrid .block-tile");
     const last = tiles[tiles.length - 1].getBoundingClientRect();
-    const footer = document.querySelector(".deck-footer").getBoundingClientRect();
-    return { gap: bar.top - scroller.bottom, footerBelowLastTile: footer.top >= last.bottom };
+    return { gap: bar.top - scroller.bottom, lastTileBottom: last.bottom, barTop: bar.top };
   });
   expect(Math.abs(layout.gap)).toBeLessThanOrEqual(1);
-  expect(layout.footerBelowLastTile).toBe(true);
+  expect(layout.lastTileBottom).toBeLessThanOrEqual(layout.barTop + 1);
 
   await grid.locator('.block-tile[data-block="3"]').click();
   await expect(page.locator("#deckSidebar")).not.toHaveClass(/\bis-open\b/);
@@ -443,16 +438,15 @@ test("N2 stays off the module page until it has words or grammar", async ({ page
   await expect(page.locator("#loadErrorBanner")).toBeHidden();
 });
 
-// Each level's badge heads a column beside its rows instead of a line of its
-// own, so every module fits a portrait phone screen, N2's nine rows included.
+// Stacked levels share four equal button columns and still fit on a phone.
 test("the module page fits one portrait screen, with N2 too", async ({ page }, testInfo) => {
   test.skip(/landscape/u.test(testInfo.project.name), "landscape phones scroll the module page");
   await openWithStore(page, isolatedHiraganaFixture(["hiragana-0"]));
   await page.waitForFunction(() => Boolean(window.AYAYA_JP_CARD_DATA));
   await page.locator("#deckMenuButton").click();
   const overflow = () =>
-    page.locator(".deck-tabs").evaluate((element) => element.scrollHeight - element.clientHeight);
-  expect(await overflow()).toBeLessThanOrEqual(0);
+    page.locator("#deckScroll").evaluate((element) => element.scrollHeight - element.clientHeight);
+  expect(await overflow()).toBeLessThanOrEqual(1);
   // 进阶发音 is the longest label and must not be cut to 进阶…. The label
   // shrinks to its text, so its own scroll and client widths only differ by
   // rounding; compare the text's real width with the room in its cell.
@@ -471,7 +465,37 @@ test("the module page fits one portrait screen, with N2 too", async ({ page }, t
       element.hidden = false;
     });
   });
-  expect(await overflow()).toBeLessThanOrEqual(0);
+  expect(await overflow()).toBeLessThanOrEqual(1);
+  // Check every label, including the narrow grammar cells, against its real
+  // text bounds rather than an intrinsically sized grid's scrollHeight.
+  const clipped = await page.locator(".deck-tabs .tab-button:visible").evaluateAll((buttons) =>
+    buttons.filter((button) => {
+      const label = button.querySelector(".deck-label");
+      const range = document.createRange();
+      range.selectNodeContents(label);
+      return range.getBoundingClientRect().width > button.clientWidth + 0.5;
+    }).map((button) => button.dataset.deck),
+  );
+  expect(clipped).toEqual([]);
+  const alignment = await page.locator(".deck-tabs").evaluate((element) => {
+    const visible = (button) => button.getClientRects().length;
+    const buttons = [...element.querySelectorAll(".deck-level-group .tab-button")].filter(visible);
+    const widths = buttons.map((button) => button.getBoundingClientRect().width);
+    const columns = [...element.querySelectorAll('[data-row="grammar-n5"] .tab-button')]
+      .map((button) => button.getBoundingClientRect().left);
+    const misplaced = [...element.querySelectorAll(".deck-level-group")]
+      .filter(visible)
+      .flatMap((group) =>
+        [...group.querySelectorAll(".deck-row-items")].flatMap((row) =>
+          [...row.querySelectorAll(".tab-button")].filter(visible).filter((button, index) =>
+            Math.abs(button.getBoundingClientRect().left - columns[index]) > 1,
+          ).map((button) => button.dataset.deck),
+        ),
+      );
+    return { widthDifference: Math.max(...widths) - Math.min(...widths), misplaced };
+  });
+  expect(alignment.widthDifference).toBeLessThanOrEqual(1);
+  expect(alignment.misplaced).toEqual([]);
   await expectNoHorizontalOverflow(page);
 });
 

@@ -209,13 +209,12 @@ h2 {
 }
 
 .deck-page-header h2 {
+  margin: 0;
   font-size: 1.08rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
-/* The module list or the block grid and the footer under it scroll as one
-   column, so the tiles run straight into the bottom bar instead of being cut
-   off above a fixed line of footer text. */
+/* Short or zoomed screens can still reach every module and block. */
 .deck-scroll {
   display: flex;
   flex-direction: column;
@@ -229,44 +228,34 @@ h2 {
   flex: none;
 }
 
-/* Level groups sit further apart than the rows inside them, so the page reads
-   as 基础 + three blocks instead of one even grid. */
+/* Levels stack vertically. Every vocabulary and grammar row shares the same
+   four button columns, with a compact level badge beside both rows. */
 .deck-tabs {
+  --module-row-height: clamp(40px, 7.3cqh, 56px);
+  --module-column-gap: clamp(8px, 2.2cqw, 12px);
+  --module-group-gap: clamp(20px, 3.4cqh, 28px);
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
   align-content: start;
-  gap: 18px;
-  gap: clamp(16px, 2.6cqh, 28px);
+  gap: var(--module-group-gap) var(--module-column-gap);
+  width: 100%;
+  max-width: 908px;
+  margin-inline: auto;
   padding: 12px clamp(12px, 3vw, 24px);
-  padding-block: clamp(10px, 1.6cqh, 24px);
+  padding-block: clamp(10px, 1.8cqh, 20px);
 }
 
-/* Wide pages keep the cells at a readable width instead of stretching them. */
-.deck-tabs > * {
-  width: 100%;
-  max-width: 860px;
-  margin-inline: auto;
+.deck-row[data-row="base"] {
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
 }
 
 .deck-row {
   display: grid;
-  grid-template-columns: 2.6em minmax(0, 1fr);
-  align-items: center;
-  gap: 8px;
-}
-
-/* The iOS silent-switch note and the voice credit the VOICEVOX terms require
-   share the line after the modules or blocks; on a page shorter than the
-   screen it sits at the bottom. */
-.deck-footer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2px 12px;
-  width: 100%;
-  max-width: calc(860px + 2 * clamp(12px, 3vw, 24px));
-  margin: auto auto 0;
-  padding: 0 clamp(12px, 3vw, 24px) 10px;
+  min-width: 0;
+  gap: 4px;
 }
 
 /* Progress backup sits in the header's otherwise empty right side. */
@@ -282,50 +271,43 @@ h2 {
   cursor: pointer;
 }
 
-.deck-hint,
-.deck-credit {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.3;
-}
-
 .deck-row-title {
   margin: 0;
-  color: var(--ink);
-  font-size: 0.98rem;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  line-height: 1.3;
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
-/* One block per level: the badge heads a column beside its two rows with its
-   rule running down between them, so a level adds no line of its own; the rule
-   and the cells' tint carry the level colour so a cell says which level it
-   opens without the row title. */
-.deck-tabs {
-  --level-column: 2.7rem;
-}
-
+/* The tinted frame sits outside the grid, preserving equal button widths. */
 .deck-level-group {
   --level-rgb: 130, 174, 225;
+  position: relative;
+  isolation: isolate;
   display: grid;
-  grid-template-columns: var(--level-column) minmax(0, 1fr);
-  gap: 8px;
+  grid-template-columns: 28px minmax(0, 1fr);
+  min-width: 0;
+  align-items: center;
+  gap: 8px 6px;
 }
 
 .deck-level-group > .deck-row {
   grid-column: 2;
+  grid-template-columns: 26px minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
 }
 
-/* 基础 sits in the badge column like a level, its cells taking the width a
-   level gives its 词汇 / 语法 titles so 进阶发音 still fits. */
-.deck-row[data-row="base"] {
-  grid-template-columns: var(--level-column) minmax(0, 1fr);
-}
-
-.deck-row[data-row="base"] > .deck-row-title {
-  text-align: center;
+.deck-level-group::before {
+  position: absolute;
+  z-index: -1;
+  inset: -6px;
+  border: 1px solid rgba(var(--level-rgb), 0.25);
+  border-radius: 12px;
+  background: rgba(var(--level-rgb), 0.035);
+  pointer-events: none;
+  content: "";
 }
 
 .deck-level-group[data-level="n4"] {
@@ -340,39 +322,38 @@ h2 {
   --level-rgb: 190, 156, 228;
 }
 
-.deck-level-title {
+.deck-level-title,
+.deck-row[data-row="base"] > .deck-row-title {
   display: flex;
-  flex-direction: column;
-  grid-row: span 2;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   margin: 0;
-  padding-top: 4px;
+  color: var(--soft-ink);
+  font-size: 0.88rem;
+  font-weight: 600;
   line-height: 1.3;
 }
 
-/* A level showing only its vocabulary row (N2 before its grammar) spans one. */
-.deck-level-group:has(> .deck-row[hidden]) > .deck-level-title {
-  grid-row: auto;
+.deck-level-title {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  justify-content: center;
 }
 
-.deck-level-title::after {
-  flex: 1;
-  width: 1px;
-  background: rgba(var(--level-rgb), 0.35);
-  content: "";
+.deck-level-group:has(> .deck-row[hidden]) > .deck-level-title {
+  grid-row: 1;
 }
 
 .deck-level-group .tab-button {
-  --cell-border: rgba(var(--level-rgb), 0.3);
-  --cell-bg: linear-gradient(rgba(var(--level-rgb), 0.06), rgba(var(--level-rgb), 0.06)), var(--control-bg);
+  --cell-border: rgba(var(--level-rgb), 0.25);
+  --cell-bg: rgba(var(--level-rgb), 0.065);
 }
 
 .deck-level {
-  padding: 3px 9px;
-  border-radius: 5px;
-  font-size: 0.94rem;
-  font-weight: 900;
+  padding: 3px 5px;
+  border-radius: 4px;
+  font-size: 0.81rem;
+  font-weight: 700;
   letter-spacing: 0.02em;
 }
 
@@ -396,12 +377,11 @@ h2 {
   color: #d6bff2;
 }
 
-/* Every row shares the same four columns, so 日→中 and 中→日 sit in the same
-   place for vocab and grammar and every deck is one tap away. */
+/* Vocabulary and grammar share the exact same columns. */
 .deck-row-items {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
+  gap: 6px var(--module-column-gap);
 }
 
 .tab-button {
@@ -428,36 +408,38 @@ h2 {
   }
 }
 
-/* Module page cells grow a little with the page height (short screens fall
-   back to scrolling) and the label shrinks on narrow pages so 进阶发音 fits;
-   the centred label needs no side padding, which leaves 进阶发音 a few
-   pixels to spare at 320px for wider CJK fonts. */
+/* Lighter type and brighter labels separate the text from the tinted cells. */
 .deck-tabs .tab-button {
   padding-inline: 0;
-  min-height: 48px;
-  min-height: clamp(44px, 8cqh, 64px);
-  font-size: 1.05rem;
-  font-size: min(1.05rem, 4cqw);
+  min-height: var(--module-row-height);
+  color: var(--soft-ink);
+  font-size: clamp(0.86rem, 4.1cqw, 1.05rem);
+  font-weight: 500;
 }
 
-/* With N2 the page holds nine rows, so the cells and the space between levels
-   scale down a little to keep them on one portrait screen. */
-.deck-tabs:has(> .deck-level-group[data-level="n2"]:not([hidden])) {
-  gap: clamp(12px, 1.8cqh, 24px);
+/* Basics remain easy to scan without taking the space of a full study row. */
+.deck-row[data-row="base"] > .deck-row-items {
+  width: min(100%, 440px);
+  gap: 6px;
 }
 
-.deck-tabs:has(> .deck-level-group[data-level="n2"]:not([hidden])) .tab-button {
-  min-height: clamp(42px, 6.8cqh, 60px);
+.deck-row[data-row="base"] .tab-button {
+  min-height: clamp(34px, 6cqh, 42px);
+  border-radius: 6px;
+  font-size: clamp(0.8rem, 3.7cqw, 0.95rem);
+}
+
+.deck-tabs .tab-button:has(> .deck-round-count:not([hidden])) {
+  padding-top: 8px;
 }
 
 @media (max-width: 359px) {
-  .tab-button {
-    font-size: 0.86rem;
+  .deck-tabs {
+    --module-row-height: 40px;
   }
 
-  .deck-row,
-  .deck-row-items {
-    gap: 6px;
+  .tab-button {
+    font-size: 0.86rem;
   }
 }
 
@@ -1791,27 +1773,13 @@ h2 {
   }
 
   .deck-tabs .tab-button {
-    min-height: 60px;
     font-size: 1.15rem;
-  }
-
-  .deck-row-items {
-    gap: 12px;
-  }
-
-  .deck-row-title {
-    font-size: 1.05rem;
   }
 
   .block-grid {
     grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
     gap: 14px;
     padding: 20px clamp(16px, 3vw, 28px);
-  }
-
-  .block-grid:not([hidden]) + .deck-footer {
-    max-width: calc(860px + 2 * clamp(16px, 3vw, 28px));
-    padding-inline: clamp(16px, 3vw, 28px);
   }
 
   .block-grid.is-grammar {
@@ -1958,8 +1926,7 @@ h2 {
   }
 
   .deck-tabs,
-  .block-grid,
-  .deck-footer {
+  .block-grid {
     padding-inline: max(12px, env(safe-area-inset-left)) max(12px, env(safe-area-inset-right));
   }
 

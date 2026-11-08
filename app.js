@@ -3512,7 +3512,6 @@ const extraElements = {
   deckSidebarTitle: document.querySelector("#deckSidebarTitle"),
   deckTabs: document.querySelector(".deck-tabs"),
   emptyTitle: document.querySelector("#emptyTitle"),
-  silentModeHint: document.querySelector("#silentModeHint"),
 };
 
 // Asked once the learner rates a card, so a browser that prompts for it
@@ -3526,15 +3525,6 @@ function requestPersistentStorage() {
   } catch {
     // Browsers without the Storage API keep the default eviction policy.
   }
-}
-
-// The ambient audio session follows the iPhone silent switch (see preferMixedAudio).
-function showSilentModeHint() {
-  if (!extraElements.silentModeHint || typeof navigator === "undefined") return;
-  const isAppleTouch =
-    /iP(hone|ad|od)/u.test(navigator.userAgent || "") ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  extraElements.silentModeHint.hidden = !isAppleTouch;
 }
 
 function assertRequiredElements() {
@@ -3835,7 +3825,6 @@ function initializeApp() {
   elements.roundStatusText.setAttribute("aria-live", "polite");
   elements.roundStatusText.setAttribute("aria-atomic", "true");
   bindInteractions();
-  showSilentModeHint();
   loadRoundState();
   migrateRetiredGrammarGroups();
   if (isDeckDataMissing(activeDeck)) {
