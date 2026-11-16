@@ -25,7 +25,7 @@
     "example-readings.js",
     "styles.css"
   ],
-  "source_fingerprint": "sha256:26343bd27c7a23137a5a2b208f59ceadb213039389dae31c1d3553fe63dccb09",
+  "source_fingerprint": "sha256:c9ec8d8f4a175bfa0efc33d423ffe97e5472ae9706cdc49bb5f4d469db4c4a8a",
   "expected_counts": {
     "n5_entries": 761,
     "n4_entries": 752,
